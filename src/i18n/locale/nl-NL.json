@@ -131,13 +131,6 @@
         "label": "E-mail",
         "tip": "U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door."
       },
-      "emailConfirm": {
-        "error": {
-          "const": "Email komt niet overeen",
-          "format": "Voer een geldig email-adres in"
-        },
-        "label": "Bevestiging"
-      },
       "error": {
         "required": "{field} is verplicht"
       },
@@ -169,6 +162,9 @@
       },
       "phoneNumber": {
         "label": "Telefoonnummer"
+      },
+      "communication": {
+        "label": "Communicatievoorkeur"
       },
       "signed": {
         "description": "Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag. Ik verklaar het formulier naar waarheid te hebben ingevuld",
