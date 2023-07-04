@@ -31,7 +31,7 @@ export type SubsidySummaryProps = {
   endDate: string
   title: string
   description: string
-  form: {
+  publishedForm: {
     id: string
     version: number
   }
@@ -61,7 +61,7 @@ const formattedEndDate = computed(() => {
 const link = computed(() => ({
   name: name.ARRANGEMENT_DETAILS,
   params: {
-    id: props.form.id
+    id: props.publishedForm.id
   }
 }))
 </script>
