@@ -9,7 +9,6 @@ import Login from '@/pages/Login.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
-import MyMessageDetails from '@/pages/MyMessageDetails.vue'
 import NotFound from '@/pages/NotFound.vue'
 import RemoteForm from '@/pages/RemoteForm.vue'
 import FormSent from '@/pages/FormSent.vue'
@@ -80,11 +79,6 @@ const router = createRouter({
       name: name.MY_MESSAGES_PAGE,
       component: MyMessagesOverview,
       props: true,
-    },
-    {
-      path: '/mijn-berichten/:id',
-      name: name.MY_MESSAGE_DETAILS,
-      component: MyMessageDetails
     },
     {
       path: '/mijn-berichten',

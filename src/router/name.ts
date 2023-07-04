@@ -9,7 +9,6 @@ export default {
   MY_REQUEST_DETAILS: 'my-request-details',
   MY_MESSAGES: 'my-messages-overview',
   MY_MESSAGES_PAGE: 'my-messages-overview-page',
-  MY_MESSAGE_DETAILS: 'my-message-details',
   NOT_FOUND: 'not-found',
   LOGIN: 'login'
 } as const
