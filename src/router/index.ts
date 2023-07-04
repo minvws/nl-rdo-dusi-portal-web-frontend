@@ -5,7 +5,6 @@ import ArrangementsView from '@/pages/ArrangementsView.vue'
 import Home from '@/pages/Home.vue'
 import LocalForm from '@/pages/LocalForm.vue'
 
-import Search from '@/pages/Search.vue'
 import Login from '@/pages/Login.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
@@ -91,12 +90,6 @@ const router = createRouter({
       path: '/mijn-berichten',
       name: name.MY_MESSAGES,
       component: MyMessagesOverview,
-    },
-    {
-      path: '/zoeken',
-      name: name.SEARCH,
-      props: true,
-      component: Search
     },
     {
       path: '/inloggen',

@@ -63,9 +63,6 @@
       },
       "nav": {
         "aria-label": "Hoofdnavigatie"
-      },
-      "search": {
-        "label": "Zoeken"
       }
     },
     "messageSummary": {
@@ -267,10 +264,6 @@
         "message": "De pagina kan niet gevonden worden"
       },
       "title": "Pagina niet gevonden"
-    },
-    "search": {
-      "content": {},
-      "title": "Zoeken"
     }
   }
 }

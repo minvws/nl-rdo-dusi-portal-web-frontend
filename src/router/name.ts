@@ -11,6 +11,5 @@ export default {
   MY_MESSAGES_PAGE: 'my-messages-overview-page',
   MY_MESSAGE_DETAILS: 'my-message-details',
   NOT_FOUND: 'not-found',
-  SEARCH: 'search',
   LOGIN: 'login'
 } as const
