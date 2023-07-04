@@ -27,6 +27,10 @@ export default async () => {
       type: 'string',
       tel: true
     },
+    communication: {
+      type: 'string',
+      enum: ['Digitaal', 'Post']
+    },
     email: {
       type: 'string',
       format: 'email'
@@ -138,6 +142,13 @@ export default async () => {
             scope: '#/properties/phoneNumber',
             options: {
               placeholder
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/communication',
+            options: {
+              format: 'radio'
             }
           },
           {
@@ -310,6 +321,7 @@ export default async () => {
           'zipCode',
           'city',
           'phoneNumber',
+          'communication',
           'email',
           'dayOfBirth',
           'accountHolderName',
