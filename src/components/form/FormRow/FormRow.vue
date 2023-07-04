@@ -1,0 +1,91 @@
+<template>
+  <div v-if="visible" class="form-row" v-bind="rowProps">
+    <FormFieldLabel
+      v-if="label"
+      class="form-row-label"
+      v-bind="{
+        id,
+        label,
+        required
+      }"
+    />
+    <div class="form-row-content" :class="contentClass">
+      <FormNotification
+        v-if="tip"
+        v-bind="{
+          message: tip,
+          type: 'explanation'
+        }"
+      />
+      <slot />
+      <FormFieldDescription v-if="fieldDescription" v-bind="{ description: fieldDescription }" />
+      <FormFieldError v-if="errors" v-bind="{ errors }" />
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { ControlWrapper, type Options } from '@jsonforms/vue-vanilla'
+import { defineComponent } from 'vue'
+import FormFieldError from '@/components/form/FormFieldError/FormFieldError.vue'
+import FormFieldDescription from '@/components/form/FormFieldDescription/FormFieldDescription.vue'
+import FormFieldLabel from '@/components/form/FormFieldLabel/FormFieldLabel.vue'
+import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
+import { ERROR_ATTRIBUTE } from '@/composables/useFormScroll'
+import { translate } from '@/i18n'
+
+export default defineComponent({
+  name: 'FormRow',
+  extends: ControlWrapper,
+  props: {
+    contentClass: {
+      type: String,
+      required: false
+    }
+  },
+  components: { FormFieldDescription, FormFieldError, FormFieldLabel, FormNotification },
+  computed: {
+    tip() {
+      const { appliedOptions = {} } = this
+      const { tip }: Options & { tip?: string } = appliedOptions
+      if (tip) return translate(tip) ?? tip
+      return undefined
+    },
+    fieldDescription() {
+      const { appliedOptions = {} } = this
+      const { description }: Options & { description?: string } = appliedOptions
+      if (description) return translate(description) ?? description
+      return undefined
+    },
+    rowProps() {
+      const { id, errors, appliedOptions = {} } = this
+      const { type }: Options & { type?: string } = appliedOptions
+      return {
+        id,
+        class: [type ?? 'row'],
+        [ERROR_ATTRIBUTE]: !!errors?.length || undefined
+      }
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.form-row {
+  display: flex;
+  flex-direction: row;
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &-label {
+    flex: 0.25;
+  }
+
+  &-content {
+    flex: 0.75;
+  }
+}
+</style>
+@/composables/useFormScroll
