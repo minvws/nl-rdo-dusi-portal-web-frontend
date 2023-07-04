@@ -35,7 +35,7 @@ export const Default: Story = {
     readMore: '/',
     form: {
       id: '1',
-      version: 1,
+      version: 1
     }
   }
 }

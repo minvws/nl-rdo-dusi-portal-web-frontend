@@ -3,6 +3,7 @@ export default {
   ARRANGEMENT_FORM_LOCAL: 'arrangement-form-local',
   ARRANGEMENT_FORM_REMOTE: 'arrangement-form-remote',
   ARRANGEMENT_OVERVIEW: 'arrangements-overview',
+  ARRANGEMENT_OVERVIEW_PAGE: 'arrangements-overview-page',
   FORM_SENT: 'form-sent',
   HOME: 'home',
   MY_FILE_OVERVIEW: 'my-file-overview',

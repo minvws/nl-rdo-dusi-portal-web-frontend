@@ -1,5 +1,5 @@
 <template>
-  <nav class="pagination" aria-label="Paginering">
+  <nav v-if="totalPages > 1" class="pagination" aria-label="Paginering">
     <a
       v-if="withButtons"
       :href="path"
@@ -8,7 +8,7 @@
       :class="{ disabled: currentPage === 1 }"
       @click="goToPreviousPage"
     >
-      Vorige
+      {{ translate('component.pagination.prev') }}
     </a>
     <ul>
       <li v-for="page in totalPages" :key="page">
@@ -30,13 +30,14 @@
       :class="{ disabled: currentPage === totalPages }"
       @click="goToNextPage"
     >
-      Volgende
+      {{ translate('component.pagination.next') }}
     </a>
   </nav>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { translate } from '@/i18n'
 
 const emit = defineEmits(['page-change'])
 

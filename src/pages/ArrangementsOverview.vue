@@ -9,33 +9,52 @@
       {{ translate('pages.arrangements-overview.noSubsidies') }}
     </p>
     <div v-else>
-      <SubsidySummary v-for="(item, index) in arrangements.data" :key="index" v-bind="item" />
+      <SubsidySummary v-for="(item, index) in items" :key="index" v-bind="item" />
+      <AppPagination
+        :items-total="total"
+        :page-size="pageSize"
+        :start-page="currentPage"
+        @page-change="onPageChange"
+        with-buttons
+      />
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { computed, onBeforeMount, toRefs } from 'vue'
 import { translate } from '@/i18n'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
 import { useDataStore } from '@/store/useDataStore'
+import { usePagination } from '@/composables/usePagination'
+import name from '@/router/name'
+
 import useSEO from '@/composables/useSeo'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
+import AppPagination from '@/components/AppPagination/AppPagination.vue'
 
 const dataStore = useDataStore()
+const props = defineProps<{ page?: string }>()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`
 })
 
 onBeforeMount(() => {
-  const url = useApiSubsidyUrl()
-  dataStore.fetchData(url, 'currentArrangements')
+  dataStore.fetchData(useApiSubsidyUrl(), 'currentArrangements')
 })
 
 const arrangements = computed(() => dataStore.getRequest('currentArrangements'))
+const { currentPage, pageSize, items, total, onPageChange } = usePagination({
+  ...toRefs(props),
+  messages: arrangements,
+  routes: {
+    overview: name.ARRANGEMENT_OVERVIEW,
+    pagination: name.ARRANGEMENT_OVERVIEW_PAGE
+  }
+})
 </script>
 
 <style lang="scss" scoped>

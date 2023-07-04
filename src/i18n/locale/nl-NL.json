@@ -83,6 +83,10 @@
       "subtitle": "Hoe maakt u een melding?",
       "title": "Meldingsplicht bij wijzigingen"
     },
+    "pagination": {
+      "prev": "Vorige",
+      "next": "Volgende"
+    },
     "subsidySummary": {
       "aria-label": "Regelingenkaart",
       "button": "Bekijk de regeling",

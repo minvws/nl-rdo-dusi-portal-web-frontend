@@ -35,6 +35,12 @@ const router = createRouter({
       component: Home
     },
     {
+      path: '/regelingen/pagina/:page',
+      name: name.ARRANGEMENT_OVERVIEW_PAGE,
+      component: ArrangementsView,
+      props: true
+    },
+    {
       path: '/regelingen',
       name: name.ARRANGEMENT_OVERVIEW,
       component: ArrangementsView,
@@ -80,7 +86,7 @@ const router = createRouter({
       path: '/mijn-berichten/pagina/:page',
       name: name.MY_MESSAGES_PAGE,
       component: MyMessagesOverview,
-      props: true,
+      props: true
     },
     {
       path: '/mijn-berichten/:id',
@@ -90,7 +96,7 @@ const router = createRouter({
     {
       path: '/mijn-berichten',
       name: name.MY_MESSAGES,
-      component: MyMessagesOverview,
+      component: MyMessagesOverview
     },
     {
       path: '/zoeken',
