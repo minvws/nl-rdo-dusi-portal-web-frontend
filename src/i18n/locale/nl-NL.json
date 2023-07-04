@@ -102,6 +102,9 @@
         "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 5 MB."
       }
     },
+    "field": {
+      "required": "Dit veld is verplicht"
+    },
     "fields": {
       "accountHolderName": {
         "label": "Naam rekeninghouder"
@@ -125,8 +128,7 @@
         "error": {
           "format": "Voer een geldig email-adres in"
         },
-        "label": "Invoer",
-        "section": "E-mail",
+        "label": "E-mail",
         "tip": "U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door."
       },
       "emailConfirm": {
@@ -152,7 +154,7 @@
         "error": {
           "iban": "Dit is geen geldige IBAN"
         },
-        "label": "IBAN-nummer",
+        "label": "IBAN",
         "section": "Bankrekening",
         "tip": "Staat u onder bewind? Vermeld dan het IBAN van uw beheerrekening."
       },

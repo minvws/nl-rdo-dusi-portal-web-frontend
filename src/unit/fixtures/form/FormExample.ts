@@ -106,41 +106,32 @@ export default async () => {
             }
           },
           {
-            type: 'CustomGroupControl',
-            label: 'address.section',
+            type: 'CustomControl',
+            scope: '#/properties/streetName',
             options: {
-              type: 'column'
-            },
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/streetName',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/houseNumber',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/zipCode',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/city',
-                options: {
-                  placeholder
-                }
-              }
-            ]
+              placeholder
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/houseNumber',
+            options: {
+              placeholder
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/zipCode',
+            options: {
+              placeholder
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/city',
+            options: {
+              placeholder
+            }
           },
           {
             type: 'CustomControl',
@@ -150,28 +141,12 @@ export default async () => {
             }
           },
           {
-            type: 'CustomGroupControl',
-            label: 'email.section',
+            type: 'CustomControl',
+            scope: '#/properties/email',
             options: {
-              type: 'column',
+              placeholder,
               tip: 'form.fields.email.tip'
-            },
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/email',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/emailConfirm',
-                options: {
-                  placeholder
-                }
-              }
-            ]
+            }
           },
           {
             type: 'CustomControl',
@@ -336,7 +311,6 @@ export default async () => {
           'city',
           'phoneNumber',
           'email',
-          'emailConfirm',
           'dayOfBirth',
           'accountHolderName',
           'iban'
