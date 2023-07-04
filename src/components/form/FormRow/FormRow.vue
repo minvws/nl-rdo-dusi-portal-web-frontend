@@ -4,12 +4,11 @@
       v-if="label"
       class="form-row-label"
       v-bind="{
-        id,
-        label,
-        required
+        label
       }"
     />
     <div class="form-row-content" :class="contentClass">
+      <FormRequiredLabel v-if="required" />
       <FormNotification
         v-if="tip"
         v-bind="{
@@ -18,7 +17,7 @@
         }"
       />
       <slot />
-      <FormFieldDescription v-if="fieldDescription" v-bind="{ description: fieldDescription }" />
+      <FormFieldDescription v-if="fieldDescription" v-bind="{ description: fieldDescription, labelFor: `${id}-input` }" />
       <FormFieldError v-if="errors" v-bind="{ errors }" />
     </div>
   </div>
@@ -30,6 +29,7 @@ import { defineComponent } from 'vue'
 import FormFieldError from '@/components/form/FormFieldError/FormFieldError.vue'
 import FormFieldDescription from '@/components/form/FormFieldDescription/FormFieldDescription.vue'
 import FormFieldLabel from '@/components/form/FormFieldLabel/FormFieldLabel.vue'
+import FormRequiredLabel from '@/components/form/FormRequiredLabel/FormRequiredLabel.vue'
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
 import { ERROR_ATTRIBUTE } from '@/composables/useFormScroll'
 import { translate } from '@/i18n'
@@ -43,7 +43,13 @@ export default defineComponent({
       required: false
     }
   },
-  components: { FormFieldDescription, FormFieldError, FormFieldLabel, FormNotification },
+  components: {
+    FormFieldDescription,
+    FormFieldError,
+    FormFieldLabel,
+    FormNotification,
+    FormRequiredLabel
+  },
   computed: {
     tip() {
       const { appliedOptions = {} } = this
@@ -88,4 +94,4 @@ export default defineComponent({
   }
 }
 </style>
-@/composables/useFormScroll
+

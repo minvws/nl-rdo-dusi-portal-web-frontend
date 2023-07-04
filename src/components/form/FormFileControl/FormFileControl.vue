@@ -1,5 +1,6 @@
 <template>
   <div class="file-control">
+
     <FormTextControl
       v-bind="props"
       @change="$emit('change', $event)"
@@ -9,7 +10,8 @@
       v-bind="{ handleChange, id: control.id, labelFor: id }"
       @blur="$emit('blur', $event)"
     />
-  </div>
+
+</div>
 </template>
 <script setup lang="ts">
 import FormTextControl from '@/components/form/FormTextControl/FormTextControl.vue'
@@ -34,6 +36,7 @@ const props = defineProps<{
 
 <style lang="scss" scoped>
 .file-control {
+  position: relative;
   input[type='file'] {
     color: transparent;
   }

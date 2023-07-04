@@ -1,6 +1,5 @@
 <template>
   <FormRow v-bind="wrapperProps">
-    <div class="input-wrapper">
       <component
         :is="field.tag"
         v-bind="field.props"
@@ -9,7 +8,6 @@
         @focus="onFocus"
         @blur="onBlur"
       />
-    </div>
   </FormRow>
 </template>
 

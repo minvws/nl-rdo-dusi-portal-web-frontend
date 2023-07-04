@@ -15,7 +15,7 @@ const props = defineProps<{ page?: string }>()
 
 const route = useRoute()
 
-const isOverviewRoute = computed(() =>
-  ['arrangements-overview', 'arrangements-overview-page'].includes(route.name as string) // @TODO: we should solve this in the routes
+const isOverviewRoute = computed(
+  () => ['arrangements-overview', 'arrangements-overview-page'].includes(route.name as string) // @TODO: we should solve this in the routes
 )
 </script>
