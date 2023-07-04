@@ -1,5 +1,5 @@
 <template>
-  <ArrangementsOverview v-if="isOverviewRoute" />
+  <ArrangementsOverview v-if="isOverviewRoute" v-bind="props" />
   <RouterView v-else />
   <MoreInfo />
 </template>
@@ -11,7 +11,11 @@ import { RouterView, useRoute } from 'vue-router'
 import ArrangementsOverview from '@/pages/ArrangementsOverview.vue'
 import MoreInfo from '@/components/MoreInfo/MoreInfo.vue'
 
+const props = defineProps<{ page?: string }>()
+
 const route = useRoute()
 
-const isOverviewRoute = computed(() => route.name === 'arrangements-overview')
+const isOverviewRoute = computed(() =>
+  ['arrangements-overview', 'arrangements-overview-page'].includes(route.name as string) // @TODO: we should solve this in the routes
+)
 </script>

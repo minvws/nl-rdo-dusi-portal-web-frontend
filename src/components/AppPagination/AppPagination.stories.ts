@@ -17,12 +17,12 @@ export const Default: Story = {
     setup() {
       return { args }
     },
-    template: '<AppPagination v-bind="args" />',
+    template: '<AppPagination v-bind="args" />'
   }),
   args: {
     itemsTotal: 100,
     pageSize: 10,
-    startPage: 1,
+    startPage: 1
   }
 }
 
@@ -32,11 +32,11 @@ export const WithButtons: Story = {
     setup() {
       return { args }
     },
-    template: '<AppPagination v-bind="args" with-buttons />',
+    template: '<AppPagination v-bind="args" with-buttons />'
   }),
   args: {
     itemsTotal: 100,
     pageSize: 10,
-    startPage: 1,
+    startPage: 1
   }
 }

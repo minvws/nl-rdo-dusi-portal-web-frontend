@@ -12,7 +12,7 @@
       <div class="filter" v-filters>
         <div>
           <p>
-            <span>{{ messagesTotal }}</span> berichten
+            <span>{{ total }}</span> berichten
           </p>
           <button data-show-filters-label="Toon filters" aria-expanded="false">
             Toon zoek en filter opties
@@ -23,7 +23,7 @@
         </form>
       </div>
       <MessageSummary
-        v-for="(item, index) in paginatedMessages"
+        v-for="(item, index) in items"
         :key="index"
         :description="item.description"
         :date="item.date"
@@ -31,7 +31,7 @@
         :title="item.title"
       />
       <AppPagination
-        :items-total="messagesTotal"
+        :items-total="total"
         :page-size="pageSize"
         :start-page="currentPage"
         @page-change="onPageChange"
@@ -42,9 +42,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref } from 'vue'
+import { computed, onBeforeMount, toRefs } from 'vue'
 import { useDataStore } from '@/store/useDataStore'
-import { useRouter } from 'vue-router'
+import { useApiMessagesUrl } from '@/composables/useApiUrl'
+import { usePagination } from '@/composables/usePagination'
+
 import useSEO from '@/composables/useSeo'
 import { translate } from '@/i18n'
 
@@ -55,13 +57,10 @@ import AppPagination from '@/components/AppPagination/AppPagination.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
 
 import vFilters from '@/directives/filters'
-import { useApiMessagesUrl } from '@/composables/useApiUrl'
-
 
 const props = defineProps<{ page?: string }>()
-const dataStore = useDataStore()
-const router = useRouter()
 
+const dataStore = useDataStore()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
@@ -71,27 +70,13 @@ onBeforeMount(() => {
   dataStore.fetchData(useApiMessagesUrl(), 'messages')
 })
 
-const currentPage = computed(() => {
-  return props.page ? parseInt(props.page) : 1
-})
-
-const pageSize = ref(5)
-
 const messages = computed(() => dataStore.getRequest('messages'))
-
-const messagesTotal = computed(() => messages.value?.data.length)
-
-const paginatedMessages = computed(() =>
-  messages.value?.data.length
-    ? messages.value?.data.slice(
-        (currentPage.value - 1) * pageSize.value,
-        currentPage.value * pageSize.value
-      )
-    : []
-)
-
-const onPageChange = (page: number) => {
-  if (page > 1) router.push({ name: name.MY_MESSAGES_PAGE, params: { page }})
-  else router.push({ name: name.MY_MESSAGES })
-}
+const { currentPage, pageSize, items, total, onPageChange } = usePagination({
+  ...toRefs(props),
+  messages,
+  routes: {
+    overview: name.MY_MESSAGES,
+    pagination: name.MY_MESSAGES_PAGE
+  }
+})
 </script>

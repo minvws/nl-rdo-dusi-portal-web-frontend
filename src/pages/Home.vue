@@ -42,8 +42,6 @@ import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@/components/MoreInfo/MoreInfo.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 
-
-
 const dataStore = useDataStore()
 
 useSEO({

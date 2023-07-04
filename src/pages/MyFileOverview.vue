@@ -52,7 +52,7 @@ import useSEO from '@/composables/useSeo'
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppTable from '@/components/AppTable/AppTable.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
-import { useApiMessagesUrl,  useApiRequestsUrl } from '@/composables/useApiUrl'
+import { useApiMessagesUrl, useApiRequestsUrl } from '@/composables/useApiUrl'
 
 import name from '@/router/name'
 
