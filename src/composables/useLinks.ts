@@ -26,11 +26,6 @@ const useHeaderLinksLeft = (): Link[] => [
 
 const useHeaderLinksRight = (): Link[] => [
   {
-    name: name.SEARCH,
-    label: translate('pages.search.title'),
-    icon: 'search'
-  },
-  {
     name: name.LOGIN,
     label: translate('pages.login.title'),
     icon: 'user'

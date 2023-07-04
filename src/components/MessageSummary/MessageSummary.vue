@@ -9,15 +9,14 @@
     </span>
     <h4>{{ title }}</h4>
     <p v-if="description">{{ description }}</p>
-    <RouterLink :to="link" class="button ghost">
+    <a :href="link" class="button ghost" target="_blank" rel="noopener">
       {{ translate('component.messageSummary.button') }}
-    </RouterLink>
+    </a>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { DateTimeFormatOptions } from '@intlify/core-base'
 import { translate } from '@/i18n'
 
 export type MessageSummaryProps = {
@@ -33,7 +32,7 @@ const options = {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
-} as DateTimeFormatOptions
+} as Intl.DateTimeFormatOptions
 
 const formattedDate = computed(() => {
   const date = new Date(props.date)

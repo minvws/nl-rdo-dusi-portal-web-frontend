@@ -5,12 +5,10 @@ import ArrangementsView from '@/pages/ArrangementsView.vue'
 import Home from '@/pages/Home.vue'
 import LocalForm from '@/pages/LocalForm.vue'
 
-import Search from '@/pages/Search.vue'
 import Login from '@/pages/Login.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
-import MyMessageDetails from '@/pages/MyMessageDetails.vue'
 import NotFound from '@/pages/NotFound.vue'
 import RemoteForm from '@/pages/RemoteForm.vue'
 import FormSent from '@/pages/FormSent.vue'
@@ -89,20 +87,9 @@ const router = createRouter({
       props: true
     },
     {
-      path: '/mijn-berichten/:id',
-      name: name.MY_MESSAGE_DETAILS,
-      component: MyMessageDetails
-    },
-    {
       path: '/mijn-berichten',
       name: name.MY_MESSAGES,
       component: MyMessagesOverview
-    },
-    {
-      path: '/zoeken',
-      name: name.SEARCH,
-      props: true,
-      component: Search
     },
     {
       path: '/inloggen',

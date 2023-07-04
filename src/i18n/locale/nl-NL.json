@@ -63,9 +63,6 @@
       },
       "nav": {
         "aria-label": "Hoofdnavigatie"
-      },
-      "search": {
-        "label": "Zoeken"
       }
     },
     "messageSummary": {
@@ -257,24 +254,17 @@
     "my-messages-overview": {
       "content": {},
       "intro": "Het overzicht van alle binnengekomen notificaties.",
-      "title": "Berichten",
+      "title": "Mijn berichten",
       "noMessages": "Er zijn geen berichten gevonden"
     },
     "my-messages-overview-page": {
-      "title": "Berichten"
-    },
-    "my-message-details": {
-      "title": "Bericht"
+      "title": "Mijn berichten"
     },
     "not-found": {
       "content": {
         "message": "De pagina kan niet gevonden worden"
       },
       "title": "Pagina niet gevonden"
-    },
-    "search": {
-      "content": {},
-      "title": "Zoeken"
     }
   }
 }
