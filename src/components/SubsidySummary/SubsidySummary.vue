@@ -24,7 +24,7 @@ import { computed } from 'vue'
 import { translate } from '@/i18n'
 import name from '@/router/name'
 import { useI18n } from 'vue-i18n'
-import type { DateTimeFormatOptions } from '@intlify/core-base'
+
 
 export type SubsidySummaryProps = {
   startDate: string
@@ -46,7 +46,7 @@ const options = {
   day: 'numeric',
   month: 'long',
   year: 'numeric'
-} as DateTimeFormatOptions
+} as Intl.DateTimeFormatOptions
 
 const formattedStartDate = computed(() => {
   const date = new Date(props.startDate)
