@@ -8,31 +8,44 @@ const meta: Meta<typeof FormRow> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormRow>
 
-const getComponent = (args: any): Story => {
-  return {
-    render: (args, { argTypes }) => {
-      return {
-        props: Object.keys(argTypes),
-        components: { FormRow },
-        setup() {
-          return { args }
-        },
-        template: '<FormRow v-bind="args" :key="JSON.stringify(args)"><input /></FormRow>'
-      }
+export const Default: Story = {
+  render: (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
+    components: { FormRow },
+    setup() {
+      return { args }
     },
-    args
+    template: `
+      <FormRow v-bind="args">
+        <input />
+      </FormRow>
+    `
+  }),
+  args: {
+    id: 'row',
+    label: 'storybook'
   }
 }
 
-export const Default: Story = getComponent({
-  id: 'row',
-  label: 'storybook'
-})
-
-export const Error: Story = getComponent({
-  id: 'row',
-  label: 'storybook',
-  errors: 'Something went wrong'
-})
+export const Error: Story = {
+  render: (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
+    components: { FormRow },
+    setup() {
+      return { args }
+    },
+    template: `
+      <FormRow v-bind="args">
+        <input />
+      </FormRow>
+    `
+  }),
+  args: {
+    id: 'row',
+    label: 'storybook',
+    errors: 'Something went wrong'
+  }
+}

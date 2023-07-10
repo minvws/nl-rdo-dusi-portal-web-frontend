@@ -8,6 +8,7 @@ const meta: Meta<typeof LocalForm> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof LocalForm>
 
 export const Default: Story = {

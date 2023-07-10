@@ -1,9 +1,9 @@
-import type { Directive, DirectiveBinding } from 'vue'
+import type { Directive } from 'vue'
 // @ts-ignore:next-line
 import { initNavigation } from '@minvws/manon/collapsible.js'
 
 const vCollapsible: Directive = {
-  mounted(el: HTMLElement, binding: DirectiveBinding) {
+  mounted() {
     initNavigation()
   }
 }

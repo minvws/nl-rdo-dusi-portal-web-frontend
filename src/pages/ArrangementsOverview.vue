@@ -24,12 +24,13 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, toRefs } from 'vue'
 import { translate } from '@/i18n'
+
+import useSEO from '@/composables/useSeo'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
 import { useDataStore } from '@/store/useDataStore'
 import { usePagination } from '@/composables/usePagination'
-import name from '@/router/name'
 
-import useSEO from '@/composables/useSeo'
+import name from '@/router/name'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'

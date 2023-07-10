@@ -8,6 +8,7 @@ const meta: Meta<typeof NotificationObligation> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof NotificationObligation>
 
 export const Default: Story = {

@@ -17,28 +17,38 @@
         }"
       />
       <slot />
-      <FormFieldDescription v-if="fieldDescription" v-bind="{ description: fieldDescription, labelFor: `${id}-input` }" />
+      <FormFieldDescription
+        v-if="fieldDescription"
+        v-bind="{ description: fieldDescription, labelFor: `${id}-input` }"
+      />
       <FormFieldError v-if="errors" v-bind="{ errors }" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ControlWrapper, type Options } from '@jsonforms/vue-vanilla'
 import { defineComponent } from 'vue'
+import type { Options } from '@jsonforms/vue-vanilla'
+import { ControlWrapper } from '@jsonforms/vue-vanilla'
+
 import FormFieldError from '@/components/form/FormFieldError/FormFieldError.vue'
 import FormFieldDescription from '@/components/form/FormFieldDescription/FormFieldDescription.vue'
 import FormFieldLabel from '@/components/form/FormFieldLabel/FormFieldLabel.vue'
 import FormRequiredLabel from '@/components/form/FormRequiredLabel/FormRequiredLabel.vue'
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
+
 import { ERROR_ATTRIBUTE } from '@/composables/useFormScroll'
+
 import { translate } from '@/i18n'
 
 export default defineComponent({
-  name: 'FormRow',
   extends: ControlWrapper,
   props: {
     contentClass: {
+      type: String,
+      required: false
+    },
+    styles: {
       type: String,
       required: false
     }
@@ -94,4 +104,3 @@ export default defineComponent({
   }
 }
 </style>
-

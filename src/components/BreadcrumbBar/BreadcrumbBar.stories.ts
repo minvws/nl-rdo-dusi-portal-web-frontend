@@ -8,6 +8,7 @@ const meta: Meta<typeof BreadcrumbBar> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof BreadcrumbBar>
 
 export const Default: Story = {

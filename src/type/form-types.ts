@@ -1,5 +1,4 @@
-import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-import { type JsonFormsCore } from '@jsonforms/core'
+import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
 
 export type FormTitle = { title?: string }
 export type Form = { schema: JsonSchema; uischema: UISchemaElement } & FormTitle

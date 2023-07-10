@@ -8,22 +8,19 @@ const meta: Meta<typeof FormFieldLabel> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormFieldLabel>
 
-const getComponent = (args: any): Story => {
-  return {
-    render: (args, { argTypes }) => {
-      return {
-        props: Object.keys(argTypes),
-        components: { FormFieldLabel },
-        setup() {
-          return { args }
-        },
-        template: '<FormFieldLabel v-bind="args" :key="JSON.stringify(args)"/>'
-      }
+export const Default: Story = {
+  render: (args, { argTypes }) => ({
+    props: Object.keys(argTypes),
+    components: { FormFieldLabel },
+    setup() {
+      return { args }
     },
-    args
+    template: '<FormFieldLabel v-bind="args" />'
+  }),
+  args: {
+    label: 'label'
   }
 }
-export const Default: Story = getComponent({})
-export const Secondary: Story = getComponent({ required: true })

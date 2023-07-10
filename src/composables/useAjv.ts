@@ -1,4 +1,5 @@
-import { createAjv, type JsonSchema } from '@jsonforms/core'
+import type { JsonSchema } from '@jsonforms/core'
+import { createAjv } from '@jsonforms/core'
 import type Ajv from '@jsonforms/core/node_modules/ajv'
 import { iban } from '@form-validation/validator-iban'
 

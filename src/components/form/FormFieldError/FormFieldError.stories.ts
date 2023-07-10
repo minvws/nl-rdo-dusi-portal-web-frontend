@@ -8,21 +8,21 @@ const meta: Meta<typeof FormFieldError> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormFieldError>
 
-const getComponent = (args: any): Story => {
-  return {
-    render: (args, { argTypes }) => {
-      return {
-        props: Object.keys(argTypes),
-        components: { FormFieldError },
-        setup() {
-          return { args }
-        },
-        template: '<FormFieldError v-bind="args" :key="JSON.stringify(args)"/>'
-      }
-    },
-    args
+export const Default: Story = {
+  render: (args, { argTypes }) => {
+    return {
+      props: Object.keys(argTypes),
+      components: { FormFieldError },
+      setup() {
+        return { args }
+      },
+      template: '<FormFieldError v-bind="args" />'
+    }
+  },
+  args: {
+    errors: 'errors'
   }
 }
-export const Default: Story = getComponent({ errors: 'Something went wrong' })

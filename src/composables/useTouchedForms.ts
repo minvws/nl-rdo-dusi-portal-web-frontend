@@ -1,4 +1,5 @@
-import { watch, ref, type Ref, type ComputedRef, computed } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
+import { watch, ref, computed } from 'vue'
 
 export const useTouchedForms = ({
   formKey,

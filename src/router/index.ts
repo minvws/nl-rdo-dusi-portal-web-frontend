@@ -2,10 +2,10 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import ArrangementView from '@/pages/ArrangementView.vue'
 import ArrangementsView from '@/pages/ArrangementsView.vue'
-import Home from '@/pages/Home.vue'
+import LandingPage from '@/pages/LandingPage.vue'
 import LocalForm from '@/pages/LocalForm.vue'
 
-import Login from '@/pages/Login.vue'
+import LoginPage from '@/pages/LoginPage.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
@@ -30,7 +30,7 @@ const router = createRouter({
     {
       path: '/',
       name: name.HOME,
-      component: Home
+      component: LandingPage
     },
     {
       path: '/regelingen/pagina/:page',
@@ -95,7 +95,7 @@ const router = createRouter({
       path: '/inloggen',
       name: name.LOGIN,
       props: true,
-      component: Login
+      component: LoginPage
     },
     {
       path: '/:catchAll(.*)',

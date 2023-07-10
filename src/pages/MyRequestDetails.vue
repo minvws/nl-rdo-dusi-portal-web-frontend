@@ -10,7 +10,12 @@
         <h3>{{ translate('pages.my-request-details.status') }}</h3>
         <p>{{ content?.statusIntro }}</p>
         <AppAccordion v-if="content?.steps">
-          <AppAccordionItem v-for="step in content.steps" :id="step.title" is-open>
+          <AppAccordionItem
+            v-for="(step, index) in content.steps"
+            :id="step.title"
+            :key="index"
+            is-open
+          >
             <template #title>{{ step.title }}</template>
             <template #content>
               <div v-html="step.content" />

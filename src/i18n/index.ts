@@ -1,10 +1,12 @@
 import { createI18n } from 'vue-i18n'
 
 const getFiles = async () => {
-  const files = (await Promise.all(
-    Object.entries(import.meta.glob('./locale/*.json')).map(async ([path, file]) => {
+  const locales = import.meta.glob('./locale/*.json')
+  const files = await Promise.all(
+    Object.entries(locales).map(async ([path, file]) => {
       return new Promise(resolve => {
-        const locale = path.split('/').pop()!.split('.')[0]
+        const locale = path?.split('/').pop()?.split('.')[0] || ''
+
         file().then(content => {
           resolve({
             locale,
@@ -13,8 +15,8 @@ const getFiles = async () => {
         })
       })
     })
-  )) as Record<string, any>
-  return files
+  )
+  return files as Record<string, any>
 }
 
 const getMessages = async () => {
@@ -30,7 +32,7 @@ const getMessages = async () => {
   return messages
 }
 
-let t: (key: string, props?: Record<string, string>) => string
+let t: (_key: string, _props?: Record<string, string>) => string
 
 export const translate = (key: string, props?: Record<string, string>) => {
   // only translate when key does not match result

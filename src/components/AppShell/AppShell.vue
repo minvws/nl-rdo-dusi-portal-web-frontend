@@ -9,7 +9,9 @@
 
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+
 import { translate } from '@/i18n'
+
 import AppFooter from '@/components/AppFooter/AppFooter.vue'
 import AppHeader from '@/components/AppHeader/AppHeader.vue'
 import AppContent from '@/components/AppContent/AppContent.vue'

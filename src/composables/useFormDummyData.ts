@@ -1,6 +1,6 @@
 import { useFormStore } from '@/store/useFormStore'
 import { InputType } from '@/type/input-types'
-import { type FieldProp, FieldType } from '@/type/field-types'
+import type { FieldProp } from '@/type/field-types'
 import { toNestedObject } from '@/util/object-util'
 
 const getDummyData = ({ type, format, iban, file, tel, enum: enums }: FieldProp) => {
@@ -24,13 +24,13 @@ const getDummyData = ({ type, format, iban, file, tel, enum: enums }: FieldProp)
       return 'e@mail.com'
   }
   switch (type) {
-    case FieldType.BOOLEAN:
+    case 'boolean':
       return true
-    case FieldType.STRING:
+    case 'string':
       return 'lorem ipsum'
-    case FieldType.INTEGER:
+    case 'integer':
       return 4
-    case FieldType.NUMBER:
+    case 'number':
       return Math.PI
     default:
       return `unknown type ${type}`
@@ -45,9 +45,19 @@ export const useFormDummyData = () => {
     const fields = scopes.map((key: string[]) => {
       let props: any = form.schema
       const path = [...key]
-      while (key.length) props = props.properties?.[key.shift()!]
+
+      while (key.length) {
+        const currentKey = key.shift()
+        if (currentKey && props?.properties) {
+          props = props.properties[currentKey]
+        } else {
+          break
+        }
+      }
+
       return { key: path.join('.'), props }
     })
+
     const data = fields.reduce(
       (cul: FormData, { key, props }: { key: string; props: FieldProp }) => {
         return {

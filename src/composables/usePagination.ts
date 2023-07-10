@@ -1,5 +1,6 @@
+import type { Ref, ComputedRef } from 'vue'
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { computed, type Ref, type ComputedRef } from 'vue'
 
 export const usePagination = ({
   page,

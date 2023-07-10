@@ -1,4 +1,5 @@
-import { computed, ref, type Ref, type ComputedRef } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
+import { computed, ref } from 'vue'
 
 export const useTouchedFields = ({
   activeForm
@@ -10,6 +11,7 @@ export const useTouchedFields = ({
   const getTouchedField = (id: string, formId: string) => {
     return !!touched.value?.[formId]?.[id]
   }
+
   const setTouchedField = (id: string, formId: string, value: boolean) => {
     if (!touched.value[formId]) touched.value[formId] = {}
     touched.value[formId][id] = value

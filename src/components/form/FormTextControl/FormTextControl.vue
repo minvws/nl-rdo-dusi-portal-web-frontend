@@ -8,7 +8,7 @@
   />
 </template>
 <script setup lang="ts">
-import { type InputType } from '@/type/input-types'
+import { InputType } from '@/type/input-types'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
 const props = defineProps<{

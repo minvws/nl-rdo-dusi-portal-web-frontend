@@ -1,5 +1,7 @@
+import type { Ref, ComputedRef } from 'vue'
+import { ref } from 'vue'
+
 import { getControlId } from '@/util/control-util'
-import { ref, type Ref, type ComputedRef } from 'vue'
 
 export const useFiles = ({ activeForm }: { activeForm: ComputedRef<{ id: string }> }) => {
   const files: Ref<Record<string, Record<string, File>>> = ref({})

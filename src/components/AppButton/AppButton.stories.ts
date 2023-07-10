@@ -8,6 +8,7 @@ const meta: Meta<typeof AppButton> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof AppButton>
 
 export const Default: Story = {

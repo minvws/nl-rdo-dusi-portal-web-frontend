@@ -5,13 +5,19 @@ module.exports = {
   root: true,
   extends: [
     'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
     'plugin:@intlify/vue-i18n/recommended',
     'eslint:recommended',
     '@vue/eslint-config-typescript',
-    '@vue/eslint-config-prettier/skip-formatting'
+    '@vue/eslint-config-prettier'
   ],
   rules: {
     '@intlify/vue-i18n/no-v-html': 0,
+    '@intlify/vue-i18n/no-raw-text': 0,
+    '@intlify/vue-i18n/no-missing-keys': 0,
+    '@typescript-eslint/ban-ts-comment': 0,
+    '@typescript-eslint/no-explicit-any': 0,
+    '@typescript-esline/no-unused-vars': 0,
     semi: ['warn', 'never'],
     'no-unused-vars': [
       'warn',
@@ -35,7 +41,7 @@ module.exports = {
     ],
     'array-bracket-spacing': ['warn', 'never'],
     'object-curly-spacing': ['warn', 'always'],
-    'template-curly-spacing': ['warn', 'always'],
+    'template-curly-spacing': ['warn', 'never'],
     'arrow-parens': ['warn', 'as-needed'],
     'keyword-spacing': [
       'warn',

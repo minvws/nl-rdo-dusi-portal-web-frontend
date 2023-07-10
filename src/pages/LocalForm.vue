@@ -13,14 +13,17 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
+import { ref } from 'vue'
+
+import { translate } from '@/i18n'
+
 import FormSection from '@/components/form/FormSection/FormSection.vue'
 import FormView from '@/components/form/FormView/FormView.vue'
 import FormLoaderMessage from '@/components/form/FormLoaderMessage/FormLoaderMessage.vue'
 
-import { translate } from '@/i18n'
 import formExample from '@/unit/fixtures/form/FormExample'
 
-import { ref, type Ref } from 'vue'
 import type { Form } from '@/type/form-types'
 
 const forms: Ref<Form[] | undefined> = ref(undefined)

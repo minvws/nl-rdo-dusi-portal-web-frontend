@@ -1,17 +1,19 @@
-import { FieldType } from '@/type/field-types'
-import { useFormStore } from '@/store/useFormStore'
-import { InputType } from '@/type/input-types'
-import { formatFile } from '@/util/format-util'
 import { computed } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-import { type Control, type Field } from '@/type/field-types'
+
+import { useFormStore } from '@/store/useFormStore'
+
+import { InputType } from '@/type/input-types'
+import type { Control, Field } from '@/type/field-types'
+
+import { formatFile } from '@/util/format-util'
 
 const getFieldProp = (control: Control) => {
   const {
     schema: { type }
   } = control
   switch (type) {
-    case FieldType.BOOLEAN:
+    case 'boolean':
       return 'checked'
     default:
       return 'value'
@@ -59,7 +61,7 @@ export const useFieldValue = ({
     }
   }
   switch (type) {
-    case FieldType.BOOLEAN:
+    case 'boolean':
       return { [prop]: !!data }
     default:
       return { [prop]: data }
@@ -74,7 +76,7 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
   if (key) return key
   const { format, type } = { ...options, ...extend }
   switch (type) {
-    case FieldType.BOOLEAN:
+    case 'boolean':
       return InputType.CHECKBOX
   }
 
@@ -104,7 +106,7 @@ export const useField = ({
 }: {
   input: { id: string; type: InputType }
   control: Control
-  handleChange?: (path: string, value: any) => void
+  handleChange?: (_path: string, _value: any) => void
 }) => {
   switch (input.type) {
     case InputType.SELECT:

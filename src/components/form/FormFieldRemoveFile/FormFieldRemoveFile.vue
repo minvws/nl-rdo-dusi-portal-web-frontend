@@ -18,7 +18,7 @@ import { getControlId } from '@/util/control-util'
 const props = defineProps<{
   id: string
   labelFor: string
-  handleChange?: (path: string, value: any) => void
+  handleChange?: (_path: string, _value: any) => void
 }>()
 
 const emit = defineEmits(['blur'])

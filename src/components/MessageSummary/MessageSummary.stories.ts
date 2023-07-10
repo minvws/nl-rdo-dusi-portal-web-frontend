@@ -8,6 +8,7 @@ const meta: Meta<typeof MessageSummary> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof MessageSummary>
 
 export const Default: Story = {

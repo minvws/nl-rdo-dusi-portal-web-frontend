@@ -21,10 +21,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@/i18n'
-import name from '@/router/name'
 import { useI18n } from 'vue-i18n'
 
+import { translate } from '@/i18n'
+
+import name from '@/router/name'
 
 export type SubsidySummaryProps = {
   startDate: string

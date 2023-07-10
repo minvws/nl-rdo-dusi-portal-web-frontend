@@ -15,11 +15,14 @@
 </template>
 
 <script lang="ts">
-import { type Layout, type JsonFormsRendererRegistryEntry, rankWith } from '@jsonforms/core'
 import { defineComponent } from 'vue'
+import type { Layout, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
+import { rankWith } from '@jsonforms/core'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
+
 import { translate } from '@/i18n'
+
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
 
 const Component = defineComponent({

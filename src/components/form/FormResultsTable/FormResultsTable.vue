@@ -12,12 +12,14 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import type { ControlElement, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
 import { rankWith } from '@jsonforms/core'
-import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
+
 import { useFormStore } from '@/store/useFormStore'
+
 import { translate } from '@/i18n'
 
 const Component = defineComponent({

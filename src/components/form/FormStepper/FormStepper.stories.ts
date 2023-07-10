@@ -8,6 +8,7 @@ const meta: Meta<typeof FormStepper> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormStepper>
 
 const forms = [

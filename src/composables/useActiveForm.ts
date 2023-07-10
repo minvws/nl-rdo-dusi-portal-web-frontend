@@ -1,8 +1,11 @@
-import { ref, computed, type Ref } from 'vue'
-import { getDeepProps } from '@/util/array-util'
-import { getControlId, getLinkedControlId } from '@/util/control-util'
+import type { Ref } from 'vue'
+import { ref, computed } from 'vue'
+
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 import type { Form, FormData, FormError } from '@/type/form-types'
+
+import { getDeepProps } from '@/util/array-util'
+import { getControlId, getLinkedControlId } from '@/util/control-util'
 
 export const useActiveForm = () => {
   const store: Ref<

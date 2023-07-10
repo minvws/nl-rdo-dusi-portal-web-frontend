@@ -1,9 +1,9 @@
-import type { Directive, DirectiveBinding } from 'vue'
+import type { Directive } from 'vue'
 // @ts-ignore:next-line
 import { initFilterToggles } from '@minvws/manon/filters.js'
 
 const vFilters: Directive = {
-  mounted(el: HTMLElement, binding: DirectiveBinding) {
+  mounted() {
     initFilterToggles()
   }
 }

@@ -8,6 +8,7 @@ const meta: Meta<typeof FormNotification> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormNotification>
 
 export const Default: Story = {

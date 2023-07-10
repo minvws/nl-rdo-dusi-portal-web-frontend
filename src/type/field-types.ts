@@ -3,13 +3,6 @@ import type { ComputedRef } from 'vue'
 import type { JsonSchema } from '@jsonforms/core'
 import type { FormValue } from '@/type/form-types'
 
-export enum FieldType {
-  BOOLEAN = 'boolean',
-  STRING = 'string',
-  NUMBER = 'number',
-  INTEGER = 'integer'
-}
-
 export type FieldProp = {
   type: string
   iban?: boolean

@@ -1,5 +1,12 @@
 export const getControlId = (id: string) => {
-  return id.split('/').pop()!
+  const parts = id.split('/')
+  const lastPart = parts.pop()
+
+  if (lastPart) {
+    return lastPart
+  }
+
+  throw new Error('Invalid ID')
 }
 
 export const getLinkedControlId = (id: string) => {

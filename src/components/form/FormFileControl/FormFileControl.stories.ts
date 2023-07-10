@@ -1,23 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import Component from '@/components/form/FormView/FormView.vue'
+import FormView from '@/components/form/FormView/FormView.vue'
 
-const meta: Meta<typeof Component> = {
+const meta: Meta<typeof FormView> = {
   title: 'forms/control/FormFileControl',
-  component: Component
+  component: FormView
 }
 
 export default meta
-type Story = StoryObj<typeof Component>
+
+type Story = StoryObj<typeof FormView>
 
 export const Default: Story = {
   render: (args, { argTypes }) => {
     return {
       props: Object.keys(argTypes),
-      components: { Component },
+      components: { FormView },
       setup() {
         return { args }
       },
-      template: '<Component v-bind="args" :key="JSON.stringify(args)"/>'
+      template: '<FormView v-bind="args" :key="JSON.stringify(args)"/>'
     }
   },
   args: {

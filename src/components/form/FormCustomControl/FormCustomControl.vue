@@ -1,13 +1,13 @@
 <template>
   <FormRow v-bind="wrapperProps">
-      <component
-        :is="field.tag"
-        v-bind="field.props"
-        @input="onInput"
-        @change="onChange"
-        @focus="onFocus"
-        @blur="onBlur"
-      />
+    <component
+      :is="field.tag"
+      v-bind="field.props"
+      @input="onInput"
+      @change="onChange"
+      @focus="onFocus"
+      @blur="onBlur"
+    />
   </FormRow>
 </template>
 

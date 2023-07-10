@@ -28,6 +28,6 @@ const loadingMessage = computed(() => {
 const errorMessage = computed(() => {
   const { error } = props
   if (!error) return undefined
-  return translate('form.message.loadingError', { error })!
+  return translate('form.message.loadingError', { error })
 })
 </script>

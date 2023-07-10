@@ -1,7 +1,10 @@
-import { watch, ref, type Ref } from 'vue'
-import { useApiFormsUrl } from '@/composables/useApiUrl'
+import type { Ref } from 'vue'
+import { watch, ref } from 'vue'
 import { useRouter } from 'vue-router'
+
+import { useApiFormsUrl } from '@/composables/useApiUrl'
 import name from '@/router/name'
+
 import type { FormResponse, FormData } from '@/type/form-types'
 
 export const useFormSubmit = () => {

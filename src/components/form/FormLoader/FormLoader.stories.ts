@@ -8,6 +8,7 @@ const meta: Meta<typeof FormLoader> = {
 }
 
 export default meta
+
 type Story = StoryObj<typeof FormLoader>
 
 export const Default: Story = {
