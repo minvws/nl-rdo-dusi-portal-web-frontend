@@ -43,7 +43,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: name.HOME,
+      name: HOME,
       component: LandingPage
     },
     {
