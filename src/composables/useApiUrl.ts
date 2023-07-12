@@ -1,22 +1,34 @@
 const useMockData = import.meta.env.VITE_MOCK_DATA
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
+export const useApiLoginUrl = () => {
+  return `${baseUrl}/oidc/login`
+}
+
+export const useApiLogoutUrl = () => {
+  return `${baseUrl}/api/user/logout`
+}
+
+export const useApiUserStatusUrl = () => {
+  return `${baseUrl}/api/user/info`
+}
+
 export const useApiFormsUrl = (id: string | number) => {
-  return `${baseUrl}/forms/${id}`
+  return `${baseUrl}/api/forms/${id}`
 }
 
 export const useApiSubsidyUrl = () => {
-  return `${baseUrl}/subsidies`
+  return `${baseUrl}/api/subsidies`
 }
 
 export const useApiMessagesUrl = () => {
   if (useMockData) return '../../mock/messages.json'
-  return `${baseUrl}/messages`
+  return `${baseUrl}/api/messages`
 }
 
 export const useApiRequestsUrl = () => {
   if (useMockData) return '../../mock/requests.json'
-  return `${baseUrl}/requests`
+  return `${baseUrl}/api/requests`
 }
 
 export const useApiRequestDetail = (id: string) => {

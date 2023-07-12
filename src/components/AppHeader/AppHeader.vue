@@ -42,11 +42,16 @@
           </template>
         </ul>
         <ul>
-          <li>
-            <RouterLink :to="{ name: 'login' }">
-              <AppIcon name="user" aria-hidden="true" />
-              {{ translate('pages.login.title') }}
-            </RouterLink>
+          <li v-if="isLoggedIn">
+            <span>Ingelogd als: [name]</span>
+            <AppButton @click="logout">
+              {{ translate('component.header.logout') }}
+            </AppButton>
+          </li>
+          <li v-else>
+            <a :href="loginUrl">
+              {{ translate('component.header.login') }}
+            </a>
           </li>
         </ul>
       </div>
@@ -61,10 +66,12 @@ import { storeToRefs } from 'pinia'
 import type { Link } from '@/type/link-types'
 
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
+import { useApiLoginUrl } from '@/composables/useApiUrl'
 
 import { translate } from '@/i18n'
 import { ARRANGEMENT_OVERVIEW, HOME, MY_FILE_OVERVIEW, MY_MESSAGES } from '@/router/names'
 
+import AppButton from '@/components/AppButton/AppButton.vue'
 import AppIcon from '@/components/AppIcon/AppIcon.vue'
 import MessageCounter from '@/components/MessageCounter/MessageCounter.vue'
 import BreadcrumbBar from '@/components/BreadcrumbBar/BreadcrumbBar.vue'
@@ -77,6 +84,8 @@ const authStore = useAuthStore()
 const { breadcrumbs } = useBreadcrumbs()
 
 const { isLoggedIn } = storeToRefs(authStore)
+
+const loginUrl = useApiLoginUrl()
 
 const defaultLinks: Link[] = [
   {
@@ -102,9 +111,16 @@ const authenticatedLinks: Link[] = [
     badge: 4 // @TODO: get from API/store
   }
 ]
+
+function logout() {
+  authStore.logout()
+}
 </script>
 
 <style lang="scss" scoped>
+.app-header {
+  --header-navigation-list-item-align-items: center;
+}
 .home-link {
   text-decoration: none;
 }

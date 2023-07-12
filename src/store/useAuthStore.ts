@@ -1,12 +1,30 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-const mockSignedIn = import.meta.env.VITE_MOCK_USER_IS_SIGNED_IN
+import { useApiUserStatusUrl, useApiLogoutUrl } from '@/composables/useApiUrl'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
-  const isLoggedIn = ref(mockSignedIn)
+  const isLoggedIn = ref(false)
+
+  function checkUserStatus() {
+    const url = useApiUserStatusUrl()
+
+    fetch(url, { credentials: 'include' })
+      .then(response => response.json())
+      .then(data => isLoggedIn.value = data.logged_in)
+  }
+
+  function logout() {
+    const url = useApiLogoutUrl()
+
+    fetch(url, { method: 'post', credentials: 'include' })
+      .then(response => response.json())
+      .then(data => isLoggedIn.value = data.logged_in)
+  }
 
   return {
-    isLoggedIn
+    checkUserStatus,
+    logout,
+    isLoggedIn,
   }
 })

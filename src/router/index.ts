@@ -5,7 +5,6 @@ import ArrangementView from '@/pages/ArrangementView.vue'
 import FormSent from '@/pages/FormSent.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import LocalForm from '@/pages/LocalForm.vue'
-import LoginPage from '@/pages/LoginPage.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
@@ -20,7 +19,6 @@ import {
   ARRANGEMENT_OVERVIEW_PAGE,
   FORM_SENT,
   HOME,
-  LOGIN,
   MY_FILE_OVERVIEW,
   MY_MESSAGES,
   MY_MESSAGES_PAGE,
@@ -104,12 +102,6 @@ const router = createRouter({
       path: '/mijn-berichten',
       name: MY_MESSAGES,
       component: MyMessagesOverview
-    },
-    {
-      path: '/inloggen',
-      name: LOGIN,
-      props: true,
-      component: LoginPage
     },
     {
       path: '/:catchAll(.*)',
