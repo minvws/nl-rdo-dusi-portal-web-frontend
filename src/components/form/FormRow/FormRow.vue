@@ -47,10 +47,6 @@ export default defineComponent({
     contentClass: {
       type: String,
       required: false
-    },
-    styles: {
-      type: String,
-      required: false
     }
   },
   components: {

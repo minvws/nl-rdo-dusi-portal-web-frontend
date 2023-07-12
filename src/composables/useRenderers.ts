@@ -1,9 +1,9 @@
 import { vanillaRenderers } from '@jsonforms/vue-vanilla'
 
-import { FormHtmlRenderer } from '@/components/form/FormHtml.vue'
-import { CustomControlRenderer } from '@/components/form/FormCustomControl/FormCustomControl.vue'
-import { FormResultsTableRenderer } from '@/components/form/FormResultsTable/FormResultsTable.vue'
-import { CustomGroupControlRenderer } from '@/components/form/CustomGroupControl/CustomGroupControl.vue'
+import { FormHtmlRenderer } from '@/components/form/FormHtml/FormHtmlRenderer'
+import { CustomControlRenderer } from '@/components/form/FormCustomControl/FormCustomControlRenderer'
+import { FormResultsTableRenderer } from '@/components/form/FormResultsTable/FormResultsTableRenderer'
+import { CustomGroupControlRenderer } from '@/components/form/CustomGroupControl/CustomGroupControlRenderer'
 
 export const useRenderers = () => {
   const renderers = [
