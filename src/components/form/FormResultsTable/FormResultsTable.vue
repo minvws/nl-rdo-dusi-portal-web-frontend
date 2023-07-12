@@ -3,10 +3,10 @@
     <div
       :key="`row-${index}`"
       class="form-results-table-row"
-      v-for="(id, index) in appliedOptions.fields"
+      v-for="(value, label) in appliedOptions.fields"
     >
-      <div>{{ translate(`component.formResultsTable.results.${id}.label`, fromData) }}</div>
-      <div>{{ translate(`component.formResultsTable.results.${id}.value`, fromData) }}</div>
+      <div>{{ label }}</div>
+      <div>{{ tpl(value, fromData) }}</div>
     </div>
   </div>
 </template>
@@ -22,9 +22,18 @@ import { useFormStore } from '@/store/useFormStore'
 
 import { translate } from '@/i18n'
 
+const tpl = function (template: string, props: Record<string, string>) {
+  let result: string = template
+  Object.entries(props).forEach(([key, value]) => result = result.replace('{' + key + '}', '' + value))
+  return result
+}
+
 const Component = defineComponent({
   props: {
     ...rendererProps<ControlElement>()
+  },
+  methods: {
+    tpl
   },
   setup(props) {
     const { formData } = useFormStore()

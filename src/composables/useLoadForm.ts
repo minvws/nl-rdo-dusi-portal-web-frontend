@@ -3,26 +3,59 @@ import { computed, ref } from 'vue'
 import type { Form, FormResult } from '@/type/form-types'
 
 import { useApiFormsUrl } from '@/composables/useApiUrl'
+import {isLabeled, isLayout} from "@jsonforms/core";
+import type { JsonSchema } from "@jsonforms/core";
+
+export const transformForm = (form: Form): Form[] => {
+  if (form.uischema.type !== 'CustomPageNavigationControl') {
+    // assume single page form
+    return [form];
+  }
+
+  if (!isLayout(form.uischema)) {
+    throw 'UI schema is invalid, expected page navigation layout!';
+  }
+
+  const baseSchema: JsonSchema = form.schema
+
+  const forms: Form[] = form.uischema.elements.map(function (el)  {
+    if (el.type !== 'CustomPageControl' || !isLabeled(el) || !isLayout(el)) {
+      throw 'UI schema is invalid, expected page control layout'
+    }
+
+    const title: string|undefined = isLabeled(el) ? el.label : undefined
+
+    const schema: JsonSchema = {
+      type: 'object',
+      properties: baseSchema.properties,
+      required: el.options?.['required'] ?? baseSchema.required ?? []
+    } as JsonSchema
+
+    const uischema = el.elements[0]
+    return { title, schema, uischema }
+  });
+
+  return forms
+}
 
 export const useLoadForm = () => {
-  const data: Ref<Form | undefined> = ref(undefined)
+  const titleRef: Ref<string | undefined> = ref(undefined)
+  const forms: Ref<Form[] | undefined> = ref(undefined)
   const error: Ref<string> = ref('')
   const isLoading = ref(false)
 
   const loadFormById = async (id: string | number) => {
     error.value = ''
-    data.value = undefined
+    forms.value = undefined
     isLoading.value = true
     try {
       const response = await fetch(useApiFormsUrl(id))
       const json: FormResult = await response.json()
       const { title, dataSchema: schema, uiSchema: uischema } = json
-
-      data.value = {
-        title,
-        schema,
-        uischema
-      }
+      const form: Form = { title, schema, uischema }
+      forms.value = transformForm(form)
+      console.log(forms.value)
+      titleRef.value =  title
     } catch (e) {
       error.value = `${e}`
     } finally {
@@ -30,22 +63,9 @@ export const useLoadForm = () => {
     }
   }
 
-  const forms: ComputedRef<Form[] | undefined> = computed(() => {
-    // @TODO:
-    // right now the api returns one form
-    // create an array of the forms
-    if (!data.value) return undefined
-
-    return [data.value]
-  })
-
-  const title = computed(() => {
-    return data.value?.title
-  })
-
   return {
     forms,
-    title,
+    title: titleRef,
     error,
     isLoading,
     loadFormById
