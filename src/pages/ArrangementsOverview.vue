@@ -43,11 +43,10 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`
 })
 
-onBeforeMount(() => {
-  dataStore.fetchData(useApiSubsidyUrl(), 'currentArrangements')
-})
+onBeforeMount(() => dataStore.fetchData(useApiSubsidyUrl(), 'arrangements'))
 
-const arrangements = computed(() => dataStore.getRequest('currentArrangements'))
+const arrangements = computed(() => dataStore.getRequest('arrangements'))
+
 const { currentPage, pageSize, items, total, onPageChange } = usePagination({
   ...toRefs(props),
   messages: arrangements,
