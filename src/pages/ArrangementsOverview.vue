@@ -24,17 +24,17 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, toRefs } from 'vue'
 import { translate } from '@/i18n'
+import { ARRANGEMENT_OVERVIEW, ARRANGEMENT_OVERVIEW_PAGE } from '@/router/names'
+
+import { useDataStore } from '@/store/useDataStore'
 
 import useSEO from '@/composables/useSeo'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
-import { useDataStore } from '@/store/useDataStore'
 import { usePagination } from '@/composables/usePagination'
 
-import name from '@/router/name'
-
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
-import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 import AppPagination from '@/components/AppPagination/AppPagination.vue'
+import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 
 const dataStore = useDataStore()
 const props = defineProps<{ page?: string }>()
@@ -52,8 +52,8 @@ const { currentPage, pageSize, items, total, onPageChange } = usePagination({
   ...toRefs(props),
   messages: arrangements,
   routes: {
-    overview: name.ARRANGEMENT_OVERVIEW,
-    pagination: name.ARRANGEMENT_OVERVIEW_PAGE
+    overview: ARRANGEMENT_OVERVIEW,
+    pagination: ARRANGEMENT_OVERVIEW_PAGE
   }
 })
 </script>

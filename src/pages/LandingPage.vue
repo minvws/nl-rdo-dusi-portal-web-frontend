@@ -35,6 +35,7 @@ import { computed, onBeforeMount } from 'vue'
 import { translate } from '@/i18n'
 
 import { useDataStore } from '@/store/useDataStore'
+
 import { useApiArrangementsUrl } from '@/composables/useApiUrl'
 import useSEO from '@/composables/useSeo'
 

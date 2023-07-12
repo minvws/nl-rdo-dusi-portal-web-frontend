@@ -1,11 +1,10 @@
 import type { Ref } from 'vue'
 import { watch, ref } from 'vue'
+import type { FormResponse, FormData } from '@/type/form-types'
 import { useRouter } from 'vue-router'
 
 import { useApiFormsUrl } from '@/composables/useApiUrl'
-import name from '@/router/name'
-
-import type { FormResponse, FormData } from '@/type/form-types'
+import { FORM_SENT } from '@/router/names'
 
 export const useFormSubmit = () => {
   const data: Ref<FormResponse | undefined> = ref(undefined)
@@ -51,7 +50,7 @@ export const useFormSubmit = () => {
 
   watch(data, data => {
     if (!data) return
-    router.replace({ name: name.FORM_SENT })
+    router.replace({ name: FORM_SENT })
     data.value = undefined
   })
 

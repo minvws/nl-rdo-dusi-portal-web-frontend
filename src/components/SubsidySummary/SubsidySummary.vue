@@ -24,8 +24,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { translate } from '@/i18n'
-
-import name from '@/router/name'
+import { ARRANGEMENT_DETAILS } from '@/router/names'
 
 export type SubsidySummaryProps = {
   startDate: string
@@ -60,7 +59,7 @@ const formattedEndDate = computed(() => {
 })
 
 const link = computed(() => ({
-  name: name.ARRANGEMENT_DETAILS,
+  name: ARRANGEMENT_DETAILS,
   params: {
     id: props.publishedForm.id
   }

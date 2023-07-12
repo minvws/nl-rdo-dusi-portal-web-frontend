@@ -6,7 +6,7 @@
         <nav aria-labelledby="footer-nav-1-heading">
           <h1 id="footer-nav-1-heading">{{ translate('component.footer.title') }}</h1>
           <ul>
-            <li v-for="({ name, label, params }, index) in footerLinks" :key="index">
+            <li v-for="({ name, label, params }, index) in links" :key="index">
               <RouterLink :to="{ name, params }">
                 {{ label }}
               </RouterLink>
@@ -23,9 +23,21 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@/i18n'
-import { version } from '@/../package.json'
-import { useFooterLinks } from '@/composables/useLinks'
+import type { Link } from '@/type/link-types'
 
-const footerLinks = useFooterLinks()
+import { translate } from '@/i18n'
+import { ARRANGEMENT_OVERVIEW, HOME } from '@/router/names'
+
+import { version } from '@/../package.json'
+
+const links: Link[] = [
+  {
+    name: HOME,
+    label: translate('app.name')
+  },
+  {
+    name: ARRANGEMENT_OVERVIEW,
+    label: translate('pages.arrangements-overview.title')
+  }
+]
 </script>
