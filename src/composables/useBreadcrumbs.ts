@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { translate } from '@/i18n'
-import name from '@/router/name'
+import { HOME } from '@/router/names'
 
 import type { Link } from '@/type/link-types'
 
@@ -18,7 +18,7 @@ export const useBreadcrumbs = () => {
     const links: Link[] = []
 
     links.push({
-      name: name.HOME,
+      name: HOME,
       label: translate('app.name')
     })
 

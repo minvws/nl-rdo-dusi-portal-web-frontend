@@ -58,9 +58,8 @@
         "aria-label": "Logo Rijksoverheid, ga naar de homepage van Mijn DUS-I",
         "label": "Rijksoverheid"
       },
-      "login": {
-        "label": "Inloggen"
-      },
+      "login": "Inloggen",
+      "logout": "Uitloggen",
       "nav": {
         "aria-label": "Hoofdnavigatie"
       }
@@ -225,9 +224,6 @@
     },
     "localForm": {
       "title": "Localform example"
-    },
-    "login": {
-      "title": "Inloggen"
     },
     "my-file-overview": {
       "title": "Mijn dossier",

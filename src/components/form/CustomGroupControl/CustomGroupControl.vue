@@ -1,22 +1,18 @@
 <template>
   <component :is="wrapperComponent" class="form-group" :class="{ section: appliedOptions.section }">
-    <component :is="labelComponent" class="form-group-label">
+    <component v-if="layout.label" :is="labelComponent" class="form-group-label">
       {{ layout.label }}
     </component>
     <div class="form-group-renderer">
-      <FormNotification
-        v-if="appliedOptions.tip"
-        type="explanation"
-        :message="translate(appliedOptions.tip)"
-      />
+      <FormNotification v-if="message" type="explanation" :message="message" />
       <GroupRenderer :class="groupClassName" v-bind="group" />
     </div>
   </component>
 </template>
 
 <script lang="ts">
+import { type Layout } from '@jsonforms/core'
 import { defineComponent } from 'vue'
-import type { Layout, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
 import { rankWith } from '@jsonforms/core'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
@@ -25,7 +21,7 @@ import { translate } from '@/i18n'
 
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
 
-const Component = defineComponent({
+export default defineComponent({
   components: {
     GroupRenderer,
     FormNotification
@@ -66,21 +62,12 @@ const Component = defineComponent({
     groupClassName() {
       const size = Math.min(2, this.uischema.elements.length)
       return `size-${size}`
+    },
+    message() {
+      return translate(`${this.appliedOptions.tip}`) || ''
     }
-  },
-  methods: {
-    translate
   }
 })
-
-export default Component
-
-export const CustomGroupControlRenderer: JsonFormsRendererRegistryEntry = {
-  renderer: Component,
-  tester: rankWith(2, ({ type }) => {
-    return type === 'CustomGroupControl'
-  })
-}
 </script>
 
 <style lang="scss" scoped>

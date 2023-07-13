@@ -12,9 +12,8 @@
 </template>
 
 <script lang="ts">
+import type { ControlElement } from '@jsonforms/core'
 import { defineComponent } from 'vue'
-import type { ControlElement, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
-import { rankWith } from '@jsonforms/core'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
@@ -29,7 +28,7 @@ const tpl = function (template: string, props: Record<string, string>) {
   return result
 }
 
-const Component = defineComponent({
+export default defineComponent({
   props: {
     ...rendererProps<ControlElement>()
   },
@@ -45,15 +44,6 @@ const Component = defineComponent({
     }
   }
 })
-
-export default Component
-
-export const FormResultsTableRenderer: JsonFormsRendererRegistryEntry = {
-  renderer: Component,
-  tester: rankWith(1, ({ type }) => {
-    return type === 'FormResultsTable'
-  })
-}
 </script>
 
 <style lang="scss" scoped>

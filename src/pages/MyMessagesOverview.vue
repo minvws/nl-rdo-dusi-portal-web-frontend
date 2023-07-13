@@ -43,14 +43,16 @@
 
 <script setup lang="ts">
 import { computed, onBeforeMount, toRefs } from 'vue'
+
 import { useDataStore } from '@/store/useDataStore'
+
 import { useApiMessagesUrl } from '@/composables/useApiUrl'
 import { usePagination } from '@/composables/usePagination'
-
 import useSEO from '@/composables/useSeo'
+
 import { translate } from '@/i18n'
 
-import name from '@/router/name'
+import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@/router/names'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppPagination from '@/components/AppPagination/AppPagination.vue'
@@ -75,8 +77,8 @@ const { currentPage, pageSize, items, total, onPageChange } = usePagination({
   ...toRefs(props),
   messages,
   routes: {
-    overview: name.MY_MESSAGES,
-    pagination: name.MY_MESSAGES_PAGE
+    overview: MY_MESSAGES,
+    pagination: MY_MESSAGES_PAGE
   }
 })
 </script>

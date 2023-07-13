@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { useFormStore } from '@/store/useFormStore'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
-import name from '@/router/name'
+import { ARRANGEMENT_OVERVIEW } from '@/router/names'
 
 const forms = useFormStore()
 const router = useRouter()
@@ -21,6 +21,6 @@ onBeforeRouteLeave(() => {
 
 if (!forms.activeForm) {
   // no active form, redirect
-  router.replace({ name: name.ARRANGEMENT_OVERVIEW })
+  router.replace({ name: ARRANGEMENT_OVERVIEW })
 }
 </script>

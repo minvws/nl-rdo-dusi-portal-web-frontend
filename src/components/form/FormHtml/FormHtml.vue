@@ -9,7 +9,7 @@ import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
-const Component = defineComponent({
+export default defineComponent({
   props: {
     ...rendererProps<ControlElement>()
   },
@@ -19,15 +19,6 @@ const Component = defineComponent({
     }
   }
 })
-
-export default Component
-
-export const FormHtmlRenderer: JsonFormsRendererRegistryEntry = {
-  renderer: Component,
-  tester: rankWith(1, ({ type }) => {
-    return type === 'FormHtml'
-  })
-}
 </script>
 
 <style lang="scss" scoped>

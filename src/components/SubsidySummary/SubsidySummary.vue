@@ -6,8 +6,11 @@
   >
     <h3>{{ title }}</h3>
     <span class="de-emphasized">
-      <time :datetime="startDate">{{ formattedStartDate }}</time> -
-      <time :datetime="endDate">{{ formattedEndDate }}</time>
+      <time :datetime="validFrom">{{ formattedDate(validFrom) }}</time>
+      <template v-if="validTo">
+        -
+        <time :datetime="validTo">{{ formattedDate(validTo) }}</time>
+      </template>
     </span>
     <p>{{ description }}</p>
     <RouterLink v-if="readMore" :to="readMore">{{
@@ -24,12 +27,11 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { translate } from '@/i18n'
-
-import name from '@/router/name'
+import { ARRANGEMENT_DETAILS } from '@/router/names'
 
 export type SubsidySummaryProps = {
-  startDate: string
-  endDate: string
+  validFrom: string
+  validTo?: string
   title: string
   description: string
   publishedForm: {
@@ -49,22 +51,17 @@ const options = {
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
 
-const formattedStartDate = computed(() => {
-  const date = new Date(props.startDate)
-  return date.toLocaleDateString(locale.value, options)
-})
-
-const formattedEndDate = computed(() => {
-  const date = new Date(props.endDate)
-  return date.toLocaleDateString(locale.value, options)
-})
-
 const link = computed(() => ({
-  name: name.ARRANGEMENT_DETAILS,
+  name: ARRANGEMENT_DETAILS,
   params: {
     id: props.publishedForm.id
   }
 }))
+
+function formattedDate(date: string) {
+  const dateObj = new Date(date)
+  return dateObj.toLocaleDateString(locale.value, options)
+}
 </script>
 
 <style lang="scss" scoped>

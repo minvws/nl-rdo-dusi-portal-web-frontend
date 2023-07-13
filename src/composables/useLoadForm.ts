@@ -48,8 +48,10 @@ export const useLoadForm = () => {
     error.value = ''
     forms.value = undefined
     isLoading.value = true
+
     try {
-      const response = await fetch(useApiFormsUrl(id))
+      const url = useApiFormsUrl(id)
+      const response = await fetch(url)
       const json: FormResult = await response.json()
       const { title, dataSchema: schema, uiSchema: uischema } = json
       const form: Form = { title, schema, uischema }

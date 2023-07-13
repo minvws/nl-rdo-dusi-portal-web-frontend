@@ -34,7 +34,7 @@
           :link="item.link"
           :title="item.title"
         />
-        <RouterLink :to="{ name: name.MY_MESSAGES }">
+        <RouterLink :to="{ name: MY_MESSAGES }">
           {{ translate('pages.my-file-overview.allMessages') }}
         </RouterLink>
       </template>
@@ -45,16 +45,16 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue'
 import { translate } from '@/i18n'
+import { MY_MESSAGES } from '@/router/names'
 
 import { useDataStore } from '@/store/useDataStore'
+
 import useSEO from '@/composables/useSeo'
 import { useApiMessagesUrl, useApiRequestsUrl } from '@/composables/useApiUrl'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppTable from '@/components/AppTable/AppTable.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
-
-import name from '@/router/name'
 
 const headings = [
   { text: 'Regeling' },

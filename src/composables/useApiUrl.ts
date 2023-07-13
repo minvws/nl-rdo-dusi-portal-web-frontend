@@ -1,28 +1,34 @@
 const useMockData = import.meta.env.VITE_MOCK_DATA
+const baseUrl = import.meta.env.VITE_API_BASE_URL
+
+export const useApiLoginUrl = () => {
+  return `${baseUrl}/oidc/login`
+}
+
+export const useApiLogoutUrl = () => {
+  return `${baseUrl}/api/user/logout`
+}
+
+export const useApiUserStatusUrl = () => {
+  return `${baseUrl}/api/user/info`
+}
 
 export const useApiFormsUrl = (id: string | number) => {
-  const base = import.meta.env.VITE_API_BASE_URL
-  return `${base}/forms/${id}`
+  return `${baseUrl}/api/forms/${id}`
 }
 
 export const useApiSubsidyUrl = () => {
-  if (useMockData) return '../../mock/current-arrangements.json'
-  const base = import.meta.env.VITE_API_BASE_URL
-  return `${base}/subsidies`
-}
-
-export const useApiArrangementsUrl = () => {
-  if (useMockData) return '../../mock/current-arrangements.json'
-  const base = import.meta.env.VITE_API_BASE_URL
-  return `${base}/subsidies`
+  return `${baseUrl}/api/subsidies`
 }
 
 export const useApiMessagesUrl = () => {
-  return '../../mock/messages.json'
+  if (useMockData) return '../../mock/messages.json'
+  return `${baseUrl}/api/messages`
 }
 
 export const useApiRequestsUrl = () => {
-  return '../../mock/requests.json'
+  if (useMockData) return '../../mock/requests.json'
+  return `${baseUrl}/api/requests`
 }
 
 export const useApiRequestDetail = (id: string) => {

@@ -12,14 +12,10 @@
 </template>
 
 <script lang="ts">
-import {
-  type ControlElement,
-  type JsonFormsRendererRegistryEntry,
-  rankWith,
-  isControl
-} from '@jsonforms/core'
 import { defineComponent } from 'vue'
+import type { ControlElement } from '@jsonforms/core'
 import { rendererProps } from '@jsonforms/vue'
+
 import { useFieldValue, useFieldType, useField } from '@/composables/useField'
 import { useCustomControl } from '@/composables/useCustomControl'
 
@@ -29,7 +25,7 @@ import FormRadioControl from '@/components/form/FormRadioControl/FormRadioContro
 import FormFileControl from '@/components/form/FormFileControl/FormFileControl.vue'
 import FormSelectControl from '@/components/form/FormSelectControl/FormSelectControl.vue'
 
-const ControlRenderer = defineComponent({
+export default defineComponent({
   components: {
     FormRow,
     FormTextControl,
@@ -99,13 +95,6 @@ const ControlRenderer = defineComponent({
     }
   }
 })
-
-export default ControlRenderer
-
-export const CustomControlRenderer: JsonFormsRendererRegistryEntry = {
-  renderer: ControlRenderer,
-  tester: rankWith(1, isControl)
-}
 </script>
 
 <style lang="scss" scoped>

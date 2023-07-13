@@ -22,7 +22,7 @@ import { translate } from '@/i18n'
 
 import useSEO from '@/composables/useSeo'
 
-import name from '@/router/name'
+import { ARRANGEMENT_FORM_LOCAL, ARRANGEMENT_FORM_REMOTE } from '@/router/names'
 
 const route = useRoute()
 
@@ -34,14 +34,14 @@ useSEO({
 
 const requestLocalFormRoute = computed(() => {
   return {
-    name: name.ARRANGEMENT_FORM_LOCAL,
+    name: ARRANGEMENT_FORM_LOCAL,
     params: { id: route.params.id }
   }
 })
 
 const requestRemoteFormRoute = computed(() => {
   return {
-    name: name.ARRANGEMENT_FORM_REMOTE,
+    name: ARRANGEMENT_FORM_REMOTE,
     params: { id: route.params.id }
   }
 })

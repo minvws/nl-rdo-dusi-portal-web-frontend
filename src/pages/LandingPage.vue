@@ -35,7 +35,7 @@ import { computed, onBeforeMount } from 'vue'
 import { translate } from '@/i18n'
 
 import { useDataStore } from '@/store/useDataStore'
-import { useApiArrangementsUrl } from '@/composables/useApiUrl'
+import { useApiSubsidyUrl } from '@/composables/useApiUrl'
 import useSEO from '@/composables/useSeo'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
@@ -48,7 +48,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
 })
 
-onBeforeMount(() => dataStore.fetchData(useApiArrangementsUrl(), 'arrangements'))
+onBeforeMount(() => dataStore.fetchData(useApiSubsidyUrl(), 'arrangements'))
 
 const arrangements = computed(() => dataStore.getRequest('arrangements'))
 </script>
