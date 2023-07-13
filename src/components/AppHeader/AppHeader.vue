@@ -19,10 +19,7 @@
     >
       <div class="collapsing-element">
         <ul>
-          <li
-            v-for="({ name, label, icon }, index) in defaultLinks"
-            :key="`default-link-${index}`"
-          >
+          <li v-for="({ name, label, icon }, index) in defaultLinks" :key="`default-link-${index}`">
             <RouterLink :to="{ name }">
               <AppIcon v-if="icon" :name="icon" aria-hidden="true" />
               {{ label }}

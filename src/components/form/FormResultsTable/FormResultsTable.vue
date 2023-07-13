@@ -1,9 +1,9 @@
 <template>
   <div class="form-results-table">
     <div
-      :key="`row-${index}`"
+      v-for="({ value, index }, label) in appliedOptions.fields"
       class="form-results-table-row"
-      v-for="(value, label) in appliedOptions.fields"
+      :key="`row-${index}`"
     >
       <div>{{ label }}</div>
       <div>{{ tpl(value, fromData) }}</div>

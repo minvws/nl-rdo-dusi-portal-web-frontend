@@ -1,30 +1,48 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useRoute, useRouter } from 'vue-router'
 
 import { useApiUserStatusUrl, useApiLogoutUrl } from '@/composables/useApiUrl'
+import { HOME } from '@/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
+  const route = useRoute()
+  const router = useRouter()
   const isLoggedIn = ref(false)
 
-  function checkUserStatus() {
+  async function checkUserStatus() {
     const url = useApiUserStatusUrl()
 
-    fetch(url, { credentials: 'include' })
-      .then(response => response.json())
-      .then(data => isLoggedIn.value = data.logged_in)
+    try {
+      const response = await fetch(url, { credentials: 'include' })
+      const data = await response.json()
+
+      isLoggedIn.value = data.logged_in
+    } catch (error) {
+      console.error(error)
+    }
   }
 
-  function logout() {
+  async function logout() {
     const url = useApiLogoutUrl()
 
-    fetch(url, { method: 'post', credentials: 'include' })
-      .then(response => response.json())
-      .then(data => isLoggedIn.value = data.logged_in)
+    try {
+      const response = await fetch(url, { method: 'post', credentials: 'include' })
+      const data = await response.json()
+
+      isLoggedIn.value = data.logged_in
+    } catch (error) {
+      console.error(error)
+    } finally {
+      if (!route.meta.public) {
+        router.push({ name: HOME })
+      }
+    }
   }
 
   return {
     checkUserStatus,
     logout,
-    isLoggedIn,
+    isLoggedIn
   }
 })

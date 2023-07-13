@@ -26,6 +26,8 @@ import {
   NOT_FOUND
 } from '@/router/names'
 
+import { useAuthStore } from '@/store/useAuthStore'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
@@ -42,7 +44,10 @@ const router = createRouter({
     {
       path: '/',
       name: HOME,
-      component: LandingPage
+      component: LandingPage,
+      meta: {
+        public: true
+      }
     },
     {
       path: '/regelingen/pagina/:page',
@@ -54,6 +59,9 @@ const router = createRouter({
       path: '/regelingen',
       name: ARRANGEMENT_OVERVIEW,
       component: ArrangementsView,
+      meta: {
+        public: true
+      },
       children: [
         {
           path: ':id',
@@ -107,9 +115,25 @@ const router = createRouter({
       path: '/:catchAll(.*)',
       name: NOT_FOUND,
       props: true,
-      component: NotFound
+      component: NotFound,
+      meta: {
+        public: true
+      }
     }
   ]
+})
+
+// Protected router, redirect to home if not logged in.
+// @TODO: redirect to a pre-login page.
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore()
+  const isLoggedIn = authStore.isLoggedIn
+
+  if (to.meta.public || isLoggedIn) {
+    next()
+  } else {
+    next({ name: HOME })
+  }
 })
 
 export default router
