@@ -4,29 +4,38 @@
       <h1>{{ translate('pages.arrangements-overview.title') }}</h1>
       <p class="emphasized">{{ translate('pages.arrangements-overview.intro') }}</p>
     </div>
-    <AppLoader v-if="arrangements?.isLoading" centered />
-    <p v-else-if="!arrangements?.isLoading && !arrangements?.data.length">
-      {{ translate('pages.arrangements-overview.noSubsidies') }}
-    </p>
-    <div v-else>
-      <SubsidySummary v-for="(item, index) in items" :key="index" v-bind="item" />
-      <AppPagination
-        :items-total="total"
-        :page-size="pageSize"
-        :start-page="currentPage"
-        @page-change="onPageChange"
-        with-buttons
-      />
-    </div>
+    <Suspense>
+      <template #default>
+        <AppLoader v-if="isFetching" centered />
+        <div v-else-if="error">Error: {{ error }}</div>
+        <div v-else-if="!isFetching && data && data.length">
+          <SubsidySummary v-for="(item, index) in slicedItems" :key="index" v-bind="item" />
+          <AppPagination
+            :items-total="total"
+            :page-size="pageSize"
+            :start-page="currentPage"
+            @page-change="onPageChange"
+            with-buttons
+          />
+        </div>
+        <p v-else>
+          {{ translate('pages.arrangements-overview.noSubsidies') }}
+        </p>
+      </template>
+      <template #fallback>
+        <AppLoader centered />
+      </template>
+    </Suspense>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, toRefs } from 'vue'
+import type { ComputedRef } from 'vue'
+import { toRefs } from 'vue'
+import { useFetch } from '@vueuse/core'
+
 import { translate } from '@/i18n'
 import { ARRANGEMENT_OVERVIEW, ARRANGEMENT_OVERVIEW_PAGE } from '@/router/names'
-
-import { useDataStore } from '@/store/useDataStore'
 
 import useSEO from '@/composables/useSeo'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
@@ -36,20 +45,19 @@ import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppPagination from '@/components/AppPagination/AppPagination.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 
-const dataStore = useDataStore()
 const props = defineProps<{ page?: string }>()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`
 })
 
-onBeforeMount(() => dataStore.fetchData(useApiSubsidyUrl(), 'arrangements'))
+const url = useApiSubsidyUrl()
 
-const arrangements = computed(() => dataStore.getRequest('arrangements'))
+const { data, error, isFetching } = useFetch(url).json()
 
-const { currentPage, pageSize, items, total, onPageChange } = usePagination({
+const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
-  messages: arrangements,
+  items: data as ComputedRef,
   routes: {
     overview: ARRANGEMENT_OVERVIEW,
     pagination: ARRANGEMENT_OVERVIEW_PAGE

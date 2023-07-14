@@ -9,16 +9,24 @@
   <section class="background-color-offset">
     <div>
       <h2>{{ translate('pages.home.subsidiesTitle') }}</h2>
-      <AppLoader v-if="arrangements?.isLoading" centered />
-      <p v-else-if="!arrangements?.isLoading && !arrangements?.data.length">
-        {{ translate('pages.home.noSubsidies') }}
-      </p>
-      <template v-else>
-        <SubsidySummary v-for="(item, index) in arrangements.data" :key="index" v-bind="item" />
-        <RouterLink :to="{ name: 'arrangements-overview' }" class="button">
-          {{ translate('pages.home.subsidiesButton') }}
-        </RouterLink>
-      </template>
+      <Suspense>
+        <template #default>
+          <AppLoader v-if="isFetching" centered />
+          <div v-else-if="error">Error: {{ error }}</div>
+          <template v-else-if="!isFetching && data && data.length">
+            <SubsidySummary v-for="(item, index) in data" :key="index" v-bind="item" />
+            <RouterLink :to="{ name: 'arrangements-overview' }" class="button">
+              {{ translate('pages.home.subsidiesButton') }}
+            </RouterLink>
+          </template>
+          <p v-else>
+            {{ translate('pages.home.noSubsidies') }}
+          </p>
+        </template>
+        <template #fallback>
+          <AppLoader centered />
+        </template>
+      </Suspense>
     </div>
   </section>
   <section>
@@ -31,24 +39,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { useFetch } from '@vueuse/core'
 import { translate } from '@/i18n'
 
-import { useDataStore } from '@/store/useDataStore'
-import { useApiSubsidyUrl } from '@/composables/useApiUrl'
 import useSEO from '@/composables/useSeo'
+import { useApiSubsidyUrl } from '@/composables/useApiUrl'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@/components/MoreInfo/MoreInfo.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 
-const dataStore = useDataStore()
-
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
 })
 
-onBeforeMount(() => dataStore.fetchData(useApiSubsidyUrl(), 'arrangements'))
+const url = useApiSubsidyUrl()
 
-const arrangements = computed(() => dataStore.getRequest('arrangements'))
+const { data, error, isFetching } = useFetch(url).json()
 </script>

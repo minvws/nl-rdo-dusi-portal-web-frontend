@@ -9,12 +9,12 @@ import AppShell from '@/components/AppShell/AppShell.vue'
 import '@/styles/main.scss'
 
 const app = createApp(AppShell)
-const pinia = createPinia()
 const head = createHead()
+const pinia = createPinia()
 
 i18n().then(i18n => {
-  app.use(router)
   app.use(pinia)
+  app.use(router)
   app.use(head)
   app.use(i18n)
   app.mount('body')

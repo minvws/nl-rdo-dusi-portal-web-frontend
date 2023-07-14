@@ -8,46 +8,54 @@
     </div>
     <div>
       <h2>{{ translate('pages.my-file-overview.section1Title') }}</h2>
-      <AppLoader v-if="requests?.isLoading" centered />
-      <p v-else-if="!requests?.isLoading && !requests?.data.length">
-        {{ translate('pages.my-file-overview.noRequests') }}
-      </p>
-      <AppTable
-        v-else
-        :caption="translate('pages.my-file-overview.tableCaption')"
-        :headings="headings"
-        :items="requests.data"
-      />
+      <Suspense>
+        <template #default>
+          <AppLoader v-if="isFetchingRequests" centered />
+          <div v-else-if="requestsError">Error: {{ requestsError }}</div>
+          <AppTable
+            v-else-if="!isFetchingRequests && requests && requests.length"
+            :caption="translate('pages.my-file-overview.tableCaption')"
+            :headings="headings"
+            :items="requests"
+          />
+          <p v-else>
+            {{ translate('pages.my-file-overview.noRequests') }}
+          </p>
+        </template>
+        <template #fallback>
+          <AppLoader centered />
+        </template>
+      </Suspense>
     </div>
     <div>
       <h2>{{ translate('pages.my-file-overview.section2Title') }}</h2>
-      <AppLoader v-if="messages?.isLoading" centered />
-      <p v-else-if="!messages?.isLoading && !messages?.data.length">
-        {{ translate('pages.my-file-overview.noMessages') }}
-      </p>
-      <template v-else>
-        <MessageSummary
-          v-for="(item, index) in recentMessages"
-          :key="index"
-          :description="item.description"
-          :date="item.date"
-          :link="item.link"
-          :title="item.title"
-        />
-        <RouterLink :to="{ name: MY_MESSAGES }">
-          {{ translate('pages.my-file-overview.allMessages') }}
-        </RouterLink>
-      </template>
+      <Suspense>
+        <template #default>
+          <AppLoader v-if="isFetchingMessages" centered />
+          <div v-else-if="messagesError">Error: {{ messagesError }}</div>
+          <template v-else-if="!isFetchingMessages && messages && messages.length">
+            <MessageSummary v-for="(item, index) in messages" :key="index" v-bind="item" />
+            <RouterLink :to="{ name: MY_MESSAGES }">
+              {{ translate('pages.my-file-overview.allMessages') }}
+            </RouterLink>
+          </template>
+          <p v-else>
+            {{ translate('pages.my-file-overview.noMessages') }}
+          </p>
+        </template>
+        <template #fallback>
+          <AppLoader centered />
+        </template>
+      </Suspense>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { useFetch } from '@vueuse/core'
+
 import { translate } from '@/i18n'
 import { MY_MESSAGES } from '@/router/names'
-
-import { useDataStore } from '@/store/useDataStore'
 
 import useSEO from '@/composables/useSeo'
 import { useApiMessagesUrl, useApiRequestsUrl } from '@/composables/useApiUrl'
@@ -66,24 +74,24 @@ const headings = [
   { text: 'Details' }
 ]
 
-const dataStore = useDataStore()
-
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-file-overview.title')}`
 })
 
-onBeforeMount(() => {
-  dataStore.fetchData(useApiMessagesUrl(), 'messages')
-  dataStore.fetchData(useApiRequestsUrl(), 'requests')
-})
+const requestsUrl = useApiRequestsUrl()
+const messagesUrl = useApiMessagesUrl()
 
-const messages = computed(() => dataStore.getRequest('messages'))
+const {
+  data: requests,
+  error: requestsError,
+  isFetching: isFetchingRequests
+} = useFetch(requestsUrl).json()
 
-const requests = computed(() => dataStore.getRequest('requests'))
-
-const recentMessages = computed(() =>
-  messages.value?.data.length ? messages.value.data.slice(0, 3) : []
-)
+const {
+  data: messages,
+  error: messagesError,
+  isFetching: isFetchingMessages
+} = useFetch(messagesUrl).json()
 </script>
 
 <style lang="scss" scoped>

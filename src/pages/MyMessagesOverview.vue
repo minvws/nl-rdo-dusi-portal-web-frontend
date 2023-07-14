@@ -4,47 +4,46 @@
       <h1>{{ translate('pages.my-messages-overview.title') }}</h1>
       <p v-html="translate('pages.my-messages-overview.intro')" />
     </div>
-    <AppLoader v-if="messages?.isLoading" centered />
-    <p v-else-if="!messages?.isLoading && !messages?.data.length">
-      {{ translate('pages.my-messages-overview.noMessages') }}
-    </p>
-    <div v-else>
-      <div class="filter" v-filters>
-        <div>
-          <p>
-            <span>{{ total }}</span> berichten
-          </p>
-          <button data-show-filters-label="Toon filters" aria-expanded="false">
-            Toon zoek en filter opties
-          </button>
+    <Suspense>
+      <template #default>
+        <AppLoader v-if="isFetching" centered />
+        <div v-else-if="error">Error: {{ error }}</div>
+        <div v-else-if="!isFetching && data && data.length">
+          <div class="filter" v-filters>
+            <div>
+              <p><span>[total]</span> berichten</p>
+              <button data-show-filters-label="Toon filters" aria-expanded="false">
+                Toon zoek en filter opties
+              </button>
+            </div>
+            <form>
+              <p>@TODO: filters</p>
+            </form>
+          </div>
+          <MessageSummary v-for="(item, index) in slicedItems" :key="index" v-bind="item" />
+          <AppPagination
+            :items-total="total"
+            :page-size="pageSize"
+            :start-page="currentPage"
+            @page-change="onPageChange"
+            with-buttons
+          />
         </div>
-        <form>
-          <p>@TODO: filters</p>
-        </form>
-      </div>
-      <MessageSummary
-        v-for="(item, index) in items"
-        :key="index"
-        :description="item.description"
-        :date="item.date"
-        :link="item.link"
-        :title="item.title"
-      />
-      <AppPagination
-        :items-total="total"
-        :page-size="pageSize"
-        :start-page="currentPage"
-        @page-change="onPageChange"
-        with-buttons
-      />
-    </div>
+        <p v-else>
+          {{ translate('pages.my-messages-overview.noMessages') }}
+        </p>
+      </template>
+      <template #fallback>
+        <AppLoader centered />
+      </template>
+    </Suspense>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, toRefs } from 'vue'
-
-import { useDataStore } from '@/store/useDataStore'
+import type { ComputedRef } from 'vue'
+import { toRefs } from 'vue'
+import { useFetch } from '@vueuse/core'
 
 import { useApiMessagesUrl } from '@/composables/useApiUrl'
 import { usePagination } from '@/composables/usePagination'
@@ -62,20 +61,17 @@ import vFilters from '@/directives/filters'
 
 const props = defineProps<{ page?: string }>()
 
-const dataStore = useDataStore()
-
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-onBeforeMount(() => {
-  dataStore.fetchData(useApiMessagesUrl(), 'messages')
-})
+const url = useApiMessagesUrl()
 
-const messages = computed(() => dataStore.getRequest('messages'))
-const { currentPage, pageSize, items, total, onPageChange } = usePagination({
+const { data, error, isFetching } = useFetch(url).json()
+
+const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
-  messages,
+  items: data as ComputedRef,
   routes: {
     overview: MY_MESSAGES,
     pagination: MY_MESSAGES_PAGE

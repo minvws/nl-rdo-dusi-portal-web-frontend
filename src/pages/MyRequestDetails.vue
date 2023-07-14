@@ -1,107 +1,98 @@
 <template>
   <section>
-    <div>
-      <h1>{{ content?.title }}</h1>
-      <p class="emphasized">{{ content?.intro }}</p>
-      <p>{{ content?.body }}</p>
-    </div>
+    <Suspense>
+      <template #default>
+        <AppLoader v-if="isFetchingDetails" centered />
+        <div v-else-if="detailsError">Error: {{ detailsError }}</div>
+        <div v-else-if="!isFetchingDetails && details">
+          <h1>{{ details.title }}</h1>
+          <p class="emphasized">{{ details.intro }}</p>
+          <p>{{ details.body }}</p>
+        </div>
+      </template>
+      <template #fallback>
+        <AppLoader centered />
+      </template>
+    </Suspense>
     <div class="two-thirds-one-third">
       <div>
         <h3>{{ translate('pages.my-request-details.status') }}</h3>
-        <p>{{ content?.statusIntro }}</p>
-        <AppAccordion v-if="content?.steps">
-          <AppAccordionItem
-            v-for="(step, index) in content.steps"
-            :id="step.title"
-            :key="index"
-            is-open
-          >
-            <template #title>{{ step.title }}</template>
-            <template #content>
-              <div v-html="step.content" />
-              <div class="horizontal-view">
-                <AppButton v-if="step.actions.download" class="ghost" @click="onDownload">
-                  <AppIcon name="download" aria-hidden="true" />
-                  {{ translate('pages.my-request-details.downloadLabel') }}
-                </AppButton>
-                <AppButton v-if="step.actions.edit" class="ghost" @click="onEdit">
-                  <AppIcon name="chevron-light-right" aria-hidden="true" />
-                  {{ translate('pages.my-request-details.editLabel') }}
-                </AppButton>
-                <AppButton v-if="step.actions.cancel" class="ghost" @click="onCancel">
-                  <AppIcon name="chevron-light-right" aria-hidden="true" />
-                  {{ translate('pages.my-request-details.cancelLabel') }}
-                </AppButton>
-                <p v-if="!step.actions.download && !step.actions.edit && !step.actions.cancel">
-                  <strong>{{ translate('pages.my-request-details.noAction') }}</strong>
-                </p>
-              </div>
-            </template>
-          </AppAccordionItem>
-        </AppAccordion>
+        <Suspense>
+          <template #default>
+            <AppLoader v-if="isFetchingDetails" centered />
+            <div v-else-if="detailsError">Error: {{ detailsError }}</div>
+            <div v-else-if="!isFetchingDetails && details">
+              <p>{{ details.statusIntro }}</p>
+              <RequestSteps
+                v-if="details.steps"
+                :items="details.steps"
+                @cancel="onCancel"
+                @download="onDownload"
+                @edit="onEdit"
+              />
+            </div>
+          </template>
+          <template #fallback>
+            <AppLoader centered />
+          </template>
+        </Suspense>
       </div>
 
       <div>
         <h3>{{ translate('pages.my-request-details.messages') }}</h3>
-        <AppLoader v-if="messages?.isLoading" centered />
-        <p v-else-if="!messages?.isLoading && !messages?.data.length">
-          {{ translate('pages.my-request-details.noMessages') }}
-        </p>
-        <template v-else>
-          <MessageSummary
-            v-for="(item, index) in recentMessages"
-            :key="index"
-            :description="item.description"
-            :date="item.date"
-            :link="item.link"
-            :title="item.title"
-          />
-        </template>
+        <Suspense>
+          <template #default>
+            <AppLoader v-if="isFetchingMessages" centered />
+            <div v-else-if="messagesError">Error: {{ messagesError }}</div>
+            <div v-else-if="!isFetchingMessages && messages && messages.length">
+              <MessageSummary v-for="(item, index) in messages" :key="index" v-bind="item" />
+            </div>
+            <p v-else>
+              {{ translate('pages.my-request-details.noMessages') }}
+            </p>
+          </template>
+          <template #fallback>
+            <AppLoader centered />
+          </template>
+        </Suspense>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { useFetch } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 import { translate } from '@/i18n'
-
-import { useDataStore } from '@/store/useDataStore'
 
 import { useApiMessagesUrl, useApiRequestDetail } from '@/composables/useApiUrl'
 import useSEO from '@/composables/useSeo'
 
-import AppAccordion from '@/components/AppAccordion/AppAccordion.vue'
-import AppAccordionItem from '@/components/AppAccordionItem/AppAccordionItem.vue'
-import AppButton from '@/components/AppButton/AppButton.vue'
-import AppIcon from '@/components/AppIcon/AppIcon.vue'
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
+import RequestSteps from '@/components/RequestSteps/RequestSteps.vue'
 
 const route = useRoute()
-const dataStore = useDataStore()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-details.title')}`
 })
 
-onBeforeMount(() => {
-  const { id } = route.params as { id: string }
-  dataStore.fetchData(useApiRequestDetail(id), id)
-  dataStore.fetchData(useApiMessagesUrl(), 'messages')
-})
+const { id } = route.params as { id: string }
 
-const messages = computed(() => dataStore.getRequest('messages'))
+const messagesUrl = useApiMessagesUrl()
+const detailsUrl = useApiRequestDetail(id)
 
-const content = computed(() => {
-  const { id } = route.params as { id: string }
-  return dataStore.getRequest(id)?.data
-})
-
-const recentMessages = computed(() =>
-  messages.value?.data.length ? messages.value.data.slice(0, 3) : []
-)
+const {
+  data: messages,
+  error: messagesError,
+  isFetching: isFetchingMessages
+} = useFetch(messagesUrl).json()
+const {
+  data: details,
+  error: detailsError,
+  isFetching: isFetchingDetails
+} = useFetch(detailsUrl).json()
 
 function onDownload(event: Event) {
   console.log('download', event)
