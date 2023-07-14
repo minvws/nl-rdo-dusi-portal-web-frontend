@@ -2,26 +2,13 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useApiUserStatusUrl, useApiLogoutUrl } from '@/composables/useApiUrl'
+import { useApiLogoutUrl } from '@/composables/useApiUrl'
 import { HOME } from '@/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
   const isLoggedIn = ref(false)
-
-  async function checkUserStatus() {
-    const url = useApiUserStatusUrl()
-
-    try {
-      const response = await fetch(url, { credentials: 'include' })
-      const data = await response.json()
-
-      isLoggedIn.value = data.logged_in
-    } catch (error) {
-      console.error(error)
-    }
-  }
 
   async function logout() {
     const url = useApiLogoutUrl()
@@ -41,7 +28,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   return {
-    checkUserStatus,
     logout,
     isLoggedIn
   }

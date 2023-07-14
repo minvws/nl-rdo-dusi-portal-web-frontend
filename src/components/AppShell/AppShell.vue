@@ -8,20 +8,11 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView, useRouter } from 'vue-router'
+import { RouterView } from 'vue-router'
 
 import { translate } from '@/i18n'
 
-import { useAuthStore } from '@/store/useAuthStore'
-
+import AppContent from '@/components/AppContent/AppContent.vue'
 import AppFooter from '@/components/AppFooter/AppFooter.vue'
 import AppHeader from '@/components/AppHeader/AppHeader.vue'
-import AppContent from '@/components/AppContent/AppContent.vue'
-
-const authStore = useAuthStore()
-const router = useRouter()
-
-router.afterEach((to, from) => {
-  authStore.checkUserStatus()
-})
 </script>

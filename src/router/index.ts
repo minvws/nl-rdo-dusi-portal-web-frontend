@@ -11,6 +11,9 @@ import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import NotFound from '@/pages/NotFound.vue'
 import RemoteForm from '@/pages/RemoteForm.vue'
 
+import { useApiUserStatusUrl } from '@/composables/useApiUrl'
+import { useAuthStore } from '@/store/useAuthStore'
+
 import {
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
@@ -25,8 +28,6 @@ import {
   MY_REQUEST_DETAILS,
   NOT_FOUND
 } from '@/router/names'
-
-import { useAuthStore } from '@/store/useAuthStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -125,11 +126,16 @@ const router = createRouter({
 
 // Protected router, redirect to home if not logged in.
 // @TODO: redirect to a pre-login page.
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const authStore = useAuthStore()
-  const isLoggedIn = authStore.isLoggedIn
+  const url = useApiUserStatusUrl()
 
-  if (to.meta.public || isLoggedIn) {
+  const response = await fetch(url, { credentials: 'include' })
+  const data = await response.json()
+
+  authStore.isLoggedIn = data.logged_in
+
+  if (to.meta.public || data.logged_in) {
     next()
   } else {
     next({ name: HOME })
