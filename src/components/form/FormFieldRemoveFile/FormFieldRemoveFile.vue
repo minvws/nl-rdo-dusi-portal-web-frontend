@@ -15,11 +15,13 @@ import AppIcon from '@/components/AppIcon/AppIcon.vue'
 import { useFieldFileRemove } from '@/composables/useField'
 import { getControlId } from '@/util/control-util'
 
-const props = defineProps<{
+type Props = {
+  handleChange?: (_path: string, _value: any) => void
   id: string
   labelFor: string
-  handleChange?: (_path: string, _value: any) => void
-}>()
+}
+
+const props = defineProps<Props>()
 
 const emit = defineEmits(['blur'])
 const { hasFile, label, addOrRemoveFile } = useFieldFileRemove(props)

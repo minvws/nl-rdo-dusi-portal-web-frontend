@@ -18,8 +18,11 @@
 </template>
 <script setup lang="ts">
 defineEmits(['input', 'change', 'focus', 'blur'])
-defineProps<{
-  value?: string
+
+type Props = {
   items: { id: string; value: string; checked: boolean }[]
-}>()
+  value?: string
+}
+
+defineProps<Props>()
 </script>

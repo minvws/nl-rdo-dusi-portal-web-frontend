@@ -34,13 +34,13 @@ import AppButton from '@/components/AppButton/AppButton.vue'
 import { translate } from '@/i18n'
 
 type RequestStepItem = {
-  title: string
-  content: string
   actions: {
     download?: boolean
     edit?: boolean
     cancel?: boolean
   }
+  content: string
+  title: string
 }
 
 export type RequestStepsProps = {

@@ -41,8 +41,8 @@ defineEmits(['validate', 'step', 'submit'])
 
 type Props = {
   forms: FormTitle[]
-  index: number
   formsErrors: FormError[]
+  index: number
   readonly: boolean
   touched?: number[]
 }

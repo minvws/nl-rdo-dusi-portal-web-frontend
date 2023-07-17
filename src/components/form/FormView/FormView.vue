@@ -58,9 +58,9 @@ type Props = {
   title?: string
 }
 
-const ajv = useAjv()
 const props = defineProps<Props>()
 
+const ajv = useAjv()
 const renderers = useRenderers()
 const i18n = useI18n()
 const store = useFormStore()

@@ -15,13 +15,15 @@ import { InputType } from '@/type/input-types'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
 
-defineProps<{
+type Props = {
+  autofocus?: boolean
+  disabled?: boolean
   id: string
+  options: { value: string; label: string }[]
+  placeholder?: string
   type: InputType
   value?: string
-  disabled?: boolean
-  autofocus?: boolean
-  placeholder?: string
-  options: { value: string; label: string }[]
-}>()
+}
+
+defineProps<Props>()
 </script>

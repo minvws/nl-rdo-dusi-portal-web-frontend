@@ -59,7 +59,11 @@ import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
 
 import vFilters from '@/directives/filters'
 
-const props = defineProps<{ page?: string }>()
+type Props = {
+  page?: string
+}
+
+const props = defineProps<Props>()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`

@@ -26,8 +26,8 @@ const emit = defineEmits(['step'])
 
 type Props = {
   forms: FormTitle[]
-  index: number
   formsErrors: FormError[]
+  index: number
   readonly: boolean
   touched?: number[]
 }

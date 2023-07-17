@@ -30,15 +30,15 @@ import { translate } from '@/i18n'
 import { ARRANGEMENT_DETAILS } from '@/router/names'
 
 export type SubsidySummaryProps = {
-  validFrom: string
-  validTo?: string
-  title: string
   description: string
   publishedForm: {
     id: string
     version: number
   }
   readMore?: string
+  title: string
+  validFrom: string
+  validTo?: string
 }
 
 const props = defineProps<SubsidySummaryProps>()

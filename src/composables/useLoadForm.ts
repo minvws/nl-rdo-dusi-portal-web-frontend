@@ -1,5 +1,5 @@
-import type { ComputedRef, Ref } from 'vue'
-import { computed, ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
 import type { Form, FormResult } from '@/type/form-types'
 
 import { useApiFormsUrl } from '@/composables/useApiUrl'
@@ -7,6 +7,8 @@ import { isLabeled, isLayout } from '@jsonforms/core'
 import type { JsonSchema } from '@jsonforms/core'
 
 export const transformForm = (form: Form): Form[] => {
+  const baseSchema: JsonSchema = form.schema
+
   if (form.uischema.type !== 'CustomPageNavigationControl') {
     // assume single page form
     return [form]
@@ -15,8 +17,6 @@ export const transformForm = (form: Form): Form[] => {
   if (!isLayout(form.uischema)) {
     throw 'UI schema is invalid, expected page navigation layout!'
   }
-
-  const baseSchema: JsonSchema = form.schema
 
   const forms: Form[] = form.uischema.elements.map(function (el) {
     if (el.type !== 'CustomPageControl' || !isLabeled(el) || !isLayout(el)) {
@@ -55,8 +55,8 @@ export const useLoadForm = () => {
       const json: FormResult = await response.json()
       const { title, dataSchema: schema, uiSchema: uischema } = json
       const form: Form = { title, schema, uischema }
+
       forms.value = transformForm(form)
-      console.log(forms.value)
       titleRef.value = title
     } catch (e) {
       error.value = `${e}`

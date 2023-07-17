@@ -6,8 +6,8 @@
 
 <script setup lang="ts">
 type Props = {
-  labelFor: string
   description: string
+  labelFor: string
 }
 
 defineProps<Props>()

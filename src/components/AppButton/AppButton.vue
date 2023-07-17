@@ -5,16 +5,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType, ButtonHTMLAttributes } from 'vue'
+import type { ButtonHTMLAttributes } from 'vue'
 
-defineProps({
-  type: {
-    type: String as PropType<ButtonHTMLAttributes['type']>,
-    default: 'button'
-  },
-  disabled: {
-    type: Boolean,
-    default: false
-  }
-})
+type Props = {
+  disabled?: boolean
+  type?: ButtonHTMLAttributes['type']
+}
+
+defineProps<Props>()
 </script>

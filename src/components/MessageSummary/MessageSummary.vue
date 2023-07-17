@@ -20,8 +20,8 @@ import { computed } from 'vue'
 import { translate } from '@/i18n'
 
 export type MessageSummaryProps = {
-  description?: string
   date: string
+  description?: string
   link: string
   title: string
 }

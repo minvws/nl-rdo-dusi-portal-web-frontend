@@ -8,8 +8,8 @@
 import { translate } from '@/i18n'
 
 type Props = {
-  type: 'error' | 'warning' | 'explanation' | 'success'
   message: string
+  type: 'error' | 'warning' | 'explanation' | 'success'
 }
 
 defineProps<Props>()

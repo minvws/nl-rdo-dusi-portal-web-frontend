@@ -19,17 +19,19 @@ import { type Control } from '@/type/field-types'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
 
-const props = defineProps<{
-  id: string
-  type: InputType
-  control: Control
+type Props = {
   accept?: string
-  handleChange: (_path: string, _value: any) => void
-  value?: string
-  disabled?: boolean
   autofocus?: boolean
+  control: Control
+  disabled?: boolean
+  handleChange: (_path: string, _value: any) => void
+  id: string
   placeholder?: string
-}>()
+  type: InputType
+  value?: string
+}
+
+const props = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>

@@ -41,28 +41,15 @@ import { translate } from '@/i18n'
 
 const emit = defineEmits(['page-change'])
 
-const props = defineProps({
-  path: {
-    type: String,
-    default: '#'
-  },
-  startPage: {
-    type: Number,
-    required: true
-  },
-  itemsTotal: {
-    type: Number,
-    required: true
-  },
-  pageSize: {
-    type: Number,
-    required: true
-  },
-  withButtons: {
-    type: Boolean,
-    default: false
-  }
-})
+type Props = {
+  itemsTotal: number
+  pageSize: number
+  path?: string | '#'
+  startPage: number
+  withButtons?: boolean
+}
+
+const props = defineProps<Props>()
 
 const currentPage = ref(props.startPage)
 

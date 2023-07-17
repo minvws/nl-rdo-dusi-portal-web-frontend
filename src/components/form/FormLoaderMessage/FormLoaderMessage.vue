@@ -16,7 +16,13 @@ import { translate } from '@/i18n'
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
 
-const props = defineProps<{ isLoading?: boolean; isSubmitting?: boolean; error?: string }>()
+type Props = {
+  error?: string
+  isLoading?: boolean
+  isSubmitting?: boolean
+}
+
+const props = defineProps<Props>()
 
 const loadingMessage = computed(() => {
   return (

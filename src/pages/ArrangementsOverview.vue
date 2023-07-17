@@ -45,7 +45,11 @@ import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppPagination from '@/components/AppPagination/AppPagination.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 
-const props = defineProps<{ page?: string }>()
+type Props = {
+  page?: string
+}
+
+const props = defineProps<Props>()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`

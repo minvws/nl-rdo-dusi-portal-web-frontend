@@ -56,9 +56,9 @@ export type TableRowProps = TableCell[]
 
 type Props = {
   caption?: string
+  footer?: TableRowProps[] | null
   headings: TableCellHeadingProps[]
   items: TableRowProps[]
-  footer?: TableRowProps[] | null
 }
 
 defineProps<Props>()
