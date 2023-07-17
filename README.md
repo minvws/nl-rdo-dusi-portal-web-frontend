@@ -1,76 +1,53 @@
-# vue-project
+# Dus-i Burgerportaal
 
-This template should help get you started developing with Vue 3 in Vite.
+This directory contains the new front-end for the Dus-i Burgerportaal.
 
 ## Recommended IDE Setup
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-# Vue 3 + Vite + Storybook
-
-This template should help get you started developing with Vue 3 in Vite.
-The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-    1) Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2) Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+The recommended setup for developing this project is using [Visual Studio Code](https://code.visualstudio.com/).
+The following extensions are recommended:
+- [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur)
+- [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
 ## Project Setup
 
-```sh
-npm install
-```
+The project is built using [Vite](https://vitejs.dev/). It uses [Vue 3](https://v3.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
+[Storybook](https://storybook.js.org/) is available for component development and [Cypress](https://www.cypress.io/) for end-to-end testing.
 
-### Compile and Hot-Reload for Development
+With Vue 3 we use the [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
+For styling we use the [Rijksoverheid Theme](https://github.com/minvws/nl-rdo-rijksoverheid-ui-theme) to ensure it matches the Rijksoverheid design language.
 
-```sh
-npm run dev
-```
+Before you can start developing, you need to install the dependencies. You can do this by running the following command in the root of the project:
 
-### Type-Check, Compile and Minify for Production
+### Install dependencies
 
 ```sh
-npm run build
+npm ci --no-audit --no-fund
 ```
+~Note: the flags speed up the install process.~
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
+### Environment variables
 
-```sh
-npm run test:unit
-```
+The project uses environment variables to configure the application. You can find the available variables in the `.env.example` file.
+To use these variables, you need to create a `.env` file in the root of the project. You can copy the `.env.example` file and rename it to `.env`.
 
-### Run End-to-End Tests with [Playwright](https://playwright.dev)
+### Available scripts
 
-```sh
-# Install browsers for the first run
-npx playwright install
+After installing the dependencies, the following scripts are available:
 
-# When testing on CI, must build the project first
-npm run build
+| Script        | Description |
+|---------------|------------ |
+| build-only    | Builds Vite |
+| build-storybook| Builds the production version of Storybook |
+| build         | Builds the production version of the project |
+| dev           | Builds the development version of the project |
+| format        | Formats source code |
+| lint          | Lints source code |
+| lint-fix      | Lints and auto-fixes source code |
+| prepare       | Installs Husky Git during install |
+| storybook     | Builds the development version of Storybook |
+| test:e2e      | Runs end-to-end tests |
+| test:unit     | Runs unit tests |
+| type-check    | Perform type checking |
 
-# Runs the end-to-end tests
-npm run test:e2e
-# Runs the tests only on Chromium
-npm run test:e2e -- --project=chromium
-# Runs the tests of a specific file
-npm run test:e2e -- tests/example.spec.ts
-# Runs the tests in debug mode
-npm run test:e2e -- --debug
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+~Note: There are also `init.sh` and `run.sh` executable scripts available in the root of the project.~
