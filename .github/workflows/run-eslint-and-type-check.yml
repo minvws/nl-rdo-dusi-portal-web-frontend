@@ -1,4 +1,4 @@
-name: Run ESLint
+name: Run ESLint & TypeScript Type Check
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  eslint:
-    name: Run ESLint
+  eslint-and-type-check:
+    name: Run ESLint & TypeScript Type Check
     runs-on: ubuntu-latest
 
     steps:
@@ -30,3 +30,6 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+
+      - name: Run TypeScript Type Check
+        run: npm run type-check
