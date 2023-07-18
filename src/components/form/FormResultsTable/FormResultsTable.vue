@@ -1,13 +1,20 @@
 <template>
   <div class="form-results-table">
-    <div
-      v-for="({ value, index }, label) in appliedOptions.fields"
-      class="form-results-table-row"
-      :key="`row-${index}`"
-    >
-      <div>{{ label }}</div>
-      <div>{{ tpl(value, fromData) }}</div>
-    </div>
+    <template v-if="!fields.length">
+      <div
+        v-for="([key, value], index) in fields"
+        class="form-results-table-row"
+        :key="`row-${index}`"
+      >
+        <div>{{ key }}</div>
+        <div>{{ tpl(value, fromData) }}</div>
+      </div>
+    </template>
+    <FormNotification
+      v-else
+      type="explanation"
+      :message="`${translate('component.formResultsTable.noData')}`"
+    />
   </div>
 </template>
 
@@ -21,18 +28,28 @@ import { useFormStore } from '@/store/useFormStore'
 
 import { translate } from '@/i18n'
 
+import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
+
 const tpl = function (template: string, props: Record<string, string>) {
   let result: string = template
   const regex = /\{([a-zA-Z]+)\}/g
+
   Array.from(template.matchAll(regex)).forEach(
     m => (result = result.replace('{' + m[1] + '}', (props[m[1]] ?? '') + ''))
   )
+
   return result
 }
 
 export default defineComponent({
+  components: { FormNotification },
   props: {
     ...rendererProps<ControlElement>()
+  },
+  computed: {
+    fields() {
+      return Object.entries(this.appliedOptions.fields) as [string, string][]
+    }
   },
   methods: {
     tpl

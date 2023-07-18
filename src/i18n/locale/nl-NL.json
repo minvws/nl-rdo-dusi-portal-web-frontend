@@ -21,6 +21,7 @@
       "warning": "Waarschuwing"
     },
     "formResultsTable": {
+      "noData": "Geen gegevens ingevuld.",
       "results": {
         "accountHolderName": {
           "label": "Naam rekeninghouder",
