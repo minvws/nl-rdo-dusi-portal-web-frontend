@@ -9,7 +9,6 @@ on:
 
 jobs:
   eslint-and-type-check:
-    name: Run ESLint & TypeScript Type Check
     runs-on: ubuntu-latest
 
     steps:
