@@ -68,6 +68,9 @@ const router = createRouter({
           path: ':id',
           name: ARRANGEMENT_DETAILS,
           component: ArrangementView,
+          meta: {
+            public: false
+          },
           children: [
             {
               path: 'aanvraag-verzonden',
