@@ -15,9 +15,7 @@ import { ARRANGEMENT_OVERVIEW } from '@/router/names'
 const forms = useFormStore()
 const router = useRouter()
 
-onBeforeRouteLeave(() => {
-  forms.clearActiveForm()
-})
+onBeforeRouteLeave(() => forms.clearActiveForm())
 
 if (!forms.activeForm) {
   // no active form, redirect

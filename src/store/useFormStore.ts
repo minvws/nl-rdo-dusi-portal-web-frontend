@@ -1,48 +1,102 @@
+import type { Ref } from 'vue'
+import type { FormData } from '@/type/form-types'
+import { computed, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
-import { useFormSubmit } from '@/composables/useFormSubmit'
-import { useTouchedFields } from '@/composables/useTouchedFields'
+
+import { useFilesStore } from '@/store/useFilesStore'
+
 import { useActiveForm } from '@/composables/useActiveForm'
+import { useApiDraftFormUrl, useApiFormsSubmitUrl } from '@/composables/useApiUrl'
+import { useTouchedFields } from '@/composables/useTouchedFields'
 import { useTouchedForms } from '@/composables/useTouchedForms'
-import { useFiles } from '@/composables/useFiles'
+
+import { FORM_SENT } from '@/router/names'
 
 export const useFormStore = defineStore('useFormStore', () => {
+  const draftFormId: Ref<string> = ref('')
+  const isSubmitting: Ref<boolean> = ref(false)
+
   const { clearForm, ...forms } = useActiveForm()
-  const { clearFiles, ...files } = useFiles(forms)
   const { useTouchedField, setTouchedField, clearTouchedFields } = useTouchedFields(forms)
   const { touchedForms, clearTouchedForms } = useTouchedForms(forms)
-  const submit = useFormSubmit()
-  const readonly = computed(() => submit.isSubmitting.value)
+  const filesStore = useFilesStore()
+  const route = useRoute()
+  const router = useRouter()
 
-  const onValidate = () => {
+  const readonly = computed(() => isSubmitting.value)
+
+  function onValidate() {
     forms
       .getCurrentScopes()
       .forEach((id: string) => setTouchedField(id, forms.activeForm.value.id, true))
   }
 
-  const onSubmit = () => {
-    const id = forms.activeForm.value.id
-    const data = forms.formData.value
-    submit.onSubmit({ data, id })
+  async function onSubmit() {
+    const formData: FormData = forms.formData.value
+    const url = useApiFormsSubmitUrl(draftFormId.value)
+    // @TODO: send stringified data for now, until we know how we want to encrypt it.
+    const body = { data: JSON.stringify(formData) }
+
+    const options: RequestInit = {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        Accept: 'text/plain',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+
+    isSubmitting.value = true
+
+    try {
+      const response = await fetch(url, options)
+
+      if (response.ok) {
+        router.replace({ name: FORM_SENT })
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      isSubmitting.value = false
+    }
   }
 
-  const clearActiveForm = () => {
-    const id = forms.activeForm.value?.id
+  function clearActiveForm() {
+    const { id } = forms.activeForm.value
     clearTouchedFields(id)
     clearTouchedForms(id)
-    clearFiles(id)
+    filesStore.clearFiles(id)
     clearForm(id)
   }
 
+  async function createFormDraft() {
+    const { id } = route.params
+    const url = useApiDraftFormUrl(id as string)
+    const options: RequestInit = {
+      method: 'POST',
+      credentials: 'include'
+    }
+
+    const response = await fetch(url, options)
+    const data = await response.json()
+
+    if (data.id) {
+      draftFormId.value = data.id
+    }
+  }
+
   return {
-    readonly,
-    submit,
-    touchedForms,
     clearActiveForm,
+    createFormDraft,
+    draftFormId,
     onSubmit,
     onValidate,
+    readonly,
+    touchedForms,
     useTouchedField,
     ...forms,
-    ...files
+    ...filesStore.files
   }
 })

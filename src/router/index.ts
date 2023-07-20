@@ -129,11 +129,15 @@ const router = createRouter({
 
 // Protected router, redirect to home if not logged in.
 // @TODO: redirect to a pre-login page.
-router.beforeEach(async (to, _from, next) => {
+router.beforeEach(async (to, from, next) => {
   const authStore = useAuthStore()
   const url = useApiUserStatusUrl()
 
-  const response = await fetch(url, { credentials: 'include' })
+  if (!authStore.isLoggedIn && to.fullPath !== from.fullPath) {
+    return next()
+  }
+
+  const response = await fetch(url, { method: 'GET', credentials: 'include' })
   const data = await response.json()
 
   authStore.isLoggedIn = data.logged_in

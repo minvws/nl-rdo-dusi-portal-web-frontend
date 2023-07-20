@@ -7,23 +7,30 @@
     </div>
     <div v-if="isVisible">
       <h2>files:</h2>
-      <pre>{{ store.files }}</pre>
+      <pre>{{ files }}</pre>
       <h2>data:</h2>
-      <pre>{{ store.data }}</pre>
+      <pre>{{ data }}</pre>
       <h2>errors:</h2>
-      <pre>{{ store.errors }}</pre>
+      <pre>{{ errors }}</pre>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
+
+import { useFilesStore } from '@/store/useFilesStore'
 import { useFormStore } from '@/store/useFormStore'
 import { useFormDummyData } from '@/composables/useFormDummyData'
 
 const isVisible = ref(false)
 const onSetDummyData = useFormDummyData()
-const store = useFormStore()
+const fileStore = useFilesStore()
+const formStore = useFormStore()
+
+const { files } = storeToRefs(fileStore)
+const { data, errors } = storeToRefs(formStore)
 </script>
 
 <style lang="scss" scoped>

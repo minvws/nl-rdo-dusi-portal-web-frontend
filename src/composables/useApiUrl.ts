@@ -1,6 +1,14 @@
 const useMockData = import.meta.env.VITE_MOCK_DATA
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
+export const useApiDraftFormUrl = (id: string) => {
+  return `${baseUrl}/api/forms/${id}/applications`
+}
+
+export const useApiFileUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}/files`
+}
+
 export const useApiLoginUrl = () => {
   return `${baseUrl}/oidc/login`
 }
@@ -15,6 +23,10 @@ export const useApiUserStatusUrl = () => {
 
 export const useApiFormsUrl = (id: string | number) => {
   return `${baseUrl}/api/forms/${id}`
+}
+
+export const useApiFormsSubmitUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}`
 }
 
 export const useApiSubsidyUrl = () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="form-results-table">
-    <template v-if="!fields.length">
+    <template v-if="fields.length">
       <div
         v-for="([key, value], index) in fields"
         class="form-results-table-row"

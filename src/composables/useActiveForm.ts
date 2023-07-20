@@ -7,122 +7,100 @@ import type { Form, FormData, FormError } from '@/type/form-types'
 import { getDeepProps } from '@/util/array-util'
 import { getControlId, getLinkedControlId } from '@/util/control-util'
 
-export const useActiveForm = () => {
-  const store: Ref<
-    Record<
-      string,
-      { forms: Form[]; id: string; index: number; data: FormData[]; errors: FormError[] }
-    >
-  > = ref({})
+type ActiveFormStore = {
+  forms: Form[]
+  id: string
+  index: number
+  data: FormData[]
+  errors: FormError[]
+}
 
+export const useActiveForm = () => {
+  const store: Ref<Record<string, ActiveFormStore>> = ref({})
   const formId: Ref<string> = ref('')
 
-  const setForms = ({ forms, id }: { forms: Form[]; id: string | number }) => {
+  const activeForm = computed(() => store.value[formId.value])
+
+  const index = computed(() => activeForm.value?.index ?? -1)
+
+  const forms = computed(() => activeForm.value?.forms)
+
+  const formsData = computed(() => activeForm.value?.data)
+
+  const formsErrors = computed(() => activeForm.value?.errors)
+
+  const formKey = computed(() => `form-${formId.value}-${index.value}`)
+
+  const form = computed(() => activeForm.value?.forms[index.value])
+
+  const uischema = computed(() => form.value?.uischema)
+
+  const schema = computed(() => form.value?.schema)
+
+  const data = computed(() => formsData.value?.[index.value] ?? {})
+
+  const errors = computed(() => formsErrors.value?.[index.value])
+
+  const formData = computed(() => formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {}))
+
+  function setForms({ forms, id }: { forms: Form[]; id: string | number }) {
     formId.value = `${id}`
     const { data, index } = store.value[formId.value] ?? { data: [], index: 0 } // set cache for form
     store.value[formId.value] = { id: formId.value, forms, errors: [], index, data }
   }
 
-  const clearForm = (id?: string) => {
+  function clearForm(id?: string) {
     if (id) delete store.value[id]
     formId.value = ''
   }
 
-  const activeForm = computed(() => {
-    return store.value[formId.value]
-  })
-
-  const index = computed(() => {
-    return activeForm.value?.index ?? -1
-  })
-
-  const forms = computed(() => {
-    return activeForm.value?.forms
-  })
-
-  const formsData = computed(() => {
-    return activeForm.value?.data
-  })
-
-  const formsErrors = computed(() => {
-    return activeForm.value?.errors
-  })
-
-  const formKey = computed(() => {
-    return `form-${formId.value}-${index.value}`
-  })
-
-  const form = computed(() => {
-    return activeForm.value?.forms[index.value]
-  })
-
-  const uischema = computed(() => {
-    return form.value?.uischema
-  })
-
-  const schema = computed(() => {
-    return form.value?.schema
-  })
-
-  const data = computed(() => {
-    return formsData.value?.[index.value] ?? {}
-  })
-
-  const errors = computed(() => {
-    return formsErrors.value?.[index.value]
-  })
-
-  const formData = computed(() => {
-    return formsData.value.reduce((cul, cur) => {
-      return { ...cul, ...cur }
-    }, {})
-  })
-
-  const getScopesFromElements = () => {
+  function getScopesFromElements() {
     const key = 'elements'
     const elements = (uischema.value as any)?.[key] ?? []
+
     return getDeepProps(elements, key, 'scope')
   }
-  const getCurrentScopes = () => {
+
+  function getCurrentScopes() {
     return getScopesFromElements().map((scope: string) => getControlId(scope))
   }
 
-  const getCurrentLinkedScopes = () => {
+  function getCurrentLinkedScopes() {
     return getScopesFromElements().map((scope: string) => getLinkedControlId(scope))
   }
 
-  const setFormStep = (value: number) => {
+  function setFormStep(value: number) {
     activeForm.value.index = value
   }
 
-  const setFormData = (data: any) => {
+  function setFormData(data: any) {
     formsData.value[index.value] = data
   }
 
-  const onChange = ({ data, errors }: JsonFormsChangeEvent) => {
+  function onChange({ data, errors }: JsonFormsChangeEvent) {
     activeForm.value.data[index.value] = data
     activeForm.value.errors[index.value] = errors
   }
 
   return {
     activeForm,
+    clearForm,
     data,
     errors,
+    events: {
+      change: onChange
+    },
     formData,
     formKey,
     forms,
     formsErrors,
+    getCurrentLinkedScopes,
+    getCurrentScopes,
     index,
     schema,
-    uischema,
-    getCurrentScopes,
-    getCurrentLinkedScopes,
+    setFormData,
     setForms,
     setFormStep,
-    setFormData,
-    clearForm,
-    events: {
-      change: onChange
-    }
+    uischema
   }
 }

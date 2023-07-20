@@ -24,9 +24,10 @@ type Props = {
 const props = defineProps<Props>()
 
 const emit = defineEmits(['blur'])
+
 const { hasFile, label, addOrRemoveFile } = useFieldFileRemove(props)
 
-const onRemoveFile = () => {
+function onRemoveFile() {
   addOrRemoveFile(props.id)
   props.handleChange?.(getControlId(props.id), undefined)
   emit('blur')

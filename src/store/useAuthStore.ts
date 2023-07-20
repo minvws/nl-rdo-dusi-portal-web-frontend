@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     const url = useApiLogoutUrl()
 
     try {
-      const response = await fetch(url, { method: 'post', credentials: 'include' })
+      const response = await fetch(url, { method: 'POST', credentials: 'include' })
       const data = await response.json()
 
       isLoggedIn.value = data.logged_in

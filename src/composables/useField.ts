@@ -1,26 +1,25 @@
 import { computed } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 
-import { useFormStore } from '@/store/useFormStore'
+import { useFilesStore } from '@/store/useFilesStore'
 
 import { InputType } from '@/type/input-types'
 import type { Control, Field } from '@/type/field-types'
 
 import { formatFile } from '@/util/format-util'
 
-const getFieldProp = (control: Control) => {
-  const {
-    schema: { type }
-  } = control
-  switch (type) {
+function getFieldProp(control: Control) {
+  switch (control.schema.type) {
     case 'boolean':
       return 'checked'
     default:
       return 'value'
   }
 }
+
 export const useFieldChange = ({ control }: Field) => {
-  const { addOrRemoveFile } = useFormStore()
+  const { addOrRemoveFile } = useFilesStore()
+
   return {
     addOrRemoveFile,
     onHandleChange: (target: HTMLInputElement) => {
@@ -87,7 +86,7 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
 }
 
 export const useFieldFileRemove = ({ id }: { id: string }) => {
-  const { getFile, addOrRemoveFile } = useFormStore()
+  const { getFile, addOrRemoveFile } = useFilesStore()
   const file = computed(() => getFile(id))
   const hasFile = computed(() => !!file.value)
   const label = computed(() => formatFile(file.value?.name))

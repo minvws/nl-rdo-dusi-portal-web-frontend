@@ -1,35 +1,35 @@
 <template>
-  <div :key="store.formKey">
+  <div :key="formKey">
     <h1 v-if="title">{{ title }}</h1>
     <FormStepper
-      :index="store.index"
-      :forms="store.forms"
-      :formsErrors="store.formsErrors"
-      :touched="store.touchedForms"
-      :readonly="store.readonly"
-      @step="store.setFormStep"
+      :index="index"
+      :forms="forms"
+      :formsErrors="formsErrors"
+      :touched="touchedForms"
+      :readonly="readonly"
+      @step="onStep"
     />
     <form class="form-view" @submit.prevent>
       <JsonForms
         class="horizontal-view"
         :renderers="renderers"
         :i18n="i18n"
-        :schema="store.schema"
-        :uischema="store.uischema"
-        :data="store.data"
+        :schema="schema"
+        :uischema="uischema"
+        :data="data"
         :ajv="ajv"
-        :readonly="store.readonly"
-        v-on="store.events"
+        :readonly="readonly"
+        @change="onChange"
       />
-      <FormLoaderMessage v-bind="store.submit" />
+      <FormLoaderMessage v-bind="onSubmit" />
       <FormButtons
-        :index="store.index"
-        :forms="store.forms"
-        :formsErrors="store.formsErrors"
-        :touched="store.touchedForms"
-        :readonly="store.readonly"
-        @submit="store.onSubmit"
-        @step="store.setFormStep"
+        :index="index"
+        :forms="forms"
+        :formsErrors="formsErrors"
+        :touched="touchedForms"
+        :readonly="readonly"
+        @submit="onSubmit"
+        @step="onStep"
         @validate="onValidate"
       />
     </form>
@@ -39,6 +39,8 @@
 
 <script setup lang="ts">
 import type { Form } from '@/type/form-types'
+import type { JsonFormsChangeEvent } from '@jsonforms/vue'
+import { storeToRefs } from 'pinia'
 import { JsonForms } from '@jsonforms/vue'
 
 import { useRenderers } from '@/composables/useRenderers'
@@ -63,14 +65,30 @@ const props = defineProps<Props>()
 const ajv = useAjv()
 const renderers = useRenderers()
 const i18n = useI18n()
-const store = useFormStore()
-const error = useFormScroll(store)
+const formStore = useFormStore()
+const error = useFormScroll(formStore)
 const isDebug = !import.meta.env.PROD
 
-store.setForms(props)
+const { data, index, formKey, formsErrors, readonly, schema, touchedForms, uischema } =
+  storeToRefs(formStore)
 
-const onValidate = () => {
-  store.onValidate()
+formStore.createFormDraft()
+formStore.setForms(props)
+
+function onChange({ data, errors }: JsonFormsChangeEvent) {
+  formStore.events.change({ data, errors })
+}
+
+function onStep(index: number) {
+  formStore.setFormStep(index)
+}
+
+function onSubmit() {
+  formStore.onSubmit()
+}
+
+function onValidate() {
+  formStore.onValidate()
   error.scrollToError()
 }
 </script>

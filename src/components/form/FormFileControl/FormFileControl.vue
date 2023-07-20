@@ -1,14 +1,7 @@
 <template>
   <div class="file-control">
-    <FormTextControl
-      v-bind="props"
-      @change="$emit('change', $event)"
-      @focus="$emit('focus', $event)"
-    />
-    <FormFieldRemoveFile
-      v-bind="{ handleChange, id: control.id, labelFor: id }"
-      @blur="$emit('blur', $event)"
-    />
+    <FormTextControl v-bind="props" @change="onChange" @focus="onFocus" />
+    <FormFieldRemoveFile v-bind="{ handleChange, id: control.id, labelFor: id }" @blur="onBlur" />
   </div>
 </template>
 <script setup lang="ts">
@@ -17,7 +10,7 @@ import FormFieldRemoveFile from '@/components/form/FormFieldRemoveFile/FormField
 import { InputType } from '@/type/input-types'
 import { type Control } from '@/type/field-types'
 
-defineEmits(['input', 'change', 'focus', 'blur'])
+const emit = defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
   accept?: string
@@ -32,6 +25,18 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+function onBlur(event: Event) {
+  emit('blur', event)
+}
+
+function onChange(event: Event) {
+  emit('change', event)
+}
+
+function onFocus(event: Event) {
+  emit('focus', event)
+}
 </script>
 
 <style lang="scss" scoped>
