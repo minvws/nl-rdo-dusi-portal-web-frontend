@@ -9,7 +9,7 @@
     "dev": "vite",
     "format": "prettier --write src '!src/public/**/*.{js,css}'",
     "lint": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --ignore-pattern public/ --ignore-path .gitignore",
-    "lint-fix": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --ignore-pattern public/ --ignore-path .gitignore",
+    "lint-fix": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --ignore-pattern public/ --fix --ignore-path .gitignore",
     "prepare": "husky install .husky",
     "storybook": "storybook dev -p 6006",
     "test:e2e": "playwright test",
