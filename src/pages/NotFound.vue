@@ -1,7 +1,16 @@
 <template>
   <section>
     <div>
-      {{ translate('pages.not-found.content.message') }}
+      <h1>{{ translate('pages.not-found.title') }}</h1>
+      <p class="emphasized">{{ translate('pages.not-found.subtitle') }}</p>
+      <p>{{ translate('pages.not-found.intro') }}</p>
+      <nav>
+        <ul>
+          <li>
+            <router-link :to="{ name: HOME }">{{ translate('app.name') }}</router-link>
+          </li>
+        </ul>
+      </nav>
     </div>
   </section>
 </template>
@@ -10,6 +19,8 @@
 import { translate } from '@/i18n'
 
 import useSEO from '@/composables/useSeo'
+
+import { HOME } from '@/router/names'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.not-found.title')}`
