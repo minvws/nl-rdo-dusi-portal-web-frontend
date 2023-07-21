@@ -40,7 +40,6 @@
         </ul>
         <ul>
           <li v-if="isLoggedIn">
-            <span>Ingelogd als: [name]</span>
             <AppButton @click="logout">
               {{ translate('component.header.logout') }}
             </AppButton>
