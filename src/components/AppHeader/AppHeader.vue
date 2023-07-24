@@ -2,11 +2,11 @@
   <header class="app-header">
     <RouterLink
       to="/"
-      class="ro-logo home-link"
+      class="home-link"
       :aria-label="translate('component.header.homeLink.aria-label')"
     >
-      <img src="/img/ro-logo.svg" :alt="translate('component.header.homeLink.alt')" />
-      <span>{{ translate('component.header.homeLink.label') }}</span>
+      <img src="/img/vws_dusi_logo.png" :alt="translate('component.header.homeLink.alt')" />
+      <span class="visually-hidden">{{ translate('component.header.homeLink.label') }}</span>
     </RouterLink>
 
     <nav
@@ -118,6 +118,19 @@ function logout() {
   --header-navigation-list-item-align-items: center;
 }
 .home-link {
+  width: 175px;
   text-decoration: none;
+}
+
+@media (min-width: 35rem) {
+  .home-link {
+    width: 225px;
+  }
+}
+
+@media (min-width: 48rem) {
+  .home-link {
+    width: 250px;
+  }
 }
 </style>
