@@ -1,16 +1,18 @@
 <template>
-  <p :class="type">
-    <span>{{ translate(`component.formNotification.${type}`) }}:</span> {{ message }}
-  </p>
+  <p :class="displayAs" v-html="html" />
 </template>
 
 <script setup lang="ts">
 import { translate } from '@/i18n'
+import { computed } from 'vue'
 
 type Props = {
   message: string
-  type: 'error' | 'warning' | 'explanation' | 'success'
+  displayAs: 'error' | 'warning' | 'explanation' | 'success'
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const translatedType = computed(() => translate(`component.formNotification.${props.displayAs}`))
+const html = computed(() => `<span>${translatedType.value}:</span> ${props.message}`)
 </script>

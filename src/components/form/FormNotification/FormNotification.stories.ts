@@ -28,7 +28,7 @@ export const Default: Story = {
     }
   },
   args: {
-    type: 'error',
+    displayAs: 'error',
     message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
   }
 }

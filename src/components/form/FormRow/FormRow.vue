@@ -8,12 +8,12 @@
       }"
     />
     <div class="form-row-content" :class="contentClass">
-      <FormRequiredLabel v-if="required" />
+      <FormRequiredLabel v-if="!hideRequiredLabel" v-bind="{ required, label }" />
       <FormNotification
         v-if="tip"
         v-bind="{
-          message: tip,
-          type: 'explanation'
+          displayAs: 'explanation',
+          message: tip
         }"
       />
       <slot />
@@ -46,6 +46,10 @@ export default defineComponent({
   props: {
     contentClass: {
       type: String,
+      required: false
+    },
+    hideRequiredLabel: {
+      type: Boolean,
       required: false
     }
   },

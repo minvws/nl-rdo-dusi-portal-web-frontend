@@ -4,7 +4,7 @@
       {{ layout.label }}
     </component>
     <div class="form-group-renderer">
-      <FormNotification v-if="message" type="explanation" :message="message" />
+      <FormNotification v-if="message" displayAs="explanation" :message="message" />
       <GroupRenderer :class="groupClassName" v-bind="group" />
     </div>
   </component>
@@ -80,6 +80,14 @@ export default defineComponent({
   &-renderer {
     width: 100%;
     flex: 0.75;
+
+    :deep(.group-label) {
+      padding-bottom: 0.5em;
+    }
+
+    :deep(.group) {
+      padding-bottom: 3em;
+    }
   }
 
   &:not(.section) {

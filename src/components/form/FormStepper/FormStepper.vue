@@ -1,16 +1,16 @@
 <template>
-  <ol v-if="forms.length > 1" class="form-stepper">
-    <li v-for="({ title }, index) in forms" :key="index">
+  <ol v-if="steps.length > 1" class="form-stepper">
+    <li v-for="([title, step], index) in steps" :key="index">
       <button
         :class="{
-          active: isActive(index),
-          valid: isValid(index),
+          active: isActive(step),
+          valid: isValid(step),
           first: isFirst(index),
           last: isLast(index)
         }"
-        :disabled="isDisabled(index)"
-        :aria-current="isAriaCurrent(index)"
-        @click="onButtonClick(index)"
+        :disabled="isDisabled(step)"
+        :aria-current="isAriaCurrent(step)"
+        @click="onButtonClick(step)"
       >
         <span>{{ index + 1 }} {{ title }}</span>
       </button>
@@ -21,6 +21,7 @@
 <script setup lang="ts">
 import type { FormTitle, FormError } from '@/type/form-types'
 import { useFormSteps } from '@/composables/useFormSteps'
+import { computed } from 'vue'
 
 const emit = defineEmits(['step'])
 
@@ -67,6 +68,19 @@ function isValid(index: number) {
 function onButtonClick(index: number) {
   emit('step', index)
 }
+
+const stepsWithTitle = computed(() => {
+  return props.forms.map(({ title }, index) => [title, index]).filter(([title]) => !!title) as [
+    string,
+    number
+  ][]
+})
+
+const steps = computed(() => {
+  const titles = stepsWithTitle.value
+  const stepHasTitle = titles.some(([, i]) => i === props.index)
+  return stepHasTitle ? titles : []
+})
 </script>
 
 <style lang="scss" scoped>

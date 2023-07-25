@@ -23,5 +23,21 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-html {
   display: block;
+  max-width: var(--max-line-length-max-width);
+
+  &:deep(h2),
+  &:deep(p) {
+    padding: 0.5em 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &:deep(ol) {
+    padding-bottom: 0.5em;
+  }
+
+  &:deep(.warning) {
+    margin-bottom: 0.5em;
+  }
 }
 </style>

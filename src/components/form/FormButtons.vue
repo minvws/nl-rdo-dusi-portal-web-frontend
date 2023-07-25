@@ -16,7 +16,7 @@
       :disabled="readonly"
       @click="isStepDisabled(index) ? $emit('validate') : $emit('step', index + 1)"
     >
-      {{ translate('form.button.next') }}
+      {{ translate(index === 0 ? 'form.button.start' : 'form.button.next') }}
     </AppButton>
     <AppButton
       v-if="hasSubmit"

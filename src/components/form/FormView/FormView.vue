@@ -9,7 +9,7 @@
       :readonly="readonly"
       @step="onStep"
     />
-    <form class="form-view" @submit.prevent>
+    <form class="form-view" :class="{'first-step': index === 0 }" @submit.prevent>
       <JsonForms
         class="horizontal-view"
         :renderers="renderers"
@@ -92,3 +92,10 @@ function onValidate() {
   error.scrollToError()
 }
 </script>
+
+<style lang="scss" scoped>
+.form-view.first-step {
+  background-color: white;
+  padding: 0;
+}
+</style>

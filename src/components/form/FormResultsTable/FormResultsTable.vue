@@ -1,20 +1,24 @@
 <template>
   <div class="form-results-table">
-    <template v-if="fields.length">
-      <div
-        v-for="([key, value], index) in fields"
-        class="form-results-table-row"
-        :key="`row-${index}`"
-      >
-        <div>{{ key }}</div>
-        <div>{{ tpl(value, fromData) }}</div>
-      </div>
-    </template>
-    <FormNotification
-      v-else
-      type="explanation"
-      :message="`${translate('component.formResultsTable.noData')}`"
-    />
+    <FormRow v-bind="wrapperProps">
+      <template v-if="items.length">
+        <div
+          v-for="([key, value], index) in items"
+          class="form-results-table-row"
+          :key="`row-${index}`"
+        >
+          <div>{{ key }}</div>
+          <div>
+            <strong>{{ value }}</strong>
+          </div>
+        </div>
+      </template>
+      <FormNotification
+        v-else
+        displayAs="explanation"
+        :message="`${translate('component.formResultsTable.noData')}`"
+      />
+    </FormRow>
   </div>
 </template>
 
@@ -23,11 +27,9 @@ import type { ControlElement } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
-
 import { useFormStore } from '@/store/useFormStore'
-
 import { translate } from '@/i18n'
-
+import FormRow from '@/components/form/FormRow/FormRow.vue'
 import FormNotification from '@/components/form/FormNotification/FormNotification.vue'
 
 const tpl = function (template: string, props: Record<string, string>) {
@@ -42,13 +44,31 @@ const tpl = function (template: string, props: Record<string, string>) {
 }
 
 export default defineComponent({
-  components: { FormNotification },
+  components: { FormNotification, FormRow },
   props: {
     ...rendererProps<ControlElement>()
   },
   computed: {
     fields() {
-      return Object.entries(this.appliedOptions.fields) as [string, string][]
+      return (Object.entries(this.appliedOptions.fields) as [string, string][]) ?? []
+    },
+    items() {
+      return this.fields.map(([key, value]) => {
+        return [key, tpl(value, this.fromData)]
+      })
+    },
+    wrapperProps() {
+      const { styles, appliedOptions, control } = this
+      const { id, label, visible } = control
+
+      return {
+        appliedOptions,
+        id: id ?? 'formResultsTable',
+        label,
+        styles,
+        visible,
+        hideRequiredLabel: true
+      }
     }
   },
   methods: {
@@ -68,15 +88,16 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-results-table {
   &-row {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--grey-1);
+
+    &:nth-child(odd) {
+      background-color: white;
+    }
+
     div {
       padding: 0.5rem 1rem;
-      width: 70%;
-      background-color: var(--grey-1);
-
-      &:first-child {
-        width: 30%;
-        background-color: var(--grey-2);
-      }
     }
   }
 }

@@ -4,7 +4,7 @@
       <AppLoader />
       {{ loadingMessage }}
     </template>
-    <FormNotification v-else-if="errorMessage" type="error" :message="errorMessage" />
+    <FormNotification v-else-if="errorMessage" displayAs="error" :message="errorMessage" />
   </div>
 </template>
 

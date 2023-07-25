@@ -12,10 +12,17 @@ export default meta
 type Story = StoryObj<typeof FormRequiredLabel>
 
 export const Default: Story = {
-  render: () => {
+  render: (args, { argTypes }) => {
     return {
+      props: Object.keys(argTypes),
       components: { FormRequiredLabel },
-      template: '<FormRequiredLabel />'
+      setup() {
+        return { args }
+      },
+      template: '<FormRequiredLabel v-bind="args" :key="JSON.stringify(args)"/>'
     }
+  },
+  args: {
+    required: false
   }
 }
