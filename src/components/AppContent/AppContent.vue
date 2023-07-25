@@ -1,5 +1,8 @@
 <template>
-  <main id="main-content" tabindex="-1">
+  <main
+    id="main-content"
+    tabindex="-1"
+  >
     <slot />
   </main>
 </template>

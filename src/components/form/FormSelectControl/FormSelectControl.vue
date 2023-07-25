@@ -6,8 +6,16 @@
     @focus="$emit('focus', $event)"
     @blur="$emit('blur', $event)"
   >
-    <option :label="placeholder" disabled />
-    <option v-for="{ value, label } in options" :key="value" :value="value" :label="label" />
+    <option
+      :label="placeholder"
+      disabled
+    />
+    <option
+      v-for="{ value, label } in options"
+      :key="value"
+      :value="value"
+      :label="label"
+    />
   </select>
 </template>
 <script setup lang="ts">

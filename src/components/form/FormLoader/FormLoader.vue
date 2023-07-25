@@ -1,6 +1,9 @@
 <template>
   <FormSection>
-    <FormLoaderMessage v-if="isLoading || error" v-bind="{ isLoading, error }" />
+    <FormLoaderMessage
+      v-if="isLoading || error"
+      v-bind="{ isLoading, error }"
+    />
     <FormView
       v-else-if="forms"
       v-bind="{

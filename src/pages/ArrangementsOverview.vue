@@ -6,10 +6,17 @@
     </div>
     <Suspense>
       <template #default>
-        <AppLoader v-if="isFetching" centered />
+        <AppLoader
+          v-if="isFetching"
+          centered
+        />
         <div v-else-if="error">Error: {{ error }}</div>
         <div v-else-if="!isFetching && data && data.length">
-          <SubsidySummary v-for="(item, index) in slicedItems" :key="index" v-bind="item" />
+          <SubsidySummary
+            v-for="(item, index) in slicedItems"
+            :key="index"
+            v-bind="item"
+          />
           <AppPagination
             :items-total="total"
             :page-size="pageSize"

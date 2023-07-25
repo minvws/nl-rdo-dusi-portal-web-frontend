@@ -1,5 +1,9 @@
 <template>
-  <span class="app-icon icon" :class="[`icon-${name}`]" role="presentation">
+  <span
+    class="app-icon icon"
+    :class="[`icon-${name}`]"
+    role="presentation"
+  >
     <slot />
   </span>
 </template>

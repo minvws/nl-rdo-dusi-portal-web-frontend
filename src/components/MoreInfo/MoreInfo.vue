@@ -2,8 +2,14 @@
   <section class="background-color-offset">
     <div>
       <h2>{{ translate('component.moreInfo.title') }}</h2>
-      <p class="emphasized" v-html="translate('component.moreInfo.body1')" />
-      <p class="emphasized" v-html="translate('component.moreInfo.body2')" />
+      <p
+        class="emphasized"
+        v-html="translate('component.moreInfo.body1')"
+      />
+      <p
+        class="emphasized"
+        v-html="translate('component.moreInfo.body2')"
+      />
     </div>
   </section>
 </template>

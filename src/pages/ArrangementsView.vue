@@ -1,5 +1,8 @@
 <template>
-  <ArrangementsOverview v-if="isOverviewRoute" v-bind="props" />
+  <ArrangementsOverview
+    v-if="isOverviewRoute"
+    v-bind="props"
+  />
   <RouterView v-else />
   <MoreInfo />
 </template>

@@ -1,5 +1,8 @@
 <template>
-  <ul class="accordion" v-accordion>
+  <ul
+    class="accordion"
+    v-accordion
+  >
     <slot />
   </ul>
 </template>

@@ -1,7 +1,10 @@
 <template>
   <div class="radio-control">
     <div class="radio-control-innner">
-      <template v-for="item in items" :key="item.id">
+      <template
+        v-for="item in items"
+        :key="item.id"
+      >
         <input
           v-bind="item"
           @input="$emit('input', $event)"

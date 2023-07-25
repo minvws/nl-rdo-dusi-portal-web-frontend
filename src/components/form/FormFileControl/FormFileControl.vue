@@ -1,7 +1,14 @@
 <template>
   <div class="file-control">
-    <FormTextControl v-bind="props" @change="onChange" @focus="onFocus" />
-    <FormFieldRemoveFile v-bind="{ handleChange, id: control.id, labelFor: id }" @blur="onBlur" />
+    <FormTextControl
+      v-bind="props"
+      @change="onChange"
+      @focus="onFocus"
+    />
+    <FormFieldRemoveFile
+      v-bind="{ handleChange, id: control.id, labelFor: id }"
+      @blur="onBlur"
+    />
   </div>
 </template>
 <script setup lang="ts">

@@ -1,6 +1,13 @@
 <template>
-  <div class="app-loader" :class="{ 'app-loader--centered': centered }">
-    <img src="/img/spinner.gif" alt="" aria-hidden="true" />
+  <div
+    class="app-loader"
+    :class="{ 'app-loader--centered': centered }"
+  >
+    <img
+      src="/img/spinner.gif"
+      alt=""
+      aria-hidden="true"
+    />
   </div>
 </template>
 

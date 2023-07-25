@@ -1,6 +1,9 @@
 <template>
   <li>
-    <button :id="accordionId" :aria-expanded="ariaExpanded">
+    <button
+      :id="accordionId"
+      :aria-expanded="ariaExpanded"
+    >
       <slot name="title" />
     </button>
     <div :aria-labelledby="accordionId">

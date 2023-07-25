@@ -1,5 +1,9 @@
 <template>
-  <nav v-if="totalPages > 1" class="pagination" aria-label="Paginering">
+  <nav
+    v-if="totalPages > 1"
+    class="pagination"
+    aria-label="Paginering"
+  >
     <a
       v-if="withButtons"
       :href="path"
@@ -11,7 +15,10 @@
       {{ translate('component.pagination.prev') }}
     </a>
     <ul>
-      <li v-for="page in totalPages" :key="page">
+      <li
+        v-for="page in totalPages"
+        :key="page"
+      >
         <a
           :href="path"
           :aria-label="`Ga naar pagina ${page}`"

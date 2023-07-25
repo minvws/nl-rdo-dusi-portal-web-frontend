@@ -10,7 +10,10 @@
       <h2>{{ translate('pages.my-file-overview.section1Title') }}</h2>
       <Suspense>
         <template #default>
-          <AppLoader v-if="isFetchingRequests" centered />
+          <AppLoader
+            v-if="isFetchingRequests"
+            centered
+          />
           <div v-else-if="requestsError">Error: {{ requestsError }}</div>
           <AppTable
             v-else-if="!isFetchingRequests && requests && requests.length"
@@ -31,10 +34,17 @@
       <h2>{{ translate('pages.my-file-overview.section2Title') }}</h2>
       <Suspense>
         <template #default>
-          <AppLoader v-if="isFetchingMessages" centered />
+          <AppLoader
+            v-if="isFetchingMessages"
+            centered
+          />
           <div v-else-if="messagesError">Error: {{ messagesError }}</div>
           <template v-else-if="!isFetchingMessages && messages && messages.length">
-            <MessageSummary v-for="(item, index) in messages" :key="index" v-bind="item" />
+            <MessageSummary
+              v-for="(item, index) in messages"
+              :key="index"
+              v-bind="item"
+            />
             <RouterLink :to="{ name: MY_MESSAGES }">
               {{ translate('pages.my-file-overview.allMessages') }}
             </RouterLink>

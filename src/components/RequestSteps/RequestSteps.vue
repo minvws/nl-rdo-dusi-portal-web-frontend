@@ -1,20 +1,46 @@
 <template>
   <AppAccordion>
-    <AppAccordionItem v-for="(item, index) in items" :id="item.title" :key="index" is-open>
+    <AppAccordionItem
+      v-for="(item, index) in items"
+      :id="item.title"
+      :key="index"
+      is-open
+    >
       <template #title>{{ item.title }}</template>
       <template #content>
         <div v-html="item.content" />
         <div class="horizontal-view">
-          <AppButton v-if="item.actions.download" class="ghost" @click="onDownload">
-            <AppIcon name="download" aria-hidden="true" />
+          <AppButton
+            v-if="item.actions.download"
+            class="ghost"
+            @click="onDownload"
+          >
+            <AppIcon
+              name="download"
+              aria-hidden="true"
+            />
             {{ translate('pages.my-request-details.downloadLabel') }}
           </AppButton>
-          <AppButton v-if="item.actions.edit" class="ghost" @click="onEdit">
-            <AppIcon name="chevron-light-right" aria-hidden="true" />
+          <AppButton
+            v-if="item.actions.edit"
+            class="ghost"
+            @click="onEdit"
+          >
+            <AppIcon
+              name="chevron-light-right"
+              aria-hidden="true"
+            />
             {{ translate('pages.my-request-details.editLabel') }}
           </AppButton>
-          <AppButton v-if="item.actions.cancel" class="ghost" @click="onCancel">
-            <AppIcon name="chevron-light-right" aria-hidden="true" />
+          <AppButton
+            v-if="item.actions.cancel"
+            class="ghost"
+            @click="onCancel"
+          >
+            <AppIcon
+              name="chevron-light-right"
+              aria-hidden="true"
+            />
             {{ translate('pages.my-request-details.cancelLabel') }}
           </AppButton>
           <p v-if="!item.actions.download && !item.actions.edit && !item.actions.cancel">

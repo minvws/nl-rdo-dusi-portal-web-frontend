@@ -2,7 +2,10 @@
   <section>
     <Suspense>
       <template #default>
-        <AppLoader v-if="isFetchingDetails" centered />
+        <AppLoader
+          v-if="isFetchingDetails"
+          centered
+        />
         <div v-else-if="detailsError">Error: {{ detailsError }}</div>
         <div v-else-if="!isFetchingDetails && details">
           <h1>{{ details.title }}</h1>
@@ -19,7 +22,10 @@
         <h3>{{ translate('pages.my-request-details.status') }}</h3>
         <Suspense>
           <template #default>
-            <AppLoader v-if="isFetchingDetails" centered />
+            <AppLoader
+              v-if="isFetchingDetails"
+              centered
+            />
             <div v-else-if="detailsError">Error: {{ detailsError }}</div>
             <div v-else-if="!isFetchingDetails && details">
               <p>{{ details.statusIntro }}</p>
@@ -42,10 +48,17 @@
         <h3>{{ translate('pages.my-request-details.messages') }}</h3>
         <Suspense>
           <template #default>
-            <AppLoader v-if="isFetchingMessages" centered />
+            <AppLoader
+              v-if="isFetchingMessages"
+              centered
+            />
             <div v-else-if="messagesError">Error: {{ messagesError }}</div>
             <div v-else-if="!isFetchingMessages && messages && messages.length">
-              <MessageSummary v-for="(item, index) in messages" :key="index" v-bind="item" />
+              <MessageSummary
+                v-for="(item, index) in messages"
+                :key="index"
+                v-bind="item"
+              />
             </div>
             <p v-else>
               {{ translate('pages.my-request-details.noMessages') }}

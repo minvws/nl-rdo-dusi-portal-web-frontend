@@ -1,7 +1,17 @@
 <template>
   <div class="debug-view">
-    <div role="button" class="button" @click="onSetDummyData">set dummy data</div>
-    <div role="button" class="button" @click="isVisible = !isVisible">
+    <div
+      role="button"
+      class="button"
+      @click="onSetDummyData"
+    >
+      set dummy data
+    </div>
+    <div
+      role="button"
+      class="button"
+      @click="isVisible = !isVisible"
+    >
       {{ isVisible ? 'hide' : 'show' }}
       debug information
     </div>

@@ -1,6 +1,12 @@
 <template>
-  <ol v-if="steps.length > 1" class="form-stepper">
-    <li v-for="([title, step], index) in steps" :key="index">
+  <ol
+    v-if="steps.length > 1"
+    class="form-stepper"
+  >
+    <li
+      v-for="([title, step], index) in steps"
+      :key="index"
+    >
       <button
         :class="{
           active: isActive(step),

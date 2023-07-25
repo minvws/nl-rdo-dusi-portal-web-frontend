@@ -2,7 +2,11 @@
   <div class="form-field-remove-file">
     <div class="form-field-remove-file-content">
       <label v-bind="{ for: labelFor, class: { padding: !hasFile } }">{{ label }}</label>
-      <AppButton v-if="hasFile" class="button" @click="onRemoveFile">
+      <AppButton
+        v-if="hasFile"
+        class="button"
+        @click="onRemoveFile"
+      >
         <AppIcon name="close" />
       </AppButton>
     </div>

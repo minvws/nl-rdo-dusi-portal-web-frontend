@@ -6,7 +6,10 @@
         <nav aria-labelledby="footer-nav-1-heading">
           <h1 id="footer-nav-1-heading">{{ translate('component.footer.title') }}</h1>
           <ul>
-            <li v-for="({ name, label, params }, index) in links" :key="index">
+            <li
+              v-for="({ name, label, params }, index) in links"
+              :key="index"
+            >
               <RouterLink :to="{ name, params }">
                 {{ label }}
               </RouterLink>

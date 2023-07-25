@@ -13,12 +13,16 @@
       </template>
     </span>
     <p>{{ description }}</p>
-    <RouterLink v-if="readMore" :to="readMore">{{
-      translate('component.subsidySummary.link', { title })
-    }}</RouterLink>
-    <RouterLink :to="link" class="button ghost">{{
-      translate('component.subsidySummary.button')
-    }}</RouterLink>
+    <RouterLink
+      v-if="readMore"
+      :to="readMore"
+      >{{ translate('component.subsidySummary.link', { title }) }}</RouterLink
+    >
+    <RouterLink
+      :to="link"
+      class="button ghost"
+      >{{ translate('component.subsidySummary.button') }}</RouterLink
+    >
   </div>
 </template>
 

@@ -1,11 +1,26 @@
 <template>
-  <component :is="wrapperComponent" class="form-group" :class="{ section: appliedOptions.section }">
-    <component v-if="layout.label" :is="labelComponent" class="form-group-label">
+  <component
+    :is="wrapperComponent"
+    class="form-group"
+    :class="{ section: appliedOptions.section }"
+  >
+    <component
+      v-if="layout.label"
+      :is="labelComponent"
+      class="form-group-label"
+    >
       {{ layout.label }}
     </component>
     <div class="form-group-renderer">
-      <FormNotification v-if="message" displayAs="explanation" :message="message" />
-      <GroupRenderer :class="groupClassName" v-bind="group" />
+      <FormNotification
+        v-if="message"
+        displayAs="explanation"
+        :message="message"
+      />
+      <GroupRenderer
+        :class="groupClassName"
+        v-bind="group"
+      />
     </div>
   </component>
 </template>

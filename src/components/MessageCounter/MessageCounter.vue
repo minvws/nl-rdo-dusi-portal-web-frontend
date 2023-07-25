@@ -1,5 +1,9 @@
 <template>
-  <span class="message-counter" :aria-label="label">{{ value }}</span>
+  <span
+    class="message-counter"
+    :aria-label="label"
+    >{{ value }}</span
+  >
 </template>
 
 <script setup lang="ts">

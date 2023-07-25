@@ -11,11 +11,21 @@
       <h2>{{ translate('pages.home.subsidiesTitle') }}</h2>
       <Suspense>
         <template #default>
-          <AppLoader v-if="isFetching" centered />
+          <AppLoader
+            v-if="isFetching"
+            centered
+          />
           <div v-else-if="error">Error: {{ error }}</div>
           <template v-else-if="!isFetching && data && data.length">
-            <SubsidySummary v-for="(item, index) in data" :key="index" v-bind="item" />
-            <RouterLink :to="{ name: 'arrangements-overview' }" class="button">
+            <SubsidySummary
+              v-for="(item, index) in data"
+              :key="index"
+              v-bind="item"
+            />
+            <RouterLink
+              :to="{ name: 'arrangements-overview' }"
+              class="button"
+            >
               {{ translate('pages.home.subsidiesButton') }}
             </RouterLink>
           </template>

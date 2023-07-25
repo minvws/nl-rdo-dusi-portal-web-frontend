@@ -1,10 +1,17 @@
 <template>
-  <div v-if="errorMessage || loadingMessage" class="form-loader-message">
+  <div
+    v-if="errorMessage || loadingMessage"
+    class="form-loader-message"
+  >
     <template v-if="loadingMessage">
       <AppLoader />
       {{ loadingMessage }}
     </template>
-    <FormNotification v-else-if="errorMessage" displayAs="error" :message="errorMessage" />
+    <FormNotification
+      v-else-if="errorMessage"
+      displayAs="error"
+      :message="errorMessage"
+    />
   </div>
 </template>
 

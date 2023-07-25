@@ -1,5 +1,10 @@
 <template>
-  <a href="#main-content" class="button skip-to-content"> {{ translate('app.skip-content') }} </a>
+  <a
+    href="#main-content"
+    class="button skip-to-content"
+  >
+    {{ translate('app.skip-content') }}
+  </a>
   <AppHeader />
   <AppContent>
     <RouterView />

@@ -1,5 +1,9 @@
 <template>
-  <span class="nota-bene" :class="{ required }">{{ text }}</span>
+  <span
+    class="nota-bene"
+    :class="{ required }"
+    >{{ text }}</span
+  >
 </template>
 
 <script setup lang="ts">

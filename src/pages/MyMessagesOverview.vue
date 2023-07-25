@@ -6,13 +6,22 @@
     </div>
     <Suspense>
       <template #default>
-        <AppLoader v-if="isFetching" centered />
+        <AppLoader
+          v-if="isFetching"
+          centered
+        />
         <div v-else-if="error">Error: {{ error }}</div>
         <div v-else-if="!isFetching && data && data.length">
-          <div class="filter" v-filters>
+          <div
+            class="filter"
+            v-filters
+          >
             <div>
               <p><span>[total]</span> berichten</p>
-              <button data-show-filters-label="Toon filters" aria-expanded="false">
+              <button
+                data-show-filters-label="Toon filters"
+                aria-expanded="false"
+              >
                 Toon zoek en filter opties
               </button>
             </div>
@@ -20,7 +29,11 @@
               <p>@TODO: filters</p>
             </form>
           </div>
-          <MessageSummary v-for="(item, index) in slicedItems" :key="index" v-bind="item" />
+          <MessageSummary
+            v-for="(item, index) in slicedItems"
+            :key="index"
+            v-bind="item"
+          />
           <AppPagination
             :items-total="total"
             :page-size="pageSize"

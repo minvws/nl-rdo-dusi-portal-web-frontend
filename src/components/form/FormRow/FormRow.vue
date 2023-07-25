@@ -1,5 +1,9 @@
 <template>
-  <div v-if="visible" class="form-row" v-bind="rowProps">
+  <div
+    v-if="visible"
+    class="form-row"
+    v-bind="rowProps"
+  >
     <FormFieldLabel
       v-if="label"
       class="form-row-label"
@@ -7,8 +11,14 @@
         label
       }"
     />
-    <div class="form-row-content" :class="contentClass">
-      <FormRequiredLabel v-if="!hideRequiredLabel" v-bind="{ required, label }" />
+    <div
+      class="form-row-content"
+      :class="contentClass"
+    >
+      <FormRequiredLabel
+        v-if="!hideRequiredLabel"
+        v-bind="{ required, label }"
+      />
       <FormNotification
         v-if="tip"
         v-bind="{
@@ -21,7 +31,10 @@
         v-if="fieldDescription"
         v-bind="{ description: fieldDescription, labelFor: `${id}-input` }"
       />
-      <FormFieldError v-if="errors" v-bind="{ errors }" />
+      <FormFieldError
+        v-if="errors"
+        v-bind="{ errors }"
+      />
     </div>
   </div>
 </template>

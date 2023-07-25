@@ -1,5 +1,8 @@
 <template>
-  <div class="form-html" v-html="appliedOptions.html" />
+  <div
+    class="form-html"
+    v-html="appliedOptions.html"
+  />
 </template>
 
 <script lang="ts">

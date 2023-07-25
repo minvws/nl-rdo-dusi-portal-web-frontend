@@ -5,7 +5,10 @@
       class="home-link"
       :aria-label="translate('component.header.homeLink.aria-label')"
     >
-      <img src="/img/vws_dusi_logo.png" :alt="translate('component.header.homeLink.alt')" />
+      <img
+        src="/img/vws_dusi_logo.png"
+        :alt="translate('component.header.homeLink.alt')"
+      />
       <span class="visually-hidden">{{ translate('component.header.homeLink.label') }}</span>
     </RouterLink>
 
@@ -19,9 +22,16 @@
     >
       <div class="collapsing-element">
         <ul>
-          <li v-for="({ name, label, icon }, index) in defaultLinks" :key="`default-link-${index}`">
+          <li
+            v-for="({ name, label, icon }, index) in defaultLinks"
+            :key="`default-link-${index}`"
+          >
             <RouterLink :to="{ name }">
-              <AppIcon v-if="icon" :name="icon" aria-hidden="true" />
+              <AppIcon
+                v-if="icon"
+                :name="icon"
+                aria-hidden="true"
+              />
               {{ label }}
             </RouterLink>
           </li>
@@ -31,9 +41,15 @@
               :key="`auth-link-${index}`"
             >
               <RouterLink :to="{ name }">
-                <AppIcon name="logout" aria-hidden="true" />
+                <AppIcon
+                  name="logout"
+                  aria-hidden="true"
+                />
                 {{ label }}
-                <MessageCounter v-if="badge" :value="badge" />
+                <MessageCounter
+                  v-if="badge"
+                  :value="badge"
+                />
               </RouterLink>
             </li>
           </template>
@@ -53,7 +69,10 @@
       </div>
     </nav>
 
-    <BreadcrumbBar v-if="breadcrumbs" :links="breadcrumbs" />
+    <BreadcrumbBar
+      v-if="breadcrumbs"
+      :links="breadcrumbs"
+    />
   </header>
 </template>
 

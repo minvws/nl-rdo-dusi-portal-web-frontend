@@ -1,5 +1,8 @@
 <template>
-  <p :class="displayAs" v-html="html" />
+  <p
+    :class="displayAs"
+    v-html="html"
+  />
 </template>
 
 <script setup lang="ts">

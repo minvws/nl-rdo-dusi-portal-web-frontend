@@ -1,5 +1,8 @@
 <template>
-  <label class="description" :for="labelFor">
+  <label
+    class="description"
+    :for="labelFor"
+  >
     {{ description }}
   </label>
 </template>

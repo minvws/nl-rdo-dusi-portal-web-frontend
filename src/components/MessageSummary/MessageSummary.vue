@@ -9,7 +9,12 @@
     </span>
     <h4>{{ title }}</h4>
     <p v-if="description">{{ description }}</p>
-    <a :href="link" class="button ghost" target="_blank" rel="noopener">
+    <a
+      :href="link"
+      class="button ghost"
+      target="_blank"
+      rel="noopener"
+    >
       {{ translate('component.messageSummary.button') }}
     </a>
   </div>

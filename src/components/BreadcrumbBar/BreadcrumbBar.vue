@@ -1,12 +1,21 @@
 <template>
-  <nav class="breadcrumb-bar" :aria-label="translate('component.breadcrumbBar.ariaLabel')">
+  <nav
+    class="breadcrumb-bar"
+    :aria-label="translate('component.breadcrumbBar.ariaLabel')"
+  >
     <div>
       <ol>
-        <li v-for="({ name, params, label }, index) in links" :key="index">
+        <li
+          v-for="({ name, params, label }, index) in links"
+          :key="index"
+        >
           <span v-if="index === links.length - 1">
             {{ label }}
           </span>
-          <RouterLink v-else :to="{ name, params }">
+          <RouterLink
+            v-else
+            :to="{ name, params }"
+          >
             {{ label }}
           </RouterLink>
         </li>
