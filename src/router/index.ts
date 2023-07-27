@@ -1,30 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { storeToRefs } from 'pinia'
+import cookie from 'js-cookie'
 
 import ArrangementsView from '@/pages/ArrangementsView.vue'
 import ArrangementView from '@/pages/ArrangementView.vue'
 import FormSent from '@/pages/FormSent.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import LocalForm from '@/pages/LocalForm.vue'
+import LoginCallback from '@/pages/LoginCallback.vue'
 import MyFileView from '@/pages/MyFileView.vue'
 import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import NotFound from '@/pages/NotFound.vue'
 import RemoteForm from '@/pages/RemoteForm.vue'
 
-import { useApiUserStatusUrl } from '@/composables/useApiUrl'
 import { useAuthStore } from '@/store/useAuthStore'
+
+import { ROUTES_COOKIE_NAME } from '@/constants'
 
 import {
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
-  ARRANGEMENT_OVERVIEW,
   ARRANGEMENT_OVERVIEW_PAGE,
+  ARRANGEMENT_OVERVIEW,
   FORM_SENT,
   HOME,
+  LOGIN_CALLBACK,
   MY_FILE_OVERVIEW,
-  MY_MESSAGES,
   MY_MESSAGES_PAGE,
+  MY_MESSAGES,
   MY_REQUEST_DETAILS,
   NOT_FOUND
 } from '@/router/names'
@@ -46,6 +51,14 @@ const router = createRouter({
       path: '/',
       name: HOME,
       component: LandingPage,
+      meta: {
+        public: true
+      }
+    },
+    {
+      path: '/login-callback',
+      name: LOGIN_CALLBACK,
+      component: LoginCallback,
       meta: {
         public: true
       }
@@ -128,24 +141,21 @@ const router = createRouter({
 })
 
 // Protected router, redirect to home if not logged in.
-// @TODO: redirect to a pre-login page.
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const authStore = useAuthStore()
-  const url = useApiUserStatusUrl()
+  const { isLoggedIn } = storeToRefs(authStore)
 
-  if (!authStore.isLoggedIn && to.fullPath !== from.fullPath) {
-    return next()
-  }
-
-  const response = await fetch(url, { method: 'GET', credentials: 'include' })
-  const data = await response.json()
-
-  authStore.isLoggedIn = data.logged_in
-
-  if (to.meta.public || data.logged_in) {
+  if (to.meta.public || isLoggedIn.value) {
     next()
   } else {
     next({ name: HOME })
+  }
+})
+
+// Set cookie with current route after each route change.
+router.afterEach(to => {
+  if (to.name !== LOGIN_CALLBACK) {
+    cookie.set(ROUTES_COOKIE_NAME, JSON.stringify(to), { expires: 1, secure: true })
   }
 })
 

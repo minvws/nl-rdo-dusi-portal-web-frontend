@@ -17,7 +17,9 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const response = await fetch(url, { method: 'POST', credentials: 'include' })
       const data = await response.json()
 
-      isLoggedIn.value = data.logged_in
+      if (!data.logged_in) {
+        setLoggedIn(false)
+      }
     } catch (error) {
       console.error(error)
     } finally {
@@ -27,8 +29,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
+  function setLoggedIn(value: boolean) {
+    isLoggedIn.value = value
+  }
+
   return {
     logout,
-    isLoggedIn
+    isLoggedIn,
+    setLoggedIn
   }
 })
