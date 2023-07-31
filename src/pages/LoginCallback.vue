@@ -10,7 +10,7 @@ import cookie from 'js-cookie'
 import { useAuthStore } from '@/store/useAuthStore'
 import { useApiUserStatusUrl } from '@/composables/useApiUrl'
 
-import { ROUTES_COOKIE_NAME } from '@/constants'
+import { ROUTES_COOKIE_NAME, SESSION_COOKIE_NAME } from '@/constants'
 
 const authStore = useAuthStore()
 const url = useApiUserStatusUrl()
@@ -25,7 +25,11 @@ onBeforeMount(async () => {
 
   if (data?.logged_in && route) {
     const { name, params, query } = route
+    const fifteenMinutes = new Date(new Date().getTime() + 15 * 60 * 1000)
+    const value = JSON.stringify({ timestamp: `${fifteenMinutes}` })
+
     authStore.setLoggedIn(true)
+    cookie.set(SESSION_COOKIE_NAME, value, { expires: fifteenMinutes })
     router.push({ name, params, query })
   }
 })

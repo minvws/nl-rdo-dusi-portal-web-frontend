@@ -16,7 +16,9 @@ import RemoteForm from '@/pages/RemoteForm.vue'
 
 import { useAuthStore } from '@/store/useAuthStore'
 
-import { ROUTES_COOKIE_NAME } from '@/constants'
+import { useApiUserStatusUrl } from '@/composables/useApiUrl'
+
+import { ROUTES_COOKIE_NAME, SESSION_COOKIE_NAME } from '@/constants'
 
 import {
   ARRANGEMENT_DETAILS,
@@ -141,9 +143,21 @@ const router = createRouter({
 })
 
 // Protected router, redirect to home if not logged in.
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
+  const url = useApiUserStatusUrl()
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
+
+  const sessionCookie = cookie.get(SESSION_COOKIE_NAME) || ''
+
+  if (sessionCookie) {
+    const response = await fetch(url, { method: 'GET', credentials: 'include' })
+    const data = await response.json()
+
+    if (data.logged_in) {
+      authStore.setLoggedIn(true)
+    }
+  }
 
   if (to.meta.public || isLoggedIn.value) {
     next()
@@ -153,7 +167,20 @@ router.beforeEach((to, _from, next) => {
 })
 
 // Set cookie with current route after each route change.
+// Remove cookie if session has expired.
 router.afterEach(to => {
+  const sessionCookie = cookie.get(SESSION_COOKIE_NAME) || ''
+
+  if (sessionCookie) {
+    const cookieData = JSON.parse(sessionCookie)
+    const cookieTimestamp = new Date(cookieData.timestamp).getTime()
+    const currentTimestamp = Date.now()
+
+    if (cookieTimestamp < currentTimestamp) {
+      cookie.remove(SESSION_COOKIE_NAME)
+    }
+  }
+
   if (to.name !== LOGIN_CALLBACK) {
     cookie.set(ROUTES_COOKIE_NAME, JSON.stringify(to), { expires: 1, secure: true })
   }

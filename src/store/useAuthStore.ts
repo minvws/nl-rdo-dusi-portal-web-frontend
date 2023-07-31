@@ -1,9 +1,12 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
+import cookie from 'js-cookie'
 
 import { useApiLogoutUrl } from '@/composables/useApiUrl'
 import { HOME } from '@/router/names'
+
+import { SESSION_COOKIE_NAME } from '@/constants'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
@@ -19,6 +22,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
       if (!data.logged_in) {
         setLoggedIn(false)
+        cookie.remove(SESSION_COOKIE_NAME)
       }
     } catch (error) {
       console.error(error)
