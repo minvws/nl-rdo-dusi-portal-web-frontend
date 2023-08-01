@@ -41,7 +41,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   function restoreSession() {
     if (init.value) return
     init.value = true
-    console.log(getSessionCookie())
     if (getSessionCookie()) {
       return logIn()
     }
