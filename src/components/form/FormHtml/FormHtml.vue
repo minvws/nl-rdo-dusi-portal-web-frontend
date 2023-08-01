@@ -1,7 +1,7 @@
 <template>
-  <div
+  <AppHtml
     class="form-html"
-    v-html="appliedOptions.html"
+    :html="appliedOptions.html"
   />
 </template>
 
@@ -10,10 +10,14 @@ import type { ControlElement } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
 
 export default defineComponent({
   props: {
     ...rendererProps<ControlElement>()
+  },
+  components: {
+    AppHtml
   },
   setup(props) {
     return {

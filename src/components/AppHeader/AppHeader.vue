@@ -55,15 +55,8 @@
           </template>
         </ul>
         <ul>
-          <li v-if="isLoggedIn">
-            <AppButton @click="authStore.logOut">
-              {{ translate('component.header.logout') }}
-            </AppButton>
-          </li>
-          <li v-else>
-            <a :href="loginUrl">
-              {{ translate('component.header.login') }}
-            </a>
+          <li>
+            <AppAuthenticationButton />
           </li>
         </ul>
       </div>
@@ -81,12 +74,11 @@ import { storeToRefs } from 'pinia'
 import type { Link } from '@/type/link-types'
 
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
-import { useApiLoginUrl } from '@/composables/useApiUrl'
 
 import { translate } from '@/i18n'
 import { ARRANGEMENT_OVERVIEW, HOME, MY_FILE_OVERVIEW, MY_MESSAGES } from '@/router/names'
 
-import AppButton from '@/components/AppButton/AppButton.vue'
+import AppAuthenticationButton from '@/components/AppAuthenticationButton/AppAuthenticationButton.vue'
 import AppIcon from '@/components/AppIcon/AppIcon.vue'
 import MessageCounter from '@/components/MessageCounter/MessageCounter.vue'
 import BreadcrumbBar from '@/components/BreadcrumbBar/BreadcrumbBar.vue'
@@ -100,21 +92,19 @@ const { breadcrumbs } = useBreadcrumbs()
 
 const { isLoggedIn } = storeToRefs(authStore)
 
-const loginUrl = useApiLoginUrl()
-
 const defaultLinks: Link[] = [
   {
     name: HOME,
     label: translate('app.name'),
     icon: 'home'
-  },
-  {
-    name: ARRANGEMENT_OVERVIEW,
-    label: translate('pages.arrangements-overview.title')
   }
 ]
 
 const authenticatedLinks: Link[] = [
+  {
+    name: ARRANGEMENT_OVERVIEW,
+    label: translate('pages.arrangements-overview.title')
+  },
   {
     name: MY_FILE_OVERVIEW,
     label: translate('pages.my-file-overview.title'),

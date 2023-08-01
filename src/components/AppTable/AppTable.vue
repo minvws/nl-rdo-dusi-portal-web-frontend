@@ -1,9 +1,10 @@
 <template>
   <div class="horizontal-scroll">
     <table>
-      <caption
+      <AppHtml
         v-if="caption"
-        v-html="caption"
+        as="caption"
+        :html="caption"
       />
       <thead>
         <tr>
@@ -72,6 +73,7 @@
 
 <script setup lang="ts">
 import AppIcon from '@/components/AppIcon/AppIcon.vue'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
 
 type TableCell = {
   icon?: string

@@ -74,8 +74,8 @@
       "button": "Bekijk volledig bericht"
     },
     "moreInfo": {
-      "body1": "Meer weten over het proces voor het aanvragen van een van de regelingen? Zie <a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">Hoe werkt een subsidie aanvragen</a> voor meer informatie. ",
-      "body2": "Of neem <a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">contact</a> met ons op.",
+      "body1": "Meer weten over het proces voor het aanvragen van een van de regelingen? Zie <a href=\"/external/hoe-werkt-subsidie-aanvragen\" rel=\"noopener noreferrer external\">Hoe werkt een subsidie aanvragen</a> voor meer informatie. ",
+      "body2": "Of neem <a href=\"/external/contact\" rel=\"noopener noreferrer external\">contact</a> met ons op.",
       "title": "Meer informatie"
     },
     "notificationObligation": {
@@ -144,6 +144,12 @@
       "title": "Regelingen",
       "noSubsidies": "Er zijn geen regelingen gevonden"
     },
+    "external": {
+      "title": "Externe Pagina"
+    },
+    "external-detail": {
+      "title": "Externe Detail Pagina"
+    },
     "form-sent": {
       "title": "Formulier verzonden"
     },
@@ -152,8 +158,11 @@
     },
     "home": {
       "content": {
-        "intro": "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">alle regelingen</a> of neem <a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">contact</a> met ons op.",
-        "section1Intro": "Gaat u een subsidie, tegemoetkoming of specifieke uitkering aanvragen? Dan is het handig om te weten wat u kunt verwachten. Hoewel voor elke subsidie het proces net anders loopt, zijn er een aantal stappen die in elk subsidieproces terugkomen.  Bekijk het volledige proces op de website van DUS-I: <a href=\"#\" target=\"_blank\" rel=\"noopener noreferrer\">subsidieproces</a>.",
+        "intro": {
+          "default": "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"/external/alle-regelingen\" rel=\"external\">alle regelingen</a> of neem <a href=\"/external/contact\" rel=\"noopener noreferrer external\">contact</a> met ons op.",
+          "loggedIn": "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"/regelingen\">alle regelingen</a> of neem <a href=\"/external/contact\" rel=\"noopener noreferrer external\">contact</a> met ons op."
+        },
+        "section1Intro": "Gaat u een subsidie, tegemoetkoming of specifieke uitkering aanvragen? Dan is het handig om te weten wat u kunt verwachten. Hoewel voor elke subsidie het proces net anders loopt, zijn er een aantal stappen die in elk subsidieproces terugkomen.  Bekijk het volledige proces op de website van DUS-I: <a href=\"/external/subsidieproces\" rel=\"noopener noreferrer external\">subsidieproces</a>.",
         "section1Title": "Hoe werkt het?"
       },
       "subtitle": "Het portaal voor het aanvragen van subsidieregelingen voor burgers.",

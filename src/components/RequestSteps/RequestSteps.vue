@@ -8,7 +8,8 @@
     >
       <template #title>{{ item.title }}</template>
       <template #content>
-        <div v-html="item.content" />
+        <AppHtml :html="item.content" />
+
         <div class="horizontal-view">
           <AppButton
             v-if="item.actions.download"
@@ -57,6 +58,7 @@ import AppAccordion from '@/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@/components/AppAccordionItem/AppAccordionItem.vue'
 import AppButton from '@/components/AppButton/AppButton.vue'
 import AppIcon from '@/components/AppIcon/AppIcon.vue'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
 
 import { translate } from '@/i18n'
 

@@ -3,7 +3,10 @@
     <div>
       <h1>{{ translate('pages.home.title') }}</h1>
       <p class="emphasized">{{ translate('pages.home.subtitle') }}</p>
-      <p v-html="translate('pages.home.content.intro')" />
+      <AppHtml
+        as="p"
+        :html="introHtml"
+      />
     </div>
   </section>
   <section class="background-color-offset">
@@ -23,7 +26,7 @@
               v-bind="item"
             />
             <RouterLink
-              :to="{ name: 'arrangements-overview' }"
+              v-bind="overviewRoute"
               class="button"
             >
               {{ translate('pages.home.subsidiesButton') }}
@@ -42,7 +45,10 @@
   <section>
     <div>
       <h2>{{ translate('pages.home.content.section1Title') }}</h2>
-      <p v-html="translate('pages.home.content.section1Intro')" />
+      <AppHtml
+        as="p"
+        :html="translate('pages.home.content.section1Intro')"
+      />
     </div>
   </section>
   <MoreInfo />
@@ -54,10 +60,14 @@ import { translate } from '@/i18n'
 
 import useSEO from '@/composables/useSeo'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
+import { useAuthStore } from '@/store/useAuthStore'
 
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@/components/MoreInfo/MoreInfo.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
+import { computed } from 'vue'
+import { ARRANGEMENT_OVERVIEW, EXTERNAL } from '@/router/names'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
@@ -66,4 +76,16 @@ useSEO({
 const url = useApiSubsidyUrl()
 
 const { data, error, isFetching } = useFetch(url).json()
+
+const authStore = useAuthStore()
+
+const overviewRoute = computed(() => {
+  const name = authStore.isLoggedIn ? ARRANGEMENT_OVERVIEW : EXTERNAL
+  return { to: { name }, rel: !authStore.isLoggedIn ? 'external' : undefined }
+})
+
+const introHtml = computed(() => {
+  const id = authStore.isLoggedIn ? 'loggedIn' : 'default'
+  return translate(`pages.home.content.intro.${id}`)
+})
 </script>

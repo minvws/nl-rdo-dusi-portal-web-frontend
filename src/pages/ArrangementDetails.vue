@@ -1,33 +1,16 @@
 <template>
   <section>
     <div>
-      <RouterLink
-        :to="requestLocalFormRoute"
-        class="button ghost"
-      >
-        Aanvragen (local)
-      </RouterLink>
-      <RouterLink
-        :to="requestRemoteFormRoute"
-        class="button ghost"
-      >
-        Aanvragen (remote)</RouterLink
-      >
-    </div>
-    <div>
       <p>Regeling details for {{ route.params.id }}</p>
-      <h1>[Regeling titel]</h1>
-      <p>[Regeling intro]</p>
-      <p>[Regeling content]</p>
       <RouterLink
         :to="requestLocalFormRoute"
-        class="button cta"
+        class="button ghost"
       >
         Aanvragen (local)
       </RouterLink>
       <RouterLink
         :to="requestRemoteFormRoute"
-        class="button cta"
+        class="button ghost"
       >
         Aanvragen (remote)</RouterLink
       >

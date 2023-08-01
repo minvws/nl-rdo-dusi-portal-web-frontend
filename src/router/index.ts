@@ -4,6 +4,8 @@ import { useAuthStore } from '@/store/useAuthStore'
 
 import ArrangementsView from '@/pages/ArrangementsView.vue'
 import ArrangementView from '@/pages/ArrangementView.vue'
+import ExternalDetailPage from '@/pages/ExternalDetailPage.vue'
+import ExternalPage from '@/pages/ExternalPage.vue'
 import FormSent from '@/pages/FormSent.vue'
 import LandingPage from '@/pages/LandingPage.vue'
 import LocalForm from '@/pages/LocalForm.vue'
@@ -20,6 +22,8 @@ import {
   ARRANGEMENT_FORM_REMOTE,
   ARRANGEMENT_OVERVIEW_PAGE,
   ARRANGEMENT_OVERVIEW,
+  EXTERNAL,
+  EXTERNAL_DETAIL,
   FORM_SENT,
   HOME,
   LOGIN_CALLBACK,
@@ -54,6 +58,24 @@ const router = createRouter({
       }
     },
     {
+      path: '/external/detail/:id',
+      name: EXTERNAL_DETAIL,
+      component: ExternalDetailPage,
+      props: true,
+      meta: {
+        public: true
+      }
+    },
+    {
+      path: '/external/:page?',
+      name: EXTERNAL,
+      component: ExternalPage,
+      props: true,
+      meta: {
+        public: true
+      }
+    },
+    {
       path: '/login-callback',
       name: LOGIN_CALLBACK,
       component: LoginCallback,
@@ -71,9 +93,6 @@ const router = createRouter({
       path: '/regelingen',
       name: ARRANGEMENT_OVERVIEW,
       component: ArrangementsView,
-      meta: {
-        public: true
-      },
       children: [
         {
           path: ':id',
@@ -146,10 +165,11 @@ router.beforeEach(async (to, _from, next) => {
 
   if (to.meta.public || isLoggedIn.value) {
     next()
-  } else {
-    log('route is not `public` and user is not logged-in, redirection to `home`')
-    next({ name: HOME })
+    return
   }
+
+  log('route is not `public` and user is not logged-in, redirection to `home`')
+  next({ name: HOME })
 })
 
 // Set cookie with current route after each route change.

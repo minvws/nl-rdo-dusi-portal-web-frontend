@@ -1,7 +1,8 @@
 <template>
-  <p
+  <AppHtml
+    as="p"
     :class="displayAs"
-    v-html="html"
+    :html="html"
   />
 </template>
 

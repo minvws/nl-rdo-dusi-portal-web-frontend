@@ -2,13 +2,15 @@
   <section class="background-color-offset">
     <div>
       <h2>{{ translate('component.moreInfo.title') }}</h2>
-      <p
+      <AppHtml
         class="emphasized"
-        v-html="translate('component.moreInfo.body1')"
+        as="p"
+        :html="translate('component.moreInfo.body1')"
       />
-      <p
+      <AppHtml
         class="emphasized"
-        v-html="translate('component.moreInfo.body2')"
+        as="p"
+        :html="translate('component.moreInfo.body2')"
       />
     </div>
   </section>
@@ -16,4 +18,5 @@
 
 <script setup lang="ts">
 import { translate } from '@/i18n'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
 </script>

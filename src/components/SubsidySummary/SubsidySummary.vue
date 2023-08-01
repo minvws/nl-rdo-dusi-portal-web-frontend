@@ -20,6 +20,7 @@
     >
     <RouterLink
       :to="link"
+      rel="noopener noreferrer external"
       class="button ghost"
       >{{ translate('component.subsidySummary.button') }}</RouterLink
     >
@@ -31,7 +32,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { translate } from '@/i18n'
-import { ARRANGEMENT_DETAILS } from '@/router/names'
+import { EXTERNAL_DETAIL } from '@/router/names'
 
 export type SubsidySummaryProps = {
   description: string
@@ -55,13 +56,14 @@ const options = {
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
 
-const link = computed(() => ({
-  name: ARRANGEMENT_DETAILS,
-  params: {
-    id: props.publishedForm.id
+const link = computed(() => {
+  return {
+    name: EXTERNAL_DETAIL,
+    params: {
+      id: props.publishedForm.id
+    }
   }
-}))
-
+})
 function formattedDate(date: string) {
   const dateObj = new Date(date)
   return dateObj.toLocaleDateString(locale.value, options)

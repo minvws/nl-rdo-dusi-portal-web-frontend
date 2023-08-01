@@ -2,7 +2,10 @@
   <section>
     <div>
       <h1>{{ translate('pages.my-messages-overview.title') }}</h1>
-      <p v-html="translate('pages.my-messages-overview.intro')" />
+      <AppHtml
+        as="p"
+        :html="translate('pages.my-messages-overview.intro')"
+      />
     </div>
     <Suspense>
       <template #default>
@@ -68,6 +71,7 @@ import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@/router/names'
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import AppPagination from '@/components/AppPagination/AppPagination.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
+import AppHtml from '@/components/AppHtml/AppHtml.vue'
 
 import vFilters from '@/directives/filters'
 
