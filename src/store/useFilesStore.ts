@@ -4,6 +4,7 @@ import { getControlId } from '@/util/control-util'
 
 import { useFormStore } from '@/store/useFormStore'
 import { useApiFileUrl } from '@/composables/useApiUrl'
+import { log } from '@/util/logger-util'
 
 // Define the store
 export const useFilesStore = defineStore('useFilesStore', () => {
@@ -75,7 +76,7 @@ export const useFilesStore = defineStore('useFilesStore', () => {
         setFileId(name, data.id)
       }
     } catch (error) {
-      console.log(error)
+      log(error)
     }
   }
 
@@ -88,7 +89,7 @@ export const useFilesStore = defineStore('useFilesStore', () => {
   //   }
 
   //   const response = await fetch(url, options)
-  //   console.log(response)
+  //   log(response)
   // }
 
   function setFileId(name: string, id: string) {

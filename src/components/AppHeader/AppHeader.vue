@@ -56,7 +56,7 @@
         </ul>
         <ul>
           <li v-if="isLoggedIn">
-            <AppButton @click="logout">
+            <AppButton @click="authStore.logOut">
               {{ translate('component.header.logout') }}
             </AppButton>
           </li>
@@ -126,10 +126,6 @@ const authenticatedLinks: Link[] = [
     badge: 4 // @TODO: get from API/store
   }
 ]
-
-function logout() {
-  authStore.logout()
-}
 </script>
 
 <style lang="scss" scoped>

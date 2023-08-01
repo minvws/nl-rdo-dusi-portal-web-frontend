@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import cookie from 'js-cookie'
+import { useAuthStore } from '@/store/useAuthStore'
 
 import ArrangementsView from '@/pages/ArrangementsView.vue'
 import ArrangementView from '@/pages/ArrangementView.vue'
@@ -13,12 +13,6 @@ import MyMessagesOverview from '@/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@/pages/MyRequestDetails.vue'
 import NotFound from '@/pages/NotFound.vue'
 import RemoteForm from '@/pages/RemoteForm.vue'
-
-import { useAuthStore } from '@/store/useAuthStore'
-
-import { useApiUserStatusUrl } from '@/composables/useApiUrl'
-
-import { ROUTES_COOKIE_NAME, SESSION_COOKIE_NAME } from '@/constants'
 
 import {
   ARRANGEMENT_DETAILS,
@@ -35,6 +29,8 @@ import {
   MY_REQUEST_DETAILS,
   NOT_FOUND
 } from '@/router/names'
+import { setRouteCookie } from '@/util/cookie-util'
+import { log } from '@/util/logger-util'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -144,45 +140,22 @@ const router = createRouter({
 
 // Protected router, redirect to home if not logged in.
 router.beforeEach(async (to, _from, next) => {
-  const url = useApiUserStatusUrl()
   const authStore = useAuthStore()
+  await authStore.restoreSession()
   const { isLoggedIn } = storeToRefs(authStore)
-
-  const sessionCookie = cookie.get(SESSION_COOKIE_NAME) || ''
-
-  if (sessionCookie) {
-    const response = await fetch(url, { method: 'GET', credentials: 'include' })
-    const data = await response.json()
-
-    if (data.logged_in) {
-      authStore.setLoggedIn(true)
-    }
-  }
 
   if (to.meta.public || isLoggedIn.value) {
     next()
   } else {
+    log('route is not `public` and user is not logged-in, redirection to `home`')
     next({ name: HOME })
   }
 })
 
 // Set cookie with current route after each route change.
-// Remove cookie if session has expired.
 router.afterEach(to => {
-  const sessionCookie = cookie.get(SESSION_COOKIE_NAME) || ''
-
-  if (sessionCookie) {
-    const cookieData = JSON.parse(sessionCookie)
-    const cookieTimestamp = new Date(cookieData.timestamp).getTime()
-    const currentTimestamp = Date.now()
-
-    if (cookieTimestamp < currentTimestamp) {
-      cookie.remove(SESSION_COOKIE_NAME)
-    }
-  }
-
   if (to.name !== LOGIN_CALLBACK) {
-    cookie.set(ROUTES_COOKIE_NAME, JSON.stringify(to), { expires: 1, secure: true })
+    setRouteCookie(to)
   }
 })
 

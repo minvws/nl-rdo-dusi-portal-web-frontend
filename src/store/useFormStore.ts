@@ -12,6 +12,7 @@ import { useTouchedFields } from '@/composables/useTouchedFields'
 import { useTouchedForms } from '@/composables/useTouchedForms'
 
 import { FORM_SENT } from '@/router/names'
+import { log } from '@/util/logger-util'
 
 export const useFormStore = defineStore('useFormStore', () => {
   const draftFormId: Ref<string> = ref('')
@@ -57,7 +58,7 @@ export const useFormStore = defineStore('useFormStore', () => {
         router.replace({ name: FORM_SENT })
       }
     } catch (error) {
-      console.log(error)
+      log(error)
     } finally {
       isSubmitting.value = false
     }

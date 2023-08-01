@@ -1,45 +1,73 @@
-import { ref } from 'vue'
+import { ref, watch, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
-import cookie from 'js-cookie'
-
-import { useApiLogoutUrl } from '@/composables/useApiUrl'
+import { useApiLogoutUrl, useApiUserStatusUrl } from '@/composables/useApiUrl'
+import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@/util/cookie-util'
+import { log } from '@/util/logger-util'
 import { HOME } from '@/router/names'
-
-import { SESSION_COOKIE_NAME } from '@/constants'
+import type { LogInResponse, LogOutResponse } from '@/type//api-response-types'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const isLoggedIn = ref(false)
 
-  async function logout() {
-    const url = useApiLogoutUrl()
+  const isLoggedIn: Ref<boolean> = ref(false)
+  const init = ref(false)
 
+  async function logIn() {
     try {
-      const response = await fetch(url, { method: 'POST', credentials: 'include' })
-      const data = await response.json()
-
-      if (!data.logged_in) {
-        setLoggedIn(false)
-        cookie.remove(SESSION_COOKIE_NAME)
-      }
+      const url = useApiUserStatusUrl()
+      const response = await fetch(url, { method: 'GET', credentials: 'include' })
+      setLoginStatus(await response.json())
     } catch (error) {
-      console.error(error)
-    } finally {
-      if (!route.meta.public) {
-        router.push({ name: HOME })
-      }
+      log('log-in error', error)
     }
   }
 
-  function setLoggedIn(value: boolean) {
-    isLoggedIn.value = value
+  async function logOut() {
+    try {
+      const url = useApiLogoutUrl()
+      const response = await fetch(url, { method: 'POST', credentials: 'include' })
+      setLoginStatus(await response.json())
+    } catch (error) {
+      log('log-out error', error)
+    }
   }
 
+  function setLoginStatus({ logged_in }: LogInResponse | LogOutResponse) {
+    isLoggedIn.value = logged_in
+  }
+
+  function restoreSession() {
+    if (init.value) return
+    init.value = true
+    console.log(getSessionCookie())
+    if (getSessionCookie()) {
+      return logIn()
+    }
+  }
+
+  // update session-cookie when isLoggedIn changes
+  watch(isLoggedIn, isLoggedIn => {
+    if (isLoggedIn) {
+      setSessionCookie()
+      return
+    }
+    removeSessionCookie()
+    if (route.meta.public) {
+      return
+    }
+    if (route.name === HOME) {
+      return
+    }
+    // user is logged-out, return to home when route is not public
+    router.push({ name: HOME })
+  })
+
   return {
-    logout,
-    isLoggedIn,
-    setLoggedIn
+    restoreSession,
+    logIn,
+    logOut,
+    isLoggedIn
   }
 })

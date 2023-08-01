@@ -56,6 +56,7 @@
 import AppAccordion from '@/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@/components/AppAccordionItem/AppAccordionItem.vue'
 import AppButton from '@/components/AppButton/AppButton.vue'
+import AppIcon from '@/components/AppIcon/AppIcon.vue'
 
 import { translate } from '@/i18n'
 

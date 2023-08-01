@@ -84,6 +84,7 @@ import useSEO from '@/composables/useSeo'
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MessageSummary from '@/components/MessageSummary/MessageSummary.vue'
 import RequestSteps from '@/components/RequestSteps/RequestSteps.vue'
+import { log } from '@/util/logger-util'
 
 const route = useRoute()
 
@@ -108,15 +109,15 @@ const {
 } = useFetch(detailsUrl).json()
 
 function onDownload(event: Event) {
-  console.log('download', event)
+  log('download', event)
 }
 
 function onEdit(event: Event) {
-  console.log('edit', event)
+  log('edit', event)
 }
 
 function onCancel(event: Event) {
-  console.log('cancel', event)
+  log('cancel', event)
 }
 </script>
 

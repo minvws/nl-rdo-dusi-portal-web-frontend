@@ -25,9 +25,11 @@
             with-buttons
           />
         </div>
-        <p v-else>
-          {{ translate('pages.arrangements-overview.noSubsidies') }}
-        </p>
+        <div v-else>
+          <p>
+            {{ translate('pages.arrangements-overview.noSubsidies') }}
+          </p>
+        </div>
       </template>
       <template #fallback>
         <AppLoader centered />

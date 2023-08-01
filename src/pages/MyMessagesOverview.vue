@@ -17,12 +17,11 @@
             v-filters
           >
             <div>
-              <p><span>[total]</span> berichten</p>
-              <button
-                data-show-filters-label="Toon filters"
-                aria-expanded="false"
-              >
-                Toon zoek en filter opties
+              <p>
+                <span>{{ total }}</span> {{ $t('component.messagesOverview.messages', total) }}
+              </p>
+              <button aria-expanded="false">
+                {{ $t('component.messagesOverview.filter') }}
               </button>
             </div>
             <form>

@@ -65,6 +65,10 @@
         "aria-label": "Hoofdnavigatie"
       }
     },
+    "messagesOverview": {
+      "messages": "bericht | berichten",
+      "filter": "Toon zoek en filter opties"
+    },
     "messageSummary": {
       "aria-label": "Berichtenkaart",
       "button": "Bekijk volledig bericht"
