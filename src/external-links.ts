@@ -33,4 +33,3 @@ export const externalLinks = Object.entries({
   }, {})
   return { ...cul, ...link }
 }, {})
-
