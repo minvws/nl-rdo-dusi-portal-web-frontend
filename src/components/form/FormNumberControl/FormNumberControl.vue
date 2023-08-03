@@ -1,0 +1,67 @@
+<template>
+  <input
+    v-bind="input"
+    @keydown="onKeyDown"
+    @input="$emit('input', $event)"
+    @change="$emit('change', $event)"
+    @focus="$emit('focus', $event)"
+    @blur="$emit('blur', $event)"
+  />
+</template>
+<script setup lang="ts">
+import { InputType } from '@/type/input-types'
+import { type Control } from '@/type/field-types'
+import { computed } from 'vue'
+
+defineEmits(['input', 'change', 'focus', 'blur'])
+
+type Props = {
+  id: string
+  type: InputType.INTEGER | InputType.NUMBER
+  control: Control
+  value?: number
+  placeholder?: string
+  disabled?: boolean
+  autofocus?: boolean
+}
+
+const onKeyDown = (e: KeyboardEvent) => {
+  // Fix: Chrome and Firefox behave differently with input type = 'number'
+  // only allow numbers for `integers`
+  // only allow numbers and decimals for `numbers`
+
+  const { key, metaKey } = e
+  if (key.length > 1 || metaKey) {
+    // accept ignore non input values
+    return
+  }
+
+  const isNumber = !Number.isNaN(parseInt(key))
+  const isDecimal = [',', '.'].includes(key)
+
+  if (props.type === InputType.INTEGER) {
+    if (!isNumber) {
+      e.preventDefault()
+    }
+  } else if (props.type == InputType.NUMBER) {
+    if (!isNumber && !isDecimal) {
+      e.preventDefault()
+    }
+  }
+}
+
+const props = defineProps<Props>()
+
+const input = computed(() => {
+  const {
+    schema: { minimum: min, maximum: max }
+  } = props.control
+  return {
+    ...props,
+    step: InputType.INTEGER ? 1 : undefined,
+    type: InputType.NUMBER,
+    min,
+    max
+  }
+})
+</script>

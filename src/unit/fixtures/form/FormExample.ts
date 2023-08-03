@@ -27,8 +27,9 @@ export default async () => {
       title: 'Straatnaam'
     },
     houseNumber: {
-      type: 'string',
-      title: 'Huisnummer'
+      type: 'integer',
+      title: 'Huisnummer',
+      minimum: 1
     },
     houseNumberSuffix: {
       type: 'string',

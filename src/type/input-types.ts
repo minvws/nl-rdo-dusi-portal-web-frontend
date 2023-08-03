@@ -9,6 +9,7 @@ export enum InputType {
   FILE = 'file',
   HIDDEN = 'hidden',
   IMAGE = 'image',
+  INTEGER = 'integer',
   MONTH = 'month',
   NUMBER = 'number',
   PASSWORD = 'password',
