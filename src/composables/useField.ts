@@ -115,7 +115,7 @@ export const useField = ({
 }) => {
   switch (input.type) {
     case InputType.NUMBER:
-    case 'integer':
+    case InputType.INTEGER:
       return {
         tag: 'FormNumberControl',
         props: { ...input, control }
