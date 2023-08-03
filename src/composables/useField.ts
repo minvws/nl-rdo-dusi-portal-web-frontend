@@ -34,7 +34,7 @@ export const useFieldChange = ({ control }: Field) => {
         // is an empty to trigger validation
         return undefined
       }
-      switch (control.value.schema.type) {
+      switch (control.value.schema.type as InputType) {
         case InputType.NUMBER:
           return parseFloat(`${target[prop]}`)
         case InputType.INTEGER:
@@ -88,7 +88,7 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
   if (format && fieldTypes.includes(format)) {
     return format
   }
-  return type ?? InputType.TEXT
+  return (type as InputType) ?? InputType.TEXT
 }
 
 export const useFieldFileRemove = ({ id }: { id: string }) => {
