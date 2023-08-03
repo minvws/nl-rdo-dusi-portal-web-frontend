@@ -53,11 +53,6 @@ export default async () => {
       tel: true,
       title: 'Telefoonnummer'
     },
-    communicationPreference: {
-      type: 'string',
-      enum: ['Digitaal', 'Post'],
-      title: 'Communicatievoorkeur'
-    },
     email: {
       type: 'string',
       format: 'email',
@@ -250,14 +245,6 @@ export default async () => {
                 label: 'Telefoonnummer',
                 options: {
                   placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/communicationPreference',
-                label: 'Communicatievoorkeur',
-                options: {
-                  format: 'radio'
                 }
               },
               {
@@ -471,7 +458,7 @@ export default async () => {
           'postalCode',
           'city',
           'country',
-          'communicationPreference',
+          'phoneNumber',
           'email',
           'dayOfBirth',
           'bankAccountHolder',
