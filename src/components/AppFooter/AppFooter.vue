@@ -37,10 +37,6 @@ const links: Link[] = [
   {
     name: HOME,
     label: translate('app.name')
-  },
-  {
-    name: ARRANGEMENT_OVERVIEW,
-    label: translate('pages.arrangements-overview.title')
   }
 ]
 </script>

@@ -31,19 +31,3 @@ const onClick = (e: Event) => {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.html {
-  &:deep(a) {
-    &[href='#'] {
-      border: 1px solid red;
-    }
-    &[href^='http:'] {
-      border: 1px solid purple;
-    }
-    &[href^='https:'] {
-      border: 1px solid green;
-    }
-  }
-}
-</style>

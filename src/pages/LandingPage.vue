@@ -5,7 +5,7 @@
       <p class="emphasized">{{ translate('pages.home.subtitle') }}</p>
       <AppHtml
         as="p"
-        :html="introHtml"
+        :html="translate('pages.home.content.intro')"
       />
     </div>
   </section>
@@ -25,12 +25,12 @@
               :key="index"
               v-bind="item"
             />
-            <RouterLink
-              v-bind="overviewRoute"
+            <a
+              v-bind="grantLink"
               class="button"
             >
               {{ translate('pages.home.subsidiesButton') }}
-            </RouterLink>
+            </a>
           </template>
           <p v-else>
             {{ translate('pages.home.noSubsidies') }}
@@ -60,32 +60,18 @@ import { translate } from '@/i18n'
 
 import useSEO from '@/composables/useSeo'
 import { useApiSubsidyUrl } from '@/composables/useApiUrl'
-import { useAuthStore } from '@/store/useAuthStore'
-
 import AppLoader from '@/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@/components/MoreInfo/MoreInfo.vue'
 import SubsidySummary from '@/components/SubsidySummary/SubsidySummary.vue'
 import AppHtml from '@/components/AppHtml/AppHtml.vue'
-import { computed } from 'vue'
-import { ARRANGEMENT_OVERVIEW, EXTERNAL } from '@/router/names'
+import { grantLink } from '@/external-links'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
 })
 
 const url = useApiSubsidyUrl()
-
 const { data, error, isFetching } = useFetch(url).json()
 
-const authStore = useAuthStore()
 
-const overviewRoute = computed(() => {
-  const name = authStore.isLoggedIn ? ARRANGEMENT_OVERVIEW : EXTERNAL
-  return { to: { name }, rel: !authStore.isLoggedIn ? 'external' : undefined }
-})
-
-const introHtml = computed(() => {
-  const id = authStore.isLoggedIn ? 'loggedIn' : 'default'
-  return translate(`pages.home.content.intro.${id}`)
-})
 </script>
