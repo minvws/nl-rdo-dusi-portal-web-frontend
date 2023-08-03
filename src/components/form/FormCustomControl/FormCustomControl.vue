@@ -20,6 +20,7 @@ import { useFieldValue, useFieldType, useField } from '@/composables/useField'
 import { useCustomControl } from '@/composables/useCustomControl'
 
 import FormRow from '@/components/form/FormRow/FormRow.vue'
+import FormNumberControl from '@/components/form/FormNumberControl/FormNumberControl.vue'
 import FormTextControl from '@/components/form/FormTextControl/FormTextControl.vue'
 import FormRadioControl from '@/components/form/FormRadioControl/FormRadioControl.vue'
 import FormFileControl from '@/components/form/FormFileControl/FormFileControl.vue'
@@ -29,6 +30,7 @@ export default defineComponent({
   components: {
     FormRow,
     FormTextControl,
+    FormNumberControl,
     FormRadioControl,
     FormFileControl,
     FormSelectControl
