@@ -11,7 +11,6 @@ import { translate } from '@/i18n'
 import { computed } from 'vue'
 import AppHtml from '@/components/AppHtml/AppHtml.vue'
 
-
 type Props = {
   message: string
   displayAs: 'error' | 'warning' | 'explanation' | 'success'
