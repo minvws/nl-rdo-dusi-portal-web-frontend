@@ -109,6 +109,7 @@
     },
     "fields": {
       "error": {
+        "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "field": "Dit veld",
         "required": "{field} is verplicht",
         "optional": "{field} is optioneel",

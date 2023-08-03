@@ -3,6 +3,7 @@
     <component
       :is="field.tag"
       v-bind="field.props"
+      @error="onError"
       @input="onInput"
       @change="onChange"
       @focus="onFocus"
@@ -41,6 +42,11 @@ export default defineComponent({
   setup(props) {
     return useCustomControl(props)
   },
+  data() {
+    return {
+      error: ''
+    }
+  },
   computed: {
     input() {
       const {
@@ -60,15 +66,14 @@ export default defineComponent({
       }
     },
     wrapperProps() {
-      const { styles, isFocused, appliedOptions, control, isTouched } = this
+      const { styles, isFocused, appliedOptions, control, isTouched, error } = this
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
-
       return {
         appliedOptions,
         data,
         description: isFocused ? description : undefined,
-        errors: isTouched ? errors : undefined, // only show errors when field is touched
+        errors: error || (isTouched ? errors : undefined), // only show errors when field is touched
         id,
         isFocused,
         label,
@@ -83,6 +88,9 @@ export default defineComponent({
     }
   },
   methods: {
+    onError(error?: string) {
+      this.error = error ?? ''
+    },
     onFocus() {
       this.isFocused = true
     },
@@ -91,6 +99,7 @@ export default defineComponent({
       this.setTouchedField(true)
     },
     onInput(e: Event) {
+      this.error = ''
       if (!this.control.errors) return
       // validate on input when input has errors
       this.onChange(e)

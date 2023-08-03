@@ -16,11 +16,14 @@ import FormTextControl from '@/components/form/FormTextControl/FormTextControl.v
 import FormFieldRemoveFile from '@/components/form/FormFieldRemoveFile/FormFieldRemoveFile.vue'
 import { InputType } from '@/type/input-types'
 import { type Control } from '@/type/field-types'
+import { translate } from '@/i18n'
+import { formatFileSize } from '@/util/format-util'
 
-const emit = defineEmits(['input', 'change', 'focus', 'blur'])
+const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 
 type Props = {
   accept?: string
+  maxFileSize?: number
   autofocus?: boolean
   control: Control
   disabled?: boolean
@@ -38,6 +41,16 @@ function onBlur(event: Event) {
 }
 
 function onChange(event: Event) {
+  const target = event.target as HTMLInputElement
+  const file = target?.files?.[0]
+  const { maxFileSize } = props
+  if (file && maxFileSize && file.size > maxFileSize) {
+    // file exceeds maxFileSize
+    event.preventDefault()
+    const size = formatFileSize(maxFileSize)
+    emit('error', translate('form.fields.error.maxFileSize', { maxFileSize: size }))
+    return
+  }
   emit('change', event)
 }
 
