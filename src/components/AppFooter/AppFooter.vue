@@ -30,6 +30,7 @@ import type { Link } from '@/type/link-types'
 
 import { translate } from '@/i18n'
 import { HOME } from '@/router/names'
+
 import { version } from '@/../package.json'
 
 const links: Link[] = [
