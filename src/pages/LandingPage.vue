@@ -72,6 +72,4 @@ useSEO({
 
 const url = useApiSubsidyUrl()
 const { data, error, isFetching } = useFetch(url).json()
-
-
 </script>

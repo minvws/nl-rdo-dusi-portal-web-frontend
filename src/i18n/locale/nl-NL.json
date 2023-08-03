@@ -109,6 +109,7 @@
     },
     "fields": {
       "error": {
+        "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "field": "Dit veld",
         "required": "{field} is verplicht",
         "optional": "{field} is optioneel",
@@ -158,7 +159,7 @@
     },
     "home": {
       "content": {
-        "intro":  "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"{grantLinkHref}\" rel=\"${grantLinkRel}\">alle regelingen</a> of neem <a href=\"{contactLinkHref}\" rel=\"${contactLinkRel}\">contact</a> met ons op.",
+        "intro": "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"{grantLinkHref}\" rel=\"${grantLinkRel}\">alle regelingen</a> of neem <a href=\"{contactLinkHref}\" rel=\"${contactLinkRel}\">contact</a> met ons op.",
         "section1Intro": "Gaat u een subsidie, tegemoetkoming of specifieke uitkering aanvragen? Dan is het handig om te weten wat u kunt verwachten. Hoewel voor elke subsidie het proces net anders loopt, zijn er een aantal stappen die in elk subsidieproces terugkomen.  Bekijk het volledige proces op de website van DUS-I: <a href=\"{grantProcessLinkHref}\" rel=\"{grantProcessLinkRel}\">subsidieproces</a>.",
         "section1Title": "Hoe werkt het?"
       },

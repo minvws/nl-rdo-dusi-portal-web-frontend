@@ -59,10 +59,11 @@ export const useFieldValue = ({
   const prop = getFieldProp(control)
   if (file) {
     // file input
-    const { accept } = appliedOptions
+    const { accept, maxFileSize } = appliedOptions
     return {
       [prop]: data,
-      accept
+      accept,
+      maxFileSize
     }
   }
   switch (type) {

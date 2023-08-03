@@ -35,10 +35,10 @@ const getMessages = async () => {
 
 let t: (_key: string, _props?: Record<string, string>) => string
 
-export const translate = (key: string, props?: Record<string, string>) => {
+export const translate = (key: string, props?: Record<string, string | number>) => {
   // only translate when key does not match result
   // otherwise the key is not translated
-  const value = t(key, { ...externalLinks,  ...props })
+  const value = t(key, { ...externalLinks, ...props })
   if (value === key) return undefined
   return value
 }
