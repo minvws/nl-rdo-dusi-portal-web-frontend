@@ -29,7 +29,7 @@
 import type { Link } from '@/type/link-types'
 
 import { translate } from '@/i18n'
-import { ARRANGEMENT_OVERVIEW, HOME } from '@/router/names'
+import { HOME } from '@/router/names'
 
 import { version } from '@/../package.json'
 
@@ -37,10 +37,6 @@ const links: Link[] = [
   {
     name: HOME,
     label: translate('app.name')
-  },
-  {
-    name: ARRANGEMENT_OVERVIEW,
-    label: translate('pages.arrangements-overview.title')
   }
 ]
 </script>
