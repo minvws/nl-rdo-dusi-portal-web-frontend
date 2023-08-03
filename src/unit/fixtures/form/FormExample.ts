@@ -414,7 +414,7 @@ export default async () => {
             options: {
               fields: {
                 Indiener: '{firstName} {infix} {lastName}',
-                Adres: '{street} {houseNumber}{houseNumberSuffix} {postalCode} {city}',
+                Adres: '{streetName} {houseNumber}{houseNumberSuffix} {postalCode} {city}',
                 Telefoon: '{phoneNumber}',
                 'E-mailadress': '{email}'
               }
