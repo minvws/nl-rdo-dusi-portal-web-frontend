@@ -65,7 +65,9 @@ export const useFormStore = defineStore('useFormStore', () => {
   }
 
   function clearActiveForm() {
-    const { id } = forms.activeForm.value
+    const activeForm = forms.activeForm.value
+    if (!activeForm) return
+    const { id } = activeForm
     clearTouchedFields(id)
     clearTouchedForms(id)
     filesStore.clearFiles(id)
