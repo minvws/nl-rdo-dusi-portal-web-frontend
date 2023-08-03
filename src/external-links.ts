@@ -17,7 +17,7 @@ export const grantProcessLink = {
 }
 
 export const contactLink = {
-  href: '/external/contact',
+  href: 'https://www.dus-i.nl/contact',
   rel: external
 }
 
