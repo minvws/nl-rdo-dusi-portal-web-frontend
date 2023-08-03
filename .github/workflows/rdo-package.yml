@@ -28,7 +28,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.REPO_READ_ONLY_TOKEN }}
 
       - name: Add Generic env
-        run: 'echo "VITE_API_BASE_URL=bff" > .env'
+        run: 'echo "VITE_API_BASE_URL=/bff" > .env'
 
       - name: NPM build
         run: npm run build-only
