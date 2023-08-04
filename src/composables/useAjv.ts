@@ -18,5 +18,13 @@ export const useAjv = (): Ajv => {
     }
   })
 
+  ajv.addKeyword({
+    keyword: 'postalCode',
+    validate: (schema: JsonSchema, postalCode: string) => {
+      const dutchPostalCodeRegex = /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/
+      return dutchPostalCodeRegex.test(postalCode)
+    }
+  })
+
   return ajv
 }

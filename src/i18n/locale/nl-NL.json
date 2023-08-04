@@ -109,13 +109,14 @@
     },
     "fields": {
       "error": {
-        "maxFileSize": "Bestand is groter dan {maxFileSize}",
-        "field": "Dit veld",
-        "required": "{field} is verplicht",
-        "optional": "{field} is optioneel",
-        "iban": "Dit is geen geldige IBAN",
         "const": "Dit veld is verplicht",
-        "required-boolean": "Dit veld is verplicht"
+        "field": "Dit veld",
+        "iban": "Dit is geen geldige IBAN",
+        "maxFileSize": "Bestand is groter dan {maxFileSize}",
+        "optional": "{field} is optioneel",
+        "postalCode": "Dit is geen geldige postcode",
+        "required-boolean": "Dit veld is verplicht",
+        "required": "{field} is verplicht"
       },
       "email": {
         "error": {
