@@ -150,7 +150,7 @@ export const useField = ({
       }
   }
   return {
-    props: input,
+    props: { ...input, control },
     tag: 'FormTextControl'
   }
 }

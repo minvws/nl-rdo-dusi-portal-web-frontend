@@ -37,7 +37,9 @@ export default async () => {
     },
     postalCode: {
       type: 'string',
-      title: 'Postcode'
+      title: 'Postcode',
+      postalCode: true,
+      maxLength: 7
     },
     city: {
       type: 'string',
