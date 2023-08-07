@@ -37,9 +37,6 @@ export const Default: Story = {
     publishedForm: {
       id: '1',
       version: 1
-    },
-    form: {
-      id: '1'
     }
   }
 }
