@@ -53,7 +53,8 @@ export default async () => {
     phoneNumber: {
       type: 'string',
       tel: true,
-      title: 'Telefoonnummer'
+      title: 'Telefoonnummer',
+      maxLength: 16
     },
     email: {
       type: 'string',

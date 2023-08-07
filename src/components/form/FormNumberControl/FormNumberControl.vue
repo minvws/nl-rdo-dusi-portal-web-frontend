@@ -32,13 +32,13 @@ const onKeyDown = (e: KeyboardEvent) => {
   // only allow numbers and decimals for `numbers`
 
   const { key, metaKey } = e
-  if (key.length > 1 || metaKey) {
-    // accept ignore non input values
+  if (!key || key.length > 1 || metaKey) {
+    // ignore non input values
     return
   }
 
   const isNumber = !Number.isNaN(parseInt(key))
-  const isDecimal = [',', '.'].includes(key)
+  const isDecimal = ['.'].includes(key)
 
   if (props.type === InputType.INTEGER) {
     if (!isNumber) {

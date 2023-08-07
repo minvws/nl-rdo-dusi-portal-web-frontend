@@ -15,7 +15,7 @@ export type FieldProp = {
 export type Control = {
   id: string
   data: FormValue
-  schema: JsonSchema & { file?: boolean }
+  schema: JsonSchema & { file?: boolean; tel?: boolean; postalCode?: boolean }
   options?: { label: string; value: string }[]
 }
 
