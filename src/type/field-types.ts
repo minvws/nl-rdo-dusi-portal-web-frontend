@@ -3,19 +3,22 @@ import type { ComputedRef } from 'vue'
 import type { JsonSchema } from '@jsonforms/core'
 import type { FormValue } from '@/type/form-types'
 
-export type FieldProp = {
-  type: string
+type FieldOptions = {
   iban?: boolean
   tel?: boolean
   file?: boolean
+  postalCode?: boolean
+}
+export type FieldProp = {
+  type: string
   format?: InputType
   enum?: string[]
-}
+} & FieldOptions
 
 export type Control = {
   id: string
   data: FormValue
-  schema: JsonSchema & { file?: boolean; tel?: boolean; postalCode?: boolean }
+  schema: JsonSchema & FieldOptions
   options?: { label: string; value: string }[]
 }
 
