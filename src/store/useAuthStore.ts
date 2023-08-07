@@ -28,7 +28,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function logOut() {
     try {
       const url = useApiLogoutUrl()
-      const response = await fetch(url, { method: 'POST', headers: useApiHeaders(), credentials: 'include' })
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: useApiHeaders(),
+        credentials: 'include'
+      })
       setLoginStatus(await response.json())
     } catch (error) {
       log('log-out error', error)
