@@ -1,8 +1,8 @@
 declare global {
   interface Window {
-      config?: {
-        api?: string
-      };
+    config?: {
+      api?: string
+    }
   }
 }
 const baseUrl = window?.config?.api || import.meta.env.VITE_API_BASE_URL
