@@ -3,15 +3,18 @@ import { InputType } from '@/type/input-types'
 import type { FieldProp } from '@/type/field-types'
 import { toNestedObject } from '@/util/object-util'
 
-const getDummyData = ({ type, format, iban, file, tel, enum: enums }: FieldProp) => {
+const getDummyData = ({ type, format, iban, file, tel, postalCode, enum: enums }: FieldProp) => {
   if (enums) {
     return enums[enums.length - 1]
   }
   if (tel) {
-    return '+31611111111'
+    return '+31(0) 611111111'
   }
   if (iban) {
     return 'NL91ABNA0417164300'
+  }
+  if (postalCode) {
+    return '1111 AA'
   }
   if (file) {
     // files can only be set with an user event
