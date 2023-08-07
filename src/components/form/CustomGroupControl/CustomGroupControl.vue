@@ -2,7 +2,7 @@
   <component
     :is="wrapperComponent"
     class="form-group"
-    :class="{ section: appliedOptions.section }"
+    :class="formGroupClassName"
   >
     <component
       v-if="layout.label"
@@ -73,6 +73,10 @@ export default defineComponent({
         ...props
       }
     },
+    formGroupClassName() {
+      const { section, group } = this.appliedOptions
+      return { section, group }
+    },
     groupClassName() {
       const size = Math.min(2, this.uischema.elements.length)
       return `size-${size}`
@@ -92,6 +96,7 @@ export default defineComponent({
   &-label {
     flex: 0.25;
   }
+
   &-renderer {
     width: 100%;
     flex: 0.75;
@@ -128,8 +133,21 @@ export default defineComponent({
       border: 0;
     }
   }
+
   &.section {
     display: block;
+  }
+
+  &.group {
+    padding: 1em;
+    background-color: var(--form-base-background-color, inherit);
+
+    legend {
+      // styles are added, so we can have a background on the group
+      display: table;
+      float: left;
+      width: 100%;
+    }
   }
 }
 </style>

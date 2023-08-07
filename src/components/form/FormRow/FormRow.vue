@@ -103,7 +103,6 @@ export default defineComponent({
 .form-row {
   display: flex;
   flex-direction: row;
-
   &.column {
     flex-direction: column;
   }
