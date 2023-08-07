@@ -6,7 +6,6 @@ import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@/util/
 import { log } from '@/util/logger-util'
 import { HOME } from '@/router/names'
 import type { LogInResponse, LogOutResponse } from '@/type//api-response-types'
-import { useApiHeaders } from '@/composables/useApiHeaders'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
@@ -28,11 +27,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function logOut() {
     try {
       const url = useApiLogoutUrl()
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: useApiHeaders(),
-        credentials: 'include'
-      })
+      const response = await fetch(url, { method: 'POST', credentials: 'include' })
       setLoginStatus(await response.json())
     } catch (error) {
       log('log-out error', error)

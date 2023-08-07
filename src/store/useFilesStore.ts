@@ -5,7 +5,6 @@ import { getControlId } from '@/util/control-util'
 import { useFormStore } from '@/store/useFormStore'
 import { useApiFileUrl } from '@/composables/useApiUrl'
 import { log } from '@/util/logger-util'
-import { useApiHeaders } from '@/composables/useApiHeaders'
 
 // Define the store
 export const useFilesStore = defineStore('useFilesStore', () => {
@@ -65,7 +64,6 @@ export const useFilesStore = defineStore('useFilesStore', () => {
 
     const options: RequestInit = {
       method: 'POST',
-      headers: useApiHeaders(),
       credentials: 'include',
       body: body
     }
