@@ -27,10 +27,5 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const input = computed(() => {
-  return {
-    ...getInputAttrs(props.control),
-    ...props
-  }
-})
+const input = computed(() => ({ ...getInputAttrs(props.control), ...props }))
 </script>
