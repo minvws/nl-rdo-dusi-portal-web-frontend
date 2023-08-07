@@ -13,6 +13,7 @@ import { useTouchedForms } from '@/composables/useTouchedForms'
 
 import { FORM_SENT } from '@/router/names'
 import { log } from '@/util/logger-util'
+import { useApiHeaders } from '@/composables/useApiHeaders'
 
 export const useFormStore = defineStore('useFormStore', () => {
   const draftFormId: Ref<string> = ref('')
@@ -44,7 +45,8 @@ export const useFormStore = defineStore('useFormStore', () => {
       credentials: 'include',
       headers: {
         Accept: 'text/plain',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        ...useApiHeaders
       },
       body: JSON.stringify(body)
     }
@@ -79,6 +81,7 @@ export const useFormStore = defineStore('useFormStore', () => {
     const url = useApiDraftFormUrl(id as string)
     const options: RequestInit = {
       method: 'POST',
+      headers: useApiHeaders(),
       credentials: 'include'
     }
 
