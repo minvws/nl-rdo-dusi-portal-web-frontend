@@ -1,5 +1,12 @@
+declare global {
+  interface Window {
+    config?: {
+      api?: string
+    }
+  }
+}
+const baseUrl = window?.config?.api || import.meta.env.VITE_API_BASE_URL
 const useMockData = import.meta.env.VITE_MOCK_DATA
-const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 export const useApiDraftFormUrl = (id: string) => {
   return `${baseUrl}/api/forms/${id}/applications`
