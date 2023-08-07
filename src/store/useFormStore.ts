@@ -13,7 +13,6 @@ import { useTouchedForms } from '@/composables/useTouchedForms'
 
 import { FORM_SENT } from '@/router/names'
 import { log } from '@/util/logger-util'
-import { getCSRFToken } from '@/util/cookie-util'
 import { useApiHeaders } from '@/composables/useApiHeaders'
 
 export const useFormStore = defineStore('useFormStore', () => {
