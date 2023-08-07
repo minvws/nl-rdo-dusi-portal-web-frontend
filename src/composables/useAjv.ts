@@ -26,15 +26,5 @@ export const useAjv = (): Ajv => {
     keyword: 'tel',
     validate: isValidPhoneNumber
   })
-
-  ajv.addKeyword({
-    keyword: 'postalCode',
-    validate: (schema: JsonSchema, postalCode: string) => {
-      /* format: 1111AA or 1111 AA */
-      const dutchPostalCodeRegex = /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/
-      return dutchPostalCodeRegex.test(postalCode)
-    }
-  })
-
   return ajv
 }
