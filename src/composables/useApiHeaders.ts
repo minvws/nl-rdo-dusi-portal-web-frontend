@@ -1,4 +1,4 @@
-import { getCSRFToken } from "@/util/cookie-util"
+import { getCSRFToken } from '@/util/cookie-util'
 
 export const useApiHeaders = () => {
   const token = getCSRFToken()
