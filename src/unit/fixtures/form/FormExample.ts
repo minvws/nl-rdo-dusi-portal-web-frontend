@@ -103,13 +103,33 @@ export default async () => {
   }
 
   const firstSchema = {
-    type: 'HorizontalLayout',
+    type: 'CustomGroupControl',
+    options: { section: true },
     elements: [
       {
         type: 'FormHtml',
         options: {
           html: fromExamplePage1
         }
+      },
+      {
+        type: 'CustomGroupControl',
+        label: 'Toestemming',
+        options: {
+          section: true,
+          group: true
+        },
+        elements: [
+          {
+            type: 'CustomControl',
+            scope: '#/properties/permissionToProcessPersonalData',
+            label: 'Verwerking',
+            options: {
+              description:
+                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag.'
+            }
+          }
+        ]
       }
     ]
   }
@@ -423,15 +443,6 @@ export default async () => {
         elements: [
           {
             type: 'CustomControl',
-            scope: '#/properties/permissionToProcessPersonalData',
-            label: 'Verwerking',
-            options: {
-              description:
-                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag. Ik verklaar het formulier naar waarheid te hebben ingevuld'
-            }
-          },
-          {
-            type: 'CustomControl',
             scope: '#/properties/truth',
             label: 'Inhoud',
             options: {
@@ -447,7 +458,8 @@ export default async () => {
     {
       uischema: firstSchema,
       schema: {
-        properties
+        properties,
+        required: ['permissionToProcessPersonalData']
       }
     },
     {
@@ -487,7 +499,7 @@ export default async () => {
     {
       uischema: lastSchema,
       schema: {
-        required: ['permissionToProcessPersonalData', 'truth'],
+        required: ['truth'],
         properties
       },
       title: 'Controleren en ondertekenen'
