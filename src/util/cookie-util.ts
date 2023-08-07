@@ -36,3 +36,7 @@ export function getSessionCookie() {
 export function removeSessionCookie() {
   removeCookie(SESSION_COOKIE_NAME)
 }
+
+export function getCSRFToken ()  {
+  return cookie.get('XSRF-TOKEN')
+}
