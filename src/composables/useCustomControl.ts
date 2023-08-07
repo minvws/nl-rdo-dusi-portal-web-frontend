@@ -1,5 +1,6 @@
 import { useFormStore } from '@/store/useFormStore'
 import { useFieldChange, useFieldType } from '@/composables/useField'
+import { useCustomControlInput } from '@/composables/useCustomControlInput'
 import { InputType } from '@/type/input-types'
 import { getControlId } from '@/util/control-util'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
@@ -14,8 +15,12 @@ export const useCustomControl = (props: any) => {
     type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
   const { onHandleChange } = useFieldChange($props as any)
 
-  return {
+  const component = {
     ...useVanillaControl($props, onHandleChange),
     ...useTouchedField(id)
+  }
+  return {
+    ...component,
+    ...useCustomControlInput(component)
   }
 }

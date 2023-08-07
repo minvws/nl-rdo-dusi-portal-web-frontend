@@ -7,6 +7,7 @@ import { InputType } from '@/type/input-types'
 import type { Control, Field } from '@/type/field-types'
 
 import { formatFile } from '@/util/format-util'
+import { getValue } from './useCustomControlInput'
 
 function getFieldProp(control: Control) {
   switch (control.schema.type) {
@@ -24,23 +25,19 @@ export const useFieldChange = ({ control }: Field) => {
     addOrRemoveFile,
     onHandleChange: (target: HTMLInputElement) => {
       const prop = getFieldProp(control.value)
+      const value = target[prop]
       const isFile = control.value.schema.file
+
       if (isFile) {
         // when file, add or remove from fileStore
         addOrRemoveFile(control.value.id, target)
       }
-      if (target[prop] === '') {
+      if (value === '' ?? value === undefined) {
         // we need to set the value to undefined when the value
-        // is an empty to trigger validation
+        // is empty to trigger validation
         return undefined
       }
-      switch (control.value.schema.type as InputType) {
-        case InputType.NUMBER:
-          return parseFloat(`${target[prop]}`)
-        case InputType.INTEGER:
-          return parseInt(`${target[prop]}`)
-      }
-      return target[prop]
+      return getValue('onChange', control.value, value)
     }
   }
 }

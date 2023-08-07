@@ -1,7 +1,9 @@
-import type { JsonSchema } from '@jsonforms/core'
 import { createAjv } from '@jsonforms/core'
 import type Ajv from '@jsonforms/core/node_modules/ajv'
-import { iban } from '@form-validation/validator-iban'
+
+import { isValidIban } from '@/custom-input/iban-input'
+import { isValidPostalCode } from '@/custom-input/postal-code-input'
+import { isValidPhoneNumber } from '@/custom-input/phone-number-input'
 
 export const useAjv = (): Ajv => {
   const ajv = createAjv({
@@ -12,20 +14,17 @@ export const useAjv = (): Ajv => {
 
   ajv.addKeyword({
     keyword: 'iban',
-    validate: (schema: JsonSchema, value: string) => {
-      const { valid } = iban().validate({ value })
-      return valid
-    }
+    validate: isValidIban
   })
 
   ajv.addKeyword({
     keyword: 'postalCode',
-    validate: (schema: JsonSchema, postalCode: string) => {
-      /* format: 1111AA or 1111 AA */
-      const dutchPostalCodeRegex = /^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/
-      return dutchPostalCodeRegex.test(postalCode)
-    }
+    validate: isValidPostalCode
   })
 
+  ajv.addKeyword({
+    keyword: 'tel',
+    validate: isValidPhoneNumber
+  })
   return ajv
 }

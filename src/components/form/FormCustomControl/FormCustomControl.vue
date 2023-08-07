@@ -16,7 +16,6 @@
 import { defineComponent } from 'vue'
 import type { ControlElement } from '@jsonforms/core'
 import { rendererProps } from '@jsonforms/vue'
-
 import { useFieldValue, useFieldType, useField } from '@/composables/useField'
 import { useCustomControl } from '@/composables/useCustomControl'
 
@@ -41,11 +40,6 @@ export default defineComponent({
   },
   setup(props) {
     return useCustomControl(props)
-  },
-  data() {
-    return {
-      error: ''
-    }
   },
   computed: {
     input() {
@@ -85,24 +79,6 @@ export default defineComponent({
     },
     field() {
       return useField(this)
-    }
-  },
-  methods: {
-    onError(error?: string) {
-      this.error = error ?? ''
-    },
-    onFocus() {
-      this.isFocused = true
-    },
-    onBlur() {
-      this.isFocused = true
-      this.setTouchedField(true)
-    },
-    onInput(e: Event) {
-      this.error = ''
-      if (!this.control.errors) return
-      // validate on input when input has errors
-      this.onChange(e)
     }
   }
 })
