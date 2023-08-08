@@ -31,10 +31,10 @@ export const Default: Story = {
     title: 'Lorem ipsum dolor sit amet',
     description:
       'Proin semper eget magna vitae maximus. Fusce in faucibus libero, in feugiat orci. Cras ligula sapien, egestas nec scelerisque non, egestas et ligula. Maecenas vel justo vitae risus facilisis scelerisque.',
-    startDate: '01-02-2021',
-    endDate: '01-02-2024',
+    validFrom: '01-02-2021',
+    validTo: '01-02-2024',
     readMore: '/',
-    form: {
+    publishedForm: {
       id: '1',
       version: 1
     }
