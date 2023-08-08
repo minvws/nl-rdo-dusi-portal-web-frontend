@@ -21,6 +21,7 @@ import FormLoaderMessage from '@/components/form/FormLoaderMessage/FormLoaderMes
 import FormView from '@/components/form/FormView/FormView.vue'
 
 import { useLoadForm } from '@/composables/useLoadForm'
+import { computed, watch } from 'vue'
 
 type Props = {
   id: string
@@ -30,5 +31,13 @@ const props = defineProps<Props>()
 
 const { title, forms, isLoading, error, loadFormById } = useLoadForm()
 
-loadFormById(props.id)
+const id = computed(() => props.id)
+
+watch(
+  id,
+  id => {
+    loadFormById(id)
+  },
+  { immediate: true }
+)
 </script>
