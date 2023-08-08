@@ -39,7 +39,7 @@
           <AppPagination
             :items-total="total"
             :page-size="pageSize"
-            :start-page="currentPage"
+            :current-page="currentPage"
             @page-change="onPageChange"
             with-buttons
           />
