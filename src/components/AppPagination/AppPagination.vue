@@ -1,5 +1,6 @@
 <template>
   <nav
+    style="border: 10px solid red"
     v-if="totalPages > 1"
     class="pagination"
     aria-label="Paginering"
@@ -22,7 +23,7 @@
         <a
           :href="path"
           :aria-label="`Ga naar pagina ${page}`"
-          :aria-current="isCurrentPage(page)"
+          :aria-current="currentPage === page ? 'true' : undefined"
           @click.prevent="setCurrentPage(page)"
         >
           {{ page }}
@@ -43,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import { translate } from '@/i18n'
 
 const emit = defineEmits(['page-change'])
@@ -52,34 +53,27 @@ type Props = {
   itemsTotal: number
   pageSize: number
   path?: string | '#'
-  startPage: number
+  currentPage: number
   withButtons?: boolean
 }
 
 const props = defineProps<Props>()
 
-const currentPage = ref(props.startPage)
-
 const totalPages = computed(() => Math.ceil(props.itemsTotal / props.pageSize))
 
 function goToNextPage() {
-  if (currentPage.value < totalPages.value) {
-    setCurrentPage(currentPage.value + 1)
+  if (props.currentPage < totalPages.value) {
+    setCurrentPage(props.currentPage + 1)
   }
 }
 
 function goToPreviousPage() {
-  if (currentPage.value > 1) {
-    setCurrentPage(currentPage.value - 1)
+  if (props.currentPage > 1) {
+    setCurrentPage(props.currentPage - 1)
   }
 }
 
-function isCurrentPage(page: number) {
-  return currentPage.value === page ? 'true' : undefined
-}
-
 function setCurrentPage(page: number) {
-  currentPage.value = page
   emit('page-change', page)
 }
 </script>
