@@ -1,0 +1,316 @@
+{
+  "headings": [
+    { "field": "dossier", "text": "Dossier", "sortable": true },
+    { "field": "regeling", "text": "Regeling", "sortable": true },
+    { "field": "status", "text": "Status", "sortable": true },
+    { "field": "deadline", "text": "Deadline", "sortable": true },
+    { "field": "beoordelaar", "text": "Beoordelaar", "sortable": true }
+  ],
+  "filters": [
+    { "text": "Hoge Prioriteit", "id": "priority", "value": "high" },
+    { "text": "Nieuw", "id": "new", "value": true },
+    { "text": "In behandeling", "id": "in_progress", "value": true }
+  ],
+  "items": [
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2207329" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "07/21/2023" },
+      "beoordelaar": { "type": "string", "text": "Emma Johnson" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2203957" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "03/17/2023" },
+      "beoordelaar": { "type": "string", "text": "Sophia Smith" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201956" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "08/28/2023" },
+      "beoordelaar": { "type": "string", "text": "Oliver Williams" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2200461" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "06/06/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201299" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "09/02/2023" },
+      "beoordelaar": { "type": "string", "text": "William Brown" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201312" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "12/01/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2205609" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "12/08/2023" },
+      "beoordelaar": { "type": "string", "text": "Ava Davis" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2203759" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Herbeoordeling" },
+      "deadline": { "type": "date", "text": "07/12/2023" },
+      "beoordelaar": { "type": "string", "text": "Emma Johnson" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201537" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "10/19/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2202644" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "09/12/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2206874" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "10/01/2023" },
+      "beoordelaar": { "type": "string", "text": "Sophia Smith" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2209536" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "03/25/2023" },
+      "beoordelaar": { "type": "string", "text": "Oliver Williams" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2208376" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "11/29/2023" },
+      "beoordelaar": { "type": "string", "text": "William Brown" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2200111" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "01/09/2023" },
+      "beoordelaar": { "type": "string", "text": "Ava Davis" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201551" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "05/03/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201297" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "02/26/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201291" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "04/10/2023" },
+      "beoordelaar": { "type": "button", "to": { "name": "home" }, "text": "Pak op" },
+      "tags": {
+        "priority": "low",
+        "new": true,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201222" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "11/03/2023" },
+      "beoordelaar": { "type": "string", "text": "Sophia Smith" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201277" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "02/02/2023" },
+      "beoordelaar": { "type": "string", "text": "Emma Johnson" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2209374" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "04/14/2023" },
+      "beoordelaar": { "type": "string", "text": "William Brown" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2205347" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "08/15/2023" },
+      "beoordelaar": { "type": "string", "text": "Oliver Williams" },
+      "tags": {
+        "priority": "high",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2207695" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "09/10/2023" },
+      "beoordelaar": { "type": "string", "text": "Ava Davis" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2202537" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "02/15/2023" },
+      "beoordelaar": { "type": "string", "text": "Emma Johnson" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201198" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "03/30/2023" },
+      "beoordelaar": { "type": "string", "text": "Sophia Smith" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201098" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "07/07/2023" },
+      "beoordelaar": { "type": "string", "text": "Oliver Williams" },
+      "tags": {
+        "priority": "low",
+        "new": false,
+        "in_progress": false
+      }
+    }
+  ]
+}

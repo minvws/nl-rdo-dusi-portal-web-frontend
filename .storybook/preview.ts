@@ -1,10 +1,10 @@
 import type { Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
 import { createPinia } from 'pinia'
-import router from '@/router'
-import { i18n } from '@/i18n'
+import router from '@/shared/router'
+import { i18n } from '@/shared/i18n'
 
-import '@/styles/main.scss'
+import '@/shared/styles/main.scss'
 
 export const preview: Preview = {
   parameters: {
@@ -19,7 +19,7 @@ export const preview: Preview = {
 }
 
 i18n().then((i18n) => {
-  setup((app) => {
+  setup(async (app) => {
     app.use(createPinia())
     app.use(router)
     app.use(i18n)

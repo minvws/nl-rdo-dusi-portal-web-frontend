@@ -72,8 +72,8 @@
 </template>
 
 <script setup lang="ts">
-import AppIcon from '@/components/AppIcon/AppIcon.vue'
-import AppHtml from '@/components/AppHtml/AppHtml.vue'
+import AppIcon from '@/shared/components/AppIcon/AppIcon.vue'
+import AppHtml from '@/shared/components/AppHtml/AppHtml.vue'
 
 type TableCell = {
   icon?: string

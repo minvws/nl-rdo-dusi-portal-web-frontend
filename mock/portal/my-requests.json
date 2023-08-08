@@ -1,0 +1,95 @@
+{
+  "headings": [
+    { "field": "dossier", "text": "Dossier", "sortable": true },
+    { "field": "regeling", "text": "Regeling", "sortable": true },
+    { "field": "status", "text": "Status", "sortable": true },
+    { "field": "deadline", "text": "Deadline", "sortable": true },
+    { "field": "laatste-update", "text": "Laatste update", "sortable": true },
+    { "field": "actie", "text": "Actie", "sortable": false }
+  ],
+  "filters": [
+    { "text": "Hoge Prioriteit", "id": "priority", "value": "high" },
+    { "text": "Opgepakt", "id": "handled", "value": true },
+    { "text": "Aan mij toegekend", "id": "assigned_to_me", "value": true }
+  ],
+  "items": [
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2207329" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Eerste beoordeling" },
+      "deadline": { "type": "date", "text": "12/11/2022" },
+      "laatste-update": { "type": "date", "text": "05/06/2022" },
+      "actie": { "type": "button", "to": { "name": "review-request", "params": { "id": "1" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": false,
+        "assigned_to_me": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2203759" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Tweede beoordeling" },
+      "deadline": { "type": "date", "text": "06/12/2022" },
+      "laatste-update": { "type": "date", "text": "06/12/2022" },
+      "actie": { "type": "button", "to": { "name": "review-request", "params": { "id": "2" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": true,
+        "assigned_to_me": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201277" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Goedgekeurd" },
+      "deadline": { "type": "date", "text": "02/04/2023" },
+      "laatste-update": { "type": "date", "text": "02/04/2023" },
+      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "3" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": true,
+        "assigned_to_me": true
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2202537" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
+      "status": { "type": "string", "text": "Nieuw" },
+      "deadline": { "type": "date", "text": "05/10/2023" },
+      "laatste-update": { "type": "date", "text": "05/10/2023" },
+      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "4" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": true,
+        "assigned_to_me": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2200982" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Herbeoordeling" },
+      "deadline": { "type": "date", "text": "07/23/2023" },
+      "laatste-update": { "type": "date", "text": "07/23/2023" },
+      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "5" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": true,
+        "assigned_to_me": false
+      }
+    },
+    {
+      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201298" },
+      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
+      "status": { "type": "string", "text": "Afgekeurd" },
+      "deadline": { "type": "date", "text": "01/28/2023" },
+      "laatste-update": { "type": "date", "text": "01/28/2023" },
+      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "6" } }, "text": "Open zaak" },
+      "tags": {
+        "priority": "high",
+        "handled": true,
+        "assigned_to_me": false
+      }
+    }
+  ]
+}
