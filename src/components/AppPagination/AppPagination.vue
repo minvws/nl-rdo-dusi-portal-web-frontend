@@ -1,6 +1,5 @@
 <template>
   <nav
-    style="border: 10px solid red"
     v-if="totalPages > 1"
     class="pagination"
     aria-label="Paginering"
@@ -23,7 +22,7 @@
         <a
           :href="path"
           :aria-label="`Ga naar pagina ${page}`"
-          :aria-current="currentPage === page ? 'true' : undefined"
+          :aria-current="isCurrentPage(page)"
           @click.prevent="setCurrentPage(page)"
         >
           {{ page }}
@@ -71,6 +70,9 @@ function goToPreviousPage() {
   if (props.currentPage > 1) {
     setCurrentPage(props.currentPage - 1)
   }
+}
+function isCurrentPage(page: number) {
+  return props.currentPage === page ? 'true' : undefined
 }
 
 function setCurrentPage(page: number) {
