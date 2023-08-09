@@ -55,6 +55,14 @@
                 {{ item[column.field].text }}
               </RouterLink>
             </td>
+            <td v-else-if="item[column.field].type === 'icon'">
+              <a :href="item[column.field].url">
+                <AppIcon
+                  :name="item[column.field].text"
+                  aria-hidden="true"
+                />
+              </a>
+            </td>
             <td v-else>
               {{ item[column.field].text }}
             </td>

@@ -18,8 +18,9 @@
           <AppTable
             v-else-if="!isFetchingRequests && requests && requests.length"
             :caption="translate('pages.my-file-overview.tableCaption')"
-            :headings="headings"
-            :items="requests"
+            :columns="headings"
+            :data="requests"
+            :items-per-page="10"
           />
           <p v-else>
             {{ translate('pages.my-file-overview.noRequests') }}
@@ -71,17 +72,17 @@ import useSEO from '@shared/composables/useSeo'
 import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@shared/composables/useApiUrl'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import AppTable from '@portal/components/AppTable/AppTable.vue'
+import AppTable from '@shared/components/AppTable/AppTable.vue'
 import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
 
 const headings = [
-  { text: 'Regeling' },
-  { text: 'Datum indiening' },
-  { text: 'Reactietermijn' },
-  { text: 'Status' },
-  { text: 'Actie benodigd' },
-  { text: 'Open aanvraag' },
-  { text: 'Details' }
+  { field: 'regeling', text: 'Regeling', sortable: false },
+  { field: 'date', text: 'Datum indiening', sortable: false },
+  { field: 'term', text: 'Reactietermijn', sortable: false },
+  { field: 'status', text: 'Status', sortable: false },
+  { field: 'action', text: 'Actie benodigd', sortable: false },
+  { field: 'open', text: 'Open aanvraag', sortable: false },
+  { field: 'details', text: 'Details', sortable: false }
 ]
 
 useSEO({

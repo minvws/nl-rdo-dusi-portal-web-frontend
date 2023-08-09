@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-import AppTable from '@review/components/AppTable/AppTable.vue'
+import AppTable from '@shared/components/AppTable/AppTable.vue'
 
 const headings = ref([
   { field: 'datetime', text: 'Datum en tijd', sortable: true },
