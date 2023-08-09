@@ -1,15 +1,14 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "public/assets"],
+  "include": ["env.d.ts", "package.json", "src/**/*", "src/**/*.vue", "public/assets"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@assessment": ["./src/assessment/*"],
-      "@portal": ["./src/portal/*"],
-      "@shared": ["./src/shared/*"]
+      "@review/*": ["./src/review/*"],
+      "@portal/*": ["./src/portal/*"],
+      "@shared/*": ["./src/@shared/*"]
     }
   }
 }

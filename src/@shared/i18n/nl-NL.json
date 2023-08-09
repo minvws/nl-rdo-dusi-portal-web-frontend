@@ -1,0 +1,83 @@
+{
+  "app": {
+    "description": "De Dienst Uitvoering Subsidies aan Instellingen (DUS-I) is een expertisecentrum voor subsidies, tegemoetkomingen en specifieke uitkeringen van de ministeries van OCW en VWS.",
+    "name": "Mijn DUS-I",
+    "prefix": "DUS-I",
+    "skip-content": "Ga direct naar inhoud"
+  },
+  "component": {
+    "breadcrumbBar": {
+      "ariaLabel": "Kruimelpad"
+    },
+    "footer": {
+      "slogan": "De Rijksoverheid. Voor Nederland",
+      "title": "Lorem ipsum",
+      "version": "Versie v{version}"
+    },
+    "header": {
+      "homeLink": {
+        "alt": "Logo Rijksoverheid",
+        "aria-label": "Logo Rijksoverheid, ga naar de homepage van Mijn DUS-I",
+        "label": "Rijksoverheid"
+      },
+      "login": "Inloggen",
+      "logout": "Uitloggen",
+      "nav": {
+        "aria-label": "Hoofdnavigatie"
+      }
+    },
+    "pagination": {
+      "label": "Pagina",
+      "pageLabel": "Ga naar pagina {page}",
+      "prev": "Vorige",
+      "prevLabel": "Ga naar de vorige pagina",
+      "next": "Volgende",
+      "nextLabel": "Ga naar de volgende pagina"
+    }
+  },
+  "form": {
+    "button": {
+      "start": "Aanvraag starten",
+      "next": "Volgende",
+      "prev": "Vorige",
+      "submit": "Verzenden"
+    },
+    "component": {
+      "fileInput": {
+        "chooseFile": "Kies een bestand",
+        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 5 MB."
+      }
+    },
+    "fields": {
+      "error": {
+        "const": "Dit veld is verplicht",
+        "field": "Dit veld",
+        "iban": "Dit is geen geldige IBAN",
+        "maxFileSize": "Bestand is groter dan {maxFileSize}",
+        "optional": "{field} is optioneel",
+        "postalCode": "Dit is geen geldige postcode",
+        "tel": "Dit is geen geldige telefoonnummer",
+        "required-boolean": "Dit veld is verplicht",
+        "required": "{field} is verplicht"
+      },
+      "email": {
+        "error": {
+          "format": "Voer een geldig email-adres in"
+        }
+      }
+    },
+    "message": {
+      "loading": "Formulier is aan het laden",
+      "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
+      "submitting": "Formulier is bezig met verzenden"
+    },
+    "title": "Aanvraagformulier subsidieregeling borstprothesen transvrouwen"
+  },
+  "pages": {
+    "not-found": {
+      "intro": "U kunt de informatie die u zoekt mogelijk vinden via de volgende pagina's:",
+      "subtitle": "De pagina die u wilde zien of het bestand dat u wilde bekijken is niet gevonden.",
+      "title": "Pagina niet gevonden"
+    }
+  }
+}

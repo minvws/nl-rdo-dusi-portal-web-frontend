@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/shared/*": [ "./*" ]
+      "@review/*": ["./src/review/*"],
+      "@portal/*": ["./src/portal/*"],
+      "@shared/*": ["./src/@shared/*"]
      }
    },
   "files": [],

@@ -1,18 +1,22 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
-import { i18n } from '@/shared/i18n'
-import router from '@/shared/router'
+import { i18n } from '@shared/i18n'
+import router from '@shared/router'
+import { portalProject } from '@shared/utils/env'
 
-import AppShell from '@/shared/components/AppShell/AppShell.vue'
+import PortalAppShell from '@portal/components/AppShell/AppShell.vue'
+import ReviewAppShell from '@review/components/AppShell/AppShell.vue'
 
-import '@/shared/styles/main.scss'
+const AppShell = portalProject ? PortalAppShell : ReviewAppShell
+
+import '@shared/styles/main.scss'
 
 const app = createApp(AppShell)
 const head = createHead()
 const pinia = createPinia()
 
-i18n().then(async i18n => {
+i18n().then(i18n => {
   app.use(pinia)
   app.use(router)
   app.use(head)
