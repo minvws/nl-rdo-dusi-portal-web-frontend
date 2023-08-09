@@ -13,7 +13,7 @@
           {{ item.text }} ({{ item.count }})
         </AppButton>
       </li>
-      <li v-if="showAll">
+      <li v-if="showAll && totalCount">
         <AppButton
           class="button"
           @click="onClick(null)"

@@ -6,7 +6,7 @@
     <div>
       <AppAccordion>
         <AppAccordionItem
-          :id="translate('pages.subsequent-review.request')"
+          id="subsequent-review"
           is-open
         >
           <template #title>{{ translate('pages.subsequent-review.request') }}</template>
