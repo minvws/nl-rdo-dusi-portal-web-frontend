@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppIcon from './AppIcon.vue'
 
 const meta: Meta<typeof AppIcon> = {
-  title: 'AppIcon',
+  title: 'core/AppIcon',
   component: AppIcon
 }
 

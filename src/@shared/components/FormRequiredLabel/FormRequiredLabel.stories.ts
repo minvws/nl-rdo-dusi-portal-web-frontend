@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
 
 const meta: Meta<typeof FormRequiredLabel> = {
-  title: 'forms/FormRequiredLabel',
+  title: 'core/form/FormRequiredLabel',
   component: FormRequiredLabel
 }
 

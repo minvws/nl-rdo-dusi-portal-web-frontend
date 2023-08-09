@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppLoader from './AppLoader.vue'
 
 const meta: Meta<typeof AppLoader> = {
-  title: 'AppLoader',
+  title: 'core/AppLoader',
   component: AppLoader
 }
 

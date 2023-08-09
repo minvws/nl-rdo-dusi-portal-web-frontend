@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
 
 const meta: Meta<typeof FormFieldDescription> = {
-  title: 'forms/FormFieldDescription',
+  title: 'core/form/FormFieldDescription',
   component: FormFieldDescription
 }
 

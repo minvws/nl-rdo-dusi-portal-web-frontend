@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppHeader from './AppHeader.vue'
 
 const meta: Meta<typeof AppHeader> = {
-  title: 'AppHeader',
+  title: 'portal/AppHeader',
   component: AppHeader
 }
 

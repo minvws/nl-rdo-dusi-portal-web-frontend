@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormView from '@shared/components/FormView/FormView.vue'
 
 const meta: Meta<typeof FormView> = {
-  title: 'forms/control/FormFileControl',
+  title: 'core/form/Controls/FormFileControl',
   component: FormView
 }
 

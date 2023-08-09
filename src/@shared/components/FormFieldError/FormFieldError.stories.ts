@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
 
 const meta: Meta<typeof FormFieldError> = {
-  title: 'forms/FormFieldError',
+  title: 'core/form/FormFieldError',
   component: FormFieldError
 }
 

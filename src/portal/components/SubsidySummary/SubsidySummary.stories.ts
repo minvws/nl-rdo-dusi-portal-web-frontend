@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import SubsidySummary from './SubsidySummary.vue'
 
 const meta: Meta<typeof SubsidySummary> = {
-  title: 'SubsidySummary',
+  title: 'portal/SubsidySummary',
   component: SubsidySummary
 }
 

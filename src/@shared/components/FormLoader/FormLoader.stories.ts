@@ -3,7 +3,7 @@ import AppContent from '@shared/components/AppContent/AppContent.vue'
 import FormLoader from '@shared/components/FormLoader/FormLoader.vue'
 
 const meta: Meta<typeof FormLoader> = {
-  title: 'forms/FormLoader',
+  title: 'core/form/FormLoader',
   component: FormLoader
 }
 

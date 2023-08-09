@@ -3,7 +3,7 @@ import Component from '@shared/components/FormView/FormView.vue'
 import { InputType } from '@shared/types/input'
 
 const meta: Meta<typeof Component> = {
-  title: 'forms/control/FormTextControl',
+  title: 'core/form/Controls/FormTextControl',
   component: Component
 }
 

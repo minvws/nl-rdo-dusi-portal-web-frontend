@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import NotificationObligation from './NotificationObligation.vue'
 
 const meta: Meta<typeof NotificationObligation> = {
-  title: 'NotificationObligation',
+  title: 'portal/NotificationObligation',
   component: NotificationObligation
 }
 

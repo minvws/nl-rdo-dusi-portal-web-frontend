@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import AppContent from '@shared/components/AppContent/AppContent.vue'
-import LocalForm from '@shared/pages/LocalForm.vue'
+import LocalForm from '@portal/pages/LocalForm.vue'
 
 const meta: Meta<typeof LocalForm> = {
-  title: 'forms/LocalForm',
+  title: 'core/form/LocalForm',
   component: LocalForm
 }
 

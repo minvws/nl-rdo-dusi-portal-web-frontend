@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppTable from './AppTable.vue'
 
 const meta: Meta<typeof AppTable> = {
-  title: 'AppTable',
+  title: 'portal/AppTable',
   component: AppTable
 }
 

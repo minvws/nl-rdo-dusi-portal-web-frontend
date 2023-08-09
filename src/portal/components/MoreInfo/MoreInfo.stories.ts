@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import MoreInfo from './MoreInfo.vue'
 
 const meta: Meta<typeof MoreInfo> = {
-  title: 'MoreInfo',
+  title: 'portal/MoreInfo',
   component: MoreInfo
 }
 

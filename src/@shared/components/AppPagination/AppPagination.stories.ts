@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppPagination from './AppPagination.vue'
 
 const meta: Meta<typeof AppPagination> = {
-  title: 'AppPagination',
+  title: 'core/AppPagination',
   component: AppPagination
 }
 
@@ -22,7 +22,7 @@ export const Default: Story = {
   args: {
     itemsTotal: 100,
     pageSize: 10,
-    startPage: 1
+    currentPage: 1
   }
 }
 
@@ -37,6 +37,6 @@ export const WithButtons: Story = {
   args: {
     itemsTotal: 100,
     pageSize: 10,
-    startPage: 1
+    currentPage: 1
   }
 }

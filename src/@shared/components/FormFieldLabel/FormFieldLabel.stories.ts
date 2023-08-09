@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormFieldLabel from '@shared/components/FormFieldLabel/FormFieldLabel.vue'
 
 const meta: Meta<typeof FormFieldLabel> = {
-  title: 'forms/FormFieldLabel',
+  title: 'core/form/FormFieldLabel',
   component: FormFieldLabel
 }
 

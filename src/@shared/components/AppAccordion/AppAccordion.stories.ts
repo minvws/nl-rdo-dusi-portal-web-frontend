@@ -4,7 +4,7 @@ import AppAccordion from './AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 
 const meta: Meta<typeof AppAccordion> = {
-  title: 'AppAccordion',
+  title: 'core/AppAccordion',
   component: AppAccordion
 }
 

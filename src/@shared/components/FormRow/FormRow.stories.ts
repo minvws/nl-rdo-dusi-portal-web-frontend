@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 
 const meta: Meta<typeof FormRow> = {
-  title: 'forms/FormRow',
+  title: 'core/form/FormRow',
   component: FormRow
 }
 

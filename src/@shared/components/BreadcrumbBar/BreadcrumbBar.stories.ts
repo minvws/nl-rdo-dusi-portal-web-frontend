@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import BreadcrumbBar from './BreadcrumbBar.vue'
 
 const meta: Meta<typeof BreadcrumbBar> = {
-  title: 'BreadcrumbBar',
+  title: 'core/BreadcrumbBar',
   component: BreadcrumbBar
 }
 
@@ -21,9 +21,9 @@ export const Default: Story = {
   }),
   args: {
     links: [
-      { label: 'Home', to: '/' },
-      { label: 'Lorem', to: '/lorem' },
-      { label: 'Ipsum', to: '/ipsum' }
+      { label: 'Home', name: 'home' },
+      { label: 'Lorem', name: 'home' },
+      { label: 'Ipsum', name: 'home' }
     ]
   }
 }

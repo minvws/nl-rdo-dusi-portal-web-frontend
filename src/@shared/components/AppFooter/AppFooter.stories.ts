@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import AppFooter from './AppFooter.vue'
 
 const meta: Meta<typeof AppFooter> = {
-  title: 'AppFooter',
+  title: 'core/AppFooter',
   component: AppFooter
 }
 

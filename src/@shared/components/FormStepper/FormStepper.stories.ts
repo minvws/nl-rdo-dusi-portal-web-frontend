@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormStepper from '@shared/components/FormStepper/FormStepper.vue'
 
 const meta: Meta<typeof FormStepper> = {
-  title: 'forms/FormStepper',
+  title: 'core/form/FormStepper',
   component: FormStepper
 }
 

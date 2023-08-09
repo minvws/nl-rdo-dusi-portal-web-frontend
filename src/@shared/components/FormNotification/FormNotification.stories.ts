@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FormNotification from './FormNotification.vue'
 
 const meta: Meta<typeof FormNotification> = {
-  title: 'Forms/FormNotification',
+  title: 'core/form/FormNotification',
   component: FormNotification
 }
 

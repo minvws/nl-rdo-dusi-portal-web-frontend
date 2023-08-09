@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import Component from '@shared/components/FormView/FormView.vue'
 
 const meta: Meta<typeof Component> = {
-  title: 'forms/control/FormCheckboxControl',
+  title: 'core/form/Controls/FormCheckboxControl',
   component: Component
 }
 
@@ -39,6 +39,7 @@ export const Default: Story = {
           properties: {
             storybook: {
               type: 'boolean',
+              title: 'Dit is een checkbox',
               const: true
             }
           }

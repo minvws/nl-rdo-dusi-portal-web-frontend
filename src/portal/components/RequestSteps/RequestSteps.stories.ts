@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import RequestSteps from './RequestSteps.vue'
 
 const meta: Meta<typeof RequestSteps> = {
-  title: 'RequestSteps',
+  title: 'portal/RequestSteps',
   component: RequestSteps
 }
 

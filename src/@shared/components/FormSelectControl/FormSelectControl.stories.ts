@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import Component from '@shared/components/FormView/FormView.vue'
 
 const meta: Meta<typeof Component> = {
-  title: 'forms/control/FormSelectControl',
+  title: 'core/form/Controls/FormSelectControl',
   component: Component
 }
 

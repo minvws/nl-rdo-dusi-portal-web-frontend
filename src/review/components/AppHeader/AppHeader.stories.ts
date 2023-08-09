@@ -1,0 +1,23 @@
+import type { Meta, StoryObj } from '@storybook/vue3'
+
+import AppHeader from './AppHeader.vue'
+
+const meta: Meta<typeof AppHeader> = {
+  title: 'review/AppHeader',
+  component: AppHeader
+}
+
+export default meta
+
+type Story = StoryObj<typeof AppHeader>
+
+export const Default: Story = {
+  render: () => ({
+    components: { AppHeader },
+    template: `
+      <body>
+        <AppHeader />
+      </body>
+    `
+  })
+}
