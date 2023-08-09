@@ -11,9 +11,16 @@
     >
       <div class="collapsing-element">
         <ul>
-          <li v-for="({ name, label, icon }, index) in links" :key="index">
+          <li
+            v-for="({ name, label, icon }, index) in links"
+            :key="index"
+          >
             <RouterLink :to="{ name }">
-              <AppIcon v-if="icon" :name="icon" aria-hidden="true" />
+              <AppIcon
+                v-if="icon"
+                :name="icon"
+                aria-hidden="true"
+              />
               {{ label }}
             </RouterLink>
           </li>
@@ -21,7 +28,10 @@
       </div>
     </nav>
 
-    <BreadcrumbBar v-if="breadcrumbs.length" :links="breadcrumbs" />
+    <BreadcrumbBar
+      v-if="breadcrumbs.length"
+      :links="breadcrumbs"
+    />
   </header>
 </template>
 
