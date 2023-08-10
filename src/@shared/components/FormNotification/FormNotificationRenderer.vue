@@ -1,3 +1,8 @@
+<template>
+  <FormNotification v-bind="appliedOptions" />
+</template>
+
+<script lang="ts">
 import { type ControlElement, type JsonFormsRendererRegistryEntry, rankWith } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
@@ -26,3 +31,4 @@ export const FormNotificationRenderer: JsonFormsRendererRegistryEntry = {
     return type === 'FormNotification'
   })
 }
+</script>
