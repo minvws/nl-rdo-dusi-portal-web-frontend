@@ -3,7 +3,7 @@ import { vanillaRenderers } from '@jsonforms/vue-vanilla'
 import { CustomControlRenderer } from '@shared/components/FormCustomControl/FormCustomControlRenderer'
 import { FormGroupControlRenderer } from '@shared/components/FormGroupControl/FormGroupControlRenderer'
 import { FormHtmlRenderer } from '@shared/components/FormHtml/FormHtmlRenderer'
-import { FormNotificationRenderer } from '@shared/components/FormNotification/FormNotificationRenderer'
+import { FormNotificationRenderer } from '@shared/components/FormNotification/FormNotificationRenderer.vue' // @TODO extract vue file and renderer
 import { FormResultsTableRenderer } from '@shared/components/FormResultsTable/FormResultsTableRenderer'
 
 export const useRenderers = () => {
