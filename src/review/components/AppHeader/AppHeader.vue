@@ -51,8 +51,6 @@ import { HOME, MY_REQUESTS_OVERVIEW } from '@shared/router/names'
 
 const { breadcrumbs } = useBreadcrumbs()
 
-console.log(breadcrumbs.value)
-
 const links: Link[] = [
   {
     name: HOME,
