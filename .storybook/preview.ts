@@ -21,7 +21,7 @@ export const preview: Preview = {
 i18n().then((i18n) => {
   setup(async (app) => {
     app.use(createPinia())
-    app.use(router)
+    app.use(await router())
     app.use(i18n)
   })
 })

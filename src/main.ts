@@ -16,9 +16,9 @@ const app = createApp(AppShell)
 const head = createHead()
 const pinia = createPinia()
 
-i18n().then(i18n => {
+i18n().then(async i18n => {
   app.use(pinia)
-  app.use(router)
+  app.use(await router())
   app.use(head)
   app.use(i18n)
   app.mount('body')
