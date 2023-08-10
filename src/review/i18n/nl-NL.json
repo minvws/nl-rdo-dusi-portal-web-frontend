@@ -35,8 +35,10 @@
       "title": "Mijn Zaken"
     },
     "subsequent-review": {
-      "agree": "Eens met de eerste beoordeling",
-      "disagree": "Oneens met de eerste beoordeling",
+      "agree": "Goedgekeurd",
+      "unrated": "Onbeoordeeld",
+      "needsRevision": "Aanvulling nodig",
+      "disagree": "Afgekeurd",
       "request": "Aanvraag",
       "review": "Beoordeling",
       "saveAndSend": "Opslaan en verzenden",
