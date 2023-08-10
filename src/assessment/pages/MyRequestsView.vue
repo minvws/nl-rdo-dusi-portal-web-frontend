@@ -7,7 +7,7 @@
 import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 
-import MyRequestsOverview from '@review/pages/MyRequestsOverview.vue'
+import MyRequestsOverview from '@assessment/pages/MyRequestsOverview.vue'
 
 import { MY_REQUESTS_OVERVIEW } from '@shared/router/names'
 

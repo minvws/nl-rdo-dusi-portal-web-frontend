@@ -69,10 +69,10 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import RequestDetails from '@review/components/RequestDetails/RequestDetails.vue'
-import RequestHistory from '@review/components/RequestHistory/RequestHistory.vue'
-import RequestReviewers from '@review/components/RequestReviewers/RequestReviewers.vue'
-import RequestStatus from '@review/components/RequestStatus/RequestStatus.vue'
+import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
+import RequestHistory from '@assessment/components/RequestHistory/RequestHistory.vue'
+import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
+import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
 
 import type { RequestDetailsItem } from '@shared/types/details'
 

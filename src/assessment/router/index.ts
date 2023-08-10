@@ -1,9 +1,9 @@
 import NotFound from '@shared/pages/NotFound.vue'
 
-import LandingPage from '@review/pages/LandingPage.vue'
-import MyRequestsView from '@review/pages/MyRequestsView.vue'
-import MyRequestsDetails from '@review/pages/MyRequestsDetails.vue'
-import ReviewRequest from '@review/pages/ReviewRequest.vue'
+import LandingPage from '@assessment/pages/LandingPage.vue'
+import MyRequestsView from '@assessment/pages/MyRequestsView.vue'
+import MyRequestsDetails from '@assessment/pages/MyRequestsDetails.vue'
+import ReviewRequest from '@assessment/pages/ReviewRequest.vue'
 
 import {
   HOME,

@@ -30,9 +30,9 @@ import { useApiRequestDetailsUrl } from '@shared/composables/useApiUrl'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import NotFound from '@shared/pages/NotFound.vue'
 
-import ApprovedReview from '@review/pages/ApprovedReview.vue'
-import NewReview from '@review/pages/NewReview.vue'
-import RejectedReview from '@review/pages/RejectedReview.vue'
+import ApprovedReview from '@assessment/pages/ApprovedReview.vue'
+import NewReview from '@assessment/pages/NewReview.vue'
+import RejectedReview from '@assessment/pages/RejectedReview.vue'
 
 type Props = {
   id: string

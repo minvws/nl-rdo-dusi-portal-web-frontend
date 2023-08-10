@@ -17,7 +17,7 @@ export const MY_FILE_OVERVIEW = 'my-file-overview'
 export const MY_MESSAGES = 'my-messages-overview'
 export const MY_MESSAGES_PAGE = 'my-messages-overview-page'
 
-// review
+// assessment
 export const MY_REQUESTS_DETAILS = 'my-requests-details'
 export const MY_REQUESTS_OVERVIEW = 'my-requests-overview'
 export const REVIEW_REQUEST = 'review-request'

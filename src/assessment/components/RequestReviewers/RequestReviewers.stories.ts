@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import RequestReviewers from './RequestReviewers.vue'
 
 const meta: Meta<typeof RequestReviewers> = {
-  title: 'review/RequestReviewers',
+  title: 'assessment/RequestReviewers',
   component: RequestReviewers
 }
 
