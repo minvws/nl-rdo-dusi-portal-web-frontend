@@ -120,21 +120,21 @@ After installing the dependencies, the following scripts are available:
 
 | Script        | Description |
 |---------------|------------ |
-| build-only            | Builds Vite |
-| build-storybook       | Builds the production version of Storybook |
-| build:portal          | Builds the production version of the 'portal' project |
-| build:assessment      | Builds the production version of the 'assessment' project |
-| dev:portal            | Builds the development version of the 'portal' project |
-| dev:assessment        | Builds the development version of the 'assessment' project |
-| format                | Formats source code |
-| lint                  | Lints source code |
-| lint-fix              | Lints and auto-fixes source code |
-| prepare               | Installs Husky Git during install |
-| storybook:portal      | Builds the development version of Storybook for 'portal' project |
-| storybook:assessment  | Builds the development version of Storybook for 'assessment' project |
-| test:e2e              | Runs end-to-end tests |
-| test:unit             | Runs unit tests |
-| type-check            | Perform type checking |
+| build-only           | Builds Vite |
+| build-storybook      | Builds the production version of Storybook |
+| build:portal         | Builds the production version of the 'portal' project |
+| build:assessment     | Builds the production version of the 'assessment' project |
+| dev:portal           | Builds the development version of the 'portal' project |
+| dev:assessment       | Builds the development version of the 'assessment' project |
+| format               | Formats source code |
+| lint                 | Lints source code |
+| lint-fix             | Lints and auto-fixes source code |
+| prepare              | Installs Husky Git during install |
+| storybook:portal     | Start Storybook for 'portal' project |
+| storybook:assessment | Start Storybook for 'assessment' project |
+| test:e2e             | Runs end-to-end tests |
+| test:unit            | Runs unit tests |
+| type-check           | Perform type checking |
 
 ~Note: There are also `init.sh` and `run.sh` executable scripts available in
 the root of the project.~
