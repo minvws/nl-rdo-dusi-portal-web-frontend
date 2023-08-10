@@ -2,8 +2,6 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { translate } from '@shared/i18n'
 import { HOME } from '@shared/router/names'
-import { assessmentProject } from '@shared/utils/env'
-
 import type { Link } from '@shared/types/link'
 
 export const useBreadcrumbs = () => {
@@ -14,7 +12,7 @@ export const useBreadcrumbs = () => {
   })
 
   const breadcrumbs = computed(() => {
-    if (!hasBreadCrumbs.value || (assessmentProject && route.matched.length < 2)) {
+    if (!hasBreadCrumbs.value) {
       return []
     }
 

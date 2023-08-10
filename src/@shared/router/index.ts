@@ -9,7 +9,7 @@ import {
 const baseUrl = import.meta.env.BASE_URL
 const loadRouter = () => import(/* @vite-ignore */ `./../../${import.meta.env.VITE_PROJECT}/router`)
 
-const create = ({
+export const create = ({
   routes,
   beforeEach,
   afterEach

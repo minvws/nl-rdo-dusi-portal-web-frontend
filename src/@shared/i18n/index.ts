@@ -1,6 +1,5 @@
 import { externalLinks } from '@shared/external-links'
 import { createI18n } from 'vue-i18n'
-import { assessmentProject } from '@shared/utils/env'
 import merge from 'lodash.merge'
 
 let t: (_key: string, _props?: Record<string, string>) => string
@@ -9,12 +8,12 @@ function getLocaleFromPath(path: string) {
   return path?.split('/').pop()?.split('.')[0] || ''
 }
 
+function getProjectFromPath(path: string) {
+  return path?.split('/').splice(2, 1)?.[0]
+}
+
 function getI18nFiles() {
-  const baseI18n = import.meta.glob('@shared/i18n/*.json')
-  const portalI18n = import.meta.glob('@portal/i18n/*.json')
-  const assessmentI18n = import.meta.glob('@assessment/i18n/*.json')
-  const projectI18n = assessmentProject ? assessmentI18n : portalI18n
-  return { ...baseI18n, ...projectI18n }
+  return import.meta.glob(`@/**/i18n/*.json`)
 }
 
 async function getTranslationsFromFiles() {
@@ -22,6 +21,10 @@ async function getTranslationsFromFiles() {
   const translations = await Promise.all(
     Object.entries(files).map(async ([path, file]) => {
       const locale = getLocaleFromPath(path)
+      const project = getProjectFromPath(path)
+      if (![import.meta.env.VITE_PROJECT, '@shared'].includes(project)) {
+        return undefined
+      }
       const content = await file()
       return {
         locale,
@@ -29,7 +32,9 @@ async function getTranslationsFromFiles() {
       }
     })
   )
-  const combined = translations.reduce((cul, { locale, content }) => {
+  const combined = translations.reduce((cul, entry) => {
+    if (!entry) return cul
+    const { locale, content } = entry
     if (!cul[locale]) cul[locale] = []
     cul[locale] = [...cul[locale], content]
     return cul
