@@ -18,10 +18,10 @@ export const preview: Preview = {
   }
 }
 
-i18n().then((i18n) => {
-  setup(async (app) => {
+Promise.all([i18n(), router()]).then(([i18n, router]) => {
+  setup((app) => {
     app.use(createPinia())
-    app.use(await router())
+    app.use(router)
     app.use(i18n)
   })
 })
