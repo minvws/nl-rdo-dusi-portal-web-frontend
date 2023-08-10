@@ -1,6 +1,7 @@
 export const useAppHeaderLinks = async () => {
+  const project = import.meta.env.VITE_PROJECT
   const { useAppHeaderLinks } = await import(
-    /* @vite-ignore */ `./../../${import.meta.env.VITE_PROJECT}/composables/useAppHeaderLinks`
+    /* @vite-ignore */ `./../../${project}/composables/useAppHeaderLinks`
   )
   return useAppHeaderLinks()
 }

@@ -69,22 +69,7 @@ import vCollapsible from '@shared/directives/collapsible'
 import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 
 const { breadcrumbs } = useBreadcrumbs()
-<<<<<<< HEAD:src/review/components/AppHeader/AppHeader.vue
-
-const links: Link[] = [
-  {
-    name: HOME,
-    label: translate('app.name'),
-    icon: 'home'
-  },
-  {
-    name: MY_REQUESTS_OVERVIEW,
-    label: translate('pages.my-requests-overview.title')
-  }
-]
-=======
 const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()
->>>>>>> 1fd20f0e1333d9d0b6538b3448c1466a20a361b0:src/@shared/components/AppHeader/AppHeader.vue
 </script>
 
 <style lang="scss" scoped>
