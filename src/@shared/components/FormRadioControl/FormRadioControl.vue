@@ -1,7 +1,7 @@
 <template>
   <div class="radio-control">
     <div class="radio-control-innner">
-      <template
+      <div
         v-for="item in items"
         :key="item.id"
       >
@@ -15,7 +15,7 @@
         <label :for="item.id">
           {{ item.id }}
         </label>
-      </template>
+      </div>
     </div>
   </div>
 </template>
@@ -29,3 +29,9 @@ type Props = {
 
 defineProps<Props>()
 </script>
+
+<style>
+.radio-control-innner > div {
+  flex-direction: row;
+}
+</style>

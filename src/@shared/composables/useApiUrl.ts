@@ -60,7 +60,7 @@ export const useApiRequestDetail = (id: string) => {
 }
 
 export const useApiMyRequestsUrl = () => {
-  if (useMockData) return '../../mock/portal/my-requests.json'
+  if (useMockData) return '../../mock/review/my-requests.json'
   return `${baseUrl}/api/my-requests`
 }
 
