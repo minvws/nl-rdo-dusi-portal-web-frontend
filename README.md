@@ -27,7 +27,7 @@ the Rijksoverheid design language.
 
 The project is structured as follows:
 
-```
+```sh
 .
 ├── .github
 │   ├── ISSUE_TEMPLATE
@@ -85,7 +85,7 @@ The project is structured as follows:
 
 Within the `src` folder, the following structure is used:
 
-```
+```sh
 .
 └── src
     ├── @shared
