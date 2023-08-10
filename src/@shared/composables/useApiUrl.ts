@@ -43,7 +43,7 @@ export const useApiMessagesUrl = () => {
 }
 
 export const useApiMyAssessmentRequestsUrl = () => {
-  if (useMockData) return '../../mock/review/my-requests.json'
+  if (useMockData) return '../../mock/assessment/my-requests.json'
   return `${baseUrl}/api/my-requests`
 }
 
@@ -52,12 +52,12 @@ export const useApiRequestDetail = (id: string) => {
 }
 
 export const useApiRequestDetailsUrl = (id: string) => {
-  if (useMockData) return `../../mock/review/request-details/${id}.json`
+  if (useMockData) return `../../mock/assessment/request-details/${id}.json`
   return `${baseUrl}/api/requests/${id}`
 }
 
 export const useApiAssessmentRequestsUrl = () => {
-  if (useMockData) return '../../mock/review/requests.json'
+  if (useMockData) return '../../mock/assessment/requests.json'
   return `${baseUrl}/api/requests`
 }
 
