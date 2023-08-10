@@ -17,22 +17,23 @@ export const useBreadcrumbs = () => {
     }
 
     const links: Link[] = []
-
-    links.push({
-      name: HOME,
-      label: translate('app.name')
-    })
-
     // Add route links
     route.matched.forEach(({ name }) => {
       if (!name) return
       const linkName = name as string
+      const label = translate(`pages.${linkName}.title`)
+      if (!label) return // do not show breadcrumb when page does not has a label
       links.push({
         name: linkName,
         label: translate(`pages.${linkName}.title`)
       })
     })
+    if (!links.length) return []
 
+    links.unshift({
+      name: HOME,
+      label: translate('app.name')
+    })
     return links
   })
 
