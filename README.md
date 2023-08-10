@@ -23,10 +23,84 @@ For styling we use the [Rijksoverheid Theme]
 (https://github.com/minvws/nl-rdo-rijksoverheid-ui-theme) to ensure it matches
 the Rijksoverheid design language.
 
-Before you can start developing, you need to install the dependencies. You can
-do this by running the following command in the root of the project:
+## Folder structure
+
+The project is structured as follows:
+
+```
+.
+├── .github
+│   ├── ISSUE_TEMPLATE
+│   ├── workflows
+│   ├── CODEOWNERS
+│   └── dependabot.yml
+├── .husky
+│   ├── _
+│   └── pre-commit
+├── .storybook
+│   ├── main.ts
+│   ├── preview-head.html
+│   └── preview.ts
+├── e2e
+│   ├── tsconfig.json
+│   └── vue.spec.ts
+├── mock
+│   ├── portal
+│   ├── assessment
+│   └── shared
+├── public
+│   ├── assets
+│   ├── icons
+│   ├── img
+│   ├── config.js
+│   └── site.webmanifest
+├── src
+│   ├── @shared
+│   ├── assessment
+│   ├── portal
+│   └── main.ts
+├── .editorconfig
+├── .env
+├── .env.example
+├── .eslintrc.cjs
+├── .gitignore
+├── .lintstagedrc.js
+├── .nvmrc
+├── .prettierrc.json
+├── env.d.ts
+├── index.html
+├── init.sh
+├── package-lock.json
+├── package.json
+├── playwright.config.ts
+├── README.md
+├── run.sh
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── tsconfig.vitest.json
+├── vite.config.ts
+└── vitest.config.ts
+```
+
+Within the `src` folder, the following structure is used:
+
+```
+.
+└── src
+    ├── @shared
+    ├── assessment
+    └── portal
+```
+
+The `@shared` folder contains shared all shared components, types, etc. The
+`assessment` and `portal` folders contain the components, types, etc. for the
+assessment and portal projects respectively.
 
 ### Install dependencies
+
+Before you can start developing, you need to install the dependencies. You can
+do this by running the following command in the root of the project:
 
 ```sh
 npm ci --no-audit --no-fund
@@ -46,18 +120,20 @@ After installing the dependencies, the following scripts are available:
 
 | Script        | Description |
 |---------------|------------ |
-| build-only    | Builds Vite |
-| build-storybook| Builds the production version of Storybook |
-| build         | Builds the production version of the project |
-| dev           | Builds the development version of the project |
-| format        | Formats source code |
-| lint          | Lints source code |
-| lint-fix      | Lints and auto-fixes source code |
-| prepare       | Installs Husky Git during install |
-| storybook     | Builds the development version of Storybook |
-| test:e2e      | Runs end-to-end tests |
-| test:unit     | Runs unit tests |
-| type-check    | Perform type checking |
+| build-only       | Builds Vite |
+| build-storybook  | Builds the production version of Storybook |
+| build:portal     | Builds the production version of the 'portal' project |
+| build:assessment | Builds the production version of the 'assessment' project |
+| dev:portal       | Builds the development version of the 'portal' project |
+| dev:assessment   | Builds the development version of the 'assessment' project |
+| format           | Formats source code |
+| lint             | Lints source code |
+| lint-fix         | Lints and auto-fixes source code |
+| prepare          | Installs Husky Git during install |
+| storybook        | Builds the development version of Storybook |
+| test:e2e         | Runs end-to-end tests |
+| test:unit        | Runs unit tests |
+| type-check       | Perform type checking |
 
 ~Note: There are also `init.sh` and `run.sh` executable scripts available in
 the root of the project.~
