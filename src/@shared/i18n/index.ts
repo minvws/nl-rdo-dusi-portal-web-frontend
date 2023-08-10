@@ -13,7 +13,7 @@ function getProjectFromPath(path: string) {
 }
 
 function getI18nFiles() {
-  return import.meta.glob(`@/**/i18n/*.json`)
+  return import.meta.glob('@/**/i18n/*.json')
 }
 
 async function getTranslationsFromFiles() {

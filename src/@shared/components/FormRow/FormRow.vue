@@ -118,6 +118,5 @@ export default defineComponent({
       flex: 0.75;
     }
   }
-
 }
 </style>

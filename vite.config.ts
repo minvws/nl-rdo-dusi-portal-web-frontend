@@ -9,10 +9,8 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-         // example : additionalData: `@import "./src/design/styles/variables";`
-         // dont need include file extend .scss
-         additionalData: `@import "./src/@shared/styles/mixins.scss";`
-     }
+        additionalData: '@import "./src/@shared/styles/mixins.scss";'
+      }
     }
   },
   resolve: {
