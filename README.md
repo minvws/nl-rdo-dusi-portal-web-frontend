@@ -121,17 +121,16 @@ After installing the dependencies, the following scripts are available:
 | Script        | Description |
 |---------------|------------ |
 | build-only           | Builds Vite |
-| build-storybook      | Builds the production version of Storybook |
-| build:portal         | Builds the production version of the 'portal' project |
-| build:assessment     | Builds the production version of the 'assessment' project |
-| dev:portal           | Builds the development version of the 'portal' project |
-| dev:assessment       | Builds the development version of the 'assessment' project |
+| build-storybook      | Production build of Storybook |
+| build:portal         | Production build of the 'portal' project |
+| build:assessment     | Production build of the 'assessment' project |
+| dev:portal           | Development build of the 'portal' project |
+| dev:assessment       | Development build of the 'assessment' project |
 | format               | Formats source code |
 | lint                 | Lints source code |
 | lint-fix             | Lints and auto-fixes source code |
 | prepare              | Installs Husky Git during install |
-| storybook:portal     | Start Storybook for 'portal' project |
-| storybook:assessment | Start Storybook for 'assessment' project |
+| storybook            | Start Storybook |
 | test:e2e             | Runs end-to-end tests |
 | test:unit            | Runs unit tests |
 | type-check           | Perform type checking |

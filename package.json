@@ -13,8 +13,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --ignore-pattern public/ --ignore-path .gitignore",
     "lint-fix": "eslint . --ext .vue,.js,.jsx,.ts,.tsx --ignore-pattern public/ --fix --ignore-path .gitignore",
     "prepare": "husky install .husky",
-    "storybook:portal": "VITE_PROJECT=portal storybook dev -p 6006",
-    "storybook:assessment": "VITE_PROJECT=assessment storybook dev -p 6006",
+    "storybook": "VITE_PROJECT=portal storybook dev -p 6006",
     "test:e2e": "playwright test",
     "test:unit": "vitest",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
