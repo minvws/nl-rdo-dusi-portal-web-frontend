@@ -1,7 +1,7 @@
 import { externalLinks } from '@shared/external-links'
 import { createI18n } from 'vue-i18n'
 import { reviewProject } from '@shared/utils/env'
-import { mergeObjects } from '@shared/utils/object'
+import merge from 'lodash.merge'
 
 let t: (_key: string, _props?: Record<string, string>) => string
 
@@ -13,35 +13,35 @@ function getI18nFiles() {
   const baseI18n = import.meta.glob('@shared/i18n/*.json')
   const portalI18n = import.meta.glob('@portal/i18n/*.json')
   const reviewI18n = import.meta.glob('@review/i18n/*.json')
-
   const projectI18n = reviewProject ? reviewI18n : portalI18n
-
   return { ...baseI18n, ...projectI18n }
 }
 
 async function getTranslationsFromFiles() {
-  let locale = ''
   const files = getI18nFiles()
   const translations = await Promise.all(
-    Object.entries(files).map(
-      async ([path, file]) =>
-        new Promise(resolve => {
-          locale = getLocaleFromPath(path)
-          file().then(content => resolve(JSON.parse(JSON.stringify(content))))
-        })
-    )
+    Object.entries(files).map(async ([path, file]) => {
+      const locale = getLocaleFromPath(path)
+      const content = await file()
+      return {
+        locale,
+        content
+      }
+    })
   )
-
-  return { locale, translations }
+  const combined = translations.reduce((cul, { locale, content }) => {
+    if (!cul[locale]) cul[locale] = []
+    cul[locale] = [...cul[locale], content]
+    return cul
+  }, {} as Record<string, any>)
+  return combined
 }
 
 async function createLocalizedMessages() {
-  const { locale, translations } = await getTranslationsFromFiles()
-  const base = translations[0] as Record<string, any>
-  const project = translations[1] as Record<string, any>
-  const mergedTranslations = mergeObjects({ ...base }, project)
-
-  return { [locale]: mergedTranslations }
+  const translations = await getTranslationsFromFiles()
+  return Object.entries(translations).reduce((cul, [locale, translations]) => {
+    return { ...cul, [locale]: merge(null, ...translations) }
+  }, {} as Record<string, any>)
 }
 
 export const translate = (key: string, props?: Record<string, string | number>) => {
