@@ -50,7 +50,7 @@
             :to="{ name: 'review-request', params: { id: id } }"
             class="button"
           >
-            {{ translate('pages.new-review.startAssessment') }}
+            {{ translate('pages.new-review.startReview') }}
           </RouterLink>
         </TabPanel>
         <TabPanel>
