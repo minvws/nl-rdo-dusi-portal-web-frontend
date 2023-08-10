@@ -12,7 +12,7 @@
       <div class="collapsing-element">
         <ul>
           <li
-            v-for="({ name, label, icon }, index) in defaultLinks"
+            v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
           >
             <RouterLink :to="{ name }">
@@ -24,26 +24,24 @@
               {{ label }}
             </RouterLink>
           </li>
-          <template v-if="isLoggedIn">
-            <li
-              v-for="({ name, label, badge }, index) in authenticatedLinks"
-              :key="`auth-link-${index}`"
-            >
-              <RouterLink :to="{ name }">
-                <AppIcon
-                  name="logout"
-                  aria-hidden="true"
-                />
-                {{ label }}
-                <MessageCounter
-                  v-if="badge"
-                  :value="badge"
-                />
-              </RouterLink>
-            </li>
-          </template>
+          <li
+            v-for="({ name, label, badge }, index) in rightLinks"
+            :key="`auth-link-${index}`"
+          >
+            <RouterLink :to="{ name }">
+              <AppIcon
+                name="logout"
+                aria-hidden="true"
+              />
+              {{ label }}
+              <MessageCounter
+                v-if="badge"
+                :value="badge"
+              />
+            </RouterLink>
+          </li>
         </ul>
-        <ul>
+        <ul v-if="hasAutentication">
           <li>
             <AppAuthenticationButton />
           </li>
@@ -59,52 +57,34 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
-import type { Link } from '@shared/types/link'
-
 import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
-import { useAuthStore } from '@shared/store/useAuthStore'
-
 import { translate } from '@shared/i18n'
-import { ARRANGEMENT_OVERVIEW, HOME, MY_FILE_OVERVIEW, MY_MESSAGES } from '@shared/router/names'
-
 import AppAuthenticationButton from '@shared/components/AppAuthenticationButton/AppAuthenticationButton.vue'
 import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLogoLink.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
-import MessageCounter from '@portal/components/MessageCounter/MessageCounter.vue'
+import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
+import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 
-const authStore = useAuthStore()
 const { breadcrumbs } = useBreadcrumbs()
+<<<<<<< HEAD:src/review/components/AppHeader/AppHeader.vue
 
-const { isLoggedIn } = storeToRefs(authStore)
-
-const defaultLinks: Link[] = [
+const links: Link[] = [
   {
     name: HOME,
     label: translate('app.name'),
     icon: 'home'
-  }
-]
-
-const authenticatedLinks: Link[] = [
-  {
-    name: ARRANGEMENT_OVERVIEW,
-    label: translate('pages.arrangements-overview.title')
   },
   {
-    name: MY_FILE_OVERVIEW,
-    label: translate('pages.my-file-overview.title'),
-    badge: 2 // @TODO: get from API/store
-  },
-  {
-    name: MY_MESSAGES,
-    label: translate('pages.my-messages-overview.title'),
-    badge: 4 // @TODO: get from API/store
+    name: MY_REQUESTS_OVERVIEW,
+    label: translate('pages.my-requests-overview.title')
   }
 ]
+=======
+const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()
+>>>>>>> 1fd20f0e1333d9d0b6538b3448c1466a20a361b0:src/@shared/components/AppHeader/AppHeader.vue
 </script>
 
 <style lang="scss" scoped>

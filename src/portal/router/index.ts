@@ -36,6 +36,7 @@ import {
 
 import { setRouteCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 const routes = [
   {
@@ -146,11 +147,14 @@ const routes = [
 ]
 
 // Protected router, redirect to home if not logged in.
-const beforeEach = async (to, _from, next) => {
+const beforeEach = async (
+  to: RouteLocationNormalized,
+  from: RouteLocationNormalized,
+  next: NavigationGuardNext
+) => {
   const authStore = useAuthStore()
   await authStore.restoreSession()
   const { isLoggedIn } = storeToRefs(authStore)
-
   if (to.meta.public || isLoggedIn.value) {
     next()
     return
@@ -161,7 +165,7 @@ const beforeEach = async (to, _from, next) => {
 }
 
 // Set cookie with current route after each route change.
-const afterEach = to => {
+const afterEach = (to: RouteLocationNormalized) => {
   if (to.name !== LOGIN_CALLBACK) {
     setRouteCookie(to)
   }
