@@ -1,9 +1,4 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@/*": [ "./*" ]
-     }
-   },
   "files": [],
   "references": [
     {

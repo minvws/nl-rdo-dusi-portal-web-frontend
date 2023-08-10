@@ -1,20 +1,18 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import { createHead } from '@vueuse/head'
-import { i18n } from './i18n'
-import router from './router'
-
-import AppShell from '@/components/AppShell/AppShell.vue'
-
-import '@/styles/main.scss'
+import { i18n } from '@shared/i18n'
+import router from '@shared/router'
+import AppShell from '@shared/components/AppShell/AppShell.vue'
+import '@shared/styles/main.scss'
 
 const app = createApp(AppShell)
 const head = createHead()
 const pinia = createPinia()
 
-i18n().then(i18n => {
+i18n().then(async i18n => {
   app.use(pinia)
-  app.use(router)
+  app.use(await router())
   app.use(head)
   app.use(i18n)
   app.mount('body')
