@@ -1,11 +1,4 @@
 {
-  "compilerOptions": {
-    "paths": {
-      "@review/*": ["./src/assessment/*"],
-      "@portal/*": ["./src/portal/*"],
-      "@shared/*": ["./src/@shared/*"]
-     }
-   },
   "files": [],
   "references": [
     {
