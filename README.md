@@ -59,4 +59,5 @@ After installing the dependencies, the following scripts are available:
 | test:unit     | Runs unit tests |
 | type-check    | Perform type checking |
 
-~Note: There are also `init.sh` and `run.sh` executable scripts available in the root of the project.~
+~Note: There are also `init.sh` and `run.sh` executable scripts available in
+the root of the project.~
