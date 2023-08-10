@@ -67,7 +67,7 @@ import vFilters from '@shared/directives/filters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import FilterTabs from '@review/components/FilterTabs/FilterTabs.vue'
+import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
 import { useTableStore } from '@shared/store/useTableStore'

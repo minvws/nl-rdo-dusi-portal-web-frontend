@@ -13,7 +13,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-import DescriptionList from '@review/components/DescriptionList/DescriptionList.vue'
+import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
 
 import { formatDetailsData } from '@shared/utils/format'
 

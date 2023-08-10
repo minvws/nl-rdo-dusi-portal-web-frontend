@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FilterTabs from './FilterTabs.vue'
 
 const meta: Meta<typeof FilterTabs> = {
-  title: 'review/FilterTabs',
+  title: 'assessment/FilterTabs',
   component: FilterTabs
 }
 

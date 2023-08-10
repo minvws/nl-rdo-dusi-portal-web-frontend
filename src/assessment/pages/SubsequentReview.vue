@@ -60,7 +60,7 @@ import { translate } from '@shared/i18n'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
-import RequestDetails from '@review/components/RequestDetails/RequestDetails.vue'
+import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
 import type { RequestDetailsItem } from '@shared/types/details'
 

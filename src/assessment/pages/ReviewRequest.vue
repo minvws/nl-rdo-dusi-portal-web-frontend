@@ -29,7 +29,7 @@ import { useApiRequestDetailsUrl } from '@shared/composables/useApiUrl'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import NotFound from '@shared/pages/NotFound.vue'
-import SubsequentReview from '@review/pages/SubsequentReview.vue'
+import SubsequentReview from '@assessment/pages/SubsequentReview.vue'
 
 type Props = {
   id: string
