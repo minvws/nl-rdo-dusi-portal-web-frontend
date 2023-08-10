@@ -61,7 +61,7 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiRequestsAssesmentUrl } from '@shared/composables/useApiUrl'
+import { useApiAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
 
 import vFilters from '@shared/directives/filters'
 
@@ -73,7 +73,7 @@ import AppTable from '@shared/components/AppTable/AppTable.vue'
 import { useTableStore } from '@shared/store/useTableStore'
 
 const tableStore = useTableStore()
-const url = useApiRequestsAssesmentUrl()
+const url = useApiAssessmentRequestsUrl()
 
 tableStore.fetchRequests(url)
 

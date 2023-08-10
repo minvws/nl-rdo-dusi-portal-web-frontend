@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "paths": {
-      "@review/*": ["./src/review/*"],
+      "@review/*": ["./src/assessment/*"],
       "@portal/*": ["./src/portal/*"],
       "@shared/*": ["./src/@shared/*"]
      }
