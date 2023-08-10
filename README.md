@@ -105,7 +105,7 @@ do this by running the following command in the root of the project:
 ```sh
 npm ci --no-audit --no-fund
 ```
-~Note: the flags speed up the install process.~
+*Note: the flags speed up the install process.*
 
 ### Environment variables
 
