@@ -102,17 +102,22 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-row {
   display: flex;
-  flex-direction: row;
-  &.column {
-    flex-direction: column;
+  flex-direction: grid;
+
+  @mixin desktop {
+    flex-direction: row;
+    &.column {
+      flex-direction: column;
+    }
+
+    &-label {
+      flex: 0.25;
+    }
+
+    &-content {
+      flex: 0.75;
+    }
   }
 
-  &-label {
-    flex: 0.25;
-  }
-
-  &-content {
-    flex: 0.75;
-  }
 }
 </style>

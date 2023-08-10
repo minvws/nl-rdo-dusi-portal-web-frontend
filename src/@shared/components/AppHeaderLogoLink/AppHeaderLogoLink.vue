@@ -37,7 +37,7 @@ const logo = {
     display: none;
   }
 
-  @media (min-width: 800px) {
+  @include desktop {
     left: 132px;
 
     .logo-desktop {

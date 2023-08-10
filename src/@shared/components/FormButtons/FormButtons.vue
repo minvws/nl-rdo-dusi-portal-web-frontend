@@ -56,6 +56,5 @@ const { hasPrevStep, hasNextStep, hasSubmit, isStepDisabled } = useFormSteps(pro
 .form-buttons {
   display: flex;
   flex-direction: row;
-  padding-top: 2em;
 }
 </style>

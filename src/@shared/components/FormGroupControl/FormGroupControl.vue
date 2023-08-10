@@ -106,7 +106,11 @@ export default defineComponent({
     }
 
     :deep(.group) {
-      padding-bottom: 3em;
+      padding-bottom: 2em;
+
+      @include desktop {
+        padding-bottom: 3em;
+      }
     }
   }
 

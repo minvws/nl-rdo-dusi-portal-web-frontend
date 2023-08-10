@@ -98,8 +98,10 @@ function onValidate() {
 </script>
 
 <style lang="scss" scoped>
-.form-view.first-step {
-  background-color: white;
-  padding: 0;
+.form-view {
+  &.first-step {
+    background-color: white;
+    padding: 0;
+  }
 }
 </style>
