@@ -18,22 +18,3 @@ export const toNestedObject = (obj: Record<string, any>): Record<string, any> =>
     return cul
   }, {})
 }
-
-export function mergeObjects(
-  target: Record<string, any>,
-  source: Record<string, any>
-): Record<string, any> {
-  const result = { ...target }
-
-  for (const key in source) {
-    if (Object.prototype.hasOwnProperty.call(source, key)) {
-      if (!Object.prototype.hasOwnProperty.call(result, key)) {
-        result[key] = source[key]
-      } else if (typeof source[key] === 'object' && typeof result[key] === 'object') {
-        result[key] = mergeObjects(result[key], source[key])
-      }
-    }
-  }
-
-  return result
-}
