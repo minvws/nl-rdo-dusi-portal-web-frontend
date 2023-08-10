@@ -51,8 +51,6 @@ export const useCustomControlInput = ({
     },
     onInput(e: Event) {
       error.value = ''
-      if ('errors' in control.value && control.value.errors) return
-      // validate on input when input has errors
       onChange(e)
       updateValue('onInput')
     }
