@@ -33,13 +33,14 @@ import { computed } from 'vue'
 import { Rel } from '@shared/external-links'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
-const props = defineProps<{
+type Props {
   items: {
     date: string
     title: string
     link: string
   }[]
-}>()
+}
+const props = defineProps<Props>()
 
 const { locale } = useI18n()
 
