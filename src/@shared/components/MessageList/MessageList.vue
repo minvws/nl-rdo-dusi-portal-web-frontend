@@ -33,7 +33,7 @@ import { computed } from 'vue'
 import { Rel } from '@shared/external-links'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
-type Props {
+type Props = {
   items: {
     date: string
     title: string
