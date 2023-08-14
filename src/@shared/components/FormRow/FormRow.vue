@@ -104,7 +104,7 @@ export default defineComponent({
   display: flex;
   flex-direction: grid;
 
-  @mixin desktop {
+  @include desktop {
     flex-direction: row;
     &.column {
       flex-direction: column;
