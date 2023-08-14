@@ -1,4 +1,4 @@
-const Rel = {
+export const Rel = {
   NO_OPENER: 'noopener',
   NO_REFERRER: 'noreferrer',
   EXTERNAL: 'external'

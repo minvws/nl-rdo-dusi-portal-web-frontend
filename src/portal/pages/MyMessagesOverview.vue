@@ -31,11 +31,7 @@
               <p>@TODO: filters</p>
             </form>
           </div>
-          <MessageSummary
-            v-for="(item, index) in slicedItems"
-            :key="index"
-            v-bind="item"
-          />
+          <MessageList :items="slicedItems" />
           <AppPagination
             :items-total="total"
             :page-size="pageSize"
@@ -71,7 +67,7 @@ import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@shared/router/names'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
-import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
+import MessageList from '@shared/components/MessageList/MessageList.vue'
 
 import vFilters from '@shared/directives/filters'
 

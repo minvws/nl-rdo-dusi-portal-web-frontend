@@ -1,6 +1,6 @@
 import type { DetailsDataInput, DetailsDataOutput } from '@shared/types/details'
 import { translate } from '@shared/i18n'
-import formatDate from '@shared/utils/date'
+import { formatDate } from '@shared/utils/date'
 
 export const formatFile = (path = '') => {
   const file = path.split('\\')
