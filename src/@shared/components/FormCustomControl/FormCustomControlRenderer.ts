@@ -4,5 +4,5 @@ import FormCustomControl from './FormCustomControl.vue'
 
 export const CustomControlRenderer: JsonFormsRendererRegistryEntry = {
   renderer: FormCustomControl,
-  tester: rankWith(1, isControl)
+  tester: rankWith(10, isControl)
 }
