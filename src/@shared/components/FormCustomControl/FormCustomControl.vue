@@ -23,6 +23,7 @@ import { useCustomControl } from '@shared/composables/useCustomControl'
 import FormFileControl from '@shared/components/FormFileControl/FormFileControl.vue'
 import FormNumberControl from '@shared/components/FormNumberControl/FormNumberControl.vue'
 import FormRadioControl from '@shared/components/FormRadioControl/FormRadioControl.vue'
+import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupControl/FormCheckboxGroupControl.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
@@ -32,6 +33,7 @@ export default defineComponent({
     FormFileControl,
     FormNumberControl,
     FormRadioControl,
+    FormCheckboxGroupControl,
     FormRow,
     FormSelectControl,
     FormTextControl
@@ -64,6 +66,7 @@ export default defineComponent({
       const { styles, isFocused, appliedOptions, control, isTouched, error } = this
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
+
       return {
         appliedOptions,
         data,

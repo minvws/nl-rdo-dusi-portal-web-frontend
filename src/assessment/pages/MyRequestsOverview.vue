@@ -19,10 +19,8 @@
             show-all
             :total-count="data.items.length"
           />
-          <div
-            class="filter"
-            v-filters
-          >
+
+          <RequestFilter>
             <div>
               <p>
                 <span>{{ filteredItems.length }}</span>
@@ -35,10 +33,8 @@
                 {{ translate('pages.my-requests-overview.showFilters') }}
               </AppButton>
             </div>
-            <form>
-              <p>@TODO: filters</p>
-            </form>
-          </div>
+          </RequestFilter>
+
           <AppTable
             :data="filteredItems"
             :columns="headings"
@@ -69,6 +65,7 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
+import RequestFilter from '@assessment/components/RequestFilter/RequestFilter.vue'
 
 import { useTableStore } from '@shared/store/useTableStore'
 
