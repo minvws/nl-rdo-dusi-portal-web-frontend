@@ -21,10 +21,10 @@
           >
             <div>
               <p>
-                <span>{{ total }}</span> {{ $t('component.messagesOverview.messages', total) }}
+                <span>{{ total }}</span> {{ translate('component.messagesOverview.messages', total) }}
               </p>
               <button aria-expanded="false">
-                {{ $t('component.messagesOverview.filter') }}
+                {{ translate('component.messagesOverview.filter') }}
               </button>
             </div>
             <form>
