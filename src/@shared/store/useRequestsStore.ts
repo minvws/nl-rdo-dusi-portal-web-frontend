@@ -33,6 +33,6 @@ export const useRequestsStore = defineStore('useRequestsStore', () => {
     error,
     isFetching,
     requests,
-    fetchAllRequests,
+    fetchAllRequests
   }
 })
