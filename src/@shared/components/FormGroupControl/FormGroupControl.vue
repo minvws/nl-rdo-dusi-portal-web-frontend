@@ -91,7 +91,11 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-group {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+
+  @include desktop {
+    flex-direction: row;
+  }
 
   &-label {
     flex: 0.25;

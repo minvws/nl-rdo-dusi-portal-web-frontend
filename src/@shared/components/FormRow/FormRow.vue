@@ -103,7 +103,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 .form-row {
   display: flex;
-  flex-direction: grid;
+  flex-direction: column;
 
   @include desktop {
     flex-direction: row;
@@ -122,7 +122,6 @@ export default defineComponent({
 
   &.inline {
     display: inline-block;
-
     .form-row-label {
       &.margin {
         margin-bottom: 1em;
