@@ -7,19 +7,10 @@
       >
         <AppButton
           class="button"
-          :class="{ selected: selectedValue && item.id === selectedValue.id }"
+          :class="{ selected: selectedValue && selectedValue.id === item.id }"
           @click="onClick(item)"
         >
           {{ item.text }} ({{ item.count }})
-        </AppButton>
-      </li>
-      <li v-if="showAll && totalCount">
-        <AppButton
-          class="button"
-          @click="onClick(null)"
-          :class="{ selected: selectedValue === null }"
-        >
-          {{ translate('component.filterTabs.allCases', { count: totalCount }) }}
         </AppButton>
       </li>
     </ul>
@@ -27,37 +18,28 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
-import { translate } from '@shared/i18n'
+import { onBeforeMount, ref } from 'vue'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-import type { FilterCountItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/table'
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['change'])
 
 type Props = {
-  items: FilterCountItem[]
-  modelValue: FilterCountItem | null
-  showAll?: boolean
-  totalCount?: number
+  items: FilterItem[]
 }
 
 const props = defineProps<Props>()
 
+const selectedValue = ref<FilterItem | null>(null)
+
 onBeforeMount(() => (selectedValue.value = props.items[0]))
 
-const selectedValue = computed({
-  get() {
-    return props.modelValue
-  },
-  set(newVal) {
-    emit('update:modelValue', newVal)
-  }
-})
-
-function onClick(item: FilterCountItem | null) {
+function onClick(item: FilterItem | null) {
   selectedValue.value = item
+
+  emit('change', item)
 }
 </script>
 

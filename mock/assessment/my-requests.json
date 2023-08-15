@@ -1,95 +1,52 @@
 {
-  "headings": [
-    { "field": "dossier", "text": "Dossier", "sortable": true },
-    { "field": "regeling", "text": "Regeling", "sortable": true },
-    { "field": "status", "text": "Status", "sortable": true },
-    { "field": "deadline", "text": "Deadline", "sortable": true },
-    { "field": "laatste-update", "text": "Laatste update", "sortable": true },
-    { "field": "actie", "text": "Actie", "sortable": false }
-  ],
-  "filters": [
-    { "text": "Hoge Prioriteit", "id": "priority", "value": "high" },
-    { "text": "Opgepakt", "id": "handled", "value": true },
-    { "text": "Aan mij toegekend", "id": "assigned_to_me", "value": true }
-  ],
-  "items": [
+  "data": [
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2207329" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
-      "status": { "type": "string", "text": "Eerste beoordeling" },
-      "deadline": { "type": "date", "text": "12/11/2022" },
-      "laatste-update": { "type": "date", "text": "05/06/2022" },
-      "actie": { "type": "button", "to": { "name": "review-request", "params": { "id": "1" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": false,
-        "assigned_to_me": false
-      }
+      "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
+      "application_title": "Aanvraag",
+      "subsidy": "BTV",
+      "status": "submitted",
+      "final_review_deadline": "2023-12-10T12:30:00Z",
+      "last_update": "2023-06-04T12:30:00Z"
     },
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2203759" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
-      "status": { "type": "string", "text": "Tweede beoordeling" },
-      "deadline": { "type": "date", "text": "06/12/2022" },
-      "laatste-update": { "type": "date", "text": "06/12/2022" },
-      "actie": { "type": "button", "to": { "name": "review-request", "params": { "id": "2" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": true,
-        "assigned_to_me": false
-      }
+      "id": "b55a1c9f-01e4-4ea9-9b08-0d8672482b71",
+      "application_title": "Aanvraag",
+      "subsidy": "BTV",
+      "status": "in_progress",
+      "final_review_deadline": "2023-12-11T12:30:00Z",
+      "last_update": "2023-06-05T12:30:00Z"
     },
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201277" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
-      "status": { "type": "string", "text": "Goedgekeurd" },
-      "deadline": { "type": "date", "text": "02/04/2023" },
-      "laatste-update": { "type": "date", "text": "02/04/2023" },
-      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "3" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": true,
-        "assigned_to_me": true
-      }
+      "id": "e8714e2b-547f-4a84-9da2-578c1c8ff924",
+      "application_title": "Aanvraag",
+      "subsidy": "DAMU",
+      "status": "in_progress",
+      "final_review_deadline": "2023-12-12T12:30:00Z",
+      "last_update": "2023-06-06T12:30:00Z"
     },
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2202537" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "DAMU" },
-      "status": { "type": "string", "text": "Nieuw" },
-      "deadline": { "type": "date", "text": "05/10/2023" },
-      "laatste-update": { "type": "date", "text": "05/10/2023" },
-      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "4" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": true,
-        "assigned_to_me": false
-      }
+      "id": "a82e3616-c5a0-481f-8f28-6b2bcafe1d0f",
+      "application_title": "Aanvraag",
+      "subsidy": "DAMU",
+      "status": "in_progress",
+      "final_review_deadline": "2023-12-13T12:30:00Z",
+      "last_update": "2023-06-07T12:30:00Z"
     },
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2200982" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
-      "status": { "type": "string", "text": "Herbeoordeling" },
-      "deadline": { "type": "date", "text": "07/23/2023" },
-      "laatste-update": { "type": "date", "text": "07/23/2023" },
-      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "5" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": true,
-        "assigned_to_me": false
-      }
+      "id": "943db50d-5d1c-4c95-9ec2-d25c18dbbfc5",
+      "application_title": "Aanvraag",
+      "subsidy": "BTV",
+      "status": "submitted",
+      "final_review_deadline": "2023-12-14T12:30:00Z",
+      "last_update": "2023-06-08T12:30:00Z"
     },
     {
-      "dossier": { "type": "link", "url": "/dossiernummer", "text": "BOSA2201298" },
-      "regeling": { "type": "link", "url": "/regeling", "text": "BTV" },
-      "status": { "type": "string", "text": "Afgekeurd" },
-      "deadline": { "type": "date", "text": "01/28/2023" },
-      "laatste-update": { "type": "date", "text": "01/28/2023" },
-      "actie": { "type": "button", "to": { "name": "my-requests-details", "params": { "id": "6" } }, "text": "Open zaak" },
-      "tags": {
-        "priority": "high",
-        "handled": true,
-        "assigned_to_me": false
-      }
+      "id": "62fe849b-c19f-41aa-bbac-7ad168cc7a1e",
+      "application_title": "Aanvraag",
+      "subsidy": "BTV",
+      "status": "in_progress",
+      "final_review_deadline": "2023-12-15T12:30:00Z",
+      "last_update": "2023-06-09T12:30:00Z"
     }
   ]
 }
