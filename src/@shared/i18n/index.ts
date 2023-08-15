@@ -32,21 +32,27 @@ async function getTranslationsFromFiles() {
       }
     })
   )
-  const combined = translations.reduce((cul, entry) => {
-    if (!entry) return cul
-    const { locale, content } = entry
-    if (!cul[locale]) cul[locale] = []
-    cul[locale] = [...cul[locale], content]
-    return cul
-  }, {} as Record<string, any>)
+  const combined = translations.reduce(
+    (cul, entry) => {
+      if (!entry) return cul
+      const { locale, content } = entry
+      if (!cul[locale]) cul[locale] = []
+      cul[locale] = [...cul[locale], content]
+      return cul
+    },
+    {} as Record<string, any>
+  )
   return combined
 }
 
 async function createLocalizedMessages() {
   const translations = await getTranslationsFromFiles()
-  return Object.entries(translations).reduce((cul, [locale, translations]) => {
-    return { ...cul, [locale]: merge(null, ...translations) }
-  }, {} as Record<string, any>)
+  return Object.entries(translations).reduce(
+    (cul, [locale, translations]) => {
+      return { ...cul, [locale]: merge(null, ...translations) }
+    },
+    {} as Record<string, any>
+  )
 }
 
 export const translate = (key: string, props?: Record<string, string | number>) => {
