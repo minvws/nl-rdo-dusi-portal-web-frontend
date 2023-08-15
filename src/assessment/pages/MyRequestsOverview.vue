@@ -18,11 +18,7 @@
         />
         <div v-else-if="error">Error: {{ error }}</div>
         <div v-else-if="!isFetching && assessments.length">
-          <div
-            v-if="assessments.length"
-            class="filter"
-            v-filters
-          >
+          <RequestFilter>
             <div>
               <p>
                 <span>{{ assessments.length }}</span>
@@ -38,7 +34,7 @@
             <form>
               <p>@TODO: filters</p>
             </form>
-          </div>
+          </RequestFilter>
           <AppTable
             v-if="assessments.length"
             :data="assessments"
@@ -71,12 +67,11 @@ import { translate } from '@shared/i18n'
 import useSEO from '@shared/composables/useSeo'
 import { useApiMyAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
 
-import vFilters from '@shared/directives/filters'
-
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
+import RequestFilter from '@assessment/components/RequestFilter/RequestFilter.vue'
 
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
