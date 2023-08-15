@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build-only": "vite build",
+    "build-only:portal": "VITE_PROJECT=portal vite build",
+    "build-only:assessment": "VITE_PROJECT=assessment vite build",
     "build-storybook": "storybook build",
     "build:portal": "VITE_PROJECT=portal run-p type-check build-only",
     "build:assessment": "VITE_PROJECT=assessment run-p type-check build-only",

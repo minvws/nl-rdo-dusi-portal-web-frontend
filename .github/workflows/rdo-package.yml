@@ -31,7 +31,7 @@ jobs:
         run: 'echo "VITE_API_BASE_URL=/bff" > .env'
 
       - name: NPM build portal web
-        run: npm run build:portal
+        run: npm run build-only:portal
 
       - name: Add version.json
         run: 'echo "{ \"version\": \"${{ env.RELEASE_VERSION }}\", \"git_ref\": \"$GITHUB_SHA\"}" > dist/version.json'
@@ -50,7 +50,7 @@ jobs:
         run: rm --recursive dist
 
       - name: NPM build assessment web
-        run: npm run build:assessment
+        run: npm run build-only:assessment
 
       - name: Add version.json
         run: 'echo "{ \"version\": \"${{ env.RELEASE_VERSION }}\", \"git_ref\": \"$GITHUB_SHA\"}" > dist/version.json'
