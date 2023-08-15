@@ -31,9 +31,6 @@
                 {{ translate('pages.my-requests-overview.showFilters') }}
               </AppButton>
             </div>
-            <form>
-              <p>@TODO: filters</p>
-            </form>
           </RequestFilter>
           <AppTable
             v-if="assessments.length"
