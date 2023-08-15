@@ -6,7 +6,7 @@ declare global {
   }
 }
 const baseUrl = window?.config?.api || import.meta.env.VITE_API_BASE_URL
-const useMockData = import.meta.env.VITE_MOCK_DATA
+const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
 export const useApiActiveRequestsUrl = () => {
   if (useMockData) return '../../mock/portal/requests.json'
@@ -52,13 +52,14 @@ export const useApiRequestDetail = (id: string) => {
 }
 
 export const useApiRequestDetailsUrl = (id: string) => {
-  if (useMockData) return `../../mock/assessment/request-details/${id}.json`
+  if (useMockData) return `../../mock/assessment/details/${id}.json`
   return `${baseUrl}/api/requests/${id}`
 }
 
 export const useApiAssessmentRequestsUrl = () => {
   if (useMockData) return '../../mock/assessment/requests.json'
-  return `${baseUrl}/api/requests`
+  // @TODO: Remove this when the API is ready
+  return 'http://localhost:8002/api/applications'
 }
 
 export const useApiSubsidyUrl = () => {

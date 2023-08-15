@@ -21,12 +21,12 @@ export const Default: Story = {
   }),
   args: {
     columns: [
-      { field: 'dossier', text: 'Dossier', sortable: true },
-      { field: 'regeling', text: 'Regeling', sortable: true },
-      { field: 'status', text: 'Status', sortable: true },
-      { field: 'deadline', text: 'Deadline', sortable: true },
-      { field: 'update', text: 'Laatste Update', sortable: true },
-      { field: 'actie', text: 'Actie', sortable: false }
+      { id: 'dossier', text: 'Dossier', sortable: true },
+      { id: 'regeling', text: 'Regeling', sortable: true },
+      { id: 'status', text: 'Status', sortable: true },
+      { id: 'deadline', text: 'Deadline', sortable: true },
+      { id: 'update', text: 'Laatste Update', sortable: true },
+      { id: 'actie', text: 'Actie', sortable: false }
     ],
     data: [
       {

@@ -76,13 +76,13 @@ import AppTable from '@shared/components/AppTable/AppTable.vue'
 import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
 
 const headings = [
-  { field: 'regeling', text: 'Regeling', sortable: false },
-  { field: 'date', text: 'Datum indiening', sortable: false },
-  { field: 'term', text: 'Reactietermijn', sortable: false },
-  { field: 'status', text: 'Status', sortable: false },
-  { field: 'action', text: 'Actie benodigd', sortable: false },
-  { field: 'open', text: 'Open aanvraag', sortable: false },
-  { field: 'details', text: 'Details', sortable: false }
+  { id: 'regeling', text: 'Regeling', sortable: false },
+  { id: 'date', text: 'Datum indiening', sortable: false },
+  { id: 'term', text: 'Reactietermijn', sortable: false },
+  { id: 'status', text: 'Status', sortable: false },
+  { id: 'action', text: 'Actie benodigd', sortable: false },
+  { id: 'open', text: 'Open aanvraag', sortable: false },
+  { id: 'details', text: 'Details', sortable: false }
 ]
 
 useSEO({

@@ -9,7 +9,7 @@
         <tr>
           <th
             v-for="column in columns"
-            :key="column.field"
+            :key="column.id"
             scope="col"
             class="sortable"
             :abbr="`Sorteer per ${column.text}`"
@@ -17,12 +17,12 @@
             {{ column.text }}
             <AppButton
               v-if="column.sortable"
-              @click="sortTableByField(column.field)"
+              @click="sortTableById(column.id)"
               class="button"
             >
               <span class="visually-hidden">Sorteren</span>
               <AppIcon
-                v-if="sortField === column.field"
+                v-if="sortId === column.id"
                 :name="sortDirection === 'asc' ? 'ascending' : 'descending'"
               />
               <AppIcon
@@ -40,31 +40,31 @@
         >
           <template
             v-for="column in columns"
-            :key="column.field"
+            :key="column.id"
           >
-            <td v-if="item[column.field].type === 'link'">
-              <a :href="item[column.field].url">
-                {{ item[column.field].text }}
+            <td v-if="item[column.id].type === 'link'">
+              <a :href="item[column.id].url">
+                {{ item[column.id].text }}
               </a>
             </td>
-            <td v-else-if="item[column.field].type === 'button'">
+            <td v-else-if="item[column.id].type === 'button'">
               <RouterLink
-                :to="item[column.field].to"
+                :to="item[column.id].to"
                 class="button ghost"
               >
-                {{ item[column.field].text }}
+                {{ item[column.id].text }}
               </RouterLink>
             </td>
-            <td v-else-if="item[column.field].type === 'icon'">
-              <a :href="item[column.field].url">
+            <td v-else-if="item[column.id].type === 'icon'">
+              <a :href="item[column.id].url">
                 <AppIcon
-                  :name="item[column.field].text"
+                  :name="item[column.id].text"
                   aria-hidden="true"
                 />
               </a>
             </td>
             <td v-else>
-              {{ item[column.field].text }}
+              {{ item[column.id].text }}
             </td>
           </template>
         </tr>
@@ -100,7 +100,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const currentPage = ref(1)
-const sortField = ref('')
+const sortId = ref('')
 const sortDirection = ref('asc')
 
 // Reset page when incoming data changes
@@ -122,10 +122,10 @@ const paginatedData = computed(() => {
 const sortedData = computed(() => {
   const clonedData = [...props.data]
 
-  if (sortField.value) {
+  if (sortId.value) {
     clonedData.sort((a: any, b: any) => {
-      const aValue = a[sortField.value].text
-      const bValue = b[sortField.value].text
+      const aValue = a[sortId.value].text
+      const bValue = b[sortId.value].text
 
       if (aValue === bValue) {
         return 0
@@ -142,14 +142,14 @@ function onPageChange(page: number) {
   currentPage.value = page
 }
 
-function sortTableByField(field: any) {
-  if (field === sortField.value) {
+function sortTableById(id: any) {
+  if (id === sortId.value) {
     sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc'
   } else {
     sortDirection.value = 'asc'
   }
 
-  sortField.value = field
+  sortId.value = id
 }
 </script>
 
