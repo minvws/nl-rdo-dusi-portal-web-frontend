@@ -1,5 +1,9 @@
 {
   "component": {
+    "appTable": {
+      "open": "Open zaak",
+      "take": "Pak op"
+    },
     "filterTabs": {
       "allCases": "Alle zaken ({count})"
     },
@@ -22,7 +26,15 @@
       "noRequests": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
-      "title": "Zaken"
+      "title": "Zaken",
+      "headings": {
+        "file": "Dossier",
+        "arrangement": "Regeling",
+        "status": "Status",
+        "deadline": "Deadline",
+        "updated": "Laatste update",
+        "reviewer": "Beoordelaar"
+      }
     },
     "my-requests-details": {
       "title": "Zaak"
@@ -32,7 +44,15 @@
       "noRequests": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of  al beoordeeld heeft.",
-      "title": "Mijn Zaken"
+      "title": "Mijn Zaken",
+      "headings": {
+        "file": "Dossier",
+        "arrangement": "Regeling",
+        "status": "Status",
+        "deadline": "Deadline",
+        "updated": "Laatste update",
+        "action": "Actie"
+      }
     },
     "subsequent-review": {
       "agree": "Goedgekeurd",

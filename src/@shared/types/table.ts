@@ -1,31 +1,26 @@
-export type TableDataRecord = Record<string, Record<string, string | boolean>>
+/* eslint-disable */
+export enum AssessmentDataType {
+  LINK = 'link',
+  STRING = 'string',
+  DATE = 'date',
+  BUTTON = 'button'
+}
 
-export type TableData = {
-  headings: Column[]
-  filters: FilterItem[]
-  items: TableDataRecord[]
+export type AssessmentData = Record<string, Record<string, any>>[]
+
+export type RawAssessmentData = {
+  data: Record<string, any>[]
 }
 
 export type FilterItem = {
   text: string
   id: string
-  value: number | string | boolean
-}
-
-export type FilterCountItem = FilterItem & {
-  count: number
-}
-
-export type FilterTabItem = {
-  text: string
-  id: string
-  value: string
-  count: number
+  count?: number
 }
 
 export type Column = {
-  field: string
-  text: string
+  id: string
+  text: string | undefined
   sortable: boolean
 }
 

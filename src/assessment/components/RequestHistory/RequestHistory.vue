@@ -14,10 +14,10 @@ import { ref } from 'vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
 const headings = ref([
-  { field: 'datetime', text: 'Datum en tijd', sortable: true },
-  { field: 'action', text: 'Actie', sortable: false },
-  { field: 'note', text: 'Notitie', sortable: false },
-  { field: 'performed_by', text: 'Uitgevoerd door', sortable: true }
+  { id: 'datetime', text: 'Datum en tijd', sortable: true },
+  { id: 'action', text: 'Actie', sortable: false },
+  { id: 'note', text: 'Notitie', sortable: false },
+  { id: 'performed_by', text: 'Uitgevoerd door', sortable: true }
 ])
 const mockData = ref([
   {
