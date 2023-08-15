@@ -21,7 +21,7 @@
           >
             <div>
               <p>
-                <span>{{ total }}</span> {{ translate('component.messagesOverview.messages', total) }}
+                <span>{{ total }}</span> {{ translate('component.messagesOverview.messages', { total }) }}
               </p>
               <button aria-expanded="false">
                 {{ translate('component.messagesOverview.filter') }}
