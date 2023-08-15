@@ -5,9 +5,9 @@ import {
   type RouteLocationNormalized,
   type RouteRecordRaw
 } from 'vue-router'
+import { routerLoader } from '../utils/loader'
 
 const baseUrl = import.meta.env.BASE_URL
-const loadRouter = () => import(/* @vite-ignore */ `./../../${import.meta.env.VITE_PROJECT}/router`)
 
 export const create = ({
   routes,
@@ -43,6 +43,6 @@ export const create = ({
 }
 
 export default async () => {
-  const { default: router } = await loadRouter()
+  const { default: router } = await routerLoader()
   return create(router)
 }

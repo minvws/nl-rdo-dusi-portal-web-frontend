@@ -14,7 +14,11 @@ export const useAppHeaderLinks = () => {
       label: translate('pages.my-requests-overview.title')
     }
   ]
+  const rightLinks: Link[] = []
+
   return {
-    leftLinks
+    leftLinks,
+    rightLinks,
+    hasAutentication: false
   }
 }
