@@ -25,7 +25,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useFetch } from '@vueuse/core'
 
-import { useApiAssessmentDetailsUrl } from '@shared/composables/useApiUrl'
+import { useApiAssessmentDetailsUrl } from '@shared/composables/useAssessmentApiUrl'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import NotFound from '@shared/pages/NotFound.vue'

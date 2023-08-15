@@ -1,7 +1,7 @@
 import { ref, watch, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
-import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/useApiUrl'
+import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/usePortalApiUrl'
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
 import { HOME } from '@shared/router/names'

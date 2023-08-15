@@ -69,7 +69,7 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
+import { useApiAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
 
 import vFilters from '@shared/directives/filters'
 

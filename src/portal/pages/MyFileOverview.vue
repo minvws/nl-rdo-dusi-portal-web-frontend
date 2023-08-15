@@ -69,7 +69,7 @@ import { translate } from '@shared/i18n'
 import { MY_MESSAGES } from '@shared/router/names'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@shared/composables/useApiUrl'
+import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@shared/composables/usePortalApiUrl'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'

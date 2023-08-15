@@ -62,7 +62,7 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiMyAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
+import { useApiMyAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
