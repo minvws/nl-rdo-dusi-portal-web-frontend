@@ -44,6 +44,7 @@
 <script setup lang="ts">
 import type { Form } from '@shared/types/form'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { JsonForms } from '@jsonforms/vue'
 
@@ -62,6 +63,7 @@ type Props = {
   forms: Form[]
   id: string
   title?: string
+  hideDebug?: boolean | undefined
 }
 
 const props = defineProps<Props>()
@@ -71,7 +73,10 @@ const renderers = useRenderers()
 const i18n = useI18n()
 const formStore = useFormStore()
 const error = useFormScroll(formStore)
-const isDebug = !import.meta.env.PROD
+const isDebug = computed(() => {
+  if (props.hideDebug) return false
+  return !import.meta.env.PROD
+})
 
 const { data, index, formKey, formsErrors, readonly, schema, touchedForms, uischema } =
   storeToRefs(formStore)

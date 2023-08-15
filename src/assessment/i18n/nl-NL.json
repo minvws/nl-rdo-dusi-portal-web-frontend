@@ -22,7 +22,7 @@
   },
   "pages": {
     "home": {
-      "cases": "Zaken",
+      "cases": "Zaal|Zaken",
       "noRequests": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
@@ -40,7 +40,7 @@
       "title": "Zaak"
     },
     "my-requests-overview": {
-      "cases": "Zaken",
+      "cases": "Zaak|Zaken",
       "noRequests": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of  al beoordeeld heeft.",
