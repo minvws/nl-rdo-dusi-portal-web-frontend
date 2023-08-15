@@ -7,6 +7,7 @@
     <FormFieldLabel
       v-if="label"
       class="form-row-label"
+      :class="{ margin: required && !hideRequiredLabel }"
       v-bind="{
         label
       }"
@@ -88,10 +89,10 @@ export default defineComponent({
     },
     rowProps() {
       const { id, errors, appliedOptions = {} } = this
-      const { type }: Options & { type?: string } = appliedOptions
+      const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
       return {
         id,
-        class: [type ?? 'row'],
+        class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }
     }
@@ -116,6 +117,16 @@ export default defineComponent({
 
     &-content {
       flex: 0.75;
+    }
+  }
+
+  &.inline {
+    display: inline-block;
+
+    .form-row-label {
+      &.margin {
+        margin-bottom: 1em;
+      }
     }
   }
 }

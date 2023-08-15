@@ -118,6 +118,11 @@ export const useField = ({
         tag: 'FormNumberControl',
         props: { ...input, control }
       }
+    case InputType.CHECKBOX_GROUP:
+      return {
+        tag: 'FormCheckboxGroupControl',
+        props: { ...input, control, handleChange }
+      }
     case InputType.SELECT:
       return {
         tag: 'FormSelectControl',

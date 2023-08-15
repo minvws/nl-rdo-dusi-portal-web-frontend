@@ -1,6 +1,7 @@
 /* eslint-disable */
 export enum InputType {
   BUTTON = 'button',
+  CHECKBOX_GROUP = 'checkbox-group',
   CHECKBOX = 'checkbox',
   COLOR = 'color',
   DATE = 'date',
