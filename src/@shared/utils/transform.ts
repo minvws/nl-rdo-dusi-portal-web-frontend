@@ -28,7 +28,7 @@ export function transformRequestsData(data: RawRequestData): RequestData {
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
     ...setCreated(created_at),
-    ...setAction(id, 'my-request-details', 'Ja (2)'),
+    ...setAction(id, 'my-request-details', 'Ja (2)')
   }))
 }
 
