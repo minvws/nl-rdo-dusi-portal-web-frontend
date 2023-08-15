@@ -1,4 +1,4 @@
-import formatDate from '@shared/utils/date'
+import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
 import { AssessmentDataType } from '../types/table'
