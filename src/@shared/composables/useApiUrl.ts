@@ -48,7 +48,7 @@ export const useApiMyAssessmentRequestsUrl = () => {
 }
 
 export const useApiRequestDetail = (id: string) => {
-  return `../../mock/${id}.json`
+  return `../../mock/portal/details/${id}.json`
 }
 
 export const useApiRequestDetailsUrl = (id: string) => {
