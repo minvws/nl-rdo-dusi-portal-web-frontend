@@ -51,7 +51,7 @@ export const useApiRequestDetail = (id: string) => {
   return `../../mock/${id}.json`
 }
 
-export const useApiRequestDetailsUrl = (id: string) => {
+export const useApiAssessmentDetailsUrl = (id: string) => {
   if (useMockData) return `../../mock/assessment/details/${id}.json`
   return `${baseUrl}/api/requests/${id}`
 }

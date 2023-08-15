@@ -1,3 +1,56 @@
 {
-  "type": "rejected"
+  "type": "subsequent",
+  "details": [
+    {
+      "title": "Metagegevens",
+      "data": {
+        "Dossiernummer": { "type": "string", "text": "BOSA2200012" },
+        "Aangevraagd op": { "type": "date", "text": "02-14-2023" },
+        "Uiterste behandeldatum": { "type": "date", "text": "03-14-2023" }
+      }
+    },
+    {
+      "title": "Persoonlijke informatie",
+      "data": {
+        "Voornaam": { "type": "string", "text": "Henk" },
+        "Tussenvoegsel": { "type": "string", "text": "de" },
+        "Achternaam": { "type": "string", "text": "Vries" },
+        "Geboortedatum": { "type": "date", "text": "05-08-1956" }
+      }
+    },
+    {
+      "title": "Adres",
+      "data": {
+        "Straatnaam": { "type": "string", "text": "Kerkstraat" },
+        "Huisnummer": { "type": "string", "text": "4" },
+        "Huisnummer toevoeging": { "type": "string", "text": "-" },
+        "Postcode": { "type": "string", "text": "1234AB" },
+        "Plaatsnaam": { "type": "string", "text": "Lorem" }
+      }
+    },
+    {
+      "title": "Contact",
+      "data": {
+        "Telefoonnummer": { "type": "string", "text": "06 12 34 56 78" },
+        "E-mailadres": { "type": "string", "text": "henkdevries@devries.nl" },
+        "Communicatievoorkeur": { "type": "string", "text": "Digitaal" }
+      }
+    },
+    {
+      "title": "Bank",
+      "data": {
+        "IBAN": { "type": "string", "text": "NL99 BANK 0123 4567 89" },
+        "Tenaamstelling": { "type": "string", "text": "H de Vries" }
+      }
+    },
+    {
+      "title": "Bestanden",
+      "data": {
+        "Kopie bankafschrift": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "henk-de-vries-maart-2023.jpg" },
+        "Uitreksel bevolkingsregister": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "uitreksel-henk-de-vries.pdf" },
+        "Verklaring behandeltraject": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "medische-verklaring-behandeltraject-henk-de-vries.pdf" },
+        "Verklaring type behandeling": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "verklaring-type-behandeling-henk-de-vries.pdf" }
+      }
+    }
+  ]
 }

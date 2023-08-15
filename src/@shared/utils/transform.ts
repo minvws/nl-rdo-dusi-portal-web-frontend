@@ -88,7 +88,7 @@ const setUpdated = (date: string) =>
 const setAction = (id: string) =>
   createSet('action', {
     type: AssessmentDataType.BUTTON,
-    to: { name: 'review-request', params: { id } },
+    to: { name: 'my-requests-details', params: { id } },
     text: translate('component.appTable.open')
   })
 

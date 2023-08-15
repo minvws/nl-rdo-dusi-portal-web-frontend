@@ -9,7 +9,7 @@
       <template v-else-if="!isFetching && data">
         <component
           v-bind:is="requestTypeComponent"
-          v-bind="data"
+          v-bind="{ ...data, id }"
         ></component>
       </template>
       <p v-else>Geen details beschikbaar</p>
@@ -25,10 +25,11 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useFetch } from '@vueuse/core'
 
-import { useApiRequestDetailsUrl } from '@shared/composables/useApiUrl'
+import { useApiAssessmentDetailsUrl } from '@shared/composables/useApiUrl'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import NotFound from '@shared/pages/NotFound.vue'
+import NewReview from '@assessment/pages/NewReview.vue'
 import SubsequentReview from '@assessment/pages/SubsequentReview.vue'
 
 type Props = {
@@ -39,18 +40,20 @@ defineProps<Props>()
 
 const route = useRoute()
 
-const url = useApiRequestDetailsUrl(route.params.id as string)
+const url = useApiAssessmentDetailsUrl(route.params.id as string)
 
 const { data, error, isFetching } = useFetch(url).json()
 
 const requestTypeComponent = computed(() => {
-  switch (data.value.type) {
-    case 'first':
-      return SubsequentReview
+  const { type } = data.value
+  console.log(type)
+  switch (type) {
+    // case 'first':
+    //   return SubsequentReview
     case 'new':
-      return SubsequentReview
-    case 'subsequent':
-      return SubsequentReview
+      return NewReview
+    // case 'subsequent':
+    //   return SubsequentReview
     default:
       // @TODO: find better alternative
       return NotFound
