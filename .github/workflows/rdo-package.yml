@@ -47,7 +47,7 @@ jobs:
           path: ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}.tar.gz
 
       - name: Clear dist directory
-        run: rm -R dist
+        run: rm --recursive dist
 
       - name: NPM build assessment web
         run: npm run build:assessment
