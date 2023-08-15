@@ -161,7 +161,8 @@ table td .button {
   --button-base-min-height: none;
   --button-base-padding-top: 0;
   --button-base-padding-bottom: 0;
-  --button-base-padding-left: 0.25rem;
+  --button-base-padding-left: 0.5rem;
+  --button-base-padding-right: 0.5rem;
 
   display: inline-block;
 }
