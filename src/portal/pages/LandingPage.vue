@@ -18,7 +18,12 @@
             v-if="isFetching"
             centered
           />
-          <div v-else-if="error">Error: {{ error }}</div>
+          <div v-else-if="error">
+            <FormNotification
+              display-as="error"
+              :message="error"
+            />
+          </div>
           <template v-else-if="!isFetching && data && data.length">
             <SubsidySummary
               v-for="(item, index) in data"
@@ -65,6 +70,7 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@portal/components/MoreInfo/MoreInfo.vue'
 import SubsidySummary from '@portal/components/SubsidySummary/SubsidySummary.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { grantLink } from '@shared/external-links'
 

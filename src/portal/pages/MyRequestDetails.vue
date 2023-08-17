@@ -6,7 +6,12 @@
           v-if="isFetchingDetails"
           centered
         />
-        <div v-else-if="detailsError">Error: {{ detailsError }}</div>
+        <div v-else-if="detailsError">
+          <FormNotification
+            display-as="error"
+            :message="detailsError"
+          />
+        </div>
         <div v-else-if="!isFetchingDetails && details">
           <h1>{{ details.title }}</h1>
           <p class="emphasized">{{ details.intro }}</p>
@@ -26,7 +31,12 @@
               v-if="isFetchingDetails"
               centered
             />
-            <div v-else-if="detailsError">Error: {{ detailsError }}</div>
+            <div v-else-if="detailsError">
+              <FormNotification
+                display-as="error"
+                :message="detailsError"
+              />
+            </div>
             <div v-else-if="!isFetchingDetails && details">
               <p>{{ details.statusIntro }}</p>
               <RequestSteps
@@ -52,7 +62,12 @@
               v-if="isFetchingMessages"
               centered
             />
-            <div v-else-if="messagesError">Error: {{ messagesError }}</div>
+            <div v-else-if="messagesError">
+              <FormNotification
+                display-as="error"
+                :message="messagesError"
+              />
+            </div>
             <div v-else-if="!isFetchingMessages && messages && messages.length">
               <MessageSummary
                 v-for="(item, index) in messages"
@@ -84,6 +99,7 @@ import useSEO from '@shared/composables/useSeo'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
 import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { log } from '@shared/utils/logger'
 

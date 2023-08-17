@@ -14,7 +14,12 @@
             v-if="isFetchingRequests"
             centered
           />
-          <div v-else-if="requestsError">Error: {{ requestsError }}</div>
+          <div v-else-if="requestsError">
+            <FormNotification
+              display-as="error"
+              :message="requestsError"
+            />
+          </div>
           <AppTable
             v-else-if="!isFetchingRequests && requests && requests.length"
             :caption="translate('pages.my-file-overview.tableCaption')"
@@ -39,7 +44,12 @@
             v-if="isFetchingMessages"
             centered
           />
-          <div v-else-if="messagesError">Error: {{ messagesError }}</div>
+          <div v-else-if="messagesError">
+            <FormNotification
+              display-as="error"
+              :message="messagesError"
+            />
+          </div>
           <template v-else-if="!isFetchingMessages && messages && messages.length">
             <MessageList :items="slicedMessages" />
             <RouterLink :to="{ name: MY_MESSAGES }">
@@ -72,6 +82,7 @@ import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@shared/composables/
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { useRequestsStore } from '@shared/store/useRequestsStore'
 
