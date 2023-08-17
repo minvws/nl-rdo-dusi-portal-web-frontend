@@ -16,45 +16,36 @@
           v-if="isFetching"
           centered
         />
-        <div v-else-if="error">Error: {{ error }}</div>
-        <div v-else-if="!isFetching && assessments.length">
-          <div
-            v-if="assessments.length"
-            class="filter"
-            v-filters
-          >
-            <div>
-              <p>
-                <span>{{ assessments.length }}</span>
-                {{ translate('pages.home.cases') }}
-              </p>
-              <AppButton
-                :data-show-filters-label="translate('pages.home.showFilters')"
-                aria-expanded="false"
-              >
-                {{ translate('pages.home.showFilters') }}
-              </AppButton>
-            </div>
-            <form>
-              <p>@TODO: filters</p>
-            </form>
-          </div>
-          <AppTable
-            v-if="assessments.length"
-            :data="assessments"
-            :columns="headings"
-            :items-per-page="10"
+        <div v-else-if="error">
+          <FormNotification
+            display-as="error"
+            :message="error"
           />
-          <div v-else>
+        </div>
+        <div v-else>
+          <FilterOptions type="all-requests">
+            <p>
+              <span>{{ assessments?.length ?? 0 }}</span>
+              {{ translate('pages.home.cases', {}, assessments?.length ?? 0) }}
+            </p>
+            <AppButton
+              :data-show-filters-label="translate('pages.home.showFilters')"
+              aria-expanded="false"
+            >
+              {{ translate('pages.home.showFilters') }}
+            </AppButton>
+          </FilterOptions>
+          <div v-if="!assessments?.length">
             <p>
               {{ translate('pages.home.noRequests') }}
             </p>
           </div>
-        </div>
-        <div v-else>
-          <p>
-            {{ translate('pages.home.noRequests') }}
-          </p>
+          <AppTable
+            v-else
+            :data="assessments"
+            :columns="headings"
+            :items-per-page="10"
+          />
         </div>
       </template>
       <template #fallback>
@@ -70,15 +61,14 @@ import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
 import { useApiAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
-
-import vFilters from '@shared/directives/filters'
+import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
-
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
+import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import type { FilterItem } from '@shared/types/table'
 

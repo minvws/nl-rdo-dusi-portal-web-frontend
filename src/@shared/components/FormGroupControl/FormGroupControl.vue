@@ -108,12 +108,20 @@ export default defineComponent({
     :deep(.group-label) {
       padding-bottom: 0.5em;
     }
-
     :deep(.group) {
       padding-bottom: 2em;
 
       @include desktop {
         padding-bottom: 3em;
+      }
+    }
+    :deep(> .group) {
+      > .group-item {
+        &:last-of-type {
+          > .group {
+            padding-bottom: 0;
+          }
+        }
       }
     }
   }

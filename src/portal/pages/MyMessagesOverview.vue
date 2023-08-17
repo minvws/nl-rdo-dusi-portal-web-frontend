@@ -13,37 +13,38 @@
           v-if="isFetching"
           centered
         />
-        <div v-else-if="error">Error: {{ error }}</div>
-        <div v-else-if="!isFetching && data && data.length">
-          <div
-            class="filter"
-            v-filters
-          >
-            <div>
-              <p>
-                <span>{{ total }}</span>
-                {{ translate('component.messagesOverview.messages', { total }) }}
-              </p>
-              <button aria-expanded="false">
-                {{ translate('component.messagesOverview.filter') }}
-              </button>
-            </div>
-            <form>
-              <p>@TODO: filters</p>
-            </form>
-          </div>
-          <MessageList :items="slicedItems" />
-          <AppPagination
-            :items-total="total"
-            :page-size="pageSize"
-            :current-page="currentPage"
-            @page-change="onPageChange"
-            with-buttons
+        <div v-else-if="error">
+          <FormNotification
+            display-as="error"
+            :message="error"
           />
         </div>
-        <p v-else>
-          {{ translate('pages.my-messages-overview.noMessages') }}
-        </p>
+        <div v-else>
+          <FilterOptions type="messages">
+            <p>
+              <span>{{ total }}</span>
+              {{ translate('component.messagesOverview.messages', { total }, total) }}
+            </p>
+            <AppButton aria-expanded="false">
+              {{ translate('component.messagesOverview.filter') }}
+            </AppButton>
+          </FilterOptions>
+          <div v-if="!data?.length">
+            <p>
+              {{ translate('pages.my-messages-overview.noMessages') }}
+            </p>
+          </div>
+          <template v-else>
+            <MessageList :items="slicedItems" />
+            <AppPagination
+              :items-total="total"
+              :page-size="pageSize"
+              :current-page="currentPage"
+              @page-change="onPageChange"
+              with-buttons
+            />
+          </template>
+        </div>
       </template>
       <template #fallback>
         <AppLoader centered />
@@ -69,8 +70,9 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
-
-import vFilters from '@shared/directives/filters'
+import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 type Props = {
   page?: string

@@ -2,7 +2,7 @@ import { externalLinks } from '@shared/external-links'
 import { createI18n } from 'vue-i18n'
 import merge from 'lodash.merge'
 
-let t: (_key: string, _props?: Record<string, string>) => string
+let t: (_key: string, _props?: Record<string, string>, _count?: number) => string
 
 function getLocaleFromPath(path: string) {
   return path?.split('/').pop()?.split('.')[0] || ''
@@ -55,10 +55,10 @@ async function createLocalizedMessages() {
   )
 }
 
-export const translate = (key: string, props?: Record<string, string | number>) => {
+export const translate = (key: string, props?: Record<string, string | number>, count?: number) => {
   // only translate when key does not match result
   // otherwise the key is not translated
-  const value = t(key, { ...externalLinks, ...props })
+  const value = t(key, { ...externalLinks, ...props }, count)
   if (value === key) return undefined
   return value
 }

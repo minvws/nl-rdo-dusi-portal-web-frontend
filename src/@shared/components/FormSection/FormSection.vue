@@ -1,6 +1,6 @@
 <template>
   <section class="form-section">
-    <slot />
+    <div><slot /></div>
   </section>
 </template>
 
