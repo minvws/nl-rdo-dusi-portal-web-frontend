@@ -12,7 +12,7 @@ export default [
               elements: [
                 {
                   type: 'CustomControl',
-                  scope: '#/properties/title'
+                  scope: '#/properties/search'
                 },
                 {
                   type: 'FormGroupControl',
@@ -33,6 +33,13 @@ export default [
                       }
                     }
                   ]
+                },
+                {
+                  type: 'CustomControl',
+                  scope: '#/properties/assessment',
+                  options: {
+                    format: 'checkbox-group'
+                  }
                 }
               ]
             }
@@ -42,9 +49,9 @@ export default [
     },
     schema: {
       properties: {
-        caseNumber: {
+        search: {
           type: 'string',
-          title: 'title'
+          title: 'Zoeken'
         },
         dateFrom: {
           type: 'string',
@@ -55,6 +62,14 @@ export default [
           type: 'string',
           format: 'date',
           title: 'Tot'
+        },
+        assessment: {
+          type: 'array',
+          items: {
+            type: 'string',
+            enum: ['BTV', 'DAMU', 'Post Covid']
+          },
+          title: 'Regeling'
         }
       }
     }
