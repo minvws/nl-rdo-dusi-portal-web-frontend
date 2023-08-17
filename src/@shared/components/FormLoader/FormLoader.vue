@@ -10,7 +10,7 @@
         id,
         forms,
         title,
-        createFormDraft: true
+        createDraft: true
       }"
     />
   </FormSection>

@@ -62,7 +62,7 @@ type Props = {
   forms: Form[]
   id: string
   title?: string
-  createFormDraft?: boolean
+  createDraft?: boolean
   hideDebug?: boolean | undefined
 }
 
@@ -74,17 +74,18 @@ const renderers = useRenderers()
 const i18n = useI18n()
 const formStore = useFormStore()
 const error = useFormScroll(formStore)
-const isDebug = computed(() => {
-  if (props.hideDebug) return false
-  return !import.meta.env.PROD
-})
 
 const { data, index, formKey, formsErrors, readonly, schema, touchedForms, uischema } =
   storeToRefs(formStore)
 
-if (props.createFormDraft) formStore.createFormDraft()
+if (props.createDraft) formStore.createFormDraft()
 
 formStore.setForms(props)
+
+const isDebug = computed(() => {
+  if (props.hideDebug) return false
+  return !import.meta.env.PROD
+})
 
 function onChange({ data, errors }: JsonFormsChangeEvent) {
   formStore.events.change({ data, errors })
@@ -95,7 +96,7 @@ function onStep(index: number) {
 }
 
 function onSubmit() {
-  if (props.createFormDraft) formStore.onSubmit()
+  if (props.createDraft) formStore.onSubmit()
   else emit('submit', formStore.formData)
 }
 
