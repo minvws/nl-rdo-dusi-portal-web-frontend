@@ -2,7 +2,7 @@ import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
 import { AssessmentDataType } from '../types/table'
-import type { RawAssessmentData, AssessmentData } from '../types/table'
+import type { AssessmentData, RawAssessmentData, RawRequestData, RequestData } from '../types/table'
 
 const options = {
   day: '2-digit',
@@ -12,7 +12,24 @@ const options = {
 
 const mapStatusToTranslation: Record<string, string> = {
   submitted: 'Nieuw',
+  rejected: 'Afgekeurd',
   in_progress: 'Eerste beoordeling'
+}
+
+/**
+ * Transforms the 'all requests' data from the API to a format that we can use.
+ *
+ * @param data
+ * @returns data
+ */
+export function transformRequestsData(data: RawRequestData): RequestData {
+  return data.data.map(({ id, subsidy, status, final_review_deadline, created_at }) => ({
+    ...setArrangement(subsidy),
+    ...setStatus(status),
+    ...setDeadline(final_review_deadline),
+    ...setCreated(created_at),
+    ...setAction(id, 'my-request-details', 'Ja (2)')
+  }))
 }
 
 /**
@@ -45,7 +62,7 @@ export function transformMyAssessmentsData(data: RawAssessmentData): AssessmentD
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
     ...setUpdated(last_update),
-    ...setAction(id)
+    ...setAction(id, 'my-requests-details', translate('component.appTable.open'))
   }))
 }
 
@@ -85,7 +102,13 @@ const setUpdated = (date: string) =>
     text: date ? formatDate(date, 'nl-NL', options) : '-'
   })
 
-const setAction = (id: string) =>
+const setCreated = (date: string) =>
+  createSet('created', {
+    type: AssessmentDataType.DATE,
+    text: date ? formatDate(date, 'nl-NL', options) : '-'
+  })
+
+const setAction = (id: string, name: string, text: string | undefined) =>
   createSet('action', {
     type: AssessmentDataType.BUTTON,
     to: { name: 'my-requests-details', params: { id } },

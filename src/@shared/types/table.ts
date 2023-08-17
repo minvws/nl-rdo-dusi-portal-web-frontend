@@ -8,7 +8,13 @@ export enum AssessmentDataType {
 
 export type AssessmentData = Record<string, Record<string, any>>[]
 
+export type RequestData = Record<string, Record<string, any>>[]
+
 export type RawAssessmentData = {
+  data: Record<string, any>[]
+}
+
+export type RawRequestData = {
   data: Record<string, any>[]
 }
 

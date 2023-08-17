@@ -41,11 +41,7 @@
           />
           <div v-else-if="messagesError">Error: {{ messagesError }}</div>
           <template v-else-if="!isFetchingMessages && messages && messages.length">
-            <MessageSummary
-              v-for="(item, index) in messages"
-              :key="index"
-              v-bind="item"
-            />
+            <MessageList :items="slicedMessages" />
             <RouterLink :to="{ name: MY_MESSAGES }">
               {{ translate('pages.my-file-overview.allMessages') }}
             </RouterLink>
@@ -63,6 +59,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useFetch } from '@vueuse/core'
 
 import { translate } from '@shared/i18n'
@@ -73,16 +71,16 @@ import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@shared/composables/
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
-import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
+import MessageList from '@shared/components/MessageList/MessageList.vue'
+
+import { useRequestsStore } from '@shared/store/useRequestsStore'
 
 const headings = [
-  { id: 'regeling', text: 'Regeling', sortable: false },
-  { id: 'date', text: 'Datum indiening', sortable: false },
-  { id: 'term', text: 'Reactietermijn', sortable: false },
+  { id: 'arrangement', text: 'Aanvraag', sortable: false },
+  { id: 'created', text: 'Datum indiening', sortable: false },
+  { id: 'deadline', text: 'Reactietermijn', sortable: false },
   { id: 'status', text: 'Status', sortable: false },
-  { id: 'action', text: 'Actie benodigd', sortable: false },
-  { id: 'open', text: 'Open aanvraag', sortable: false },
-  { id: 'details', text: 'Details', sortable: false }
+  { id: 'action', text: 'Actie benodigd', sortable: false }
 ]
 
 useSEO({
@@ -90,19 +88,24 @@ useSEO({
 })
 
 const activeRequestsUrl = useApiActiveRequestsUrl()
+const requestsStore = useRequestsStore()
 const messagesUrl = useApiMessagesUrl()
 
+requestsStore.fetchAllRequests(activeRequestsUrl)
+
 const {
-  data: requests,
+  requests,
   error: requestsError,
   isFetching: isFetchingRequests
-} = useFetch(activeRequestsUrl).json()
+} = storeToRefs(requestsStore)
 
 const {
   data: messages,
   error: messagesError,
   isFetching: isFetchingMessages
 } = useFetch(messagesUrl).json()
+
+const slicedMessages = computed(() => messages.value.slice(0, 5))
 </script>
 
 <style lang="scss" scoped>
