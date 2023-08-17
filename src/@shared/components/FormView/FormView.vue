@@ -11,7 +11,7 @@
   <form
     :key="formKey"
     class="form-view"
-    :class="{ 'first-step': index === 0 && forms.length > 1 }"
+    :class="{ 'first-step': isFirstStep }"
     @submit.prevent
   >
     <JsonForms
@@ -86,6 +86,8 @@ const isDebug = computed(() => {
   if (props.hideDebug) return false
   return !import.meta.env.PROD
 })
+
+const isFirstStep = computed(() => index.value === 0 && props.forms.length > 1)
 
 function onChange({ data, errors }: JsonFormsChangeEvent) {
   formStore.events.change({ data, errors })
