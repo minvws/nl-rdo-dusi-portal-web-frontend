@@ -1,44 +1,43 @@
 <template>
-  <div :key="formKey">
-    <h1 v-if="title">{{ title }}</h1>
-    <FormStepper
+  <h1 v-if="title">{{ title }}</h1>
+  <FormStepper
+    :index="index"
+    :forms="forms"
+    :formsErrors="formsErrors"
+    :touched="touchedForms"
+    :readonly="readonly"
+    @step="onStep"
+  />
+  <form
+    :key="formKey"
+    class="form-view"
+    :class="{ 'first-step': index === 0 && forms.length > 1 }"
+    @submit.prevent
+  >
+    <JsonForms
+      class="horizontal-view"
+      :renderers="renderers"
+      :i18n="i18n"
+      :schema="schema"
+      :uischema="uischema"
+      :data="data"
+      :ajv="ajv"
+      :readonly="readonly"
+      @change="onChange"
+    />
+    <FormLoaderMessage v-bind="onSubmit" />
+    <FormButtons
       :index="index"
       :forms="forms"
       :formsErrors="formsErrors"
       :touched="touchedForms"
       :readonly="readonly"
+      @submit="onSubmit"
       @step="onStep"
+      @validate="onValidate"
     />
-    <form
-      class="form-view"
-      :class="{ 'first-step': index === 0 && forms.length > 1 }"
-      @submit.prevent
-    >
-      <JsonForms
-        class="horizontal-view"
-        :renderers="renderers"
-        :i18n="i18n"
-        :schema="schema"
-        :uischema="uischema"
-        :data="data"
-        :ajv="ajv"
-        :readonly="readonly"
-        @change="onChange"
-      />
-      <FormLoaderMessage v-bind="onSubmit" />
-      <FormButtons
-        :index="index"
-        :forms="forms"
-        :formsErrors="formsErrors"
-        :touched="touchedForms"
-        :readonly="readonly"
-        @submit="onSubmit"
-        @step="onStep"
-        @validate="onValidate"
-      />
-    </form>
     <FormDebugView v-if="isDebug" />
-  </div>
+  </form>
 </template>
 
 <script setup lang="ts">
@@ -108,6 +107,10 @@ function onValidate() {
 
 <style lang="scss" scoped>
 .form-view {
+  @include mobile {
+    padding: 0;
+  }
+
   &.first-step {
     background-color: white;
     padding: 0;
