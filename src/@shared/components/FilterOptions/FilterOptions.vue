@@ -17,12 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, type Ref } from 'vue'
 import type { Form } from '@shared/types/form'
 import type { FormOptions } from '@shared/types/form-options'
+
+import { ref, watch, type Ref } from 'vue'
+import { filterOptionsLoader } from '@shared/utils/loader'
+
 import FormView from '@shared/components/FormView/FormView.vue'
 import vFilters from '@shared/directives/filters'
-import { filterOptionsLoader } from '@shared/utils/loader'
 
 type Props = {
   type: FormOptions
