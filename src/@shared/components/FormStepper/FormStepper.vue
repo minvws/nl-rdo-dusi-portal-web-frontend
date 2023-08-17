@@ -1,7 +1,9 @@
 <template>
   <ol
     v-if="steps.length > 1"
-    class="form-stepper large"
+    ref="el"
+    class="form-stepper"
+    :class="{ large: isLarge }"
   >
     <li
       v-for="([title, step], index) in steps"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import type { FormTitle, FormError } from '@shared/types/form'
 import { useFormSteps } from '@shared/composables/useFormSteps'
+import { useFormStepperSize } from '@shared/composables/useFormStepperSize'
 import { computed } from 'vue'
 
 const emit = defineEmits(['step'])
@@ -42,6 +45,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { isStepDisabled, isTouched } = useFormSteps(props)
+const { el, isLarge } = useFormStepperSize()
 
 function isActive(index: number) {
   const { index: activeIndex } = props
@@ -106,6 +110,8 @@ const steps = computed(() => {
 
   &.large {
     flex-direction: row;
+    width: auto;
+    overflow: visible;
     --stepper-step-height: 44px;
     --stepper-arrow-size: calc(var(--stepper-step-height) / 2);
     --stepper-border-size: 26px;
@@ -120,7 +126,7 @@ const steps = computed(() => {
 
   display: flex;
   flex-direction: column;
-  width: 100%;
+
   padding: 0;
   gap: 0.75rem;
 
