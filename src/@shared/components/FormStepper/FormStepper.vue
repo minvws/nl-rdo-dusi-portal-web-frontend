@@ -1,7 +1,7 @@
 <template>
   <ol
     v-if="steps.length > 1"
-    class="form-stepper"
+    class="form-stepper large"
   >
     <li
       v-for="([title, step], index) in steps"
@@ -91,14 +91,40 @@ const steps = computed(() => {
 
 <style lang="scss" scoped>
 .form-stepper {
+  width: 100%;
+  overflow: hidden;
+
+  --stepper-step-height: 55px;
+  --stepper-arrow-size: 15px;
+  --stepper-border-size: 12px;
+  --stepper-before-position-left: 50%;
+  --stepper-before-transform: rotate(90deg) translateX(-9px);
+
+  --stepper-after-position-top: 100%;
+  --stepper-after-position-left: 50%;
+  --stepper-after-position-transform: rotate(90deg) translateX(-9px);
+
+  &.large {
+    flex-direction: row;
+    --stepper-step-height: 44px;
+    --stepper-arrow-size: calc(var(--stepper-step-height) / 2);
+    --stepper-border-size: 26px;
+    --stepper-before-position-left: 0;
+    --stepper-before-transform: unset;
+
+    --stepper-after-position-top: 0;
+    --stepper-after-position-left: unset;
+    --stepper-after-position-right: calc(var(--stepper-border-size) * -1);
+    --stepper-after-position-transform: unset;
+  }
+
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100%;
   padding: 0;
   gap: 0.75rem;
 
   li {
-    --stepper-step-height: 44px;
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -106,6 +132,8 @@ const steps = computed(() => {
     height: var(--stepper-step-height);
     padding: 0;
     position: relative;
+    width: 100%;
+    max-width: 100%;
 
     button {
       --button-base-background-color: var(--grey-1);
@@ -119,69 +147,85 @@ const steps = computed(() => {
       align-items: center;
       justify-content: center;
       text-decoration: none;
+      position: relative;
+      width: 100%;
       height: 100%;
       border: none;
       padding: 0 1rem 0 3rem;
       font-family: var(--application-base-font-family);
-
+      white-space: nowrap;
+      width: 100%;
       &.first {
         padding-left: 1rem;
       }
 
       &:before {
+        position: absolute;
         content: '';
         width: 0;
         height: 0;
-        border-top: calc(var(--stepper-step-height) / 2) solid transparent;
-        border-left: 26px solid var(--application-base-background-color);
-        border-bottom: calc(var(--stepper-step-height) / 2) solid transparent;
-        position: absolute;
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--application-base-background-color);
         top: 0;
-        left: 0;
+        left: var(--stepper-before-position-left);
+        transform: var(--stepper-before-transform);
       }
 
       &:after {
         content: '';
+        position: absolute;
         width: 0;
         height: 0;
-        border-top: calc(var(--stepper-step-height) / 2) solid transparent;
-        border-left: 26px solid var(--grey-1);
-        border-bottom: calc(var(--stepper-step-height) / 2) solid transparent;
-        position: absolute;
-        top: 0;
-        right: -26px;
+
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--grey-1);
+
         z-index: 1;
+
+        top: var(--stepper-after-position-top);
+        left: var(--stepper-after-position-left);
+        right: var(--stepper-after-position-right);
+        transform: var(--stepper-after-position-transform);
       }
 
       &:disabled {
         opacity: 1;
       }
 
-      &:focus {
-        outline: var(--link-focus-outline);
-        outline-offset: var(--link-focus-outline-offset);
-      }
-
-      &:hover {
-        background-color: var(--button-base-hover-background-color);
+      &:hover,
+      &:active,
+      &:focus,
+      &.active {
         color: var(--button-base-hover-text-color);
-        border-color: var(--button-base-hover-background-color);
-
+      }
+      &:hover {
         &:after {
-          border-left: 26px solid var(--button-base-hover-background-color);
+          border-left: var(--stepper-border-size) solid var(--button-base-hover-background-color);
         }
       }
 
+      &:focus {
+        outline: var(--link-focus-outline);
+        outline-offset: var(--link-focus-outline-offset);
+
+        &:after {
+          border-left: var(--stepper-border-size) solid var(--button-base-focus-background-color);
+        }
+        &.active,
+        &:active {
+          &:after {
+            border-left: var(--stepper-border-size) solid var(--button-base-focus-background-color);
+          }
+        }
+      }
+
+      &:active,
       &.active {
-        color: var(--ruby-red-text-color-light);
-      }
-
-      &.active:after {
-        border-left: 26px solid var(--button-base-active-background-color);
-      }
-
-      &.active:hover:after {
-        border-left: 26px solid var(--button-base-hover-background-color);
+        &:after {
+          border-left: var(--stepper-border-size) solid var(--button-base-active-background-color);
+        }
       }
     }
 
