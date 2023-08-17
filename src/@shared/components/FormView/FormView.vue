@@ -11,7 +11,7 @@
     />
     <form
       class="form-view"
-      :class="{ 'first-step': index === 0 && forms.length > 1}"
+      :class="{ 'first-step': index === 0 && forms.length > 1 }"
       @submit.prevent
     >
       <JsonForms

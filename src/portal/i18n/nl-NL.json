@@ -1,11 +1,5 @@
 {
   "component": {
-    "formNotification": {
-      "error": "Fout",
-      "explanation": "Toelichting",
-      "success": "Gelukt",
-      "warning": "Waarschuwing"
-    },
     "formResultsTable": {
       "noData": "Geen gegevens ingevuld.",
       "results": {
