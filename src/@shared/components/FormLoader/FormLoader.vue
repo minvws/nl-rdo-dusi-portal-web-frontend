@@ -9,7 +9,8 @@
       v-bind="{
         id,
         forms,
-        title
+        title,
+        createFormDraft: true
       }"
     />
   </FormSection>

@@ -9,6 +9,7 @@
       v-bind="{
         id: 'local',
         forms,
+        createFormDraft: true,
         title: translate('form.title')
       }"
     />

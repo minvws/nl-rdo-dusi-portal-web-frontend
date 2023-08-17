@@ -11,6 +11,7 @@
         forms,
         hideDebug: true
       }"
+      @submit="onSubmit"
     />
   </div>
 </template>
@@ -42,4 +43,8 @@ watch(
   },
   { immediate: true }
 )
+
+const onSubmit = (data: FormData) => {
+  console.log('@TODO: onSubmit', data)
+}
 </script>

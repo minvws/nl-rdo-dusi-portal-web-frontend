@@ -63,9 +63,11 @@ type Props = {
   forms: Form[]
   id: string
   title?: string
+  createFormDraft?: boolean
   hideDebug?: boolean | undefined
 }
 
+const emit = defineEmits(['submit'])
 const props = defineProps<Props>()
 
 const ajv = useAjv()
@@ -81,7 +83,8 @@ const isDebug = computed(() => {
 const { data, index, formKey, formsErrors, readonly, schema, touchedForms, uischema } =
   storeToRefs(formStore)
 
-formStore.createFormDraft()
+if (props.createFormDraft) formStore.createFormDraft()
+
 formStore.setForms(props)
 
 function onChange({ data, errors }: JsonFormsChangeEvent) {
@@ -93,7 +96,8 @@ function onStep(index: number) {
 }
 
 function onSubmit() {
-  formStore.onSubmit()
+  if (props.createFormDraft) formStore.onSubmit()
+  else emit('submit', formStore.formData)
 }
 
 function onValidate() {
