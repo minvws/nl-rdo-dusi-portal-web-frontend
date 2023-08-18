@@ -95,7 +95,11 @@ const steps = computed(() => {
 
 <style lang="scss" scoped>
 .form-stepper {
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  padding: 0;
+  gap: 0.75rem;
   overflow: hidden;
 
   --stepper-step-height: 55px;
@@ -103,7 +107,6 @@ const steps = computed(() => {
   --stepper-border-size: 12px;
   --stepper-before-position-left: 50%;
   --stepper-before-transform: rotate(90deg) translateX(-9px);
-
   --stepper-after-position-top: 100%;
   --stepper-after-position-left: 50%;
   --stepper-after-position-transform: rotate(90deg) translateX(-9px);
@@ -112,36 +115,44 @@ const steps = computed(() => {
     flex-direction: row;
     width: auto;
     overflow: visible;
+
     --stepper-step-height: 44px;
     --stepper-arrow-size: calc(var(--stepper-step-height) / 2);
     --stepper-border-size: 26px;
     --stepper-before-position-left: 0;
     --stepper-before-transform: unset;
-
     --stepper-after-position-top: 0;
     --stepper-after-position-left: unset;
     --stepper-after-position-right: calc(var(--stepper-border-size) * -1);
     --stepper-after-position-transform: unset;
   }
 
-  display: flex;
-  flex-direction: column;
-
-  padding: 0;
-  gap: 0.75rem;
-
   li {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--grey-1);
-    height: var(--stepper-step-height);
-    padding: 0;
-    position: relative;
     width: 100%;
     max-width: 100%;
+    height: var(--stepper-step-height);
+    background-color: var(--grey-1);
+    padding: 0;
 
     button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+
+      width: 100%;
+      height: 100%;
+      padding: 0 1rem 0 3rem;
+
+      font-family: var(--application-base-font-family);
+      white-space: nowrap;
+      border: none;
+
       --button-base-background-color: var(--grey-1);
       --button-base-border-color: var(--grey-1);
       --button-base-text-color: var(--ro-blue-text-color-dark);
@@ -149,33 +160,23 @@ const steps = computed(() => {
       --button-base-active-border-color: var(--ro-blue);
       --button-base-active-text-color: var(--ro-blue-text-color-light);
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      position: relative;
-      width: 100%;
-      height: 100%;
-      border: none;
-      padding: 0 1rem 0 3rem;
-      font-family: var(--application-base-font-family);
-      white-space: nowrap;
-      width: 100%;
       &.first {
         padding-left: 1rem;
       }
 
       &:before {
-        position: absolute;
         content: '';
+        position: absolute;
         width: 0;
         height: 0;
-        border-bottom: var(--stepper-arrow-size) solid transparent;
-        border-top: var(--stepper-arrow-size) solid transparent;
-        border-left: var(--stepper-border-size) solid var(--application-base-background-color);
+
         top: 0;
         left: var(--stepper-before-position-left);
         transform: var(--stepper-before-transform);
+
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--application-base-background-color);
       }
 
       &:after {
@@ -183,17 +184,16 @@ const steps = computed(() => {
         position: absolute;
         width: 0;
         height: 0;
-
-        border-top: var(--stepper-arrow-size) solid transparent;
-        border-bottom: var(--stepper-arrow-size) solid transparent;
-        border-left: var(--stepper-border-size) solid var(--grey-1);
-
         z-index: 1;
 
         top: var(--stepper-after-position-top);
         left: var(--stepper-after-position-left);
         right: var(--stepper-after-position-right);
         transform: var(--stepper-after-position-transform);
+
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--grey-1);
       }
 
       &:disabled {
