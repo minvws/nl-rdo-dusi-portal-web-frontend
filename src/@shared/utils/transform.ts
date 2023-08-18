@@ -61,12 +61,12 @@ export function transformAssessmentsData(data: RawAssessmentData): AssessmentsDa
  * @returns data
  */
 export function transformMyAssessmentsData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(({ id, subsidy, status, final_review_deadline, last_update }) => ({
+  return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at }) => ({
     ...setFile(id),
     ...setArrangement(subsidy),
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
-    ...setUpdated(last_update),
+    ...setUpdated(updated_at),
     ...setAction(id, 'my-requests-details', translate('component.appTable.open'))
   }))
 }
