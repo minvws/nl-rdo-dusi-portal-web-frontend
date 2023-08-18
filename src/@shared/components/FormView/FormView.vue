@@ -12,7 +12,7 @@
     :key="formKey"
     class="form-view"
     :class="{ 'first-step': isFirstStep }"
-    @submit.prevent
+    @submit.prevent.stop
   >
     <JsonForms
       class="horizontal-view"
