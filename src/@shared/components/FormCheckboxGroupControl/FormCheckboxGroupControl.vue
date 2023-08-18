@@ -10,6 +10,7 @@
         :value="item"
         :id="`${id}-${index}`"
         :disabled="disabled"
+        :checked="values.includes(item)"
         @input="onChange"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"
