@@ -26,18 +26,18 @@ const routes = [
     path: '/mijn-zaken',
     name: MY_REQUESTS_OVERVIEW,
     component: MyRequestsView,
-  },
-  {
-    path: '/zaak/:id',
-    name: MY_REQUESTS_DETAILS,
-    component: MyRequestsDetails,
-    props: true
-  },
-  {
-    path: '/beoordelen/:id',
-    name: REVIEW_REQUEST,
-    component: ReviewRequest,
-    props: true
+    children: [
+      {
+        path: ':id',
+        name: MY_REQUESTS_DETAILS,
+        component: MyRequestsDetails
+      },
+      {
+        path: ':id/beoordeling',
+        name: REVIEW_REQUEST,
+        component: ReviewRequest
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',

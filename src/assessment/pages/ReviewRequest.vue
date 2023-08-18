@@ -1,62 +1,78 @@
 <template>
-  <Suspense>
-    <template #default>
-      <AppLoader
-        v-if="isFetching"
-        centered
-      />
-      <div v-else-if="error">Error: {{ error }}</div>
-      <template v-else-if="!isFetching && data">
-        <component
-          v-bind:is="requestTypeComponent"
-          v-bind="{ ...data, id }"
-        ></component>
-      </template>
-      <p v-else>Geen details beschikbaar</p>
-    </template>
-    <template #fallback>
-      <AppLoader centered />
-    </template>
-  </Suspense>
+  <section>
+    <div>
+      <h1>{{ translate('pages.review-request.title') }}</h1>
+    </div>
+    <div>
+      <AppAccordion>
+        <AppAccordionItem
+          id="request"
+          is-open
+        >
+          <template #title>{{ translate('pages.review-request.request') }}</template>
+          <template #content>
+            <Suspense>
+              <template #default>
+                <AppLoader
+                  v-if="isFetching"
+                  centered
+                />
+                <div v-else-if="error">Error: {{ error }}</div>
+                <template v-else-if="!isFetching && activeAssessmentRequest">
+                  <RequestDetails :items="items" />
+                </template>
+                <p v-else>Geen details beschikbaar</p>
+              </template>
+              <template #fallback>
+                <AppLoader centered />
+              </template>
+            </Suspense>
+          </template>
+        </AppAccordionItem>
+      </AppAccordion>
+    </div>
+    <div>
+      <form>
+        @TODO: FormView
+      </form>
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
-import { useFetch } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 
-import { useApiAssessmentDetailsUrl } from '@shared/composables/useApiUrl'
+import { translate } from '@shared/i18n'
 
+import { useAssessmentStore } from '@shared/store/useAssessmentStore'
+
+import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
+import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import NotFound from '@shared/pages/NotFound.vue'
-import NewReview from '@assessment/pages/NewReview.vue'
-import SubsequentReview from '@assessment/pages/SubsequentReview.vue'
+import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
-type Props = {
-  id: string
-}
-
-defineProps<Props>()
-
+const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
-const url = useApiAssessmentDetailsUrl(route.params.id as string)
+const { id } = route.params
+const { activeAssessmentRequest, activeAssessmentRequestValues, isFetching, error } = storeToRefs(assessmentStore)
 
-const { data, error, isFetching } = useFetch(url).json()
+onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
-const requestTypeComponent = computed(() => {
-  const { type } = data.value
-  console.log(type)
-  switch (type) {
-    // case 'first':
-    //   return SubsequentReview
-    case 'new':
-      return NewReview
-    // case 'subsequent':
-    //   return SubsequentReview
-    default:
-      // @TODO: find better alternative
-      return NotFound
-  }
+const items = computed(() => {
+  const entries = Object.entries(activeAssessmentRequestValues.value)
+  return [
+    {
+      title: 'Gegevens',
+      data: entries.map(entry => {
+        return {
+          term: Object.keys(entry[1])[0],
+          details: { type: 'string', text: Object.values(entry[1])[0] }
+        }
+      })
+    }
+  ]
 })
 </script>

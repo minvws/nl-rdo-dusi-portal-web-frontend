@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="status">
-      <h1>{{ translate('pages.new-review.title') }}</h1>
+      <h1>{{ translate('component.reviewRequestOverview.title') }}</h1>
       <RequestStatus type="new" />
     </div>
     <TabGroup
@@ -17,7 +17,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.overview') }}
+            {{ translate('component.reviewRequestOverview.overview') }}
           </AppButton>
         </Tab>
         <Tab
@@ -28,7 +28,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.history') }}
+            {{ translate('component.reviewRequestOverview.history') }}
           </AppButton>
         </Tab>
         <Tab
@@ -39,18 +39,21 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.reviewer') }}
+            {{ translate('component.reviewRequestOverview.reviewer') }}
           </AppButton>
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <RequestDetails :items="details" />
+          <RequestDetails :items="items" />
           <RouterLink
-            :to="{ name: 'review-request', params: { id: id } }"
+            :to="{
+              name: 'review-request',
+              params: { id: metadata.id }
+            }"
             class="button"
           >
-            {{ translate('pages.new-review.startReview') }}
+            {{ translate('component.reviewRequestOverview.startReview') }}
           </RouterLink>
         </TabPanel>
         <TabPanel>
@@ -65,8 +68,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
+
+import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
@@ -74,14 +81,34 @@ import RequestHistory from '@assessment/components/RequestHistory/RequestHistory
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
 import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
 
-import type { RequestDetailsItem } from '@shared/types/details'
+// import type { RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
-  details: RequestDetailsItem[]
-  id: string
+  metadata: any
+  // details: RequestDetailsItem[]
+  // id: string
 }
 
 defineProps<Props>()
+
+const assessmentStore = useAssessmentStore()
+
+const { activeAssessmentRequestValues } = storeToRefs(assessmentStore)
+
+const items = computed(() => {
+  const entries = Object.entries(activeAssessmentRequestValues.value)
+  return [
+    {
+      title: 'Gegevens',
+      data: entries.map(entry => {
+        return {
+          term: Object.keys(entry[1])[0],
+          details: { type: 'string', text: Object.values(entry[1])[0] }
+        }
+      })
+    }
+  ]
+})
 </script>
 
 <style lang="scss" scoped>

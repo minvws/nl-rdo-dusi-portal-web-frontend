@@ -1,8 +1,13 @@
 import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
-import { AssessmentDataType } from '../types/table'
-import type { AssessmentData, RawAssessmentData, RawRequestData, RequestData } from '../types/table'
+import type {
+  RawAssessmentData,
+  AssessmentsData,
+  RawRequestData,
+  RequestData
+} from '../types/table'
+import { AssessmentsDataType } from '../types/table'
 
 const options = {
   day: '2-digit',
@@ -11,7 +16,7 @@ const options = {
 } as Intl.DateTimeFormatOptions
 
 const mapStatusToTranslation: Record<string, string> = {
-  submitted: 'Nieuw',
+  ToDo: 'Nieuw',
   rejected: 'Afgekeurd',
   in_progress: 'Eerste beoordeling'
 }
@@ -38,13 +43,13 @@ export function transformRequestsData(data: RawRequestData): RequestData {
  * @param data
  * @returns data
  */
-export function transformAssessmentsData(data: RawAssessmentData): AssessmentData {
-  return data.data.map(({ id, subsidy, status, final_review_deadline, last_update, reviewer }) => ({
+export function transformAssessmentsData(data: RawAssessmentData): AssessmentsData {
+  return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
     ...setFile(id),
     ...setArrangement(subsidy),
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
-    ...setUpdated(last_update),
+    ...setUpdated(updated_at),
     ...setReviewer(status, reviewer)
   }))
 }
@@ -55,7 +60,7 @@ export function transformAssessmentsData(data: RawAssessmentData): AssessmentDat
  * @param data
  * @returns data
  */
-export function transformMyAssessmentsData(data: RawAssessmentData): AssessmentData {
+export function transformMyAssessmentsData(data: RawAssessmentData): AssessmentsData {
   return data.data.map(({ id, subsidy, status, final_review_deadline, last_update }) => ({
     ...setFile(id),
     ...setArrangement(subsidy),
@@ -72,61 +77,61 @@ const createSet = (text: string, data: object) => ({
 
 const setFile = (text: string) =>
   createSet('file', {
-    type: AssessmentDataType.LINK,
+    type: AssessmentsDataType.LINK,
     url: '/dossiernummer',
     text: text.split('-')[0] // fake file id for now
   })
 
 const setArrangement = (text: string) =>
   createSet('arrangement', {
-    type: AssessmentDataType.LINK,
+    type: AssessmentsDataType.LINK,
     url: '/regeling',
     text
   })
 
 const setStatus = (text: string) =>
   createSet('status', {
-    type: AssessmentDataType.STRING,
+    type: AssessmentsDataType.STRING,
     text: mapStatusToTranslation[text]
   })
 
 const setDeadline = (date: string) =>
   createSet('deadline', {
-    type: AssessmentDataType.DATE,
+    type: AssessmentsDataType.DATE,
     text: date ? formatDate(date, 'nl-NL', options) : '-'
   })
 
 const setUpdated = (date: string) =>
   createSet('updated', {
-    type: AssessmentDataType.DATE,
+    type: AssessmentsDataType.DATE,
     text: date ? formatDate(date, 'nl-NL', options) : '-'
   })
 
 const setCreated = (date: string) =>
   createSet('created', {
-    type: AssessmentDataType.DATE,
+    type: AssessmentsDataType.DATE,
     text: date ? formatDate(date, 'nl-NL', options) : '-'
   })
 
 const setAction = (id: string, name: string, text: string | undefined) =>
   createSet('action', {
-    type: AssessmentDataType.BUTTON,
+    type: AssessmentsDataType.BUTTON,
     to: { name: 'my-requests-details', params: { id } },
     text: translate('component.appTable.open')
   })
 
 const setReviewer = (status: string, text: string) =>
-  status === 'submitted'
+  status === 'ToDo'
     ? createSet('reviewer', setReviewerButton())
     : createSet('reviewer', setReviewerPerson(text))
 
 const setReviewerButton = () => ({
-  type: AssessmentDataType.BUTTON,
+  type: AssessmentsDataType.BUTTON,
   to: { name: 'home' },
   text: translate('component.appTable.take')
 })
 
 const setReviewerPerson = (text: string) => ({
-  type: AssessmentDataType.STRING,
+  type: AssessmentsDataType.STRING,
   text: text ? text : '-'
 })

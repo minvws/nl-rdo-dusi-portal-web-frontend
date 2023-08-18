@@ -18,6 +18,13 @@
       "rejected": "Afgekeurd",
       "new": "Nieuw",
       "inProgress": "In behandeling"
+    },
+    "reviewRequestOverview": {
+      "title": "Beoordeling",
+      "overview": "Overzicht",
+      "history": "Geschiedenis",
+      "reviewer": "Beoordelaar",
+      "startReview": "Beoordeling starten"
     }
   },
   "pages": {
@@ -54,31 +61,9 @@
         "action": "Actie"
       }
     },
-    "subsequent-review": {
-      "agree": "Goedgekeurd",
-      "unrated": "Onbeoordeeld",
-      "needsRevision": "Aanvulling nodig",
-      "disagree": "Afgekeurd",
-      "request": "Aanvraag",
-      "review": "Beoordeling",
-      "saveAndSend": "Opslaan en verzenden",
-      "title": "Zaak"
-    },
-    "new-review": {
-      "title": "Beoordeling",
-      "overview": "Overzicht",
-      "history": "Geschiedenis",
-      "reviewer": "Beoordelaar",
-      "startReview": "Beoordeling starten"
-    },
-    "rejected-review": {
-      "title": "Afgekeurd verzoek"
-    },
-    "approved-review": {
-      "title": "Goedgekeurd"
-    },
     "review-request": {
-      "title": "Beoordeling"
+      "title": "Beoordeling",
+      "request": "Aanvraag"
     }
   }
 }

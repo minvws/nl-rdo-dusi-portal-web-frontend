@@ -15,7 +15,7 @@ import { computed } from 'vue'
 
 import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
 
-import { formatDetailsData } from '@shared/utils/format'
+// import { formatDetailsData } from '@shared/utils/format'
 
 import type { RequestDetailsItem } from '@shared/types/details'
 
@@ -25,7 +25,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const details = computed(() => formatDetailsData(props.items))
+const details = computed(() => props.items)
 </script>
 
 <style scoped lang="scss">

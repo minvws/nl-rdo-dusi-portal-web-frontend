@@ -1,13 +1,15 @@
 import type { Ref } from 'vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
-import type { AssessmentData } from '@shared/types/table'
+import type { AssessmentsData } from '@shared/types/table'
 
+import { useApiAssessmentDetailsUrl } from '@shared/composables/useAssessmentApiUrl'
 import { transformAssessmentsData, transformMyAssessmentsData } from '@shared/utils/transform'
 
 export const useAssessmentStore = defineStore('useAssessmentStore', () => {
-  const assessments = ref({}) as Ref<AssessmentData>
+  const assessments = ref({}) as Ref<AssessmentsData>
+  const activeAssessment = ref({}) as Ref<any>
   const error = ref(null) as any
   const isFetching = ref(false)
 
@@ -29,11 +31,28 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     isFetching.value = false
   }
 
-  async function fetchMyAssessments(url: string) {
+  async function fetchAssessment(id: string) {
+    const url = useApiAssessmentDetailsUrl(id)
     isFetching.value = true
 
     try {
       const response = await fetch(url)
+      const json = await response.json()
+      activeAssessment.value = json
+    } catch (err) {
+      // @TODO: handle error
+      console.error(err)
+      error.value = err
+    }
+
+    isFetching.value = false
+  }
+
+  async function fetchMyAssessments(url: string) {
+    isFetching.value = true
+
+    try {
+      const response = await fetch(url, { method: 'GET' })
       const json = await response.json()
       const formattedData = transformMyAssessmentsData(json)
 
@@ -50,7 +69,7 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   async function filterAssessments(id: string) {
     // @TODO: implement filter, fake for now.
     isFetching.value = true
-    assessments.value = {} as AssessmentData
+    assessments.value = {} as AssessmentsData
     console.log('filterAssessments', id)
 
     setTimeout(() => {
@@ -58,12 +77,38 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     }, 1000)
   }
 
+  const activeAssessmentRequest = computed(() => {
+    return activeAssessment.value?.data.stages.filter(
+      (stage: any) => stage.metadata.title === 'Aanvraag'
+    )
+  })
+
+  const activeAssessmentReviews = computed(() => {
+    return activeAssessment.value?.data.stages.filter(
+      (stage: any) => stage.metadata.title === 'Beoordeling'
+    )
+  })
+
+  const numberOfReviews = computed(() => {
+    return activeAssessmentReviews.value.length
+  })
+
+  const activeAssessmentRequestValues = computed(() => {
+    return activeAssessmentRequest.value[0].values
+  })
+
   return {
-    error,
-    isFetching,
+    activeAssessment,
+    activeAssessmentRequest,
+    activeAssessmentReviews,
+    activeAssessmentRequestValues,
     assessments,
+    error,
     fetchAllAssessments,
+    fetchAssessment,
     fetchMyAssessments,
-    filterAssessments
+    filterAssessments,
+    isFetching,
+    numberOfReviews
   }
 })

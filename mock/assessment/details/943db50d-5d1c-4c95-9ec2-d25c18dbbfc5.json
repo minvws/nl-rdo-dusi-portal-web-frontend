@@ -1,56 +1,488 @@
 {
-  "type": "new",
-  "details": [
-    {
-      "title": "Metagegevens",
-      "data": {
-        "Dossiernummer": { "type": "string", "text": "BOSA2200012" },
-        "Aangevraagd op": { "type": "date", "text": "02-14-2023" },
-        "Uiterste behandeldatum": { "type": "date", "text": "03-14-2023" }
+  "data": {
+    "metadata": {
+      "id": "943db50d-5d1c-4c95-9ec2-d25c18dbbfc5",
+      "subsidy": {
+        "id": "00f26400-7232-475f-922c-6b569b7e421a",
+        "title": "Borstprothesen transvrouwen",
+        "description": "Transvrouwen zijn man-vrouw transgenders die negatieve gevoelens ('genderdysforie') ervaren omdat ze als man geboren zijn en in transitie zijn om als vrouw te leven. De meerderheid van de transvrouwen vindt, ook na behandeling (de zogeheten genderbevestigende hormonale therapie), dat zij te weinig borstweefsel heeft voor een vrouwelijk profiel. Dit kan een grote hindernis zijn bij de transitie. Een borstvergroting kan deze hinder verminderen.",
+        "validFrom": "2019-02-01",
+        "validTo": null
       }
     },
-    {
-      "title": "Persoonlijke informatie",
-      "data": {
-        "Voornaam": { "type": "string", "text": "Henk" },
-        "Tussenvoegsel": { "type": "string", "text": "de" },
-        "Achternaam": { "type": "string", "text": "Vries" },
-        "Geboortedatum": { "type": "date", "text": "05-08-1956" }
+    "stages": [
+      {
+        "metadata": {
+          "title": "Aanvraag",
+          "uiType": "VIEW",
+          "subjectRole": "applicant",
+          "subjectOrganisation": null
+        },
+        "dataSchema": {
+          "type": "object",
+          "properties": {
+            "formOfAddress": {
+              "type": "string",
+              "title": "Aanspreekvorm",
+              "enum": [
+                "Beste lezer",
+                "Beste heer",
+                "Beste mevrouw"
+              ]
+            },
+            "firstName": {
+              "type": "string",
+              "title": "Voornaam"
+            },
+            "infix": {
+              "type": "string",
+              "title": "Tussenvoegsel"
+            },
+            "lastName": {
+              "type": "string",
+              "title": "Achternaam"
+            },
+            "street": {
+              "type": "string",
+              "title": "Straat"
+            },
+            "houseNumber": {
+              "type": "integer",
+              "title": "Huisnummer",
+              "minimum": 0
+            },
+            "houseNumberSuffix": {
+              "type": "string",
+              "title": "Huisnummer toevoeging"
+            },
+            "postalCode": {
+              "type": "string",
+              "title": "Postcode"
+            },
+            "city": {
+              "type": "string",
+              "title": "Plaats"
+            },
+            "country": {
+              "type": "string",
+              "title": "Land"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "title": "Telefoonnummer",
+              "tel": true
+            },
+            "email": {
+              "type": "string",
+              "title": "E-mailadres",
+              "format": "email"
+            },
+            "bankAccountNumber": {
+              "type": "string",
+              "title": "Rekeningnummer",
+              "iban": true
+            },
+            "bankAccountHolder": {
+              "type": "string",
+              "title": "Tenaamstelling rekeningnummer"
+            },
+            "communicationPreference": {
+              "type": "string",
+              "title": "Communicatievoorkeur",
+              "enum": [
+                "Digitaal",
+                "Post"
+              ]
+            },
+            "bankStatement": {
+              "type": "string",
+              "title": "Kopie bankafschrift",
+              "file": true
+            },
+            "extractPersonalRecordsDatabase": {
+              "type": "string",
+              "title": "Uittreksel bevolkingsregister niet ouder dan 3 maanden",
+              "file": true
+            },
+            "proofOfMedicalTreatment": {
+              "type": "string",
+              "title": "Medische verklaring behandeltraject",
+              "file": true
+            },
+            "proofOfTypeOfMedicalTreatment": {
+              "type": "string",
+              "title": "Medische verklaring type behandeling",
+              "file": true
+            },
+            "permissionToProcessPersonalData": {
+              "type": "boolean",
+              "title": "Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag. Ik verklaar het formulier naar waarheid te hebben ingevuld.",
+              "const": true
+            }
+          },
+          "required": [
+            "formOfAddress",
+            "firstName",
+            "lastName",
+            "street",
+            "houseNumber",
+            "city",
+            "country",
+            "bankAccountNumber",
+            "bankAccountHolder",
+            "communicationPreference",
+            "bankStatement",
+            "extractPersonalRecordsDatabase",
+            "proofOfMedicalTreatment",
+            "proofOfTypeOfMedicalTreatment",
+            "permissionToProcessPersonalData"
+          ]
+        },
+        "values": [
+          "mimeTypeimage/jpegextensionjpegsize70488",
+          "mimeTypeimage/jpegextensionjpegsize70488",
+          "mimeTypeimage/jpegextensionjpegsize70488",
+          "mimeTypeimage/jpegextensionjpegsize70488",
+          "Bestemevrouw",
+          "loremipsug==",
+          "loremipsug==",
+          "loremipsug==",
+          "loremipsug==",
+          "",
+          "loremipsug==",
+          "loremipsug==",
+          "loremipsug==",
+          "loremipsug==",
+          "+31061111111",
+          "emailcom",
+          "NL91ABNA041716430w==",
+          "loremipsug==",
+          "Post",
+          "true"
+        ],
+        "uiSchema": {
+          "type": "CustomPageNavigationControl",
+          "elements": [
+            {
+              "type": "CustomPageControl",
+              "label": "Start",
+              "elements": [
+                {
+                  "type": "HorizontalLayout",
+                  "elements": [
+                    {
+                      "type": "FormHtml",
+                      "options": {
+                        "html": "<p>\n  Bent u een transvrouw met genderdysforie? En bevindt u zich in een medisch transitietraject en\n  overweegt u een borstvergroting? U kunt dan in aanmerking komen voor een subsidie via de\n  subsidieregeling Borstprothesen transvrouwen. Met dit formulier vraagt u een subsidie aan voor een\n  plastisch-chirurgische borstconstructie. Deze behandeling moet bewezen effectief zijn.<br /><br /><strong\n>Let op:</strong\n>\n  deze subsidie kan niet worden aangevraagd voor de behandelmethode autologe vettransplantatie\n  (AFT), ook wel bekend als lipofilling. Deze behandeling is (bij de constructie of reconstructie\n  van een volledige borst) niet bewezen effectief.\n</p>\n<br />\n<strong>Heeft u vragen?</strong>\nMeer informatie over de regeling en aanvraagprocedure kunt u\n<a\n  title=\"Subsidieregeling Borstprothesen transvrouwen op dus-i.nl \"\n  href=\"https://www.dus-i.nl/subsidies/borstprothesen-transvrouwen\"\n  target=\"_blank\"\n  rel=\"noopener\"\n  class=\"external\"\n>hier</a\n>\nvinden. <br />\nU kunt uw vraag ook mailen naar&nbsp;<a href=\"mailto:btv@minvws.nl\">btv@minvws.nl</a>&nbsp;of bel\nmet 070-3405566 (keuze VWS). <br /><br />\n<strong>Uploaden bestanden</strong><br />\nOm in aanmerking te komen voor de subsidie, worden een aantal documenten aan u gevraagd:<br />\n1. Uittreksel Basisregistratie Personen;<br />\n2. Kopie van een recent bankafschrift of bankpas;<br />\n3. Medische verklaring van uw BIG-geregistreerde arts over de behandeling die u tot nu toe heeft\ngevolgd. Download\n<a\n  title=\"Format medische verklaring van een arts op dus-i.nl \"\n  href=\"https://www.dus-i.nl/documenten/publicaties/2019/01/14/verklaring-behandelend-arts-borstprothesen-transvrouwen\"\n  target=\"_blank\"\n  rel=\"noopener\"\n  class=\"external\"\n>hier</a\n>\nhet format.<br />\n4. Medische verklaring van een BIG-geregistreerde arts over de behandeling (operatie) die zal worden\nuitgevoerd. Download\n<a\n  title=\"Format medische verklaring type behandeling op dus-i.nl \"\n  href=\"https://www.dus-i.nl/subsidies/borstprothesen-transvrouwen/documenten/publicaties/2021/08/05/medische-verklaring-van-het-type-behandeling-borstprothesen-transvrouwen\"\n  target=\"_blank\"\n  rel=\"noopener\"\n  class=\"external\"\n>hier</a\n>\nhet format. <br />In de laatste stap van het aanvraagformulier kunt u deze uploaden. <br /><br />\n<strong>Voorbeeldversie (alleen doorbladeren)</strong><br />\nIn de\n<a\n  title=\"\n  Voorbeeldversie - deze link opent in een nieuw scherm\"\n  href=\"?voorbeeldversie=1\"\n  target=\"_blank\"\n  rel=\"noopener\"\n  class=\"external\"\n>voorbeeldversie</a\n>\nvan het aanvraagformulier kunt u alle vragen alvast bekijken en eenvoudig door het formulier\nbladeren, omdat geen enkele vraag verplicht ingevuld hoeft te worden. U kunt geen gegevens verzenden\nin de voorbeeldversie.\n<br /><br />\n<p class=\"warning\">\n <span\n >Het invullen van een aanvraag kost ongeveer 10 minuten. Als u meer tijd nodig heeft, dan heeft\n  dit geen consequenties (gegevens blijven behouden). Zorg ervoor dat u alle gevraagde documenten\n  digitaal bij de hand heeft. Dit kan bijvoorbeeld een scan, schermafdruk of foto vanaf uw mobiele\n  telefoon zijn. Laat uw aanvraag niet langer dan noodzakelijk open staan op uw computer.</span\n >\n</p>\n"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "required": []
+              }
+            },
+            {
+              "type": "CustomPageControl",
+              "label": "Contactgegevens aanvrager",
+              "elements": [
+                {
+                  "type": "CustomGroupControl",
+                  "options": {
+                    "section": true
+                  },
+                  "label": "Contactgegevens aanvrager",
+                  "elements": [
+                    {
+                      "type": "VerticalLayout",
+                      "elements": [
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/formOfAddress",
+                          "options": {
+                            "format": "radio"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/firstName"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/infix"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/lastName"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/street"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/houseNumber"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/houseNumberSuffix"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/postalCode"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/city"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/country"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/phoneNumber"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/email"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/communicationPreference",
+                          "options": {
+                            "format": "radio"
+                          }
+                        },
+                        {
+                          "type": "Group",
+                          "label": "Bankrekening",
+                          "elements": [
+                            {
+                              "type": "VerticalLayout",
+                              "elements": [
+                                {
+                                  "type": "CustomControl",
+                                  "scope": "#/properties/bankAccountHolder"
+                                },
+                                {
+                                  "type": "CustomControl",
+                                  "scope": "#/properties/bankAccountNumber"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "required": [
+                  "formOfAddress",
+                  "firstName",
+                  "lastName",
+                  "street",
+                  "houseNumber",
+                  "postalCode",
+                  "city",
+                  "communicationPreference",
+                  "phoneNumber",
+                  "email",
+                  "bankAccountHolder",
+                  "bankAccountNumber"
+                ]
+              }
+            },
+            {
+              "type": "CustomPageControl",
+              "label": "Controleren, uploaden en verzenden",
+              "elements": [
+                {
+                  "type": "CustomGroupControl",
+                  "options": {
+                    "section": true
+                  },
+                  "elements": [
+                    {
+                      "type": "VerticalLayout",
+                      "elements": [
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Controleren</h5><p>Controleer hieronder uw gegevens.</p>"
+                          }
+                        },
+                        {
+                          "type": "FormResultsTable",
+                          "options": {
+                            "fields": {
+                              "Indiener": "{firstName} {infix} {lastName}",
+                              "Adres": "{street} {houseNumber}{houseNumberSuffix} {postalCode} {city}",
+                              "Telefoon": "{phoneNumber}",
+                              "E-mailadress": "{email}"
+                            }
+                          }
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Uploaden documenten</h3><p>Hieronder kunt u het uittreksel van het bevolkingsregister, de verklaringen van de arts (volgens de formats) en een scan/foto van een bankafschrift of een bankpas uploaden.</p>"
+                          }
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Bankafschrift of bankpas</h3><p>Op de kopie van een recent bankafschrift moeten het rekeningnummer en uw naam zichtbaar zijn. Adres en datum mogen ook, maar zijn niet verplicht. Maak de andere gegevens onleesbaar. U mag ook een afdruk van internet bankieren gebruiken of een kopie van uw bankpas. Zie ook dit <a title=\"Voorbeeld bankafschrift op dus-i.nl \" href=\"https://www.dus-i.nl/documenten/publicaties/2018/07/30/voorbeeld-bankafschrift\" target=\"_blank\" rel=\"noopener\" class=\"external\">voorbeeld</a>.</p>"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/bankStatement"
+                        },
+                        {
+                          "type": "FormResultsTable",
+                          "options": {
+                            "fields": {
+                              "Tenaamstelling rekeningnummer": "{bankAccountHolder}",
+                              "Rekeningnummer": "{bankAccountNumber}"
+                            }
+                          }
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Uittreksel bevolkingsregister</h3><p>U kunt een uittreksel uit het bevolkingsregister (de Basisregistratie personen) opvragen bij de gemeente waar u staat ingeschreven. Dit document bevat uw naam, geboortedatum en adres.</p>"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/extractPersonalRecordsDatabase"
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Medische verklaring behandeltraject</h3><p>De <a title=\"Format verklaring arts op dus-i.nl \" href=\"https://www.dus-i.nl/documenten/publicaties/2019/01/14/verklaring-behandelend-arts-borstprothesen-transvrouwen\" target=\"_blank\" rel=\"noopener\" class=\"external\">medische verklaring over het behandeltraject</a> dat u tot nu toe heeft gevolgd moet zijn ingevuld door de BIG-geregistreerde arts waar u in behandeling bent. Dit kan een huisarts of medisch specialist zijn die de hormonen voorschrijft en de behandeling begeleidt. De verklaring mag niet ouder zijn dan twee maanden.</p>"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/proofOfMedicalTreatment"
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Medische verklaring van het type behandeling</h3><p>De <a title=\"Format verklaring type behandeling op dus-i.nl \" href=\"https://www.dus-i.nl/subsidies/borstprothesen-transvrouwen/documenten/publicaties/2021/08/05/medische-verklaring-van-het-type-behandeling-borstprothesen-transvrouwen\" target=\"_blank\" rel=\"noopener\" class=\"external\">medische verklaring van het type behandeling</a> (operatie) dat zal worden uitgevoerd moet zijn ingevuld en ondertekend door een BIG-geregistreerde arts.</p>"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/proofOfTypeOfMedicalTreatment"
+                        },
+                        {
+                          "type": "FormHtml",
+                          "options": {
+                            "html": "<h3>Ondertekenen</h3>"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/permissionToProcessPersonalData",
+                          "label": "Akkoord",
+                          "options": {
+                            "description": "Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag. Ik verklaar het formulier naar waarheid te hebben ingevuld"
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "required": [
+                  "bankStatement",
+                  "extractPersonalRecordsDatabase",
+                  "proofOfMedicalTreatment",
+                  "proofOfTypeOfMedicalTreatment",
+                  "permissionToProcessPersonalData"
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "metadata": {
+          "title": "Beoordeling",
+          "uiType": "INPUT",
+          "subjectRole": "assessor",
+          "subjectOrganisation": null
+        },
+        "dataSchema": {
+          "type": "object",
+          "properties": []
+        },
+        "values": null,
+        "uiSchema": {
+          "type": "CustomPageNavigationControl",
+          "elements": [
+            {
+              "type": "CustomPageControl",
+              "label": "Start",
+              "elements": [
+                {
+                  "type": "CustomGroupControl",
+                  "options": {
+                    "section": true
+                  },
+                  "label": "Contactgegevens aanvrager",
+                  "elements": [
+                    {
+                      "type": "VerticalLayout",
+                      "elements": [
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/formOfAddress",
+                          "options": {
+                            "format": "radio"
+                          }
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/firstName"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/infix"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/lastName"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/street"
+                        },
+                        {
+                          "type": "CustomControl",
+                          "scope": "#/properties/houseNumber"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ],
+              "options": {
+                "required": [
+                  "firstname"
+                ]
+              }
+            }
+          ]
+        }
       }
-    },
-    {
-      "title": "Adres",
-      "data": {
-        "Straatnaam": { "type": "string", "text": "Kerkstraat" },
-        "Huisnummer": { "type": "string", "text": "4" },
-        "Huisnummer toevoeging": { "type": "string", "text": "-" },
-        "Postcode": { "type": "string", "text": "1234AB" },
-        "Plaatsnaam": { "type": "string", "text": "Lorem" }
-      }
-    },
-    {
-      "title": "Contact",
-      "data": {
-        "Telefoonnummer": { "type": "string", "text": "06 12 34 56 78" },
-        "E-mailadres": { "type": "string", "text": "henkdevries@devries.nl" },
-        "Communicatievoorkeur": { "type": "string", "text": "Digitaal" }
-      }
-    },
-    {
-      "title": "Bank",
-      "data": {
-        "IBAN": { "type": "string", "text": "NL99 BANK 0123 4567 89" },
-        "Tenaamstelling": { "type": "string", "text": "H de Vries" }
-      }
-    },
-    {
-      "title": "Bestanden",
-      "data": {
-        "Kopie bankafschrift": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "henk-de-vries-maart-2023.jpg" },
-        "Uitreksel bevolkingsregister": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "uitreksel-henk-de-vries.pdf" },
-        "Verklaring behandeltraject": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "medische-verklaring-behandeltraject-henk-de-vries.pdf" },
-        "Verklaring type behandeling": { "type": "url", "url": "/mock/shared/assets/test.pdf", "text": "verklaring-type-behandeling-henk-de-vries.pdf" }
-      }
-    }
-  ]
+    ]
+  }
 }

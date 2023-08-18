@@ -4,7 +4,7 @@
       "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
       "application_title": "Aanvraag",
       "subsidy": "BTV",
-      "status": "submitted",
+      "status": "ToDo",
       "final_review_deadline": "2023-12-10T12:30:00Z",
       "last_update": "2023-06-04T12:30:00Z"
     },
@@ -36,7 +36,7 @@
       "id": "943db50d-5d1c-4c95-9ec2-d25c18dbbfc5",
       "application_title": "Aanvraag",
       "subsidy": "BTV",
-      "status": "submitted",
+      "status": "ToDo",
       "final_review_deadline": "2023-12-14T12:30:00Z",
       "last_update": "2023-06-08T12:30:00Z"
     },

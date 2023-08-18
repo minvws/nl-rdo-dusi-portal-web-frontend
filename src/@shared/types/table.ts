@@ -1,12 +1,12 @@
 /* eslint-disable */
-export enum AssessmentDataType {
+export enum AssessmentsDataType {
   LINK = 'link',
   STRING = 'string',
   DATE = 'date',
   BUTTON = 'button'
 }
 
-export type AssessmentData = Record<string, Record<string, any>>[]
+export type AssessmentsData = Record<string, Record<string, any>>[]
 
 export type RequestData = Record<string, Record<string, any>>[]
 
