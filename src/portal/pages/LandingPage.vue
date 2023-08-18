@@ -24,9 +24,9 @@
               :message="error"
             />
           </div>
-          <template v-else-if="!isFetching && data && data.length">
+          <template v-else-if="!isFetching && subsidies && subsidies.length">
             <SubsidySummary
-              v-for="(item, index) in data"
+              v-for="(item, index) in subsidies"
               :key="index"
               v-bind="item"
             />
@@ -73,6 +73,9 @@ import SubsidySummary from '@portal/components/SubsidySummary/SubsidySummary.vue
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { grantLink } from '@shared/external-links'
+import { computed } from 'vue'
+
+import { filterByValidTo } from '@/@shared/utils/filter'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
@@ -80,4 +83,9 @@ useSEO({
 
 const url = useApiSubsidyUrl()
 const { data, error, isFetching } = useFetch(url).json()
+
+const subsidies = computed(() => {
+  if (!data.value) return undefined
+  return filterByValidTo(data.value)
+})
 </script>
