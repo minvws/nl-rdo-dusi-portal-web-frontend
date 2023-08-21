@@ -34,7 +34,7 @@ const props = defineProps<Props>()
 
 const selectedValue = ref<FilterItem | null>(null)
 
-onBeforeMount(() => (selectedValue.value = props.items[0]))
+onBeforeMount(() => selectedValue.value = props.items[0])
 
 function onClick(item: FilterItem | null) {
   selectedValue.value = item

@@ -3,37 +3,46 @@
     <div>
       <h1>{{ translate('pages.review-request.title') }}</h1>
     </div>
-    <div>
-      <AppAccordion>
-        <AppAccordionItem
-          id="request"
-          is-open
-        >
-          <template #title>{{ translate('pages.review-request.request') }}</template>
-          <template #content>
-            <Suspense>
-              <template #default>
-                <AppLoader
-                  v-if="isFetching"
-                  centered
-                />
-                <div v-else-if="error">Error: {{ error }}</div>
-                <template v-else-if="!isFetching && activeAssessmentRequest">
+    <Suspense>
+      <template #default>
+        <AppLoader
+          v-if="isFetching"
+          centered
+        />
+        <div v-else-if="error">
+          <FormNotification
+            display-as="error"
+            :message="error"
+          />
+        </div>
+        <template v-else-if="!isFetching && activeAssessment">
+          <div>
+            <AppAccordion>
+              <AppAccordionItem
+                id="request"
+              >
+                <template #title>{{ translate('pages.review-request.request') }}</template>
+                <template #content>
                   <RequestDetails :items="items" />
                 </template>
-                <p v-else>Geen details beschikbaar</p>
-              </template>
-              <template #fallback>
-                <AppLoader centered />
-              </template>
-            </Suspense>
-          </template>
-        </AppAccordionItem>
-      </AppAccordion>
-    </div>
-    <div>
-      <form>@TODO: FormView</form>
-    </div>
+              </AppAccordionItem>
+            </AppAccordion>
+          </div>
+          <div v-if="activeAssessmentReviewForm">
+            <FormView
+              id="987vet789ve9n78x"
+              :forms="forms"
+              :hide-debug="true"
+              @submit="onSubmit"
+            />
+          </div>
+        </template>
+        <p v-else>Geen details beschikbaar</p>
+      </template>
+      <template #fallback>
+        <AppLoader centered />
+      </template>
+    </Suspense>
   </section>
 </template>
 
@@ -49,14 +58,22 @@ import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import FormView from '@shared/components/FormView/FormView.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
 const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const { activeAssessmentRequest, activeAssessmentRequestValues, isFetching, error } =
-  storeToRefs(assessmentStore)
+const {
+  activeAssessment,
+  activeAssessmentReviews,
+  activeAssessmentReviewForm,
+  activeAssessmentRequestValues,
+  isFetching,
+  error
+} = storeToRefs(assessmentStore)
 
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
@@ -76,4 +93,12 @@ const items = computed((): any => {
     }
   ]
 })
+
+const forms = computed(() => {
+  return activeAssessmentReviews.value?.map((review: any) => review)
+})
+
+function onSubmit(data: any) {
+  console.log('@TODO: onSubmit', data)
+}
 </script>

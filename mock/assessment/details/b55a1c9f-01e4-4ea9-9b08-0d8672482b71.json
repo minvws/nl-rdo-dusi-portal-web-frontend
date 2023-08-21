@@ -139,26 +139,26 @@
           ]
         },
         "values": [
-          "mimeTypeimage/jpegextensionjpegsize70488",
-          "mimeTypeimage/jpegextensionjpegsize70488",
-          "mimeTypeimage/jpegextensionjpegsize70488",
-          "mimeTypeimage/jpegextensionjpegsize70488",
-          "Bestemevrouw",
-          "loremipsug==",
-          "loremipsug==",
-          "loremipsug==",
-          "loremipsug==",
-          "",
-          "loremipsug==",
-          "loremipsug==",
-          "loremipsug==",
-          "loremipsug==",
-          "+31061111111",
-          "emailcom",
-          "NL91ABNA041716430w==",
-          "loremipsug==",
-          "Post",
-          "true"
+          { "extractPersonalRecordsDatabase": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "proofOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "proofOfTypeOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "bankStatement": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "formOfAddress": "Bestemevrouw" },
+          { "firstName": "loremipsug==" },
+          { "infix": "loremipsug==" },
+          { "lastName": "loremipsug==" },
+          { "street": "loremipsug==" },
+          { "houseNumber": "" },
+          { "houseNumberSuffix": "loremipsug==" },
+          { "postalCode": "loremipsug==" },
+          { "city": "loremipsug==" },
+          { "country": "loremipsug==" },
+          { "phoneNumber": "+31061111111" },
+          { "email": "emailcom" },
+          { "bankAccountNumber": "NL91ABNA041716430w==" },
+          { "bankAccountHolder": "loremipsug==" },
+          { "communicationPreference": "Post" },
+          { "permissionToProcessPersonalData": "true" }
         ],
         "uiSchema": {
           "type": "CustomPageNavigationControl",
@@ -425,62 +425,114 @@
           "properties": []
         },
         "values": null,
-        "uiSchema": {
-          "type": "CustomPageNavigationControl",
+        "uischema": {
+          "type": "FormGroupControl",
+          "options": {
+            "section": true,
+            "group": true
+          },
           "elements": [
             {
-              "type": "CustomPageControl",
-              "label": "Start",
+              "type": "Group",
+              "label": "Checklist",
               "elements": [
                 {
-                  "type": "CustomGroupControl",
-                  "options": {
-                    "section": true
-                  },
-                  "label": "Contactgegevens aanvrager",
+                  "type": "VerticalLayout",
                   "elements": [
                     {
-                      "type": "VerticalLayout",
-                      "elements": [
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/formOfAddress",
-                          "options": {
-                            "format": "radio"
-                          }
-                        },
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/firstName"
-                        },
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/infix"
-                        },
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/lastName"
-                        },
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/street"
-                        },
-                        {
-                          "type": "CustomControl",
-                          "scope": "#/properties/houseNumber"
-                        }
-                      ]
+                      "type": "CustomControl",
+                      "scope": "#/properties/checklist",
+                      "options": {
+                        "format": "checkbox-group"
+                      }
                     }
                   ]
                 }
-              ],
-              "options": {
-                "required": [
-                  "firstname"
-                ]
-              }
+              ]
+            },
+            {
+              "type": "Group",
+              "label": "Uitkering",
+              "elements": [
+                {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/amount",
+                      "options": {
+                        "format": "radio"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Group",
+              "label": "Status",
+              "elements": [
+                {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/review",
+                      "options": {
+                        "format": "radio"
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ]
+        },
+        "schema": {
+          "properties": {
+            "amount": {
+              "type": "string",
+              "title": "Bedrag",
+              "enum": [
+                "€ 3.830",
+                "€ 13.720"
+              ]
+            },
+            "checklist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Uittreksel van het BRP is opgestuurd",
+                  "De aanvrager is een ingezetene (> 4 maanden) in Nederland",
+                  "de aanvrager is ouder dan 18 jaar",
+                  "De verklaring van de arts over het behandeltraject is opgestuurd",
+                  "De verklaring van de arts over het behandeltraject is minder dan 2 maanden oud",
+                  "De verklaring van de arts over het behandeltraject is ondertekend en voorzien van een naamstempel",
+                  "Het opgegeven BIG-nummer komt overeen met het BIG-register",
+                  "De operatie heeft nog niet plaatsgevonden",
+                  "De aanvrager heeft genderdysforie",
+                  "De aanvrager heeft minimaal een jaar voor de aanvraag hormoonbehandeling ondergaan, of is hiermee vanwege medische redenen gestopt of kon deze om medische redenen niet ondergaan",
+                  "De verklaring van de arts met de vermelding van de type behandeling is opgestuurd",
+                  "De verklaring van de arts met de vermelding van de type behandeling is ondertekend en voorzien van een naamstempel",
+                  "De type behandeling voldoet aan de voorwaarden conform de subsidieregeling",
+                  "Het IBAN-nummer klopt met het opgegeven IBAN-nummer van de aanvraag",
+                  "De tenaamstelling op het bankafschrift of bankpas klopt"
+                ]
+              },
+              "title": "Gecontroleerd"
+            },
+            "review": {
+              "type": "string",
+              "title": "Beoordeling",
+              "enum": [
+                "Onbeoordeeld",
+                "Aanvulling nodig",
+                "Afgekeurd",
+                "Goedgekeurd"
+              ]
+            }
+          }
         }
       }
     ]

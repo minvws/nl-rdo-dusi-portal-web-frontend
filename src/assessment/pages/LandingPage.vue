@@ -4,6 +4,12 @@
       <h1>{{ translate('pages.home.title') }}</h1>
       <p>{{ translate('pages.home.subtitle') }}</p>
     </div>
+    <div v-if="filters.length">
+      <FilterTabs
+        :items="filters"
+        @change="onFilterChange"
+      />
+    </div>
     <Suspense>
       <template #default>
         <AppLoader
@@ -17,10 +23,6 @@
           />
         </div>
         <div v-else>
-          <FilterTabs
-            :items="filters"
-            @change="onFilterChange"
-          />
           <FilterOptions type="all-requests">
             <p>
               <span>{{ assessments?.length ?? 0 }}</span>
@@ -59,17 +61,14 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import {
-  useApiAssessmentFilterCountUrl,
-  useApiAssessmentRequestsUrl
-} from '@shared/composables/useAssessmentApiUrl'
+import { useApiAssessmentFilterCountUrl, useApiAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import type { FilterItem } from '@shared/types/filters'

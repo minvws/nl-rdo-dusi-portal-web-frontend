@@ -90,7 +90,6 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   async function filterAssessments(id: string) {
     // @TODO: implement filter, fake for now.
     isFetching.value = true
-    assessments.value = {} as AssessmentsData
     console.log('filterAssessments', id)
 
     setTimeout(() => {
@@ -99,7 +98,7 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   }
 
   const activeAssessmentRequest = computed(() => {
-    return activeAssessment.value?.data.stages.filter(
+    return activeAssessment.value?.data.stages.find(
       (stage: any) => stage.metadata.title === 'Aanvraag'
     )
   })
@@ -110,18 +109,25 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     )
   })
 
+  const activeAssessmentReviewForm = computed(() => {
+    return activeAssessmentReviews.value.find(
+      (review: any) => review.metadata.uiType === 'INPUT'
+    )
+  })
+
   const numberOfReviews = computed(() => {
     return activeAssessmentReviews.value.length
   })
 
   const activeAssessmentRequestValues = computed(() => {
-    return activeAssessmentRequest.value[0].values
+    return activeAssessmentRequest.value.values
   })
 
   return {
     activeAssessment,
     activeAssessmentRequest,
     activeAssessmentReviews,
+    activeAssessmentReviewForm,
     activeAssessmentRequestValues,
     assessments,
     error,
