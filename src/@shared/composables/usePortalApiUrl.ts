@@ -7,10 +7,11 @@ declare global {
 }
 
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
+const mockUrl = '../../mock/portal'
 const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
 export const useApiActiveRequestsUrl = () => {
-  return useMockData ? '../../mock/portal/requests.json' : `${baseUrl}/api/requests`
+  return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/requests`
 }
 
 export const useApiDraftFormUrl = (id: string) => {
@@ -38,7 +39,7 @@ export const useApiLogoutUrl = () => {
 }
 
 export const useApiMessagesUrl = () => {
-  return useMockData ? '../../mock/portal/messages.json' : `${baseUrl}/api/messages`
+  return useMockData ? `${mockUrl}/messages.json` : `${baseUrl}/api/messages`
 }
 
 export const useApiSubsidyUrl = () => {
@@ -50,5 +51,5 @@ export const useApiUserStatusUrl = () => {
 }
 
 export const useApiRequestDetail = (id: string) => {
-  return useMockData ? `../../mock/${id}.json` : `${baseUrl}/api/requests/${id}` // Not final url yet.
+  return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/requests/${id}` // Not final url yet.
 }
