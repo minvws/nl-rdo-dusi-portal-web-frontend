@@ -61,11 +61,13 @@ const { activeAssessmentRequest, activeAssessmentRequestValues, isFetching, erro
 
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
-const items = computed(() => {
-  const entries = Object.entries(activeAssessmentRequestValues.value)
+//@TODO: remove when we get the correct data from the back-end.
+const items = computed((): any => {
+  const entries: any = Object.entries(activeAssessmentRequestValues.value)
   return [
     {
       title: 'Gegevens',
+      // @ts-ignore:next-line
       data: entries.map(entry => {
         return {
           term: Object.keys(entry[1])[0],
