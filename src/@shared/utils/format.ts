@@ -1,4 +1,5 @@
 import type { DetailsDataInput, DetailsDataOutput } from '@shared/types/details'
+import type { FiltersDataInput, FiltersDataOutput } from '@shared/types/filters'
 import { translate } from '@shared/i18n'
 
 export const formatFile = (path = '') => {
@@ -25,5 +26,22 @@ export function formatDetailsData(data: DetailsDataInput): DetailsDataOutput {
   return data.map(item => ({
     title: item.title,
     data: Object.entries(item.data).map(([term, details]) => ({ term, details }))
+  }))
+}
+
+/**
+ * Formats data from the API for the filters component.
+ *
+ * @param {FiltersDataInput} data - The data to format.
+ * @returns {FiltersDataOutput} The formatted data.
+ */
+export function formatFiltersData(data: FiltersDataInput): FiltersDataOutput {
+  const names: string[] = Object.keys(data.data)
+  const counts: number[] = Object.values(data.data)
+
+  return names.map((name: string, index: number) => ({
+    text: translate(`component.filterTabs.${name.toLowerCase()}`),
+    id: name.toLowerCase(),
+    count: counts[index]
   }))
 }

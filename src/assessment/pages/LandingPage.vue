@@ -4,12 +4,6 @@
       <h1>{{ translate('pages.home.title') }}</h1>
       <p>{{ translate('pages.home.subtitle') }}</p>
     </div>
-    <div>
-      <FilterTabs
-        :items="filters"
-        @change="onFilterChange"
-      />
-    </div>
     <Suspense>
       <template #default>
         <AppLoader
@@ -23,6 +17,10 @@
           />
         </div>
         <div v-else>
+          <FilterTabs
+            :items="filters"
+            @change="onFilterChange"
+          />
           <FilterOptions type="all-requests">
             <p>
               <span>{{ assessments?.length ?? 0 }}</span>
@@ -56,11 +54,15 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
+import {
+  useApiAssessmentFilterCountUrl,
+  useApiAssessmentRequestsUrl
+} from '@shared/composables/useAssessmentApiUrl'
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -70,14 +72,13 @@ import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-import type { FilterItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 const assessmentStore = useAssessmentStore()
-const url = useApiAssessmentRequestsUrl()
+const filterUrl = useApiAssessmentFilterCountUrl()
+const requestsUrl = useApiAssessmentRequestsUrl()
 
-assessmentStore.fetchAllAssessments(url)
-
-const { assessments, isFetching, error } = storeToRefs(assessmentStore)
+const { assessments, filters, isFetching, error } = storeToRefs(assessmentStore)
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
 
@@ -90,13 +91,10 @@ const headings = [
   { id: 'reviewer', text: translate('pages.home.headings.reviewer'), sortable: true }
 ]
 
-// @TODO: get filters/counts from api
-const filters = [
-  { text: 'Hoge Prioriteit', id: 'priority', count: 6 },
-  { text: 'Nieuw', id: 'new', count: 8 },
-  { text: 'In behandeling', id: 'in_progress', count: 12 },
-  { text: 'Alle zaken', id: 'all', count: 25 }
-]
+onBeforeMount(() => {
+  assessmentStore.fetchAllAssessments(requestsUrl)
+  assessmentStore.fetchFilters(filterUrl)
+})
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

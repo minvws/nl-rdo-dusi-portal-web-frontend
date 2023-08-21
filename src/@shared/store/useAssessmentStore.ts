@@ -3,13 +3,16 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 import type { AssessmentsData } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 import { useApiAssessmentDetailsUrl } from '@shared/composables/useAssessmentApiUrl'
+import { formatFiltersData } from '@shared/utils/format'
 import { transformAssessmentsData, transformMyAssessmentsData } from '@shared/utils/transform'
 
 export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   const assessments = ref({}) as Ref<AssessmentsData>
   const activeAssessment = ref({}) as Ref<any>
+  const filters = ref([]) as Ref<FilterItem[]>
   const error = ref(null) as any
   const isFetching = ref(false)
 
@@ -66,6 +69,24 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     isFetching.value = false
   }
 
+  async function fetchFilters(url: string) {
+    isFetching.value = true
+
+    try {
+      const response = await fetch(url)
+      const json = await response.json()
+      const formattedFilters = formatFiltersData(json)
+
+      filters.value = formattedFilters
+    } catch (err) {
+      // @TODO: handle error
+      console.error(err)
+      error.value = err
+    }
+
+    isFetching.value = false
+  }
+
   async function filterAssessments(id: string) {
     // @TODO: implement filter, fake for now.
     isFetching.value = true
@@ -106,8 +127,10 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     error,
     fetchAllAssessments,
     fetchAssessment,
+    fetchFilters,
     fetchMyAssessments,
     filterAssessments,
+    filters,
     isFetching,
     numberOfReviews
   }

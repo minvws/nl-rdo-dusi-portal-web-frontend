@@ -5,7 +5,10 @@
       "take": "Pak op"
     },
     "filterTabs": {
-      "allCases": "Alle zaken ({count})"
+      "priority": "Hoge prioriteit",
+      "taken": "Opgepakt",
+      "assigned": "Alle zaken",
+      "assigned_to_me": "Aan mij toegekend"
     },
     "requestReviers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordeelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordeelaars.",

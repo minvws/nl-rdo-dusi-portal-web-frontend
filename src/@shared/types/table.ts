@@ -18,12 +18,6 @@ export type RawRequestData = {
   data: Record<string, any>[]
 }
 
-export type FilterItem = {
-  text: string
-  id: string
-  count?: number
-}
-
 export type Column = {
   id: string
   text: string | undefined

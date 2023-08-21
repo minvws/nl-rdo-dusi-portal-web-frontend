@@ -71,7 +71,7 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
-import type { FilterItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 const assessmentStore = useAssessmentStore()
 const url = useApiMyAssessmentRequestsUrl()
