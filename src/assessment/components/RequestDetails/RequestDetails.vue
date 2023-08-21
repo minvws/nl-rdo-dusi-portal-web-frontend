@@ -20,7 +20,7 @@ import DescriptionList from '@assessment/components/DescriptionList/DescriptionL
 import type { RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
-  items: RequestDetailsItem[]
+  items: any[]
 }
 
 const props = defineProps<Props>()
