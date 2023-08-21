@@ -43,7 +43,7 @@ export type SubsidySummaryProps = {
   readMore?: string
   title: string
   validFrom: string
-  validTo?: string
+  validTo: string | null
   subsidy_page_url: string
 }
 

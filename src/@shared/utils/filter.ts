@@ -1,6 +1,6 @@
 import { log } from '@shared/utils/logger'
 
-export const filterByValidTo = (items: { validTo: string | null }[]) => {
+export const filterByValidTo = <T>(items: (T & { validTo?: string })[]) => {
   const now = Date.now()
   return items.filter(({ validTo }) => {
     if (!validTo) return true

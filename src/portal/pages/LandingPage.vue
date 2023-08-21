@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { useFetch } from '@vueuse/core'
 import { translate } from '@shared/i18n'
-
+import type { SubsidySummaryProps } from '@portal/components/SubsidySummary/SubsidySummary.vue'
 import useSEO from '@shared/composables/useSeo'
 import { useApiSubsidyUrl } from '@shared/composables/useApiUrl'
 
@@ -86,6 +86,6 @@ const { data, error, isFetching } = useFetch(url).json()
 
 const subsidies = computed(() => {
   if (!data.value) return undefined
-  return filterByValidTo(data.value)
+  return filterByValidTo<SubsidySummaryProps>(data.value)
 })
 </script>
