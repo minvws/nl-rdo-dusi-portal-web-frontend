@@ -60,7 +60,7 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiMyAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
+import { useApiAssessmentPersonalRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -74,7 +74,7 @@ import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 import type { FilterItem } from '@shared/types/filters'
 
 const assessmentStore = useAssessmentStore()
-const url = useApiMyAssessmentRequestsUrl()
+const url = useApiAssessmentPersonalRequestsUrl()
 
 assessmentStore.fetchMyAssessments(url)
 
