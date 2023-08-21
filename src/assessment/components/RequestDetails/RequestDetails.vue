@@ -11,8 +11,6 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
 
 import type { RequestDetailsItem } from '@shared/types/details'

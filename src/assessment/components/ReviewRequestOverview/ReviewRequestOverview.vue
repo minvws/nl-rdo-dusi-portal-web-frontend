@@ -84,7 +84,9 @@ import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vu
 import type { DescriptionListItem, RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
-  metadata: Record<string, Record<string, string>>
+  metadata: {
+    id: string
+  }
 }
 
 defineProps<Props>()
@@ -98,13 +100,15 @@ const items = computed((): RequestDetailsItem[] => {
   return [
     {
       title: 'Gegevens',
-      items: activeAssessmentRequestValues.value.map((item: Record<string, string>): DescriptionListItem => {
-        const key = Object.keys(item)[0]
-        return {
-          term: key,
-          details: { type: 'string', text: item[key] }
+      items: activeAssessmentRequestValues.value.map(
+        (item: Record<string, string>): DescriptionListItem => {
+          const key = Object.keys(item)[0]
+          return {
+            term: key,
+            details: { type: 'string', text: item[key] }
+          }
         }
-      })
+      )
     }
   ]
 })

@@ -83,13 +83,15 @@ const items = computed((): RequestDetailsItem[] => {
   return [
     {
       title: 'Gegevens',
-      items: activeAssessmentRequestValues.value.map((item: Record<string, string>): DescriptionListItem => {
-        const key = Object.keys(item)[0]
-        return {
-          term: key,
-          details: { type: 'string', text: item[key] }
+      items: activeAssessmentRequestValues.value.map(
+        (item: Record<string, string>): DescriptionListItem => {
+          const key = Object.keys(item)[0]
+          return {
+            term: key,
+            details: { type: 'string', text: item[key] }
+          }
         }
-      })
+      )
     }
   ]
 })
