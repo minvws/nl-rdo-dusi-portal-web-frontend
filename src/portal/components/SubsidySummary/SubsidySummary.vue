@@ -43,7 +43,8 @@ export type SubsidySummaryProps = {
   readMore?: string
   title: string
   validFrom: string
-  validTo?: string
+  validTo: string | null
+  subsidy_page_url: string
 }
 
 const props = defineProps<SubsidySummaryProps>()
@@ -60,7 +61,8 @@ const link = computed(() => {
   return {
     name: EXTERNAL_DETAIL,
     params: {
-      id: props.publishedForm.id
+      id: props.publishedForm.id,
+      url: props.subsidy_page_url
     }
   }
 })

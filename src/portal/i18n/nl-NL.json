@@ -105,10 +105,17 @@
       "intro": "Het overzicht van jouw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",
       "section1Title": "Mijn aanvragen",
       "section2Title": "Berichten",
-      "tableCaption": "Overzicht van uw aangevraagde regelingen",
       "noRequests": "Er zijn geen aanvragen gevonden",
       "noMessages": "Er zijn geen berichten gevonden",
-      "allMessages": "Bekijk alle notificaties"
+      "allMessages": "Bekijk alle berichten",
+      "table": {
+        "caption": "Overzicht van jouw aanvragen",
+        "arrangement": "Aanvraag",
+        "created": "Datum indiening",
+        "deadline": "Reactietermijn",
+        "status": "Status",
+        "action": "Bekijk benodigde acties ({ actions })"
+      }
     },
     "my-request-details": {
       "title": "Mijn aanvraag",
@@ -122,7 +129,7 @@
     },
     "my-messages-overview": {
       "content": {},
-      "intro": "Het overzicht van alle binnengekomen notificaties.",
+      "intro": "Het overzicht van al jouw berichten",
       "title": "Mijn berichten",
       "noMessages": "Er zijn geen berichten gevonden"
     },

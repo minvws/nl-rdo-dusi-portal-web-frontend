@@ -22,7 +22,7 @@
           </div>
           <AppTable
             v-else-if="!isFetchingRequests && requests && requests.length"
-            :caption="translate('pages.my-file-overview.tableCaption')"
+            :caption="translate('pages.my-file-overview.table.caption')"
             :columns="headings"
             :data="requests"
             :items-per-page="10"
@@ -86,13 +86,26 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 import { useRequestsStore } from '@shared/store/useRequestsStore'
 
-const headings = [
-  { id: 'arrangement', text: 'Aanvraag', sortable: false },
-  { id: 'created', text: 'Datum indiening', sortable: false },
-  { id: 'deadline', text: 'Reactietermijn', sortable: false },
-  { id: 'status', text: 'Status', sortable: false },
-  { id: 'action', text: 'Actie benodigd', sortable: false }
-]
+const actions = computed(() => {
+  // @TODO: calculate the total amount of actions needed
+  return 1
+})
+
+const headings = computed(() => {
+  return [
+    { id: 'arrangement', sortable: false },
+    { id: 'created', sortable: false },
+    { id: 'deadline', sortable: false },
+    { id: 'status', sortable: false },
+    { id: 'action', sortable: false }
+  ].map(item => {
+    const { id } = item
+    return {
+      ...item,
+      text: translate(`pages.my-file-overview.table.${id}`, { actions: actions.value })
+    }
+  })
+})
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-file-overview.title')}`

@@ -127,7 +127,7 @@ export default async () => {
             label: 'Verwerking',
             options: {
               description:
-                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag.'
+                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze aanvraag.'
             }
           }
         ]
