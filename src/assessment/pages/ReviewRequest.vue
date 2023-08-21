@@ -18,9 +18,7 @@
         <template v-else-if="!isFetching && activeAssessment">
           <div>
             <AppAccordion>
-              <AppAccordionItem
-                id="request"
-              >
+              <AppAccordionItem id="request">
                 <template #title>{{ translate('pages.review-request.request') }}</template>
                 <template #content>
                   <RequestDetails :items="items" />
@@ -31,7 +29,7 @@
           <div v-if="activeAssessmentReviewForm">
             <FormView
               id="987vet789ve9n78x"
-              :forms="forms"
+              :forms="activeAssessmentReviews"
               :hide-debug="true"
               @submit="onSubmit"
             />
@@ -62,6 +60,9 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 import FormView from '@shared/components/FormView/FormView.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
+import type { FormData } from '@shared/types/form'
+import type { DescriptionListItem, RequestDetailsItem } from '@shared/types/details'
+
 const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
@@ -78,27 +79,22 @@ const {
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
 //@TODO: remove when we get the correct data from the back-end.
-const items = computed((): any => {
-  const entries: any = Object.entries(activeAssessmentRequestValues.value)
+const items = computed((): RequestDetailsItem[] => {
   return [
     {
       title: 'Gegevens',
-      // @ts-ignore:next-line
-      data: entries.map(entry => {
+      items: activeAssessmentRequestValues.value.map((item: Record<string, string>): DescriptionListItem => {
+        const key = Object.keys(item)[0]
         return {
-          term: Object.keys(entry[1])[0],
-          details: { type: 'string', text: Object.values(entry[1])[0] }
+          term: key,
+          details: { type: 'string', text: item[key] }
         }
       })
     }
   ]
 })
 
-const forms = computed(() => {
-  return activeAssessmentReviews.value?.map((review: any) => review)
-})
-
-function onSubmit(data: any) {
+function onSubmit(data: FormData) {
   console.log('@TODO: onSubmit', data)
 }
 </script>

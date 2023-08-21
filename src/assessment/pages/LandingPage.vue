@@ -61,7 +61,10 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiAssessmentFilterCountUrl, useApiAssessmentRequestsUrl } from '@shared/composables/useAssessmentApiUrl'
+import {
+  useApiAssessmentFilterCountUrl,
+  useApiAssessmentRequestsUrl
+} from '@shared/composables/useAssessmentApiUrl'
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'

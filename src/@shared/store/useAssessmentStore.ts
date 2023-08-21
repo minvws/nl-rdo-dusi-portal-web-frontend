@@ -110,9 +110,7 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   })
 
   const activeAssessmentReviewForm = computed(() => {
-    return activeAssessmentReviews.value.find(
-      (review: any) => review.metadata.uiType === 'INPUT'
-    )
+    return activeAssessmentReviews.value.find((review: any) => review.metadata.uiType === 'INPUT')
   })
 
   const numberOfReviews = computed(() => {

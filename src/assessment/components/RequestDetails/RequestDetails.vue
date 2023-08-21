@@ -1,11 +1,11 @@
 <template>
   <div class="request-details">
     <div
-      v-for="(item, index) in details"
+      v-for="(item, index) in items"
       :key="index"
     >
       <h2>{{ item.title }}</h2>
-      <DescriptionList :items="item.data" />
+      <DescriptionList :items="item.items" />
     </div>
   </div>
 </template>
@@ -15,17 +15,13 @@ import { computed } from 'vue'
 
 import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
 
-// import { formatDetailsData } from '@shared/utils/format'
-
 import type { RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
-  items: any[]
+  items: RequestDetailsItem[]
 }
 
-const props = defineProps<Props>()
-
-const details = computed(() => props.items)
+defineProps<Props>()
 </script>
 
 <style scoped lang="scss">

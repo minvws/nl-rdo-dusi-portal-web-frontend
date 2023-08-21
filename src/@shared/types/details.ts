@@ -11,15 +11,12 @@ export type DescriptionListItem = {
 
 export type RequestDetailsItem = {
   title: string
-  data: Record<string, DescriptionListDetails>
+  items: DescriptionListItem[]
 }
 
-export type DetailsDataInput = {
-  title: string
-  data: Record<string, DescriptionListDetails>
-}[]
+// export type DetailsDataInput = RequestDetailsItem[]
 
-export type DetailsDataOutput = {
-  title: string
-  data: DescriptionListItem[]
-}[]
+// export type DetailsDataOutput = {
+//   title: string
+//   data: DescriptionListItem[]
+// }[]
