@@ -233,6 +233,17 @@ const steps = computed(() => {
           border-left: var(--stepper-border-size) solid var(--button-base-active-background-color);
         }
       }
+
+      &:hover:disabled {
+        // when step is disabled, do not set the hover classes for touch devices
+        @include is-touch-device {
+          color: var(--button-base-text-color);
+          background: var(--button-base-background-color);
+          &:after {
+            border-left: var(--stepper-border-size) solid var(--button-base-background-color);
+          }
+        }
+      }
     }
 
     &:first-child button:before {

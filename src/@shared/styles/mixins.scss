@@ -8,3 +8,9 @@
     @content;
   }
 }
+
+@mixin is-touch-device {
+  @media (pointer: coarse) {
+    @content;
+  }
+}
