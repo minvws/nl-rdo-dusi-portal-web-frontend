@@ -81,12 +81,8 @@ import RequestHistory from '@assessment/components/RequestHistory/RequestHistory
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
 import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
 
-// import type { RequestDetailsItem } from '@shared/types/details'
-
 type Props = {
   metadata: any
-  // details: RequestDetailsItem[]
-  // id: string
 }
 
 defineProps<Props>()
@@ -95,11 +91,13 @@ const assessmentStore = useAssessmentStore()
 
 const { activeAssessmentRequestValues } = storeToRefs(assessmentStore)
 
-const items = computed(() => {
-  const entries = Object.entries(activeAssessmentRequestValues.value)
+//@TODO: remove when we get the correct data from the back-end.
+const items = computed((): any => {
+  const entries: any = Object.entries(activeAssessmentRequestValues.value)
   return [
     {
       title: 'Gegevens',
+      // @ts-ignore:next-line
       data: entries.map(entry => {
         return {
           term: Object.keys(entry[1])[0],

@@ -116,8 +116,8 @@ const setCreated = (date: string) =>
 const setAction = (id: string, name: string, text: string | undefined) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON,
-    to: { name: 'my-requests-details', params: { id } },
-    text: translate('component.appTable.open')
+    to: { name, params: { id } },
+    text
   })
 
 const setReviewer = (status: string, text: string) =>
