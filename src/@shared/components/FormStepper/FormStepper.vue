@@ -1,7 +1,9 @@
 <template>
   <ol
     v-if="steps.length > 1"
+    ref="el"
     class="form-stepper"
+    :class="{ large: isLarge }"
   >
     <li
       v-for="([title, step], index) in steps"
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import type { FormTitle, FormError } from '@shared/types/form'
 import { useFormSteps } from '@shared/composables/useFormSteps'
+import { useFormStepperSize } from '@shared/composables/useFormStepperSize'
 import { computed } from 'vue'
 
 const emit = defineEmits(['step'])
@@ -42,6 +45,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { isStepDisabled, isTouched } = useFormSteps(props)
+const { el, isLarge } = useFormStepperSize()
 
 function isActive(index: number) {
   const { index: activeIndex } = props
@@ -92,22 +96,63 @@ const steps = computed(() => {
 <style lang="scss" scoped>
 .form-stepper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  width: 100%;
   padding: 0;
   gap: 0.75rem;
+  overflow: hidden;
+
+  --stepper-step-height: 55px;
+  --stepper-arrow-size: 15px;
+  --stepper-border-size: 12px;
+  --stepper-before-position-left: 50%;
+  --stepper-before-transform: rotate(90deg) translateX(-9px);
+  --stepper-after-position-top: 100%;
+  --stepper-after-position-left: 50%;
+  --stepper-after-position-transform: rotate(90deg) translateX(-9px);
+
+  &.large {
+    flex-direction: row;
+    width: auto;
+    overflow: visible;
+
+    --stepper-step-height: 44px;
+    --stepper-arrow-size: calc(var(--stepper-step-height) / 2);
+    --stepper-border-size: 26px;
+    --stepper-before-position-left: 0;
+    --stepper-before-transform: unset;
+    --stepper-after-position-top: 0;
+    --stepper-after-position-left: unset;
+    --stepper-after-position-right: calc(var(--stepper-border-size) * -1);
+    --stepper-after-position-transform: unset;
+  }
 
   li {
-    --stepper-step-height: 44px;
-
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--grey-1);
+    width: 100%;
+    max-width: 100%;
     height: var(--stepper-step-height);
+    background-color: var(--grey-1);
     padding: 0;
-    position: relative;
 
     button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+
+      width: 100%;
+      height: 100%;
+      padding: 0 1rem 0 3rem;
+
+      font-family: var(--application-base-font-family);
+      white-space: nowrap;
+      border: none;
+
       --button-base-background-color: var(--grey-1);
       --button-base-border-color: var(--grey-1);
       --button-base-text-color: var(--ro-blue-text-color-dark);
@@ -115,73 +160,89 @@ const steps = computed(() => {
       --button-base-active-border-color: var(--ro-blue);
       --button-base-active-text-color: var(--ro-blue-text-color-light);
 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      height: 100%;
-      border: none;
-      padding: 0 1rem 0 3rem;
-      font-family: var(--application-base-font-family);
-
       &.first {
         padding-left: 1rem;
       }
 
       &:before {
         content: '';
+        position: absolute;
         width: 0;
         height: 0;
-        border-top: calc(var(--stepper-step-height) / 2) solid transparent;
-        border-left: 26px solid var(--application-base-background-color);
-        border-bottom: calc(var(--stepper-step-height) / 2) solid transparent;
-        position: absolute;
+
         top: 0;
-        left: 0;
+        left: var(--stepper-before-position-left);
+        transform: var(--stepper-before-transform);
+
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--application-base-background-color);
       }
 
       &:after {
         content: '';
+        position: absolute;
         width: 0;
         height: 0;
-        border-top: calc(var(--stepper-step-height) / 2) solid transparent;
-        border-left: 26px solid var(--grey-1);
-        border-bottom: calc(var(--stepper-step-height) / 2) solid transparent;
-        position: absolute;
-        top: 0;
-        right: -26px;
         z-index: 1;
+
+        top: var(--stepper-after-position-top);
+        left: var(--stepper-after-position-left);
+        right: var(--stepper-after-position-right);
+        transform: var(--stepper-after-position-transform);
+
+        border-top: var(--stepper-arrow-size) solid transparent;
+        border-bottom: var(--stepper-arrow-size) solid transparent;
+        border-left: var(--stepper-border-size) solid var(--grey-1);
       }
 
       &:disabled {
         opacity: 1;
       }
 
-      &:focus {
-        outline: var(--link-focus-outline);
-        outline-offset: var(--link-focus-outline-offset);
-      }
-
-      &:hover {
-        background-color: var(--button-base-hover-background-color);
+      &:hover,
+      &:active,
+      &:focus,
+      &.active {
         color: var(--button-base-hover-text-color);
-        border-color: var(--button-base-hover-background-color);
-
+      }
+      &:hover {
         &:after {
-          border-left: 26px solid var(--button-base-hover-background-color);
+          border-left: var(--stepper-border-size) solid var(--button-base-hover-background-color);
         }
       }
 
+      &:focus {
+        outline: var(--link-focus-outline);
+        outline-offset: var(--link-focus-outline-offset);
+
+        &:after {
+          border-left: var(--stepper-border-size) solid var(--button-base-focus-background-color);
+        }
+        &.active,
+        &:active {
+          &:after {
+            border-left: var(--stepper-border-size) solid var(--button-base-focus-background-color);
+          }
+        }
+      }
+
+      &:active,
       &.active {
-        color: var(--ruby-red-text-color-light);
+        &:after {
+          border-left: var(--stepper-border-size) solid var(--button-base-active-background-color);
+        }
       }
 
-      &.active:after {
-        border-left: 26px solid var(--button-base-active-background-color);
-      }
-
-      &.active:hover:after {
-        border-left: 26px solid var(--button-base-hover-background-color);
+      &:hover:disabled {
+        // when step is disabled, do not set the hover classes for touch devices
+        @include is-touch-device {
+          color: var(--button-base-text-color);
+          background: var(--button-base-background-color);
+          &:after {
+            border-left: var(--stepper-border-size) solid var(--button-base-background-color);
+          }
+        }
       }
     }
 

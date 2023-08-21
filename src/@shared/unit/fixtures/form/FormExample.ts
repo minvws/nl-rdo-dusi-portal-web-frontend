@@ -1,3 +1,4 @@
+import allCountries from './allCountries'
 export default async () => {
   const placeholder = 'Lorem ipsum dolor set'
   const fromExamplePage1 = await Object.values(
@@ -47,7 +48,7 @@ export default async () => {
     },
     country: {
       type: 'string',
-      enum: ['Country 1', 'Country 2'],
+      enum: allCountries,
       title: 'Land'
     },
     phoneNumber: {
@@ -126,7 +127,7 @@ export default async () => {
             label: 'Verwerking',
             options: {
               description:
-                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze subsidieaanvraag.'
+                'Ik geef toestemming voor het verwerken van mijn persoonsgegevens voor deze aanvraag.'
             }
           }
         ]
@@ -248,7 +249,7 @@ export default async () => {
                 label: 'Land',
                 options: {
                   format: 'select',
-                  placeholder
+                  placeholder: 'Selecteer een land'
                 }
               }
             ]

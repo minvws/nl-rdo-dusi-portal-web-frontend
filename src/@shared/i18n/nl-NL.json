@@ -14,6 +14,12 @@
       "title": "Lorem ipsum",
       "version": "Versie v{version}"
     },
+    "formNotification": {
+      "error": "Fout",
+      "explanation": "Toelichting",
+      "success": "Gelukt",
+      "warning": "Waarschuwing"
+    },
     "header": {
       "homeLink": {
         "alt": "Logo Rijksoverheid",

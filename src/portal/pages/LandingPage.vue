@@ -18,10 +18,15 @@
             v-if="isFetching"
             centered
           />
-          <div v-else-if="error">Error: {{ error }}</div>
-          <template v-else-if="!isFetching && data && data.length">
+          <div v-else-if="error">
+            <FormNotification
+              display-as="error"
+              :message="error"
+            />
+          </div>
+          <template v-else-if="!isFetching && subsidies && subsidies.length">
             <SubsidySummary
-              v-for="(item, index) in data"
+              v-for="(item, index) in subsidies"
               :key="index"
               v-bind="item"
             />
@@ -57,16 +62,21 @@
 <script setup lang="ts">
 import { useFetch } from '@vueuse/core'
 import { translate } from '@shared/i18n'
-
 import useSEO from '@shared/composables/useSeo'
 import { useApiSubsidyUrl } from '@shared/composables/usePortalApiUrl'
 
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import MoreInfo from '@portal/components/MoreInfo/MoreInfo.vue'
-import SubsidySummary from '@portal/components/SubsidySummary/SubsidySummary.vue'
+import SubsidySummary, {
+  type SubsidySummaryProps
+} from '@portal/components/SubsidySummary/SubsidySummary.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { grantLink } from '@shared/external-links'
+import { computed } from 'vue'
+
+import { filterByValidTo } from '@/@shared/utils/filter'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
@@ -74,4 +84,9 @@ useSEO({
 
 const url = useApiSubsidyUrl()
 const { data, error, isFetching } = useFetch(url).json()
+
+const subsidies = computed(() => {
+  if (!data.value) return undefined
+  return filterByValidTo<SubsidySummaryProps>(data.value)
+})
 </script>

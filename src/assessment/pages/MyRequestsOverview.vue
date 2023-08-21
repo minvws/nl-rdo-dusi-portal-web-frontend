@@ -16,24 +16,27 @@
           v-if="isFetching"
           centered
         />
-        <div v-else-if="error">Error: {{ error }}</div>
-        <div v-else-if="!isFetching && assessments.length">
-          <RequestFilter>
-            <div>
-              <p>
-                <span>{{ assessments.length }}</span>
-                {{ translate('pages.my-requests-overview.cases') }}
-              </p>
-              <AppButton
-                :data-show-filters-label="translate('pages.my-requests-overview.showFilters')"
-                aria-expanded="false"
-              >
-                {{ translate('pages.my-requests-overview.showFilters') }}
-              </AppButton>
-            </div>
-          </RequestFilter>
+        <div v-else-if="error">
+          <FormNotification
+            display-as="error"
+            :message="error"
+          />
+        </div>
+        <div v-else>
+          <FilterOptions type="requests">
+            <p>
+              <span>{{ assessments?.length ?? 0 }}</span>
+              {{ translate('pages.my-requests-overview.cases', {}, assessments?.length ?? 0) }}
+            </p>
+            <AppButton
+              :data-show-filters-label="translate('pages.my-requests-overview.showFilters')"
+              aria-expanded="false"
+            >
+              {{ translate('pages.my-requests-overview.showFilters') }}
+            </AppButton>
+          </FilterOptions>
           <AppTable
-            v-if="assessments.length"
+            v-if="assessments?.length"
             :data="assessments"
             :columns="headings"
             :items-per-page="10"
@@ -43,11 +46,6 @@
               {{ translate('pages.my-requests-overview.noRequests') }}
             </p>
           </div>
-        </div>
-        <div v-else>
-          <p>
-            {{ translate('pages.my-requests-overview.noRequests') }}
-          </p>
         </div>
       </template>
       <template #fallback>
@@ -68,7 +66,8 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
-import RequestFilter from '@assessment/components/RequestFilter/RequestFilter.vue'
+import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 

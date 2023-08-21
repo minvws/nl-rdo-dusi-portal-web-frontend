@@ -10,7 +10,12 @@
           v-if="isFetching"
           centered
         />
-        <div v-else-if="error">Error: {{ error }}</div>
+        <div v-else-if="error">
+          <FormNotification
+            display-as="error"
+            :message="error"
+          />
+        </div>
         <div v-else-if="!isFetching && data && data.length">
           <SubsidySummary
             v-for="(item, index) in slicedItems"
@@ -53,6 +58,7 @@ import { usePagination } from '@shared/composables/usePagination'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
 import SubsidySummary from '@portal/components/SubsidySummary/SubsidySummary.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 type Props = {
   page?: string

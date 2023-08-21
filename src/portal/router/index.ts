@@ -48,7 +48,7 @@ const routes = [
     }
   },
   {
-    path: '/external/detail/:id',
+    path: '/external/detail/:id/:url?',
     name: EXTERNAL_DETAIL,
     component: ExternalDetailPage,
     props: true,
