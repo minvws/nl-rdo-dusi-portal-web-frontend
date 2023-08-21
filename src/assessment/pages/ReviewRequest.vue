@@ -32,9 +32,7 @@
       </AppAccordion>
     </div>
     <div>
-      <form>
-        @TODO: FormView
-      </form>
+      <form>@TODO: FormView</form>
     </div>
   </section>
 </template>
@@ -57,7 +55,8 @@ const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const { activeAssessmentRequest, activeAssessmentRequestValues, isFetching, error } = storeToRefs(assessmentStore)
+const { activeAssessmentRequest, activeAssessmentRequestValues, isFetching, error } =
+  storeToRefs(assessmentStore)
 
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
