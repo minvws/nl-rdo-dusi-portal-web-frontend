@@ -6,8 +6,8 @@
         centered
       />
       <div v-else-if="error">Error: {{ error }}</div>
-      <template v-else-if="!isFetching && assessment">
-        <ReviewRequestOverview v-bind="{ ...assessment.data }" />
+      <template v-else-if="!isFetching && data">
+        <ReviewRequestOverview v-bind="{ ...data }" />
       </template>
       <p v-else>Geen details beschikbaar</p>
     </template>
@@ -18,20 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
 import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
+
+import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import ReviewRequestOverview from '@assessment/components/ReviewRequestOverview/ReviewRequestOverview.vue'
 
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
-
-const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const { assessment, isFetching, error } = storeToRefs(assessmentStore)
 
-onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
+const { data, error, isFetching } = useFetchAssessment(id as string)
 </script>

@@ -7,7 +7,7 @@
       :disabled="readonly"
       @click="$emit('step', index - 1)"
     >
-      {{ translate('form.button.prev') }}
+      {{ previousLabel }}
     </AppButton>
     <AppButton
       v-if="hasNextStep"
@@ -16,7 +16,7 @@
       :disabled="readonly"
       @click="isStepDisabled(index) ? $emit('validate') : $emit('step', index + 1)"
     >
-      {{ translate(index === 0 ? 'form.button.start' : 'form.button.next') }}
+      {{ nextLabel }}
     </AppButton>
     <AppButton
       v-if="hasSubmit"
@@ -25,13 +25,14 @@
       :disabled="readonly"
       @click="isStepDisabled(index) ? $emit('validate') : $emit('submit')"
     >
-      {{ translate('form.button.submit') }}
+      {{ submitLabel }}
     </AppButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { FormError, FormTitle } from '@shared/types/form'
+import type { FormError, FormTitle, FormButtonLabels } from '@shared/types/form'
+import { computed } from 'vue'
 import { useFormSteps } from '@shared/composables/useFormSteps'
 import { translate } from '@shared/i18n'
 
@@ -45,11 +46,22 @@ type Props = {
   index: number
   readonly: boolean
   touched?: number[]
+  buttonLabels?: FormButtonLabels
 }
 
 const props = defineProps<Props>()
 
 const { hasPrevStep, hasNextStep, hasSubmit, isStepDisabled } = useFormSteps(props)
+
+const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
+
+const startLabel = computed(() => props.buttonLabels?.start || translate('form.button.start'))
+
+const nextLabel = computed(() =>
+  props.index === 0 ? startLabel.value : props.buttonLabels?.next || translate('form.button.next')
+)
+
+const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
 </script>
 
 <style lang="scss" scoped>

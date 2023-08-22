@@ -15,7 +15,7 @@
             :message="error"
           />
         </div>
-        <template v-else-if="!isFetching && assessment">
+        <template v-else-if="!isFetching && request">
           <div>
             <AppAccordion>
               <AppAccordionItem id="request">
@@ -44,15 +44,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { storeToRefs } from 'pinia'
 
 import { translate } from '@shared/i18n'
 
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
-
-import { transformDetailsData } from '@shared/utils/format'
+import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
@@ -61,17 +58,32 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 import FormView from '@shared/components/FormView/FormView.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
+import { formatDetailsData } from '@shared/utils/format'
+
 import type { FormData } from '@shared/types/form'
 
-const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const { assessment, request, reviews, reviewForm, isFetching, error } = storeToRefs(assessmentStore)
 
-onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
+const { data, error, isFetching } = useFetchAssessment(id as string)
 
-const items = computed(() => transformDetailsData(request.value))
+const request = computed(
+  () => data.value?.stages?.find((stage: any) => stage.metadata.title === 'Aanvraag')
+)
+
+const items = computed(() => formatDetailsData(request.value))
+
+const reviews = computed(
+  () => data.value?.stages?.filter((stage: any) => stage.metadata.title === 'Beoordeling')
+)
+
+const reviewForm = computed(
+  () =>
+    data.value?.stages?.filter(
+      (stage: any) => stage.metadata.title === 'Beoordeling' && stage.metadata.uiType === 'INPUT'
+    )
+)
 
 function onSubmit(data: FormData) {
   console.log('@TODO: onSubmit', data)

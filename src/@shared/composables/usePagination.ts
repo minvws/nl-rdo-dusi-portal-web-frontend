@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
 type Pagination = {
@@ -28,6 +28,11 @@ export const usePagination = ({ page, pageSize = 5, items, routes }: Pagination)
       ? router.push({ name: routes.pagination, params: { page } })
       : router.push({ name: routes.overview })
   }
+
+  watch(items, () => {
+    // when items change, go to the first page
+    onPageChange(0)
+  })
 
   return {
     currentPage,

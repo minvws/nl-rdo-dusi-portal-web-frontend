@@ -49,7 +49,7 @@
           <RouterLink
             :to="{
               name: 'review-request',
-              params: { id: metadata.id }
+              params: { id: route.params.id }
             }"
             class="button"
           >
@@ -69,13 +69,13 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
+import { useRoute } from 'vue-router'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
+import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
 
-import { transformDetailsData } from '@shared/utils/format'
+import { formatDetailsData } from '@shared/utils/format'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
@@ -83,17 +83,16 @@ import RequestHistory from '@assessment/components/RequestHistory/RequestHistory
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
 import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
 
-type Props = {
-  metadata: Record<string, string>
-}
+const route = useRoute()
+const { id } = route.params
 
-defineProps<Props>()
+const { data } = useFetchAssessment(id as string)
 
-const assessmentStore = useAssessmentStore()
+const request = computed(
+  () => data.value?.stages?.find((stage: any) => stage.metadata.title === 'Aanvraag')
+)
 
-const { request } = storeToRefs(assessmentStore)
-
-const items = computed(() => transformDetailsData(request.value))
+const items = computed(() => (request.value ? formatDetailsData(request.value) : []))
 </script>
 
 <style lang="scss" scoped>

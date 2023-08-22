@@ -20,7 +20,10 @@
           />
         </div>
         <div v-else>
-          <FilterOptions type="messages">
+          <FilterOptions
+            type="messages"
+            v-model="query"
+          >
             <p>
               <span>{{ total }}</span>
               {{ translate('component.messagesOverview.messages', { total }, total) }}
@@ -56,7 +59,7 @@
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
 import { toRefs } from 'vue'
-import { useFetch } from '@vueuse/core'
+import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
 import { useApiMessagesUrl } from '@shared/composables/usePortalApiUrl'
 import { usePagination } from '@shared/composables/usePagination'
@@ -85,8 +88,7 @@ useSEO({
 })
 
 const url = useApiMessagesUrl()
-
-const { data, error, isFetching } = useFetch(url).json()
+const { data, error, query, isFetching } = useQueryFetch(url)
 
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),

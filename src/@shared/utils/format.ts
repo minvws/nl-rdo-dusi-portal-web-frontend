@@ -38,15 +38,15 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
 }
 
 /**
- * Transforms the 'details' data from the API to a format that we can use.
+ * Formats data from the API for the details component.
  *
  * @param data
  * @returns data
  */
-export function transformDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
-  const { uiSchema, values } = data
+export function formatDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
+  if (!data?.uiSchema?.sections || !data?.values) return []
 
-  if (!uiSchema || !uiSchema.sections || !values) return []
+  const { uiSchema, values } = data
 
   return uiSchema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
     title: translate(`component.requestDetails.section.${title}`),

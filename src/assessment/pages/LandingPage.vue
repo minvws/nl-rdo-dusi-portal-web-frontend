@@ -23,10 +23,13 @@
           />
         </div>
         <div v-else>
-          <FilterOptions type="all-requests">
+          <FilterOptions
+            type="all-requests"
+            v-model="query"
+          >
             <p>
-              <span>{{ assessments?.length ?? 0 }}</span>
-              {{ translate('pages.home.cases', {}, assessments?.length ?? 0) }}
+              <span>{{ data?.length ?? 0 }}</span>
+              {{ translate('pages.home.cases', {}, data?.length ?? 0) }}
             </p>
             <AppButton
               :data-show-filters-label="translate('pages.home.showFilters')"
@@ -35,14 +38,14 @@
               {{ translate('pages.home.showFilters') }}
             </AppButton>
           </FilterOptions>
-          <div v-if="!assessments?.length">
+          <div v-if="!data?.length">
             <p>
               {{ translate('pages.home.noRequests') }}
             </p>
           </div>
           <AppTable
             v-else
-            :data="assessments"
+            :data="data"
             :columns="headings"
             :items-per-page="10"
           />
@@ -56,16 +59,11 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
-import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
-
 import useSEO from '@shared/composables/useSeo'
-import {
-  useApiAssessmentFilterCountUrl,
-  useApiAssessmentRequestsUrl
-} from '@shared/composables/useAssessmentApiUrl'
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
+
+import { useFetchAllAssessments } from '@assessment/composables/useFetchAllAssessments'
+import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -76,13 +74,10 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 import type { FilterItem } from '@shared/types/filters'
 
-const assessmentStore = useAssessmentStore()
-const filterUrl = useApiAssessmentFilterCountUrl()
-const requestsUrl = useApiAssessmentRequestsUrl()
-
-const { assessments, filters, isFetching, error } = storeToRefs(assessmentStore)
-
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
+
+const { data, error, query, isFetching } = useFetchAllAssessments()
+const { data: filters } = useFetchFilters()
 
 const headings = [
   { id: 'file', text: translate('pages.home.headings.file'), sortable: true },
@@ -93,14 +88,9 @@ const headings = [
   { id: 'reviewer', text: translate('pages.home.headings.reviewer'), sortable: true }
 ]
 
-onBeforeMount(() => {
-  assessmentStore.fetchAllAssessments(requestsUrl)
-  assessmentStore.fetchFilters(filterUrl)
-})
-
 function onFilterChange(item: FilterItem) {
   const { id } = item
-  assessmentStore.filterAssessments(id)
+  console.log('@TODO: on filter change', id)
 }
 </script>
 

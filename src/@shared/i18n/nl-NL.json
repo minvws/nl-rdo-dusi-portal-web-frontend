@@ -14,6 +14,9 @@
       "title": "Lorem ipsum",
       "version": "Versie v{version}"
     },
+    "filterOptions": {
+      "submit": "Filter"
+    },
     "formNotification": {
       "error": "Fout",
       "explanation": "Toelichting",
