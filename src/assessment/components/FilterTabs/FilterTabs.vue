@@ -22,7 +22,7 @@ import { onBeforeMount, ref } from 'vue'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-import type { FilterItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 const emit = defineEmits(['change'])
 

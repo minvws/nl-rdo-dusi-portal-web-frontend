@@ -1,3 +1,14 @@
+export type DetailsDataInput = {
+  values: Record<string, string>[]
+  uiSchema: Record<string, any>
+  [key: string]: any
+}
+
+export type DetailsDataInputSection = {
+  title: string
+  elements: string[]
+}
+
 export type DescriptionListDetails = {
   type: 'string' | 'date' | 'url'
   url?: string
@@ -11,15 +22,5 @@ export type DescriptionListItem = {
 
 export type RequestDetailsItem = {
   title: string
-  data: Record<string, DescriptionListDetails>
+  items: DescriptionListItem[]
 }
-
-export type DetailsDataInput = {
-  title: string
-  data: Record<string, DescriptionListDetails>
-}[]
-
-export type DetailsDataOutput = {
-  title: string
-  data: DescriptionListItem[]
-}[]

@@ -1,5 +1,12 @@
 @import '@minvws/nl-rdo-rijksoverheid-ui-theme/css/main.css';
-@import '@minvws/manon/card.scss'; // @TODO: remove when it's added to the theme itself.
+
+// @TODO: remove when these are added to the theme itself.
+@import '@minvws/manon/card.scss';
+@import '@minvws/manon/tag.scss';
+@import '@minvws/manon/tag-colors-soft.scss';
+@import '@minvws/manon/tags-6-variables.scss';
+@import '@minvws/manon/tags-6.scss';
+
 @import '@jsonforms/vue-vanilla/vanilla.css';
 
 $ro-font-path: '~@minvws/nl-rdo-rijksoverheid-ui-theme/fonts';

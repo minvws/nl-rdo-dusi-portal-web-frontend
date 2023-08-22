@@ -6,12 +6,7 @@
         centered
       />
       <div v-else-if="error">Error: {{ error }}</div>
-      <template v-else-if="!isFetching && data">
-        <component
-          v-bind:is="requestTypeComponent"
-          v-bind="{ ...data, id }"
-        ></component>
-      </template>
+      <ReviewRequestOverview v-else-if="!isFetching && data" v-bind="{ ...data }" />
       <p v-else>Geen details beschikbaar</p>
     </template>
     <template #fallback>
@@ -21,42 +16,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useFetch } from '@vueuse/core'
 
-import { useApiRequestDetailsUrl } from '@shared/composables/useApiUrl'
+import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import NotFound from '@shared/pages/NotFound.vue'
-
-import ApprovedReview from '@assessment/pages/ApprovedReview.vue'
-import NewReview from '@assessment/pages/NewReview.vue'
-import RejectedReview from '@assessment/pages/RejectedReview.vue'
-
-type Props = {
-  id: string
-}
-
-defineProps<Props>()
+import ReviewRequestOverview from '@assessment/components/ReviewRequestOverview/ReviewRequestOverview.vue'
 
 const route = useRoute()
 
-const url = useApiRequestDetailsUrl(route.params.id as string)
+const { id } = route.params
 
-const { data, error, isFetching } = useFetch(url).json()
-
-const requestTypeComponent = computed(() => {
-  switch (data.value.type) {
-    case 'approved':
-      return ApprovedReview
-    case 'new':
-      return NewReview
-    case 'rejected':
-      return RejectedReview
-    default:
-      // @TODO: find better alternative
-      return NotFound
-  }
-})
+const { data, error, isFetching } = useFetchAssessment(id as string)
 </script>

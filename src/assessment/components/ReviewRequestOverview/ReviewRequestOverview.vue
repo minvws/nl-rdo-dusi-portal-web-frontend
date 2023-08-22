@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="status">
-      <h1>{{ translate('pages.new-review.title') }}</h1>
+      <h1>{{ translate('component.reviewRequestOverview.title') }}</h1>
       <RequestStatus type="new" />
     </div>
     <TabGroup
@@ -17,7 +17,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.overview') }}
+            {{ translate('component.reviewRequestOverview.overview') }}
           </AppButton>
         </Tab>
         <Tab
@@ -28,7 +28,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.history') }}
+            {{ translate('component.reviewRequestOverview.history') }}
           </AppButton>
         </Tab>
         <Tab
@@ -39,18 +39,21 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.new-review.reviewer') }}
+            {{ translate('component.reviewRequestOverview.reviewer') }}
           </AppButton>
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <RequestDetails :items="details" />
+          <RequestDetails :items="items" />
           <RouterLink
-            :to="{ name: 'review-request', params: { id: id } }"
+            :to="{
+              name: 'review-request',
+              params: { id: route.params.id }
+            }"
             class="button"
           >
-            {{ translate('pages.new-review.startReview') }}
+            {{ translate('component.reviewRequestOverview.startReview') }}
           </RouterLink>
         </TabPanel>
         <TabPanel>
@@ -65,8 +68,14 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
+
+import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
+
+import { formatDetailsData } from '@shared/utils/format'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
@@ -74,14 +83,16 @@ import RequestHistory from '@assessment/components/RequestHistory/RequestHistory
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
 import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
 
-import type { RequestDetailsItem } from '@shared/types/details'
+const route = useRoute()
+const { id } = route.params
 
-type Props = {
-  details: RequestDetailsItem[]
-  id: string
-}
+const { data } = useFetchAssessment(id as string)
 
-defineProps<Props>()
+const request = computed(
+  () => data.value?.stages?.find((stage: any) => stage.metadata.title === 'Aanvraag')
+)
+
+const items = computed(() => (request.value ? formatDetailsData(request.value) : []))
 </script>
 
 <style lang="scss" scoped>

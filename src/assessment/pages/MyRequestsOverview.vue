@@ -61,7 +61,9 @@
 <script setup lang="ts">
 import { translate } from '@shared/i18n'
 import useSEO from '@shared/composables/useSeo'
+
 import { useFetchMyAssessments } from '@assessment/composables/useFetchMyAssessments'
+import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -70,7 +72,7 @@ import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-import type { FilterItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}` })
 
@@ -93,13 +95,7 @@ const headings = [
   { id: 'action', text: translate('pages.my-requests-overview.headings.action'), sortable: false }
 ]
 
-// @TODO: get filters/counts from api
-const filters = [
-  { text: 'Hoge Prioriteit', id: 'priority', count: 6 },
-  { text: 'Opgepakt', id: 'handled', count: 8 },
-  { text: 'Aan mij toegekend', id: 'assigned_to_me', count: 12 },
-  { text: 'Al mijn zaken', id: 'all', count: 25 }
-]
+const { data: filters } = useFetchFilters()
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

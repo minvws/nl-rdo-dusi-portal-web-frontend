@@ -1,7 +1,7 @@
 // shared
 export const HOME = 'home'
-export const NOT_FOUND = 'not-found'
 export const LOGIN_CALLBACK = 'login-callback'
+export const NOT_FOUND = 'not-found'
 
 // portal
 export const ARRANGEMENT_DETAILS = 'arrangement-details'

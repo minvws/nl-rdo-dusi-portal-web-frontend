@@ -5,7 +5,43 @@
       "take": "Pak op"
     },
     "filterTabs": {
-      "allCases": "Alle zaken ({count})"
+      "priority": "Hoge prioriteit",
+      "taken": "Opgepakt",
+      "assigned": "Alle zaken",
+      "assigned_to_me": "Aan mij toegekend"
+    },
+    "requestDetails": {
+      "section": {
+        "meta": "Metagegevens",
+        "personal": "Persoonlijke informatie",
+        "address": "Adres",
+        "contact": "Contact",
+        "bank": "Bank",
+        "files": "Bestanden"
+      },
+      "term": {
+        "assessmentId": "Beoordelingsnummer",
+        "validFrom": "Aangevraagd op",
+        "validTo": "Uiterste behandeldatum",
+        "extractPersonalRecordsDatabase": "Uitreksel bevolkingsregister",
+        "proofOfMedicalTreatment": "Verklaring behandeltraject",
+        "proofOfTypeOfMedicalTreatment": "Verklaring type behandeling",
+        "bankStatement": "Kopie bankafschrift",
+        "firstName": "Voornaam",
+        "infix": "Tussenvoegsel",
+        "lastName": "Achternaam",
+        "street": "Straatnaam",
+        "houseNumber": "Huisnummer",
+        "houseNumberSuffix": "Huisnummer toevoeging",
+        "postalCode": "Postcode",
+        "city": "Plaatsnaam",
+        "country": "Land",
+        "phoneNumber": "Telefoonnummer",
+        "email": "E-mail adres",
+        "bankAccountNumber": "IBAN",
+        "bankAccountHolder": "Tenaamstelling",
+        "communicationPreference": "Communicatievoorkeur"
+      }
     },
     "requestReviers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordeelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordeelaars.",
@@ -18,6 +54,13 @@
       "rejected": "Afgekeurd",
       "new": "Nieuw",
       "inProgress": "In behandeling"
+    },
+    "reviewRequestOverview": {
+      "title": "Beoordeling",
+      "overview": "Overzicht",
+      "history": "Geschiedenis",
+      "reviewer": "Beoordelaar",
+      "startReview": "Beoordeling starten"
     }
   },
   "pages": {
@@ -54,31 +97,9 @@
         "action": "Actie"
       }
     },
-    "subsequent-review": {
-      "agree": "Goedgekeurd",
-      "unrated": "Onbeoordeeld",
-      "needsRevision": "Aanvulling nodig",
-      "disagree": "Afgekeurd",
-      "request": "Aanvraag",
-      "review": "Beoordeling",
-      "saveAndSend": "Opslaan en verzenden",
-      "title": "Zaak"
-    },
-    "new-review": {
-      "title": "Beoordeling",
-      "overview": "Overzicht",
-      "history": "Geschiedenis",
-      "reviewer": "Beoordelaar",
-      "startReview": "Beoordeling starten"
-    },
-    "rejected-review": {
-      "title": "Afgekeurd verzoek"
-    },
-    "approved-review": {
-      "title": "Goedgekeurd"
-    },
     "review-request": {
-      "title": "Beoordeling"
+      "title": "Beoordeling",
+      "request": "Aanvraag"
     }
   }
 }

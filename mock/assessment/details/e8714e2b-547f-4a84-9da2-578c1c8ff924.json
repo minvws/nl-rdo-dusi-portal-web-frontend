@@ -1,3 +1,192 @@
 {
-  "type": "approved"
+  "data": {
+    "metadata": {
+      "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
+      "subsidy": {
+        "id": "00f26400-7232-475f-922c-6b569b7e421a",
+        "title": "Borstprothesen transvrouwen",
+        "description": "Transvrouwen zijn man-vrouw transgenders die negatieve gevoelens ('genderdysforie') ervaren omdat ze als man geboren zijn en in transitie zijn om als vrouw te leven. De meerderheid van de transvrouwen vindt, ook na behandeling (de zogeheten genderbevestigende hormonale therapie), dat zij te weinig borstweefsel heeft voor een vrouwelijk profiel. Dit kan een grote hindernis zijn bij de transitie. Een borstvergroting kan deze hinder verminderen.",
+        "validFrom": "2019-02-01",
+        "validTo": null
+      }
+    },
+    "stages": [
+      {
+        "metadata": {
+          "title": "Aanvraag",
+          "uiType": "VIEW",
+          "subjectRole": "applicant",
+          "subjectOrganisation": null
+        },
+        "values": [
+          { "assessmentId": "BOSA2200012" },
+          { "validFrom": "2023-02-01" },
+          { "validTo": "2023-11-11" },
+          { "extractPersonalRecordsDatabase": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "proofOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "proofOfTypeOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "bankStatement": "mimeTypeimage\/jpegextensionjpegsize70488" },
+          { "firstName": "Henk" },
+          { "infix": "de" },
+          { "lastName": "Vries" },
+          { "street": "Dorpsstraat" },
+          { "houseNumber": "10" },
+          { "houseNumberSuffix": "A" },
+          { "postalCode": "1234AA" },
+          { "city": "Amsterdam" },
+          { "country": "Nederland" },
+          { "phoneNumber": "+310612345678" },
+          { "email": "email@email.com" },
+          { "bankAccountNumber": "NL20INGB0001234567" },
+          { "bankAccountHolder": "H. de Vries" },
+          { "communicationPreference": "Post" }
+        ],
+        "uiSchema": {
+          "sections": [
+            {
+              "title": "meta",
+              "elements": [ "assessmentId", "validFrom", "validTo" ]
+            },
+            {
+              "title": "personal",
+              "elements": [ "firstName", "infix", "lastName" ]
+            },
+            {
+              "title": "address",
+              "elements": [ "street", "houseNumber", "houseNumberSuffix", "postalCode", "city", "country" ]
+            },
+            {
+              "title": "comtact",
+              "elements": [ "phoneNumber", "email", "communicationPreference" ]
+            },
+            {
+              "title": "bank",
+              "elements": [ "bankAccountNumber", "bankAccountHolder" ]
+            },
+            {
+              "title": "files",
+              "elements": [ "bankStatement", "extractPersonalRecordsDatabase", "proofOfMedicalTreatment", "proofOfTypeOfMedicalTreatment" ]
+            }
+          ]
+        }
+      },
+      {
+        "metadata": {
+          "title": "Beoordeling",
+          "uiType": "INPUT",
+          "subjectRole": "assessor",
+          "subjectOrganisation": null
+        },
+        "uischema": {
+          "type": "FormGroupControl",
+          "options": {
+            "section": true,
+            "group": true
+          },
+          "elements": [
+            {
+              "type": "Group",
+              "label": "Checklist",
+              "elements": [
+                {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/checklist",
+                      "options": {
+                        "format": "checkbox-group"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Group",
+              "label": "Uitkering",
+              "elements": [
+                {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/amount",
+                      "options": {
+                        "format": "radio"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Group",
+              "label": "Status",
+              "elements": [
+                {
+                  "type": "VerticalLayout",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/review",
+                      "options": {
+                        "format": "radio"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "schema": {
+          "properties": {
+            "amount": {
+              "type": "string",
+              "title": "Bedrag",
+              "enum": [
+                "€ 3.830",
+                "€ 13.720"
+              ]
+            },
+            "checklist": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "Uittreksel van het BRP is opgestuurd",
+                  "De aanvrager is een ingezetene (> 4 maanden) in Nederland",
+                  "de aanvrager is ouder dan 18 jaar",
+                  "De verklaring van de arts over het behandeltraject is opgestuurd",
+                  "De verklaring van de arts over het behandeltraject is minder dan 2 maanden oud",
+                  "De verklaring van de arts over het behandeltraject is ondertekend en voorzien van een naamstempel",
+                  "Het opgegeven BIG-nummer komt overeen met het BIG-register",
+                  "De operatie heeft nog niet plaatsgevonden",
+                  "De aanvrager heeft genderdysforie",
+                  "De aanvrager heeft minimaal een jaar voor de aanvraag hormoonbehandeling ondergaan, of is hiermee vanwege medische redenen gestopt of kon deze om medische redenen niet ondergaan",
+                  "De verklaring van de arts met de vermelding van de type behandeling is opgestuurd",
+                  "De verklaring van de arts met de vermelding van de type behandeling is ondertekend en voorzien van een naamstempel",
+                  "De type behandeling voldoet aan de voorwaarden conform de subsidieregeling",
+                  "Het IBAN-nummer klopt met het opgegeven IBAN-nummer van de aanvraag",
+                  "De tenaamstelling op het bankafschrift of bankpas klopt"
+                ]
+              },
+              "title": "Gecontroleerd"
+            },
+            "review": {
+              "type": "string",
+              "title": "Beoordeling",
+              "enum": [
+                "Onbeoordeeld",
+                "Aanvulling nodig",
+                "Afgekeurd",
+                "Goedgekeurd"
+              ]
+            }
+          }
+        }
+      }
+    ]
+  }
 }

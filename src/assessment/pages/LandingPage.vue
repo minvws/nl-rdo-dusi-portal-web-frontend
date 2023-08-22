@@ -4,7 +4,7 @@
       <h1>{{ translate('pages.home.title') }}</h1>
       <p>{{ translate('pages.home.subtitle') }}</p>
     </div>
-    <div>
+    <div v-if="filters.length">
       <FilterTabs
         :items="filters"
         @change="onFilterChange"
@@ -61,20 +61,23 @@
 <script setup lang="ts">
 import { translate } from '@shared/i18n'
 import useSEO from '@shared/composables/useSeo'
+
 import { useFetchAllAssessments } from '@assessment/composables/useFetchAllAssessments'
+import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-import type { FilterItem } from '@shared/types/table'
+import type { FilterItem } from '@shared/types/filters'
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
 
 const { data, error, query, isFetching } = useFetchAllAssessments()
+const { data: filters } = useFetchFilters()
 
 const headings = [
   { id: 'file', text: translate('pages.home.headings.file'), sortable: true },
@@ -83,14 +86,6 @@ const headings = [
   { id: 'deadline', text: translate('pages.home.headings.deadline'), sortable: true },
   { id: 'updated', text: translate('pages.home.headings.updated'), sortable: true },
   { id: 'reviewer', text: translate('pages.home.headings.reviewer'), sortable: true }
-]
-
-// @TODO: get filters/counts from api
-const filters = [
-  { text: 'Hoge Prioriteit', id: 'priority', count: 6 },
-  { text: 'Nieuw', id: 'new', count: 8 },
-  { text: 'In behandeling', id: 'in_progress', count: 12 },
-  { text: 'Alle zaken', id: 'all', count: 25 }
 ]
 
 function onFilterChange(item: FilterItem) {
