@@ -27,10 +27,6 @@ export const useApiFormsSubmitUrl = (id: string) => {
   return `${baseUrl}/api/applications/${id}`
 }
 
-export const useApiFormsUrl = (id: string | number) => {
-  return `${baseUrl}/api/forms/${id}`
-}
-
 export const useApiLoginUrl = () => {
   return `${baseUrl}/oidc/login`
 }
