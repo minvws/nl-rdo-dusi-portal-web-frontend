@@ -55,9 +55,7 @@ const { hasPrevStep, hasNextStep, hasSubmit, isStepDisabled } = useFormSteps(pro
 
 const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
 
-const startLabel = computed(() => {
-  return props.buttonLabels?.start || translate('form.button.start')
-})
+const startLabel = computed(() => props.buttonLabels?.start || translate('form.button.start'))
 
 const nextLabel = computed(() => props.index === 0 ? startLabel.value : (props.buttonLabels?.next || translate('form.button.next')));
 
