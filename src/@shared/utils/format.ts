@@ -27,14 +27,13 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
  * @returns {FilterItem[]} The formatted data.
  */
 export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
-  const names: string[] = Object.keys(data.data)
-  const counts: number[] = Object.values(data.data)
-
-  return names.map((name: string, index: number) => ({
-    text: translate(`component.filterTabs.${name.toLowerCase()}`),
-    id: name.toLowerCase(),
-    count: counts[index]
-  }))
+  return Object.entries(data.data).map(([name, count]) => {
+    return {
+      text: translate(`component.filterTabs.${name.toLowerCase()}`),
+      id: name.toLowerCase(),
+      count
+    }
+  })
 }
 
 /**
