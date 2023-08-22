@@ -93,7 +93,7 @@ import { useFetch } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 import { translate } from '@shared/i18n'
 
-import { useApiMessagesUrl, useApiRequestDetail } from '@shared/composables/usePortalApiUrl'
+import { useApiMessagesUrl, useApiRequestDetail } from '@portal/composables/usePortalApiUrl'
 import useSEO from '@shared/composables/useSeo'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'

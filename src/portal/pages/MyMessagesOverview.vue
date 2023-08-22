@@ -61,7 +61,7 @@ import type { ComputedRef } from 'vue'
 import { toRefs } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
-import { useApiMessagesUrl } from '@shared/composables/usePortalApiUrl'
+import { useApiMessagesUrl } from '@portal/composables/usePortalApiUrl'
 import { usePagination } from '@shared/composables/usePagination'
 import useSEO from '@shared/composables/useSeo'
 

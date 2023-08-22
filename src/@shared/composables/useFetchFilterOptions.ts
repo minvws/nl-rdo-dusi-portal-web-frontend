@@ -2,7 +2,7 @@ import type { Form } from '@shared/types/form'
 import type { FormOptions } from '@shared/types/form-options'
 import { ref, watch, type Ref } from 'vue'
 import { useFetch } from '@vueuse/core'
-import { useApiFilterOptionsUrl } from '@shared/composables/usePortalApiUrl'
+import { useApiFilterOptionsUrl } from '@shared/composables/useApiUrl'
 
 export const useFetchFilterOptions = (type: FormOptions) => {
   const url = useApiFilterOptionsUrl(type)

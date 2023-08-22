@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { ref } from 'vue'
 import type { Form, FormResult } from '@shared/types/form'
 
-import { useApiFormsUrl } from '@shared/composables/useApiUrl'
+import { useApiFormsUrl } from '@portal/composables/usePortalApiUrl'
 import { isLabeled, isLayout } from '@jsonforms/core'
 import type { JsonSchema } from '@jsonforms/core'
 
