@@ -6,9 +6,7 @@
         centered
       />
       <div v-else-if="error">Error: {{ error }}</div>
-      <template v-else-if="!isFetching && data">
-        <ReviewRequestOverview v-bind="{ ...data }" />
-      </template>
+      <ReviewRequestOverview v-else-if="!isFetching && data" v-bind="{ ...data }" />
       <p v-else>Geen details beschikbaar</p>
     </template>
     <template #fallback>
