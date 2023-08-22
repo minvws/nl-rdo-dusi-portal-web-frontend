@@ -1,4 +1,3 @@
-import type { FormOptions } from '@shared/types/form-options'
 declare global {
   interface Window {
     config?: {
@@ -10,6 +9,10 @@ declare global {
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = '../../mock/portal'
 const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
+
+export const useApiFormsUrl = (id: string | number) => {
+  return `${baseUrl}/api/forms/${id}`
+}
 
 export const useApiActiveRequestsUrl = () => {
   return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/requests`
@@ -49,10 +52,4 @@ export const useApiUserStatusUrl = () => {
 
 export const useApiRequestDetail = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/requests/${id}` // Not final url yet.
-}
-
-export const useApiFilterOptionsUrl = (type: FormOptions) => {
-  if (useMockData) return `../../mock/shared/filter-options/${type}.json`
-  // @TODO: set correct baseUrl
-  return 'http://localhost:8002/api/applicationfilterui'
 }
