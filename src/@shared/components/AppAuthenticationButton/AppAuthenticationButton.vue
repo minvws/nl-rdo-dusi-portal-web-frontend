@@ -23,4 +23,3 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 const authStore = useAuthStore()
 const loginUrl = useApiLoginUrl()
 </script>
-@portal/composables/usePortalApiUrl
