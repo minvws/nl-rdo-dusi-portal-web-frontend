@@ -98,17 +98,19 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   }
 
   const request = computed(() => {
-    return assessment.value?.data.stages.find((stage: any) => stage.metadata.title === 'Aanvraag')
+    return assessment.value?.data?.stages.find((stage: any) => stage.metadata.title === 'Aanvraag')
   })
 
   const reviews = computed(() => {
-    return assessment.value?.data.stages.filter(
+    return assessment.value?.data?.stages.filter(
       (stage: any) => stage.metadata.title === 'Beoordeling'
     )
   })
 
   const reviewForm = computed(() => {
-    return reviews.value.find((review: any) => review.metadata.uiType === 'INPUT')
+    return assessment.value?.data?.stages.filter(
+      (stage: any) => stage.metadata.title === 'Beoordeling' && stage.metadata.uiType === 'INPUT'
+    )
   })
 
   return {
