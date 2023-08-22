@@ -59,9 +59,7 @@ const startLabel = computed(() => props.buttonLabels?.start || translate('form.b
 
 const nextLabel = computed(() => props.index === 0 ? startLabel.value : (props.buttonLabels?.next || translate('form.button.next')));
 
-const submitLabel = computed(() => {
-  return props.buttonLabels?.submit || translate('form.button.submit')
-})
+const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
 </script>
 
 <style lang="scss" scoped>
