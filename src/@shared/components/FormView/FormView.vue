@@ -32,6 +32,7 @@
       :formsErrors="formsErrors"
       :touched="touchedForms"
       :readonly="readonly"
+      :buttonLabels="buttonLabels"
       @submit="onSubmit"
       @step="onStep"
       @validate="onValidate"
@@ -41,7 +42,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Form } from '@shared/types/form'
+import type { Form, FormButtonLabels } from '@shared/types/form'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -64,6 +65,7 @@ type Props = {
   title?: string
   createDraft?: boolean
   hideDebug?: boolean | undefined
+  buttonLabels?: FormButtonLabels
 }
 
 const emit = defineEmits(['submit'])

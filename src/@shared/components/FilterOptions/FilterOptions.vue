@@ -9,7 +9,8 @@
       v-bind="{
         id: type,
         forms,
-        hideDebug: true
+        hideDebug: true,
+        buttonLabels: { submit: translate('component.filterOptions.submit') }
       }"
       @submit="onSubmit"
     />
@@ -22,6 +23,7 @@ import type { FormOptions } from '@shared/types/form-options'
 
 import { ref, watch, type Ref } from 'vue'
 import { filterOptionsLoader } from '@shared/utils/loader'
+import { translate } from '@shared/i18n'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 import vFilters from '@shared/directives/filters'
