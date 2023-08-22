@@ -6,8 +6,8 @@
         centered
       />
       <div v-else-if="error">Error: {{ error }}</div>
-      <template v-else-if="!isFetching && activeAssessment">
-        <ReviewRequestOverview v-bind="{ ...activeAssessment.data }" />
+      <template v-else-if="!isFetching && assessment">
+        <ReviewRequestOverview v-bind="{ ...assessment.data }" />
       </template>
       <p v-else>Geen details beschikbaar</p>
     </template>
@@ -31,7 +31,7 @@ const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const { activeAssessment, isFetching, error } = storeToRefs(assessmentStore)
+const { assessment, isFetching, error } = storeToRefs(assessmentStore)
 
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 </script>

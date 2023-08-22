@@ -15,7 +15,7 @@
             :message="error"
           />
         </div>
-        <template v-else-if="!isFetching && activeAssessment">
+        <template v-else-if="!isFetching && assessment">
           <div>
             <AppAccordion>
               <AppAccordionItem id="request">
@@ -26,10 +26,10 @@
               </AppAccordionItem>
             </AppAccordion>
           </div>
-          <div v-if="activeAssessmentReviewForm">
+          <div v-if="reviewForm">
             <FormView
               id="987vet789ve9n78x"
-              :forms="activeAssessmentReviews"
+              :forms="reviews"
               :hide-debug="true"
               @submit="onSubmit"
             />
@@ -52,6 +52,8 @@ import { translate } from '@shared/i18n'
 
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
+import { transformDetailsData } from '@shared/utils/format'
+
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -60,40 +62,16 @@ import FormView from '@shared/components/FormView/FormView.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
 import type { FormData } from '@shared/types/form'
-import type { DescriptionListItem, RequestDetailsItem } from '@shared/types/details'
 
 const assessmentStore = useAssessmentStore()
 const route = useRoute()
 
 const { id } = route.params
-const {
-  activeAssessment,
-  activeAssessmentReviews,
-  activeAssessmentReviewForm,
-  activeAssessmentRequestValues,
-  isFetching,
-  error
-} = storeToRefs(assessmentStore)
+const { assessment, request, reviews, reviewForm, isFetching, error } = storeToRefs(assessmentStore)
 
 onBeforeMount(() => assessmentStore.fetchAssessment(id as string))
 
-//@TODO: remove when we get the correct data from the back-end.
-const items = computed((): RequestDetailsItem[] => {
-  return [
-    {
-      title: 'Gegevens',
-      items: activeAssessmentRequestValues.value.map(
-        (item: Record<string, string>): DescriptionListItem => {
-          const key = Object.keys(item)[0]
-          return {
-            term: key,
-            details: { type: 'string', text: item[key] }
-          }
-        }
-      )
-    }
-  ]
-})
+const items = computed(() => transformDetailsData(request.value))
 
 function onSubmit(data: FormData) {
   console.log('@TODO: onSubmit', data)

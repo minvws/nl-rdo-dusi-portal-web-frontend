@@ -7,5 +7,3 @@ export type FilterItem = {
   id: string
   count: number
 }
-
-export type FiltersDataOutput = FilterItem[]

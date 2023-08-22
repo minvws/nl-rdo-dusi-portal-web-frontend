@@ -1,3 +1,14 @@
+export type DetailsDataInput = {
+  values: Record<string, string>[]
+  uiSchema: Record<string, any>
+  [key: string]: any
+}
+
+export type DetailsDataInputSection = {
+  title: string
+  elements: string[]
+}
+
 export type DescriptionListDetails = {
   type: 'string' | 'date' | 'url'
   url?: string

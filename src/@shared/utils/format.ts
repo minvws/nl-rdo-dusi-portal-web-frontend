@@ -1,4 +1,9 @@
-import type { FiltersDataInput, FiltersDataOutput } from '@shared/types/filters'
+import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
+import type {
+  DetailsDataInput,
+  DetailsDataInputSection,
+  RequestDetailsItem
+} from '@shared/types/details'
 import { translate } from '@shared/i18n'
 
 export const formatFile = (path = '') => {
@@ -19,9 +24,9 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
  * Formats data from the API for the filters component.
  *
  * @param {FiltersDataInput} data - The data to format.
- * @returns {FiltersDataOutput} The formatted data.
+ * @returns {FilterItem[]} The formatted data.
  */
-export function formatFiltersData(data: FiltersDataInput): FiltersDataOutput {
+export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
   const names: string[] = Object.keys(data.data)
   const counts: number[] = Object.values(data.data)
 
@@ -29,5 +34,26 @@ export function formatFiltersData(data: FiltersDataInput): FiltersDataOutput {
     text: translate(`component.filterTabs.${name.toLowerCase()}`),
     id: name.toLowerCase(),
     count: counts[index]
+  }))
+}
+
+/**
+ * Transforms the 'details' data from the API to a format that we can use.
+ *
+ * @param data
+ * @returns data
+ */
+export function transformDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
+  const { uiSchema, values } = data
+
+  return uiSchema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
+    title: translate(`component.requestDetails.section.${title}`),
+    items: elements.map(element => {
+      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, element))
+      return {
+        term: translate(`component.requestDetails.term.${element}`),
+        details: { type: 'string', text: value ? value[element] : '' }
+      }
+    })
   }))
 }

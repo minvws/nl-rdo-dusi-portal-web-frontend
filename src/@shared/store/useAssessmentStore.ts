@@ -11,7 +11,7 @@ import { transformAssessmentsData, transformMyAssessmentsData } from '@shared/ut
 
 export const useAssessmentStore = defineStore('useAssessmentStore', () => {
   const assessments = ref({}) as Ref<AssessmentsData>
-  const activeAssessment = ref({}) as Ref<any>
+  const assessment = ref({}) as Ref<any>
   const filters = ref([]) as Ref<FilterItem[]>
   const error = ref(null) as any
   const isFetching = ref(false)
@@ -41,7 +41,7 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     try {
       const response = await fetch(url)
       const json = await response.json()
-      activeAssessment.value = json
+      assessment.value = json
     } catch (err) {
       // @TODO: handle error
       console.error(err)
@@ -97,36 +97,25 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     }, 1000)
   }
 
-  const activeAssessmentRequest = computed(() => {
-    return activeAssessment.value?.data.stages.find(
-      (stage: any) => stage.metadata.title === 'Aanvraag'
-    )
+  const request = computed(() => {
+    return assessment.value?.data.stages.find((stage: any) => stage.metadata.title === 'Aanvraag')
   })
 
-  const activeAssessmentReviews = computed(() => {
-    return activeAssessment.value?.data.stages.filter(
+  const reviews = computed(() => {
+    return assessment.value?.data.stages.filter(
       (stage: any) => stage.metadata.title === 'Beoordeling'
     )
   })
 
-  const activeAssessmentReviewForm = computed(() => {
-    return activeAssessmentReviews.value.find((review: any) => review.metadata.uiType === 'INPUT')
-  })
-
-  const numberOfReviews = computed(() => {
-    return activeAssessmentReviews.value.length
-  })
-
-  const activeAssessmentRequestValues = computed(() => {
-    return activeAssessmentRequest.value.values
+  const reviewForm = computed(() => {
+    return reviews.value.find((review: any) => review.metadata.uiType === 'INPUT')
   })
 
   return {
-    activeAssessment,
-    activeAssessmentRequest,
-    activeAssessmentReviews,
-    activeAssessmentReviewForm,
-    activeAssessmentRequestValues,
+    assessment,
+    request,
+    reviews,
+    reviewForm,
     assessments,
     error,
     fetchAllAssessments,
@@ -135,7 +124,6 @@ export const useAssessmentStore = defineStore('useAssessmentStore', () => {
     fetchMyAssessments,
     filterAssessments,
     filters,
-    isFetching,
-    numberOfReviews
+    isFetching
   }
 })

@@ -75,13 +75,13 @@ import { translate } from '@shared/i18n'
 
 import { useAssessmentStore } from '@shared/store/useAssessmentStore'
 
+import { transformDetailsData } from '@shared/utils/format'
+
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 import RequestHistory from '@assessment/components/RequestHistory/RequestHistory.vue'
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
 import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
-
-import type { DescriptionListItem, RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
   metadata: Record<string, string>
@@ -91,25 +91,9 @@ defineProps<Props>()
 
 const assessmentStore = useAssessmentStore()
 
-const { activeAssessmentRequestValues } = storeToRefs(assessmentStore)
+const { request } = storeToRefs(assessmentStore)
 
-//@TODO: remove when we get the correct data from the back-end.
-const items = computed((): RequestDetailsItem[] => {
-  return [
-    {
-      title: 'Gegevens',
-      items: activeAssessmentRequestValues.value.map(
-        (item: Record<string, string>): DescriptionListItem => {
-          const key = Object.keys(item)[0]
-          return {
-            term: key,
-            details: { type: 'string', text: item[key] }
-          }
-        }
-      )
-    }
-  ]
-})
+const items = computed(() => transformDetailsData(request.value))
 </script>
 
 <style lang="scss" scoped>

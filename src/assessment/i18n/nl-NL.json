@@ -10,6 +10,39 @@
       "assigned": "Alle zaken",
       "assigned_to_me": "Aan mij toegekend"
     },
+    "requestDetails": {
+      "section": {
+        "meta": "Metagegevens",
+        "personal": "Persoonlijke informatie",
+        "address": "Adres",
+        "contact": "Contact",
+        "bank": "Bank",
+        "files": "Bestanden"
+      },
+      "term": {
+        "assessmentId": "Beoordelingsnummer",
+        "validFrom": "Aangevraagd op",
+        "validTo": "Uiterste behandeldatum",
+        "extractPersonalRecordsDatabase": "Uitreksel bevolkingsregister",
+        "proofOfMedicalTreatment": "Verklaring behandeltraject",
+        "proofOfTypeOfMedicalTreatment": "Verklaring type behandeling",
+        "bankStatement": "Kopie bankafschrift",
+        "firstName": "Voornaam",
+        "infix": "Tussenvoegsel",
+        "lastName": "Achternaam",
+        "street": "Straatnaam",
+        "houseNumber": "Huisnummer",
+        "houseNumberSuffix": "Huisnummer toevoeging",
+        "postalCode": "Postcode",
+        "city": "Plaatsnaam",
+        "country": "Land",
+        "phoneNumber": "Telefoonnummer",
+        "email": "E-mail adres",
+        "bankAccountNumber": "IBAN",
+        "bankAccountHolder": "Tenaamstelling",
+        "communicationPreference": "Communicatievoorkeur"
+      }
+    },
     "requestReviers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordeelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordeelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
