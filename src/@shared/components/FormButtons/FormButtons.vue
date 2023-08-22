@@ -57,7 +57,9 @@ const previousLabel = computed(() => props.buttonLabels?.previous || translate('
 
 const startLabel = computed(() => props.buttonLabels?.start || translate('form.button.start'))
 
-const nextLabel = computed(() => props.index === 0 ? startLabel.value : (props.buttonLabels?.next || translate('form.button.next')));
+const nextLabel = computed(() =>
+  props.index === 0 ? startLabel.value : props.buttonLabels?.next || translate('form.button.next')
+)
 
 const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
 </script>
