@@ -46,6 +46,8 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
 export function transformDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
   const { uiSchema, values } = data
 
+  if (!uiSchema || !uiSchema.sections || !values) return []
+
   return uiSchema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
     title: translate(`component.requestDetails.section.${title}`),
     items: elements.map(element => {
