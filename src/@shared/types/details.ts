@@ -6,7 +6,7 @@ export type DetailsDataInput = {
 
 export type DetailsDataInputSection = {
   title: string
-  elements: string[]
+  elements: Record<string, string>[]
 }
 
 export type DescriptionListDetails = {

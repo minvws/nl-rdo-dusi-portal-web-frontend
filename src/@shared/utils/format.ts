@@ -50,10 +50,10 @@ export function formatDetailsData(data: DetailsDataInput): RequestDetailsItem[] 
   return uiSchema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
     title: translate(`component.requestDetails.section.${title}`),
     items: elements.map(element => {
-      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, element))
+      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, element.field))
       return {
-        term: translate(`component.requestDetails.term.${element}`),
-        details: { type: 'string', text: value ? value[element] : '' }
+        term: translate(`component.requestDetails.term.${element.field}`),
+        details: { type: element.type, text: value ? value[element.field] : '' }
       }
     })
   }))
