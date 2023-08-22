@@ -84,9 +84,7 @@ import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vu
 import type { DescriptionListItem, RequestDetailsItem } from '@shared/types/details'
 
 type Props = {
-  metadata: {
-    id: string
-  }
+  metadata: Record<string, string>
 }
 
 defineProps<Props>()

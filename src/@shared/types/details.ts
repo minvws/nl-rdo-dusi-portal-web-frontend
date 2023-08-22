@@ -13,10 +13,3 @@ export type RequestDetailsItem = {
   title: string
   items: DescriptionListItem[]
 }
-
-// export type DetailsDataInput = RequestDetailsItem[]
-
-// export type DetailsDataOutput = {
-//   title: string
-//   data: DescriptionListItem[]
-// }[]

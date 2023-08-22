@@ -35,7 +35,6 @@
             />
           </div>
         </template>
-        <p v-else>Geen details beschikbaar</p>
       </template>
       <template #fallback>
         <AppLoader centered />
