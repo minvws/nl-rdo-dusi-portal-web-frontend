@@ -23,10 +23,13 @@
           />
         </div>
         <div v-else>
-          <FilterOptions type="all-requests">
+          <FilterOptions
+            type="all-requests"
+            v-model="query"
+          >
             <p>
-              <span>{{ assessments?.length ?? 0 }}</span>
-              {{ translate('pages.home.cases', {}, assessments?.length ?? 0) }}
+              <span>{{ data?.length ?? 0 }}</span>
+              {{ translate('pages.home.cases', {}, data?.length ?? 0) }}
             </p>
             <AppButton
               :data-show-filters-label="translate('pages.home.showFilters')"
@@ -35,14 +38,14 @@
               {{ translate('pages.home.showFilters') }}
             </AppButton>
           </FilterOptions>
-          <div v-if="!assessments?.length">
+          <div v-if="!data?.length">
             <p>
               {{ translate('pages.home.noRequests') }}
             </p>
           </div>
           <AppTable
             v-else
-            :data="assessments"
+            :data="data"
             :columns="headings"
             :items-per-page="10"
           />
@@ -56,12 +59,9 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
-
 import useSEO from '@shared/composables/useSeo'
-import { useApiAssessmentRequestsUrl } from '@shared/composables/useApiUrl'
-import { useAssessmentStore } from '@shared/store/useAssessmentStore'
+import { useFetchAllAssessments } from '@assessment/composables/useFetchAllAssessments'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -72,14 +72,9 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 import type { FilterItem } from '@shared/types/table'
 
-const assessmentStore = useAssessmentStore()
-const url = useApiAssessmentRequestsUrl()
-
-assessmentStore.fetchAllAssessments(url)
-
-const { assessments, isFetching, error } = storeToRefs(assessmentStore)
-
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
+
+const { data, error, query, isFetching } = useFetchAllAssessments()
 
 const headings = [
   { id: 'file', text: translate('pages.home.headings.file'), sortable: true },
@@ -100,7 +95,7 @@ const filters = [
 
 function onFilterChange(item: FilterItem) {
   const { id } = item
-  assessmentStore.filterAssessments(id)
+  console.log('@TODO: on filter change', id)
 }
 </script>
 

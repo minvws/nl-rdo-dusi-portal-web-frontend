@@ -1,3 +1,4 @@
+import type { FormOptions } from '@shared/types/form-options'
 declare global {
   interface Window {
     config?: {
@@ -68,4 +69,10 @@ export const useApiSubsidyUrl = () => {
 
 export const useApiUserStatusUrl = () => {
   return `${baseUrl}/api/user/info`
+}
+
+export const useApiFilterOptionsUrl = (type: FormOptions) => {
+  if (useMockData) return `../../mock/shared/filter-options/${type}.json`
+  // @TODO: set correct baseUrl
+  return 'http://localhost:8002/api/applicationfilterui'
 }
