@@ -7,7 +7,7 @@ import { defineStore } from 'pinia'
 import { useFileStore } from '@shared/store/useFileStore'
 
 import { useActiveForm } from '@shared/composables/useActiveForm'
-import { useApiDraftFormUrl, useApiFormsSubmitUrl } from '@shared/composables/usePortalApiUrl'
+import { useApiDraftFormUrl, useApiFormsSubmitUrl } from '@portal/composables/usePortalApiUrl'
 import { useTouchedFields } from '@shared/composables/useTouchedFields'
 import { useTouchedForms } from '@shared/composables/useTouchedForms'
 

@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { useAuthStore } from '@shared/store/useAuthStore'
-import { useApiLoginUrl } from '@shared/composables/usePortalApiUrl'
+import { useApiLoginUrl } from '@portal/composables/usePortalApiUrl'
 import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -23,3 +23,4 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 const authStore = useAuthStore()
 const loginUrl = useApiLoginUrl()
 </script>
+@portal/composables/usePortalApiUrl
