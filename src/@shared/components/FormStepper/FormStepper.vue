@@ -27,10 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useMediaQuery } from '@vueuse/core'
+
 import type { FormTitle, FormError } from '@shared/types/form'
 import { useFormSteps } from '@shared/composables/useFormSteps'
-import { useFormStepperSize } from '@shared/composables/useFormStepperSize'
-import { computed } from 'vue'
 
 const emit = defineEmits(['step'])
 
@@ -45,7 +46,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { isStepDisabled, isTouched } = useFormSteps(props)
-const { el, isLarge } = useFormStepperSize()
+const isLarge = useMediaQuery('(min-width: 800px)')
 
 function isActive(index: number) {
   const { index: activeIndex } = props
