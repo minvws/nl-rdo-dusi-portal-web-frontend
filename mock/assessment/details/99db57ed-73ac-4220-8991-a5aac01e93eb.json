@@ -19,53 +19,182 @@
           "subjectOrganisation": null
         },
         "values": [
-          { "assessmentId": "BOSA2200012" },
-          { "validFrom": "2023-02-01" },
-          { "validTo": "2023-11-11" },
-          { "extractPersonalRecordsDatabase": "mimeTypeimage\/jpegextensionjpegsize70488" },
-          { "proofOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
-          { "proofOfTypeOfMedicalTreatment": "mimeTypeimage\/jpegextensionjpegsize70488" },
-          { "bankStatement": "mimeTypeimage\/jpegextensionjpegsize70488" },
-          { "firstName": "Henk" },
-          { "infix": "de" },
-          { "lastName": "Vries" },
-          { "street": "Dorpsstraat" },
-          { "houseNumber": "10" },
-          { "houseNumberSuffix": "A" },
-          { "postalCode": "1234AA" },
-          { "city": "Amsterdam" },
-          { "country": "Nederland" },
-          { "phoneNumber": "+310612345678" },
-          { "email": "email@email.com" },
-          { "bankAccountNumber": "NL20INGB0001234567" },
-          { "bankAccountHolder": "H. de Vries" },
-          { "communicationPreference": "Post" }
+          {
+            "bankStatement": "mimeTypeimage/jpegextensionjpegsize70488"
+          },
+          {
+            "extractPersonalRecordsDatabase": "mimeTypeimage/jpegextensionjpegsize70488"
+          },
+          {
+            "proofOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488"
+          },
+          {
+            "proofOfTypeOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488"
+          },
+          {
+            "formOfAddress": "Bestemevrouw"
+          },
+          {
+            "firstName": "loremipsug=="
+          },
+          {
+            "infix": "loremipsug=="
+          },
+          {
+            "lastName": "loremipsug=="
+          },
+          {
+            "street": "loremipsug=="
+          },
+          {
+            "houseNumber": ""
+          },
+          {
+            "houseNumberSuffix": "loremipsug=="
+          },
+          {
+            "postalCode": "loremipsug=="
+          },
+          {
+            "city": "loremipsug=="
+          },
+          {
+            "country": "loremipsug=="
+          },
+          {
+            "phoneNumber": "+31061111111"
+          },
+          {
+            "email": "emailcom"
+          },
+          {
+            "bankAccountNumber": "NL91ABNA041716430w=="
+          },
+          {
+            "bankAccountHolder": "loremipsug=="
+          },
+          {
+            "communicationPreference": "Post"
+          },
+          {
+            "permissionToProcessPersonalData": "true"
+          }
         ],
-        "uiSchema": {
+        "uischema": {
           "sections": [
             {
               "title": "meta",
-              "elements": [ "assessmentId", "validFrom", "validTo" ]
+              "elements": [
+                {
+                  "type": "string",
+                  "field": "assessmentId"
+                },
+                {
+                  "type": "string",
+                  "field": "validFrom"
+                },
+                {
+                  "type": "string",
+                  "field": "validTo"
+                }
+              ]
             },
             {
               "title": "personal",
-              "elements": [ "firstName", "infix", "lastName" ]
+              "elements": [
+                {
+                  "type": "string",
+                  "field": "firstName"
+                },
+                {
+                  "type": "string",
+                  "field": "infix"
+                },
+                {
+                  "type": "string",
+                  "field": "lastName"
+                }
+              ]
             },
             {
               "title": "address",
-              "elements": [ "street", "houseNumber", "houseNumberSuffix", "postalCode", "city", "country" ]
+              "elements": [
+                {
+                  "type": "string",
+                  "field": "street"
+                },
+                {
+                  "type": "string",
+                  "field": "houseNumber"
+                },
+                {
+                  "type": "string",
+                  "field": "houseNumberSuffix"
+                },
+                {
+                  "type": "string",
+                  "field": "postalCode"
+                },
+                {
+                  "type": "string",
+                  "field": "city"
+                },
+                {
+                  "type": "string",
+                  "field": "country"
+                }
+              ]
             },
             {
-              "title": "comtact",
-              "elements": [ "phoneNumber", "email", "communicationPreference" ]
+              "title": "contact",
+              "elements": [
+                {
+                  "type": "string",
+                  "field": "phoneNumber"
+                },
+                {
+                  "type": "string",
+                  "field": "email"
+                },
+                {
+                  "type": "string",
+                  "field": "communicationPreference"
+                }
+              ]
             },
             {
               "title": "bank",
-              "elements": [ "bankAccountNumber", "bankAccountHolder" ]
+              "elements": [
+                {
+                  "type": "string",
+                  "field": "bankAccountNumber"
+                },
+                {
+                  "type": "string",
+                  "field": "bankAccountHolder"
+                }
+              ]
             },
             {
               "title": "files",
-              "elements": [ "bankStatement", "extractPersonalRecordsDatabase", "proofOfMedicalTreatment", "proofOfTypeOfMedicalTreatment" ]
+              "elements": [
+                {
+                  "type": "file",
+                  "field": "bankStatement"
+                },
+                {
+                  "type": "file",
+                  "field": "extractPersonalRecordsDatabase"
+                },
+                {
+                  "type": "file",
+                  "field": "proofOfMedicalTreatment"
+                },
+                {
+                  "type": "file",
+                  "field": "proofOfTypeOfMedicalTreatment"
+                }
+              ]
             }
           ]
         }
@@ -76,6 +205,58 @@
           "uiType": "INPUT",
           "subjectRole": "assessor",
           "subjectOrganisation": null
+        },
+        "dataschema": {
+          "type": "object",
+          "properties": {
+            "checklist": {
+              "type": "array",
+              "title": "Gecontroleerd",
+              "items": {
+                "enum": [
+                  "Uittreksel van het BRP is opgestuurd",
+                  "De aanvrager is een ingezetene (> 4 maanden) in Nederland",
+                  "de aanvrager is ouder dan 18 jaar",
+                  "De verklaring van de arts over het behandeltraject is opgestuurd",
+                  "De verklaring van de arts over het behandeltraject is minder dan 2 maanden oud",
+                  "De verklaring van de arts over het behandeltraject is ondertekend en voorzien van een naamstempel",
+                  "Het opgegeven BIG-nummer komt overeen met het BIG-register",
+                  "De operatie heeft nog niet plaatsgevonden",
+                  "De aanvrager heeft genderdysforie",
+                  "De aanvrager heeft minimaal een jaar voor de aanvraag hormoonbehandeling ondergaan, of is hiermee vanwege medische redenen gestopt of kon deze om medische redenen niet ondergaan",
+                  "De verklaring van de arts met de vermelding van de type behandeling is opgestuurd",
+                  "De verklaring van de arts met de vermelding van de type behandeling is ondertekend en voorzien van een naamstempel",
+                  "De type behandeling voldoet aan de voorwaarden conform de subsidieregeling",
+                  "Het IBAN-nummer klopt met het opgegeven IBAN-nummer van de aanvraag",
+                  "De tenaamstelling op het bankafschrift of bankpas klopt"
+                ],
+                "type": "string"
+              }
+            },
+            "amount": {
+              "type": "string",
+              "title": "Bedrag",
+              "enum": [
+                "€ 3.830",
+                "€ 13.720"
+              ]
+            },
+            "review": {
+              "type": "string",
+              "title": "Beoordeling",
+              "enum": [
+                "Onbeoordeeld",
+                "Aanvulling nodig",
+                "Afgekeurd",
+                "Goedgekeurd"
+              ]
+            }
+          },
+          "required": [
+            "checklist",
+            "amount",
+            "review"
+          ]
         },
         "values": null,
         "uischema": {
@@ -94,7 +275,7 @@
                   "elements": [
                     {
                       "type": "CustomControl",
-                      "scope": "#\/properties\/checklist",
+                      "scope": "#/properties/checklist",
                       "options": {
                         "format": "checkbox-group"
                       }
@@ -112,7 +293,7 @@
                   "elements": [
                     {
                       "type": "CustomControl",
-                      "scope": "#\/properties\/amount",
+                      "scope": "#/properties/amount",
                       "options": {
                         "format": "radio"
                       }
@@ -130,7 +311,7 @@
                   "elements": [
                     {
                       "type": "CustomControl",
-                      "scope": "#\/properties\/review",
+                      "scope": "#/properties/review",
                       "options": {
                         "format": "radio"
                       }
@@ -140,52 +321,6 @@
               ]
             }
           ]
-        },
-        "dataschema": {
-          "properties": {
-            "amount": {
-              "type": "string",
-              "title": "Bedrag",
-              "enum": [
-                "€ 3.830",
-                "€ 13.720"
-              ]
-            },
-            "checklist": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "Uittreksel van het BRP is opgestuurd",
-                  "De aanvrager is een ingezetene (> 4 maanden) in Nederland",
-                  "de aanvrager is ouder dan 18 jaar",
-                  "De verklaring van de arts over het behandeltraject is opgestuurd",
-                  "De verklaring van de arts over het behandeltraject is minder dan 2 maanden oud",
-                  "De verklaring van de arts over het behandeltraject is ondertekend en voorzien van een naamstempel",
-                  "Het opgegeven BIG-nummer komt overeen met het BIG-register",
-                  "De operatie heeft nog niet plaatsgevonden",
-                  "De aanvrager heeft genderdysforie",
-                  "De aanvrager heeft minimaal een jaar voor de aanvraag hormoonbehandeling ondergaan, of is hiermee vanwege medische redenen gestopt of kon deze om medische redenen niet ondergaan",
-                  "De verklaring van de arts met de vermelding van de type behandeling is opgestuurd",
-                  "De verklaring van de arts met de vermelding van de type behandeling is ondertekend en voorzien van een naamstempel",
-                  "De type behandeling voldoet aan de voorwaarden conform de subsidieregeling",
-                  "Het IBAN-nummer klopt met het opgegeven IBAN-nummer van de aanvraag",
-                  "De tenaamstelling op het bankafschrift of bankpas klopt"
-                ]
-              },
-              "title": "Gecontroleerd"
-            },
-            "review": {
-              "type": "string",
-              "title": "Beoordeling",
-              "enum": [
-                "Onbeoordeeld",
-                "Aanvulling nodig",
-                "Afgekeurd",
-                "Goedgekeurd"
-              ]
-            }
-          }
         }
       }
     ]
