@@ -49,11 +49,15 @@ export function formatDetailsData(data: DetailsDataInput): RequestDetailsItem[] 
 
   return uischema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
     title: translate(`component.requestDetails.section.${title}`),
-    items: elements.map(element => {
-      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, element.field))
+    items: elements.map(({ field, type }) => {
+      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, field))
+      const text = value ? value[field] : '-'
+      const url = value ? value[field] : '-'
+      const hasUrl = type === 'url' || type === 'file'
+
       return {
-        term: translate(`component.requestDetails.term.${element.field}`),
-        details: { type: element.type, text: value ? value[element.field] : '' }
+        term: translate(`component.requestDetails.term.${field}`),
+        details: { type, text, ...(hasUrl && { url }) }
       }
     })
   }))

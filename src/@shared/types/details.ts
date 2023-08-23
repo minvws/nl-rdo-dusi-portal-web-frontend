@@ -10,7 +10,7 @@ export type DetailsDataInputSection = {
 }
 
 export type DescriptionListDetails = {
-  type: 'string' | 'date' | 'url'
+  type: 'string' | 'date' | 'url' | 'file'
   url?: string
   text: string
 }

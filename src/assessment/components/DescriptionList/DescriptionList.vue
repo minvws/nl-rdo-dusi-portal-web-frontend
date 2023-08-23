@@ -11,10 +11,12 @@
       <dd v-else-if="details.type === 'date'">
         {{ formatDate(details.text, locale) }}
       </dd>
-      <dd v-else-if="details.type === 'url'">
+      <dd v-else-if="details.type === 'url' || details.type === 'file'">
         <a
           :href="details.url"
           :title="details.text"
+          :download="details.type === 'file'"
+          rel="external"
         >
           {{ details.text }}
         </a>

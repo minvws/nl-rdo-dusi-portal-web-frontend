@@ -4,7 +4,7 @@
       <h1>{{ translate('pages.my-requests-overview.title') }}</h1>
       <p>{{ translate('pages.my-requests-overview.subtitle') }}</p>
     </div>
-    <div>
+    <div v-if="filters.length">
       <FilterTabs
         :items="filters"
         @change="onFilterChange"
