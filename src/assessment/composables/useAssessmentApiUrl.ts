@@ -15,7 +15,7 @@ export const useApiAssessmentDetailsUrl = (id: string) => {
 }
 
 export const useApiAssessmentFilterCountUrl = () => {
-  return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/applicationscount`
+  return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
 }
 
 export const useApiAssessmentPersonalRequestsUrl = () => {
