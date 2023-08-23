@@ -25,7 +25,6 @@
       :readonly="readonly"
       @change="onChange"
     />
-    <FormLoaderMessage v-bind="onSubmit" />
     <FormButtons
       :index="index"
       :forms="forms"
@@ -56,7 +55,6 @@ import { useFormScroll } from '@shared/composables/useFormScroll'
 
 import FormButtons from '@shared/components/FormButtons/FormButtons.vue'
 import FormDebugView from '@shared/components/FormDebugView/FormDebugView.vue'
-import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'
 import FormStepper from '@shared/components/FormStepper/FormStepper.vue'
 
 type Props = {

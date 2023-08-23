@@ -25,7 +25,7 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 type Props = {
   error?: string
-  isLoading?: boolean
+  isFetching?: boolean
   isSubmitting?: boolean
 }
 
@@ -33,7 +33,7 @@ const props = defineProps<Props>()
 
 const loadingMessage = computed(() => {
   return (
-    (props.isLoading && translate('form.message.loading')) ||
+    (props.isFetching && translate('form.message.loading')) ||
     (props.isSubmitting && translate('form.message.submitting'))
   )
 })

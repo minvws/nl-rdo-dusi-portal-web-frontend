@@ -1,8 +1,8 @@
 <template>
   <FormSection>
     <FormLoaderMessage
-      v-if="isLoading || error"
-      v-bind="{ isLoading, error }"
+      v-if="isFetching || error"
+      v-bind="{ isFetching, error }"
     />
     <FormView
       v-else-if="forms"
@@ -17,10 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
-
-import { useLoadForm } from '@shared/composables/useLoadForm'
-
+import { useFetchForm } from '@shared/composables/useFetchForm'
 import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'
 import FormSection from '@shared/components/FormSection/FormSection.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
@@ -28,18 +25,6 @@ import FormView from '@shared/components/FormView/FormView.vue'
 type Props = {
   id: string
 }
-
 const props = defineProps<Props>()
-
-const { title, forms, isLoading, error, loadFormById } = useLoadForm()
-
-const id = computed(() => props.id)
-
-watch(
-  id,
-  id => {
-    loadFormById(id)
-  },
-  { immediate: true }
-)
+const { title, forms, isFetching, error } = useFetchForm(props.id)
 </script>

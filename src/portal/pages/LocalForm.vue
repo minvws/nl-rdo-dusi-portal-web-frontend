@@ -2,7 +2,7 @@
   <FormSection>
     <FormLoaderMessage
       v-if="!forms"
-      v-bind="{ isLoading: true }"
+      v-bind="{ isFetching: true }"
     />
     <FormView
       v-if="forms"
