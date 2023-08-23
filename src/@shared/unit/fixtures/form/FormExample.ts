@@ -458,14 +458,14 @@ export default async () => {
   return [
     {
       uischema: firstSchema,
-      schema: {
+      dataschema: {
         properties,
         required: ['permissionToProcessPersonalData']
       }
     },
     {
       uischema: secondSchema,
-      schema: {
+      dataschema: {
         required: [
           'firstName',
           'lastName',
@@ -486,7 +486,7 @@ export default async () => {
     },
     {
       uischema: thirdSchema,
-      schema: {
+      dataschema: {
         required: [
           'bankStatement',
           'extractPersonalRecordsDatabase',
@@ -499,7 +499,7 @@ export default async () => {
     },
     {
       uischema: lastSchema,
-      schema: {
+      dataschema: {
         required: ['truth'],
         properties
       },

@@ -43,11 +43,11 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
  * @returns data
  */
 export function formatDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
-  if (!data?.uiSchema?.sections || !data?.values) return []
+  if (!data?.uischema?.sections || !data?.values) return []
 
-  const { uiSchema, values } = data
+  const { uischema, values } = data
 
-  return uiSchema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
+  return uischema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
     title: translate(`component.requestDetails.section.${title}`),
     items: elements.map(element => {
       const value = values.find(item => Object.prototype.hasOwnProperty.call(item, element.field))

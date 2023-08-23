@@ -35,7 +35,7 @@ export const useActiveForm = () => {
 
   const uischema = computed(() => form.value?.uischema)
 
-  const schema = computed(() => form.value?.schema)
+  const schema = computed(() => form.value?.dataschema)
 
   const data = computed(() => formsData.value?.[index.value] ?? {})
 

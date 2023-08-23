@@ -1,6 +1,6 @@
 export type DetailsDataInput = {
   values: Record<string, string>[]
-  uiSchema: Record<string, any>
+  uischema: Record<string, any>
   [key: string]: any
 }
 

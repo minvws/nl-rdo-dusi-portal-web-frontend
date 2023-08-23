@@ -7,7 +7,7 @@ import { isLabeled, isLayout } from '@jsonforms/core'
 import type { JsonSchema } from '@jsonforms/core'
 
 export const transformForm = (form: Form): Form[] => {
-  const baseSchema: JsonSchema = form.schema
+  const baseSchema: JsonSchema = form.dataschema
 
   if (form.uischema.type !== 'CustomPageNavigationControl') {
     // assume single page form
@@ -25,14 +25,14 @@ export const transformForm = (form: Form): Form[] => {
 
     const title: string | undefined = isLabeled(el) ? el.label : undefined
 
-    const schema: JsonSchema = {
+    const dataschema: JsonSchema = {
       type: 'object',
       properties: baseSchema.properties,
       required: el.options?.['required'] ?? baseSchema.required ?? []
     } as JsonSchema
 
     const uischema = el.elements[0]
-    return { title, schema, uischema }
+    return { title, dataschema, uischema }
   })
 
   return forms
@@ -53,8 +53,8 @@ export const useLoadForm = () => {
       const url = useApiFormsUrl(id)
       const response = await fetch(url)
       const json: FormResult = await response.json()
-      const { title, dataSchema: schema, uiSchema: uischema } = json
-      const form: Form = { title, schema, uischema }
+      const { title, dataschema, uischema } = json
+      const form: Form = { title, dataschema, uischema }
 
       forms.value = transformForm(form)
       titleRef.value = title
