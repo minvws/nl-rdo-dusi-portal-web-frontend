@@ -63,7 +63,7 @@
 import { useFetch } from '@vueuse/core'
 import { translate } from '@shared/i18n'
 import useSEO from '@shared/composables/useSeo'
-import { useApiSubsidyUrl } from '@portal/composables/usePortalApiUrl'
+import { useApiSubsidyUrl } from '@portal/composables/useApiUrl'
 
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'

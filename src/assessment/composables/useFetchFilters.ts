@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useFetch } from '@vueuse/core'
-import { useApiAssessmentFilterCountUrl } from '@/assessment/composables/useAssessmentApiUrl'
+import { useApiAssessmentFilterCountUrl } from '@/assessment/composables/useApiUrl'
 
 import { formatFiltersData } from '@shared/utils/format'
 

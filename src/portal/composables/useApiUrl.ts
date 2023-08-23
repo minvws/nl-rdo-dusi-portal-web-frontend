@@ -10,32 +10,8 @@ const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = '../../mock/portal'
 const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
-export const useApiFormsUrl = (id: string | number) => {
-  return `${baseUrl}/api/forms/${id}`
-}
-
 export const useApiActiveRequestsUrl = () => {
   return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/requests`
-}
-
-export const useApiDraftFormUrl = (id: string) => {
-  return `${baseUrl}/api/forms/${id}/applications`
-}
-
-export const useApiFileUrl = (id: string) => {
-  return `${baseUrl}/api/applications/${id}/files`
-}
-
-export const useApiFormsSubmitUrl = (id: string) => {
-  return `${baseUrl}/api/applications/${id}`
-}
-
-export const useApiLoginUrl = () => {
-  return `${baseUrl}/oidc/login`
-}
-
-export const useApiLogoutUrl = () => {
-  return `${baseUrl}/api/user/logout`
 }
 
 export const useApiMessagesUrl = () => {
@@ -44,10 +20,6 @@ export const useApiMessagesUrl = () => {
 
 export const useApiSubsidyUrl = () => {
   return `${baseUrl}/api/subsidies`
-}
-
-export const useApiUserStatusUrl = () => {
-  return `${baseUrl}/api/user/info`
 }
 
 export const useApiRequestDetail = (id: string) => {

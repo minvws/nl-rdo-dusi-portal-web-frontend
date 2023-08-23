@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
-import { useApiAssessmentRequestsUrl } from '@/assessment/composables/useAssessmentApiUrl'
+import { useApiAssessmentRequestsUrl } from '@/assessment/composables/useApiUrl'
 import { transformAssessmentsData } from '@shared/utils/transform'
 
 export const useFetchAllAssessments = () => {

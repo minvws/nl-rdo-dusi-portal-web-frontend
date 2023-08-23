@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { Form, FormResult } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
-import { useApiFormsUrl } from '@portal/composables/usePortalApiUrl'
+import { useApiFormsUrl } from '@shared/composables/useApiUrl'
 import { useFetch } from '@vueuse/core'
 import { transformForm } from '@shared/utils/form'
 

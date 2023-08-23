@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import { getControlId } from '@shared/utils/control'
 
 import { useFormStore } from '@shared/store/useFormStore'
-import { useApiFileUrl } from '@portal/composables/usePortalApiUrl'
+import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { log } from '@shared/utils/logger'
 
 // Define the store

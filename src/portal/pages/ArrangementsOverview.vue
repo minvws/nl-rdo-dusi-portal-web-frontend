@@ -52,7 +52,7 @@ import { translate } from '@shared/i18n'
 import { ARRANGEMENT_OVERVIEW, ARRANGEMENT_OVERVIEW_PAGE } from '@shared/router/names'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiSubsidyUrl } from '@portal/composables/usePortalApiUrl'
+import { useApiSubsidyUrl } from '@portal/composables/useApiUrl'
 import { usePagination } from '@shared/composables/usePagination'
 
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'

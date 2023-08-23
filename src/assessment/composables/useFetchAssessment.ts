@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useFetch } from '@vueuse/core'
-import { useApiAssessmentDetailsUrl } from '@/assessment/composables/useAssessmentApiUrl'
+import { useApiAssessmentDetailsUrl } from '@/assessment/composables/useApiUrl'
 
 export const useFetchAssessment = (id: string) => {
   const url = useApiAssessmentDetailsUrl(id)
