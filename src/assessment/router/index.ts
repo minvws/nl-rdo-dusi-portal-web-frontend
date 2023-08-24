@@ -30,12 +30,14 @@ const routes = [
       {
         path: ':id',
         name: MY_REQUESTS_DETAILS,
-        component: MyRequestsDetails
+        component: MyRequestsDetails,
+        props: true
       },
       {
         path: ':id/beoordeling',
         name: REVIEW_REQUEST,
-        component: ReviewRequest
+        component: ReviewRequest,
+        props: true
       }
     ]
   },

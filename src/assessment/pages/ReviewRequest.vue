@@ -3,38 +3,56 @@
     <div>
       <h1>{{ translate('pages.review-request.title') }}</h1>
     </div>
+    <div>
+      <AppAccordion>
+        <AppAccordionItem id="request">
+          <template #title>{{ translate('pages.review-request.request') }}</template>
+          <template #content>
+            <Suspense>
+              <template #default>
+                <AppLoader
+                  v-if="isFetchingDetails"
+                  centered
+                />
+                <div v-else-if="detailsError">
+                  <FormNotification
+                    display-as="error"
+                    :message="detailsError"
+                  />
+                </div>
+                <RequestDetails
+                  v-else-if="!isFetchingDetails && details.length"
+                  :items="details"
+                />
+              </template>
+              <template #fallback>
+                <AppLoader centered />
+              </template>
+            </Suspense>
+          </template>
+        </AppAccordionItem>
+      </AppAccordion>
+    </div>
     <Suspense>
       <template #default>
         <AppLoader
-          v-if="isFetching"
+          v-if="isFetchingAssessment"
           centered
         />
-        <div v-else-if="error">
+        <div v-else-if="assessmentError">
           <FormNotification
             display-as="error"
-            :message="error"
+            :message="assessmentError"
           />
         </div>
-        <template v-else-if="!isFetching && request">
-          <div>
-            <AppAccordion>
-              <AppAccordionItem id="request">
-                <template #title>{{ translate('pages.review-request.request') }}</template>
-                <template #content>
-                  <RequestDetails :items="items" />
-                </template>
-              </AppAccordionItem>
-            </AppAccordion>
-          </div>
-          <div v-if="reviewForm">
-            <FormView
-              id="review-request"
-              :forms="reviews"
-              :hide-debug="true"
-              @submit="onSubmit"
-            />
-          </div>
-        </template>
+        <div v-else-if="!isFetchingAssessment && reviews.length">
+          <FormView
+            id="review-request"
+            :forms="reviews"
+            :hide-debug="true"
+            @submit="onSubmit"
+          />
+        </div>
       </template>
       <template #fallback>
         <AppLoader centered />
@@ -44,12 +62,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
-
 import { translate } from '@shared/i18n'
 
 import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
+import { useFetchDetails } from '@assessment/composables/useFetchDetails'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
@@ -58,32 +74,25 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 import FormView from '@shared/components/FormView/FormView.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 
-import { formatDetailsData } from '@shared/utils/format'
-
 import type { FormData } from '@shared/types/form'
 
-const route = useRoute()
+type Props = {
+  id: string
+}
 
-const { id } = route.params
+const props = defineProps<Props>()
 
-const { data, error, isFetching } = useFetchAssessment(id as string)
+const {
+  data: reviews,
+  error: assessmentError,
+  isFetching: isFetchingAssessment
+} = useFetchAssessment(props.id as string)
 
-const request = computed(
-  () => data.value?.stages?.find((stage: any) => stage.metadata.title === 'Aanvraag')
-)
-
-const items = computed(() => formatDetailsData(request.value))
-
-const reviews = computed(
-  () => data.value?.stages?.filter((stage: any) => stage.metadata.title === 'Beoordeling')
-)
-
-const reviewForm = computed(
-  () =>
-    data.value?.stages?.filter(
-      (stage: any) => stage.metadata.title === 'Beoordeling' && stage.metadata.uiType === 'INPUT'
-    )
-)
+const {
+  data: details,
+  error: detailsError,
+  isFetching: isFetchingDetails
+} = useFetchDetails(props.id as string)
 
 function onSubmit(data: FormData) {
   console.log('@TODO: onSubmit', data)
