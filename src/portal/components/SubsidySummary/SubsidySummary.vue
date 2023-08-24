@@ -16,14 +16,14 @@
     <RouterLink
       v-if="readMore"
       :to="readMore"
-      >{{ translate('component.subsidySummary.link', { title }) }}</RouterLink
-    >
+      >{{ translate('component.subsidySummary.link', { title }) }}
+    </RouterLink>
     <RouterLink
       :to="link"
       rel="noopener noreferrer external"
       class="button ghost"
-      >{{ translate('component.subsidySummary.button') }}</RouterLink
-    >
+      >{{ translate('component.subsidySummary.button') }}
+    </RouterLink>
   </div>
 </template>
 
@@ -62,7 +62,7 @@ const link = computed(() => {
     name: EXTERNAL_DETAIL,
     params: {
       id: props.publishedForm.id,
-      url: props.subsidy_page_url
+      url: btoa(props.subsidy_page_url)
     }
   }
 })

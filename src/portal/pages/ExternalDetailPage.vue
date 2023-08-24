@@ -2,18 +2,18 @@
   <section>
     <div>
       <p>Deze detail pagina wordt extern gehost. Dit is enkel een placeholder</p>
-      <pre>{{ $props }}</pre>
+      <pre>{{ { id, link } }}</pre>
       <a
-        v-if="link"
-        v-bind="link"
+        v-if="externalLink"
+        v-bind="externalLink"
         >Bekijk de regeling
       </a>
       <AppAuthenticationButton v-if="!authStore.isLoggedIn" />
       <RouterLink
         v-else
-        :to="route"
-        >Ga verder</RouterLink
-      >
+        :to="assessmentDetailRoute"
+        >Ga verder
+      </RouterLink>
     </div>
   </section>
 </template>
@@ -32,17 +32,20 @@ const props = defineProps<{ id: string; url?: string }>()
 
 const authStore = useAuthStore()
 
-const route = computed(() => {
+const assessmentDetailRoute = computed(() => {
   return {
     name: ARRANGEMENT_DETAILS,
     params: props
   }
 })
 
-const link = computed(() => {
-  if (!props.url) return undefined
+const link = computed(() => (props.url ? atob(props.url) : undefined))
+
+const externalLink = computed(() => {
+  const href = link.value
+  if (!href) return undefined
   return {
-    href: props.url,
+    href,
     rel: [Rel.EXTERNAL, Rel.NO_OPENER, Rel.NO_REFERRER].join(' ')
   }
 })
