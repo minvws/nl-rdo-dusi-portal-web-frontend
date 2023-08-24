@@ -18,7 +18,8 @@ function removeCookie(key: string) {
 }
 
 export function setRouteCookie(route: RouteLocationNormalized) {
-  cookie.set(ROUTES_COOKIE_NAME, JSON.stringify(route), { expires: 1, secure: true })
+  const { name, params } = route
+  cookie.set(ROUTES_COOKIE_NAME, JSON.stringify({ name, params }), { expires: 1, secure: true })
 }
 
 export function getRouteFromCookie() {
