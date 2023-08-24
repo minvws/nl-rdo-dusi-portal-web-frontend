@@ -10,7 +10,7 @@
       v-collapsible
     >
       <div class="collapsing-element">
-        <ul>
+        <ul v-if="hasLinks">
           <li
             v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
@@ -57,7 +57,8 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref, type Ref } from 'vue'
+import { type Ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 import { translate } from '@shared/i18n'
 
@@ -77,7 +78,7 @@ import type { Link } from '@shared/types/link'
 const { breadcrumbs } = useBreadcrumbs()
 
 const leftLinks: Ref<Link[]> = ref([])
-const rightLinks: Ref<Link[]| Ref<Link[]>> = ref([])
+const rightLinks: Ref<Link[]> = ref([])
 const hasAutentication: Ref<boolean> = ref(false)
 
 onBeforeMount(async () => {
@@ -87,6 +88,8 @@ onBeforeMount(async () => {
   rightLinks.value = links.rightLinks
   hasAutentication.value = links.hasAutentication
 })
+
+const hasLinks = computed(() => leftLinks.value.length || rightLinks.value.length)
 </script>
 
 <style lang="scss" scoped>

@@ -17,25 +17,22 @@ export const useAppHeaderLinks = () => {
     }
   ]
 
-  const rightLinks: Ref<Link[]> = computed(() => {
-    if (!isLoggedIn.value) return []
-    return [
-      {
-        name: ARRANGEMENT_OVERVIEW,
-        label: translate('pages.arrangements-overview.title')
-      },
-      {
-        name: MY_FILE_OVERVIEW,
-        label: translate('pages.my-file-overview.title'),
-        badge: 2 // @TODO: get from API/store
-      },
-      {
-        name: MY_MESSAGES,
-        label: translate('pages.my-messages-overview.title'),
-        badge: 4 // @TODO: get from API/store
-      }
-    ]
-  })
+  const rightLinks: Link[] = isLoggedIn.value ? [
+    {
+      name: ARRANGEMENT_OVERVIEW,
+      label: translate('pages.arrangements-overview.title')
+    },
+    {
+      name: MY_FILE_OVERVIEW,
+      label: translate('pages.my-file-overview.title'),
+      badge: 2 // @TODO: get from API/store
+    },
+    {
+      name: MY_MESSAGES,
+      label: translate('pages.my-messages-overview.title'),
+      badge: 4 // @TODO: get from API/store
+    }
+  ] : []
 
   return {
     leftLinks,
