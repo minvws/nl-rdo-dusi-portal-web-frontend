@@ -38,7 +38,7 @@ jobs:
         shell: bash
 
       - name: Create tar
-        run: tar -C dist -czf ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html
+        run: tar -C dist -czf ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html ./version.json
 
       - name: Upload release tar
         uses: actions/upload-artifact@v3
@@ -57,7 +57,7 @@ jobs:
         shell: bash
 
       - name: Create tar
-        run: tar -C dist -czf nl-rdo-dusi-assessment-web-frontend_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html
+        run: tar -C dist -czf nl-rdo-dusi-assessment-web-frontend_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html ./version.json
 
       - name: Upload release tar
         uses: actions/upload-artifact@v3
