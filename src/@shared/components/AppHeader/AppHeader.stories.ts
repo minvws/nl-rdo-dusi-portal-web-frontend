@@ -16,7 +16,9 @@ export const Default: Story = {
     components: { AppHeader },
     template: `
       <body>
-        <AppHeader />
+        <Suspense>
+          <AppHeader />
+        </Suspense>
       </body>
     `
   })

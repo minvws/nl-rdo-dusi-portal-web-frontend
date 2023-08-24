@@ -10,7 +10,7 @@
       v-collapsible
     >
       <div class="collapsing-element">
-        <ul v-if="hasLinks">
+        <ul>
           <li
             v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
@@ -57,9 +57,6 @@
 </template>
 
 <script setup lang="ts">
-import { type Ref } from 'vue'
-import { computed, onBeforeMount, ref } from 'vue'
-
 import { translate } from '@shared/i18n'
 
 import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
@@ -73,23 +70,8 @@ import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue
 
 import vCollapsible from '@shared/directives/collapsible'
 
-import type { Link } from '@shared/types/link'
-
 const { breadcrumbs } = useBreadcrumbs()
-
-const leftLinks: Ref<Link[]> = ref([])
-const rightLinks: Ref<Link[]> = ref([])
-const hasAutentication: Ref<boolean> = ref(false)
-
-onBeforeMount(async () => {
-  const links = await useAppHeaderLinks()
-
-  leftLinks.value = links.leftLinks
-  rightLinks.value = links.rightLinks
-  hasAutentication.value = links.hasAutentication
-})
-
-const hasLinks = computed(() => leftLinks.value.length || rightLinks.value.length)
+const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()
 </script>
 
 <style lang="scss" scoped>
