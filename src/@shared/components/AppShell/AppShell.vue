@@ -5,7 +5,7 @@
   >
     {{ translate('app.skip-content') }}
   </a>
-  <Suspense><AppHeader /></Suspense>
+  <AppHeader />
   <AppContent>
     <RouterView />
   </AppContent>

@@ -57,8 +57,13 @@
 </template>
 
 <script setup lang="ts">
-import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
+import { onBeforeMount, ref, type Ref } from 'vue'
+
 import { translate } from '@shared/i18n'
+
+import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
+import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
+
 import AppAuthenticationButton from '@shared/components/AppAuthenticationButton/AppAuthenticationButton.vue'
 import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLogoLink.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
@@ -66,10 +71,22 @@ import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
 import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
-import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
+
+import type { Link } from '@shared/types/link'
 
 const { breadcrumbs } = useBreadcrumbs()
-const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()
+
+const leftLinks: Ref<Link[]> = ref([])
+const rightLinks: Ref<Link[]| Ref<Link[]>> = ref([])
+const hasAutentication: Ref<boolean> = ref(false)
+
+onBeforeMount(async () => {
+  const links = await useAppHeaderLinks()
+
+  leftLinks.value = links.leftLinks
+  rightLinks.value = links.rightLinks
+  hasAutentication.value = links.hasAutentication
+})
 </script>
 
 <style lang="scss" scoped>
