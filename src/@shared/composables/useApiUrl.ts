@@ -1,5 +1,7 @@
 import type { FormOptions } from '@shared/types/form-options'
 import { Project } from '@shared/types/project'
+import { useMockUrl, useMockData } from '@/@shared/composables/useMock'
+
 declare global {
   interface Window {
     config?: {
@@ -7,8 +9,6 @@ declare global {
     }
   }
 }
-
-const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
 function getBaseUrl() {
   if (window?.config?.api) {
@@ -24,6 +24,8 @@ function getBaseUrl() {
 
 const baseUrl = getBaseUrl()
 
+const mockUrl = `${useMockUrl()}/shared`
+
 export const useApiDraftFormUrl = (id: string) => {
   return `${baseUrl}/api/forms/${id}/applications`
 }
@@ -34,7 +36,7 @@ export const useApiFileUrl = (id: string) => {
 
 export const useApiFilterOptionsUrl = (type: FormOptions) => {
   return useMockData
-    ? `../../mock/shared/filter-options/${type}.json`
+    ? `${mockUrl}/filter-options/${type}.json`
     : `${baseUrl}/api/ui/applications/${type}-filter`
 }
 
