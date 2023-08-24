@@ -1,3 +1,5 @@
+import { useMockUrl, useMockData } from '@/@shared/composables/useMock'
+
 declare global {
   interface Window {
     config?: {
@@ -7,8 +9,7 @@ declare global {
 }
 
 const baseUrl = window?.config?.api || import.meta.env.VITE_ASSESSMENT_API_BASE_URL
-const mockUrl = '../../mock/assessment'
-const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
+const mockUrl = `${useMockUrl()}/portal`
 
 export const useApiAssessmentDetailsUrl = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/applications/${id}`
