@@ -22,7 +22,7 @@
   />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { FormOptions } from '@shared/types/form-options'
 
 import { translate } from '@shared/i18n'

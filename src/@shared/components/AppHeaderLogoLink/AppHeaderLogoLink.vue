@@ -18,7 +18,7 @@
   </RouterLink>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { translate } from '@shared/i18n'
 
 const logo = {
