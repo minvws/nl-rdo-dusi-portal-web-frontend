@@ -1,27 +1,36 @@
 import { computed, ref, type Ref } from 'vue'
 import { useFetch } from '@vueuse/core'
 
-export const useQueryFetch = (location: string, config = { refetch: true }) => {
+type Config = {
+  refetch?: boolean
+  immediate?: boolean
+}
+
+export const useQueryFetch = (
+  { url: location, params }: { url: string; params?: Ref<Record<string, string> | undefined> },
+  config?: Config
+) => {
   const query: Ref<Record<string, string | string[]>> = ref({})
 
   const url = computed(() => {
     const url = new URL(location)
-    const params = new URLSearchParams()
+    const requestParams = new URLSearchParams()
+    const payload = { ...query?.value, ...params?.value }
 
-    if (query?.value) {
-      Object.entries(query.value).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach(item => params.append(key, item))
-        } else params.set(key, value)
-      })
-    }
+    Object.entries(payload).forEach(([key, value]) => {
+      if (Array.isArray(value)) {
+        value.forEach(item => requestParams.append(key, item))
+      } else if (value !== undefined) {
+        requestParams.set(key, value)
+      }
+    })
 
-    url.search = params.toString()
-
+    url.search = requestParams.toString()
     return url.toString()
   })
 
-  const { data, error, isFetching } = useFetch(url, config).json()
+  const fetchConfig = { ...{ refetch: true, immediate: true }, ...config }
+  const { data, error, isFetching } = useFetch(url, fetchConfig).json()
 
   return {
     query,

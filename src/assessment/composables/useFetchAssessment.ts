@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { useFetch } from '@vueuse/core'
+import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
 import { useApiAssessmentDetailsUrl } from '@/assessment/composables/useApiUrl'
 
@@ -9,7 +9,7 @@ import { Stage } from '@shared/types/stages'
 
 export const useFetchAssessment = (id: string) => {
   const url = useApiAssessmentDetailsUrl(id)
-  const { data: json, ...rest } = useFetch(url).json()
+  const { data: json, ...fetch } = useQueryFetch({ url })
 
   const data = computed(() => (json.value ? getAssessment(json.value.data) : []))
 
@@ -17,5 +17,5 @@ export const useFetchAssessment = (id: string) => {
     return data.stages.filter((stage: AssessmentStage) => stage.metadata.title === Stage.ASSESSMENT)
   }
 
-  return { data, ...rest }
+  return { data, ...fetch }
 }

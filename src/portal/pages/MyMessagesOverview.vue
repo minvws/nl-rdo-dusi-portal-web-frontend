@@ -88,7 +88,7 @@ useSEO({
 })
 
 const url = useApiMessagesUrl()
-const { data, error, query, isFetching } = useQueryFetch(url)
+const { data, error, query, isFetching } = useQueryFetch({ url })
 
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),

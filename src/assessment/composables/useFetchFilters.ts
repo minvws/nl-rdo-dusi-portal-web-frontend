@@ -7,9 +7,10 @@ import { formatFiltersData } from '@shared/utils/format'
 
 export const useFetchFilters = () => {
   const url = useApiAssessmentFilterCountUrl()
-  const { data: json, ...rest } = useFetch(url).json()
-
+  const { data: json, ...fetch } = useFetch(url).json()
   const data = computed(() => (json.value ? formatFiltersData(json.value) : []))
-
-  return { data, ...rest }
+  return {
+    data,
+    ...fetch
+  }
 }

@@ -7,7 +7,7 @@
       >
         <AppButton
           class="button"
-          :class="{ selected: selectedValue && selectedValue.id === item.id }"
+          :class="{ selected: selected === item.id }"
           @click="onClick(item)"
         >
           {{ item.text }} ({{ item.count }})
@@ -18,8 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue'
-
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 import type { FilterItem } from '@shared/types/filters'
@@ -28,17 +26,12 @@ const emit = defineEmits(['change'])
 
 type Props = {
   items: FilterItem[]
+  selected?: string
 }
 
-const props = defineProps<Props>()
-
-const selectedValue = ref<FilterItem | null>(null)
-
-onBeforeMount(() => (selectedValue.value = props.items[0]))
+defineProps<Props>()
 
 function onClick(item: FilterItem | null) {
-  selectedValue.value = item
-
   emit('change', item)
 }
 </script>
