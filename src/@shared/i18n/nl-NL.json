@@ -5,6 +5,16 @@
     "prefix": "DUS-I",
     "skip-content": "Ga direct naar inhoud"
   },
+  "authentication": {
+    "cancelled": {
+      "label": "Inloggen geannuleerd",
+      "message": "U heeft het inloggen geannuleerd, u bent niet ingelogd."
+    },
+    "failed": {
+      "label": "Inloggen mislukt",
+      "message": "Het inloggen is mislukt, u bent niet ingelogd."
+    }
+  },
   "component": {
     "breadcrumbBar": {
       "ariaLabel": "Kruimelpad"
