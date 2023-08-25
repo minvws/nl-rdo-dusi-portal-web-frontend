@@ -117,6 +117,7 @@ export default defineComponent({
 
     &-content {
       flex: 1;
+
       &.with-label {
         flex: 0.75;
       }
