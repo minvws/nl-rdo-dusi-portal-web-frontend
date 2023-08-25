@@ -3,7 +3,7 @@ import type { Form, FormResult } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useApiFormsUrl } from '@shared/composables/useApiUrl'
 import { useFetch } from '@vueuse/core'
-import { transformForm } from '@shared/utils/form'
+import { transformForm, getFormTitle } from '@shared/utils/form'
 
 export const useFetchForm = (id: string) => {
   const title: Ref<string> = ref('')
@@ -21,7 +21,7 @@ export const useFetchForm = (id: string) => {
     }
     const { title: formTitle, dataschema, uischema } = data
     forms.value = transformForm({ title: formTitle, dataschema, uischema })
-    title.value = formTitle
+    title.value = getFormTitle(data)
   })
 
   return {
