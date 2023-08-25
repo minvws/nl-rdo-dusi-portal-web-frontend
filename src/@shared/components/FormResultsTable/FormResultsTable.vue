@@ -33,11 +33,11 @@ import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
+import { storeToRefs } from 'pinia'
 
-const tpl = function (template: string, props: Record<string, string>) {
+const tpl = function (template: string, props: any) {
   let result: string = template
   const regex = /\{([a-zA-Z]+)\}/g
-
   Array.from(template.matchAll(regex)).forEach(
     m => (result = result.replace('{' + m[1] + '}', (props[m[1]] ?? '') + ''))
   )
@@ -77,10 +77,10 @@ export default defineComponent({
     tpl
   },
   setup(props) {
-    const { formData } = useFormStore()
+    const { formData } = storeToRefs(useFormStore())
     return {
       ...useVanillaControl(useJsonFormsControl(props)),
-      fromData: formData as Record<string, string>,
+      fromData: formData,
       translate
     }
   }
