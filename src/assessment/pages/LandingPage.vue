@@ -7,10 +7,11 @@
     <div v-if="filters.length">
       <FilterTabs
         :items="filters"
+        :selected="params?.id"
         @change="onFilterChange"
       />
     </div>
-    <Suspense>
+    <Suspense v-if="params">
       <template #default>
         <AppLoader
           v-if="isFetching"
@@ -76,8 +77,8 @@ import type { FilterItem } from '@shared/types/filters'
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
 
-const { data, error, query, isFetching } = useFetchAllAssessments()
 const { data: filters } = useFetchFilters()
+const { data, error, query, isFetching, params } = useFetchAllAssessments(filters)
 
 const headings = [
   { id: 'file', text: translate('pages.home.headings.file'), sortable: true },
@@ -90,7 +91,7 @@ const headings = [
 
 function onFilterChange(item: FilterItem) {
   const { id } = item
-  console.log('@TODO: on filter change', id)
+  params.value = { id }
 }
 </script>
 
