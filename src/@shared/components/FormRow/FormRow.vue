@@ -14,7 +14,7 @@
     />
     <div
       class="form-row-content"
-      :class="contentClass"
+      :class="[contentClass, { 'with-label': !!label }]"
     >
       <FormRequiredLabel
         v-if="!hideRequiredLabel"
@@ -116,7 +116,10 @@ export default defineComponent({
     }
 
     &-content {
-      flex: 0.75;
+      flex: 1;
+      &.with-label {
+        flex: 0.75;
+      }
     }
   }
 
