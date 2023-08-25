@@ -24,6 +24,7 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
+import type { FormData } from '@shared/types/form'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
@@ -35,7 +36,7 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import { storeToRefs } from 'pinia'
 
-const tpl = function (template: string, props: any) {
+const tpl = function (template: string, props: FormData) {
   let result: string = template
   const regex = /\{([a-zA-Z]+)\}/g
   Array.from(template.matchAll(regex)).forEach(
