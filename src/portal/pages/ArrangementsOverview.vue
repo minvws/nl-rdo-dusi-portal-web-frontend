@@ -4,42 +4,23 @@
       <h1>{{ translate('pages.arrangements-overview.title') }}</h1>
       <p class="emphasized">{{ translate('pages.arrangements-overview.intro') }}</p>
     </div>
-    <Suspense>
-      <template #default>
-        <AppLoader
-          v-if="isFetching"
-          centered
-        />
-        <div v-else-if="error">
-          <FormNotification
-            display-as="error"
-            :message="error"
-          />
-        </div>
-        <div v-else-if="!isFetching && data && data.length">
-          <SubsidySummary
-            v-for="(item, index) in slicedItems"
-            :key="index"
-            v-bind="item"
-          />
-          <AppPagination
-            :items-total="total"
-            :page-size="pageSize"
-            :current-page="currentPage"
-            @page-change="onPageChange"
-            with-buttons
-          />
-        </div>
-        <div v-else>
-          <p>
-            {{ translate('pages.arrangements-overview.noSubsidies') }}
-          </p>
-        </div>
-      </template>
+    <AppSuspense v-bind="{ data, error, isFetching }">
+      <SubsidySummary
+        v-for="(item, index) in slicedItems"
+        :key="index"
+        v-bind="item"
+      />
+      <AppPagination
+        :items-total="total"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        @page-change="onPageChange"
+        with-buttons
+      />
       <template #fallback>
-        <AppLoader centered />
+        <p>{{ translate('pages.arrangements-overview.noSubsidies') }}</p>
       </template>
-    </Suspense>
+    </AppSuspense>
   </section>
 </template>
 
@@ -49,16 +30,16 @@ import { toRefs } from 'vue'
 import { useFetch } from '@vueuse/core'
 
 import { translate } from '@shared/i18n'
-import { ARRANGEMENT_OVERVIEW, ARRANGEMENT_OVERVIEW_PAGE } from '@shared/router/names'
 
 import useSEO from '@shared/composables/useSeo'
 import { useApiSubsidyUrl } from '@portal/composables/useApiUrl'
 import { usePagination } from '@shared/composables/usePagination'
 
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import SubsidySummary from '@portal/components/SubsidySummary/SubsidySummary.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+
+import { ARRANGEMENT_OVERVIEW, ARRANGEMENT_OVERVIEW_PAGE } from '@shared/router/names'
 
 type Props = {
   page?: string
@@ -71,9 +52,7 @@ useSEO({
 })
 
 const url = useApiSubsidyUrl()
-
 const { data, error, isFetching } = useFetch(url).json()
-
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,

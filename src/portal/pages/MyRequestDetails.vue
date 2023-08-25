@@ -1,88 +1,40 @@
 <template>
   <section>
-    <Suspense>
-      <template #default>
-        <AppLoader
-          v-if="isFetchingDetails"
-          centered
-        />
-        <div v-else-if="detailsError">
-          <FormNotification
-            display-as="error"
-            :message="detailsError"
-          />
-        </div>
-        <div v-else-if="!isFetchingDetails && details">
-          <h1>{{ details.title }}</h1>
-          <p class="emphasized">{{ details.intro }}</p>
-          <p>{{ details.body }}</p>
-        </div>
-      </template>
-      <template #fallback>
-        <AppLoader centered />
-      </template>
-    </Suspense>
+    <div>
+      <h1>{{ details.title }}</h1>
+      <p class="emphasized">{{ details.intro }}</p>
+      <p>{{ details.body }}</p>
+    </div>
+
     <div class="two-thirds-one-third">
       <div>
         <h3>{{ translate('pages.my-request-details.status') }}</h3>
-        <Suspense>
-          <template #default>
-            <AppLoader
-              v-if="isFetchingDetails"
-              centered
-            />
-            <div v-else-if="detailsError">
-              <FormNotification
-                display-as="error"
-                :message="detailsError"
-              />
-            </div>
-            <div v-else-if="!isFetchingDetails && details">
-              <p>{{ details.statusIntro }}</p>
-              <RequestSteps
-                v-if="details.steps"
-                :items="details.steps"
-                @cancel="onCancel"
-                @download="onDownload"
-                @edit="onEdit"
-              />
-            </div>
-          </template>
-          <template #fallback>
-            <AppLoader centered />
-          </template>
-        </Suspense>
+        <AppSuspense v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }">
+          <p>{{ details.statusIntro }}</p>
+          <RequestSteps
+            v-if="details.steps"
+            :items="details.steps"
+            @cancel="onCancel"
+            @download="onDownload"
+            @edit="onEdit"
+          />
+        </AppSuspense>
       </div>
 
       <div>
         <h3>{{ translate('pages.my-request-details.messages') }}</h3>
-        <Suspense>
-          <template #default>
-            <AppLoader
-              v-if="isFetchingMessages"
-              centered
-            />
-            <div v-else-if="messagesError">
-              <FormNotification
-                display-as="error"
-                :message="messagesError"
-              />
-            </div>
-            <div v-else-if="!isFetchingMessages && messages && messages.length">
-              <MessageSummary
-                v-for="(item, index) in messages"
-                :key="index"
-                v-bind="item"
-              />
-            </div>
-            <p v-else>
-              {{ translate('pages.my-request-details.noMessages') }}
-            </p>
-          </template>
+        <AppSuspense
+          v-bind="{ data: messages, error: messagesError, isFetching: isFetchingMessages }"
+        >
+          <MessageSummary
+            v-for="(item, index) in messages"
+            :key="index"
+            v-bind="item"
+          />
           <template #fallback>
-            <AppLoader centered />
+            <p>{{ translate('pages.my-request-details.noMessages') }}</p>
           </template>
-        </Suspense>
+        </AppSuspense>
       </div>
     </div>
   </section>
@@ -90,35 +42,36 @@
 
 <script setup lang="ts">
 import { useFetch } from '@vueuse/core'
-import { useRoute } from 'vue-router'
 import { translate } from '@shared/i18n'
 
 import { useApiMessagesUrl, useApiRequestDetail } from '@portal/composables/useApiUrl'
 import useSEO from '@shared/composables/useSeo'
 
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import MessageSummary from '@portal/components/MessageSummary/MessageSummary.vue'
 import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { log } from '@shared/utils/logger'
 
-const route = useRoute()
+type Props = {
+  id: string
+}
+
+const props = defineProps<Props>()
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-details.title')}`
 })
 
-const { id } = route.params as { id: string }
-
 const messagesUrl = useApiMessagesUrl()
-const detailsUrl = useApiRequestDetail(id)
+const detailsUrl = useApiRequestDetail(props.id)
 
 const {
   data: messages,
   error: messagesError,
   isFetching: isFetchingMessages
 } = useFetch(messagesUrl).json()
+
 const {
   data: details,
   error: detailsError,
@@ -149,10 +102,6 @@ function onCancel(event: Event) {
 }
 
 .two-thirds-one-third > * {
-  gap: 3rem;
-}
-
-.accordion {
   gap: 3rem;
 }
 </style>

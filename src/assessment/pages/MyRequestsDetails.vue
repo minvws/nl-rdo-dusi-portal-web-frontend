@@ -45,32 +45,15 @@
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Suspense>
-            <template #default>
-              <AppLoader
-                v-if="isFetching"
-                centered
-              />
-              <div v-else-if="error">
-                <FormNotification
-                  display-as="error"
-                  :message="error"
-                />
-              </div>
-              <template v-else-if="!isFetching && data.length">
-                <RequestDetails :items="data" />
-                <RouterLink
-                  :to="startReviewRoute"
-                  class="button"
-                >
-                  {{ translate('component.reviewRequestOverview.startReview') }}
-                </RouterLink>
-              </template>
-            </template>
-            <template #fallback>
-              <AppLoader centered />
-            </template>
-          </Suspense>
+          <AppSuspense v-bind="{ data, error, isFetching }">
+            <RequestDetails :items="data" />
+          </AppSuspense>
+          <RouterLink
+            :to="startReviewRoute"
+            class="button"
+          >
+            {{ translate('component.reviewRequestOverview.startReview') }}
+          </RouterLink>
         </TabPanel>
         <TabPanel>
           <RequestHistory />
@@ -91,8 +74,7 @@ import { translate } from '@shared/i18n'
 import { useFetchDetails } from '@assessment/composables/useFetchDetails'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
 import RequestHistory from '@assessment/components/RequestHistory/RequestHistory.vue'
 import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'

@@ -4,79 +4,59 @@
       <h1>{{ translate('pages.my-requests-overview.title') }}</h1>
       <p>{{ translate('pages.my-requests-overview.subtitle') }}</p>
     </div>
-    <div v-if="filters.length">
+    <AppSuspense v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
       <FilterTabs
         :items="filters"
         @change="onFilterChange"
       />
+    </AppSuspense>
+    <div>
+      <FilterOptions
+        type="requests"
+        v-model="query"
+      >
+        <p>
+          <span>{{ numberOfCases }}</span>
+          {{ translate('pages.my-requests-overview.cases', {}, numberOfCases) }}
+        </p>
+        <AppButton
+          :data-show-filters-label="translate('pages.my-requests-overview.showFilters')"
+          aria-expanded="false"
+        >
+          {{ translate('pages.my-requests-overview.showFilters') }}
+        </AppButton>
+      </FilterOptions>
     </div>
-    <Suspense>
-      <template #default>
-        <AppLoader
-          v-if="isFetching"
-          centered
-        />
-        <div v-else-if="error">
-          <FormNotification
-            display-as="error"
-            :message="error"
-          />
-        </div>
-        <div v-else>
-          <FilterOptions
-            type="requests"
-            v-model="query"
-          >
-            <p>
-              <span>{{ data?.length ?? 0 }}</span>
-              {{ translate('pages.my-requests-overview.cases', {}, data?.length ?? 0) }}
-            </p>
-            <AppButton
-              :data-show-filters-label="translate('pages.my-requests-overview.showFilters')"
-              aria-expanded="false"
-            >
-              {{ translate('pages.my-requests-overview.showFilters') }}
-            </AppButton>
-          </FilterOptions>
-          <AppTable
-            v-if="data?.length"
-            :data="data"
-            :columns="headings"
-            :items-per-page="10"
-          />
-          <div v-else>
-            <p>
-              {{ translate('pages.my-requests-overview.noRequests') }}
-            </p>
-          </div>
-        </div>
-      </template>
+    <AppSuspense
+      v-bind="{ data: assessments, error: assessmentsError, isFetching: isFetchingAssessments }"
+    >
+      <AppTable
+        :data="assessments"
+        :columns="headings"
+        :items-per-page="10"
+      />
       <template #fallback>
-        <AppLoader centered />
+        <p>{{ translate('pages.my-requests-overview.noRequests') }}</p>
       </template>
-    </Suspense>
+    </AppSuspense>
   </section>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { translate } from '@shared/i18n'
-import useSEO from '@shared/composables/useSeo'
 
+import useSEO from '@shared/composables/useSeo'
 import { useFetchMyAssessments } from '@assessment/composables/useFetchMyAssessments'
 import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import type { FilterItem } from '@shared/types/filters'
-
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}` })
-
-const { data, error, query, isFetching } = useFetchMyAssessments()
 
 const headings = [
   { id: 'file', text: translate('pages.my-requests-overview.headings.file'), sortable: true },
@@ -95,7 +75,18 @@ const headings = [
   { id: 'action', text: translate('pages.my-requests-overview.headings.action'), sortable: false }
 ]
 
-const { data: filters } = useFetchFilters()
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}` })
+
+const {
+  data: assessments,
+  error: assessmentsError,
+  isFetching: isFetchingAssessments,
+  query
+} = useFetchMyAssessments()
+
+const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
+
+const numberOfCases = computed(() => assessments.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

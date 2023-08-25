@@ -6,65 +6,32 @@
         {{ translate('pages.my-file-overview.intro') }}
       </p>
     </div>
-    <div>
-      <h2>{{ translate('pages.my-file-overview.section1Title') }}</h2>
-      <Suspense>
-        <template #default>
-          <AppLoader
-            v-if="isFetchingRequests"
-            centered
-          />
-          <div v-else-if="requestsError">
-            <FormNotification
-              display-as="error"
-              :message="requestsError"
-            />
-          </div>
-          <AppTable
-            v-else-if="!isFetchingRequests && requests && requests.length"
-            :caption="translate('pages.my-file-overview.table.caption')"
-            :columns="headings"
-            :data="requests"
-            :items-per-page="10"
-          />
-          <p v-else>
-            {{ translate('pages.my-file-overview.noRequests') }}
-          </p>
-        </template>
-        <template #fallback>
-          <AppLoader centered />
-        </template>
-      </Suspense>
-    </div>
-    <div>
-      <h2>{{ translate('pages.my-file-overview.section2Title') }}</h2>
-      <Suspense>
-        <template #default>
-          <AppLoader
-            v-if="isFetchingMessages"
-            centered
-          />
-          <div v-else-if="messagesError">
-            <FormNotification
-              display-as="error"
-              :message="messagesError"
-            />
-          </div>
-          <template v-else-if="!isFetchingMessages && messages && messages.length">
-            <MessageList :items="slicedMessages" />
-            <RouterLink :to="{ name: MY_MESSAGES }">
-              {{ translate('pages.my-file-overview.allMessages') }}
-            </RouterLink>
-          </template>
-          <p v-else>
-            {{ translate('pages.my-file-overview.noMessages') }}
-          </p>
-        </template>
-        <template #fallback>
-          <AppLoader centered />
-        </template>
-      </Suspense>
-    </div>
+    <AppSuspense v-bind="{ data: requests, error: requestsError, isFetching: isFetchingRequests }">
+      <template #title>
+        <h2>{{ translate('pages.my-file-overview.section1Title') }}</h2>
+      </template>
+      <AppTable
+        :caption="translate('pages.my-file-overview.table.caption')"
+        :columns="headings"
+        :data="requests"
+        :items-per-page="10"
+      />
+      <template #fallback>
+        <p>{{ translate('pages.my-file-overview.noRequests') }}</p>
+      </template>
+    </AppSuspense>
+    <AppSuspense v-bind="{ data, error: messagesError, isFetching: isFetchingMessages }">
+      <template #title>
+        <h2>{{ translate('pages.my-file-overview.section2Title') }}</h2>
+      </template>
+      <MessageList :items="slicedMessages" />
+      <RouterLink :to="{ name: MY_MESSAGES }">
+        {{ translate('pages.my-file-overview.allMessages') }}
+      </RouterLink>
+      <template #fallback>
+        <p>{{ translate('pages.my-file-overview.noMessages') }}</p>
+      </template>
+    </AppSuspense>
   </section>
 </template>
 
@@ -79,10 +46,9 @@ import { MY_MESSAGES } from '@shared/router/names'
 import useSEO from '@shared/composables/useSeo'
 import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@portal/composables/useApiUrl'
 
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { useRequestsStore } from '@shared/store/useRequestsStore'
 
@@ -123,13 +89,9 @@ const {
   isFetching: isFetchingRequests
 } = storeToRefs(requestsStore)
 
-const {
-  data: messages,
-  error: messagesError,
-  isFetching: isFetchingMessages
-} = useFetch(messagesUrl).json()
+const { data, error: messagesError, isFetching: isFetchingMessages } = useFetch(messagesUrl).json()
 
-const slicedMessages = computed(() => messages.value.slice(0, 5))
+const slicedMessages = computed(() => data.value.slice(0, 5))
 </script>
 
 <style lang="scss" scoped>
