@@ -1,6 +1,7 @@
 import type { Form } from '@shared/types/form'
-import { isLabeled, isLayout } from '@jsonforms/core'
 import type { JsonSchema } from '@jsonforms/core'
+import { isLabeled, isLayout } from '@jsonforms/core'
+import { getValueFormKey } from '@shared/utils/object'
 
 export const transformForm = (form: Form): Form[] => {
   const baseSchema: JsonSchema = form.dataschema
@@ -31,4 +32,8 @@ export const transformForm = (form: Form): Form[] => {
   })
 
   return forms
+}
+
+export const getFormTitle = ({ metadata }: { metadata: Record<string, any> }) => {
+  return getValueFormKey(metadata, 'title')
 }
