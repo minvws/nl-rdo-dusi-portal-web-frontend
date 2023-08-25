@@ -14,7 +14,7 @@
     />
     <div
       class="form-row-content"
-      :class="[contentClass, { 'with-label': !!label }]"
+      :class="[contentClass, { 'with-label': label }]"
     >
       <FormRequiredLabel
         v-if="!hideRequiredLabel"
