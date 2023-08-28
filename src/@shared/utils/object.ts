@@ -18,3 +18,18 @@ export const toNestedObject = (obj: Record<string, any>): Record<string, any> =>
     return cul
   }, {})
 }
+
+export const getValueFormKey = (obj: any, key: string): any => {
+  if (key in obj) return obj[key]
+
+  for (const prop in obj) {
+    if (typeof obj[prop] === 'object') {
+      const result = getValueFormKey(obj[prop], key)
+      if (result !== undefined) {
+        return result
+      }
+    }
+  }
+
+  return undefined
+}

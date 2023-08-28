@@ -7,6 +7,7 @@
     <AppSuspense v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
       <FilterTabs
         :items="filters"
+        :selected="params?.id"
         @change="onFilterChange"
       />
     </AppSuspense>
@@ -69,20 +70,20 @@ const headings = [
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
 
+const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
 const {
   data: assessments,
   error: assessmentsError,
   isFetching: isFetchingAssessments,
-  query
-} = useFetchAllAssessments()
-
-const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
+  query,
+  params
+} = useFetchAllAssessments(filters)
 
 const numberOfCases = computed(() => assessments.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item
-  console.log('@TODO: on filter change', id)
+  params.value = { id }
 }
 </script>
 
