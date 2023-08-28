@@ -120,7 +120,8 @@ const routes = [
       {
         path: 'aanvragen/:id',
         name: MY_REQUEST_DETAILS,
-        component: MyRequestDetails
+        component: MyRequestDetails,
+        props: true
       }
     ]
   },

@@ -7,75 +7,54 @@
         :html="translate('pages.my-messages-overview.intro')"
       />
     </div>
-    <Suspense>
-      <template #default>
-        <AppLoader
-          v-if="isFetching"
-          centered
-        />
-        <div v-else-if="error">
-          <FormNotification
-            display-as="error"
-            :message="error"
-          />
-        </div>
-        <div v-else>
-          <FilterOptions
-            type="messages"
-            v-model="query"
-          >
-            <p>
-              <span>{{ total }}</span>
-              {{ translate('component.messagesOverview.messages', { total }, total) }}
-            </p>
-            <AppButton aria-expanded="false">
-              {{ translate('component.messagesOverview.filter') }}
-            </AppButton>
-          </FilterOptions>
-          <div v-if="!data?.length">
-            <p>
-              {{ translate('pages.my-messages-overview.noMessages') }}
-            </p>
-          </div>
-          <template v-else>
-            <MessageList :items="slicedItems" />
-            <AppPagination
-              :items-total="total"
-              :page-size="pageSize"
-              :current-page="currentPage"
-              @page-change="onPageChange"
-              with-buttons
-            />
-          </template>
-        </div>
-      </template>
+    <div>
+      <FilterOptions
+        type="messages"
+        v-model="query"
+      >
+        <p>
+          <span>{{ total }}</span>
+          {{ translate('component.messagesOverview.messages', { total }, total) }}
+        </p>
+        <AppButton aria-expanded="false">
+          {{ translate('component.messagesOverview.filter') }}
+        </AppButton>
+      </FilterOptions>
+    </div>
+    <AppSuspense v-bind="{ data, error, isFetching }">
+      <MessageList :items="slicedItems" />
+      <AppPagination
+        :items-total="total"
+        :page-size="pageSize"
+        :current-page="currentPage"
+        @page-change="onPageChange"
+        with-buttons
+      />
       <template #fallback>
-        <AppLoader centered />
+        <p>{{ translate('pages.my-messages-overview.noMessages') }}</p>
       </template>
-    </Suspense>
+    </AppSuspense>
   </section>
 </template>
 
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
 import { toRefs } from 'vue'
-import { useQueryFetch } from '@shared/composables/useQueryFetch'
-
-import { useApiMessagesUrl } from '@portal/composables/useApiUrl'
-import { usePagination } from '@shared/composables/usePagination'
-import useSEO from '@shared/composables/useSeo'
 
 import { translate } from '@shared/i18n'
 
-import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@shared/router/names'
+import { useFetchMessages } from '@portal/composables/useFetchMessages'
+import { usePagination } from '@shared/composables/usePagination'
+import useSEO from '@shared/composables/useSeo'
 
-import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
-import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
-import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
-import MessageList from '@shared/components/MessageList/MessageList.vue'
-import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
-import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
+import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
+import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import MessageList from '@shared/components/MessageList/MessageList.vue'
+
+import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@shared/router/names'
 
 type Props = {
   page?: string
@@ -87,9 +66,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-const url = useApiMessagesUrl()
-const { data, error, query, isFetching } = useQueryFetch({ url })
-
+const { data, error, query, isFetching } = useFetchMessages()
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,

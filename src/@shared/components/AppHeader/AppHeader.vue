@@ -57,8 +57,11 @@
 </template>
 
 <script setup lang="ts">
-import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
 import { translate } from '@shared/i18n'
+
+import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
+import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
+
 import AppAuthenticationButton from '@shared/components/AppAuthenticationButton/AppAuthenticationButton.vue'
 import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLogoLink.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
@@ -66,7 +69,6 @@ import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
 import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
-import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 
 const { breadcrumbs } = useBreadcrumbs()
 const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()

@@ -13,7 +13,7 @@
   </a>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useAuthStore } from '@shared/store/useAuthStore'
 import { useApiLoginUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
