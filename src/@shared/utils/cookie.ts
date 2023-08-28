@@ -27,9 +27,11 @@ export function getRouteFromCookie() {
 }
 
 export function setSessionCookie() {
-  const expires = new Date(new Date().getTime() + 15 * 60 * 1000) // 15 mins
+  const duration = 15 * 60 * 1000 // 15 mins
+  const expires = new Date(new Date().getTime() + duration)
   const value = JSON.stringify({ timestamp: `${expires}` })
   cookie.set(SESSION_COOKIE_NAME, value, { expires })
+  return duration
 }
 
 export function getSessionCookie() {

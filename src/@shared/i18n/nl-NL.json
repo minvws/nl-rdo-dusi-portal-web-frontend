@@ -13,6 +13,18 @@
     "failed": {
       "label": "Inloggen mislukt",
       "message": "Het inloggen is mislukt, u bent niet ingelogd."
+    },
+    "modal": {
+      "expiring": {
+        "title": "Let op! De maximale inlogtijd is bijna bereikt.",
+        "message": "Druk op de spatiebalk of klik op de knop om uw sessie te verlengen.",
+        "buttonLabel": "Ingelogd blijven"
+      },
+      "expired": {
+        "title": "Helaas moet u opnieuw inloggen",
+        "message": "Er was langer dan 15 minuten geen activiteit in het scherm. Log opnieuw in om verder te gaan met uw aanvraag.",
+        "buttonLabel": "Inloggen"
+      }
     }
   },
   "component": {
@@ -43,6 +55,14 @@
       "logout": "Uitloggen",
       "nav": {
         "aria-label": "Hoofdnavigatie"
+      }
+    },
+    "modal": {
+      "aria-label": {
+        "error": "fout",
+        "warning": "waarschuwing",
+        "explanation": "uitleg",
+        "success": "succesvol"
       }
     },
     "pagination": {

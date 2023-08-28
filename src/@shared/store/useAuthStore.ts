@@ -2,6 +2,8 @@ import { ref, watch, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/useApiUrl'
+import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
 import { HOME } from '@shared/router/names'
@@ -10,15 +12,22 @@ import type { LogInResponse, LogOutResponse } from '@shared/types//api-response'
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
+  const { setSessionLifetime } = useSessionLifetime()
 
   const isLoggedIn: Ref<boolean> = ref(false)
   const init = ref(false)
 
-  async function logIn() {
+  async function logIn(extendSession = false) {
     try {
       const url = useApiUserStatusUrl()
       const response = await fetch(url, { method: 'GET', credentials: 'include' })
-      setLoginStatus(await response.json())
+      const loggedIn = await response.json()
+      const isChanged = loggedIn !== isLoggedIn.value
+      setLoginStatus(loggedIn)
+
+      if (!isChanged && extendSession) {
+        onLoginChange(isLoggedIn.value)
+      }
     } catch (error) {
       log('log-in error', error)
     }
@@ -46,13 +55,17 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
-  // update session-cookie when isLoggedIn changes
-  watch(isLoggedIn, isLoggedIn => {
+  function onLoginChange(isLoggedIn: boolean) {
+    // update session-cookie when isLoggedIn changes
     if (isLoggedIn) {
-      setSessionCookie()
+      const duration = setSessionCookie()
+      setSessionLifetime(duration)
       return
     }
+
     removeSessionCookie()
+    setSessionLifetime(undefined)
+
     if (route.meta.public) {
       return
     }
@@ -61,6 +74,10 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
     // user is logged-out, return to home when route is not public
     router.push({ name: HOME })
+  }
+
+  watch(isLoggedIn, isLoggedIn => {
+    onLoginChange(isLoggedIn)
   })
 
   return {
