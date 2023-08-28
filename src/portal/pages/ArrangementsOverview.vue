@@ -27,12 +27,11 @@
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
 import { toRefs } from 'vue'
-import { useFetch } from '@vueuse/core'
 
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiSubsidyUrl } from '@portal/composables/useApiUrl'
+import { useFetchSubsidies } from '@portal/composables/useFetchSubsidies'
 import { usePagination } from '@shared/composables/usePagination'
 
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
@@ -50,9 +49,7 @@ const props = defineProps<Props>()
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`
 })
-
-const url = useApiSubsidyUrl()
-const { data, error, isFetching } = useFetch(url).json()
+const { data, error, isFetching } = useFetchSubsidies()
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,

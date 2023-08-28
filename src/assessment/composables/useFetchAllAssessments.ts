@@ -9,6 +9,7 @@ export const useFetchAllAssessments = (filters: Ref<FilterItem[]>) => {
   const url = useApiAssessmentRequestsUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
   const { data: json, ...fetch } = useQueryFetch({ url, params }, { immediate: false })
+
   const data = computed(() => (json.value ? transformAssessmentsData(json.value) : []))
 
   watch(filters, filters => {

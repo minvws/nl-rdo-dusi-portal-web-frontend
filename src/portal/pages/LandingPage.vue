@@ -44,12 +44,11 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useFetch } from '@vueuse/core'
 
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiSubsidyUrl } from '@portal/composables/useApiUrl'
+import { useFetchSubsidies } from '../composables/useFetchSubsidies'
 
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
@@ -66,8 +65,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
 })
 
-const url = useApiSubsidyUrl()
-const { data, error, isFetching } = useFetch(url).json()
+const { data, error, isFetching } = useFetchSubsidies()
 
 const subsidies = computed(() =>
   data.value ? filterByValidTo<SubsidySummaryProps>(data.value) : []

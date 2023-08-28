@@ -41,10 +41,10 @@
 </template>
 
 <script setup lang="ts">
-import { useFetch } from '@vueuse/core'
 import { translate } from '@shared/i18n'
 
-import { useApiMessagesUrl, useApiRequestDetail } from '@portal/composables/useApiUrl'
+import { useFetchMessages } from '@portal/composables/useFetchMessages'
+import { useFetchRequestDetails } from '@portal/composables/useFetchRequestDetails'
 import useSEO from '@shared/composables/useSeo'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
@@ -63,20 +63,12 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-details.title')}`
 })
 
-const messagesUrl = useApiMessagesUrl()
-const detailsUrl = useApiRequestDetail(props.id)
-
-const {
-  data: messages,
-  error: messagesError,
-  isFetching: isFetchingMessages
-} = useFetch(messagesUrl).json()
-
+const { data: messages, error: messagesError, isFetching: isFetchingMessages } = useFetchMessages()
 const {
   data: details,
   error: detailsError,
   isFetching: isFetchingDetails
-} = useFetch(detailsUrl).json()
+} = useFetchRequestDetails(props.id)
 
 function onDownload(event: Event) {
   log('download', event)

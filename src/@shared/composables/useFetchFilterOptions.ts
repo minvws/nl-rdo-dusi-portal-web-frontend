@@ -8,7 +8,7 @@ import { useApiFilterOptionsUrl } from '@shared/composables/useApiUrl'
 
 export const useFetchFilterOptions = (type: FormOptions) => {
   const url = useApiFilterOptionsUrl(type)
-  const { data, error, ...rest } = useFetch(url).json()
+  const { data, error, ...fetch } = useFetch(url).json()
   const forms: Ref<Form[] | undefined> = ref(undefined)
 
   watch(
@@ -22,6 +22,6 @@ export const useFetchFilterOptions = (type: FormOptions) => {
     data,
     error,
     forms,
-    ...rest
+    ...fetch
   }
 }

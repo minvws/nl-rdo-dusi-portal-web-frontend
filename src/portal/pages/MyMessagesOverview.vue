@@ -43,8 +43,7 @@ import { toRefs } from 'vue'
 
 import { translate } from '@shared/i18n'
 
-import { useQueryFetch } from '@shared/composables/useQueryFetch'
-import { useApiMessagesUrl } from '@portal/composables/useApiUrl'
+import { useFetchMessages } from '@portal/composables/useFetchMessages'
 import { usePagination } from '@shared/composables/usePagination'
 import useSEO from '@shared/composables/useSeo'
 
@@ -67,8 +66,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-const url = useApiMessagesUrl()
-const { data, error, query, isFetching } = useQueryFetch({ url })
+const { data, error, query, isFetching } = useFetchMessages()
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,

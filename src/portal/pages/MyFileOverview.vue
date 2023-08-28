@@ -20,7 +20,7 @@
         <p>{{ translate('pages.my-file-overview.noRequests') }}</p>
       </template>
     </AppSuspense>
-    <AppSuspense v-bind="{ data, error: messagesError, isFetching: isFetchingMessages }">
+    <AppSuspense v-bind="{ data: messages, error: messagesError, isFetching: isFetchingMessages }">
       <template #title>
         <h2>{{ translate('pages.my-file-overview.section2Title') }}</h2>
       </template>
@@ -37,61 +37,48 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { storeToRefs } from 'pinia'
-import { useFetch } from '@vueuse/core'
 
 import { translate } from '@shared/i18n'
 import { MY_MESSAGES } from '@shared/router/names'
 
 import useSEO from '@shared/composables/useSeo'
-import { useApiMessagesUrl, useApiActiveRequestsUrl } from '@portal/composables/useApiUrl'
+import { useFetchMessages } from '@portal/composables/useFetchMessages'
+import { useFetchActiveRequests } from '@portal/composables/useFetchActiveRequests'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
-
-import { useRequestsStore } from '@shared/store/useRequestsStore'
 
 const actions = computed(() => {
   // @TODO: calculate the total amount of actions needed
   return 1
 })
 
-const headings = computed(() => {
-  return [
+useSEO({
+  title: `${translate('app.prefix')} | ${translate('pages.my-file-overview.title')}`
+})
+
+const {
+  data: requests,
+  error: requestsError,
+  isFetching: isFetchingRequests
+} = useFetchActiveRequests()
+const { data: messages, error: messagesError, isFetching: isFetchingMessages } = useFetchMessages()
+
+const headings = computed(() =>
+  [
     { id: 'arrangement', sortable: false },
     { id: 'created', sortable: false },
     { id: 'deadline', sortable: false },
     { id: 'status', sortable: false },
     { id: 'action', sortable: false }
-  ].map(item => {
-    const { id } = item
-    return {
-      ...item,
-      text: translate(`pages.my-file-overview.table.${id}`, { actions: actions.value })
-    }
-  })
-})
+  ].map(item => ({
+    ...item,
+    text: translate(`pages.my-file-overview.table.${item.id}`, { actions: actions.value })
+  }))
+)
 
-useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-file-overview.title')}`
-})
-
-const activeRequestsUrl = useApiActiveRequestsUrl()
-const requestsStore = useRequestsStore()
-const messagesUrl = useApiMessagesUrl()
-
-requestsStore.fetchAllRequests(activeRequestsUrl)
-
-const {
-  requests,
-  error: requestsError,
-  isFetching: isFetchingRequests
-} = storeToRefs(requestsStore)
-
-const { data, error: messagesError, isFetching: isFetchingMessages } = useFetch(messagesUrl).json()
-
-const slicedMessages = computed(() => data.value.slice(0, 5))
+const slicedMessages = computed(() => messages.value.slice(0, 5))
 </script>
 
 <style lang="scss" scoped>

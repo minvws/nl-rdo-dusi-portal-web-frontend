@@ -11,7 +11,7 @@ import { Stage } from '@shared/types/stages'
 
 export const useFetchDetails = (id: string) => {
   const url = useApiAssessmentDetailsUrl(id)
-  const { data: json, ...rest } = useFetch(url).json()
+  const { data: json, ...fetch } = useFetch(url).json()
 
   const data = computed(() => (json.value ? getRequestDetails(json.value.data) : []))
 
@@ -21,5 +21,5 @@ export const useFetchDetails = (id: string) => {
     return formatDetailsData(request as DetailsDataInput)
   }
 
-  return { data, ...rest }
+  return { data, ...fetch }
 }
