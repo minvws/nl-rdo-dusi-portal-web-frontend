@@ -48,7 +48,7 @@
     "@storybook/blocks": "^7.2.3",
     "@storybook/testing-library": "^0.2.0",
     "@storybook/vue3": "^7.3.2",
-    "@storybook/vue3-vite": "^7.2.3",
+    "@storybook/vue3-vite": "^7.3.2",
     "@tsconfig/node18": "^18.2.0",
     "@types/jsdom": "^21.1.1",
     "@types/lodash.merge": "^4.6.7",
