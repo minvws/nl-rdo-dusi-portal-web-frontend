@@ -49,6 +49,7 @@ const props = defineProps<Props>()
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.arrangements-overview.title')}`
 })
+
 const { data, error, isFetching } = useFetchSubsidies()
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
