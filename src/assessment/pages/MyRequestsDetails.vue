@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="status">
-      <h1>{{ translate('component.reviewRequestOverview.title') }}</h1>
+      <h1>{{ translate('pages.my-requests-details.title') }}</h1>
       <RequestStatus type="new" />
     </div>
     <TabGroup
@@ -17,7 +17,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('component.reviewRequestOverview.overview') }}
+            {{ translate('pages.my-requests-details.overview') }}
           </AppButton>
         </Tab>
         <Tab
@@ -28,7 +28,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('component.reviewRequestOverview.history') }}
+            {{ translate('pages.my-requests-details.history') }}
           </AppButton>
         </Tab>
         <Tab
@@ -39,7 +39,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('component.reviewRequestOverview.reviewer') }}
+            {{ translate('pages.my-requests-details.reviewer') }}
           </AppButton>
         </Tab>
       </TabList>
@@ -52,7 +52,7 @@
             :to="startReviewRoute"
             class="button"
           >
-            {{ translate('component.reviewRequestOverview.startReview') }}
+            {{ translate('pages.my-requests-details.startReview') }}
           </RouterLink>
         </TabPanel>
         <TabPanel>
@@ -72,6 +72,7 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchDetails } from '@assessment/composables/useFetchDetails'
+import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
@@ -85,6 +86,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-details.title')}` })
 
 const { data, error, isFetching } = useFetchDetails(props.id as string)
 

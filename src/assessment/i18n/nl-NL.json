@@ -54,13 +54,6 @@
       "rejected": "Afgekeurd",
       "new": "Nieuw",
       "inProgress": "In behandeling"
-    },
-    "reviewRequestOverview": {
-      "title": "Beoordeling",
-      "overview": "Overzicht",
-      "history": "Geschiedenis",
-      "reviewer": "Beoordelaar",
-      "startReview": "Beoordeling starten"
     }
   },
   "pages": {
@@ -85,7 +78,11 @@
       "forgot-password": "Wachtwoord vergeten"
     },
     "my-requests-details": {
-      "title": "Zaak"
+      "title": "Beoordelingsverzoek",
+      "overview": "Overzicht",
+      "history": "Geschiedenis",
+      "reviewer": "Beoordelaar",
+      "startReview": "Beoordeling starten"
     },
     "my-requests-overview": {
       "cases": "Zaak|Zaken",
@@ -103,7 +100,7 @@
       }
     },
     "review-request": {
-      "title": "Beoordeling",
+      "title": "Eerste beoordeling|Tweede beoordeling|Beoordeling",
       "request": "Aanvraag"
     }
   }

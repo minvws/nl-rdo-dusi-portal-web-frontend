@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.review-request.title') }}</h1>
+      <h1>{{ translate('pages.review-request.title', {}, reviewNumber) }}</h1>
     </div>
     <AppSuspense v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }">
       <AppAccordion>
@@ -27,10 +27,12 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
 import { useFetchDetails } from '@assessment/composables/useFetchDetails'
+import useSEO from '@shared/composables/useSeo'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
@@ -46,6 +48,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-request.title', {}, 3)}` })
+
 const {
   data: assessment,
   error: assessmentError,
@@ -57,6 +61,8 @@ const {
   error: detailsError,
   isFetching: isFetchingDetails
 } = useFetchDetails(props.id as string)
+
+const reviewNumber = computed(() => 1)
 
 function onSubmit(data: FormData) {
   console.log('@TODO: onSubmit', data)

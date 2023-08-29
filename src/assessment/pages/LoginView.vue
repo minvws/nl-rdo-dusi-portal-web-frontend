@@ -21,8 +21,13 @@
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
-import FormView from '@shared/components/FormView/FormView.vue'
+import useSEO from '@shared/composables/useSeo'
+
 import { useAuthStore } from '@assessment/store/useAuthStore'
+
+import FormView from '@shared/components/FormView/FormView.vue'
+
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.login.title')}` })
 
 const authStore = useAuthStore()
 
