@@ -1,7 +1,7 @@
+import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@shared/store/useAuthStore'
+import { useAuthStore } from '@portal/store/useAuthStore'
 
-import LoginCallback from '@shared/pages/LoginCallback.vue'
 import NotFound from '@shared/pages/NotFound.vue'
 
 import ArrangementsView from '@portal/pages/ArrangementsView.vue'
@@ -11,6 +11,7 @@ import ExternalPage from '@portal/pages/ExternalPage.vue'
 import FormSent from '@portal/pages/FormSent.vue'
 import LandingPage from '@portal/pages/LandingPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
+import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
 import MyFileView from '@portal/pages/MyFileView.vue'
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
@@ -22,11 +23,11 @@ import {
   ARRANGEMENT_FORM_REMOTE,
   ARRANGEMENT_OVERVIEW_PAGE,
   ARRANGEMENT_OVERVIEW,
-  EXTERNAL,
   EXTERNAL_DETAIL,
+  EXTERNAL,
   FORM_SENT,
   HOME,
-  LOGIN_CALLBACK,
+  LOGIN_CALLBACK_VIEW,
   MY_FILE_OVERVIEW,
   MY_MESSAGES_PAGE,
   MY_MESSAGES,
@@ -36,7 +37,6 @@ import {
 
 import { setRouteCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 const routes = [
   {
@@ -67,8 +67,8 @@ const routes = [
   },
   {
     path: '/login-callback',
-    name: LOGIN_CALLBACK,
-    component: LoginCallback,
+    name: LOGIN_CALLBACK_VIEW,
+    component: LoginCallbackView,
     meta: {
       public: true
     }
@@ -167,7 +167,7 @@ const beforeEach = async (
 
 // Set cookie with current route after each route change.
 const afterEach = (to: RouteLocationNormalized) => {
-  if (to.name !== LOGIN_CALLBACK) {
+  if (to.name !== LOGIN_CALLBACK_VIEW) {
     setRouteCookie(to)
   }
 }

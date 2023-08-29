@@ -79,6 +79,11 @@
         "reviewer": "Beoordelaar"
       }
     },
+    "login": {
+      "title": "Inloggen",
+      "submit": "Log in",
+      "forgot-password": "Wachtwoord vergeten"
+    },
     "my-requests-details": {
       "title": "Zaak"
     },

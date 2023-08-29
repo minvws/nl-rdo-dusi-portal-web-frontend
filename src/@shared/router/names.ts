@@ -1,6 +1,5 @@
 // shared
 export const HOME = 'home'
-export const LOGIN_CALLBACK = 'login-callback'
 export const NOT_FOUND = 'not-found'
 
 // portal
@@ -12,12 +11,15 @@ export const ARRANGEMENT_OVERVIEW_PAGE = 'arrangements-overview-page'
 export const EXTERNAL = 'external'
 export const EXTERNAL_DETAIL = 'external-detail'
 export const FORM_SENT = 'form-sent'
+export const LOGIN_CALLBACK_VIEW = 'login-callback'
 export const MY_FILE_OVERVIEW = 'my-file-overview'
 export const MY_MESSAGES = 'my-messages-overview'
 export const MY_MESSAGES_PAGE = 'my-messages-overview-page'
 export const MY_REQUEST_DETAILS = 'my-request-details'
 
 // assessment
+export const LOGIN_VIEW = 'login-view'
 export const MY_REQUESTS_DETAILS = 'my-requests-details'
 export const MY_REQUESTS_OVERVIEW = 'my-requests-overview'
 export const REVIEW_REQUEST = 'review-request'
+export const LOGIN = 'login'

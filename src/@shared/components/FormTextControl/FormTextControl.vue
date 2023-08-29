@@ -27,5 +27,15 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const input = computed(() => ({ ...getInputAttrs(props.control), ...props }))
+const input = computed(() => {
+  const { id, value, placeholder, disabled, autofocus } = props
+  return {
+    id,
+    value,
+    placeholder,
+    disabled,
+    autofocus,
+    ...getInputAttrs(props)
+  }
+})
 </script>

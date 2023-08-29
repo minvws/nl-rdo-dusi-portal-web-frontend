@@ -1,9 +1,15 @@
-import type { Link } from '@shared/types/link'
-import { useAuthStore } from '@shared/store/useAuthStore'
+import type { Ref } from 'vue'
+import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
+
 import { translate } from '@shared/i18n'
+
+import { useAuthStore } from '@portal/store/useAuthStore'
+
+import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
+
 import { ARRANGEMENT_OVERVIEW, HOME, MY_FILE_OVERVIEW, MY_MESSAGES } from '@shared/router/names'
-import { computed, type Ref } from 'vue'
+import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
@@ -40,6 +46,6 @@ export const useAppHeaderLinks = () => {
   return {
     leftLinks,
     rightLinks,
-    hasAutentication: true
+    AuthComponent: AuthenticationButton
   }
 }

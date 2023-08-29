@@ -1,4 +1,5 @@
 import { type Control } from '@shared/types/field'
+import { InputType } from '@/@shared/types/input'
 
 export function getControlId(id: string) {
   const parts = id.split('/')
@@ -16,16 +17,37 @@ export function getLinkedControlId(id: string) {
   parsed.shift()
   return parsed
 }
+function getInputType(type: InputType) {
+  if (Object.values(InputType).includes(type)) {
+    return type
+  }
+  return InputType.TEXT
+}
 
-export function getInputAttrs(control: Control) {
+function getInputAutoCompleteAttrs(control: Control) {
+  switch (control.schema.format) {
+    case 'email':
+      return {
+        autocomplete: 'username'
+      }
+    case 'password':
+      return {
+        autocomplete: 'current-password'
+      }
+  }
+}
+
+export function getInputAttrs(props: { type: InputType; control: Control }) {
+  const { type, control } = props
   const {
     schema: { minimum: min, maximum: max, minLength: minlength, maxLength: maxlength }
   } = control
-
   return {
     min,
     max,
     minlength,
-    maxlength
+    maxlength,
+    ...getInputAutoCompleteAttrs(control),
+    type: getInputType(type)
   }
 }

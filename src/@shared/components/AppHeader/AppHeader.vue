@@ -41,9 +41,9 @@
             </RouterLink>
           </li>
         </ul>
-        <ul v-if="hasAutentication">
+        <ul v-if="AuthComponent">
           <li>
-            <AppAuthenticationButton />
+            <component :is="AuthComponent" />
           </li>
         </ul>
       </div>
@@ -62,7 +62,6 @@ import { translate } from '@shared/i18n'
 import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
 
-import AppAuthenticationButton from '@shared/components/AppAuthenticationButton/AppAuthenticationButton.vue'
 import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLogoLink.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
@@ -71,7 +70,7 @@ import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue
 import vCollapsible from '@shared/directives/collapsible'
 
 const { breadcrumbs } = useBreadcrumbs()
-const { leftLinks, rightLinks, hasAutentication } = await useAppHeaderLinks()
+const { leftLinks, rightLinks, AuthComponent } = await useAppHeaderLinks()
 </script>
 
 <style lang="scss" scoped>

@@ -55,7 +55,7 @@ const props = defineProps<Props>()
 
 const input = computed(() => {
   return {
-    ...getInputAttrs(props.control),
+    ...getInputAttrs(props),
     ...props,
     step: InputType.INTEGER ? 1 : undefined,
     type: InputType.NUMBER

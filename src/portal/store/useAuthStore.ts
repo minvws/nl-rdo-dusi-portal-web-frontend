@@ -7,7 +7,7 @@ import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
 import { HOME } from '@shared/router/names'
-import type { LogInResponse, LogOutResponse } from '@shared/types//api-response'
+import type { LogInResponse, LogOutResponse } from '@shared/types/api-response'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()

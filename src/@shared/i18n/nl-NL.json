@@ -57,6 +57,11 @@
         "aria-label": "Hoofdnavigatie"
       }
     },
+    "login": {
+      "title": "Inloggen",
+      "button": "Log in",
+      "forgot-password": "Wachtwoord vergeten"
+    },
     "modal": {
       "aria-label": {
         "error": "fout",

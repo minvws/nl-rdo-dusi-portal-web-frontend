@@ -5,7 +5,7 @@ import { ref, watch, type Ref, computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'
-import { useAuthStore } from '@shared/store/useAuthStore'
+import { useAuthStore } from '@portal/store/useAuthStore'
 import { useApiLoginUrl } from '@shared/composables/useApiUrl'
 
 import { ModalType } from '@shared/types/modal'

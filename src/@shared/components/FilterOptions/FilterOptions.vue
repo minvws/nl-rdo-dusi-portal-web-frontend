@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import type { FormOptions } from '@shared/types/form-options'
+import type { FormData } from '@shared/types/form'
 
 import { translate } from '@shared/i18n'
 import { useFetchFilterOptions } from '@shared/composables/useFetchFilterOptions'

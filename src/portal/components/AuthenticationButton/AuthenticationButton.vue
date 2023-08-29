@@ -1,7 +1,7 @@
 <template>
   <AppButton
-    v-if="authStore.isLoggedIn"
-    @click="authStore.logOut"
+    v-if="isLoggedIn"
+    @click="logOut"
   >
     {{ translate('component.header.logout') }}
   </AppButton>
@@ -13,8 +13,10 @@
   </a>
 </template>
 
-<script setup lang="ts">
-import { useAuthStore } from '@shared/store/useAuthStore'
+<script lang="ts" setup>
+import { storeToRefs } from 'pinia'
+
+import { useAuthStore } from '@portal/store/useAuthStore'
 import { useApiLoginUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 
@@ -22,4 +24,10 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 const authStore = useAuthStore()
 const loginUrl = useApiLoginUrl()
+
+const { isLoggedIn } = storeToRefs(authStore)
+
+function logOut() {
+  authStore.logOut()
+}
 </script>

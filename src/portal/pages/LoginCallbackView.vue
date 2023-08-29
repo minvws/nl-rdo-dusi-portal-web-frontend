@@ -6,7 +6,7 @@
 import { onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useAuthStore } from '@shared/store/useAuthStore'
+import { useAuthStore } from '@portal/store/useAuthStore'
 import { getRouteFromCookie } from '@shared/utils/cookie'
 import { HOME } from '@shared/router/names'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
