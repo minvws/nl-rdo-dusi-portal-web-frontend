@@ -1,5 +1,5 @@
 <template>
-  <MyFileOverview v-if="isOverviewRoute" />
+  <MyRequestsOverview v-if="isOverviewRoute" />
   <RouterView v-else />
   <NotificationObligation />
 </template>
@@ -8,10 +8,10 @@
 import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 
-import MyFileOverview from '@portal/pages/MyFileOverview.vue'
+import MyRequestsOverview from '@portal/pages/MyRequestsOverview.vue'
 import NotificationObligation from '@portal/components/NotificationObligation/NotificationObligation.vue'
 
 const route = useRoute()
 
-const isOverviewRoute = computed(() => route.name === 'my-file-overview')
+const isOverviewRoute = computed(() => route.name === 'my-requests-overview')
 </script>
