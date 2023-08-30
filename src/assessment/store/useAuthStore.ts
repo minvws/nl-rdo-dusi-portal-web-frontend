@@ -8,7 +8,7 @@ import { HOME, LOGIN_VIEW } from '@shared/router/names'
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
 
-  const isLoggedIn: Ref<boolean> = ref(false)
+  const isLoggedIn: Ref<boolean> = ref(true)
 
   function logIn() {
     isLoggedIn.value = true

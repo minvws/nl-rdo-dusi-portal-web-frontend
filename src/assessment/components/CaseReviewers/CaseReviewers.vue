@@ -1,17 +1,17 @@
 <template>
-  <div class="request-reviewers">
+  <div class="case-reviewers">
     <p>
-      {{ translate('component.requestReviers.intro') }}
+      {{ translate('component.caseReviers.intro') }}
     </p>
     <p>
-      {{ translate('component.requestReviers.handledBy') }}
+      {{ translate('component.caseReviers.handledBy') }}
     </p>
     <p>
       <strong>{{ reviewer }}</strong>
     </p>
 
     <AppButton class="ghost">
-      {{ translate('component.requestReviers.removeReviewer') }}
+      {{ translate('component.caseReviers.removeReviewer') }}
     </AppButton>
   </div>
 </template>

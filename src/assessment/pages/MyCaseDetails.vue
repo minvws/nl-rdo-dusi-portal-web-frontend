@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class="status">
-      <h1>{{ translate('pages.my-requests-details.title') }}</h1>
-      <RequestStatus type="new" />
+      <h1>{{ translate('pages.my-case-details.title') }}</h1>
+      <CaseStatus type="new" />
     </div>
     <TabGroup
       as="div"
@@ -17,7 +17,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-requests-details.overview') }}
+            {{ translate('pages.my-case-details.overview') }}
           </AppButton>
         </Tab>
         <Tab
@@ -28,7 +28,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-requests-details.history') }}
+            {{ translate('pages.my-case-details.history') }}
           </AppButton>
         </Tab>
         <Tab
@@ -39,27 +39,27 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-requests-details.reviewer') }}
+            {{ translate('pages.my-case-details.reviewer') }}
           </AppButton>
         </Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
           <AppSuspense v-bind="{ data, error, isFetching }">
-            <RequestDetails :items="data" />
+            <CaseDetails :items="data" />
           </AppSuspense>
           <RouterLink
             :to="startReviewRoute"
             class="button"
           >
-            {{ translate('pages.my-requests-details.startReview') }}
+            {{ translate('pages.my-case-details.startReview') }}
           </RouterLink>
         </TabPanel>
         <TabPanel>
-          <RequestHistory />
+          <CaseHistory />
         </TabPanel>
         <TabPanel>
-          <RequestReviewers reviewer="Bram Adema" />
+          <CaseReviewers reviewer="Bram Adema" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -71,15 +71,15 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchDetails } from '@assessment/composables/useFetchDetails'
+import { useFetchCaseDetails } from '@assessment/composables/useFetchCaseDetails'
 import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
-import RequestHistory from '@assessment/components/RequestHistory/RequestHistory.vue'
-import RequestReviewers from '@assessment/components/RequestReviewers/RequestReviewers.vue'
-import RequestStatus from '@assessment/components/RequestStatus/RequestStatus.vue'
+import CaseDetails from '@assessment/components/CaseDetails/CaseDetails.vue'
+import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
+import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
+import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 
 type Props = {
   id: string
@@ -87,12 +87,12 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-details.title')}` })
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
-const { data, error, isFetching } = useFetchDetails(props.id as string)
+const { data, error, isFetching } = useFetchCaseDetails(props.id as string)
 
 const startReviewRoute = computed(() => ({
-  name: 'review-request',
+  name: 'review-case',
   params: { id: props.id }
 }))
 </script>

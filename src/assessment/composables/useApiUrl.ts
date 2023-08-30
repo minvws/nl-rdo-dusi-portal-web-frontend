@@ -12,18 +12,18 @@ declare global {
 const baseUrl = window?.config?.api || import.meta.env.VITE_ASSESSMENT_API_BASE_URL
 const mockUrl = `${useMockUrl()}/${Project.ASSESSMENT}`
 
-export const useApiAssessmentDetailsUrl = (id: string) => {
+export const useApiCaseDetailsUrl = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/applications/${id}`
 }
 
-export const useApiAssessmentFilterCountUrl = () => {
+export const useApiCasesFilterCountUrl = () => {
   return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
 }
 
-export const useApiAssessmentPersonalRequestsUrl = () => {
-  return useMockData ? `${mockUrl}/my-requests.json` : `${baseUrl}/api/applications` // Not final url yet.
+export const useApiPersonalCasesUrl = () => {
+  return useMockData ? `${mockUrl}/my-cases.json` : `${baseUrl}/api/applications` // Not final url yet.
 }
 
-export const useApiAssessmentRequestsUrl = () => {
-  return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/applications`
+export const useApiCasesUrl = () => {
+  return useMockData ? `${mockUrl}/cases.json` : `${baseUrl}/api/applications`
 }

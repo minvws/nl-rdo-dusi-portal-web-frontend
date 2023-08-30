@@ -1,5 +1,5 @@
 <template>
-  <div class="request-details">
+  <div class="case-details">
     <div
       v-for="(item, index) in items"
       :key="index"
@@ -13,21 +13,21 @@
 <script setup lang="ts">
 import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
 
-import type { RequestDetailsItem } from '@shared/types/details'
+import type { CaseDetailsItem } from '@shared/types/details'
 
 type Props = {
-  items: RequestDetailsItem[]
+  items: CaseDetailsItem[]
 }
 
 defineProps<Props>()
 </script>
 
 <style scoped lang="scss">
-.request-details {
+.case-details {
   width: 100%;
 }
 
-.request-details > div {
+.case-details > div {
   width: 100%;
 }
 </style>

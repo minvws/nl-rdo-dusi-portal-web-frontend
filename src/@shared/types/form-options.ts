@@ -1,1 +1,1 @@
-export type FormOptions = 'messages' | 'requests' | 'all-requests'
+export type FormOptions = 'messages' | 'cases' | 'all-cases'

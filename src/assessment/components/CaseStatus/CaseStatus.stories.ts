@@ -1,24 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import RequestStatus from './RequestStatus.vue'
+import CaseStatus from './CaseStatus.vue'
 
-const meta: Meta<typeof RequestStatus> = {
-  title: 'assessment/RequestStatus',
-  component: RequestStatus
+const meta: Meta<typeof CaseStatus> = {
+  title: 'assessment/CaseStatus',
+  component: CaseStatus
 }
 
 export default meta
 
-type Story = StoryObj<typeof RequestStatus>
+type Story = StoryObj<typeof CaseStatus>
 
 export const Default: Story = {
   render: (args, { argTypes }) => ({
     props: Object.keys(argTypes),
-    components: { RequestStatus },
+    components: { CaseStatus },
     setup() {
       return { args }
     },
-    template: '<RequestStatus v-bind="args" />'
+    template: '<CaseStatus v-bind="args" />'
   }),
   argTypes: {
     type: {

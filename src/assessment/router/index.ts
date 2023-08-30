@@ -6,17 +6,17 @@ import NotFound from '@shared/pages/NotFound.vue'
 
 import LandingPage from '@assessment/pages/LandingPage.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
-import MyRequestsView from '@assessment/pages/MyRequestsView.vue'
-import MyRequestsDetails from '@assessment/pages/MyRequestsDetails.vue'
-import ReviewRequest from '@assessment/pages/ReviewRequest.vue'
+import MyCasesView from '@assessment/pages/MyCasesView.vue'
+import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
+import ReviewCase from '@assessment/pages/ReviewCase.vue'
 
 import {
   HOME,
   LOGIN_VIEW,
-  MY_REQUESTS_DETAILS,
-  MY_REQUESTS_OVERVIEW,
+  MY_CASE_DETAILS,
+  MY_CASES_OVERVIEW,
   NOT_FOUND,
-  REVIEW_REQUEST
+  REVIEW_CASE
 } from '@shared/router/names'
 
 import { setRouteCookie } from '@shared/utils/cookie'
@@ -38,19 +38,19 @@ const routes = [
   },
   {
     path: '/mijn-zaken',
-    name: MY_REQUESTS_OVERVIEW,
-    component: MyRequestsView,
+    name: MY_CASES_OVERVIEW,
+    component: MyCasesView,
     children: [
       {
         path: ':id',
-        name: MY_REQUESTS_DETAILS,
-        component: MyRequestsDetails,
+        name: MY_CASE_DETAILS,
+        component: MyCaseDetails,
         props: true
       },
       {
         path: ':id/beoordeling',
-        name: REVIEW_REQUEST,
-        component: ReviewRequest,
+        name: REVIEW_CASE,
+        component: ReviewCase,
         props: true
       }
     ]

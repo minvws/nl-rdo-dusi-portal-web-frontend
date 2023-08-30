@@ -20,7 +20,7 @@ export type DescriptionListItem = {
   details: DescriptionListDetails
 }
 
-export type RequestDetailsItem = {
+export type CaseDetailsItem = {
   title: string
   items: DescriptionListItem[]
 }
