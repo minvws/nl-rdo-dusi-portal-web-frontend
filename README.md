@@ -14,8 +14,7 @@ disable Vetur)
 
 The project is built using [Vite](https://vitejs.dev/). It uses [Vue 3]
 (https://v3.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
-[Storybook](https://storybook.js.org/) is available for component development and
-[Cypress](https://www.cypress.io/) for end-to-end testing.
+[Storybook](https://storybook.js.org/) is available for component development.
 
 With Vue 3 we use the [Composition API]
 (https://v3.vuejs.org/guide/composition-api-introduction.html).
@@ -41,9 +40,6 @@ The project is structured as follows:
 │   ├── main.ts
 │   ├── preview-head.html
 │   └── preview.ts
-├── e2e
-│   ├── tsconfig.json
-│   └── vue.spec.ts
 ├── mock
 │   ├── portal
 │   ├── assessment
@@ -72,15 +68,12 @@ The project is structured as follows:
 ├── init.sh
 ├── package-lock.json
 ├── package.json
-├── playwright.config.ts
 ├── README.md
 ├── run.sh
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
-├── tsconfig.vitest.json
-├── vite.config.ts
-└── vitest.config.ts
+└── vite.config.ts
 ```
 
 Within the `src` folder, the following structure is used:
@@ -131,8 +124,7 @@ After installing the dependencies, the following scripts are available:
 | lint-fix             | Lints and auto-fixes source code |
 | prepare              | Installs Husky Git during install |
 | storybook            | Start Storybook |
-| test:e2e             | Runs end-to-end tests |
-| test:unit            | Runs unit tests |
+| test                 | Runs unit tests |
 | type-check           | Perform type checking |
 
 ~Note: There are also `init.sh` and `run.sh` executable scripts available in
