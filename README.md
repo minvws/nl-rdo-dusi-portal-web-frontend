@@ -109,7 +109,7 @@ npm ci --no-audit --no-fund
 
 **In case you see this error:**
 
-```
+```sh
 npm ERR! code E401
 npm ERR! 401 Unauthorized - GET https://npm.pkg.github.com/download/@minvws/nl-rdo-rijksoverheid-ui-theme/0.0.14/a308d2dc00f49516a605f0d499b5ec8c45bbb13b - authentication token not provide
 ```
