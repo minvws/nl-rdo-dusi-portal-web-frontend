@@ -1,4 +1,4 @@
-function flattenDeep(items: any[], key: string): any[] {
+export function flattenDeep(items: any[], key: string): any[] {
   return items.reduce((target, item) => {
     if (Array.isArray(item[key])) {
       return [...target, item, ...flattenDeep(item[key], key)]

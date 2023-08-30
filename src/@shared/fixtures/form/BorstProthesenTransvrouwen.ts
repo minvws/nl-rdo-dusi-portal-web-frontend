@@ -1,76 +1,18 @@
-import allCountries from './allCountries'
+import {
+  required as personalInformationRequired,
+  properties as personalInformationProperties,
+  elements as personalInformationElements
+} from '@shared/fixtures/form/elements/personal-form-elements'
+
 export default async () => {
-  const placeholder = 'Lorem ipsum dolor set'
   const fromExamplePage1 = await Object.values(
-    import.meta.glob('./FormExamplePage1.html', { as: 'raw' })
+    import.meta.glob('@shared/fixtures/form/data/borst-prothesen-transvrouwen.html', {
+      as: 'raw'
+    })
   )[0]()
 
   const properties = {
-    firstName: {
-      type: 'string',
-      title: 'Voornaam'
-    },
-    nameInfix: {
-      type: 'string',
-      title: 'Tussenvoegsel'
-    },
-    lastName: {
-      type: 'string',
-      title: 'Achternaam'
-    },
-    dayOfBirth: {
-      type: 'string',
-      format: 'date',
-      title: 'Geboortedatum'
-    },
-    streetName: {
-      type: 'string',
-      title: 'Straatnaam'
-    },
-    houseNumber: {
-      type: 'integer',
-      title: 'Huisnummer',
-      minimum: 1
-    },
-    houseNumberSuffix: {
-      type: 'string',
-      title: 'Huisnummer toevoeging'
-    },
-    postalCode: {
-      type: 'string',
-      title: 'Postcode',
-      postalCode: true,
-      maxLength: 7
-    },
-    city: {
-      type: 'string',
-      title: 'Plaatsnaam'
-    },
-    country: {
-      type: 'string',
-      enum: allCountries,
-      title: 'Land'
-    },
-    phoneNumber: {
-      type: 'string',
-      tel: true,
-      title: 'Telefoonnummer',
-      maxLength: 16
-    },
-    email: {
-      type: 'string',
-      format: 'email',
-      title: 'E-mailadres'
-    },
-    bankAccountHolder: {
-      type: 'string',
-      title: 'Naam rekeninghouder'
-    },
-    bankAccountNumber: {
-      type: 'string',
-      iban: true,
-      title: 'IBAN'
-    },
+    ...personalInformationProperties,
     bankStatement: {
       type: 'string',
       file: true,
@@ -153,165 +95,7 @@ export default async () => {
           }
         ]
       },
-      {
-        type: 'Group',
-        label: 'Persoonlijke informatie',
-        elements: [
-          {
-            type: 'VerticalLayout',
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/firstName',
-                label: 'Voornaam',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/nameInfix',
-                label: 'Tussenvoegsel',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/lastName',
-                label: 'Achternaam',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/dayOfBirth',
-                label: 'Geboortedatum',
-                options: {
-                  placeholder
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: 'Group',
-        label: 'Adres',
-        elements: [
-          {
-            type: 'VerticalLayout',
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/streetName',
-                label: 'Straatnaam',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/houseNumber',
-                label: 'Huisnummer',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/houseNumberSuffix',
-                label: 'Huisnummer toevoeging',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/postalCode',
-                label: 'Postcode',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/city',
-                label: 'Plaatsnaam',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/country',
-                label: 'Land',
-                options: {
-                  format: 'select',
-                  placeholder: 'Selecteer een land'
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: 'Group',
-        label: 'Contact',
-        elements: [
-          {
-            type: 'VerticalLayout',
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/phoneNumber',
-                label: 'Telefoonnummer',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/email',
-                label: 'E-mailadres',
-                options: {
-                  placeholder,
-                  tip: 'U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door.'
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: 'Group',
-        label: 'Bank',
-        elements: [
-          {
-            type: 'VerticalLayout',
-            elements: [
-              {
-                type: 'CustomControl',
-                scope: '#/properties/bankAccountHolder',
-                label: 'Naam rekeninghouder',
-                options: {
-                  placeholder
-                }
-              },
-              {
-                type: 'CustomControl',
-                scope: '#/properties/bankAccountNumber',
-                label: 'IBAN',
-                options: {
-                  placeholder,
-                  tip: 'Staat u onder bewind? Vermeld dan het IBAN van uw beheerrekening.'
-                }
-              }
-            ]
-          }
-        ]
-      }
+      ...personalInformationElements
     ]
   }
 
@@ -455,55 +239,45 @@ export default async () => {
     ]
   }
 
-  return [
-    {
-      uischema: firstSchema,
-      dataschema: {
-        properties,
-        required: ['permissionToProcessPersonalData']
+  return {
+    title: 'Aanvraagformulier subsidieregeling borstprothesen transvrouwen',
+    data: [
+      {
+        uischema: firstSchema,
+        dataschema: {
+          properties,
+          required: ['permissionToProcessPersonalData']
+        }
+      },
+      {
+        uischema: secondSchema,
+        dataschema: {
+          required: [...personalInformationRequired],
+          properties
+        },
+        title: 'Persoonsgegevens toevoegen'
+      },
+      {
+        uischema: thirdSchema,
+        dataschema: {
+          required: [
+            'bankStatement',
+            'extractPersonalRecordsDatabase',
+            'proofOfMedicalTreatment',
+            'proofOfTypeOfMedicalTreatment'
+          ],
+          properties
+        },
+        title: 'Documenten toevoegen'
+      },
+      {
+        uischema: lastSchema,
+        dataschema: {
+          required: ['truth'],
+          properties
+        },
+        title: 'Controleren en ondertekenen'
       }
-    },
-    {
-      uischema: secondSchema,
-      dataschema: {
-        required: [
-          'firstName',
-          'lastName',
-          'streetName',
-          'houseNumber',
-          'postalCode',
-          'city',
-          'country',
-          'phoneNumber',
-          'email',
-          'dayOfBirth',
-          'bankAccountHolder',
-          'bankAccountNumber'
-        ],
-        properties
-      },
-      title: 'Persoonsgegevens toevoegen'
-    },
-    {
-      uischema: thirdSchema,
-      dataschema: {
-        required: [
-          'bankStatement',
-          'extractPersonalRecordsDatabase',
-          'proofOfMedicalTreatment',
-          'proofOfTypeOfMedicalTreatment'
-        ],
-        properties
-      },
-      title: 'Documenten toevoegen'
-    },
-    {
-      uischema: lastSchema,
-      dataschema: {
-        required: ['truth'],
-        properties
-      },
-      title: 'Controleren en ondertekenen'
-    }
-  ]
+    ]
+  }
 }

@@ -1,10 +1,12 @@
 import { useFormStore } from '@shared/store/useFormStore'
-import { useFieldChange, useFieldType } from '@shared/composables/useField'
-import { useCustomControlInput } from '@shared/composables/useCustomControlInput'
 import { InputType } from '@shared/types/input'
 import { getControlId } from '@shared/utils/control'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
+import { useFieldChange, useFieldType } from '@shared/composables/useField'
+import { useCustomControlInput } from '@shared/composables/useCustomControlInput'
+import { useFormConditionalRequiredError } from '@shared/composables/useFormConditionalRequiredError'
+import { useFormConditionalIsRequired } from '@shared/composables/useFormConditionalIsRequired'
 
 export const useCustomControl = (props: any) => {
   const { useTouchedField } = useFormStore()
@@ -17,7 +19,9 @@ export const useCustomControl = (props: any) => {
 
   const component = {
     ...useVanillaControl($props, onHandleChange),
-    ...useTouchedField(id)
+    ...useTouchedField(id),
+    conditionalError: useFormConditionalRequiredError(id),
+    isConditionalRequired: useFormConditionalIsRequired(id)
   }
   return {
     ...component,

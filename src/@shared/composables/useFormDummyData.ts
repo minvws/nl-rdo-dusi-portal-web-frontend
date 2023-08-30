@@ -5,7 +5,7 @@ import { toNestedObject } from '@shared/utils/object'
 
 const getDummyData = ({ type, format, iban, file, tel, postalCode, enum: enums }: FieldProp) => {
   if (enums) {
-    return enums[enums.length - 1]
+    return enums[0]
   }
   if (tel) {
     return '+31(0) 611111111'
@@ -63,6 +63,10 @@ export const useFormDummyData = () => {
 
     const data = fields.reduce(
       (cul: FormData, { key, props }: { key: string; props: FieldProp }) => {
+        if (props.default) {
+          // do not overwrite default data
+          return cul
+        }
         return {
           ...cul,
           [key]: getDummyData(props)

@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 import type { Form, FormData, FormError } from '@shared/types/form'
 
-import { getDeepProps } from '@shared/utils/array'
+import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
 
 type ActiveFormStore = {
@@ -57,7 +57,6 @@ export const useActiveForm = () => {
   function getScopesFromElements() {
     const key = 'elements'
     const elements = (uischema.value as any)?.[key] ?? []
-
     return getDeepProps(elements, key, 'scope')
   }
 
@@ -67,6 +66,14 @@ export const useActiveForm = () => {
 
   function getCurrentLinkedScopes() {
     return getScopesFromElements().map((scope: string) => getLinkedControlId(scope))
+  }
+
+  function getScopedElement(id: string) {
+    const key = 'elements'
+    const elements = (uischema.value as any)?.[key] ?? []
+    return flattenDeep(elements, key)?.find(({ scope }: { scope: string }) =>
+      scope ? getControlId(scope) === id : false
+    )
   }
 
   function setFormStep(value: number) {
@@ -95,6 +102,7 @@ export const useActiveForm = () => {
     forms,
     formsErrors,
     getCurrentLinkedScopes,
+    getScopedElement,
     getCurrentScopes,
     index,
     schema,

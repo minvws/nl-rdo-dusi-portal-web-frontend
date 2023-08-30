@@ -102,7 +102,8 @@
         "postalCode": "Dit is geen geldige postcode",
         "tel": "Dit is geen geldige telefoonnummer",
         "required-boolean": "Dit veld is verplicht",
-        "required": "{field} is verplicht"
+        "required": "{field} is verplicht",
+        "required-conditional": "{field} is verplicht"
       },
       "email": {
         "error": {
@@ -114,8 +115,7 @@
       "loading": "Formulier is aan het laden",
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "submitting": "Formulier is bezig met verzenden"
-    },
-    "title": "Aanvraagformulier subsidieregeling borstprothesen transvrouwen"
+    }
   },
   "pages": {
     "not-found": {

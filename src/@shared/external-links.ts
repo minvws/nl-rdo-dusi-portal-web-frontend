@@ -4,7 +4,7 @@ export const Rel = {
   EXTERNAL: 'external'
 } as const
 
-const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
+export const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
 
 export const grantLink = {
   href: 'https://www.dus-i.nl/subsidies',

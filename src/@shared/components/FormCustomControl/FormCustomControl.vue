@@ -63,7 +63,17 @@ export default defineComponent({
       }
     },
     wrapperProps() {
-      const { styles, isFocused, appliedOptions, control, isTouched, error } = this
+      const {
+        styles,
+        isFocused,
+        appliedOptions,
+        control,
+        isTouched,
+        error,
+        conditionalError,
+        isConditionalRequired
+      } = this
+
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
 
@@ -71,11 +81,11 @@ export default defineComponent({
         appliedOptions,
         data,
         description: isFocused ? description : undefined,
-        errors: error || (isTouched ? errors : undefined), // only show errors when field is touched
+        errors: error || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
         id,
         isFocused,
         label,
-        required,
+        required: required || isConditionalRequired,
         styles,
         visible,
         contentClass: type

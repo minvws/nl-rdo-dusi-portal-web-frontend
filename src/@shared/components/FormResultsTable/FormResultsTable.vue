@@ -9,7 +9,7 @@
         >
           <div>{{ key }}</div>
           <div>
-            <strong>{{ value }}</strong>
+            <strong v-html="value" />
           </div>
         </div>
       </template>
