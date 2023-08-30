@@ -108,20 +108,20 @@ export default defineComponent({
     :deep(.group-label) {
       padding-bottom: 0.5em;
     }
-    :deep(.group) {
-      padding-bottom: 2em;
+
+    :deep(.size-1 > .group + .group) {
+      padding-top: 2em;
 
       @include desktop {
-        padding-bottom: 3em;
+        padding-top: 3em;
       }
     }
-    :deep(> .group) {
-      > .group-item {
-        &:last-of-type {
-          > .group {
-            padding-bottom: 0;
-          }
-        }
+
+    :deep(.size-1 > .group-item + .group-item) {
+      padding-top: 2em;
+
+      @include desktop {
+        padding-top: 3em;
       }
     }
   }
@@ -132,6 +132,7 @@ export default defineComponent({
         width: 100%;
       }
     }
+
     .size-2 {
       &:deep(.group-item) {
         width: calc(50% - var(--form-group-gap) / 2);
@@ -155,7 +156,6 @@ export default defineComponent({
   }
 
   &.group {
-    padding: 1em;
     background-color: var(--form-base-background-color, inherit);
 
     legend {
