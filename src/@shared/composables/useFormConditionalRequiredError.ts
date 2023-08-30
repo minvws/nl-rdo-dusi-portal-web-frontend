@@ -17,7 +17,7 @@ export const useFormConditionalRequiredError = (id: string) => {
     )
   })
   const props = {
-    schema: schema?.value.properties?.[id],
+    schema: schema.value?.properties?.[id],
     uischema: getScopedElement(id),
     error
   }
