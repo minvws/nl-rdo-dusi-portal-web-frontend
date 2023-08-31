@@ -18,115 +18,120 @@
           "subjectRole": "applicant",
           "subjectOrganisation": null
         },
+        "values": {
+          "firstName": "Henk",
+          "nameInfix": "de",
+          "lastName": "Vries",
+          "dateOfBirth": "1990-12-10",
+          "country": "Nederland",
+          "street": "Dorpsstraat",
+          "houseNumber": 1,
+          "houseNumberSuffix": "A",
+          "postalCode": "1234 AA",
+          "city": "Amterdam",
+          "phoneNumber": "+31(0) 612345678",
+          "email": "email@email.nl",
+          "assessmentId": "12345",
+          "validFrom": "2019-02-11",
+          "validTo": "2020-02-01",
+          "bankStatement": "mimeTypeimage/jpegextensionjpegsize70488",
+          "extractPersonalRecordsDatabase": "mimeTypeimage/jpegextensionjpegsize70488",
+          "proofOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488",
+          "proofOfTypeOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488",
+          "bankAccountNumber": "NL00BANK0000000000",
+          "bankAccountHolder": "Henk de Vries",
+          "communicationPreference": "E-mail"
+        },
         "dataschema": {
           "type": "object",
           "properties": {
             "assessmentId": {
               "title": "Beoordelingsnummer",
-              "type": "string",
-              "default": "123456789"
+              "type": "string"
             },
             "validFrom": {
               "title": "Geldig vanaf",
-              "type": "string",
-              "default": "2019-02-01"
+              "type": "string"
             },
             "validTo": {
               "title": "Geldig tot",
-              "type": "string",
-              "default": "2020-02-01"
+              "type": "string"
             },
             "bankStatement": {
               "title": "Bankafschrift",
-              "type": "string",
-              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+              "type": "string"
             },
             "extractPersonalRecordsDatabase": {
               "title": "Uitreksel bevolkingsregister",
-              "type": "string",
-              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+              "type": "string"
             },
             "proofOfMedicalTreatment": {
               "title": "Verklaring behandeltraject",
-              "type": "string",
-              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+              "type": "string"
             },
             "proofOfTypeOfMedicalTreatment": {
               "title": "Verklaring type behandeling",
-              "type": "string",
-              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+              "type": "string"
             },
             "bankAccountNumber": {
               "title": "IBAN",
-              "type": "string",
-              "default": "NL00BANK0000000000"
+              "type": "string"
             },
             "bankAccountHolder":  {
               "title": "Naam rekeninghouder",
-              "type": "string",
-              "default": "Henk de Vries"
+              "type": "string"
             },
             "communicationPreference": {
               "title": "Communicatievoorkeur",
-              "type": "string",
-              "default": "E-mail"
+              "type": "string"
             },
             "firstName": {
               "title": "Achternaam",
-              "type": "string",
-              "default": "Henk"
+              "type": "string"
             },
             "nameInfix": {
               "title": "Tussenvoegsel",
-              "type": "string",
-              "default": "de"
+              "type": "string"
             },
             "lastName": {
               "title": "Achternaam",
-              "type": "string",
-              "default": "Vries"
+              "type": "string"
             },
             "country": {
               "title": "Land",
-              "type": "string",
-              "default": "Nederland"
+              "type": "string"
             },
             "street": {
               "title": "Straatnaam",
-              "type": "string",
-              "default": "Dorpsstraat"
+              "type": "string"
             },
             "houseNumber": {
               "title": "Huisnummer",
-              "type": "string",
-              "default": "1"
+              "type": "string"
             },
             "houseNumberSuffix": {
               "title": "Huisnummer toevoeging",
-              "type": "string",
-              "default": "A"
+              "type": "string"
             },
             "postalCode": {
               "title": "Postcode",
               "type": "string",
-              "default": "1234AA",
               "postalCode": true,
               "maxLength": 7
             },
             "city": {
               "title": "Plaats",
-              "type": "string",
-              "default": "Amsterdam"
+              "type": "string"
             },
             "phoneNumber": {
               "title": "Telefoonnummer",
               "type": "string",
-              "default": "+31(0)6 12345678"
+              "tel": true
             },
             "email": {
               "title": "E-mailadres",
               "type": "string",
-              "default": "email@email.nl"
+              "email": true
             }
           }
         },
