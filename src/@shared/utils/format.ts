@@ -2,7 +2,7 @@ import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
 import type {
   DetailsDataInput,
   DetailsDataInputSection,
-  RequestDetailsItem
+  CaseDetailsItem
 } from '@shared/types/details'
 import { translate } from '@shared/i18n'
 
@@ -42,7 +42,7 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
  * @param data
  * @returns data
  */
-export function formatDetailsData(data: DetailsDataInput): RequestDetailsItem[] {
+export function formatDetailsData(data: DetailsDataInput): CaseDetailsItem[] {
   if (!data?.uischema?.sections || !data?.values) return []
 
   const { uischema, values } = data

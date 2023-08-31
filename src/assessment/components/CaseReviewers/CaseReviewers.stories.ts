@@ -1,19 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 
-import RequestReviewers from './RequestReviewers.vue'
+import CaseReviewers from './CaseReviewers.vue'
 
-const meta: Meta<typeof RequestReviewers> = {
-  title: 'assessment/RequestReviewers',
-  component: RequestReviewers
+const meta: Meta<typeof CaseReviewers> = {
+  title: 'assessment/CaseReviewers',
+  component: CaseReviewers
 }
 
 export default meta
 
-type Story = StoryObj<typeof RequestReviewers>
+type Story = StoryObj<typeof CaseReviewers>
 
 export const Default: Story = {
   render: args => ({
-    components: { RequestReviewers },
+    components: { CaseReviewers },
     setup() {
       return { args }
     },
@@ -21,7 +21,7 @@ export const Default: Story = {
       <main>
         <section>
           <div>
-            <RequestReviewers v-bind="args" />
+            <CaseReviewers v-bind="args" />
           </div>
         </section>
       </main>

@@ -100,14 +100,11 @@
     "localForm": {
       "title": "Localform example"
     },
-    "my-file-overview": {
-      "title": "Mijn dossier",
-      "intro": "Het overzicht van jouw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",
-      "section1Title": "Mijn aanvragen",
-      "section2Title": "Berichten",
+    "my-requests-overview": {
+      "title": "Mijn aanvragen",
+      "intro": "Het overzicht van uw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",
+      "myRequests": "Mijn aanvragen",
       "noRequests": "Er zijn geen aanvragen gevonden",
-      "noMessages": "Er zijn geen berichten gevonden",
-      "allMessages": "Bekijk alle berichten",
       "table": {
         "caption": "Overzicht van jouw aanvragen",
         "arrangement": "Aanvraag",
@@ -119,13 +116,11 @@
     },
     "my-request-details": {
       "title": "Mijn aanvraag",
-      "status": "Status",
-      "messages": "Berichten",
+      "status": "Wij hebben uw aanvraag ontvangen",
       "downloadLabel": "Download de aanvraag",
       "editLabel": "Aanvraag bewerken",
       "cancelLabel": "Aanvraag intrekken",
-      "noAction": "U hoeft op dit moment niets te doen.",
-      "noMessages": "Er zijn geen berichten gevonden"
+      "noAction": "U hoeft op dit moment niets te doen."
     },
     "my-messages-overview": {
       "content": {},

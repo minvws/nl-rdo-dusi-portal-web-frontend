@@ -1,6 +1,6 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 
-export type AssessmentStage = {
+export type CaseStage = {
   dataschema: JsonSchema
   metadata: Record<string, any>
   uischema: UISchemaElement
@@ -8,7 +8,7 @@ export type AssessmentStage = {
   [key: string]: any
 }
 
-export type Assessment = {
+export type Case = {
   metadata: Record<string, any>
-  stages: AssessmentStage[]
+  stages: CaseStage[]
 }

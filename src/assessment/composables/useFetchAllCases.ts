@@ -1,16 +1,16 @@
 import { computed, watch, type Ref, ref } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
-import { useApiAssessmentPersonalRequestsUrl } from '@/assessment/composables/useApiUrl'
+import { useApiCasesUrl } from '@/assessment/composables/useApiUrl'
 
-import { transformMyAssessmentsData } from '@shared/utils/transform'
+import { transformCasesData } from '@shared/utils/transform'
 import type { FilterItem } from '@/@shared/types/filters'
 
-export const useFetchMyAssessments = (filters: Ref<FilterItem[]>) => {
-  const url = useApiAssessmentPersonalRequestsUrl()
+export const useFetchAllCases = (filters: Ref<FilterItem[]>) => {
+  const url = useApiCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
   const { data: json, ...fetch } = useQueryFetch({ url, params }, { immediate: false })
 
-  const data = computed(() => (json.value ? transformMyAssessmentsData(json.value) : []))
+  const data = computed(() => (json.value ? transformCasesData(json.value) : []))
 
   watch(filters, filters => {
     const id = filters?.[0]?.id

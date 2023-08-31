@@ -1,8 +1,8 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.my-requests-overview.title') }}</h1>
-      <p>{{ translate('pages.my-requests-overview.subtitle') }}</p>
+      <h1>{{ translate('pages.my-cases-overview.title') }}</h1>
+      <p>{{ translate('pages.my-cases-overview.subtitle') }}</p>
     </div>
     <AppSuspense v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
       <FilterTabs
@@ -13,31 +13,29 @@
     </AppSuspense>
     <div>
       <FilterOptions
-        type="requests"
+        type="cases"
         v-model="query"
       >
         <p>
           <span>{{ numberOfCases }}</span>
-          {{ translate('pages.my-requests-overview.cases', {}, numberOfCases) }}
+          {{ translate('pages.my-cases-overview.cases', {}, numberOfCases) }}
         </p>
         <AppButton
-          :data-show-filters-label="translate('pages.my-requests-overview.showFilters')"
+          :data-show-filters-label="translate('pages.my-cases-overview.showFilters')"
           aria-expanded="false"
         >
-          {{ translate('pages.my-requests-overview.showFilters') }}
+          {{ translate('pages.my-cases-overview.showFilters') }}
         </AppButton>
       </FilterOptions>
     </div>
-    <AppSuspense
-      v-bind="{ data: assessments, error: assessmentsError, isFetching: isFetchingAssessments }"
-    >
+    <AppSuspense v-bind="{ data: casesData, error: casesError, isFetching: isFetchingCases }">
       <AppTable
-        :data="assessments"
+        :data="casesData"
         :columns="headings"
         :items-per-page="10"
       />
       <template #fallback>
-        <p>{{ translate('pages.my-requests-overview.noRequests') }}</p>
+        <p>{{ translate('pages.my-cases-overview.noCases') }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -48,7 +46,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useFetchMyAssessments } from '@assessment/composables/useFetchMyAssessments'
+import { useFetchMyCases } from '@assessment/composables/useFetchMyCases'
 import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -60,34 +58,34 @@ import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import type { FilterItem } from '@shared/types/filters'
 
 const headings = [
-  { id: 'file', text: translate('pages.my-requests-overview.headings.file'), sortable: true },
+  { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },
   {
     id: 'arrangement',
-    text: translate('pages.my-requests-overview.headings.arrangement'),
+    text: translate('pages.my-cases-overview.headings.arrangement'),
     sortable: true
   },
-  { id: 'status', text: translate('pages.my-requests-overview.headings.status'), sortable: true },
+  { id: 'status', text: translate('pages.my-cases-overview.headings.status'), sortable: true },
   {
     id: 'deadline',
-    text: translate('pages.my-requests-overview.headings.deadline'),
+    text: translate('pages.my-cases-overview.headings.deadline'),
     sortable: true
   },
-  { id: 'updated', text: translate('pages.my-requests-overview.headings.updated'), sortable: true },
-  { id: 'action', text: translate('pages.my-requests-overview.headings.action'), sortable: false }
+  { id: 'updated', text: translate('pages.my-cases-overview.headings.updated'), sortable: true },
+  { id: 'action', text: translate('pages.my-cases-overview.headings.action'), sortable: false }
 ]
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}` })
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-cases-overview.title')}` })
 
 const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
 const {
-  data: assessments,
-  error: assessmentsError,
-  isFetching: isFetchingAssessments,
+  data: casesData,
+  error: casesError,
+  isFetching: isFetchingCases,
   query,
   params
-} = useFetchMyAssessments(filters)
+} = useFetchMyCases(filters)
 
-const numberOfCases = computed(() => assessments.value.length ?? 0)
+const numberOfCases = computed(() => casesData.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

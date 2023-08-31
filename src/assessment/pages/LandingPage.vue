@@ -13,7 +13,7 @@
     </AppSuspense>
     <div>
       <FilterOptions
-        type="all-requests"
+        type="all-cases"
         v-model="query"
       >
         <p>
@@ -28,16 +28,14 @@
         </AppButton>
       </FilterOptions>
     </div>
-    <AppSuspense
-      v-bind="{ data: assessments, error: assessmentsError, isFetching: isFetchingAssessments }"
-    >
+    <AppSuspense v-bind="{ data: casesData, error: casesError, isFetching: isFetchingCases }">
       <AppTable
-        :data="assessments"
+        :data="casesData"
         :columns="headings"
         :items-per-page="10"
       />
       <template #fallback>
-        <p>{{ translate('pages.home.noRequests') }}</p>
+        <p>{{ translate('pages.home.noCases') }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -48,7 +46,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useFetchAllAssessments } from '@assessment/composables/useFetchAllAssessments'
+import { useFetchAllCases } from '@assessment/composables/useFetchAllCases'
 import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -72,14 +70,14 @@ useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` 
 
 const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
 const {
-  data: assessments,
-  error: assessmentsError,
-  isFetching: isFetchingAssessments,
+  data: casesData,
+  error: casesError,
+  isFetching: isFetchingCases,
   query,
   params
-} = useFetchAllAssessments(filters)
+} = useFetchAllCases(filters)
 
-const numberOfCases = computed(() => assessments.value.length ?? 0)
+const numberOfCases = computed(() => casesData.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

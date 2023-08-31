@@ -10,7 +10,7 @@
       "assigned": "Alle zaken",
       "assigned_to_me": "Aan mij toegekend"
     },
-    "requestDetails": {
+    "caseDetails": {
       "section": {
         "meta": "Metagegevens",
         "personal": "Persoonlijke informatie",
@@ -43,12 +43,12 @@
         "communicationPreference": "Communicatievoorkeur"
       }
     },
-    "requestReviers": {
+    "caseReviers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordeelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordeelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
       "removeReviewer": "Verwijder beoordeelaar"
     },
-    "requestStatus": {
+    "caseStatus": {
       "status": "Status:",
       "approved": "Goedgekeurd",
       "rejected": "Afgekeurd",
@@ -59,7 +59,7 @@
   "pages": {
     "home": {
       "cases": "Zaak|Zaken",
-      "noRequests": "Er zijn geen zaken gevonden.",
+      "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
       "title": "Zaken",
@@ -77,16 +77,16 @@
       "submit": "Log in",
       "forgot-password": "Wachtwoord vergeten"
     },
-    "my-requests-details": {
+    "my-case-details": {
       "title": "Beoordelingsverzoek",
       "overview": "Overzicht",
       "history": "Geschiedenis",
       "reviewer": "Beoordelaar",
       "startReview": "Beoordeling starten"
     },
-    "my-requests-overview": {
+    "my-cases-overview": {
       "cases": "Zaak|Zaken",
-      "noRequests": "Er zijn geen zaken gevonden.",
+      "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of  al beoordeeld heeft.",
       "title": "Mijn Zaken",
@@ -99,9 +99,9 @@
         "action": "Actie"
       }
     },
-    "review-request": {
+    "review-case": {
       "title": "Eerste beoordeling|Tweede beoordeling|Beoordeling",
-      "request": "Aanvraag"
+      "case": "Aanvraag"
     }
   }
 }

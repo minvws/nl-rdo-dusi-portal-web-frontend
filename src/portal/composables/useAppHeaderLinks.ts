@@ -8,7 +8,7 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { ARRANGEMENT_OVERVIEW, HOME, MY_FILE_OVERVIEW, MY_MESSAGES } from '@shared/router/names'
+import { ARRANGEMENT_OVERVIEW, HOME, MY_REQUESTS_OVERVIEW, MY_MESSAGES } from '@shared/router/names'
 import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
@@ -31,8 +31,8 @@ export const useAppHeaderLinks = () => {
         label: translate('pages.arrangements-overview.title')
       },
       {
-        name: MY_FILE_OVERVIEW,
-        label: translate('pages.my-file-overview.title'),
+        name: MY_REQUESTS_OVERVIEW,
+        label: translate('pages.my-requests-overview.title'),
         badge: 2 // @TODO: get from API/store
       },
       {

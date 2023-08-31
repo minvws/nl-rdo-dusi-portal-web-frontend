@@ -38,12 +38,12 @@ export function transformRequestsData(data: RawRequestData): RequestData {
 }
 
 /**
- * Transforms the 'all assessments' data from the API to a format that we can use.
+ * Transforms 'all cases' data from the API to a format that we can use.
  *
  * @param data
  * @returns data
  */
-export function transformAssessmentsData(data: RawAssessmentData): AssessmentsData {
+export function transformCasesData(data: RawAssessmentData): AssessmentsData {
   return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
     ...setFile(id),
     ...setArrangement(subsidy),
@@ -55,19 +55,19 @@ export function transformAssessmentsData(data: RawAssessmentData): AssessmentsDa
 }
 
 /**
- * Transforms 'my assessments' data from the API to a format that we can use.
+ * Transforms 'my cases' data from the API to a format that we can use.
  *
  * @param data
  * @returns data
  */
-export function transformMyAssessmentsData(data: RawAssessmentData): AssessmentsData {
+export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
   return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at }) => ({
     ...setFile(id),
     ...setArrangement(subsidy),
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
     ...setUpdated(updated_at),
-    ...setAction(id, 'my-requests-details', translate('component.appTable.open'))
+    ...setAction(id, 'my-case-details', translate('component.appTable.open'))
   }))
 }
 

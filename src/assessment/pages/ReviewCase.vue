@@ -1,24 +1,22 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.review-request.title', {}, reviewNumber) }}</h1>
+      <h1>{{ translate('pages.review-case.title', {}, reviewNumber) }}</h1>
     </div>
     <AppSuspense v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }">
       <AppAccordion>
-        <AppAccordionItem id="request">
-          <template #title>{{ translate('pages.review-request.request') }}</template>
+        <AppAccordionItem id="case">
+          <template #title>{{ translate('pages.review-case.case') }}</template>
           <template #content>
-            <RequestDetails :items="details" />
+            <CaseDetails :items="details" />
           </template>
         </AppAccordionItem>
       </AppAccordion>
     </AppSuspense>
-    <AppSuspense
-      v-bind="{ data: assessment, error: assessmentError, isFetching: isFetchingAssessment }"
-    >
+    <AppSuspense v-bind="{ data: caseData, error: caseError, isFetching: isFetchingCase }">
       <FormView
-        id="review-request"
-        :forms="assessment"
+        id="review-case"
+        :forms="caseData"
         :hide-debug="true"
         @submit="onSubmit"
       />
@@ -30,15 +28,15 @@
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchAssessment } from '@assessment/composables/useFetchAssessment'
-import { useFetchDetails } from '@assessment/composables/useFetchDetails'
+import { useFetchCase } from '@assessment/composables/useFetchCase'
+import { useFetchCaseDetails } from '@assessment/composables/useFetchCaseDetails'
 import useSEO from '@shared/composables/useSeo'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
-import RequestDetails from '@assessment/components/RequestDetails/RequestDetails.vue'
+import CaseDetails from '@assessment/components/CaseDetails/CaseDetails.vue'
 
 import type { FormData } from '@shared/types/form'
 
@@ -48,19 +46,19 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-request.title', {}, 3)}` })
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-case.title', {}, 3)}` })
 
 const {
-  data: assessment,
-  error: assessmentError,
-  isFetching: isFetchingAssessment
-} = useFetchAssessment(props.id as string)
+  data: caseData,
+  error: caseError,
+  isFetching: isFetchingCase
+} = useFetchCase(props.id as string)
 
 const {
   data: details,
   error: detailsError,
   isFetching: isFetchingDetails
-} = useFetchDetails(props.id as string)
+} = useFetchCaseDetails(props.id as string)
 
 const reviewNumber = computed(() => 1)
 

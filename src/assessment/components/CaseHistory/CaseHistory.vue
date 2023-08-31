@@ -1,5 +1,5 @@
 <template>
-  <div class="request-history">
+  <div class="case-history">
     <AppTable
       :data="mockData"
       :columns="headings"

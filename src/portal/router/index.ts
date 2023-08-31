@@ -12,7 +12,7 @@ import FormSent from '@portal/pages/FormSent.vue'
 import LandingPage from '@portal/pages/LandingPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
-import MyFileView from '@portal/pages/MyFileView.vue'
+import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
@@ -28,10 +28,10 @@ import {
   FORM_SENT,
   HOME,
   LOGIN_CALLBACK_VIEW,
-  MY_FILE_OVERVIEW,
   MY_MESSAGES_PAGE,
   MY_MESSAGES,
-  MY_REQUEST_DETAILS,
+  MY_REQUESTS_DETAILS,
+  MY_REQUESTS_OVERVIEW,
   NOT_FOUND
 } from '@shared/router/names'
 
@@ -113,13 +113,13 @@ const routes = [
     ]
   },
   {
-    path: '/mijn-dossier',
-    name: MY_FILE_OVERVIEW,
-    component: MyFileView,
+    path: '/mijn-aanvragen',
+    name: MY_REQUESTS_OVERVIEW,
+    component: MyRequestsView,
     children: [
       {
-        path: 'aanvragen/:id',
-        name: MY_REQUEST_DETAILS,
+        path: ':id',
+        name: MY_REQUESTS_DETAILS,
         component: MyRequestDetails,
         props: true
       }
