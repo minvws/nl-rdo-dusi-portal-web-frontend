@@ -108,20 +108,20 @@ export default defineComponent({
     :deep(.group-label) {
       padding-bottom: 0.5em;
     }
-
-    :deep(.size-1 > .group + .group) {
-      padding-top: 2em;
+    :deep(.group) {
+      padding-bottom: 2em;
 
       @include desktop {
-        padding-top: 3em;
+        padding-bottom: 3em;
       }
     }
-
-    :deep(.size-1 > .group-item + .group-item) {
-      padding-top: 2em;
-
-      @include desktop {
-        padding-top: 3em;
+    :deep(> .group) {
+      > .group-item {
+        &:last-of-type {
+          > .group {
+            padding-bottom: 0;
+          }
+        }
       }
     }
   }
@@ -132,7 +132,6 @@ export default defineComponent({
         width: 100%;
       }
     }
-
     .size-2 {
       &:deep(.group-item) {
         width: calc(50% - var(--form-group-gap) / 2);
@@ -156,6 +155,7 @@ export default defineComponent({
   }
 
   &.group {
+    padding: 1em;
     background-color: var(--form-base-background-color, inherit);
 
     legend {
@@ -163,6 +163,14 @@ export default defineComponent({
       display: table;
       float: left;
       width: 100%;
+    }
+  }
+
+  :deep(.vertical-layout-item) {
+    // when an vertical-layout-item has no items, due to conditional fields
+    // make sure this element does not take any space
+    &:empty {
+      display: none;
     }
   }
 }

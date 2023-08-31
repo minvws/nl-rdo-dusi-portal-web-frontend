@@ -16,12 +16,14 @@
       debug information
     </div>
     <div v-if="isVisible">
-      <h2>files:</h2>
-      <pre>{{ files }}</pre>
-      <h2>data:</h2>
+      <h2>step data:</h2>
       <pre>{{ data }}</pre>
+      <h2>all data:</h2>
+      <pre>{{ formsData }}</pre>
       <h2>errors:</h2>
       <pre>{{ errors }}</pre>
+      <h2>files:</h2>
+      <pre>{{ files }}</pre>
     </div>
   </div>
 </template>
@@ -40,7 +42,7 @@ const fileStore = useFileStore()
 const formStore = useFormStore()
 
 const { files } = storeToRefs(fileStore)
-const { data, errors } = storeToRefs(formStore)
+const { data, formsData, errors } = storeToRefs(formStore)
 </script>
 
 <style lang="scss" scoped>

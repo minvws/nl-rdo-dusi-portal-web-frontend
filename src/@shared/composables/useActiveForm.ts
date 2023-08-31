@@ -43,10 +43,33 @@ export const useActiveForm = () => {
 
   const formData = computed(() => formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {}))
 
-  function setForms({ forms, id }: { forms: Form[]; id: string | number }) {
+  function setForms({
+    forms,
+    id,
+    values
+  }: {
+    forms: Form[]
+    id: string | number
+    values?: FormData
+  }) {
     formId.value = `${id}`
-    const { data, index } = store.value[formId.value] ?? { data: [], index: 0 } // set cache for form
+
+    const restoredForm = store.value[formId.value]
+    const { data, index } = restoredForm ?? { data: [], index: 0 } // set cache for form
     store.value[formId.value] = { id: formId.value, forms, errors: [], index, data }
+
+    // set values to form when form created
+    if (!restoredForm) setFormDataFromValues(values)
+  }
+
+  function setFormDataFromValues(values?: FormData) {
+    if (!values) return
+    activeForm.value.data = forms.value?.map(({ dataschema: { properties = {} } }) => {
+      return Object.keys(properties).reduce((cul, key) => {
+        if (key in values) cul[key] = values[key]
+        return cul
+      }, {} as FormData)
+    })
   }
 
   function clearForm(id?: string) {
@@ -93,6 +116,7 @@ export const useActiveForm = () => {
     activeForm,
     clearForm,
     data,
+    formsData,
     errors,
     events: {
       change: onChange
