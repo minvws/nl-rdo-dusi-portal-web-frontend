@@ -1,11 +1,3 @@
-import { mergeElements } from '@shared/fixtures/form/utils/form-merge-elements'
-
-import {
-  properties as bsnProperties,
-  elements as bsnElements,
-  required as bsnRequired
-} from '@shared/fixtures/form/elements/bsn-form-elements'
-
 import {
   properties as personalInformationProperties,
   elements as personalInformationElements,
@@ -58,18 +50,6 @@ import {
 } from '@shared/fixtures/form/elements/truth-statement-form-elements'
 
 export default async () => {
-  const properties = {
-    ...bsnProperties,
-    ...personalInformationProperties,
-    ...uploadExplanationProperties,
-    ...uwvProperties,
-    ...wiaProperties,
-    ...employerProperties,
-    ...medicalProperties,
-    ...submitExplanationProperties,
-    ...truthStatementProperties
-  }
-
   const introductionSchema = {
     type: 'FormGroupControl',
     options: { section: true },
@@ -99,7 +79,7 @@ export default async () => {
   const personalInformationSchema = {
     type: 'FormGroupControl',
     options: { section: true },
-    elements: mergeElements(personalInformationElements, bsnElements, '0.elements.0.elements.0')
+    elements: personalInformationElements
   }
 
   const documentSchema = {
@@ -128,7 +108,6 @@ export default async () => {
             label: 'Uw gegevens',
             options: {
               fields: {
-                'Burgerservicenummer (BSN)': '{bsn}',
                 Naam: '{firstName} {nameInfix} {lastName}',
                 Adres: '{streetName} {houseNumber}{houseNumberSuffix}<br/>{postalCode} {city}',
                 Geboortedatum: '{dateOfBirth}',
@@ -148,23 +127,27 @@ export default async () => {
     data: [
       {
         uischema: introductionSchema,
-        dataschema: {
-          properties
-        }
+        dataschema: {}
       },
       {
         title: 'Persoonsgegevens toevoegen',
         uischema: personalInformationSchema,
         dataschema: {
-          properties,
-          required: [...personalInformationRequired, ...bsnRequired]
+          properties: personalInformationProperties,
+          required: personalInformationRequired
         }
       },
       {
         title: 'Documenten toevoegen',
         uischema: documentSchema,
         dataschema: {
-          properties,
+          properties: {
+            ...uploadExplanationProperties,
+            ...uwvProperties,
+            ...wiaProperties,
+            ...employerProperties,
+            ...medicalProperties
+          },
           required: [
             ...uploadExplanationRequired,
             ...uwvRequired,
@@ -179,10 +162,19 @@ export default async () => {
         title: 'Controleren en ondertekenen',
         uischema: reviewSchema,
         dataschema: {
-          properties,
+          properties: {
+            ...submitExplanationProperties,
+            ...truthStatementProperties
+          },
           required: [...submitExplanationRequired, ...truthStatementRequired]
         }
       }
     ]
+    /*
+      example of setting initial values
+      values: {
+        firstName: 'Foo bar'
+      }
+    */
   }
 }
