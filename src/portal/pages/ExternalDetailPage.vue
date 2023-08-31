@@ -28,7 +28,7 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
 import { ARRANGEMENT_DETAILS } from '@shared/router/names'
-import { Rel } from '@/@shared/external-links'
+import { Rel } from '@shared/external-links'
 
 const rel = [Rel.EXTERNAL, Rel.NO_OPENER, Rel.NO_REFERRER].join(' ')
 

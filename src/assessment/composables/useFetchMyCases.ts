@@ -3,7 +3,7 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiPersonalCasesUrl } from '@/assessment/composables/useApiUrl'
 
 import { transformMyCasesData } from '@shared/utils/transform'
-import type { FilterItem } from '@/@shared/types/filters'
+import type { FilterItem } from '@shared/types/filters'
 
 export const useFetchMyCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiPersonalCasesUrl()

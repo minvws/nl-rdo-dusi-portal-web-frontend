@@ -1,4 +1,4 @@
-import { external } from '@/@shared/external-links'
+import { external } from '@shared/external-links'
 
 export const required = []
 

@@ -5,11 +5,12 @@
     :class="formGroupClassName"
   >
     <component
-      v-if="layout.label"
-      :is="labelComponent"
+      v-if="label"
       class="form-group-label"
+      :class="labelClass"
+      :is="labelComponent"
     >
-      {{ layout.label }}
+      {{ label }}
     </component>
     <div class="form-group-renderer">
       <FormNotification
@@ -34,11 +35,13 @@ import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
 import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 
 export default defineComponent({
   components: {
     GroupRenderer,
-    FormNotification
+    FormNotification,
+    AppHtml
   },
   props: {
     ...rendererProps<Layout>()
@@ -52,6 +55,10 @@ export default defineComponent({
     },
     labelComponent() {
       return this.appliedOptions.section ? 'legend' : 'div'
+    },
+    labelClass() {
+      const { headingLevel } = this.appliedOptions
+      return headingLevel ? `h${headingLevel}` : undefined
     },
     group() {
       const { uischema, ...props } = this.$props
@@ -83,6 +90,9 @@ export default defineComponent({
     },
     message() {
       return translate(`${this.appliedOptions.tip}`) || ''
+    },
+    label() {
+      return this.layout.label
     }
   }
 })
@@ -99,6 +109,7 @@ export default defineComponent({
 
   &-label {
     flex: 0.25;
+    @include heading;
   }
 
   &-renderer {
@@ -107,7 +118,9 @@ export default defineComponent({
 
     :deep(.group-label) {
       padding-bottom: 0.5em;
+      padding-left: 0;
     }
+
     :deep(.group) {
       padding-bottom: 2em;
 
@@ -115,13 +128,10 @@ export default defineComponent({
         padding-bottom: 3em;
       }
     }
+
     :deep(> .group) {
-      > .group-item {
-        &:last-of-type {
-          > .group {
-            padding-bottom: 0;
-          }
-        }
+      > .group-item:last-of-type > .group {
+        padding-bottom: 0;
       }
     }
   }

@@ -10,10 +10,10 @@ export const useRenderers = () => {
   const renderers = [
     ...vanillaRenderers,
     CustomControlRenderer,
+    FormResultsTableRenderer,
     FormGroupControlRenderer,
     FormHtmlRenderer,
-    FormNotificationRenderer,
-    FormResultsTableRenderer
+    FormNotificationRenderer
   ]
   return Object.freeze(renderers)
 }

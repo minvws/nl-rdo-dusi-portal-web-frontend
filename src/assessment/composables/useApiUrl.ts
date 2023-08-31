@@ -1,5 +1,5 @@
-import { useMockUrl, useMockData } from '@/@shared/composables/useMock'
-import { Project } from '@/@shared/types/project'
+import { useMockUrl, useMockData } from '@shared/composables/useMock'
+import { Project } from '@shared/types/project'
 
 declare global {
   interface Window {

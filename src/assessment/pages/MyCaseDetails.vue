@@ -45,8 +45,17 @@
       </TabList>
       <TabPanels>
         <TabPanel>
-          <AppSuspense v-bind="{ data, error, isFetching }">
-            <CaseDetails :items="data" />
+          <AppSuspense v-bind="{ data: forms, error, isFetching }">
+            <FormView
+              v-bind="{
+                id: 'my-details',
+                forms: forms,
+                hideDebug: true,
+                buttonLabels: { submit: 'Submit' },
+                noStyle: true,
+                noButtons: true
+              }"
+            />
           </AppSuspense>
           <RouterLink
             :to="startReviewRoute"
@@ -76,10 +85,10 @@ import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import CaseDetails from '@assessment/components/CaseDetails/CaseDetails.vue'
 import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
+import FormView from '@shared/components/FormView/FormView.vue'
 
 type Props = {
   id: string
@@ -89,7 +98,7 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
-const { data, error, isFetching } = useFetchCaseDetails(props.id as string)
+const { forms, error, isFetching } = useFetchCaseDetails(props.id as string)
 
 const startReviewRoute = computed(() => ({
   name: 'review-case',

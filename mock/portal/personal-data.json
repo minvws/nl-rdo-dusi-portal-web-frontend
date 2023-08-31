@@ -1,0 +1,135 @@
+{
+  "data": {
+    "metadata": {},
+    "dataschema": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "title": "Achternaam",
+          "type": "string",
+          "default": "Henk"
+        },
+        "nameInfix": {
+          "title": "Tussenvoegsel",
+          "type": "string",
+          "default": "de"
+        },
+        "lastName": {
+          "title": "Achternaam",
+          "type": "string",
+          "default": "Vries"
+        },
+        "dateOfBirth": {
+          "title": "Geboortedatum",
+          "type": "string",
+          "format": "date",
+          "default": "1990-12-10"
+        },
+        "country": {
+          "title": "Land",
+          "type": "string",
+          "default": "Nederland"
+        },
+        "street": {
+          "title": "Straatnaam",
+          "type": "string",
+          "default": "Dorpsstraat"
+        },
+        "houseNumber": {
+          "title": "Huisnummer",
+          "type": "string",
+          "default": "1"
+        },
+        "houseNumberSuffix": {
+          "title": "Huisnummer toevoeging",
+          "type": "string",
+          "default": "A"
+        },
+        "postalCode": {
+          "title": "Postcode",
+          "type": "string",
+          "default": "1234AA",
+          "postalCode": true,
+          "maxLength": 7
+        },
+        "city": {
+          "title": "Plaats",
+          "type": "string",
+          "default": "Amsterdam"
+        },
+        "phoneNumber": {
+          "title": "Telefoonnummer",
+          "type": "string",
+          "default": "+31(0)6 12345678"
+        },
+        "email": {
+          "title": "E-mailadres",
+          "type": "string",
+          "default": "email@email.nl"
+        }
+      }
+    },
+    "uischema": {
+      "type": "FormGroupControl",
+      "options": {
+        "section": true
+      },
+      "elements": [
+        {
+          "type": "FormGroupControl",
+          "label": "Persoonlijke informatie",
+          "options": { "section": true, "headingLevel": "2" },
+          "elements": [
+            {
+              "type": "FormResultsTable",
+              "options": {
+                "fields": {
+                  "Voornaam": "{firstName}",
+                  "Tussenvoegsel": "{nameInfix}",
+                  "Achternaam": "{lastName}",
+                  "Geboortedatum": "{dateOfBirth}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "FormGroupControl",
+          "label": "Adres",
+          "options": { "section": true, "headingLevel": "2" },
+          "elements": [
+            {
+              "type": "FormResultsTable",
+              "options": {
+                "fields": {
+                  "Land": "{country}",
+                  "Straatnaam": "{street}",
+                  "Huisnummer": "{houseNumber}",
+                  "Huisnummer toevoeging": "{houseNumberSuffix}",
+                  "Postcode": "{postalCode}",
+                  "Plaatsnaam": "{city}"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "type": "FormGroupControl",
+          "label": "Contact",
+          "options": { "section": true, "headingLevel": "2" },
+          "elements": [
+            {
+              "type": "FormResultsTable",
+              "options": {
+                "fields": {
+                  "Telefoonnummer": "{phoneNumber}",
+                  "E-mailadres": "{email}"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

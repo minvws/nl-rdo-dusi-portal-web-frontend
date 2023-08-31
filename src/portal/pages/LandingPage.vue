@@ -59,7 +59,7 @@ import SubsidySummary, {
 
 import { grantLink } from '@shared/external-links'
 
-import { filterByValidTo } from '@/@shared/utils/filter'
+import { filterByValidTo } from '@shared/utils/filter'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.home.title')}`

@@ -18,181 +18,226 @@
           "subjectRole": "applicant",
           "subjectOrganisation": null
         },
-        "values": [
-          {
-            "bankStatement": "mimeTypeimage/jpegextensionjpegsize70488"
-          },
-          {
-            "extractPersonalRecordsDatabase": "mimeTypeimage/jpegextensionjpegsize70488"
-          },
-          {
-            "proofOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488"
-          },
-          {
-            "proofOfTypeOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488"
-          },
-          {
-            "formOfAddress": "Bestemevrouw"
-          },
-          {
-            "firstName": "loremipsug=="
-          },
-          {
-            "infix": "loremipsug=="
-          },
-          {
-            "lastName": "loremipsug=="
-          },
-          {
-            "street": "loremipsug=="
-          },
-          {
-            "houseNumber": ""
-          },
-          {
-            "houseNumberSuffix": "loremipsug=="
-          },
-          {
-            "postalCode": "loremipsug=="
-          },
-          {
-            "city": "loremipsug=="
-          },
-          {
-            "country": "loremipsug=="
-          },
-          {
-            "phoneNumber": "+31061111111"
-          },
-          {
-            "email": "emailcom"
-          },
-          {
-            "bankAccountNumber": "NL91ABNA041716430w=="
-          },
-          {
-            "bankAccountHolder": "loremipsug=="
-          },
-          {
-            "communicationPreference": "Post"
-          },
-          {
-            "permissionToProcessPersonalData": "true"
+        "dataschema": {
+          "type": "object",
+          "properties": {
+            "assessmentId": {
+              "title": "Beoordelingsnummer",
+              "type": "string",
+              "default": "123456789"
+            },
+            "validFrom": {
+              "title": "Geldig vanaf",
+              "type": "string",
+              "default": "2019-02-01"
+            },
+            "validTo": {
+              "title": "Geldig tot",
+              "type": "string",
+              "default": "2020-02-01"
+            },
+            "bankStatement": {
+              "title": "Bankafschrift",
+              "type": "string",
+              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+            },
+            "extractPersonalRecordsDatabase": {
+              "title": "Uitreksel bevolkingsregister",
+              "type": "string",
+              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+            },
+            "proofOfMedicalTreatment": {
+              "title": "Verklaring behandeltraject",
+              "type": "string",
+              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+            },
+            "proofOfTypeOfMedicalTreatment": {
+              "title": "Verklaring type behandeling",
+              "type": "string",
+              "default": "mimeTypeimage/jpegextensionjpegsize70488"
+            },
+            "bankAccountNumber": {
+              "title": "IBAN",
+              "type": "string",
+              "default": "NL00BANK0000000000"
+            },
+            "bankAccountHolder":  {
+              "title": "Naam rekeninghouder",
+              "type": "string",
+              "default": "Henk de Vries"
+            },
+            "communicationPreference": {
+              "title": "Communicatievoorkeur",
+              "type": "string",
+              "default": "E-mail"
+            },
+            "firstName": {
+              "title": "Achternaam",
+              "type": "string",
+              "default": "Henk"
+            },
+            "nameInfix": {
+              "title": "Tussenvoegsel",
+              "type": "string",
+              "default": "de"
+            },
+            "lastName": {
+              "title": "Achternaam",
+              "type": "string",
+              "default": "Vries"
+            },
+            "country": {
+              "title": "Land",
+              "type": "string",
+              "default": "Nederland"
+            },
+            "street": {
+              "title": "Straatnaam",
+              "type": "string",
+              "default": "Dorpsstraat"
+            },
+            "houseNumber": {
+              "title": "Huisnummer",
+              "type": "string",
+              "default": "1"
+            },
+            "houseNumberSuffix": {
+              "title": "Huisnummer toevoeging",
+              "type": "string",
+              "default": "A"
+            },
+            "postalCode": {
+              "title": "Postcode",
+              "type": "string",
+              "default": "1234AA",
+              "postalCode": true,
+              "maxLength": 7
+            },
+            "city": {
+              "title": "Plaats",
+              "type": "string",
+              "default": "Amsterdam"
+            },
+            "phoneNumber": {
+              "title": "Telefoonnummer",
+              "type": "string",
+              "default": "+31(0)6 12345678"
+            },
+            "email": {
+              "title": "E-mailadres",
+              "type": "string",
+              "default": "email@email.nl"
+            }
           }
-        ],
+        },
         "uischema": {
-          "sections": [
+          "type": "FormGroupControl",
+          "options": {
+            "section": true
+          },
+          "elements": [
             {
-              "title": "meta",
+              "type": "FormGroupControl",
+              "label": "Meta",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "string",
-                  "field": "assessmentId"
-                },
-                {
-                  "type": "string",
-                  "field": "validFrom"
-                },
-                {
-                  "type": "string",
-                  "field": "validTo"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "Voornaam": "{assessmentId}",
+                      "Tussenvoegsel": "{validFrom}",
+                      "Achternaam": "{validTo}"
+                    }
+                  }
                 }
               ]
             },
             {
-              "title": "personal",
+              "type": "FormGroupControl",
+              "label": "Persoonlijke informatie",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "string",
-                  "field": "firstName"
-                },
-                {
-                  "type": "string",
-                  "field": "infix"
-                },
-                {
-                  "type": "string",
-                  "field": "lastName"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "Voornaam": "{firstName}",
+                      "Tussenvoegsel": "{nameInfix}",
+                      "Achternaam": "{lastName}"
+                    }
+                  }
                 }
               ]
             },
             {
-              "title": "address",
+              "type": "FormGroupControl",
+              "label": "Adres",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "string",
-                  "field": "street"
-                },
-                {
-                  "type": "string",
-                  "field": "houseNumber"
-                },
-                {
-                  "type": "string",
-                  "field": "houseNumberSuffix"
-                },
-                {
-                  "type": "string",
-                  "field": "postalCode"
-                },
-                {
-                  "type": "string",
-                  "field": "city"
-                },
-                {
-                  "type": "string",
-                  "field": "country"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "Land": "{country}",
+                      "Straatnaam": "{street}",
+                      "Huisnummer": "{houseNumber}",
+                      "Huisnummer toevoeging": "{houseNumberSuffix}",
+                      "Postcode": "{postalCode}",
+                      "Plaatsnaam": "{city}"
+                    }
+                  }
                 }
               ]
             },
             {
-              "title": "contact",
+              "type": "FormGroupControl",
+              "label": "Contact",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "string",
-                  "field": "phoneNumber"
-                },
-                {
-                  "type": "string",
-                  "field": "email"
-                },
-                {
-                  "type": "string",
-                  "field": "communicationPreference"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "Telefoonnummer": "{phoneNumber}",
+                      "E-mailadres": "{email}",
+                      "Communicatievoorkeur": "{communicationPreference}"
+                    }
+                  }
                 }
               ]
             },
             {
-              "title": "bank",
+              "type": "FormGroupControl",
+              "label": "Bank",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "string",
-                  "field": "bankAccountNumber"
-                },
-                {
-                  "type": "string",
-                  "field": "bankAccountHolder"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "IBAN": "{bankAccountNumber}",
+                      "Naam rekeninghouder": "{bankAccountHolder}"
+                    }
+                  }
                 }
               ]
             },
             {
-              "title": "files",
+              "type": "FormGroupControl",
+              "label": "Bestanden",
+              "options": { "section": true, "headingLevel": "2" },
               "elements": [
                 {
-                  "type": "file",
-                  "field": "bankStatement"
-                },
-                {
-                  "type": "file",
-                  "field": "extractPersonalRecordsDatabase"
-                },
-                {
-                  "type": "file",
-                  "field": "proofOfMedicalTreatment"
-                },
-                {
-                  "type": "file",
-                  "field": "proofOfTypeOfMedicalTreatment"
+                  "type": "FormResultsTable",
+                  "options": {
+                    "fields": {
+                      "Uitreksel bevolkingsregister": "{extractPersonalRecordsDatabase}",
+                      "Verklaring behandeltraject": "{proofOfMedicalTreatment}",
+                      "Verklaring type behandeling": "{proofOfTypeOfMedicalTreatment}",
+                      "Bankafschrift": "{bankStatement}"
+                    }
+                  }
                 }
               ]
             }

@@ -9,16 +9,17 @@ export type DetailsDataInputSection = {
   elements: Record<string, string>[]
 }
 
+export type DescriptionListDetailsType = 'string' | 'date' | 'url' | 'file'
+
 export type DescriptionListDetails = {
-  type: 'string' | 'date' | 'url' | 'file'
+  type: DescriptionListDetailsType
   url?: string
   text: string
 }
 
 export type DescriptionListItem = {
   term: string
-  details: DescriptionListDetails
-}
+} & DescriptionListDetails
 
 export type CaseDetailsItem = {
   title: string

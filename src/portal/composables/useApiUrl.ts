@@ -1,5 +1,5 @@
-import { useMockUrl, useMockData } from '@/@shared/composables/useMock'
-import { Project } from '@/@shared/types/project'
+import { useMockUrl, useMockData } from '@shared/composables/useMock'
+import { Project } from '@shared/types/project'
 
 declare global {
   interface Window {
@@ -26,4 +26,12 @@ export const useApiSubsidyUrl = () => {
 
 export const useApiRequestDetailsUrl = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/requests/${id}` // Not final url yet.
+}
+
+export const useApiRequestPersonalDetailsUrl = () => {
+  return useMockData ? `${mockUrl}/personal-data.json` : `${baseUrl}/api/personal-details`
+}
+
+export const useApiRequestEditPersonalDetailsUrl = () => {
+  return useMockData ? `${mockUrl}/edit-personal-data.json` : `${baseUrl}/api/personal-details`
 }

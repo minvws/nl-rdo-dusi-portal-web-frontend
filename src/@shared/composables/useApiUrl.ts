@@ -1,6 +1,6 @@
 import type { FormOptions } from '@shared/types/form-options'
 import { Project } from '@shared/types/project'
-import { useMockUrl, useMockData } from '@/@shared/composables/useMock'
+import { useMockUrl, useMockData } from '@shared/composables/useMock'
 
 declare global {
   interface Window {

@@ -14,3 +14,14 @@
     @content;
   }
 }
+
+@mixin heading {
+  @for $i from 1 through 5 {
+    &.h#{$i} {
+      font-family: var(--h#{$i}-font-family);
+      font-size: var(--h#{$i}-font-size, inherit);
+      font-weight: var(--h#{$i}-font-weight, inherit);
+      line-height: var(--h#{$i}-line-height, inherit);
+    }
+  }
+}

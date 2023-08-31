@@ -11,7 +11,9 @@
   <form
     :key="formKey"
     class="form-view"
-    :class="{ 'first-step': isFirstStep }"
+    :class="{
+      'no-style': isFirstStep || noStyle
+    }"
     @submit.prevent.stop
   >
     <JsonForms
@@ -26,6 +28,7 @@
       @change="onChange"
     />
     <FormButtons
+      v-if="!noButtons"
       :index="index"
       :forms="forms"
       :formsErrors="formsErrors"
@@ -63,8 +66,10 @@ type Props = {
   title?: string
   values?: FormData
   createDraft?: boolean
-  hideDebug?: boolean | undefined
+  hideDebug?: boolean
   buttonLabels?: FormButtonLabels
+  noStyle?: boolean // TODO: remove when we have a better solution for styling the form.
+  noButtons?: boolean
 }
 
 const emit = defineEmits(['submit'])
@@ -115,8 +120,8 @@ function onValidate() {
     padding: 0;
   }
 
-  &.first-step {
-    background-color: white;
+  &.no-style {
+    background-color: transparent;
     padding: 0;
   }
 }

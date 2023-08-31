@@ -1,9 +1,6 @@
+import type { CaseDetailsItem, DescriptionListItem } from '@shared/types/details'
+import type { CaseStage } from '@shared/types/cases'
 import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
-import type {
-  DetailsDataInput,
-  DetailsDataInputSection,
-  CaseDetailsItem
-} from '@shared/types/details'
 import { translate } from '@shared/i18n'
 
 export const formatFile = (path = '') => {
@@ -24,7 +21,7 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
  * Formats data from the API for the filters component.
  *
  * @param {FiltersDataInput} data - The data to format.
- * @returns {FilterItem[]} The formatted data.
+ * @returns {FilterItem[]} - The formatted data.
  */
 export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
   return Object.entries(data.data).map(([name, count]) => {
@@ -37,28 +34,38 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
 }
 
 /**
- * Formats data from the API for the details component.
+ * Formats data from the API for the request details component.
  *
- * @param data
- * @returns data
+ * @param {CaseStage} data - The data to format.
+ * @returns {CaseDetailsItem[]} - The formatted data.
  */
-export function formatDetailsData(data: DetailsDataInput): CaseDetailsItem[] {
-  if (!data?.uischema?.sections || !data?.values) return []
+export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
+  if (!data?.uischema || !data?.dataschema) return []
 
-  const { uischema, values } = data
+  const { dataschema, uischema } = data
+  const { properties } = dataschema as { properties: Record<string, any> }
+  const { elements } = uischema as { elements: { label: string; elements: any[] }[] }
 
-  return uischema.sections.map(({ elements, title }: DetailsDataInputSection) => ({
-    title: translate(`component.requestDetails.section.${title}`),
-    items: elements.map(({ field, type }) => {
-      const value = values.find(item => Object.prototype.hasOwnProperty.call(item, field))
-      const text = value ? value[field] : '-'
-      const url = value ? value[field] : '-'
-      const hasUrl = type === 'url' || type === 'file'
+  return elements.map(({ label, elements }) => {
+    const fields = elements[0].options.fields as Record<string, string>
+    const items = Object.entries(fields) as [string, string][]
 
-      return {
-        term: translate(`component.requestDetails.term.${field}`),
-        details: { type, text, ...(hasUrl && { url }) }
-      }
-    })
-  }))
+    return {
+      title: label,
+      items: items.map(item => {
+        const key = item[1].slice(1, -1)
+        const title = properties[key].title || '-'
+        const type = properties[key].type || 'string'
+        const value = properties[key].default || '-'
+        const hasUrl = type === 'url' || type === 'file'
+
+        return {
+          term: title,
+          type,
+          text: value,
+          ...(hasUrl && { url: value })
+        } as DescriptionListItem
+      })
+    }
+  })
 }

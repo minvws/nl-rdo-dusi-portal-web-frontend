@@ -11,7 +11,7 @@ export const useFetchForm = (id: string) => {
 
   const url = computed(() => useApiFormsUrl(id))
 
-  const { data, error, isFetching } = useFetch<FormResult>(url).json()
+  const { data, ...fetch } = useFetch<FormResult>(url).json()
 
   watch(data, data => {
     if (!data) {
@@ -27,7 +27,6 @@ export const useFetchForm = (id: string) => {
   return {
     title,
     forms,
-    error,
-    isFetching
+    ...fetch
   }
 }

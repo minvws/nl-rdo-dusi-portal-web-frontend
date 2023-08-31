@@ -9,7 +9,9 @@ import { RouterView, useRoute } from 'vue-router'
 
 import ArrangementDetails from '@portal/pages/ArrangementDetails.vue'
 
+import { ARRANGEMENT_DETAILS } from '@shared/router/names'
+
 const route = useRoute()
 
-const isDetailsRoute = computed(() => route.name === 'arrangement-details')
+const isDetailsRoute = computed(() => route.name === ARRANGEMENT_DETAILS)
 </script>

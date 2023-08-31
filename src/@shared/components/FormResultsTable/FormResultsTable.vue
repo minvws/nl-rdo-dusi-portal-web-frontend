@@ -1,18 +1,10 @@
 <template>
   <div class="form-results-table">
     <FormRow v-bind="wrapperProps">
-      <template v-if="items.length">
-        <div
-          v-for="([key, value], index) in items"
-          class="form-results-table-row"
-          :key="`row-${index}`"
-        >
-          <div>{{ key }}</div>
-          <div>
-            <strong v-html="value" />
-          </div>
-        </div>
-      </template>
+      <DescriptionList
+        v-if="items.length"
+        :items="items"
+      />
       <FormNotification
         v-else
         displayAs="explanation"
@@ -24,7 +16,9 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
-import type { FormData } from '@shared/types/form'
+import type { DescriptionListDetailsType, DescriptionListItem } from '@shared/types/details'
+
+import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
@@ -34,31 +28,19 @@ import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
-import { storeToRefs } from 'pinia'
-
-const tpl = function (template: string, props: FormData) {
-  let result: string = template
-  const regex = /\{([a-zA-Z]+)\}/g
-  Array.from(template.matchAll(regex)).forEach(
-    m => (result = result.replace('{' + m[1] + '}', (props[m[1]] ?? '') + ''))
-  )
-
-  return result
-}
+import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
 
 export default defineComponent({
-  components: { FormNotification, FormRow },
+  components: { FormNotification, FormRow, DescriptionList },
   props: {
     ...rendererProps<ControlElement>()
   },
   computed: {
-    fields() {
+    fields(): [string, string][] {
       return (Object.entries(this.appliedOptions.fields) as [string, string][]) ?? []
     },
-    items() {
-      return this.fields.map(([key, value]) => {
-        return [key, tpl(value, this.fromData)]
-      })
+    items(): DescriptionListItem[] {
+      return this.fields.map(field => this.formatListItem(field))
     },
     wrapperProps() {
       const { styles, appliedOptions, control } = this
@@ -75,13 +57,32 @@ export default defineComponent({
     }
   },
   methods: {
-    tpl
+    formatListItem(field: [string, string]): DescriptionListItem {
+      const [term, template] = field
+      const key = template.slice(1, -1)
+      const text = this.formData[key] ? this.formData[key].toString() : ''
+      const type = this.getItemType(key)
+
+      return { term, type, text }
+    },
+    getItemType(key: string): DescriptionListDetailsType {
+      const properties = this.schema?.properties || {}
+      const supportedFormats = ['string', 'date', 'url', 'file'] as DescriptionListDetailsType[]
+      const format = properties[key].format as DescriptionListDetailsType
+      const validFormat = supportedFormats.includes(format)
+
+      return validFormat ? format : 'string'
+    }
   },
   setup(props) {
-    const { formData } = storeToRefs(useFormStore())
+    const formStore = useFormStore()
+    const { formData } = storeToRefs(formStore)
+    const jsonFormsControl = useJsonFormsControl(props)
+    const vanillaControl = useVanillaControl(jsonFormsControl)
+
     return {
-      ...useVanillaControl(useJsonFormsControl(props)),
-      fromData: formData,
+      ...vanillaControl,
+      formData,
       translate
     }
   }

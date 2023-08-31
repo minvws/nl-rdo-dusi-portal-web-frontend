@@ -100,6 +100,18 @@
     "localForm": {
       "title": "Localform example"
     },
+    "my-details-overview": {
+      "title": "Mijn gegevens",
+      "intro1": "Het overzicht van uw gegevens zoals ze bij ons bekend zijn.",
+      "intro2": "Deze gegevens worden automatisch voor u ingevuld als u een aanvraag start.",
+      "edit": "Bewerken"
+    },
+    "my-details-edit": {
+      "title": "Mijn gegevens bewerken",
+      "intro": "Verander of pas uw gegevens hieronder aan. De nieuwe gegevens worden binnen al uw aanvragen meegenomen.",
+      "cancel": "Annuleren",
+      "save": "Opslaan"
+    },
     "my-requests-overview": {
       "title": "Mijn aanvragen",
       "intro": "Het overzicht van uw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",

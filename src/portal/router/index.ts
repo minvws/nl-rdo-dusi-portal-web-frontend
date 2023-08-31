@@ -12,6 +12,8 @@ import FormSent from '@portal/pages/FormSent.vue'
 import LandingPage from '@portal/pages/LandingPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
+import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
+import MyDetailsView from '@portal/pages/MyDetailsView.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
@@ -28,6 +30,8 @@ import {
   FORM_SENT,
   HOME,
   LOGIN_CALLBACK_VIEW,
+  MY_DETAILS_OVERVIEW,
+  MY_DETAILS_EDIT,
   MY_MESSAGES_PAGE,
   MY_MESSAGES,
   MY_REQUESTS_DETAILS,
@@ -88,9 +92,6 @@ const routes = [
         path: ':id',
         name: ARRANGEMENT_DETAILS,
         component: ArrangementView,
-        meta: {
-          public: false
-        },
         children: [
           {
             path: 'aanvraag-verzonden',
@@ -135,6 +136,18 @@ const routes = [
     path: '/mijn-berichten',
     name: MY_MESSAGES,
     component: MyMessagesOverview
+  },
+  {
+    path: '/mijn-gegevens',
+    name: MY_DETAILS_OVERVIEW,
+    component: MyDetailsView,
+    children: [
+      {
+        path: 'bewerken',
+        name: MY_DETAILS_EDIT,
+        component: MyDetailsEdit
+      }
+    ]
   },
   {
     path: '/:catchAll(.*)',

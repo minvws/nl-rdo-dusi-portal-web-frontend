@@ -13,7 +13,7 @@
   </RouterLink>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'

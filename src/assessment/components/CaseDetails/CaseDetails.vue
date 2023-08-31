@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import DescriptionList from '@assessment/components/DescriptionList/DescriptionList.vue'
+import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
 
 import type { CaseDetailsItem } from '@shared/types/details'
 

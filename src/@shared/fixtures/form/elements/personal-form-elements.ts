@@ -1,5 +1,5 @@
 import { placeholder } from '@shared/fixtures/form/data/placeholder'
-import allCountries from '@/@shared/fixtures/form/data/all-countries'
+import allCountries from '@shared/fixtures/form/data/all-countries'
 
 export const required = [
   'firstName',
