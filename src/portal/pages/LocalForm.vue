@@ -26,7 +26,7 @@ import { ref } from 'vue'
 import FormSection from '@shared/components/FormSection/FormSection.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'
-import formExample from '@shared/fixtures/form/PostCovid'
+import formExample from '@shared/fixtures/form/BorstProthesenTransvrouwen'
 
 const form: Ref<{ title?: string; data: Form[]; values?: FormData } | undefined> = ref(undefined)
 formExample().then(value => (form.value = value))

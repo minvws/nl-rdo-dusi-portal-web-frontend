@@ -11,40 +11,6 @@ export default async () => {
     })
   )[0]()
 
-  const properties = {
-    ...personalInformationProperties,
-    bankStatement: {
-      type: 'string',
-      file: true,
-      title: 'Kopie bankafschrift'
-    },
-    extractPersonalRecordsDatabase: {
-      type: 'string',
-      file: true,
-      title: 'Uittreksel bevolkingsregister'
-    },
-    proofOfMedicalTreatment: {
-      type: 'string',
-      file: true,
-      title: 'Verklaring behandeltraject'
-    },
-    proofOfTypeOfMedicalTreatment: {
-      type: 'string',
-      file: true,
-      title: 'Verklaring type behandeling'
-    },
-    permissionToProcessPersonalData: {
-      type: 'boolean',
-      const: true,
-      title: 'Verwerking'
-    },
-    truth: {
-      type: 'boolean',
-      const: true,
-      title: 'Inhoud'
-    }
-  }
-
   const firstSchema = {
     type: 'FormGroupControl',
     options: { section: true },
@@ -245,7 +211,13 @@ export default async () => {
       {
         uischema: firstSchema,
         dataschema: {
-          properties,
+          properties: {
+            permissionToProcessPersonalData: {
+              type: 'boolean',
+              const: true,
+              title: 'Verwerking'
+            }
+          },
           required: ['permissionToProcessPersonalData']
         }
       },
@@ -253,7 +225,7 @@ export default async () => {
         uischema: secondSchema,
         dataschema: {
           required: [...personalInformationRequired],
-          properties
+          properties: personalInformationProperties
         },
         title: 'Persoonsgegevens toevoegen'
       },
@@ -266,7 +238,28 @@ export default async () => {
             'proofOfMedicalTreatment',
             'proofOfTypeOfMedicalTreatment'
           ],
-          properties
+          properties: {
+            bankStatement: {
+              type: 'string',
+              file: true,
+              title: 'Kopie bankafschrift'
+            },
+            extractPersonalRecordsDatabase: {
+              type: 'string',
+              file: true,
+              title: 'Uittreksel bevolkingsregister'
+            },
+            proofOfMedicalTreatment: {
+              type: 'string',
+              file: true,
+              title: 'Verklaring behandeltraject'
+            },
+            proofOfTypeOfMedicalTreatment: {
+              type: 'string',
+              file: true,
+              title: 'Verklaring type behandeling'
+            }
+          }
         },
         title: 'Documenten toevoegen'
       },
@@ -274,10 +267,16 @@ export default async () => {
         uischema: lastSchema,
         dataschema: {
           required: ['truth'],
-          properties
+          properties: {
+            truth: {
+              type: 'boolean',
+              const: true,
+              title: 'Inhoud'
+            }
+          }
         },
         title: 'Controleren en ondertekenen'
       }
     ]
-  }
+  } as any
 }
