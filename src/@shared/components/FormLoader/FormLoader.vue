@@ -9,6 +9,7 @@
       v-bind="{
         id,
         forms,
+        values,
         title,
         createDraft: true
       }"
@@ -26,5 +27,5 @@ type Props = {
   id: string
 }
 const props = defineProps<Props>()
-const { title, forms, isFetching, error } = useFetchForm(props.id)
+const { title, forms, isFetching, error, values } = useFetchForm(props.id)
 </script>

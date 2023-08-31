@@ -9,6 +9,7 @@
         v-bind="{
           id: 'my-details-edit',
           forms: details,
+          values,
           hideDebug: true,
           buttonLabels: { submit: translate('pages.my-details-edit.save') }
         }"
@@ -32,7 +33,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-details-edit.title')}`
 })
 
-const { data: details, error, isFetching } = useFetchPersonalDetails({ editable: true })
+const { data: details, values, error, isFetching } = useFetchPersonalDetails({ editable: true })
 
 function onSubmit() {
   console.log('save edited details')

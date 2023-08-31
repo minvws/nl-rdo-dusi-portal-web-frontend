@@ -1,34 +1,44 @@
 {
   "data": {
     "metadata": {},
+    "values": {
+      "firstName": "Henk",
+      "nameInfix": "de",
+      "lastName": "Vries",
+      "dateOfBirth": "1990-12-10",
+      "country": "Nederland",
+      "street": "Dorpsstraat",
+      "houseNumber": "1",
+      "houseNumberSuffix": "A",
+      "postalCode": "1234 AA",
+      "city": "Amterdam",
+      "phoneNumber": "+31(0) 612345678",
+      "email": "email@email.nl"
+
+    },
     "dataschema": {
       "type": "object",
       "properties": {
         "firstName": {
           "title": "Achternaam",
-          "type": "string",
-          "default": "Henk"
+          "type": "string"
         },
         "nameInfix": {
           "title": "Tussenvoegsel",
-          "type": "string",
-          "default": "de"
+          "type": "string"
         },
         "lastName": {
           "title": "Achternaam",
-          "type": "string",
-          "default": "Vries"
+          "type": "string"
         },
         "dateOfBirth": {
           "title": "Geboortedatum",
           "type": "string",
-          "format": "date",
-          "default": "1990-12-10"
+          "format": "date"
         },
         "country": {
           "title": "Land",
           "type": "string",
-          "default": "Nederland",
           "enum": [
             "Afghanistan",
             "Albanië",
@@ -227,42 +237,35 @@
         },
         "street": {
           "title": "Straatnaam",
-          "type": "string",
-          "default": "Dorpsstraat"
+          "type": "string"
         },
         "houseNumber": {
           "title": "Huisnummer",
-          "type": "number",
-          "default": 1
+          "type": "number"
         },
         "houseNumberSuffix": {
           "title": "Huisnummer toevoeging",
-          "type": "string",
-          "default": "A"
+          "type": "string"
         },
         "postalCode": {
           "title": "Postcode",
           "type": "string",
-          "default": "1234 AA",
           "postalCode": true,
           "maxLength": 7
 
         },
         "city": {
           "title": "Plaats",
-          "type": "string",
-          "default": "Amsterdam"
+          "type": "string"
         },
         "phoneNumber": {
           "title": "Telefoonnummer",
           "type": "string",
-          "default": "+31(0)6 12345678",
           "tel": true
         },
         "email": {
           "title": "E-mailadres",
           "type": "string",
-          "default": "email@email.nl",
           "format": "email"
         }
       },
