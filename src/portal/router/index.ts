@@ -105,8 +105,9 @@ const routes = [
             component: RemoteForm
           },
           {
-            path: 'aanvragen-local',
+            path: ':name/aanvragen-local',
             name: ARRANGEMENT_FORM_LOCAL,
+            props: true,
             component: LocalForm
           }
         ]
