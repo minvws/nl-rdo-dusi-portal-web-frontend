@@ -10,6 +10,7 @@
         v-bind="{
           id: 'my-details',
           forms: details,
+          values,
           hideDebug: true,
           noStyle: true,
           noButtons: true
@@ -41,7 +42,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-details-overview.title')}`
 })
 
-const { data: details, error, isFetching } = useFetchPersonalDetails({ editable: false })
+const { data: details, error, isFetching, values } = useFetchPersonalDetails({ editable: false })
 </script>
 
 <style lang="scss" scoped>

@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { Form } from '@shared/types/form'
+import type { Form, FormData } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useFetch } from '@vueuse/core'
 
@@ -12,6 +12,7 @@ import { transformForm } from '@shared/utils/form'
 
 export const useFetchPersonalDetails = ({ editable }: Record<string, boolean>) => {
   const forms: Ref<Form[]> = ref([])
+  const values: Ref<FormData | undefined> = ref(undefined)
 
   const url = editable ? useApiRequestEditPersonalDetailsUrl() : useApiRequestPersonalDetailsUrl()
 
@@ -24,12 +25,14 @@ export const useFetchPersonalDetails = ({ editable }: Record<string, boolean>) =
       return
     }
 
-    const { dataschema, uischema } = data
+    const { dataschema, uischema, values: formValues } = data
     forms.value = transformForm({ dataschema, uischema })
+    values.value = formValues
   })
 
   return {
     data: forms,
+    values,
     ...fetch
   }
 }

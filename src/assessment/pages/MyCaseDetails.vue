@@ -49,7 +49,8 @@
             <FormView
               v-bind="{
                 id: 'my-details',
-                forms: forms,
+                forms,
+                values,
                 hideDebug: true,
                 buttonLabels: { submit: 'Submit' },
                 noStyle: true,
@@ -98,7 +99,7 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
-const { forms, error, isFetching } = useFetchCaseDetails(props.id as string)
+const { forms, error, values, isFetching } = useFetchCaseDetails(props.id as string)
 
 const startReviewRoute = computed(() => ({
   name: 'review-case',
