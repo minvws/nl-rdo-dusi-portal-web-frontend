@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { Form, FormData } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
-import { useFetch } from '@vueuse/core'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 import {
   useApiRequestEditPersonalDetailsUrl,
@@ -16,7 +16,7 @@ export const useFetchPersonalDetails = ({ editable }: Record<string, boolean>) =
 
   const url = editable ? useApiRequestEditPersonalDetailsUrl() : useApiRequestPersonalDetailsUrl()
 
-  const { data: json, ...fetch } = useFetch(url).json()
+  const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
   const data = computed(() => (json.value?.data ? json.value.data : []))
 
