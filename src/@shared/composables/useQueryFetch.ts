@@ -1,5 +1,5 @@
 import { computed, ref, type Ref } from 'vue'
-import { useFetch } from '@vueuse/core'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 type Config = {
   refetch?: boolean
@@ -30,7 +30,7 @@ export const useQueryFetch = (
   })
 
   const fetchConfig = { ...{ refetch: true, immediate: true }, ...config }
-  const { data, error, isFetching } = useFetch(url, fetchConfig).json()
+  const { data, error, isFetching } = useFetchWithCredentials(url, fetchConfig).json()
 
   return {
     query,

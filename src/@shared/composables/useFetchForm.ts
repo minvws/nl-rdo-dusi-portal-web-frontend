@@ -2,9 +2,8 @@ import type { Ref } from 'vue'
 import type { Form, FormData, FormResult } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useApiFormsUrl } from '@shared/composables/useApiUrl'
-import { useFetch } from '@vueuse/core'
 import { transformForm, getFormTitle } from '@shared/utils/form'
-
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 export const useFetchForm = (id: string) => {
   const title: Ref<string> = ref('')
   const forms: Ref<Form[]> = ref([])
@@ -12,7 +11,7 @@ export const useFetchForm = (id: string) => {
 
   const url = computed(() => useApiFormsUrl(id))
 
-  const { data, ...fetch } = useFetch<FormResult>(url).json()
+  const { data, ...fetch } = useFetchWithCredentials<FormResult>(url).json()
 
   watch(data, data => {
     if (!data) {
