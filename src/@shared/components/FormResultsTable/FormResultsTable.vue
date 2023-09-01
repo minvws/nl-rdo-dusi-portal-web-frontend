@@ -16,8 +16,13 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
-import type { DescriptionListDetailsType, DescriptionListItem } from '@shared/types/details'
+import {
+  DescriptionListDetailsFieldType,
+  type DescriptionListDetailsType,
+  type DescriptionListItem
+} from '@shared/types/details'
 import type { FormData } from '@shared/types/form'
+import type { FieldProp } from '@/@shared/types/field'
 
 import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
@@ -66,20 +71,22 @@ export default defineComponent({
       return { term, type, text }
     },
     getItemType(keys: string[]): DescriptionListDetailsType {
-      const supportedFormats = ['string', 'date', 'url', 'file'] as DescriptionListDetailsType[]
+      const supportedFormats = Object.values(DescriptionListDetailsFieldType)
       const properties = this.schema?.properties || {}
 
       if (keys.length > 1) {
-        return 'string'
+        return DescriptionListDetailsFieldType.STRING
       }
 
       const key = keys[0]
-      const format = properties[key]
-        ? (properties[key].format as DescriptionListDetailsType)
-        : 'string'
-      const validFormat = supportedFormats.includes(format)
+      const field = properties[key] as FieldProp
 
-      return validFormat ? format : 'string'
+      const format = field?.file
+        ? DescriptionListDetailsFieldType.FILE
+        : (field?.format as DescriptionListDetailsType)
+
+      const validFormat = supportedFormats.includes(format)
+      return validFormat ? format : DescriptionListDetailsFieldType.STRING
     },
     replaceTemplateWithData(template: string, formData: FormData) {
       let matches: string[] = []

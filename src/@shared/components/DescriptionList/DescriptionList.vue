@@ -16,6 +16,7 @@
           :href="url"
           :title="text"
           :download="type === 'file'"
+          target="_blank"
           rel="external"
         >
           {{ text }}

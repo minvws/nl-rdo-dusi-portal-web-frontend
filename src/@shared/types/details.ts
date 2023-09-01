@@ -9,7 +9,15 @@ export type DetailsDataInputSection = {
   elements: Record<string, string>[]
 }
 
-export type DescriptionListDetailsType = 'string' | 'date' | 'url' | 'file'
+export const DescriptionListDetailsFieldType = {
+  FILE: 'file',
+  DATE: 'date',
+  URL: 'url',
+  STRING: 'string'
+} as const
+
+export type DescriptionListDetailsType =
+  (typeof DescriptionListDetailsFieldType)[keyof typeof DescriptionListDetailsFieldType]
 
 export type DescriptionListDetails = {
   type: DescriptionListDetailsType
