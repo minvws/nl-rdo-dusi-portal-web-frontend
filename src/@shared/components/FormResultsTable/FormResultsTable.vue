@@ -16,7 +16,13 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
-import type { DescriptionListDetailsType, DescriptionListItem } from '@shared/types/details'
+import {
+  DescriptionListDetailsFieldType,
+  type DescriptionListDetailsType,
+  type DescriptionListItem
+} from '@shared/types/details'
+import type { FormData } from '@shared/types/form'
+import type { FieldProp } from '@/@shared/types/field'
 
 import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
@@ -59,19 +65,40 @@ export default defineComponent({
   methods: {
     formatListItem(field: [string, string]): DescriptionListItem {
       const [term, template] = field
-      const key = template.slice(1, -1)
-      const text = this.formData[key] ? this.formData[key].toString() : ''
-      const type = this.getItemType(key)
+      const { matches, text } = this.replaceTemplateWithData(template, this.formData)
+      const type = this.getItemType(matches)
 
       return { term, type, text }
     },
-    getItemType(key: string): DescriptionListDetailsType {
+    getItemType(keys: string[]): DescriptionListDetailsType {
+      const supportedFormats = Object.values(DescriptionListDetailsFieldType)
       const properties = this.schema?.properties || {}
-      const supportedFormats = ['string', 'date', 'url', 'file'] as DescriptionListDetailsType[]
-      const format = properties[key].format as DescriptionListDetailsType
-      const validFormat = supportedFormats.includes(format)
 
-      return validFormat ? format : 'string'
+      if (keys.length > 1) {
+        return DescriptionListDetailsFieldType.STRING
+      }
+
+      const key = keys[0]
+      const field = properties[key] as FieldProp
+
+      const format = field?.file
+        ? DescriptionListDetailsFieldType.FILE
+        : (field?.format as DescriptionListDetailsType)
+
+      const validFormat = supportedFormats.includes(format)
+      return validFormat ? format : DescriptionListDetailsFieldType.STRING
+    },
+    replaceTemplateWithData(template: string, formData: FormData) {
+      let matches: string[] = []
+      let text: string = template
+      const regex = /\{([a-zA-Z]+)\}/g
+
+      Array.from(template.matchAll(regex)).forEach(match => {
+        matches.push(match[1])
+        text = text.replace('{' + match[1] + '}', (formData[match[1]] ?? '') + '')
+      })
+
+      return { matches, text }
     }
   },
   setup(props) {
