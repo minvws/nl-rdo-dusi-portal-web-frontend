@@ -22,38 +22,42 @@
           "type": "object",
           "properties": {
             "assessmentId": {
-              "title": "Beoordelingsnummer",
+              "title": "Dossiernummer",
               "type": "string",
               "default": "123456789"
             },
             "validFrom": {
-              "title": "Geldig vanaf",
+              "title": "Aangevraagd op",
               "type": "string",
               "default": "2019-02-01"
             },
             "validTo": {
-              "title": "Geldig tot",
+              "title": "Uiterste behandeldatum",
               "type": "string",
               "default": "2020-02-01"
             },
             "bankStatement": {
               "title": "Bankafschrift",
               "type": "string",
+              "format": "url",
               "default": "mimeTypeimage/jpegextensionjpegsize70488"
             },
             "extractPersonalRecordsDatabase": {
               "title": "Uitreksel bevolkingsregister",
               "type": "string",
+              "format": "url",
               "default": "mimeTypeimage/jpegextensionjpegsize70488"
             },
             "proofOfMedicalTreatment": {
               "title": "Verklaring behandeltraject",
               "type": "string",
+              "format": "url",
               "default": "mimeTypeimage/jpegextensionjpegsize70488"
             },
             "proofOfTypeOfMedicalTreatment": {
               "title": "Verklaring type behandeling",
               "type": "string",
+              "format": "url",
               "default": "mimeTypeimage/jpegextensionjpegsize70488"
             },
             "bankAccountNumber": {
@@ -145,9 +149,9 @@
                   "type": "FormResultsTable",
                   "options": {
                     "fields": {
-                      "Voornaam": "{assessmentId}",
-                      "Tussenvoegsel": "{validFrom}",
-                      "Achternaam": "{validTo}"
+                      "Dossiernummer": "{assessmentId}",
+                      "Aangevraagd op": "{validFrom}",
+                      "Uiterste behandeldatum": "{validTo}"
                     }
                   }
                 }
