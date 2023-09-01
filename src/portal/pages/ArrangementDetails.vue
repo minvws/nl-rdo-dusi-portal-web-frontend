@@ -1,19 +1,25 @@
 <template>
   <section>
     <div>
-      <p>Regeling details for {{ route.params.id }}</p>
+      <h2>Regeling details for {{ route.params.id }}</h2>
+      <h4>Local forms:</h4>
       <RouterLink
-        :to="requestLocalFormRoute"
         class="button ghost"
-      >
-        Aanvragen (local)
-      </RouterLink>
+        text="Aanvragen post-covid"
+        :to="requestLocalFormPostCovidRoute"
+      />
       <RouterLink
+        class="button ghost"
+        text="Aanvragen borst-prothesen-transvrouwen"
+        :to="requestLocalFormBTVRoute"
+      />
+
+      <h4>Remote form:</h4>
+      <RouterLink
+        class="button ghost"
+        text="Aanvragen"
         :to="requestRemoteFormRoute"
-        class="button ghost"
-      >
-        Aanvragen (remote)</RouterLink
-      >
+      />
     </div>
   </section>
 </template>
@@ -35,10 +41,17 @@ useSEO({
   }`
 })
 
-const requestLocalFormRoute = computed(() => {
+const requestLocalFormPostCovidRoute = computed(() => {
   return {
     name: ARRANGEMENT_FORM_LOCAL,
-    params: { id: route.params.id }
+    params: { id: route.params.id, name: 'post-covid' }
+  }
+})
+
+const requestLocalFormBTVRoute = computed(() => {
+  return {
+    name: ARRANGEMENT_FORM_LOCAL,
+    params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
   }
 })
 
