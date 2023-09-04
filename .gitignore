@@ -15,6 +15,7 @@ coverage
 *.local
 .env
 .vite
+.npmrc
 
 # Editor directories and files
 .vscode/*

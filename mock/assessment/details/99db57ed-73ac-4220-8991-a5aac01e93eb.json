@@ -29,7 +29,7 @@
 					"postalCode": "1234 AA",
 					"city": "Amterdam",
 					"phoneNumber": "+31(0) 612345678",
-					"email": "email@email.nl",
+					"email": "email@example.com",
 					"assessmentId": "12345",
 					"validFrom": "2019-02-11",
 					"validTo": "2020-02-01",

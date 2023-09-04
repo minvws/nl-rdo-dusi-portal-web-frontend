@@ -130,7 +130,7 @@
             "email": {
               "title": "E-mailadres",
               "type": "string",
-              "default": "email@email.nl"
+              "default": "email@example.com"
             }
           }
         },
