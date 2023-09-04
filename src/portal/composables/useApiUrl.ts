@@ -12,8 +12,12 @@ declare global {
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = `${useMockUrl()}/${Project.PORTAL}`
 
+export const useApiActionsCountUrl = () => {
+  return useMockData ? `${mockUrl}/actions-count.json` : `${baseUrl}/api/actionables/counts`
+}
+
 export const useApiActiveRequestsUrl = () => {
-  return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/requests`
+  return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/applications`
 }
 
 export const useApiMessagesUrl = () => {

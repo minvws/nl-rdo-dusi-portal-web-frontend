@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
+import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
 
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
@@ -20,6 +21,7 @@ import type { Link } from '@shared/types/link'
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
+  const { data: actions } = useFetchActionsCount()
 
   const leftLinks: Link[] = [
     {
@@ -30,6 +32,7 @@ export const useAppHeaderLinks = () => {
   ]
 
   const rightLinks: Ref<Link[]> = computed(() => {
+    const { applicationCount, messageCount } = actions.value
     if (!isLoggedIn.value) return []
     return [
       {
@@ -39,12 +42,12 @@ export const useAppHeaderLinks = () => {
       {
         name: MY_REQUESTS_OVERVIEW,
         label: translate('pages.my-requests-overview.title'),
-        badge: 2 // @TODO: get from API/store
+        ...(applicationCount && { badge: applicationCount })
       },
       {
         name: MY_MESSAGES,
         label: translate('pages.my-messages-overview.title'),
-        badge: 4 // @TODO: get from API/store
+        ...(messageCount && { badge: messageCount })
       },
       {
         name: MY_DETAILS_OVERVIEW,

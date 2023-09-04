@@ -6,10 +6,12 @@ type Config = {
   immediate?: boolean
 }
 
-export const useQueryFetch = (
-  { url: location, params }: { url: string; params?: Ref<Record<string, string> | undefined> },
-  config?: Config
-) => {
+type QueryFetch = {
+  url: string
+  params?: Ref<Record<string, string> | undefined>
+}
+
+export const useQueryFetch = ({ url: location, params }: QueryFetch, config?: Config) => {
   const query: Ref<Record<string, string | string[]>> = ref({})
 
   const url = computed(() => {

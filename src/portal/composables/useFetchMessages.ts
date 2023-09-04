@@ -3,11 +3,13 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
 import { useApiMessagesUrl } from '@/portal/composables/useApiUrl'
 
+import { formatMessagesData } from '@shared/utils/format'
+
 export const useFetchMessages = () => {
   const url = useApiMessagesUrl()
   const { data: json, ...fetch } = useQueryFetch({ url })
 
-  const data = computed(() => (json.value ? json.value : []))
+  const data = computed(() => (json.value ? formatMessagesData(json.value) : []))
 
   return {
     data,

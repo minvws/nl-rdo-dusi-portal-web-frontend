@@ -1,7 +1,7 @@
 <template>
   <div class="case-history">
     <AppTable
-      :data="mockData"
+      :data="items"
       :columns="headings"
       :items-per-page="10"
     />
@@ -13,30 +13,23 @@ import { ref } from 'vue'
 
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
+type HistoryItem = {
+  datetime: string
+  action: string
+  note: string
+  performed_by: string
+}
+
+type Props = {
+  items: HistoryItem[]
+}
+
+defineProps<Props>()
+
 const headings = ref([
   { id: 'datetime', text: 'Datum en tijd', sortable: true },
   { id: 'action', text: 'Actie', sortable: false },
   { id: 'note', text: 'Notitie', sortable: false },
   { id: 'performed_by', text: 'Uitgevoerd door', sortable: true }
-])
-const mockData = ref([
-  {
-    datetime: { type: 'date', text: '12-04-2023 15:42:29' },
-    action: { type: 'string', text: 'Tweede beoordeling goedgekeurd' },
-    note: { type: 'string', text: '-' },
-    performed_by: { type: 'string', text: 'Bram Adema' }
-  },
-  {
-    datetime: { type: 'date', text: '24-03-2023 11:53:23' },
-    action: { type: 'string', text: 'Eerste beoordeling goedgekeurd' },
-    note: { type: 'string', text: '-' },
-    performed_by: { type: 'string', text: 'Bram Adema' }
-  },
-  {
-    datetime: { type: 'date', text: '12-05-2023 12:31:43' },
-    action: { type: 'string', text: 'Aangemaakt' },
-    note: { type: 'string', text: '-' },
-    performed_by: { type: 'string', text: 'Bram Adema' }
-  }
 ])
 </script>

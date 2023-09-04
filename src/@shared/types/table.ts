@@ -1,9 +1,10 @@
 /* eslint-disable */
 export enum AssessmentsDataType {
-  LINK = 'link',
-  STRING = 'string',
+  BUTTON = 'button',
+  BUTTON_LINK = 'button-link',
   DATE = 'date',
-  BUTTON = 'button'
+  LINK = 'link',
+  STRING = 'string'
 }
 
 export type AssessmentsData = Record<string, Record<string, any>>[]
@@ -15,7 +16,7 @@ export type RawAssessmentData = {
 }
 
 export type RawRequestData = {
-  data: Record<string, any>[]
+  items: Record<string, any>[]
 }
 
 export type Column = {

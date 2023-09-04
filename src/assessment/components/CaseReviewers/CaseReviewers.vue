@@ -7,10 +7,13 @@
       {{ translate('component.caseReviers.handledBy') }}
     </p>
     <p>
-      <strong>{{ reviewer }}</strong>
+      <strong>{{ name }}</strong>
     </p>
 
-    <AppButton class="ghost">
+    <AppButton
+      class="ghost"
+      @click="onRemove"
+    >
       {{ translate('component.caseReviers.removeReviewer') }}
     </AppButton>
   </div>
@@ -22,8 +25,12 @@ import { translate } from '@shared/i18n'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 type Props = {
-  reviewer: string
+  name: string
 }
 
 defineProps<Props>()
+
+function onRemove() {
+  console.log('@TODO: remove reviewer from case')
+}
 </script>

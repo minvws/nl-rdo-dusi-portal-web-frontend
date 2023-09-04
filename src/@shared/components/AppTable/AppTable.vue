@@ -42,26 +42,31 @@
             v-for="column in columns"
             :key="column.id"
           >
-            <td v-if="item[column.id].type === 'link'">
-              <a :href="item[column.id].url">
-                {{ item[column.id].text }}
-              </a>
-            </td>
-            <td v-else-if="item[column.id].type === 'button'">
+            <td v-if="item[column.id].type === 'link' || item[column.id].type === 'button-link'">
               <RouterLink
+                :class="{
+                  'button ghost': item[column.id].type === 'button-link'
+                }"
                 :to="item[column.id].to"
-                class="button ghost"
               >
                 {{ item[column.id].text }}
               </RouterLink>
             </td>
+            <td v-else-if="item[column.id].type === 'button'">
+              <AppButton
+                class="button ghost"
+                @click="item[column.id].onClick"
+              >
+                {{ item[column.id].text }}
+              </AppButton>
+            </td>
             <td v-else-if="item[column.id].type === 'icon'">
-              <a :href="item[column.id].url">
+              <RouterLink :to="item[column.id].to">
                 <AppIcon
                   :name="item[column.id].text"
                   aria-hidden="true"
                 />
-              </a>
+              </RouterLink>
             </td>
             <td v-else>
               {{ item[column.id].text }}
@@ -154,6 +159,16 @@ function sortTableById(id: any) {
 </script>
 
 <style lang="scss" scoped>
+table {
+  --table-head-background-color: #01689b;
+}
+
+table tr td {
+  border-top: none;
+  border-bottom: none;
+  border-color: var(--grey-1);
+}
+
 table thead th .button,
 table td .button {
   --button-base-line-height: 1.5;
@@ -169,5 +184,9 @@ table td .button {
 table thead th .button {
   --button-base-padding-right: 0.25rem;
   --button-base-padding-left: 0.25rem;
+  --button-base-background-color: transparent;
+  --button-base-border-color: transparent;
+  --button-base-focus-background-color: transparent;
+  --button-base-focus-border-color: transparent;
 }
 </style>

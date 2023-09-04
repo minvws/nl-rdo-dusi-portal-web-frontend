@@ -45,11 +45,13 @@
       </TabList>
       <TabPanels>
         <TabPanel>
-          <AppSuspense v-bind="{ data: forms, error, isFetching }">
+          <AppSuspense
+            v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }"
+          >
             <FormView
               v-bind="{
                 id: 'my-details',
-                forms,
+                forms: details,
                 values,
                 hideDebug: true,
                 buttonLabels: { submit: 'Submit' },
@@ -66,10 +68,18 @@
           </RouterLink>
         </TabPanel>
         <TabPanel>
-          <CaseHistory />
+          <AppSuspense
+            v-bind="{ data: history, error: historyError, isFetching: isFetchingHistory }"
+          >
+            <CaseHistory :items="history" />
+          </AppSuspense>
         </TabPanel>
         <TabPanel>
-          <CaseReviewers reviewer="Bram Adema" />
+          <AppSuspense
+            v-bind="{ data: reviewer, error: reviewerError, isFetching: isFetchingReviewer }"
+          >
+            <CaseReviewers :name="reviewer.name" />
+          </AppSuspense>
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -82,6 +92,8 @@ import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchCaseDetails } from '@assessment/composables/useFetchCaseDetails'
+import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
+import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -99,7 +111,22 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
-const { forms, error, values, isFetching } = useFetchCaseDetails(props.id as string)
+const {
+  forms: details,
+  error: detailsError,
+  values,
+  isFetching: isFetchingDetails
+} = useFetchCaseDetails(props.id as string)
+const {
+  data: history,
+  error: historyError,
+  isFetching: isFetchingHistory
+} = useFetchCaseHistory(props.id as string)
+const {
+  data: reviewer,
+  error: reviewerError,
+  isFetching: isFetchingReviewer
+} = useFetchCaseReviewer(props.id as string)
 
 const startReviewRoute = computed(() => ({
   name: 'review-case',
@@ -115,7 +142,11 @@ const startReviewRoute = computed(() => ({
   align-items: center;
 }
 
-.tabs div {
+:deep(.filter-tabs) {
+  white-space: wrap !important;
+}
+
+:deep(.filter-tabs div) {
   width: 100%;
 }
 

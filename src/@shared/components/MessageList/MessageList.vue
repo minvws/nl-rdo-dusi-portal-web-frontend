@@ -2,12 +2,12 @@
   <div class="message-list">
     <div
       class="message-list-item"
-      v-for="({ date, formattedDate, link, title, rel }, index) in list"
+      v-for="({ date, formattedDate, url, title, rel }, index) in list"
       :key="`list-item-${index}`"
     >
       <a
         class="message-list-content"
-        :href="link"
+        :href="url"
         :rel="rel"
         target="_blank"
       >
@@ -17,11 +17,11 @@
         <div>
           {{ title }}
         </div>
+        <AppIcon
+          class="icon"
+          name="chevron-right"
+        />
       </a>
-      <AppIcon
-        class="icon"
-        name="chevron-right"
-      />
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ type Props = {
   items: {
     date: string
     title: string
-    link: string
+    url: string
   }[]
 }
 const props = defineProps<Props>()
@@ -64,7 +64,6 @@ const list = computed(() => {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 0.666em 0 0.666em 1em;
     border-bottom: 1px solid var(--grey-2);
     cursor: pointer;
 
@@ -82,7 +81,7 @@ const list = computed(() => {
     }
 
     .icon {
-      padding-right: 1em;
+      margin-left: auto;
       font-size: 1em;
       color: var(--branding-color-1-background-color);
     }
@@ -94,6 +93,8 @@ const list = computed(() => {
     text-decoration: none;
     align-items: center;
     width: 100%;
+    max-width: 100%;
+    padding: 0.666em 1em;
 
     time {
       width: 10em;

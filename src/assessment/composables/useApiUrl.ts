@@ -16,6 +16,16 @@ export const useApiCaseDetailsUrl = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/applications/${id}`
 }
 
+export const useApiCaseHistoryUrl = (id: string) => {
+  return useMockData ? `${mockUrl}/history/${id}.json` : `${baseUrl}/api/applications/${id}/history` // Not final url yet.
+}
+
+export const useApiCaseReviewerUrl = (id: string) => {
+  return useMockData
+    ? `${mockUrl}/reviewer/${id}.json`
+    : `${baseUrl}/api/applications/${id}/reviwer` // Not final url yet.
+}
+
 export const useApiCasesFilterCountUrl = () => {
   return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
 }

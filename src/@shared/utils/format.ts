@@ -69,3 +69,11 @@ export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
     }
   })
 }
+
+export function formatMessagesData(data: any) {
+  return data.items.map((item: any) => ({
+    date: item.sentAt,
+    url: `/${item.id}.pdf`, // @TODO: Replace with real path.
+    title: item.subject
+  }))
+}

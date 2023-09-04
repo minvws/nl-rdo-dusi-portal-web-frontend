@@ -1,6 +1,8 @@
 import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
+import { MY_REQUESTS_DETAILS } from '@shared/router/names'
+
 import type {
   RawAssessmentData,
   AssessmentsData,
@@ -16,6 +18,7 @@ const options = {
 } as Intl.DateTimeFormatOptions
 
 const mapStatusToTranslation: Record<string, string> = {
+  new: 'Nieuw',
   ToDo: 'Nieuw',
   rejected: 'Afgekeurd',
   in_progress: 'Eerste beoordeling'
@@ -28,12 +31,12 @@ const mapStatusToTranslation: Record<string, string> = {
  * @returns data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  return data.data.map(({ id, subsidy, status, final_review_deadline, created_at }) => ({
-    ...setArrangement(subsidy),
+  return data.items.map(({ subsidy, status, deadlineForResponseAt, submittedAt }) => ({
+    ...setArrangement(subsidy.title),
     ...setStatus(status),
-    ...setDeadline(final_review_deadline),
-    ...setCreated(created_at),
-    ...setAction(id, 'my-request-details', 'Ja (2)')
+    ...setDeadline(deadlineForResponseAt),
+    ...setCreated(submittedAt),
+    ...setAction(subsidy.id, MY_REQUESTS_DETAILS, '@TODO') // @TODO: replace with real data
   }))
 }
 
@@ -78,14 +81,14 @@ const createSet = (text: string, data: object) => ({
 const setFile = (text: string) =>
   createSet('file', {
     type: AssessmentsDataType.LINK,
-    url: '/dossiernummer',
+    to: '/dossiernummer', // @TODO: replace with real DUS-I link
     text: text.split('-')[0] // fake file id for now
   })
 
 const setArrangement = (text: string) =>
   createSet('arrangement', {
     type: AssessmentsDataType.LINK,
-    url: '/regeling',
+    to: '/regeling', // @TODO: replace with real DUS-I link
     text
   })
 
@@ -115,7 +118,7 @@ const setCreated = (date: string) =>
 
 const setAction = (id: string, name: string, text: string | undefined) =>
   createSet('action', {
-    type: AssessmentsDataType.BUTTON,
+    type: AssessmentsDataType.BUTTON_LINK,
     to: { name, params: { id } },
     text
   })
@@ -127,7 +130,9 @@ const setReviewer = (status: string, text: string) =>
 
 const setReviewerButton = () => ({
   type: AssessmentsDataType.BUTTON,
-  to: { name: 'home' },
+  onClick: () => {
+    console.log('@TODO: assign to me')
+  },
   text: translate('component.appTable.take')
 })
 
