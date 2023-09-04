@@ -68,7 +68,7 @@ const loginForm = computed(() => [
                   scope: '#/properties/email',
                   label: 'E-mailadres',
                   options: {
-                    placeholder: 'email@email.com'
+                    placeholder: 'email@example.com'
                   }
                 },
                 {
@@ -76,7 +76,7 @@ const loginForm = computed(() => [
                   scope: '#/properties/password',
                   label: 'Wachtwoord',
                   options: {
-                    placeholder: 'wachtwoord'
+                    placeholder: '••••••••••••••••'
                   }
                 },
                 {

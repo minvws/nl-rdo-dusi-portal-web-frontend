@@ -13,7 +13,7 @@
       "postalCode": "1234 AA",
       "city": "Amterdam",
       "phoneNumber": "+31(0) 612345678",
-      "email": "email@email.nl"
+      "email": "email@example.com"
     },
     "dataschema": {
       "type": "object",
