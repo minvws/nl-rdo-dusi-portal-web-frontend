@@ -8,16 +8,20 @@
 </template>
 
 <script setup lang="ts">
-import { useFormStore } from '@shared/store/useFormStore'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
 import { ARRANGEMENT_OVERVIEW } from '@shared/router/names'
 
-const forms = useFormStore()
+import { useFormStorage } from '@shared/store/useFormStorage'
+import { useClearForm } from '@shared/composables/form/useClearForm'
+
+const props = defineProps<{ id: string }>()
 const router = useRouter()
+const formStorage = useFormStorage()
+const clearForm = useClearForm(props.id)
 
-onBeforeRouteLeave(() => forms.clearActiveForm())
+onBeforeRouteLeave(() => clearForm())
 
-if (!forms.activeForm) {
+if (!formStorage.get(props.id)) {
   // no active form, redirect
   router.replace({ name: ARRANGEMENT_OVERVIEW })
 }

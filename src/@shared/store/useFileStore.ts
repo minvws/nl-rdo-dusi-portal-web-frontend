@@ -2,18 +2,16 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getControlId } from '@shared/utils/control'
 
-import { useFormStore } from '@shared/store/useFormStore'
+import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { log } from '@shared/utils/logger'
 
-// Define the store
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
-
-  const formStore = useFormStore()
+  const form = useForms()
 
   function addFile(name: string, file: File) {
-    const { id } = formStore.activeForm
+    const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
 
     // Use object spread syntax to assign the file to the specific name
@@ -39,14 +37,14 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function getFile(id: string) {
-    const formId = formStore.activeForm.id
+    const { id: formId } = form.activeForm.value
     const name = getControlId(id)
 
     return files.value[formId]?.[name]
   }
 
   function removeFile(name: string) {
-    const { id } = formStore.activeForm
+    const { id } = form.activeForm.value
     delete files.value[id][name]
 
     // @TODO: remove file from server
@@ -54,8 +52,8 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   async function saveFile(name: string, file: File) {
-    const { draftFormId } = formStore
-    const url = useApiFileUrl(draftFormId as string)
+    const { draftId } = form
+    const url = useApiFileUrl(draftId.value)
     const body = new FormData()
 
     body.append('fieldCode', name)
@@ -81,8 +79,8 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   // async function deleteFile(id: string) {
-  //   const { draftFormId } = formStore
-  //   const url = useApiFileUrl(draftFormId as string)
+  //   const { draftId } = form
+  //   const url = useApiFileUrl(draftId.value)
   //   const options: RequestInit = {
   //     method: 'DELETE',
   //     credentials: 'include'
@@ -93,15 +91,15 @@ export const useFileStore = defineStore('useFileStore', () => {
   // }
 
   function setFileId(name: string, id: string) {
-    const { index } = formStore
-    const currentFormData = formStore.activeForm.data[index] || {}
+    const { index, activeForm } = form
+    const currentFormData = activeForm.value.data[index.value] || {}
 
     const updatedFormData = {
       ...currentFormData,
       [name]: id
     }
 
-    formStore.activeForm.data[index] = updatedFormData
+    activeForm.value.data[index.value] = updatedFormData
   }
 
   return {

@@ -1,4 +1,4 @@
-import { useFormStore } from '@shared/store/useFormStore'
+import { useForms } from '@shared/composables/form/useForms'
 import { InputType } from '@shared/types/input'
 import type { FieldProp } from '@shared/types/field'
 import { toNestedObject } from '@shared/utils/object'
@@ -41,12 +41,13 @@ const getDummyData = ({ type, format, iban, file, tel, postalCode, enum: enums }
 }
 
 export const useFormDummyData = () => {
-  return () => {
+  const form = useForms()
+
+  const setDummyData = () => {
     // get all scopes on the current form and set a value
-    const form = useFormStore()
     const scopes = form.getCurrentLinkedScopes()
     const fields = scopes.map((key: string[]) => {
-      let props: any = form.schema
+      let props: any = form.schema.value
       const path = [...key]
 
       while (key.length) {
@@ -76,5 +77,8 @@ export const useFormDummyData = () => {
     )
     form.setFormData(toNestedObject(data))
     form.onValidate()
+  }
+  return {
+    setDummyData
   }
 }

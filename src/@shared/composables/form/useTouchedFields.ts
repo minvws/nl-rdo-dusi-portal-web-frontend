@@ -1,12 +1,11 @@
-import type { Ref, ComputedRef } from 'vue'
-import { computed, ref } from 'vue'
+import type { ComputedRef } from 'vue'
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 
-export const useTouchedFields = ({
-  activeForm
-}: {
-  activeForm: ComputedRef<{ id: string; index: number }>
-}) => {
-  const touched: Ref<Record<string, Record<string, boolean>>> = ref({})
+import { useTouchedFieldsStore } from '@shared/store/useTouchedFieldsStore'
+
+export const useTouchedFields = ({ activeForm }: { activeForm: ComputedRef<{ id: string }> }) => {
+  const { touched } = storeToRefs(useTouchedFieldsStore())
 
   const getTouchedField = (id: string, formId: string) => {
     return !!touched.value?.[formId]?.[id]

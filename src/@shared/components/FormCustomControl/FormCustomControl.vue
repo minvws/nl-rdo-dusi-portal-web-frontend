@@ -17,8 +17,8 @@ import { defineComponent } from 'vue'
 import type { ControlElement } from '@jsonforms/core'
 import { rendererProps } from '@jsonforms/vue'
 
-import { useFieldValue, useFieldType, useField } from '@shared/composables/useField'
-import { useCustomControl } from '@shared/composables/useCustomControl'
+import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'
+import { useCustomControl } from '@shared/composables/form/useCustomControl'
 
 import FormFileControl from '@shared/components/FormFileControl/FormFileControl.vue'
 import FormNumberControl from '@shared/components/FormNumberControl/FormNumberControl.vue'

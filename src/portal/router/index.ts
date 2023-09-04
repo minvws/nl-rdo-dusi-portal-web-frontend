@@ -96,7 +96,8 @@ const routes = [
           {
             path: 'aanvraag-verzonden',
             name: FORM_SENT,
-            component: FormSent
+            component: FormSent,
+            props: true
           },
           {
             path: 'aanvragen-remote',

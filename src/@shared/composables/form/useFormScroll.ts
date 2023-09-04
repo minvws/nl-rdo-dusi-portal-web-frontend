@@ -1,11 +1,12 @@
+import type { Ref } from 'vue'
 import { watch } from 'vue'
 
 export const ERROR_ATTRIBUTE = 'data-field-error'
 
-export const useFormScroll = (store: { index: number }) => {
+export const useFormScroll = ({ index }: { index: Ref<number> }) => {
   // when form index changes, scroll to the top of the page
   watch(
-    () => store.index,
+    () => index.value,
     () => {
       window.scrollTo(0, 0)
     },

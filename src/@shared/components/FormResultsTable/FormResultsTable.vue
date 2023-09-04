@@ -22,14 +22,13 @@ import {
   type DescriptionListItem
 } from '@shared/types/details'
 import type { FormData } from '@shared/types/form'
-import type { FieldProp } from '@/@shared/types/field'
+import type { FieldProp } from '@shared/types/field'
 
-import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
-import { useFormStore } from '@shared/store/useFormStore'
+import { useForms } from '@shared/composables/form/useForms'
 import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
@@ -102,8 +101,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const formStore = useFormStore()
-    const { formData } = storeToRefs(formStore)
+    const { formData } = useForms()
     const jsonFormsControl = useJsonFormsControl(props)
     const vanillaControl = useVanillaControl(jsonFormsControl)
 

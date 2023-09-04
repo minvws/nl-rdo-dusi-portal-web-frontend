@@ -30,7 +30,8 @@ export const useApiDraftFormUrl = (id: string) => {
   return `${baseUrl}/api/forms/${id}/applications`
 }
 
-export const useApiFileUrl = (id: string) => {
+export const useApiFileUrl = (id?: string) => {
+  if (!id) throw new Error('id is not set for file upload')
   return `${baseUrl}/api/applications/${id}/files`
 }
 
@@ -40,7 +41,8 @@ export const useApiFilterOptionsUrl = (type: FormOptions) => {
     : `${baseUrl}/api/ui/applications/${type}-filter`
 }
 
-export const useApiFormsSubmitUrl = (id: string) => {
+export const useApiFormsSubmitUrl = (id?: string) => {
+  if (!id) throw new Error('id is not set for submitting form')
   return `${baseUrl}/api/applications/${id}`
 }
 

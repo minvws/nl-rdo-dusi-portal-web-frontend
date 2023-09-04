@@ -1,13 +1,13 @@
-import { computed } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-
-import { useFileStore } from '@shared/store/useFileStore'
-
-import { InputType } from '@shared/types/input'
 import type { Control, Field } from '@shared/types/field'
 
+import { computed } from 'vue'
+
+import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'
-import { getValue } from './useCustomControlInput'
+
+import { useFileStore } from '@shared/store/useFileStore'
+import { getValue } from '@shared/composables/form/useCustomControlInput'
 
 function getFieldProp(control: Control) {
   switch (control.schema.type) {
