@@ -20,6 +20,14 @@ export const useApiActiveRequestsUrl = () => {
   return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/applications`
 }
 
+export const useApiLoginUrl = () => {
+  return `${baseUrl}/oidc/login`
+}
+
+export const useApiLogoutUrl = () => {
+  return `${baseUrl}/api/user/logout`
+}
+
 export const useApiMessagesUrl = () => {
   return useMockData ? `${mockUrl}/messages.json` : `${baseUrl}/api/messages`
 }
@@ -38,4 +46,8 @@ export const useApiRequestPersonalDetailsUrl = () => {
 
 export const useApiRequestEditPersonalDetailsUrl = () => {
   return useMockData ? `${mockUrl}/edit-personal-data.json` : `${baseUrl}/api/personal-details`
+}
+
+export const useApiUserStatusUrl = () => {
+  return `${baseUrl}/api/user/info`
 }

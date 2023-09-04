@@ -47,15 +47,3 @@ export const useApiFormsSubmitUrl = (id: string) => {
 export const useApiFormsUrl = (id: string | number) => {
   return `${baseUrl}/api/forms/${id}`
 }
-
-export const useApiLoginUrl = () => {
-  return `${baseUrl}/oidc/login`
-}
-
-export const useApiLogoutUrl = () => {
-  return `${baseUrl}/api/user/logout`
-}
-
-export const useApiUserStatusUrl = () => {
-  return `${baseUrl}/api/user/info`
-}

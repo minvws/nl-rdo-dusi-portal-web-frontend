@@ -1,12 +1,15 @@
-import { ref, watch, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
-import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/useApiUrl'
+
+import { useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
 import { HOME } from '@shared/router/names'
+
 import type { LogInResponse, LogOutResponse } from '@shared/types/api-response'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
@@ -66,19 +69,15 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     removeSessionCookie()
     setSessionLifetime(undefined)
 
-    if (route.meta.public) {
+    if (route.meta.public || route.name === HOME) {
       return
     }
-    if (route.name === HOME) {
-      return
-    }
+
     // user is logged-out, return to home when route is not public
     router.push({ name: HOME })
   }
 
-  watch(isLoggedIn, isLoggedIn => {
-    onLoginChange(isLoggedIn)
-  })
+  watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
   return {
     restoreSession,

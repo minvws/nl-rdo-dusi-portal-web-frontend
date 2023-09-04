@@ -68,7 +68,7 @@ const loginForm = computed(() => [
                   scope: '#/properties/email',
                   label: 'E-mailadres',
                   options: {
-                    placeholder: 'email@email.com'
+                    placeholder: 'email@example.com'
                   }
                 },
                 {
@@ -76,7 +76,7 @@ const loginForm = computed(() => [
                   scope: '#/properties/password',
                   label: 'Wachtwoord',
                   options: {
-                    placeholder: 'wachtwoord'
+                    placeholder: '••••••••••••••••'
                   }
                 },
                 {
@@ -94,9 +94,9 @@ const loginForm = computed(() => [
   }
 ])
 
-function onSubmit() {
-  console.log('@TODO: handle login')
-  authStore.logIn()
+function onSubmit(data: Record<string, string>) {
+  const { email, password } = data
+  authStore.logIn({ email, password })
 }
 </script>
 
