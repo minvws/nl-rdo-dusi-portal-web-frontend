@@ -16,7 +16,9 @@
 
 <script setup lang="ts">
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+
 const { notifications } = useNotificationsStore()
 </script>
 

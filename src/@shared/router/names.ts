@@ -20,8 +20,8 @@ export const MY_REQUESTS_OVERVIEW = 'my-requests-overview'
 export const MY_REQUESTS_DETAILS = 'my-request-details'
 
 // assessment
-export const LOGIN = 'login'
 export const LOGIN_VIEW = 'login-view'
+export const TWO_FACTOR_VIEW = 'two-factor-view'
 export const MY_CASE_DETAILS = 'my-case-details'
 export const MY_CASES_OVERVIEW = 'my-cases-overview'
 export const REVIEW_CASE = 'review-case'

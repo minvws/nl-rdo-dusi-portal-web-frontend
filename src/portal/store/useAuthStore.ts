@@ -10,7 +10,7 @@ import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared
 import { log } from '@shared/utils/logger'
 import { HOME } from '@shared/router/names'
 
-import type { LogInResponse, LogOutResponse } from '@shared/types/api-response'
+import type { AuthResponse } from '@shared/types/api-response'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
@@ -32,7 +32,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         onLoginChange(isLoggedIn.value)
       }
     } catch (error) {
-      log('log-in error', error)
+      log(error)
     }
   }
 
@@ -42,11 +42,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const response = await fetch(url, { method: 'POST', credentials: 'include' })
       setLoginStatus(await response.json())
     } catch (error) {
-      log('log-out error', error)
+      log(error)
     }
   }
 
-  function setLoginStatus({ logged_in }: LogInResponse | LogOutResponse) {
+  function setLoginStatus({ logged_in }: AuthResponse) {
     isLoggedIn.value = logged_in
   }
 

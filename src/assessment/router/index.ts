@@ -9,6 +9,7 @@ import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
+import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 
 import {
   HOME,
@@ -16,7 +17,8 @@ import {
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   NOT_FOUND,
-  REVIEW_CASE
+  REVIEW_CASE,
+  TWO_FACTOR_VIEW
 } from '@shared/router/names'
 
 import { setRouteCookie } from '@shared/utils/cookie'
@@ -32,6 +34,14 @@ const routes = [
     path: '/inloggen',
     name: LOGIN_VIEW,
     component: LoginView,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/verificatie',
+    name: TWO_FACTOR_VIEW,
+    component: TwoFactorView,
     meta: {
       public: true
     }

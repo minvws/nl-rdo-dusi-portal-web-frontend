@@ -102,6 +102,10 @@
     "review-case": {
       "title": "Eerste beoordeling|Tweede beoordeling|Beoordeling",
       "case": "Aanvraag"
+    },
+    "two-factor": {
+      "title": "Twee-staps verificatie",
+      "submit": "Verstuur code"
     }
   }
 }
