@@ -12,8 +12,8 @@ import type {
 import { AssessmentsDataType } from '../types/table'
 
 const options = {
-  day: '2-digit',
-  month: '2-digit',
+  day: 'numeric',
+  month: 'long',
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
 
