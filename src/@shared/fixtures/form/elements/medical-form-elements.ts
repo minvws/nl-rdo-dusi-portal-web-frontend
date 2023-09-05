@@ -18,7 +18,7 @@ export const properties = {
   }
 }
 
-export const anyOf = [
+export const allOf = [
   {
     if: {
       properties: { doctorsStatement: { const: 'Ja' } }
