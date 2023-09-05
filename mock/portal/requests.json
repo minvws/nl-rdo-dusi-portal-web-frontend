@@ -6,7 +6,7 @@
       "status": "new",
       "submittedAt": "2023-09-01T08:48:29Z",
       "subsidy": {
-        "id": "d831a92b-6483-4cb1-9b5a-7ef9c732ae58",
+        "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
         "title": "Voorbeeld subsidie"
       }
     },
@@ -16,7 +16,7 @@
       "status": "rejected",
       "submittedAt": "2022-01-12T12:30:00Z",
       "subsidy": {
-        "id": "d831a92b-6483-4cb1-9b5a-7ef9c732ae58",
+        "id": "b55a1c9f-01e4-4ea9-9b08-0d8672482b71",
         "title": "Voorbeeld subsidie"
       }
     }

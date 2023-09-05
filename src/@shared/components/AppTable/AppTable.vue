@@ -163,10 +163,20 @@ table {
   --table-head-background-color: #01689b;
 }
 
+table tr th,
 table tr td {
   border-top: none;
   border-bottom: none;
+  border-width: var(--table-first-row-cell-border-width);
   border-color: var(--grey-1);
+}
+
+table tr th {
+  --table-head-cell-padding: 0.5rem 1rem;
+}
+
+table tr td {
+  --table-cell-padding: 0.5rem 1rem;
 }
 
 table thead th .button,

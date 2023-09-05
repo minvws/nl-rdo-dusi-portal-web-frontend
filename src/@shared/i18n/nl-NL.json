@@ -95,7 +95,7 @@
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
-        "tel": "Dit is geen geldige telefoonnummer",
+        "tel": "Dit is geen geldig telefoonnummer",
         "required-boolean": "Dit veld is verplicht",
         "required": "{field} is verplicht",
         "required-conditional": "{field} is verplicht"
