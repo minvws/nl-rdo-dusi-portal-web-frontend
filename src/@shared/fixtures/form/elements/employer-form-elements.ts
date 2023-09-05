@@ -7,7 +7,7 @@ export const required = [
   'judicialInstitution'
 ]
 
-export const anyOf: any[] = [
+export const allOf = [
   {
     if: {
       properties: { employer: { const: 'Andere organisatie' } }

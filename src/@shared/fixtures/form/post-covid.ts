@@ -20,21 +20,21 @@ import {
   properties as wiaProperties,
   elements as wiaElements,
   required as wiaRequired,
-  anyOf as wiaAnyOf
+  allOf as wiaAllOf
 } from '@shared/fixtures/form/elements/wia-form-elements'
 
 import {
   properties as employerProperties,
   elements as employerElements,
   required as employerRequired,
-  anyOf as employerAnyOf
+  allOf as employerAllOf
 } from '@shared/fixtures/form/elements/employer-form-elements'
 
 import {
   properties as medicalProperties,
   elements as medicalElements,
   required as medicalRequired,
-  anyOf as medicalAnyOf
+  allOf as medicalAllOf
 } from '@shared/fixtures/form/elements/medical-form-elements'
 
 import {
@@ -155,7 +155,7 @@ export default async () => {
             ...employerRequired,
             ...medicalRequired
           ],
-          anyOf: [...wiaAnyOf, ...employerAnyOf, ...medicalAnyOf]
+          allOf: [...wiaAllOf, ...employerAllOf, ...medicalAllOf]
         }
       },
       {
