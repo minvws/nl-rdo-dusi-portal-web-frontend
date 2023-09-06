@@ -2,7 +2,11 @@ import { useFetch, type MaybeRefOrGetter, type UseFetchOptions } from '@vueuse/c
 
 export const useFetchWithCredentials = <T>(
   url: MaybeRefOrGetter<string>,
-  options?: UseFetchOptions
+  fetchOptions?: RequestInit,
+  useFetchOptions?: UseFetchOptions
 ) => {
-  return useFetch<T>(url, { credentials: 'include' }, options)
+  const defaultOptions: Record<string, RequestCredentials> = { credentials: 'include' }
+  const options = { ...defaultOptions, ...fetchOptions }
+
+  return useFetch<T>(url, options, useFetchOptions)
 }
