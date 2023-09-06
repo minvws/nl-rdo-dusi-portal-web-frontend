@@ -10,12 +10,12 @@ export const useFetchWithCredentials = <T>(
   fetchOptions?: RequestInit,
   useFetchOptions?: UseFetchOptions
 ) => {
-  const { generateKeys, getPublicKey } = useEncryption()
+  const { generateKeyPair, getPublicKey } = useEncryption()
   const defaultOptions: Record<string, RequestCredentials> = { credentials: 'include' }
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true }
 
   async function beforeFetch({ options, cancel }: BeforeFetchContext) {
-    const key = await generateKeys().then(() => getPublicKey())
+    const key = await generateKeyPair().then(() => getPublicKey())
 
     if (!key) {
       cancel()

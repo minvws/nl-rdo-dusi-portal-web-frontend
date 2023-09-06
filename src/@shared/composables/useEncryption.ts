@@ -6,7 +6,13 @@ import { log } from '@shared/utils/logger'
 export const useEncryption = () => {
   const keyPair: Ref<CryptoKeyPair | undefined> = ref(undefined)
 
-  async function decrypt(privateKey: CryptoKey, data: ArrayBuffer) {
+  /**
+   * Decrypts data with a private key
+   * @param {CryptoKey} privateKey
+   * @param {ArrayBuffer} data
+   * @returns {*} decrypted data
+   */
+  async function decrypt(privateKey: CryptoKey, data: ArrayBuffer): Promise<ArrayBuffer | undefined> {
     const options = { name: 'RSA-OAEP' }
 
     try {
@@ -18,7 +24,13 @@ export const useEncryption = () => {
     }
   }
 
-  async function encrypt(publicKey: CryptoKey, data: string) {
+  /**
+   * Encrypts data with a public key
+   * @param {CryptoKey} publicKey
+   * @param {string} data
+   * @returns encrypted data
+   */
+  async function encrypt(publicKey: CryptoKey, data: string): Promise<ArrayBuffer | undefined> {
     const options = { name: 'RSA-OAEP' }
     const dataBuffer = new TextEncoder().encode(data)
 
@@ -30,12 +42,11 @@ export const useEncryption = () => {
     }
   }
 
-  async function exportKey(key: CryptoKey): Promise<JsonWebKey> {
-    const result = await crypto.subtle.exportKey('jwk', key)
-    return result
-  }
-
-  async function generateKeys() {
+  /**
+   * Generates a key pair
+   * @returns {CryptoKeyPair} key pair
+   */
+  async function generateKeyPair(): Promise<CryptoKeyPair | undefined> {
     const options: RsaHashedKeyGenParams = {
       name: 'RSA-OAEP',
       modulusLength: 4096,
@@ -47,7 +58,6 @@ export const useEncryption = () => {
 
     try {
       const result = await crypto.subtle.generateKey(options, isExtractable, keyUsages)
-      console.log('result', result)
       keyPair.value = result
       return result
     } catch (error) {
@@ -55,13 +65,17 @@ export const useEncryption = () => {
     }
   }
 
-  async function getPublicKey() {
+  /**
+   * Return the exported public key as a JWK.
+   * @returns {Promise<JsonWebKey>} public key
+   */
+  async function getPublicKey(): Promise<JsonWebKey | undefined> {
     if (!keyPair.value) {
       return
     }
 
     try {
-      const result = await exportKey(keyPair.value?.publicKey)
+      const result = await crypto.subtle.exportKey('jwk', keyPair.value?.publicKey)
       return result
     } catch (error) {
       log('Public key error:', error)
@@ -72,7 +86,7 @@ export const useEncryption = () => {
     decrypt,
     encrypt,
     keyPair,
-    generateKeys,
+    generateKeyPair,
     getPublicKey
   }
 }
