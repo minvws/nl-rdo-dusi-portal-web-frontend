@@ -23,7 +23,7 @@ export const useFetchWithCredentials = <T>(
 
     options.headers = {
       ...options.headers,
-      ...(key?.n && { [`${HEADER}`]: key.n })
+      ...(key?.n && { [`${HEADER}`]: btoa(key.n) })
     }
 
     return {
@@ -31,9 +31,8 @@ export const useFetchWithCredentials = <T>(
     }
   }
 
-  const config = { ...defaultOptions, beforeFetch, ...fetchOptions }
-  console.log('config', config)
-  const useFetchConfig = { ...defaultUseFetchOptions, ...useFetchOptions }
-  console.log('useFetchConfig', useFetchConfig)
-  return useFetch<T>(url, config, useFetchConfig)
+  const fetchConfig = { ...defaultOptions, ...fetchOptions }
+  const useFetchConfig = { ...defaultUseFetchOptions, ...useFetchOptions, beforeFetch }
+
+  return useFetch<T>(url, fetchConfig, useFetchConfig)
 }
