@@ -11,7 +11,11 @@ type QueryFetch = {
   params?: Ref<Record<string, string> | undefined>
 }
 
-export const useQueryFetch = ({ url: location, params }: QueryFetch, fetchConfig?: RequestInit, useFetchConfig?: UseFetchConfig) => {
+export const useQueryFetch = (
+  { url: location, params }: QueryFetch,
+  fetchConfig?: RequestInit,
+  useFetchConfig?: UseFetchConfig
+) => {
   const query: Ref<Record<string, string | string[]>> = ref({})
 
   const url = computed(() => {
@@ -34,7 +38,11 @@ export const useQueryFetch = ({ url: location, params }: QueryFetch, fetchConfig
   const fetchOptions = { ...fetchConfig }
   const useFetchOptions = { ...{ refetch: true, immediate: true }, ...useFetchConfig }
 
-  const { data, error, isFetching } = useFetchWithCredentials(url, fetchOptions, useFetchOptions).json()
+  const { data, error, isFetching } = useFetchWithCredentials(
+    url,
+    fetchOptions,
+    useFetchOptions
+  ).json()
 
   return {
     query,

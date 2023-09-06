@@ -24,6 +24,10 @@ export const useApiMessagesUrl = () => {
   return useMockData ? `${mockUrl}/messages.json` : `${baseUrl}/api/messages`
 }
 
+export const useApiMessageDetailsUrl = (id: string) => {
+  return useMockData ? `${mockUrl}/messages.json` : `${baseUrl}/api/messages/${id}`
+}
+
 export const useApiSubsidyUrl = () => {
   return `${baseUrl}/api/subsidies`
 }
