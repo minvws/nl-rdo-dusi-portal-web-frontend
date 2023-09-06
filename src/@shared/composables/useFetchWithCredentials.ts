@@ -14,6 +14,7 @@ export const useFetchWithCredentials = <T>(
   const defaultOptions: Record<string, RequestCredentials> = { credentials: 'include' }
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true }
 
+  // Reference: https://vueuse.org/core/useFetch/#intercepting-a-request
   async function beforeFetch({ options, cancel }: BeforeFetchContext) {
     const key = await generateKeyPair().then(() => getPublicKey())
 
