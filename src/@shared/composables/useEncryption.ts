@@ -12,7 +12,10 @@ export const useEncryption = () => {
    * @param {ArrayBuffer} data
    * @returns {*} decrypted data
    */
-  async function decrypt(privateKey: CryptoKey, data: ArrayBuffer): Promise<ArrayBuffer | undefined> {
+  async function decrypt(
+    privateKey: CryptoKey,
+    data: ArrayBuffer
+  ): Promise<ArrayBuffer | undefined> {
     const options = { name: 'RSA-OAEP' }
 
     try {
@@ -51,7 +54,7 @@ export const useEncryption = () => {
       name: 'RSA-OAEP',
       modulusLength: 4096,
       publicExponent: new Uint8Array([1, 0, 1]),
-      hash: 'SHA-256',
+      hash: 'SHA-256'
     }
     const isExtractable = true
     const keyUsages: KeyUsage[] = ['encrypt', 'decrypt']
