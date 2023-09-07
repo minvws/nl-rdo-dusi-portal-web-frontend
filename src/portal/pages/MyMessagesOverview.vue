@@ -11,6 +11,7 @@
       <FilterOptions
         type="messages"
         v-model="query"
+        v-if="!isFilterEnabled"
       >
         <p v-if="query">
           <span>{{ total }}</span>
@@ -66,7 +67,9 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-const { data, error, query, isFetching } = useFetchMessages()
+const isFilterEnabled = true // @TODO: for MVP the filter is disabled
+const { data, error, query, isFetching } = useFetchMessages(isFilterEnabled)
+
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,
