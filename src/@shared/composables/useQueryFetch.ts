@@ -1,7 +1,7 @@
 import { computed, ref, type Ref } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
-type Config = {
+type UseFetchConfig = {
   refetch?: boolean
   immediate?: boolean
 }
@@ -11,7 +11,11 @@ type QueryFetch = {
   params?: Ref<Record<string, string> | undefined>
 }
 
-export const useQueryFetch = ({ url: location, params }: QueryFetch, config?: Config) => {
+export const useQueryFetch = (
+  { url: location, params }: QueryFetch,
+  fetchConfig?: RequestInit,
+  useFetchConfig?: UseFetchConfig
+) => {
   const query: Ref<Record<string, string | string[]>> = ref({})
 
   const url = computed(() => {
@@ -31,8 +35,14 @@ export const useQueryFetch = ({ url: location, params }: QueryFetch, config?: Co
     return url.toString()
   })
 
-  const fetchConfig = { ...{ refetch: true, immediate: true }, ...config }
-  const { data, error, isFetching } = useFetchWithCredentials(url, fetchConfig).json()
+  const fetchOptions = { ...fetchConfig }
+  const useFetchOptions = { ...{ refetch: true, immediate: true }, ...useFetchConfig }
+
+  const { data, error, isFetching } = useFetchWithCredentials(
+    url,
+    fetchOptions,
+    useFetchOptions
+  ).json()
 
   return {
     query,
