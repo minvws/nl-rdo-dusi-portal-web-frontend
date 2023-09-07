@@ -50,7 +50,7 @@ import {
 } from '@shared/fixtures/form/elements/truth-statement-form-elements'
 
 export default async () => {
-  const fromExamplePage1 = await Object.values(
+  const postCovidIntro = await Object.values(
     import.meta.glob('@shared/fixtures/form/data/post-covid.html', {
       as: 'raw'
     })
@@ -76,7 +76,7 @@ export default async () => {
       {
         type: 'FormHtml',
         options: {
-          html: fromExamplePage1
+          html: postCovidIntro
         }
       }
     ]
