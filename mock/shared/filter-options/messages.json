@@ -77,7 +77,7 @@
           "title": "Tot"
         },
         "message": {
-          "type": "string",
+          "type": "array",
           "title": "Berichttype",
           "items": {
             "type": "string",
