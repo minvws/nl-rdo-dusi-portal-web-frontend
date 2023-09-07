@@ -96,7 +96,7 @@
     "component": {
       "fileInput": {
         "chooseFile": "Kies een bestand",
-        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 5 MB."
+        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 20 MB."
       }
     },
     "fields": {
