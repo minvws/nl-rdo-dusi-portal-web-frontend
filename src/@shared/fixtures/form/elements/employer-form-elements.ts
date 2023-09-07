@@ -54,7 +54,9 @@ export const properties = {
   },
   bigNumber: {
     type: 'string',
-    title: 'BIG-nummer'
+    title: 'BIG-nummer',
+    minLength: 11,
+    maxLength: 11
   }
 }
 

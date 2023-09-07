@@ -92,13 +92,16 @@
         "const": "Dit veld is verplicht",
         "field": "Dit veld",
         "iban": "Dit is geen geldige IBAN",
+        "length": "{field} bestaat uit {maxLength} karakters",
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
+        "maxLength": "{field} bestaat uit maximaal {minLength} karakters",
+        "minLength": "{field} bestaat uit minimaal {minLength} karakters",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
-        "tel": "Dit is geen geldig telefoonnummer",
         "required-boolean": "Dit veld is verplicht",
+        "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
-        "required-conditional": "{field} is verplicht"
+        "tel": "Dit is geen geldig telefoonnummer"
       },
       "email": {
         "error": {
