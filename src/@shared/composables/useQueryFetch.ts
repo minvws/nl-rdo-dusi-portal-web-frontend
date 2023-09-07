@@ -13,10 +13,10 @@ type QueryFetch = {
 
 export const useQueryFetch = (
   { url: location, params }: QueryFetch,
-  fetchConfig?: RequestInit,
-  useFetchConfig?: UseFetchConfig
+  useFetchConfig?: UseFetchConfig,
+  fetchConfig?: RequestInit
 ) => {
-  const query: Ref<Record<string, string | string[]>> = ref({})
+  const query: Ref<Record<string, string | string[]> | undefined> = ref(undefined)
 
   const url = computed(() => {
     const url = new URL(location)

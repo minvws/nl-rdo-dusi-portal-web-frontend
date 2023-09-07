@@ -59,7 +59,7 @@ import FormButtons from '@shared/components/FormButtons/FormButtons.vue'
 import FormDebugView from '@shared/components/FormDebugView/FormDebugView.vue'
 import FormStepper from '@shared/components/FormStepper/FormStepper.vue'
 
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit', 'init'])
 const props = defineProps<FormViewProps>()
 
 const ajv = useAjv()
@@ -100,9 +100,11 @@ function onStep(index: number) {
   form.setFormStep(index)
 }
 
+emit('init', form.formData.value)
+
 function onSubmit() {
   if (props.createDraft) form.onSubmit()
-  else emit('submit', form.formData)
+  else emit('submit', form.formData.value)
 }
 
 function onValidate() {
