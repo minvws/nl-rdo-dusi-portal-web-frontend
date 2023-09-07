@@ -4,7 +4,6 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 
 import NotFound from '@shared/pages/NotFound.vue'
 
-import ArrangementsView from '@portal/pages/ArrangementsView.vue'
 import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
@@ -23,8 +22,6 @@ import {
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
-  ARRANGEMENT_OVERVIEW_PAGE,
-  ARRANGEMENT_OVERVIEW,
   EXTERNAL_DETAIL,
   EXTERNAL,
   FORM_SENT,
@@ -78,40 +75,27 @@ const routes = [
     }
   },
   {
-    path: '/regelingen/pagina/:page',
-    name: ARRANGEMENT_OVERVIEW_PAGE,
-    component: ArrangementsView,
-    props: true
-  },
-  {
-    path: '/regelingen',
-    name: ARRANGEMENT_OVERVIEW,
-    component: ArrangementsView,
+    path: '/regelingen/:id',
+    name: ARRANGEMENT_DETAILS,
+    component: ArrangementView,
     children: [
       {
-        path: ':id',
-        name: ARRANGEMENT_DETAILS,
-        component: ArrangementView,
-        children: [
-          {
-            path: 'aanvraag-verzonden',
-            name: FORM_SENT,
-            component: FormSent,
-            props: true
-          },
-          {
-            path: 'aanvragen-remote',
-            name: ARRANGEMENT_FORM_REMOTE,
-            props: true,
-            component: RemoteForm
-          },
-          {
-            path: ':name/aanvragen-local',
-            name: ARRANGEMENT_FORM_LOCAL,
-            props: true,
-            component: LocalForm
-          }
-        ]
+        path: 'aanvraag-verzonden',
+        name: FORM_SENT,
+        component: FormSent,
+        props: true
+      },
+      {
+        path: 'aanvragen-remote',
+        name: ARRANGEMENT_FORM_REMOTE,
+        props: true,
+        component: RemoteForm
+      },
+      {
+        path: ':name/aanvragen-local',
+        name: ARRANGEMENT_FORM_LOCAL,
+        props: true,
+        component: LocalForm
       }
     ]
   },

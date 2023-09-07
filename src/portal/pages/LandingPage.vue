@@ -9,27 +9,6 @@
       />
     </div>
   </section>
-  <section class="background-color-offset">
-    <AppSuspense v-bind="{ data: subsidies, error, isFetching }">
-      <template #title>
-        <h2>{{ translate('pages.home.subsidiesTitle') }}</h2>
-      </template>
-      <SubsidySummary
-        v-for="(item, index) in subsidies"
-        :key="index"
-        v-bind="item"
-      />
-      <a
-        v-bind="grantLink"
-        class="button"
-      >
-        {{ translate('pages.home.subsidiesButton') }}
-      </a>
-      <template #fallback>
-        <p>{{ translate('pages.home.noSubsidies') }}</p>
-      </template>
-    </AppSuspense>
-  </section>
   <section>
     <div>
       <h2>{{ translate('pages.home.content.section1Title') }}</h2>
@@ -39,35 +18,16 @@
       />
     </div>
   </section>
-  <MoreInfo />
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useFetchSubsidies } from '../composables/useFetchSubsidies'
 
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
-import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import MoreInfo from '@portal/components/MoreInfo/MoreInfo.vue'
-import SubsidySummary, {
-  type SubsidySummaryProps
-} from '@portal/components/SubsidySummary/SubsidySummary.vue'
-
-import { grantLink } from '@shared/external-links'
-
-import { filterByValidTo } from '@shared/utils/filter'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.home.title')}`
+  title: `${translate('app.prefix')}`
 })
-
-const { data, error, isFetching } = useFetchSubsidies()
-
-const subsidies = computed(() =>
-  data.value ? filterByValidTo<SubsidySummaryProps>(data.value) : []
-)
 </script>
