@@ -19,7 +19,7 @@ export const elements = [
         label: 'Gewaarmerkt verzekeringsbericht',
         options: {
           accept: 'image/*,.pdf',
-          maxFileSize: 5242880
+          maxFileSize: 20971520
         }
       }
     ]

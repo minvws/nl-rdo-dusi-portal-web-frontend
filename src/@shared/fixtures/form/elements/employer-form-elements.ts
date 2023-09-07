@@ -74,7 +74,7 @@ export const elements = [
             label: 'Arbeidsovereenkomst',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             }
           },
           {
@@ -107,7 +107,7 @@ export const elements = [
             },
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             }
           },
           {
