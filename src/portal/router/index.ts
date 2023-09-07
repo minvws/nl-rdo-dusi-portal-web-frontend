@@ -18,6 +18,10 @@ import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
+import { setRouteCookie } from '@shared/utils/cookie'
+import { log } from '@shared/utils/logger'
+import { notFoundLoggedOutRedirectLink } from '@/@shared/external-links'
+
 import {
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
@@ -35,9 +39,7 @@ import {
   MY_REQUESTS_OVERVIEW,
   NOT_FOUND
 } from '@shared/router/names'
-
-import { setRouteCookie } from '@shared/utils/cookie'
-import { log } from '@shared/utils/logger'
+import { openExternalLink } from '@/@shared/utils/link'
 
 const routes = [
   {
@@ -155,6 +157,18 @@ const beforeEach = async (
   const authStore = useAuthStore()
   await authStore.restoreSession()
   const { isLoggedIn } = storeToRefs(authStore)
+
+  if (to.name === NOT_FOUND) {
+    if (!isLoggedIn.value) {
+      log(`404 route and user is not logged-in. go to '${notFoundLoggedOutRedirectLink}'`)
+      next(false)
+      openExternalLink(notFoundLoggedOutRedirectLink)
+    } else {
+      log(`404 route and user is logged-in. go to '${MY_REQUESTS_OVERVIEW}'`)
+      next({ name: MY_REQUESTS_OVERVIEW })
+    }
+    return
+  }
   if (to.meta.public || isLoggedIn.value) {
     next()
     return
