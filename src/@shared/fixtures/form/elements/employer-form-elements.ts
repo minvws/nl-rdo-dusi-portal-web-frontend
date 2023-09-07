@@ -23,6 +23,14 @@ export const allOf = [
     then: {
       required: ['bigNumber']
     }
+  },
+  {
+    if: {
+      properties: { employmentFunction: { const: 'Anders' } }
+    },
+    then: {
+      required: ['otherEmploymentFunction']
+    }
   }
 ]
 
@@ -35,6 +43,10 @@ export const properties = {
   employmentFunction: {
     type: 'string',
     enum: allEmploymentFunctions,
+    title: 'Functie'
+  },
+  otherEmploymentFunction: {
+    type: 'string',
     title: 'Functie'
   },
   employer: {
@@ -74,7 +86,7 @@ export const elements = [
             label: 'Arbeidsovereenkomst',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 20971520
+              maxFileSize: 5242880
             }
           },
           {
@@ -84,6 +96,18 @@ export const elements = [
             options: {
               format: 'select',
               placeholder: 'Selecteer uw functie'
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/otherEmploymentFunction',
+            label: 'Andere functie',
+            rule: {
+              effect: 'SHOW',
+              condition: {
+                scope: '#/properties/employmentFunction',
+                schema: { const: 'Anders' }
+              }
             }
           },
           {
@@ -107,7 +131,7 @@ export const elements = [
             },
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 20971520
+              maxFileSize: 5242880
             }
           },
           {
