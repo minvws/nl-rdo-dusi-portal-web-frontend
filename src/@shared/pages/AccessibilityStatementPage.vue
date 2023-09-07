@@ -46,7 +46,11 @@
       <p>
         Als u ondanks de maatregelen die wij al hebben genomen een toegankelijkheidsprobleem ervaart
         op onze website, laat het ons dan weten.
-        <a href="https://www.dus-i.nl/contact" aria-label="Bekijk onze contactgegevens (opent externe website)">Bekijk onze contactgegevens</a>.
+        <a
+          href="https://www.dus-i.nl/contact"
+          aria-label="Bekijk onze contactgegevens (opent externe website)"
+          >Bekijk onze contactgegevens</a
+        >.
       </p>
     </div>
   </section>
