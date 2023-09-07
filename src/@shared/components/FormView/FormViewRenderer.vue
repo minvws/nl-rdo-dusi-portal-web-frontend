@@ -102,7 +102,7 @@ function onStep(index: number) {
 
 function onSubmit() {
   if (props.createDraft) form.onSubmit()
-  else emit('submit', form.formData)
+  else emit('submit', form.formData.value)
 }
 
 function onValidate() {
