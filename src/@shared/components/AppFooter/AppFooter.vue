@@ -9,12 +9,10 @@
               <h1>{{ translate('component.footer.serviceTitle') }}</h1>
               <ul>
                 <li
-                  v-for="({ url, label }, index) in serviceLinks"
+                  v-for="(link, index) in serviceLinks"
                   :key="index"
                 >
-                  <a :href="url" rel="noopener noreferrer external">
-                    {{ label }}
-                  </a>
+                  <a v-bind="link" />
                 </li>
               </ul>
             </div>
@@ -32,12 +30,10 @@
                   </RouterLink>
                 </li>
                 <li
-                  v-for="({ url, label }, index) in aboutLinks"
+                  v-for="(link, index) in aboutLinks"
                   :key="index"
                 >
-                  <a :href="url" rel="noopener noreferrer external">
-                    {{ label }}
-                  </a>
+                  <a v-bind="link" />
                 </li>
               </ul>
             </div>
@@ -57,29 +53,33 @@ import { translate } from '@shared/i18n'
 import { ACCESSIBILITY_STATEMENT, PRIVACY_STATEMENT } from '@shared/router/names'
 
 import { version } from '@/../package.json'
+import { externalUrls } from '@/@shared/external-links'
 
 type FooterLink = {
-  url: string
-  label: string | undefined
+  href: string
+  text: string | undefined
+  rel: string
 }
 
-const serviceLinks: FooterLink[] = [
-  { label: translate('component.footer.contact'), url: 'https://www.dus-i.nl/contact' },
-  { label: translate('component.footer.documents'), url: 'https://www.dus-i.nl/documenten' },
-  { label: translate('component.footer.abuse'), url: 'https://www.dus-i.nl/misbruik-en-fraude' },
-  { label: translate('component.footer.disagree'), url: 'https://www.dus-i.nl/oneens-met-dus-i' },
-  { label: translate('component.footer.law'), url: 'https://www.dus-i.nl/wet-open-overheid' },
-  { label: translate('component.footer.about'), url: 'https://www.dus-i.nl/over-ons' }
-]
+const getExternalLinks = (keys: string[]) => {
+  return keys.map(key => {
+    return {
+      text: translate(`component.footer.${key}`),
+      ...externalUrls[key]
+    }
+  })
+}
 
-const aboutLinks: FooterLink[] = [
-  { label: translate('component.footer.copyright'), url: 'https://www.dus-i.nl/copyright' },
-  { label: translate('component.footer.disclaimer'), url: 'https://www.dus-i.nl/disclaimer' },
-  {
-    label: translate('component.footer.vulnerability'),
-    url: 'https://www.dus-i.nl/kwetsbaarheid-melden'
-  }
-]
+const serviceLinks: FooterLink[] = getExternalLinks([
+  'contact',
+  'documents',
+  'abuse',
+  'disagree',
+  'law',
+  'about'
+])
+
+const aboutLinks: FooterLink[] = getExternalLinks(['copyright', 'disclaimer', 'vulnerability'])
 </script>
 
 <style lang="scss" scoped>

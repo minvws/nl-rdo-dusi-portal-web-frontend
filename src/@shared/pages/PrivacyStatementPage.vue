@@ -96,9 +96,8 @@
       <p>
         U heeft een aantal rechten om controle te houden over uw persoonsgegevens. Deze kunt u
         <a
-          href="https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/algemene-informatie-avg/rechten-van-betrokkenen"
+          v-bind="externalUrls.avg"
           aria-label="Bekijk informatie over privacyrechten (opent externe website)"
-          rel="noopener"
           >hier</a
         >
         vinden op de site van de Autoriteit Persoonsgegevens. Voor Mijn DUS-I heeft u bijvoorbeeld
@@ -127,9 +126,8 @@
         U heeft altijd het recht een klacht over de verwerking van uw persoonsgegevens in te dienen
         bij de
         <a
-          href="https://autoriteitpersoonsgegevens.nl/nl/contact-met-de-autoriteit-persoonsgegevens/informatie-en-meldpunt-privacy"
+          v-bind="externalUrls.privacy"
           aria-label="Bekijk informatie over meldpunt privacy (opent externe website)"
-          rel="noopener noreferrer external"
           >Autoriteit Persoonsgegevens</a
         >
         of bij de rechter.
@@ -156,6 +154,7 @@
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
+import { externalUrls } from '@shared/external-links'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.privacy.title')}`

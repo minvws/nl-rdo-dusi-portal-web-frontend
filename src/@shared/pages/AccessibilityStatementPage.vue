@@ -47,7 +47,7 @@
         Als u ondanks de maatregelen die wij al hebben genomen een toegankelijkheidsprobleem ervaart
         op onze website, laat het ons dan weten.
         <a
-          href="https://www.dus-i.nl/contact"
+          v-bind="externalUrls.contact"
           aria-label="Bekijk onze contactgegevens (opent externe website)"
           >Bekijk onze contactgegevens</a
         >.
@@ -60,6 +60,7 @@
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
+import { externalUrls } from '@shared/external-links'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.not-found.title')}`
