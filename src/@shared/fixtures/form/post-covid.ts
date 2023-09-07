@@ -50,6 +50,12 @@ import {
 } from '@shared/fixtures/form/elements/truth-statement-form-elements'
 
 export default async () => {
+  const fromExamplePage1 = await Object.values(
+    import.meta.glob('@shared/fixtures/form/data/post-covid.html', {
+      as: 'raw'
+    })
+  )[0]()
+
   const introductionSchema = {
     type: 'FormGroupControl',
     options: { section: true },
@@ -70,7 +76,7 @@ export default async () => {
       {
         type: 'FormHtml',
         options: {
-          html: '<h1>Introductie</h1><p style="color:red">Komt nog. Uitleg over regeling, voorwaarden, documenten die nodig zijn. Nog op te stellen.</p>'
+          html: fromExamplePage1
         }
       }
     ]
