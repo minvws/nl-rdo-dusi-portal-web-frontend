@@ -4,7 +4,7 @@ export const properties = {
   uwv: {
     type: 'string',
     file: true,
-    title: 'Kopie bankafschrift'
+    title: 'Gewaarmerkt verzekeringsbericht'
   }
 }
 
