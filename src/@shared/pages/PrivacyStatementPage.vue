@@ -129,7 +129,7 @@
         <a
           href="https://autoriteitpersoonsgegevens.nl/nl/contact-met-de-autoriteit-persoonsgegevens/informatie-en-meldpunt-privacy"
           aria-label="Bekijk informatie over meldpunt privacy (opent externe website)"
-          rel="noopener"
+          rel="noopener noreferrer external"
           >Autoriteit Persoonsgegevens</a
         >
         of bij de rechter.
