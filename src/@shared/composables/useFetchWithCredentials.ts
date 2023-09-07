@@ -3,6 +3,8 @@ import { useFetch } from '@vueuse/core'
 
 import { useEncryption } from '@shared/composables/useEncryption'
 
+import { log } from '@shared/utils/logger'
+
 const HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
 
 export const useFetchWithCredentials = <T>(
@@ -16,19 +18,27 @@ export const useFetchWithCredentials = <T>(
 
   // Reference: https://vueuse.org/core/useFetch/#intercepting-a-request
   async function beforeFetch({ options, cancel }: BeforeFetchContext) {
-    const key = await generateKeyPair().then(() => getPublicKey())
+    try {
+      await generateKeyPair()
+      const key = await getPublicKey()
+      const publicKey = key?.n
 
-    if (!key) {
+      if (!publicKey) {
+        log('Key generation failed, not adding public key')
+        cancel()
+      }
+
+      options.headers = {
+        ...options.headers,
+        ...(publicKey && { [`${HEADER}`]: btoa(publicKey) })
+      }
+
+      return {
+        options
+      }
+    } catch(error) {
+      log('Key generation failed, not adding public key', error)
       cancel()
-    }
-
-    options.headers = {
-      ...options.headers,
-      ...(key?.n && { [`${HEADER}`]: btoa(key.n) })
-    }
-
-    return {
-      options
     }
   }
 

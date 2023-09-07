@@ -73,12 +73,15 @@ export const useEncryption = () => {
    * @returns {Promise<JsonWebKey>} public key
    */
   async function getPublicKey(): Promise<JsonWebKey | undefined> {
-    if (!keyPair.value) {
+    const publicKey =  keyPair.value?.publicKey
+
+    if (!publicKey) {
+      log('No public key found')
       return
     }
 
     try {
-      const result = await crypto.subtle.exportKey('jwk', keyPair.value?.publicKey)
+      const result = await crypto.subtle.exportKey('jwk', publicKey)
       return result
     } catch (error) {
       log('Public key error:', error)
