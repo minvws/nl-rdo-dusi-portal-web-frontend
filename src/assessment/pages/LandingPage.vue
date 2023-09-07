@@ -16,7 +16,7 @@
         type="all-cases"
         v-model="query"
       >
-        <p>
+        <p v-if="query">
           <span>{{ numberOfCases }}</span>
           {{ translate('pages.home.cases', {}, numberOfCases) }}
         </p>

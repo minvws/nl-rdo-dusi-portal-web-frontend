@@ -7,7 +7,7 @@ import { formatMessagesData } from '@shared/utils/format'
 
 export const useFetchMessages = () => {
   const url = useApiMessagesUrl()
-  const { data: json, ...fetch } = useQueryFetch({ url })
+  const { data: json, ...fetch } = useQueryFetch({ url }, { immediate: false })
 
   const data = computed(() => (json.value ? formatMessagesData(json.value) : []))
 

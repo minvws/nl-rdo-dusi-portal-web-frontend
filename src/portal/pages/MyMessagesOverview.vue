@@ -12,7 +12,7 @@
         type="messages"
         v-model="query"
       >
-        <p>
+        <p v-if="query">
           <span>{{ total }}</span>
           {{ translate('component.messagesOverview.messages', { total }, total) }}
         </p>
@@ -31,7 +31,7 @@
         with-buttons
       />
       <template #fallback>
-        <p>{{ translate('pages.my-messages-overview.noMessages') }}</p>
+        <p v-if="query">{{ translate('pages.my-messages-overview.noMessages') }}</p>
       </template>
     </AppSuspense>
   </section>

@@ -8,7 +8,7 @@ import type { FilterItem } from '@shared/types/filters'
 export const useFetchMyCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiPersonalCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
-  const { data: json, ...fetch } = useQueryFetch({ url, params })
+  const { data: json, ...fetch } = useQueryFetch({ url, params }, { immediate: false })
 
   const data = computed(() => (json.value ? transformMyCasesData(json.value) : []))
 
