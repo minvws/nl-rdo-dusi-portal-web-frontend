@@ -12,7 +12,7 @@
                   v-for="({ url, label }, index) in serviceLinks"
                   :key="index"
                 >
-                  <a :href="url">
+                  <a :href="url" rel="noopener noreferrer external">
                     {{ label }}
                   </a>
                 </li>
@@ -35,7 +35,7 @@
                   v-for="({ url, label }, index) in aboutLinks"
                   :key="index"
                 >
-                  <a :href="url">
+                  <a :href="url" rel="noopener noreferrer external">
                     {{ label }}
                   </a>
                 </li>
