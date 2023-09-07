@@ -1,3 +1,7 @@
+import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
+import NotFound from '@shared/pages/NotFound.vue'
+import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
+
 import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
@@ -9,12 +13,12 @@ import MyDetailsView from '@portal/pages/MyDetailsView.vue'
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
-import NotFound from '@shared/pages/NotFound.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
 import { beforeEach, afterEach } from '@/portal/router/router-guards'
 
 import {
+  ACCESSIBILITY_STATEMENT,
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
@@ -29,7 +33,8 @@ import {
   MY_MESSAGES,
   MY_REQUESTS_DETAILS,
   MY_REQUESTS_OVERVIEW,
-  NOT_FOUND
+  NOT_FOUND,
+  PRIVACY_STATEMENT
 } from '@shared/router/names'
 
 const routes = [
@@ -126,6 +131,22 @@ const routes = [
         component: MyDetailsEdit
       }
     ]
+  },
+  {
+    path: '/toegankelijkheidsverklaring',
+    name: ACCESSIBILITY_STATEMENT,
+    component: AccessibilityStatementPage,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/privacyverklaring',
+    name: PRIVACY_STATEMENT,
+    component: PrivacyStatementPage,
+    meta: {
+      public: true
+    }
   },
   {
     path: '/:catchAll(.*)',

@@ -3,18 +3,41 @@
     <div>
       <div class="two-thirds-one-third">
         <span class="slogan">{{ translate('component.footer.slogan') }}</span>
-        <nav aria-labelledby="footer-nav-1-heading">
-          <h1 id="footer-nav-1-heading">{{ translate('component.footer.title') }}</h1>
-          <ul>
-            <li
-              v-for="({ name, label, params }, index) in links"
-              :key="index"
-            >
-              <RouterLink :to="{ name, params }">
-                {{ label }}
-              </RouterLink>
-            </li>
-          </ul>
+        <nav>
+          <div class="column-2">
+            <div>
+              <h1>{{ translate('component.footer.serviceTitle') }}</h1>
+              <ul>
+                <li
+                  v-for="(link, index) in serviceLinks"
+                  :key="index"
+                >
+                  <a v-bind="link" />
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h1>{{ translate('component.footer.aboutTitle') }}</h1>
+              <ul>
+                <li>
+                  <RouterLink :to="{ name: ACCESSIBILITY_STATEMENT }">
+                    {{ translate('component.footer.accessibility') }}
+                  </RouterLink>
+                </li>
+                <li>
+                  <RouterLink :to="{ name: PRIVACY_STATEMENT }">
+                    {{ translate('component.footer.privacy') }}
+                  </RouterLink>
+                </li>
+                <li
+                  v-for="(link, index) in aboutLinks"
+                  :key="index"
+                >
+                  <a v-bind="link" />
+                </li>
+              </ul>
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -26,17 +49,41 @@
 </template>
 
 <script setup lang="ts">
-import type { Link } from '@shared/types/link'
-
 import { translate } from '@shared/i18n'
-import { HOME } from '@shared/router/names'
+import { ACCESSIBILITY_STATEMENT, PRIVACY_STATEMENT } from '@shared/router/names'
 
 import { version } from '@/../package.json'
+import { externalUrls } from '@/@shared/external-links'
 
-const links: Link[] = [
-  {
-    name: HOME,
-    label: translate('app.name')
-  }
-]
+type FooterLink = {
+  href: string
+  text: string | undefined
+  rel: string
+}
+
+const getExternalLinks = (keys: string[]) => {
+  return keys.map(key => {
+    return {
+      text: translate(`component.footer.${key}`),
+      ...externalUrls[key]
+    }
+  })
+}
+
+const serviceLinks: FooterLink[] = getExternalLinks([
+  'contact',
+  'documents',
+  'abuse',
+  'disagree',
+  'law',
+  'about'
+])
+
+const aboutLinks: FooterLink[] = getExternalLinks(['copyright', 'disclaimer', 'vulnerability'])
 </script>
+
+<style lang="scss" scoped>
+a {
+  display: block;
+}
+</style>
