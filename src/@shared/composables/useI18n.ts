@@ -8,10 +8,10 @@ const getProps = (form: any, context: any) => {
   const property = errorContext?.params?.missingProperty ?? errorContext?.instancePath?.substring(1)
 
   const title =
-    context?.uischema?.label ??
-    form.getScopedElement(property)?.label ??
     context?.error?.parentSchema?.properties?.[property]?.title ??
-    form.schema.value.properties?.[property]?.title
+    form.schema.value.properties?.[property]?.title ??
+    context?.uischema?.label ??
+    form.getScopedElement(property)?.label
 
   const field = title ?? property
   const isBoolean = context?.error?.parentSchema?.properties?.[property]?.type === 'boolean'
