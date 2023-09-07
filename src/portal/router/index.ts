@@ -2,7 +2,9 @@ import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@portal/store/useAuthStore'
 
+import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
 import NotFound from '@shared/pages/NotFound.vue'
+import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
 
 import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
@@ -19,6 +21,7 @@ import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
 import {
+  ACCESSIBILITY_STATEMENT,
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
@@ -33,7 +36,8 @@ import {
   MY_MESSAGES,
   MY_REQUESTS_DETAILS,
   MY_REQUESTS_OVERVIEW,
-  NOT_FOUND
+  NOT_FOUND,
+  PRIVACY_STATEMENT
 } from '@shared/router/names'
 
 import { setRouteCookie } from '@shared/utils/cookie'
@@ -134,6 +138,22 @@ const routes = [
         component: MyDetailsEdit
       }
     ]
+  },
+  {
+    path: '/accessibility-statement',
+    name: ACCESSIBILITY_STATEMENT,
+    component: AccessibilityStatementPage,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/privacy-statement',
+    name: PRIVACY_STATEMENT,
+    component: PrivacyStatementPage,
+    meta: {
+      public: true
+    }
   },
   {
     path: '/:catchAll(.*)',
