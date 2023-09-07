@@ -6,6 +6,8 @@ export const Rel = {
 
 export const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
 
+export const notFoundLoggedOutRedirectLink = 'https://www.dus-i.nl'
+
 export const grantLink = {
   href: 'https://www.dus-i.nl/subsidies',
   rel: external
