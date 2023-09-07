@@ -36,7 +36,7 @@ export const useFetchWithCredentials = <T>(
       return {
         options
       }
-    } catch(error) {
+    } catch (error) {
       log('Key generation failed, not adding public key', error)
       cancel()
     }

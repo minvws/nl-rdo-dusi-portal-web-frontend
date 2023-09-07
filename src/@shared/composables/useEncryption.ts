@@ -73,7 +73,7 @@ export const useEncryption = () => {
    * @returns {Promise<JsonWebKey>} public key
    */
   async function getPublicKey(): Promise<JsonWebKey | undefined> {
-    const publicKey =  keyPair.value?.publicKey
+    const publicKey = keyPair.value?.publicKey
 
     if (!publicKey) {
       log('No public key found')
