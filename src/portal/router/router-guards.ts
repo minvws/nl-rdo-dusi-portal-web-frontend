@@ -20,7 +20,7 @@ export const beforeEach = async (
   if (to.name === NOT_FOUND || to.name === HOME) {
     if (!isLoggedIn.value) {
       next(false)
-      if (to.name === HOME && import.meta.env.VITE_DISABLE_LOGIN_REDIRECT_HOME) {
+      if (to.name === HOME && import.meta.env.VITE_DISABLE_LOGIN_REDIRECT_HOME === 'true') {
         log('login on home disabled, do not redirect')
         // do not redirect, convenient during development
         return
