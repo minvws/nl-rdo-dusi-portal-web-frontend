@@ -43,7 +43,7 @@ export const elements = [
             label: 'Sociaal-medische beoordeling',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             }
           },
           {
@@ -60,7 +60,7 @@ export const elements = [
             label: 'Verklaring arts',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             },
             rule: {
               effect: 'SHOW',

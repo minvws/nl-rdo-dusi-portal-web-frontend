@@ -26,8 +26,8 @@ export default async () => {
             label: 'file',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880,
-              tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 5 MB.'
+              maxFileSize: 20971520,
+              tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
             }
           }
         ]
