@@ -140,7 +140,7 @@ const routes = [
     ]
   },
   {
-    path: '/accessibility-statement',
+    path: '/toegankelijkheidsverklaring',
     name: ACCESSIBILITY_STATEMENT,
     component: AccessibilityStatementPage,
     meta: {
@@ -148,7 +148,7 @@ const routes = [
     }
   },
   {
-    path: '/privacy-statement',
+    path: '/privacyverklaring',
     name: PRIVACY_STATEMENT,
     component: PrivacyStatementPage,
     meta: {
