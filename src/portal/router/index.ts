@@ -1,7 +1,3 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@portal/store/useAuthStore'
-
 import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
 import NotFound from '@shared/pages/NotFound.vue'
 import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
@@ -10,15 +6,16 @@ import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
 import FormSent from '@portal/pages/FormSent.vue'
-import LandingPage from '@portal/pages/LandingPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
 import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
 import MyDetailsView from '@portal/pages/MyDetailsView.vue'
-import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
+import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
+
+import { beforeEach, afterEach } from '@/portal/router/router-guards'
 
 import {
   ACCESSIBILITY_STATEMENT,
@@ -40,14 +37,10 @@ import {
   PRIVACY_STATEMENT
 } from '@shared/router/names'
 
-import { setRouteCookie } from '@shared/utils/cookie'
-import { log } from '@shared/utils/logger'
-
 const routes = [
   {
     path: '/',
     name: HOME,
-    component: LandingPage,
     meta: {
       public: true
     }
@@ -165,30 +158,5 @@ const routes = [
     }
   }
 ]
-
-// Protected router, redirect to home if not logged in.
-const beforeEach = async (
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext
-) => {
-  const authStore = useAuthStore()
-  await authStore.restoreSession()
-  const { isLoggedIn } = storeToRefs(authStore)
-  if (to.meta.public || isLoggedIn.value) {
-    next()
-    return
-  }
-
-  log('route is not `public` and user is not logged-in, redirection to `home`')
-  next({ name: HOME })
-}
-
-// Set cookie with current route after each route change.
-const afterEach = (to: RouteLocationNormalized) => {
-  if (to.name !== LOGIN_CALLBACK_VIEW) {
-    setRouteCookie(to)
-  }
-}
 
 export default { routes, beforeEach, afterEach }

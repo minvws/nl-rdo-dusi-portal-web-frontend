@@ -9,7 +9,7 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 import { useApiLoginUrl } from '@shared/composables/useApiUrl'
 
 import { ModalType } from '@shared/types/modal'
-import { Rel } from '@shared/external-links'
+import { openExternalLink } from '@shared/utils/link'
 
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000
 const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when the user is prompt to extend its session
@@ -63,7 +63,7 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
               break
             case SessionType.EXPIRED:
               // login
-              window.open(useApiLoginUrl(), '_self', [Rel.NO_OPENER, Rel.NO_REFERRER].join(','))
+              openExternalLink(useApiLoginUrl())
               break
           }
         }
