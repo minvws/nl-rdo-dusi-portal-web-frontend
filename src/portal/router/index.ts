@@ -5,7 +5,6 @@ import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
 import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
-import FormSent from '@portal/pages/FormSent.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
 import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
@@ -24,7 +23,6 @@ import {
   ARRANGEMENT_FORM_REMOTE,
   EXTERNAL_DETAIL,
   EXTERNAL,
-  FORM_SENT,
   HOME,
   LOGIN_CALLBACK_VIEW,
   MY_DETAILS_OVERVIEW,
@@ -76,12 +74,6 @@ const routes = [
     name: ARRANGEMENT_DETAILS,
     component: ArrangementView,
     children: [
-      {
-        path: 'aanvraag-verzonden',
-        name: FORM_SENT,
-        component: FormSent,
-        props: true
-      },
       {
         path: 'aanvragen-remote',
         name: ARRANGEMENT_FORM_REMOTE,
