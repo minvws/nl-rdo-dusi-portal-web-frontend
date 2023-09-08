@@ -33,3 +33,5 @@ export type CaseDetailsItem = {
   title: string
   items: DescriptionListItem[]
 }
+
+export const descriptionListSupportedFormats = Object.values(DescriptionListDetailsFieldType)

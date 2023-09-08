@@ -6,6 +6,7 @@ import type { Form, FormData } from '@shared/types/form'
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
 import { useFormStorage } from '@shared/store/useFormStorage'
+import type { FieldProp } from '@/@shared/types/field'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string }
@@ -51,6 +52,16 @@ export const useActiveForm = () => {
         return cul
       }, {} as FormData)
     })
+  }
+
+  function getAllProperties() {
+    return forms.value?.reduce(
+      (cul, { dataschema: { properties } }) => {
+        const values = properties as Record<string, FieldProp>
+        return { ...cul, ...values }
+      },
+      {} as Record<string, FieldProp>
+    )
   }
 
   function getScopesFromElements() {
@@ -106,6 +117,7 @@ export const useActiveForm = () => {
     forms,
     formsData,
     formsErrors,
+    getAllProperties,
     getCurrentLinkedScopes,
     getCurrentScopes,
     getScopedElement,
