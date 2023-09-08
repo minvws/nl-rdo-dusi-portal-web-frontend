@@ -3,7 +3,16 @@ import { InputType } from '@shared/types/input'
 import type { FieldProp } from '@shared/types/field'
 import { toNestedObject } from '@shared/utils/object'
 
-const getDummyData = ({ type, format, iban, file, tel, postalCode, enum: enums }: FieldProp) => {
+const getDummyData = ({
+  type,
+  format,
+  iban,
+  file,
+  tel,
+  postalCode,
+  title,
+  enum: enums
+}: FieldProp) => {
   if (enums) {
     return enums[0]
   }
@@ -30,7 +39,7 @@ const getDummyData = ({ type, format, iban, file, tel, postalCode, enum: enums }
     case 'boolean':
       return true
     case 'string':
-      return 'lorem ipsum'
+      return title
     case 'integer':
       return 4
     case 'number':
