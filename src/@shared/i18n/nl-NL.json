@@ -14,6 +14,10 @@
       "label": "Inloggen mislukt",
       "message": "Het inloggen is mislukt, u bent niet ingelogd."
     },
+    "unknown": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een onbekende fout opgetreden, u bent niet ingelogd. <b>Foutcode</b>: <i>{error}</i>"
+    },
     "modal": {
       "expiring": {
         "title": "Let op! De maximale inlogtijd is bijna bereikt.",

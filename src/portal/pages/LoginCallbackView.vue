@@ -17,35 +17,41 @@ const notificationsStore = useNotificationsStore()
 const route = useRoute()
 const router = useRouter()
 
-function getError() {
-  switch (route.query?.error) {
+function getErrorCode(error: string) {
+  switch (error) {
     case 'login_cancelled':
     case 'login_failed':
-      return route.query.error.split('_')[1]
+      return error.split('_')[1]
+    default:
+      return 'unknown'
+  }
+}
+function getError() {
+  const error = route.query?.error as string
+  if (!error) return undefined
+  const code = getErrorCode(error)
+  return {
+    code,
+    error
   }
 }
 
-function getErrorMessage() {
-  const error = getError()
-  if (!error) return
-  return `authentication.${error}`
-}
-
 onBeforeMount(async () => {
-  const message = getErrorMessage()
+  const authError = getError()
 
-  if (message) {
+  if (authError) {
+    const { code } = authError
     notificationsStore.add({
       displayAs: 'error',
-      label: translate(`${message}.label`) ?? '',
-      message: translate(`${message}.message`) ?? ''
+      label: translate(`authentication.${code}.label`, authError) ?? '',
+      message: translate(`authentication.${code}.message`, authError) ?? ''
     })
     await authStore.logOut()
   } else {
     await authStore.logIn()
   }
 
-  const route = !message && authStore.isLoggedIn ? getRouteFromCookie() : undefined
+  const route = !authError && authStore.isLoggedIn ? getRouteFromCookie() : undefined
   router.replace(route ?? { name: HOME })
 })
 </script>
