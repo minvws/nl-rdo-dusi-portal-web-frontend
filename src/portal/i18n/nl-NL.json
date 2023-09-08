@@ -87,16 +87,18 @@
     },
     "my-requests-overview": {
       "title": "Mijn aanvragen",
-      "intro": "Het overzicht van uw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",
+      "intro": "Het overzicht van uw aanvragen en regelingen. In dit overzicht ziet uw de status van uw aanvraag en eventuele openstaande acties.",
       "myRequests": "Mijn aanvragen",
       "noRequests": "Er zijn geen aanvragen gevonden",
       "table": {
         "caption": "Overzicht van jouw aanvragen",
-        "arrangement": "Aanvraag",
+        "subsidy": "Regeling",
+        "file": "Dossiernummer",
         "created": "Datum indiening",
         "deadline": "Reactietermijn",
         "status": "Status",
-        "action": "Bekijk benodigde acties ({ actions })"
+        "actionRequired": "Actie benodigd",
+        "action": "Acties"
       }
     },
     "my-request-details": {

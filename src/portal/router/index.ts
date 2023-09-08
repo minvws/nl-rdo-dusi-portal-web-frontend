@@ -31,7 +31,7 @@ import {
   MY_DETAILS_EDIT,
   MY_MESSAGES_PAGE,
   MY_MESSAGES,
-  MY_REQUESTS_DETAILS,
+  MY_REQUEST_DETAILS,
   MY_REQUESTS_OVERVIEW,
   NOT_FOUND,
   PRIVACY_STATEMENT
@@ -103,7 +103,7 @@ const routes = [
     children: [
       {
         path: ':id',
-        name: MY_REQUESTS_DETAILS,
+        name: MY_REQUEST_DETAILS,
         component: MyRequestDetails,
         props: true
       }
