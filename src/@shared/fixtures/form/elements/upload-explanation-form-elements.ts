@@ -1,4 +1,4 @@
-import { external } from '@shared/external-links'
+import { urls, external } from '@shared/external-links'
 
 export const required = []
 
@@ -12,7 +12,9 @@ export const elements = [
         type: 'FormNotification',
         options: {
           displayAs: 'explanation',
-          message: `Upload maximaal 1 bijlage per invoerveld met een maximale bestandsgrootte van 20 MB. Toegestane bestandstypes zijn:  PDF, PNG, JPG, JPEG. Voor meer informatie zie: <a href="https://loremipsum.dusi.nl" rel="${external}">loremipsum.dusi.nl</a>.`
+          message: `Upload maximaal 1 bijlage per invoerveld met een maximale bestandsgrootte van 20 MB. Toegestane bestandstypes zijn:  PDF, PNG, JPG, JPEG. <br/><br/>Voor verdere toelichting informatie zie: <a href="${
+            urls.attachments
+          }" rel="${external}">${urls.attachments.split('//')[1]}</a>.`
         }
       }
     ]

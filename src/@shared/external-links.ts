@@ -8,7 +8,8 @@ export const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
 
 export const notFoundLoggedOutRedirectLink = 'https://www.dus-i.nl'
 
-const urls = {
+export const urls = {
+  attachments: 'https://loremipsum.dusi.nl',
   grant: 'https://www.dus-i.nl/subsidies',
   grantProcess: 'https://www.dus-i.nl/subsidieproces',
   contact: 'https://www.dus-i.nl/contact',
@@ -23,7 +24,7 @@ const urls = {
   privacy:
     'https://autoriteitpersoonsgegevens.nl/nl/contact-met-de-autoriteit-persoonsgegevens/informatie-en-meldpunt-privacy',
   avg: 'https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/algemene-informatie-avg/rechten-van-betrokkenen'
-}
+} as const
 
 export const externalUrls = Object.entries(urls).reduce(
   (cul, [key, href]) => {
