@@ -21,7 +21,7 @@ export const properties = {
 export const allOf = [
   {
     if: {
-      properties: { doctorsStatement: { const: 'Ja' } }
+      properties: { longtermCovid: { const: 'Nee' } }
     },
     then: {
       required: ['doctorsStatement']
@@ -66,7 +66,7 @@ export const elements = [
               effect: 'SHOW',
               condition: {
                 scope: '#/properties/longtermCovid',
-                schema: { const: 'Ja' }
+                schema: { const: 'Nee' }
               }
             }
           }
