@@ -58,7 +58,7 @@
     "formNotification": {
       "error": "Fout",
       "explanation": "Toelichting",
-      "success": "Gelukt",
+      "confirmation": "Gelukt",
       "warning": "Waarschuwing"
     },
     "header": {
@@ -78,7 +78,7 @@
         "error": "fout",
         "warning": "waarschuwing",
         "explanation": "uitleg",
-        "success": "succesvol"
+        "confirmation": "succesvol"
       }
     },
     "pagination": {

@@ -17,7 +17,7 @@ export const MY_DETAILS_EDIT = 'my-details-edit'
 export const MY_MESSAGES = 'my-messages-overview'
 export const MY_MESSAGES_PAGE = 'my-messages-overview-page'
 export const MY_REQUESTS_OVERVIEW = 'my-requests-overview'
-export const MY_REQUESTS_DETAILS = 'my-request-details'
+export const MY_REQUEST_DETAILS = 'my-request-details'
 
 // assessment
 export const LOGIN = 'login'
