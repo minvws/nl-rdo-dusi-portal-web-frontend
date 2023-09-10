@@ -21,7 +21,6 @@ export const useEncryption = () => {
       }
       return sodium.crypto_box_seal_open(data, keyPair.publicKey, keyPair.privateKey)
     } catch (error) {
-      log('data to base64', sodium.to_base64(data))
       log('Decryption error:', error)
     }
   }
