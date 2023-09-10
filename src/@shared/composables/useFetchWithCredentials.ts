@@ -33,9 +33,8 @@ export const useFetchWithCredentials = <T>(
   }
 
   async function afterFetch(ctx: AfterFetchContext) {
-    console.log('headers', ctx.response.headers.get(ENCRYPTED_HEADER), ENCRYPTED_HEADER)
     const isEncrypted = ctx.response.headers.get(ENCRYPTED_HEADER) === 'true'
-    if (!isEncrypted) {
+    if (!keyPair || !isEncrypted) {
       return ctx // not encrypted
     }
 
