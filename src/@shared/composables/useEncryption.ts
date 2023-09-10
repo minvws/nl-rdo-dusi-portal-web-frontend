@@ -3,25 +3,49 @@ import { ref } from 'vue'
 
 import { log } from '@shared/utils/logger'
 
-export const useEncryption = () => {
-  const keyPair: Ref<CryptoKeyPair | undefined> = ref(undefined)
+interface EncryptedResponse {
+  status: number
+  key: string
+  initializationVector: string
+  data: string
+}
 
+function isEncryptedResponse(object: any): object is EncryptedResponse {
+  return (
+    'status' in object && 'key' in object && 'initializationVector' in object && 'data' in object
+  )
+}
+
+
+export const useEncryption = () => {
   /**
    * Decrypts data with a private key
    * @param {CryptoKey} privateKey
-   * @param {ArrayBuffer} data
+   * @param {any} data
    * @returns {*} decrypted data
    */
   async function decrypt(
     privateKey: CryptoKey,
-    data: ArrayBuffer
+    data: any
   ): Promise<ArrayBuffer | undefined> {
-    const options = { name: 'RSA-OAEP' }
+    if (!isEncryptedResponse(data)) {
+      return data
+    }
 
     try {
-      const decryptedData = await crypto.subtle.decrypt(options, privateKey, data)
-
-      return decryptedData
+      const keyAlgo: RsaOaepParams = { name: 'RSA-OAEP' }
+      const encryptedKey = new TextEncoder().encode(btoa(data.key))
+      log('A', atob(new TextDecoder().decode(encryptedKey)))
+      const decryptedKey = await crypto.subtle.decrypt(keyAlgo, privateKey, encryptedKey)
+      log('B', decryptedKey)
+      const dataAlgo = { name: 'AES-CTR' }
+      const dataKey = await crypto.subtle.importKey('pkcs8', decryptedKey, dataAlgo, false, []);
+      log('D')
+      const encryptedData = new TextEncoder().encode(btoa(data.data))
+      log('E')
+      const decryptedData = await crypto.subtle.decrypt(dataAlgo, dataKey, encryptedData)
+      log('F')
+      return JSON.parse(new TextDecoder().decode(decryptedData))
     } catch (error) {
       log('Decryption error:', error)
     }
@@ -60,9 +84,7 @@ export const useEncryption = () => {
     const keyUsages: KeyUsage[] = ['encrypt', 'decrypt']
 
     try {
-      const result = await crypto.subtle.generateKey(options, isExtractable, keyUsages)
-      keyPair.value = result
-      return result
+      return await crypto.subtle.generateKey(options, isExtractable, keyUsages)
     } catch (error) {
       log('Key pair generation error:', error)
     }
@@ -72,8 +94,8 @@ export const useEncryption = () => {
    * Return the exported public key as a JWK.
    * @returns {Promise<JsonWebKey>} public key
    */
-  async function getPublicKey(): Promise<JsonWebKey | undefined> {
-    const publicKey = keyPair.value?.publicKey
+  async function getPublicKey(keyPair: CryptoKeyPair): Promise<ArrayBuffer | undefined> {
+    const publicKey = keyPair.publicKey
 
     if (!publicKey) {
       log('No public key found')
@@ -81,7 +103,7 @@ export const useEncryption = () => {
     }
 
     try {
-      const result = await crypto.subtle.exportKey('jwk', publicKey)
+      const result = await crypto.subtle.exportKey('spki', publicKey)
       return result
     } catch (error) {
       log('Public key error:', error)
@@ -91,7 +113,6 @@ export const useEncryption = () => {
   return {
     decrypt,
     encrypt,
-    keyPair,
     generateKeyPair,
     getPublicKey
   }
