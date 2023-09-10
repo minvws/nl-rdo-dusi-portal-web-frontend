@@ -5,19 +5,56 @@ import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
 import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 import { translate } from '@/@shared/i18n'
+import { FormSubmitType } from '@/@shared/types/form'
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
   const notification = useNotificationsStore()
   const router = useRouter()
 
-  const NOTIFICATION_ID = 'form-submit'
+  const NOTIFICATION_SUBMIT_ID = 'form-submit'
+  const NOTIFICATION_SAVE_ID = 'form-save'
 
-  async function onSubmit() {
+  async function onSubmit () {
     const { draftId, formData } = forms
     const url = useApiFormsSubmitUrl(draftId.value)
     // @TODO: send stringified data for now, until we know how we want to encrypt it.
-    const body = { data: JSON.stringify(formData.value) }
+    const body = {
+      type: FormSubmitType.SUBMIT,
+      data: JSON.stringify(formData.value)
+    }
+
+    const options: RequestInit = {
+      method: 'PUT',
+      credentials: 'include',
+      headers: {
+        Accept: 'text/plain',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    }
+    forms.setSubmitting(true)
+
+    try {
+      const response = await fetch(url, options)
+      if (response.ok) return undefined
+      throw new Error(response?.statusText)
+    } catch (error) {
+      log(error)
+      return error
+    } finally {
+      forms.setSubmitting(false)
+    }
+  }
+
+  async function onSubmitForm() {
+    const { draftId, formData } = forms
+    const url = useApiFormsSubmitUrl(draftId.value)
+    // @TODO: send stringified data for now, until we know how we want to encrypt it.
+    const body = {
+      type: FormSubmitType.SUBMIT,
+      data: JSON.stringify(formData.value)
+    }
 
     const options: RequestInit = {
       method: 'PUT',
@@ -36,7 +73,7 @@ export const useFormSubmit = () => {
         notification.add({
           message: translate('form.message.success') || '',
           displayAs: 'confirmation',
-          id: NOTIFICATION_ID,
+          id: NOTIFICATION_SUBMIT_ID,
           pageChangeCount: 2
         })
         return router.replace({ name: HOME })
@@ -46,7 +83,7 @@ export const useFormSubmit = () => {
       notification.add({
         message: translate('form.message.failed') || '',
         displayAs: 'error',
-        id: NOTIFICATION_ID,
+        id: NOTIFICATION_SUBMIT_ID,
         pageChangeCount: 1
       })
       log(error)
@@ -55,7 +92,27 @@ export const useFormSubmit = () => {
     }
   }
 
+  async function onSubmitDraft () {
+    const error = await onSubmit()
+    if (error) {
+      notification.add({
+        message: translate('form.message.success') || '',
+        displayAs: 'confirmation',
+        id: NOTIFICATION_SAVE_ID,
+        pageChangeCount: 2
+      })
+    } else {
+      notification.add({
+        message: translate('form.message.success') || '',
+        displayAs: 'confirmation',
+        id: NOTIFICATION_SAVE_ID,
+        pageChangeCount: 2
+      })
+    }
+  }
+
   return {
-    onSubmit
+    onSubmitForm,
+    onSubmitDraft
   }
 }

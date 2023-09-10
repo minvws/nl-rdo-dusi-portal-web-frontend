@@ -95,7 +95,8 @@
       "start": "Aanvraag starten",
       "next": "Volgende",
       "prev": "Vorige",
-      "submit": "Verzenden"
+      "submit": "Verzenden",
+      "save": "Tussentijds opslaan"
     },
     "component": {
       "fileInput": {

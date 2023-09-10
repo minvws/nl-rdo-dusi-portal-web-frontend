@@ -17,11 +17,17 @@ export type FormError = Pick<JsonFormsCore, 'errors'> | any //  & { params?: { m
 
 export type FormResponse = any // @TODO
 
+export const FormSubmitType = {
+  SUBMIT: 'submit',
+  DRAFT: 'draft'
+}
+
 export type FormButtonLabels = {
   start?: string
   previous?: string
   next?: string
   submit?: string
+  save?: string
 }
 
 export type FormViewProps = {
@@ -35,3 +41,4 @@ export type FormViewProps = {
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
 }
+
