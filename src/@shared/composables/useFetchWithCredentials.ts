@@ -1,11 +1,10 @@
 import type { MaybeRefOrGetter, UseFetchOptions, BeforeFetchContext, AfterFetchContext } from "@vueuse/core"
 import { useFetch } from '@vueuse/core'
-
 import { useEncryption } from '@shared/composables/useEncryption'
+import sodium from "libsodium-wrappers"
 
-import { log } from '@shared/utils/logger'
-
-const HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
+const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
+const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER
 
 export const useFetchWithCredentials = <T>(
   url: MaybeRefOrGetter<string>,
@@ -16,53 +15,47 @@ export const useFetchWithCredentials = <T>(
   const defaultOptions: Record<string, RequestCredentials> = { credentials: 'include' }
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true }
 
-  let keyPair: CryptoKeyPair|undefined = undefined;
+  let keyPair: sodium.KeyPair | undefined
 
   // Reference: https://vueuse.org/core/useFetch/#intercepting-a-request
-  async function beforeFetch({ options, cancel }: BeforeFetchContext) {
-    try {
-      keyPair = await generateKeyPair()
-      if (!keyPair) {
-        log('Key pair generation failed, not adding public key')
-        cancel()
-        return { options }
-      }
+  async function beforeFetch({ options }: BeforeFetchContext) {
+    keyPair = await generateKeyPair()
+    const publicKey = await getPublicKey(keyPair)
 
-      const publicKey = await getPublicKey(keyPair)
+    options.headers = {
+      ...options.headers,
+      ...{ [`${PUBLIC_KEY_HEADER}`]: publicKey }
+    }
 
-      if (!publicKey) {
-        log('Key generation failed, not adding public key')
-        cancel()
-        return { options }
-      }
-
-      let encodedPublicKey = btoa(String.fromCharCode(...new Uint8Array(publicKey)))
-      encodedPublicKey = encodedPublicKey?.match(/.{1,64}/g)?.join('\n') ?? ''
-      encodedPublicKey = `-----BEGIN PUBLIC KEY-----\n${encodedPublicKey}\n-----END PUBLIC KEY-----`
-      log('Public key', encodedPublicKey)
-
-      options.headers = {
-        ...options.headers,
-        ...(encodedPublicKey && { [`${HEADER}`]: btoa(encodedPublicKey) })
-      }
-
-      return {
-        options
-      }
-    } catch (error) {
-      log('Key generation failed, not adding public key', error)
-      cancel()
+    return {
+      options
     }
   }
 
   async function afterFetch(ctx: AfterFetchContext) {
-    if (!keyPair?.privateKey) {
-      return ctx
+    console.log('headers', ctx.response.headers.get(ENCRYPTED_HEADER), ENCRYPTED_HEADER)
+    const isEncrypted = ctx.response.headers.get(ENCRYPTED_HEADER) === 'true'
+    if (!isEncrypted) {
+      return ctx // not encrypted
     }
 
-    log(ctx.data)
+    if (typeof ctx.data !== 'string' && !(ctx.data instanceof Uint8Array)) {
+      return ctx // unexpected type
+    }
 
-    ctx.data = decrypt(keyPair.privateKey, ctx.data)
+    const decryptedData = await decrypt(ctx.data, keyPair)
+    if (!(decryptedData instanceof Uint8Array)) {
+      return ctx // decryption failed
+    }
+
+    ctx.data = decryptedData
+    if (ctx.response.headers.get('Content-Type') === 'application/json') {
+      const json = new TextDecoder().decode(decryptedData)
+      ctx.data = JSON.parse(json)
+    } else {
+      ctx.data = decryptedData
+    }
+
     return ctx
   }
 
