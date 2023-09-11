@@ -66,14 +66,15 @@ const mapStatusToRouteText: Record<string, string> = {
  * @returns data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  return data.items.map(({ id, subsidy, status, deadlineForResponseAt, submittedAt }) => ({
+  console.log(data.items)
+  return data.items.map(({ reference, subsidy, status, deadlineForResponseAt, submittedAt }) => ({
     ...setSubsidy(subsidy.id, subsidy.title),
-    ...setFile(id),
+    ...setFile(reference),
     ...setStatus(status),
     ...setDeadline(deadlineForResponseAt),
     ...setCreated(submittedAt),
     ...setActionRequired(status),
-    ...setAction(id, subsidy.id, status)
+    ...setAction(reference, subsidy.id, status)
   }))
 }
 
@@ -127,7 +128,7 @@ const setSubsidy = (id: string, text: string) =>
 const setFile = (text: string) =>
   createSet('file', {
     type: AssessmentsDataType.STRING,
-    text: text.split('-')[0] // fake file id for now
+    text
   })
 
 const setArrangement = (text: string) =>
@@ -168,16 +169,13 @@ const setActionRequired = (status: string) =>
     text: mapStatusToRequiredAction[status]
   })
 
-const setAction = (id: string, subsidyId: string, status: string) =>
+const setAction = (reference: string, subsidyId: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
     to: {
       name: mapStatusToRouteName[status],
       params: {
-        id:
-          status === RequestStatus.DRAFT || status === RequestStatus.REQUEST_CHANGES
-            ? subsidyId
-            : id
+        id: reference
       }
     },
     text: mapStatusToRouteText[status]
