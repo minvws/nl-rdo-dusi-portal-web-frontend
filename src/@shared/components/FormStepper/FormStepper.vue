@@ -14,7 +14,8 @@
           active: isActive(step),
           valid: isValid(step),
           first: isFirst(index),
-          last: isLast(index)
+          last: isLast(index),
+          large: isLarge
         }"
         :disabled="isDisabled(step)"
         :aria-current="isAriaCurrent(step)"
@@ -106,10 +107,10 @@ const steps = computed(() => {
   --stepper-step-height: 55px;
   --stepper-arrow-size: 15px;
   --stepper-border-size: 12px;
-  --stepper-before-position-left: 50%;
+  --stepper-before-position-left: calc(50% - calc(var(--stepper-arrow-size) / 2));
   --stepper-before-transform: rotate(90deg) translateX(-9px);
   --stepper-after-position-top: 100%;
-  --stepper-after-position-left: 50%;
+  --stepper-after-position-left: calc(50% - calc(var(--stepper-arrow-size) / 2));
   --stepper-after-position-transform: rotate(90deg) translateX(-9px);
 
   &.large {
@@ -148,7 +149,6 @@ const steps = computed(() => {
 
       width: 100%;
       height: 100%;
-      padding: 0 1rem 0 3rem;
 
       font-family: var(--application-base-font-family);
       white-space: nowrap;
@@ -161,6 +161,12 @@ const steps = computed(() => {
       --button-base-active-border-color: var(--ro-blue);
       --button-base-active-text-color: var(--ro-blue-text-color-light);
 
+      &.large {
+        padding: 0 1rem 0 3rem;
+        &.last {
+          padding: 0 2rem 0 3rem;
+        }
+      }
       &.first {
         padding-left: 1rem;
       }
