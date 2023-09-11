@@ -1,109 +1,74 @@
 {
   "items": [
     {
-      "sendAt": "03-20-2022",
-      "id": "/mock/shared/assets/test",
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "1 Aanvraag ontvangen “Borstprothesen transvrouwen”"
+    },
+    {
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "2 Aanvraag ontvangen “Borstprothesen transvrouwen”"
+    },
+    {
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
       "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "12-15-2021",
-      "id": "/mock/shared/assets/test",
-      "subject": "Beschikking ontvangen 'Lorem ipsum'"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "06-25-2021",
-      "id": "/mock/shared/assets/test",
-      "subject": "Dolor sit amet consectetur adipiscing elit sed do eiusmod"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "04-30-2021",
-      "id": "/mock/shared/assets/test",
-      "subject": "Adipiscing elit sed do eiusmod tempor incididunt ut labore"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "02-12-2021",
-      "id": "/mock/shared/assets/test",
-      "subject": "Tempor incididunt ut labore et dolore magna aliqua"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "11-05-2020",
-      "id": "/mock/shared/assets/test",
-      "subject": "Ut enim ad minim veniam quis nostrud exercitation"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "08-18-2020",
-      "id": "/mock/shared/assets/test",
-      "subject": "Duis aute irure dolor in reprehenderit in voluptate"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "05-22-2020",
-      "id": "/mock/shared/assets/test",
-      "subject": " Cillum dolore eu fugiat nulla pariatur Excepteur sint"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "01-30-2020",
-      "id": "/mock/shared/assets/test",
-      "subject": "Occaecat cupidatat non proident sunt in culpa qui"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "10-14-2019",
-      "id": "/mock/shared/assets/test",
-      "subject": "Deserunt mollit anim id est laborum"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "07-08-2019",
-      "id": "/mock/shared/assets/test",
-      "subject": "Incididunt ut labore et dolore magna aliqua Ut"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     },
     {
-      "sendAt": "03-20-2019",
-      "id": "/mock/shared/assets/test",
-      "subject": "Enim ad minim veniam quis nostrud exercitation ullamco"
-    },
-    {
-      "sendAt": "12-15-2018",
-      "id": "/mock/shared/assets/test",
-      "subject": "Laboris nisi ut aliquip ex ea commodo consequat"
-    },
-    {
-      "sendAt": "06-25-2018",
-      "id": "/mock/shared/assets/test",
-      "subject": "Duis aute irure dolor in reprehenderit in voluptate"
-    },
-    {
-      "sendAt": "04-30-2018",
-      "id": "/mock/shared/assets/test",
-      "subject": "Lorem ipsum dolor sit amet consectetur adipiscing elit"
-    },
-    {
-      "sendAt": "02-12-2018",
-      "id": "/mock/shared/assets/test",
-      "subject": "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua"
-    },
-    {
-      "sendAt": "11-05-2017",
-      "id": "/mock/shared/assets/test",
-      "subject": "Ut enim ad minim veniam quis nostrud exercitation"
-    },
-    {
-      "sendAt": "08-18-2017",
-      "id": "/mock/shared/assets/test",
-      "subject": "Dolor in reprehenderit in voluptate velit esse cillum"
-    },
-    {
-      "sendAt": "05-22-2017",
-      "id": "/mock/shared/assets/test",
-      "subject": "Eu fugiat nulla pariatur Excepteur sint occaecat cupidatat"
-    },
-    {
-      "sendAt": "01-30-2017",
-      "id": "/mock/shared/assets/test",
-      "subject": "Deserunt mollit anim id est laborum"
-    },
-    {
-      "sendAt": "10-14-2016",
-      "id": "/mock/shared/assets/test",
-      "subject": "Laboris nisi ut aliquip ex ea commodo consequat"
+      "sentAt": "2023-10-01T08:48:29Z",
+      "id": "a0b64894-8b28-48f3-8d2d-58f267d6419e",
+      "subject": "Aanvraag ontvangen “Borstprothesen transvrouwen”"
     }
   ]
 }

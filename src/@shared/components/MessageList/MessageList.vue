@@ -2,14 +2,12 @@
   <div class="message-list">
     <div
       class="message-list-item"
-      v-for="({ date, formattedDate, url, title, rel }, index) in list"
+      v-for="({ date, formattedDate, to, title }, index) in list"
       :key="`list-item-${index}`"
     >
-      <a
+      <RouterLink
         class="message-list-content"
-        :href="url"
-        :rel="rel"
-        target="_blank"
+        :to="to"
       >
         <time :datetime="date">
           {{ formattedDate }}
@@ -21,23 +19,25 @@
           class="icon"
           name="chevron-right"
         />
-      </a>
+      </RouterLink>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
-import { formatDate } from '@shared/utils/date'
+import type { RouteLocationNormalized } from 'vue-router'
 import { computed } from 'vue'
-import { Rel } from '@shared/external-links'
+import { useI18n } from 'vue-i18n'
+
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
+
+import { formatDate } from '@shared/utils/date'
 
 type Props = {
   items: {
     date: string
     title: string
-    url: string
+    to: RouteLocationNormalized
   }[]
 }
 const props = defineProps<Props>()
@@ -47,8 +47,7 @@ const { locale } = useI18n()
 const list = computed(() => {
   return props.items.map(item => ({
     ...item,
-    formattedDate: formatDate(item.date, locale.value),
-    rel: [Rel.NO_OPENER, Rel.NO_REFERRER].join(' ')
+    formattedDate: formatDate(item.date, locale.value)
   }))
 })
 </script>

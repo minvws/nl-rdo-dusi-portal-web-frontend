@@ -9,7 +9,7 @@
           v-for="({ name, params, label }, index) in links"
           :key="index"
         >
-          <span v-if="index === links.length - 1">
+          <span v-if="index === links.length - 1 || index === 0">
             {{ label }}
           </span>
           <RouterLink

@@ -91,6 +91,10 @@ const aboutLinks: FooterLink[] = getExternalLinks(['copyright', 'disclaimer', 'v
 </script>
 
 <style lang="scss" scoped>
+footer {
+  @include hide-print;
+}
+
 a {
   display: block;
 }

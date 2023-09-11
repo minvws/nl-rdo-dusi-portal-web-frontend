@@ -102,12 +102,18 @@
       }
     },
     "my-request-details": {
-      "title": "Mijn aanvraag",
+      "title": "Aanvraag",
       "status": "Wij hebben uw aanvraag ontvangen",
       "downloadLabel": "Download de aanvraag",
       "editLabel": "Aanvraag bewerken",
       "cancelLabel": "Aanvraag intrekken",
       "noAction": "U hoeft op dit moment niets te doen."
+    },
+    "my-message-details": {
+      "title": "Bericht",
+      "message": "Bericht",
+      "download": "Download bericht",
+      "print": "Bericht afdrukken"
     },
     "my-messages-overview": {
       "content": {},

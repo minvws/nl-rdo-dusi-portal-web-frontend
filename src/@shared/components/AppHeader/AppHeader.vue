@@ -75,6 +75,8 @@ const { leftLinks, rightLinks, AuthComponent } = await useAppHeaderLinks()
 
 <style lang="scss" scoped>
 .app-header {
+  @include hide-print;
+
   --header-navigation-list-item-align-items: center;
 }
 </style>
