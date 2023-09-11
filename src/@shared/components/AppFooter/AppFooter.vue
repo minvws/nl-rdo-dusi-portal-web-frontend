@@ -69,7 +69,7 @@ const getExternalLinks = (keys: string[]) => {
       .split(' ')
       .filter(rel => rel !== Rel.EXTERNAL)
       .join(' ')
-    console.log(rel)
+
     return {
       text: translate(`component.footer.${key}`),
       ...link,
