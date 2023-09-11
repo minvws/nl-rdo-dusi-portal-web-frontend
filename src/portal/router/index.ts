@@ -38,10 +38,7 @@ import {
 const routes = [
   {
     path: '/',
-    name: HOME,
-    meta: {
-      public: true
-    }
+    name: HOME
   },
   {
     path: '/external/detail/:id/:url?',
@@ -127,27 +124,17 @@ const routes = [
   {
     path: '/toegankelijkheidsverklaring',
     name: ACCESSIBILITY_STATEMENT,
-    component: AccessibilityStatementPage,
-    meta: {
-      public: true
-    }
+    component: AccessibilityStatementPage
   },
   {
     path: '/privacyverklaring',
     name: PRIVACY_STATEMENT,
-    component: PrivacyStatementPage,
-    meta: {
-      public: true
-    }
+    component: PrivacyStatementPage
   },
   {
     path: '/:catchAll(.*)',
     name: NOT_FOUND,
-    props: true,
-    component: NotFound,
-    meta: {
-      public: true
-    }
+    props: true
   }
 ]
 
