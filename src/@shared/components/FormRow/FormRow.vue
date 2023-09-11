@@ -51,7 +51,7 @@ import FormFieldLabel from '@shared/components/FormFieldLabel/FormFieldLabel.vue
 import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-import { ERROR_ATTRIBUTE } from '@shared/composables/useFormScroll'
+import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
 import { translate } from '@shared/i18n'
 

@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+
 import { translate } from '@shared/i18n'
-import { HOME } from '@shared/router/names'
 import type { Link } from '@shared/types/link'
 
 export const useBreadcrumbs = () => {
@@ -28,12 +28,9 @@ export const useBreadcrumbs = () => {
         label: translate(`pages.${linkName}.title`)
       })
     })
-    if (!links.length) return []
 
-    links.unshift({
-      name: HOME,
-      label: translate('app.name')
-    })
+    if (links.length <= 1) return []
+
     return links
   })
 

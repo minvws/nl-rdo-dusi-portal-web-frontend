@@ -18,10 +18,10 @@ export const properties = {
   }
 }
 
-export const anyOf = [
+export const allOf = [
   {
     if: {
-      properties: { doctorsStatement: { const: 'Ja' } }
+      properties: { longtermCovid: { const: 'Nee' } }
     },
     then: {
       required: ['doctorsStatement']
@@ -43,7 +43,7 @@ export const elements = [
             label: 'Sociaal-medische beoordeling',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             }
           },
           {
@@ -60,13 +60,13 @@ export const elements = [
             label: 'Verklaring arts',
             options: {
               accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              maxFileSize: 20971520
             },
             rule: {
               effect: 'SHOW',
               condition: {
                 scope: '#/properties/longtermCovid',
-                schema: { const: 'Ja' }
+                schema: { const: 'Nee' }
               }
             }
           }

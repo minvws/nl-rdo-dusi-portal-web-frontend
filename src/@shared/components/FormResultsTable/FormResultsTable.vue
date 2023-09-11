@@ -22,14 +22,12 @@ import {
   type DescriptionListItem
 } from '@shared/types/details'
 import type { FormData } from '@shared/types/form'
-import type { FieldProp } from '@/@shared/types/field'
 
-import { storeToRefs } from 'pinia'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
-import { useFormStore } from '@shared/store/useFormStore'
+import { useForms } from '@shared/composables/form/useForms'
 import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
@@ -40,6 +38,12 @@ export default defineComponent({
   components: { FormNotification, FormRow, DescriptionList },
   props: {
     ...rendererProps<ControlElement>()
+  },
+  data: () => {
+    const { getAllProperties } = useForms()
+    return {
+      getAllProperties
+    }
   },
   computed: {
     fields(): [string, string][] {
@@ -71,20 +75,19 @@ export default defineComponent({
       return { term, type, text }
     },
     getItemType(keys: string[]): DescriptionListDetailsType {
-      const supportedFormats = Object.values(DescriptionListDetailsFieldType)
-      const properties = this.schema?.properties || {}
-
       if (keys.length > 1) {
+        // items consists of more than one field, print as string
         return DescriptionListDetailsFieldType.STRING
       }
 
-      const key = keys[0]
-      const field = properties[key] as FieldProp
+      const properties = this.getAllProperties()
+      const field = properties?.[keys[0]]
 
       const format = field?.file
         ? DescriptionListDetailsFieldType.FILE
         : (field?.format as DescriptionListDetailsType)
 
+      const supportedFormats = Object.values(DescriptionListDetailsFieldType)
       const validFormat = supportedFormats.includes(format)
       return validFormat ? format : DescriptionListDetailsFieldType.STRING
     },
@@ -102,8 +105,7 @@ export default defineComponent({
     }
   },
   setup(props) {
-    const formStore = useFormStore()
-    const { formData } = storeToRefs(formStore)
+    const { formData } = useForms()
     const jsonFormsControl = useJsonFormsControl(props)
     const vanillaControl = useVanillaControl(jsonFormsControl)
 

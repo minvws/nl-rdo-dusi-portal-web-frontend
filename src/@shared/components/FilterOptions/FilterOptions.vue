@@ -12,6 +12,7 @@
         hideDebug: true,
         buttonLabels: { submit: translate('component.filterOptions.submit') }
       }"
+      @init="onSubmit"
       @submit="onSubmit"
     />
   </div>

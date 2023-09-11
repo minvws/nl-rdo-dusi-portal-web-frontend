@@ -14,6 +14,10 @@
       "label": "Inloggen mislukt",
       "message": "Het inloggen is mislukt, u bent niet ingelogd."
     },
+    "unknown": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een onbekende fout opgetreden, u bent niet ingelogd. <b>Foutcode</b>: <i>{error}</i>"
+    },
     "modal": {
       "expiring": {
         "title": "Let op! De maximale inlogtijd is bijna bereikt.",
@@ -33,8 +37,20 @@
     },
     "footer": {
       "slogan": "De Rijksoverheid. Voor Nederland",
-      "title": "Lorem ipsum",
-      "version": "Versie v{version}"
+      "serviceTitle": "Service",
+      "aboutTitle": "Over deze site",
+      "version": "Versie v{version}",
+      "contact": "Contact",
+      "documents": "Documenten",
+      "abuse": "Misbruik",
+      "disagree": "Oneens met DUS-I",
+      "law": "Wet open overheid",
+      "about": "Over ons",
+      "copyright": "Copyright",
+      "accessibility": "Toegankelijkheid",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer",
+      "vulnerability": "Kwetsbaarheid melden"
     },
     "filterOptions": {
       "submit": "Filter"
@@ -42,7 +58,7 @@
     "formNotification": {
       "error": "Fout",
       "explanation": "Toelichting",
-      "success": "Gelukt",
+      "confirmation": "Gelukt",
       "warning": "Waarschuwing"
     },
     "header": {
@@ -62,7 +78,7 @@
         "error": "fout",
         "warning": "waarschuwing",
         "explanation": "uitleg",
-        "success": "succesvol"
+        "confirmation": "succesvol"
       }
     },
     "pagination": {
@@ -84,7 +100,7 @@
     "component": {
       "fileInput": {
         "chooseFile": "Kies een bestand",
-        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 5 MB."
+        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 20 MB."
       }
     },
     "fields": {
@@ -92,13 +108,16 @@
         "const": "Dit veld is verplicht",
         "field": "Dit veld",
         "iban": "Dit is geen geldige IBAN",
+        "length": "{field} bestaat uit {maxLength} karakters",
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
+        "maxLength": "{field} bestaat uit maximaal {minLength} karakters",
+        "minLength": "{field} bestaat uit minimaal {minLength} karakters",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
-        "tel": "Dit is geen geldige telefoonnummer",
         "required-boolean": "Dit veld is verplicht",
+        "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
-        "required-conditional": "{field} is verplicht"
+        "tel": "Dit is geen geldig telefoonnummer"
       },
       "email": {
         "error": {
@@ -109,14 +128,22 @@
     "message": {
       "loading": "Formulier is aan het laden",
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
-      "submitting": "Formulier is bezig met verzenden"
+      "submitting": "Formulier is bezig met verzenden",
+      "success": "Formulier is succesvol verzonden",
+      "failed": "Er is iets mis gegaan met het verzenden van het formulier"
     }
   },
   "pages": {
+    "accessibility": {
+      "title": "Toegankelijkheidsverklaring"
+    },
     "not-found": {
       "intro": "U kunt de informatie die u zoekt mogelijk vinden via de volgende pagina's:",
       "subtitle": "De pagina die u wilde zien of het bestand dat u wilde bekijken is niet gevonden.",
       "title": "Pagina niet gevonden"
+    },
+    "privacy": {
+      "title": "Privacyverklaring"
     }
   }
 }

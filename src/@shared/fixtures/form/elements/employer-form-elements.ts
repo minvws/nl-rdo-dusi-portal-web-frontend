@@ -7,7 +7,7 @@ export const required = [
   'judicialInstitution'
 ]
 
-export const anyOf: any[] = [
+export const allOf = [
   {
     if: {
       properties: { employer: { const: 'Andere organisatie' } }
@@ -23,6 +23,14 @@ export const anyOf: any[] = [
     then: {
       required: ['bigNumber']
     }
+  },
+  {
+    if: {
+      properties: { employmentFunction: { const: 'Anders' } }
+    },
+    then: {
+      required: ['otherEmploymentFunction']
+    }
   }
 ]
 
@@ -35,6 +43,10 @@ export const properties = {
   employmentFunction: {
     type: 'string',
     enum: allEmploymentFunctions,
+    title: 'Functie'
+  },
+  otherEmploymentFunction: {
+    type: 'string',
     title: 'Functie'
   },
   employer: {
@@ -54,7 +66,9 @@ export const properties = {
   },
   bigNumber: {
     type: 'string',
-    title: 'BIG-nummer'
+    title: 'BIG-nummer',
+    minLength: 11,
+    maxLength: 11
   }
 }
 
@@ -82,6 +96,18 @@ export const elements = [
             options: {
               format: 'select',
               placeholder: 'Selecteer uw functie'
+            }
+          },
+          {
+            type: 'CustomControl',
+            scope: '#/properties/otherEmploymentFunction',
+            label: 'Andere functie',
+            rule: {
+              effect: 'SHOW',
+              condition: {
+                scope: '#/properties/employmentFunction',
+                schema: { const: 'Anders' }
+              }
             }
           },
           {

@@ -2,7 +2,7 @@ export const ModalType = {
   ERROR: 'error',
   WARNING: 'warning',
   EXPLANATION: 'explanation',
-  SUCCESS: 'success'
+  SUCCESS: 'confirmation'
 } as const
 
 export type Modal = {

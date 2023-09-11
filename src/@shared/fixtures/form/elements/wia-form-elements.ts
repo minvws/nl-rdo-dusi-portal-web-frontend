@@ -13,7 +13,7 @@ export const properties = {
   }
 }
 
-export const anyOf = [
+export const allOf = [
   {
     if: {
       properties: { wia: { const: 'Nee' } }
@@ -51,7 +51,7 @@ export const elements = [
         },
         options: {
           accept: 'image/*,.pdf',
-          maxFileSize: 5242880
+          maxFileSize: 20971520
         }
       }
     ]

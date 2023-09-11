@@ -24,7 +24,7 @@ export const Default: Story = {
       control: {
         type: 'select'
       },
-      options: ['error', 'warning', 'explanation', 'success']
+      options: ['error', 'warning', 'explanation', 'confirmation']
     }
   },
   args: {

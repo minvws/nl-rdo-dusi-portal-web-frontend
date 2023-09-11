@@ -5,9 +5,11 @@
       :key="index"
     >
       <dt>{{ term }}</dt>
-      <dd v-if="type === 'string'">
-        {{ text }}
-      </dd>
+      <AppHtml
+        v-if="type === 'string'"
+        :html="text"
+        as="dd"
+      />
       <dd v-else-if="type === 'date'">
         {{ formatDate(text, locale) }}
       </dd>
@@ -29,6 +31,7 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { formatDate } from '@shared/utils/date'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 
 import type { DescriptionListItem } from '@shared/types/details'
 

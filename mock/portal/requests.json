@@ -3,21 +3,51 @@
     {
       "deadlineForResponseAt": "2023-10-01T08:48:29Z",
       "id": "7d8a87ac-090a-446d-b3ec-a6a0fb9d88e6",
-      "status": "new",
+      "status": "approved",
       "submittedAt": "2023-09-01T08:48:29Z",
       "subsidy": {
-        "id": "d831a92b-6483-4cb1-9b5a-7ef9c732ae58",
-        "title": "Voorbeeld subsidie"
+        "id": "721c1c28-e674-415f-b1c3-872a631ed045",
+        "title": "BTV"
       }
     },
     {
-      "deadlineForResponseAt": "2022-02-12T12:30:00Z",
-      "id": "b55a1c9f-01e4-4ea9-9b08-0d8672482b71",
+      "deadlineForResponseAt": "2022-03-12T12:30:00Z",
+      "id": "8d20a945-d9a4-44d9-a73b-5109b5f0610f",
       "status": "rejected",
       "submittedAt": "2022-01-12T12:30:00Z",
       "subsidy": {
-        "id": "d831a92b-6483-4cb1-9b5a-7ef9c732ae58",
-        "title": "Voorbeeld subsidie"
+        "id": "721c1c28-e674-415f-b1c3-872a631ed045",
+        "title": "BTV"
+      }
+    },
+    {
+      "deadlineForResponseAt": "2021-05-24T12:30:00Z",
+      "id": "5bb6fd4a-b23a-4c53-85ff-d158dbc4094f",
+      "status": "draft",
+      "submittedAt": "2021-03-24T12:30:00Z",
+      "subsidy": {
+        "id": "721c1c28-e674-415f-b1c3-872a631ed045",
+        "title": "BTV"
+      }
+    },
+    {
+      "deadlineForResponseAt": "2020-10-27T12:30:00Z",
+      "id": "720d024f-70f6-4866-9076-f65f25c150a6",
+      "status": "submitted",
+      "submittedAt": "2020-08-27T12:30:00Z",
+      "subsidy": {
+        "id": "721c1c28-e674-415f-b1c3-872a631ed045",
+        "title": "BTV"
+      }
+    },
+    {
+      "deadlineForResponseAt": "2020-01-14T12:30:00Z",
+      "id": "a6c14ecb-2975-4cd7-b9cb-354e8097b517",
+      "status": "requestForChanges",
+      "submittedAt": "2019-11-14T12:30:00Z",
+      "subsidy": {
+        "id": "721c1c28-e674-415f-b1c3-872a631ed045",
+        "title": "BTV"
       }
     }
   ]

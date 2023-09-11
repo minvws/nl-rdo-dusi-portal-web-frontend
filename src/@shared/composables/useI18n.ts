@@ -1,21 +1,39 @@
 import { translate } from '@shared/i18n'
 import type { JsonFormsI18nState } from '@jsonforms/core'
+import { useForms } from './form/useForms'
 
-const getProps = (context: any) => {
+const getProps = (form: any, context: any) => {
   // pass field of field to i18n
-  const property = context?.error?.params?.missingProperty
+  const errorContext = context?.error
+  const property = errorContext?.params?.missingProperty ?? errorContext?.instancePath?.substring(1)
+
   const title =
-    context?.uischema?.label ?? context?.error?.parentSchema?.properties?.[property]?.title
-  const field = title ?? translate(`form.fields.${property}.label`) ?? property
+    context?.error?.parentSchema?.properties?.[property]?.title ??
+    form.schema.value.properties?.[property]?.title ??
+    context?.uischema?.label ??
+    form.getScopedElement(property)?.label
+
+  const field = title ?? property
   const isBoolean = context?.error?.parentSchema?.properties?.[property]?.type === 'boolean'
-  return { field, isBoolean }
+  const schema = context?.schema ?? form.schema.value.properties[property]
+  return { ...schema, field, isBoolean }
 }
 export const useI18n = () => {
+  const form = useForms()
   return {
     translate: (id: string, defaultMessage?: string, context?: any): string | undefined => {
-      const { isBoolean, ...props } = getProps(context)
+      const { isBoolean, ...props } = getProps(form, context)
       const type = isBoolean ? '-boolean' : ''
-      return translate(`form.fields.${id}${type}`, props) ?? defaultMessage
+
+      let error = `${id}${type}`
+      if (error === 'error.minLength') {
+        if (props.minLength === props?.maxLength) {
+          // when minLength and maxLength are the same,
+          // show message that the input should be equal to a length
+          error = 'error.length'
+        }
+      }
+      return translate(`form.fields.${error}`, props) ?? defaultMessage
     }
   } as JsonFormsI18nState
 }

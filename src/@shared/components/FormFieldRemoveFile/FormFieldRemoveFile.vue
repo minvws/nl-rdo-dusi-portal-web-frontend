@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useFieldFileRemove } from '@shared/composables/useField'
+import { useFieldFileRemove } from '@shared/composables/form/useField'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'

@@ -4,6 +4,7 @@ import { computed, ref, watch } from 'vue'
 import { useApiFormsUrl } from '@shared/composables/useApiUrl'
 import { transformForm, getFormTitle } from '@shared/utils/form'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+
 export const useFetchForm = (id: string) => {
   const title: Ref<string> = ref('')
   const forms: Ref<Form[]> = ref([])
@@ -24,7 +25,6 @@ export const useFetchForm = (id: string) => {
     forms.value = transformForm({ title: formTitle, dataschema, uischema })
     title.value = getFormTitle(data)
     values.value = formValues
-    console.log(formValues)
   })
 
   return {

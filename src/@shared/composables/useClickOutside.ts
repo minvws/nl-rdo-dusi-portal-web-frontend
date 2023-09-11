@@ -1,9 +1,9 @@
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, type Ref } from 'vue'
 
-export const useClickOutside = (cb: () => void, persistent = false) => {
+export const useClickOutside = (cb: () => void, hasModal: Ref<boolean>, persistent = false) => {
   const onKeyDown = (e: KeyboardEvent) => {
     const { key } = e
-    if (key !== 'Escape') return
+    if (key !== 'Escape' || !hasModal.value) return
 
     e.preventDefault()
     e.stopImmediatePropagation()

@@ -20,21 +20,21 @@ import {
   properties as wiaProperties,
   elements as wiaElements,
   required as wiaRequired,
-  anyOf as wiaAnyOf
+  allOf as wiaAllOf
 } from '@shared/fixtures/form/elements/wia-form-elements'
 
 import {
   properties as employerProperties,
   elements as employerElements,
   required as employerRequired,
-  anyOf as employerAnyOf
+  allOf as employerAllOf
 } from '@shared/fixtures/form/elements/employer-form-elements'
 
 import {
   properties as medicalProperties,
   elements as medicalElements,
   required as medicalRequired,
-  anyOf as medicalAnyOf
+  allOf as medicalAllOf
 } from '@shared/fixtures/form/elements/medical-form-elements'
 
 import {
@@ -50,6 +50,12 @@ import {
 } from '@shared/fixtures/form/elements/truth-statement-form-elements'
 
 export default async () => {
+  const postCovidIntro = await Object.values(
+    import.meta.glob('@shared/fixtures/form/data/post-covid.html', {
+      as: 'raw'
+    })
+  )[0]()
+
   const introductionSchema = {
     type: 'FormGroupControl',
     options: { section: true },
@@ -70,7 +76,7 @@ export default async () => {
       {
         type: 'FormHtml',
         options: {
-          html: '<h1>Introductie</h1><p style="color:red">Komt nog. Uitleg over regeling, voorwaarden, documenten die nodig zijn. Nog op te stellen.</p>'
+          html: postCovidIntro
         }
       }
     ]
@@ -155,7 +161,7 @@ export default async () => {
             ...employerRequired,
             ...medicalRequired
           ],
-          anyOf: [...wiaAnyOf, ...employerAnyOf, ...medicalAnyOf]
+          allOf: [...wiaAllOf, ...employerAllOf, ...medicalAllOf]
         }
       },
       {

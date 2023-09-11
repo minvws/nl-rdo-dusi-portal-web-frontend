@@ -41,21 +41,11 @@
       "aria-label": "Berichtenkaart",
       "button": "Bekijk volledig bericht"
     },
-    "moreInfo": {
-      "body1": "Meer weten over het proces voor het aanvragen van een van de regelingen? Zie <a href=\"{grantProcessLinkHref}\" rel=\"{grantProcessLinkRel}\">Hoe werkt een subsidie aanvragen</a> voor meer informatie. ",
-      "body2": "Of neem <a href=\"{contactLinkHref}\" rel=\"{contactLinkRel}\">contact</a> met ons op.",
-      "title": "Meer informatie"
-    },
     "notificationObligation": {
       "body1": "U bent verplicht ons op de hoogte te stellen als er iets verandert aan uw situatie. Of als u informatie heeft die de hoogte van uw subsidie kan beïnvloeden. Dit heet meldingsplicht. Doet u dit niet? Of niet op tijd? Dan moet u het gekregen bedrag misschien (deels) terugbetalen.",
       "body2": "Neem zo snel mogelijk contact met ons op. De link naar het contactformulier vindt u op de pagina over uw subsidie. Staat dit er niet? Of twijfelt u? Bel of mail ons via het Klantcontactcentrum.",
       "subtitle": "Hoe maakt u een melding?",
       "title": "Meldingsplicht bij wijzigingen"
-    },
-    "subsidySummary": {
-      "aria-label": "Regelingenkaart",
-      "button": "Bekijk de regeling",
-      "link": "Lees meer over \"{title}\""
     }
   },
   "pages": {
@@ -68,11 +58,6 @@
     "arrangement-form-remote": {
       "title": "Aanvraagformulier"
     },
-    "arrangements-overview": {
-      "intro": "Overzicht van alle susidies, tegemoetkomingen en uitkeringen.",
-      "title": "Regelingen",
-      "noSubsidies": "Er zijn geen regelingen gevonden"
-    },
     "external": {
       "title": "Externe Pagina"
     },
@@ -84,18 +69,6 @@
     },
     "forms": {
       "title": "Remote form"
-    },
-    "home": {
-      "content": {
-        "intro": "Via het burgerportaal kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. Meer weten? Bekijk <a href=\"{grantLinkHref}\" rel=\"${grantLinkRel}\">alle regelingen</a> of neem <a href=\"{contactLinkHref}\" rel=\"${contactLinkRel}\">contact</a> met ons op.",
-        "section1Intro": "Gaat u een subsidie, tegemoetkoming of specifieke uitkering aanvragen? Dan is het handig om te weten wat u kunt verwachten. Hoewel voor elke subsidie het proces net anders loopt, zijn er een aantal stappen die in elk subsidieproces terugkomen.  Bekijk het volledige proces op de website van DUS-I: <a href=\"{grantProcessLinkHref}\" rel=\"{grantProcessLinkRel}\">subsidieproces</a>.",
-        "section1Title": "Hoe werkt het?"
-      },
-      "subtitle": "Het portaal voor het aanvragen van subsidieregelingen voor burgers.",
-      "title": "DUS-I Burgerportaal",
-      "subsidiesButton": "Bekijk alle regelingen",
-      "subsidiesTitle": "Actuele regelingen",
-      "noSubsidies": "Er zijn geen regelingen gevonden"
     },
     "localForm": {
       "title": "Localform example"
@@ -114,16 +87,18 @@
     },
     "my-requests-overview": {
       "title": "Mijn aanvragen",
-      "intro": "Het overzicht van uw aanvragen en regelingen. Hier kunt u zien wat de status is van uw aanvraag en welke stappen u kunt verwachten.",
+      "intro": "Het overzicht van uw aanvragen en regelingen. In dit overzicht ziet uw de status van uw aanvraag en eventuele openstaande acties.",
       "myRequests": "Mijn aanvragen",
       "noRequests": "Er zijn geen aanvragen gevonden",
       "table": {
         "caption": "Overzicht van jouw aanvragen",
-        "arrangement": "Aanvraag",
+        "subsidy": "Regeling",
+        "file": "Dossiernummer",
         "created": "Datum indiening",
         "deadline": "Reactietermijn",
         "status": "Status",
-        "action": "Bekijk benodigde acties ({ actions })"
+        "actionRequired": "Actie benodigd",
+        "action": "Acties"
       }
     },
     "my-request-details": {
@@ -136,7 +111,7 @@
     },
     "my-messages-overview": {
       "content": {},
-      "intro": "Het overzicht van al jouw berichten",
+      "intro": "Het overzicht van alle binnengekomen notificaties.",
       "title": "Mijn berichten",
       "noMessages": "Er zijn geen berichten gevonden"
     },

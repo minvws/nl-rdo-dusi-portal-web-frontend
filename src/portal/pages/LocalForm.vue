@@ -12,7 +12,7 @@
     <FormView
       v-else
       v-bind="{
-        id: 'local',
+        id,
         createDraft: true,
         forms: form.data,
         values: form.values,
@@ -41,7 +41,7 @@ const forms = Object.entries(import.meta.glob('@shared/fixtures/form/*.ts')).red
   {} as Record<string, () => any>
 )
 
-const props = defineProps<{ name?: string }>()
+const props = defineProps<{ name?: string; id: string }>()
 const form: Ref<{ title?: string; data: Form[]; values?: FormData } | undefined> = ref(undefined)
 const error: Ref<string | undefined> = ref(undefined)
 

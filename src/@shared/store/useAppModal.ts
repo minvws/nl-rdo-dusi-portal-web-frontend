@@ -35,7 +35,7 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
   }
 
   const hasModal = computed(() => !!content.value)
-  const { onClickOutside } = useClickOutside(closeModal, persistent)
+  const { onClickOutside } = useClickOutside(closeModal, hasModal, persistent)
 
   usePreventBodyScroll(hasModal)
 

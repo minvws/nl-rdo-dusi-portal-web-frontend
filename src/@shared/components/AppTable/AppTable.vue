@@ -42,34 +42,36 @@
             v-for="column in columns"
             :key="column.id"
           >
-            <td v-if="item[column.id].type === 'link' || item[column.id].type === 'button-link'">
+            <td :class="item[column.id].icon ? item[column.id].icon : null">
+              <span v-if="item[column.id].icon" />
               <RouterLink
+                v-if="item[column.id].type === 'link' || item[column.id].type === 'button-link'"
                 :class="{
-                  'button ghost': item[column.id].type === 'button-link'
+                  button: item[column.id].type === 'button-link'
                 }"
                 :to="item[column.id].to"
               >
                 {{ item[column.id].text }}
               </RouterLink>
-            </td>
-            <td v-else-if="item[column.id].type === 'button'">
               <AppButton
+                v-else-if="item[column.id].type === 'button'"
                 class="button ghost"
                 @click="item[column.id].onClick"
               >
                 {{ item[column.id].text }}
               </AppButton>
-            </td>
-            <td v-else-if="item[column.id].type === 'icon'">
-              <RouterLink :to="item[column.id].to">
+              <RouterLink
+                v-else-if="item[column.id].type === 'icon'"
+                :to="item[column.id].to"
+              >
                 <AppIcon
                   :name="item[column.id].text"
                   aria-hidden="true"
                 />
               </RouterLink>
-            </td>
-            <td v-else>
-              {{ item[column.id].text }}
+              <template v-else>
+                {{ item[column.id].text }}
+              </template>
             </td>
           </template>
         </tr>
@@ -159,14 +161,20 @@ function sortTableById(id: any) {
 </script>
 
 <style lang="scss" scoped>
-table {
-  --table-head-background-color: #01689b;
-}
-
+table tr th,
 table tr td {
   border-top: none;
   border-bottom: none;
+  border-width: var(--table-first-row-cell-border-width);
   border-color: var(--grey-1);
+}
+
+table tr th {
+  --table-head-cell-padding: 0.5rem 1rem;
+}
+
+table tr td {
+  --table-cell-padding: 0.5rem 1rem;
 }
 
 table thead th .button,
@@ -188,5 +196,19 @@ table thead th .button {
   --button-base-border-color: transparent;
   --button-base-focus-background-color: transparent;
   --button-base-focus-border-color: transparent;
+}
+
+// we need to overwrite the 'notification' class styles...
+.error,
+.confirmation,
+.warning {
+  background-color: transparent;
+}
+.error {
+  color: red;
+}
+
+.confirmation {
+  color: green;
 }
 </style>

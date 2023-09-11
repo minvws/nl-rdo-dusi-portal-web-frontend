@@ -1,14 +1,10 @@
-import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { useI18n } from '@shared/composables/useI18n'
-import { useFormStore } from '@shared/store/useFormStore'
+import { useForms } from '@shared/composables/form/useForms'
 
 export const useFormConditionalRequiredError = (id: string) => {
   const { translate } = useI18n()
-  const formStore = useFormStore()
-  const { getScopedElement } = formStore
-
-  const { errors, schema } = storeToRefs(formStore)
+  const { errors, schema, getScopedElement } = useForms()
 
   const error = computed(() => {
     return errors.value?.find(

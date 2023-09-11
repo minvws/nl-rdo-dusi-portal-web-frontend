@@ -1,7 +1,9 @@
 import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
-import { MY_REQUESTS_DETAILS } from '@shared/router/names'
+import { RequestStatus } from '@shared/types/request'
+
+import { ARRANGEMENT_FORM_REMOTE, MY_REQUEST_DETAILS } from '@shared/router/names'
 
 import type {
   RawAssessmentData,
@@ -12,16 +14,49 @@ import type {
 import { AssessmentsDataType } from '../types/table'
 
 const options = {
-  day: '2-digit',
-  month: '2-digit',
+  day: 'numeric',
+  month: 'long',
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
 
 const mapStatusToTranslation: Record<string, string> = {
-  new: 'Nieuw',
-  ToDo: 'Nieuw',
-  rejected: 'Afgekeurd',
-  in_progress: 'Eerste beoordeling'
+  [RequestStatus.APPROVED]: 'Goedgekeurd',
+  [RequestStatus.DRAFT]: 'Nog niet ingediend',
+  [RequestStatus.REJECTED]: 'Afgekeurd',
+  [RequestStatus.REQUEST_CHANGES]: 'Aanvulling nodig',
+  [RequestStatus.SUBMITTED]: 'In behandeling'
+}
+
+const mapStatusToIcon: Record<string, string> = {
+  [RequestStatus.APPROVED]: 'confirmation',
+  [RequestStatus.DRAFT]: 'warning',
+  [RequestStatus.REJECTED]: 'error',
+  [RequestStatus.REQUEST_CHANGES]: 'warning',
+  [RequestStatus.SUBMITTED]: ''
+}
+
+const mapStatusToRequiredAction: Record<string, string> = {
+  [RequestStatus.APPROVED]: 'Nee',
+  [RequestStatus.DRAFT]: 'Ja',
+  [RequestStatus.REJECTED]: 'Nee',
+  [RequestStatus.REQUEST_CHANGES]: 'Ja',
+  [RequestStatus.SUBMITTED]: 'Nee'
+}
+
+const mapStatusToRouteName: Record<string, string> = {
+  [RequestStatus.APPROVED]: MY_REQUEST_DETAILS,
+  [RequestStatus.DRAFT]: ARRANGEMENT_FORM_REMOTE,
+  [RequestStatus.REJECTED]: MY_REQUEST_DETAILS,
+  [RequestStatus.REQUEST_CHANGES]: ARRANGEMENT_FORM_REMOTE,
+  [RequestStatus.SUBMITTED]: MY_REQUEST_DETAILS
+}
+
+const mapStatusToRouteText: Record<string, string> = {
+  [RequestStatus.APPROVED]: 'Bekijk aanvraag',
+  [RequestStatus.DRAFT]: 'Open aanvraag',
+  [RequestStatus.REJECTED]: 'Bekijk aanvraag',
+  [RequestStatus.REQUEST_CHANGES]: 'Open aanvraag',
+  [RequestStatus.SUBMITTED]: 'Bekijk aanvraag'
 }
 
 /**
@@ -31,12 +66,14 @@ const mapStatusToTranslation: Record<string, string> = {
  * @returns data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  return data.items.map(({ subsidy, status, deadlineForResponseAt, submittedAt }) => ({
-    ...setArrangement(subsidy.title),
+  return data.items.map(({ id, subsidy, status, deadlineForResponseAt, submittedAt }) => ({
+    ...setSubsidy(subsidy.id, subsidy.title),
+    ...setFile(id),
     ...setStatus(status),
     ...setDeadline(deadlineForResponseAt),
     ...setCreated(submittedAt),
-    ...setAction(subsidy.id, MY_REQUESTS_DETAILS, '@TODO') // @TODO: replace with real data
+    ...setActionRequired(status),
+    ...setAction(id, subsidy.id, status)
   }))
 }
 
@@ -69,8 +106,7 @@ export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
     ...setArrangement(subsidy),
     ...setStatus(status),
     ...setDeadline(final_review_deadline),
-    ...setUpdated(updated_at),
-    ...setAction(id, 'my-case-details', translate('component.appTable.open'))
+    ...setUpdated(updated_at)
   }))
 }
 
@@ -78,10 +114,19 @@ const createSet = (text: string, data: object) => ({
   [text]: data
 })
 
+const setSubsidy = (id: string, text: string) =>
+  createSet('subsidy', {
+    type: AssessmentsDataType.LINK,
+    to: {
+      name: ARRANGEMENT_FORM_REMOTE,
+      params: { id }
+    },
+    text
+  })
+
 const setFile = (text: string) =>
   createSet('file', {
-    type: AssessmentsDataType.LINK,
-    to: '/dossiernummer', // @TODO: replace with real DUS-I link
+    type: AssessmentsDataType.STRING,
     text: text.split('-')[0] // fake file id for now
   })
 
@@ -94,6 +139,7 @@ const setArrangement = (text: string) =>
 
 const setStatus = (text: string) =>
   createSet('status', {
+    icon: mapStatusToIcon[text],
     type: AssessmentsDataType.STRING,
     text: mapStatusToTranslation[text]
   })
@@ -116,11 +162,25 @@ const setCreated = (date: string) =>
     text: date ? formatDate(date, 'nl-NL', options) : '-'
   })
 
-const setAction = (id: string, name: string, text: string | undefined) =>
+const setActionRequired = (status: string) =>
+  createSet('actionRequired', {
+    type: AssessmentsDataType.STRING,
+    text: mapStatusToRequiredAction[status]
+  })
+
+const setAction = (id: string, subsidyId: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
-    to: { name, params: { id } },
-    text
+    to: {
+      name: mapStatusToRouteName[status],
+      params: {
+        id:
+          status === RequestStatus.DRAFT || status === RequestStatus.REQUEST_CHANGES
+            ? subsidyId
+            : id
+      }
+    },
+    text: mapStatusToRouteText[status]
   })
 
 const setReviewer = (status: string, text: string) =>

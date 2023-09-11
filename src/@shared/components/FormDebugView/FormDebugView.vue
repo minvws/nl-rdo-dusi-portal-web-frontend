@@ -3,7 +3,7 @@
     <div
       role="button"
       class="button"
-      @click="onSetDummyData"
+      @click="setDummyData"
     >
       set dummy data
     </div>
@@ -33,16 +33,15 @@ import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useFileStore } from '@shared/store/useFileStore'
-import { useFormStore } from '@shared/store/useFormStore'
-import { useFormDummyData } from '@shared/composables/useFormDummyData'
+import { useForms } from '@shared/composables/form/useForms'
+import { useFormDummyData } from '@shared/composables/form/useFormDummyData'
 
 const isVisible = ref(false)
-const onSetDummyData = useFormDummyData()
+const { setDummyData } = useFormDummyData()
 const fileStore = useFileStore()
-const formStore = useFormStore()
 
 const { files } = storeToRefs(fileStore)
-const { data, formsData, errors } = storeToRefs(formStore)
+const { data, formsData, errors } = useForms()
 </script>
 
 <style lang="scss" scoped>

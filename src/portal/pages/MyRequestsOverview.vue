@@ -34,11 +34,6 @@ import { useFetchActiveRequests } from '@portal/composables/useFetchActiveReques
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
-const actions = computed(() => {
-  // @TODO: calculate the total amount of actions needed
-  return 1
-})
-
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}`
 })
@@ -47,14 +42,16 @@ const { data, error, isFetching } = useFetchActiveRequests()
 
 const headings = computed(() =>
   [
-    { id: 'arrangement', sortable: false },
+    { id: 'subsidy', sortable: false },
+    { id: 'file', sortable: false },
     { id: 'created', sortable: false },
     { id: 'deadline', sortable: false },
     { id: 'status', sortable: false },
+    { id: 'actionRequired', sortable: false },
     { id: 'action', sortable: false }
   ].map(item => ({
     ...item,
-    text: translate(`pages.my-requests-overview.table.${item.id}`, { actions: actions.value })
+    text: translate(`pages.my-requests-overview.table.${item.id}`)
   }))
 )
 </script>

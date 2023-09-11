@@ -10,5 +10,6 @@ export const allEmploymentFunctions = [
   'Verpleegkundig specialist',
   '(gespecialiseerd) Verpleegkundige',
   'Verzorgende in de individuele gezondheidszorg (VIG’er) of verzorgende',
-  'Zorgondersteuner en/of voedingsassistent'
+  'Zorgondersteuner en/of voedingsassistent',
+  'Anders'
 ]

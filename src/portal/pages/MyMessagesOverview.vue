@@ -11,8 +11,9 @@
       <FilterOptions
         type="messages"
         v-model="query"
+        v-if="!isFilterEnabled"
       >
-        <p>
+        <p v-if="query">
           <span>{{ total }}</span>
           {{ translate('component.messagesOverview.messages', { total }, total) }}
         </p>
@@ -31,7 +32,7 @@
         with-buttons
       />
       <template #fallback>
-        <p>{{ translate('pages.my-messages-overview.noMessages') }}</p>
+        <p v-if="query">{{ translate('pages.my-messages-overview.noMessages') }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -66,7 +67,9 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-const { data, error, query, isFetching } = useFetchMessages()
+const isFilterEnabled = true // @TODO: for MVP the filter is disabled
+const { data, error, query, isFetching } = useFetchMessages(isFilterEnabled)
+
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,
