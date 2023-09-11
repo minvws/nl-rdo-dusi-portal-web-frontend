@@ -71,8 +71,8 @@ export const useFormSubmit = () => {
     const error = await onSubmit(FormSubmitTypes.DRAFT)
     if (error) {
       notification.add({
-        message: translate('form.message.save-success') || '',
-        displayAs: 'confirmation',
+        message: translate('form.message.save-failed') || '',
+        displayAs: 'error',
         id: NOTIFICATION_SAVE_ID,
         duration: 3000
       })
