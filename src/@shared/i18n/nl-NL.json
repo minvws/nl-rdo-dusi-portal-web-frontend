@@ -131,7 +131,9 @@
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "submitting": "Formulier is bezig met verzenden",
       "success": "Formulier is succesvol verzonden",
-      "failed": "Er is iets mis gegaan met het verzenden van het formulier"
+      "failed": "Er is iets mis gegaan met het verzenden van het formulier",
+      "save-success": "Formulier is opgeslagen",
+      "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier"
     }
   },
   "pages": {

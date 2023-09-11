@@ -50,7 +50,7 @@ export const useFormSteps = (props: {
   })
 
   const hasSave = computed(() => {
-    return hasPrevStep.value || hasSubmit. value
+    return hasPrevStep.value || hasSubmit.value
   })
 
   const isCurrentStepValid = computed(() => {
