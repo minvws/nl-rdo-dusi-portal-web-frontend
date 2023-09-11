@@ -4,6 +4,7 @@ import { isLabeled, isLayout } from '@jsonforms/core'
 import { getValueFormKey } from '@shared/utils/object'
 
 export const transformForm = (form: Form): Form[] => {
+  const baseSchema: JsonSchema = form.dataschema
   if (form.uischema.type !== 'CustomPageNavigationControl') {
     // assume single page form
     return [form]
@@ -22,7 +23,8 @@ export const transformForm = (form: Form): Form[] => {
 
     const dataschema: JsonSchema = {
       type: 'object',
-      ...el.options
+      properties: baseSchema.properties,
+      required: el.options?.['required'] ?? baseSchema.required ?? []
     } as JsonSchema
 
     const uischema = el.elements[0]
