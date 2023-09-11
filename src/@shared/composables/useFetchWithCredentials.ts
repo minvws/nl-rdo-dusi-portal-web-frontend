@@ -1,7 +1,12 @@
-import type { MaybeRefOrGetter, UseFetchOptions, BeforeFetchContext, AfterFetchContext } from "@vueuse/core"
+import type {
+  MaybeRefOrGetter,
+  UseFetchOptions,
+  BeforeFetchContext,
+  AfterFetchContext
+} from '@vueuse/core'
 import { useFetch } from '@vueuse/core'
 import { useEncryption } from '@shared/composables/useEncryption'
-import sodium from "libsodium-wrappers"
+import sodium from 'libsodium-wrappers'
 
 const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
 const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER

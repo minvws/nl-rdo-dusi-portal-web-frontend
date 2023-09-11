@@ -1,6 +1,6 @@
-import sodium, { base64_variants } from "libsodium-wrappers"
+import sodium, { base64_variants } from 'libsodium-wrappers'
 
-import { log } from "@shared/utils/logger"
+import { log } from '@shared/utils/logger'
 
 export const useEncryption = () => {
   /**
@@ -10,7 +10,7 @@ export const useEncryption = () => {
    * @returns {*} decrypted data
    */
   async function decrypt(
-    data: Uint8Array|string,
+    data: Uint8Array | string,
     keyPair: sodium.KeyPair
   ): Promise<Uint8Array | undefined> {
     await sodium.ready

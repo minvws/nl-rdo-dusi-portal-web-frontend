@@ -1,5 +1,4 @@
 import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
-import NotFound from '@shared/pages/NotFound.vue'
 import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
 
 import ArrangementView from '@portal/pages/ArrangementView.vue'
@@ -38,10 +37,7 @@ import {
 const routes = [
   {
     path: '/',
-    name: HOME,
-    meta: {
-      public: true
-    }
+    name: HOME
   },
   {
     path: '/external/detail/:id/:url?',
@@ -127,27 +123,17 @@ const routes = [
   {
     path: '/toegankelijkheidsverklaring',
     name: ACCESSIBILITY_STATEMENT,
-    component: AccessibilityStatementPage,
-    meta: {
-      public: true
-    }
+    component: AccessibilityStatementPage
   },
   {
     path: '/privacyverklaring',
     name: PRIVACY_STATEMENT,
-    component: PrivacyStatementPage,
-    meta: {
-      public: true
-    }
+    component: PrivacyStatementPage
   },
   {
     path: '/:catchAll(.*)',
     name: NOT_FOUND,
-    props: true,
-    component: NotFound,
-    meta: {
-      public: true
-    }
+    props: true
   }
 ]
 
