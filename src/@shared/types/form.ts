@@ -17,11 +17,19 @@ export type FormError = Pick<JsonFormsCore, 'errors'> | any //  & { params?: { m
 
 export type FormResponse = any // @TODO
 
+export const FormSubmitTypes = {
+  SUBMIT: 'submit',
+  DRAFT: 'draft'
+}
+
+export type FormSubmitType = (typeof FormSubmitTypes)[keyof typeof FormSubmitTypes]
+
 export type FormButtonLabels = {
   start?: string
   previous?: string
   next?: string
   submit?: string
+  save?: string
 }
 
 export type FormViewProps = {

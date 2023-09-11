@@ -49,6 +49,10 @@ export const useFormSteps = (props: {
     return props.index === props.forms.length - 1
   })
 
+  const hasSave = computed(() => {
+    return hasPrevStep.value || hasSubmit.value
+  })
+
   const isCurrentStepValid = computed(() => {
     return !props.formsErrors[props.index]?.length
   })
@@ -56,6 +60,7 @@ export const useFormSteps = (props: {
   return {
     hasPrevStep,
     hasNextStep,
+    hasSave,
     hasSteps,
     hasSubmit,
     hasErrors,
