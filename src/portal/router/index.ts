@@ -1,5 +1,4 @@
 import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
-import NotFound from '@shared/pages/NotFound.vue'
 import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
 
 import ArrangementView from '@portal/pages/ArrangementView.vue'
