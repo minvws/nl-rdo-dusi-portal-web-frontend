@@ -8,7 +8,8 @@ import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
 import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
 import MyDetailsView from '@portal/pages/MyDetailsView.vue'
-import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
+import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
+import MyMessagesView from '@portal/pages/MyMessagesView.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
@@ -27,7 +28,8 @@ import {
   MY_DETAILS_OVERVIEW,
   MY_DETAILS_EDIT,
   MY_MESSAGES_PAGE,
-  MY_MESSAGES,
+  MY_MESSAGE_DETAILS,
+  MY_MESSAGES_OVERVIEW,
   MY_REQUEST_DETAILS,
   MY_REQUESTS_OVERVIEW,
   NOT_FOUND,
@@ -100,13 +102,21 @@ const routes = [
   {
     path: '/mijn-berichten/pagina/:page',
     name: MY_MESSAGES_PAGE,
-    component: MyMessagesOverview,
+    component: MyMessagesView,
     props: true
   },
   {
     path: '/mijn-berichten',
-    name: MY_MESSAGES,
-    component: MyMessagesOverview
+    name: MY_MESSAGES_OVERVIEW,
+    component: MyMessagesView,
+    children: [
+      {
+        path: ':id',
+        name: MY_MESSAGE_DETAILS,
+        component: MyMessageDetails,
+        props: true
+      }
+    ]
   },
   {
     path: '/mijn-gegevens',

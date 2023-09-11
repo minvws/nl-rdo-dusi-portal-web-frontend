@@ -9,7 +9,7 @@ import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
 
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { MY_REQUESTS_OVERVIEW, MY_MESSAGES } from '@shared/router/names'
+import { MY_REQUESTS_OVERVIEW, MY_MESSAGES_OVERVIEW } from '@shared/router/names'
 import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
@@ -29,7 +29,7 @@ export const useAppHeaderLinks = () => {
         ...(applicationCount && { badge: applicationCount })
       },
       {
-        name: MY_MESSAGES,
+        name: MY_MESSAGES_OVERVIEW,
         label: translate('pages.my-messages-overview.title'),
         ...(messageCount && { badge: messageCount })
       }

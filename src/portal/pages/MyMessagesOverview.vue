@@ -55,7 +55,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
 
-import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@shared/router/names'
+import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@shared/router/names'
 
 type Props = {
   page?: string
@@ -68,13 +68,14 @@ useSEO({
 })
 
 const isFilterEnabled = true // @TODO: for MVP the filter is disabled
-const { data, error, query, isFetching } = useFetchMessages(isFilterEnabled)
+const { data, error, query, isFetching, url } = useFetchMessages(isFilterEnabled)
 
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,
+  url,
   routes: {
-    overview: MY_MESSAGES,
+    overview: MY_MESSAGES_OVERVIEW,
     pagination: MY_MESSAGES_PAGE
   }
 })
