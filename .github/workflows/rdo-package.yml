@@ -36,7 +36,7 @@ jobs:
 
 
       - name: Update package.json
-        run: "jq -s '.[0] * .[1]' package.json dist/version.json > package.json.new && mv package.json.new package.json"
+        run: "jq -s '.[0] * .[1]' package.json version.json > package.json.new && mv package.json.new package.json"
         shell: bash
 
       - name: NPM build portal web
