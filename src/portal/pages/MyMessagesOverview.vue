@@ -32,7 +32,9 @@
         with-buttons
       />
       <template #fallback>
-        <p v-if="query">{{ translate('pages.my-messages-overview.noMessages') }}</p>
+        <p v-if="query || isFilterDisabled">
+          {{ translate('pages.my-messages-overview.noMessages') }}
+        </p>
       </template>
     </AppSuspense>
   </section>
