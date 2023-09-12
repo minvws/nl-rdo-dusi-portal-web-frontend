@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 type Pagination = {
   items: Ref<[]>
-  url: Ref<string>
+  isFetching: Ref<boolean>
   page?: Ref<string | undefined>
   pageSize?: number
   routes: {
@@ -13,7 +13,7 @@ type Pagination = {
   }
 }
 
-export const usePagination = ({ page, url, pageSize = 5, items, routes }: Pagination) => {
+export const usePagination = ({ isFetching, page, items, routes, pageSize = 5 }: Pagination) => {
   const router = useRouter()
 
   const currentPage = computed(() => {
@@ -39,15 +39,10 @@ export const usePagination = ({ page, url, pageSize = 5, items, routes }: Pagina
       : router.push({ name: routes.overview })
   }
 
-  watch(slicedItems, slicedItems => {
-    if (!slicedItems) return
+  watch(isFetching, isFetching => {
+    if (isFetching) return
     if (currentPage.value <= pages.value) return
     // when a page is greater then total pages, go to fist page
-    onPageChange(0)
-  })
-
-  watch(url, () => {
-    // the url of the filter is changed, go to fist page
     onPageChange(0)
   })
 

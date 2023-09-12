@@ -30,11 +30,20 @@ jobs:
       - name: Set .env
         run: 'cp .env.package .env'
 
+      - name: Add version.json
+        run: 'echo "{ \"version\": \"${{ env.RELEASE_VERSION }}\", \"git_ref\": \"$GITHUB_SHA\"}" > version.json'
+        shell: bash
+
+
+      - name: Update package.json
+        run: "jq -s '.[0] * .[1]' package.json version.json > package.json.new && mv package.json.new package.json"
+        shell: bash
+
       - name: NPM build portal web
         run: npm run build-only:portal
 
       - name: Add version.json
-        run: 'echo "{ \"version\": \"${{ env.RELEASE_VERSION }}\", \"git_ref\": \"$GITHUB_SHA\"}" > dist/version.json'
+        run: 'cp version.json dist/version.json'
         shell: bash
 
       - name: Create tar
@@ -53,7 +62,7 @@ jobs:
         run: npm run build-only:assessment
 
       - name: Add version.json
-        run: 'echo "{ \"version\": \"${{ env.RELEASE_VERSION }}\", \"git_ref\": \"$GITHUB_SHA\"}" > dist/version.json'
+        run: 'cp version.json dist/version.json'
         shell: bash
 
       - name: Create tar

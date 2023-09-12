@@ -6,13 +6,23 @@
     "skip-content": "Ga direct naar inhoud"
   },
   "authentication": {
-    "cancelled": {
+    "login_cancelled": {
       "label": "Inloggen geannuleerd",
       "message": "U heeft het inloggen geannuleerd, u bent niet ingelogd."
     },
-    "failed": {
+    "login_failed": {
       "label": "Inloggen mislukt",
       "message": "Het inloggen is mislukt, u bent niet ingelogd."
+    },
+    "minimum_loa": {
+      "label": "Inloggen mislukt",
+      "message": "Het betrouwbaarheidsniveau van het door uw gebruikte inlogmiddel voldoet niet aan de eisen van deze applicatie. U bent niet ingelogd.<br/><br/>Deze applicatie verplicht betrouwbaarheidsniveau: {minimum_loa}</br>Inlogmiddel betrouwbaarheidsniveau: {current_loa}",
+      "types": {
+        "basic": "Basis",
+        "low": "Midden",
+        "substantial": "Substantieel",
+        "high": "Hoog"
+      }
     },
     "unknown": {
       "label": "Inloggen mislukt",
