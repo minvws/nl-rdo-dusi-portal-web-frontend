@@ -1,11 +1,9 @@
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 import { Project } from '@shared/types/project'
-
 import type { config } from '@shared/types/window'
 
 declare global {
-  // eslint-disable-next-line
-  interface Window extends config {}
+  interface Window extends config {} // eslint-disable-line
 }
 
 const baseUrl = window?.config?.api || import.meta.env.VITE_ASSESSMENT_API_BASE_URL
