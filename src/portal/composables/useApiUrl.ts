@@ -1,14 +1,6 @@
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 import { Project } from '@shared/types/project'
 
-declare global {
-  interface Window {
-    config?: {
-      api?: string
-    }
-  }
-}
-
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = `${useMockUrl()}/${Project.PORTAL}`
 
