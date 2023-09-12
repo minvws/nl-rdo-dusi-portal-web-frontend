@@ -4,7 +4,8 @@ import { Project } from '@shared/types/project'
 import type { config } from '@shared/types/window'
 
 declare global {
-  type Window = config
+  // eslint-disable-next-line
+  interface Window extends config {}
 }
 
 const baseUrl = window?.config?.api || import.meta.env.VITE_ASSESSMENT_API_BASE_URL

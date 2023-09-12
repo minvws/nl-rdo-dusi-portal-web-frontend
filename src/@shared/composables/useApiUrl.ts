@@ -4,7 +4,8 @@ import { useMockUrl, useMockData } from '@shared/composables/useMock'
 import type { config } from '@shared/types/window'
 
 declare global {
-  type Window = config
+  // eslint-disable-next-line
+  interface Window extends config {}
 }
 
 function getBaseUrl() {
