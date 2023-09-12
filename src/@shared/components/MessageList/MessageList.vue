@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { RouteLocationNormalized } from 'vue-router'
+import type { LocationAsRelativeRaw } from 'vue-router'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -37,7 +37,7 @@ type Props = {
   items: {
     date: string
     title: string
-    to: RouteLocationNormalized
+    to: LocationAsRelativeRaw
   }[]
 }
 const props = defineProps<Props>()
