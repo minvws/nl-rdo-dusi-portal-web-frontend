@@ -1,12 +1,6 @@
 import type { FormOptions } from '@shared/types/form-options'
 import { Project } from '@shared/types/project'
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
-import type { config } from '@shared/types/window'
-
-declare global {
-  // eslint-disable-next-line
-  interface Window extends config {}
-}
 
 function getBaseUrl() {
   if (window?.config?.api) {
