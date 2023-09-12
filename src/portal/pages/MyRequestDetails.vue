@@ -1,11 +1,6 @@
 <template>
   <section>
-    <div>
-      <h1>{{ data.title }}</h1>
-      <p class="emphasized">{{ data.intro }}</p>
-      <p>{{ data.body }}</p>
-    </div>
-
+    <AppIntro v-bind="data" />
     <div>
       <h3>{{ translate('pages.my-request-details.status') }}</h3>
       <AppSuspense v-bind="{ data, error, isFetching }">
@@ -28,6 +23,7 @@ import { translate } from '@shared/i18n'
 import { useFetchRequestDetails } from '@portal/composables/useFetchRequestDetails'
 import useSEO from '@shared/composables/useSeo'
 
+import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
 
