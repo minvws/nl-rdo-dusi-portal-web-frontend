@@ -48,7 +48,6 @@ export const useQueryFetch = (
     query,
     data,
     error,
-    url,
     isFetching
   }
 }
