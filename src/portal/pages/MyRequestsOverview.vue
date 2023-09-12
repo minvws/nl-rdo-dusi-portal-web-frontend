@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div>
-      <h1>{{ translate('pages.my-requests-overview.title') }}</h1>
-      <p class="emphasized">
-        {{ translate('pages.my-requests-overview.intro') }}
-      </p>
-    </div>
+    <AppIntro
+      v-bind="{
+        title: translate('pages.my-requests-overview.title'),
+        intro: translate('pages.my-requests-overview.intro')
+      }"
+    />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <template #title>
         <h2>{{ translate('pages.my-requests-overview.myRequests') }}</h2>
@@ -31,6 +31,7 @@ import { translate } from '@shared/i18n'
 import useSEO from '@shared/composables/useSeo'
 import { useFetchActiveRequests } from '@portal/composables/useFetchActiveRequests'
 
+import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
