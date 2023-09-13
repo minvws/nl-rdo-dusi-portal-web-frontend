@@ -1,6 +1,6 @@
 import { useRouter } from 'vue-router'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useNotificationsStore } from '@/@shared/store/useNotificationsStore'
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
 import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'

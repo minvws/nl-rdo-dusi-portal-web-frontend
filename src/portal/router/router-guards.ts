@@ -1,13 +1,13 @@
 import { log } from '@shared/utils/logger'
-import { notFoundLoggedOutRedirectLink } from '@/@shared/external-links'
-import { openExternalLink } from '@/@shared/utils/link'
+import { notFoundLoggedOutRedirectLink } from '@shared/external-links'
+import { openExternalLink } from '@shared/utils/link'
 import { setRouteCookie } from '@shared/utils/cookie'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@portal/store/useAuthStore'
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
 
 import { HOME, LOGIN_CALLBACK_VIEW, MY_REQUESTS_OVERVIEW, NOT_FOUND } from '@shared/router/names'
-import { useApiLoginUrl } from '@/@shared/composables/useApiUrl'
+import { useApiLoginUrl } from '@shared/composables/useApiUrl'
 
 const REDIRECT = [NOT_FOUND, HOME]
 

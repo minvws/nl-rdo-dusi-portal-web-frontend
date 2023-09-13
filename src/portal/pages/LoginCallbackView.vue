@@ -12,7 +12,7 @@ import { getRouteFromCookie } from '@shared/utils/cookie'
 import { HOME } from '@shared/router/names'
 import { translate } from '@shared/i18n'
 
-import { AuthError, type AuthErrorType, AuthMinimumLoaQuery } from '@/@shared/types/auth'
+import { AuthError, type AuthErrorType, AuthMinimumLoaQuery } from '@shared/types/auth'
 
 const authStore = useAuthStore()
 const notificationsStore = useNotificationsStore()
