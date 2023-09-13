@@ -31,13 +31,12 @@ export const useEncryption = () => {
    * @param {string} data
    * @returns encrypted data
    */
-  async function encrypt(publicKey: CryptoKey, data: string): Promise<ArrayBuffer | undefined> {
-    const options = { name: 'RSA-OAEP' }
-    const dataBuffer = new TextEncoder().encode(data)
+  async function encrypt(publicKey: string, data: string): Promise<string | undefined> {
+    const key = sodium.from_base64(publicKey, base64_variants.ORIGINAL)
+    const encryptedData = sodium.crypto_box_seal(data, key)
 
     try {
-      const encryptedData = await crypto.subtle.encrypt(options, publicKey, dataBuffer)
-      return encryptedData
+      return sodium.to_base64(encryptedData)
     } catch (error) {
       log('Encryption error:', error)
     }

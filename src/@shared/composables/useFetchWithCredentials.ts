@@ -39,6 +39,7 @@ export const useFetchWithCredentials = <T>(
 
   async function afterFetch(ctx: AfterFetchContext) {
     const isEncrypted = ctx.response.headers.get(ENCRYPTED_HEADER) === 'true'
+
     if (!keyPair || !isEncrypted) {
       return ctx // not encrypted
     }
@@ -48,6 +49,7 @@ export const useFetchWithCredentials = <T>(
     }
 
     const decryptedData = await decrypt(ctx.data, keyPair)
+
     if (!(decryptedData instanceof Uint8Array)) {
       return ctx // decryption failed
     }

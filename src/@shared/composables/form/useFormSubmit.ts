@@ -6,11 +6,15 @@ import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 import { translate } from '@/@shared/i18n'
 import { FormSubmitTypes, type FormSubmitType } from '@/@shared/types/form'
+import { useEncryption } from '@shared/composables/useEncryption'
+
+const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
   const notification = useNotificationsStore()
   const router = useRouter()
+  const { encrypt } = useEncryption()
 
   const NOTIFICATION_SUBMIT_ID = 'form-submit'
   const NOTIFICATION_SAVE_ID = 'form-save'
@@ -18,11 +22,8 @@ export const useFormSubmit = () => {
   async function onSubmit(type: FormSubmitType) {
     const { draftId, formData } = forms
     const url = useApiFormsSubmitUrl(draftId.value)
-    // @TODO: send stringified data for now, until we know how we want to encrypt it.
-    const body = {
-      type,
-      data: JSON.stringify(formData.value)
-    }
+    const encryptedData = await encrypt(publicKey, JSON.stringify(formData.value))
+    const body = { type, data: encryptedData }
 
     const options: RequestInit = {
       method: 'PUT',
@@ -33,6 +34,7 @@ export const useFormSubmit = () => {
       },
       body: JSON.stringify(body)
     }
+
     forms.setSubmitting(true)
 
     try {

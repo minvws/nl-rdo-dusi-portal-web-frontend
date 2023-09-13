@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.app.json",
-  "include": ["src/**/*.vue"],
+  "include": ["shims.d.ts", "src/**/*.vue"],
   "exclude": ["src/**/*.stories.ts"],
   "compilerOptions": {
     "composite": true,
