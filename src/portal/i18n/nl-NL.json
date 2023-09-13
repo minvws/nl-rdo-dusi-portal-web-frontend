@@ -102,6 +102,9 @@
       }
     },
     "my-request-details": {
+      "title": "Details"
+    },
+    "my-request-status": {
       "title": "Aanvraag",
       "status": "Wij hebben uw aanvraag ontvangen",
       "downloadLabel": "Download de aanvraag",

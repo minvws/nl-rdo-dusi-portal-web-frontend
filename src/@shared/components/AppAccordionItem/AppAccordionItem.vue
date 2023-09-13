@@ -3,6 +3,7 @@
     <button
       :id="accordionId"
       :aria-expanded="ariaExpanded"
+      :class="{ highlighted: isHighlighted }"
     >
       <slot name="title" />
     </button>
@@ -18,6 +19,7 @@ import { computed } from 'vue'
 type Props = {
   id: string
   isOpen?: boolean
+  isHighlighted?: boolean
 }
 
 const props = defineProps<Props>()
@@ -37,6 +39,14 @@ ul.accordion > li > button {
   --accordion-button-icon-after-open-content: '▼';
 
   display: flex;
+
+  &.highlighted {
+    --accordion-button-background-color: var(--ruby-red-background-color);
+    --button-base-border-color: var(--ruby-red-background-color);
+    --button-base-hover-background-color: var(--ruby-red-background-color);
+    --button-base-focus-border-color: var(--ruby-red-background-color);
+    --accordion-button-text-color: var(--ruby-red-text-color-light);
+  }
 }
 ul.accordion > li > div {
   --accordion-content-background-color: #fff;

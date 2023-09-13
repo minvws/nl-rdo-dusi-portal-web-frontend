@@ -3,7 +3,7 @@ import { translate } from '@shared/i18n'
 
 import { RequestStatus } from '@shared/types/request'
 
-import { ARRANGEMENT_FORM_REMOTE, MY_REQUEST_DETAILS } from '@shared/router/names'
+import { ARRANGEMENT_FORM_REMOTE, MY_REQUEST_STATUS } from '@shared/router/names'
 
 import type {
   RawAssessmentData,
@@ -44,11 +44,11 @@ const mapStatusToRequiredAction: Record<string, string> = {
 }
 
 const mapStatusToRouteName: Record<string, string> = {
-  [RequestStatus.APPROVED]: MY_REQUEST_DETAILS,
+  [RequestStatus.APPROVED]: MY_REQUEST_STATUS,
   [RequestStatus.DRAFT]: ARRANGEMENT_FORM_REMOTE,
-  [RequestStatus.REJECTED]: MY_REQUEST_DETAILS,
+  [RequestStatus.REJECTED]: MY_REQUEST_STATUS,
   [RequestStatus.REQUEST_CHANGES]: ARRANGEMENT_FORM_REMOTE,
-  [RequestStatus.SUBMITTED]: MY_REQUEST_DETAILS
+  [RequestStatus.SUBMITTED]: MY_REQUEST_STATUS
 }
 
 const mapStatusToRouteText: Record<string, string> = {

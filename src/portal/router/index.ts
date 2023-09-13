@@ -10,6 +10,7 @@ import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
 import MyDetailsView from '@portal/pages/MyDetailsView.vue'
 import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
 import MyMessagesView from '@portal/pages/MyMessagesView.vue'
+import MyRequestStatus from '@portal/pages/MyRequestStatus.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
@@ -25,12 +26,13 @@ import {
   EXTERNAL,
   HOME,
   LOGIN_CALLBACK_VIEW,
-  MY_DETAILS_OVERVIEW,
   MY_DETAILS_EDIT,
-  MY_MESSAGES_PAGE,
+  MY_DETAILS_OVERVIEW,
   MY_MESSAGE_DETAILS,
   MY_MESSAGES_OVERVIEW,
+  MY_MESSAGES_PAGE,
   MY_REQUEST_DETAILS,
+  MY_REQUEST_STATUS,
   MY_REQUESTS_OVERVIEW,
   NOT_FOUND,
   PRIVACY_STATEMENT
@@ -92,7 +94,13 @@ const routes = [
     component: MyRequestsView,
     children: [
       {
-        path: ':id',
+        path: ':id/status',
+        name: MY_REQUEST_STATUS,
+        component: MyRequestStatus,
+        props: true
+      },
+      {
+        path: ':id/details',
         name: MY_REQUEST_DETAILS,
         component: MyRequestDetails,
         props: true

@@ -42,7 +42,7 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
  * @param {CaseStage} data - The data to format.
  * @returns {CaseDetailsItem[]} - The formatted data.
  */
-export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
+export function formatCaseDetailsData(data: CaseStage): CaseDetailsItem[] {
   if (!data?.uischema || !data?.dataschema) return []
 
   const { dataschema, uischema } = data
@@ -82,4 +82,13 @@ export function formatMessagesData(data: any) {
     },
     title: item.subject
   }))
+}
+
+export function formatRequestDetailsData(data: any) {
+  return {
+    intro:
+      'Transvrouwen zijn man-vrouw transgenders met genderdysforie die als man geboren zijn, en in transitie zijn om als vrouw te leven.',
+    body: 'Voor meer informatie bekijk de informatiepagina.',
+    ...data
+  }
 }
