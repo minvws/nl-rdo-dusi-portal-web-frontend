@@ -1,7 +1,11 @@
 import type { JsonSchema } from '@jsonforms/core'
 import type { Control } from '@shared/types/field'
 
+
+const DISABLED = true
+
 const STARTS_WITH = '+31(0) '
+
 
 export const isValidPhoneNumber = (schema: JsonSchema, value: string) => {
   const regex = /^\+31\(0\) [1-9][0-9]{8}$/
@@ -14,7 +18,7 @@ const formatPhoneNumber = (value: string) => {
 
 export default {
   test(control: Control) {
-    return control.schema.tel
+    return !DISABLED && control.schema.tel
   },
   onFocus(value: string) {
     if (!value) return STARTS_WITH
