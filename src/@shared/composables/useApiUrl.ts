@@ -18,13 +18,13 @@ const baseUrl = getBaseUrl()
 
 const mockUrl = `${useMockUrl()}/shared`
 
-export const useApiDraftFormUrl = (id: string) => {
-  return `${baseUrl}/api/forms/${id}/applications`
+export const useApiDraftFormUrl = (subsidyCode: string) => {
+  return `${baseUrl}/api/subsidies/${subsidyCode}/applications`
 }
 
-export const useApiFileUrl = (id?: string) => {
-  if (!id) throw new Error('id is not set for file upload')
-  return `${baseUrl}/api/applications/${id}/files`
+export const useApiFileUrl = (reference?: string, fieldCode?: string) => {
+  if (!reference) throw new Error('reference is not set for file upload')
+  return `${baseUrl}/api/applications/${reference}/fields/${fieldCode}/files`
 }
 
 export const useApiFilterOptionsUrl = (type: FormOptions) => {

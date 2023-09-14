@@ -31,12 +31,12 @@ export const useEncryption = () => {
    * @param {string} data
    * @returns encrypted data
    */
-  async function encrypt(publicKey: string, data: string): Promise<string | undefined> {
+  async function encrypt(publicKey: string, data: string): Promise<Uint8Array | undefined> {
     const key = sodium.from_base64(publicKey, base64_variants.ORIGINAL)
     const encryptedData = sodium.crypto_box_seal(data, key)
 
     try {
-      return sodium.to_base64(encryptedData, base64_variants.ORIGINAL)
+      return encryptedData
     } catch (error) {
       log('Encryption error:', error)
     }
