@@ -1,14 +1,14 @@
-import { useRoute } from 'vue-router'
+import type { Ref } from 'vue'
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 
-export const useFormDraft = () => {
-  const route = useRoute()
+export const useFormDraft = (formId: Ref<string>) => {
+
   const { setDraftId } = useActiveForm()
 
   async function createFormDraft() {
-    const { id } = route.params
-    const url = useApiDraftFormUrl(id as string)
+    const id = formId.value
+    const url = useApiDraftFormUrl(id)
 
     const options: RequestInit = {
       method: 'POST',
