@@ -119,6 +119,10 @@ export default defineComponent({
     :deep(.group-label) {
       padding-bottom: 0.5em;
       padding-left: 0;
+
+      @include mobile {
+        margin-bottom: 0;
+      }
     }
 
     :deep(.group) {

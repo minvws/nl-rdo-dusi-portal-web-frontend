@@ -1,16 +1,16 @@
-import { ref } from 'vue'
+import { ref, type Ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getControlId } from '@shared/utils/control'
-
 import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
+import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
   const form = useForms()
 
-  function addFile(name: string, file: File) {
+  function addFile(name: string, file: File, error?: Ref<string>) {
     const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
 
@@ -22,14 +22,14 @@ export const useFileStore = defineStore('useFileStore', () => {
 
     files.value[id] = updatedFiles
 
-    saveFile(name, file)
+    saveFile(name, file, error)
   }
 
-  function addOrRemoveFile(id: string, target?: HTMLInputElement) {
+  function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
     const file = target?.files?.[0]
     const name = getControlId(id)
 
-    file ? addFile(name, file) : removeFile(name)
+    file ? addFile(name, file, error) : removeFile(name)
   }
 
   function clearFiles(id: string) {
@@ -51,7 +51,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     // deleteFile(id)
   }
 
-  async function saveFile(name: string, file: File) {
+  async function saveFile(name: string, file: File, error?: Ref<string>) {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value)
     const body = new FormData()
@@ -69,12 +69,15 @@ export const useFileStore = defineStore('useFileStore', () => {
     try {
       const response = await fetch(url, options)
       const data = await response.json()
-
       if (data.id) {
         setFileId(name, data.id)
+        return
       }
-    } catch (error) {
-      log(error)
+      throw new Error(data?.message)
+    } catch (errorResponse) {
+      log(errorResponse)
+      if (!errorResponse || !error) return
+      error.value = translate('form.fields.error.upload') ?? ''
     }
   }
 

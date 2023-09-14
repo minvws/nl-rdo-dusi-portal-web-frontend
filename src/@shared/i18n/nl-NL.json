@@ -128,7 +128,8 @@
         "required-boolean": "Dit veld is verplicht",
         "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
-        "tel": "Dit is geen geldig telefoonnummer"
+        "tel": "Dit is geen geldig telefoonnummer",
+        "upload": "Er is iets mis gegaan met uploaden van het bestand"
       },
       "email": {
         "error": {

@@ -11,3 +11,11 @@ type Props = {
 
 defineProps<Props>()
 </script>
+
+<style lang="scss" scoped>
+@include mobile {
+  .label {
+    margin: 0.5rem 0 0.2rem 0;
+  }
+}
+</style>
