@@ -18,7 +18,7 @@ function getFieldProp(control: Control) {
   }
 }
 
-export const useFieldChange = ({ control, error }: Field & { error: Ref<string>}) => {
+export const useFieldChange = ({ control, error }: Field & { error: Ref<string> }) => {
   const { addOrRemoveFile } = useFileStore()
 
   return {

@@ -24,14 +24,13 @@ export const useCustomControlInput = ({
   onChange,
   handleChange
 }: {
-  error: Ref<string>,
+  error: Ref<string>
   control: Ref<Control>
   isFocused: Ref<boolean>
   setTouchedField: (_touched: boolean) => void
   onChange: (_event: Event) => void
   handleChange: (_path: string, _value: FormValue) => void
 }) => {
-
   const updateValue = (type: ControlEvent) => {
     handleChange(getControlId(control.value.id), getValue(type, control.value, control.value.data))
   }
