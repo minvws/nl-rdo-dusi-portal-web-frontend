@@ -116,7 +116,7 @@ const createSet = (text: string, data: object) => ({
 
 const setSubsidy = (url: string, text: string) =>
   createSet('subsidy', {
-    type: AssessmentsDataType.LINK,
+    type: AssessmentsDataType.EXTERNAL_LINK,
     to: url,
     text
   })
