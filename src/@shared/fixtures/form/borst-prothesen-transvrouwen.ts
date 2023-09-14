@@ -182,7 +182,7 @@ export default async () => {
                 Indiener: '{firstName} {infix} {lastName}',
                 Adres: '{streetName} {houseNumber}{houseNumberSuffix} {postalCode} {city}',
                 Telefoon: '{phoneNumber}',
-                'E-mailadress': '{email}'
+                'E-mailadres': '{email}'
               }
             }
           }
