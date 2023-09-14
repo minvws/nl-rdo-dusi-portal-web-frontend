@@ -1,7 +1,7 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { Control, Field } from '@shared/types/field'
 
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'
@@ -18,7 +18,7 @@ function getFieldProp(control: Control) {
   }
 }
 
-export const useFieldChange = ({ control }: Field) => {
+export const useFieldChange = ({ control, error }: Field & { error: Ref<string> }) => {
   const { addOrRemoveFile } = useFileStore()
 
   return {
@@ -30,7 +30,7 @@ export const useFieldChange = ({ control }: Field) => {
 
       if (isFile) {
         // when file, add or remove from fileStore
-        addOrRemoveFile(control.value.id, target)
+        addOrRemoveFile(control.value.id, target, error)
       }
       if (value === '' ?? value === undefined) {
         // we need to set the value to undefined when the value
