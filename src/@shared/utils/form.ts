@@ -24,9 +24,8 @@ export const transformForm = (form: Form): Form[] => {
     const dataschema: JsonSchema = {
       type: 'object',
       properties: baseSchema.properties,
-      ...el.options,
-      required: el.options?.['required'] ?? baseSchema.required ?? [],
-      allOf: el.options?.allOf.length ? el.options.allOf : baseSchema.allOf
+      required: el.options?.required ?? baseSchema.required ?? [],
+      allOf: el.options?.allOf?.length ? el.options.allOf : baseSchema.allOf
     } as JsonSchema
 
     const uischema = el.elements[0]
