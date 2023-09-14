@@ -51,7 +51,9 @@
                 {{ item[column.id].text }}
               </a>
               <RouterLink
-                v-else-if="item[column.id].type === 'link' || item[column.id].type === 'button-link'"
+                v-else-if="
+                  item[column.id].type === 'link' || item[column.id].type === 'button-link'
+                "
                 :class="{
                   button: item[column.id].type === 'button-link'
                 }"

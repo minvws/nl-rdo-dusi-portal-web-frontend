@@ -3,7 +3,6 @@ import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 
 export const useFormDraft = (formId: Ref<string>) => {
-
   const { setDraftId } = useActiveForm()
 
   async function createFormDraft() {
