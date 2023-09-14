@@ -7,11 +7,17 @@
     >
       {{ intro }}
     </p>
-    <p v-if="body">{{ body }}</p>
+    <AppHtml
+      v-if="body"
+      as="p"
+      :html="body"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
+
 type Props = {
   title?: string
   intro?: string

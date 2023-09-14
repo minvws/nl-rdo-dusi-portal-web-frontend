@@ -46,6 +46,24 @@
       "body2": "Neem zo snel mogelijk contact met ons op. De link naar het contactformulier vindt u op de pagina over uw subsidie. Staat dit er niet? Of twijfelt u? Bel of mail ons via het Klantcontactcentrum.",
       "subtitle": "Hoe maakt u een melding?",
       "title": "Meldingsplicht bij wijzigingen"
+    },
+    "requestSteps": {
+      "step": "Stap {step}:",
+      "request": "Aanvraag",
+      "order": "Beschikking",
+      "payout": "Uitbetaling",
+      "submitDate": "Datum indiening: {date}",
+      "additionalInfo": "Het kan voorkomen dat u om extra informatie gevraagd wordt.",
+      "info": "Bijbehorende informatie:",
+      "decision": "U krijgt van ons een beschikking. Dit is een goedkeuring of afwijzing van de aanvraag.",
+      "finalDecision": "13 weken na ontvangst van de aanvraag zullen wij een beslissing nemen. Uiterste beslisdatum komt daarmee op {date}.",
+      "notice": "<strong>Let op</strong>, als u tussentijds om aanvullende informatie gevraagd wordt wordt het reactietermijn gepauzeerd totdat u de benodigde informatie geleverd heeft. Dit betekend dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
+      "noAction": "U hoeft op dit moment niets te doen.",
+      "payoutDecision": "Op basis van de beschikking ontvangt u van ons wel of geen uitbetaling.",
+      "approval": "Bij goedkeuring",
+      "rejection": "Bij afwijzing",
+      "subsidyApplication": "Als we uw subsidieaanvraag goedkeuren, ontvangt u het subsidiebedrag op uw rekening. Dit heet verlenen. We kunnen later controleren of u er daadwerkelijk recht op had. Het is dus eigenlijk een voorschot.",
+      "onRejection": "Als we uw aanvraag afwijzen, ontvangt u geen subsidie."
     }
   },
   "pages": {
@@ -110,7 +128,9 @@
       "downloadLabel": "Download de aanvraag",
       "editLabel": "Aanvraag bewerken",
       "cancelLabel": "Aanvraag intrekken",
-      "noAction": "U hoeft op dit moment niets te doen."
+      "noAction": "U hoeft op dit moment niets te doen.",
+      "intro": "Voor meer informatie bekijk de <a href=\"{link}\">informatiepagina</a>.",
+      "statusDescription": "Uw aanvraag bevindt zich in stap {step}. De huidige status van uw aanvraag staat op <strong>{status}</strong>. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij van u verwachten."
     },
     "my-message-details": {
       "title": "Bericht",

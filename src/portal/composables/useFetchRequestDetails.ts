@@ -6,16 +6,15 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 import { useApiRequestDetailsUrl } from '@portal/composables/useApiUrl'
 
 import { transformForm } from '@shared/utils/form'
-import { formatRequestDetailsData } from '@shared/utils/format'
 
-export const useFetchRequestDetails = (id: string) => {
+export const useFetchRequestDetails = (reference: string) => {
   const forms: Ref<Form[]> = ref([])
   const values: Ref<FormData | undefined> = ref(undefined)
 
-  const url = useApiRequestDetailsUrl(id)
+  const url = useApiRequestDetailsUrl(reference)
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
-  const data = computed(() => (json.value ? formatRequestDetailsData(json.value) : []))
+  const data = computed(() => (json.value ? json.value : {}))
 
   watch(data, data => {
     if (!data) {

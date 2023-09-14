@@ -18,6 +18,7 @@ export const MY_MESSAGES_OVERVIEW = 'my-messages-overview'
 export const MY_MESSAGES_PAGE = 'my-messages-overview-page'
 export const MY_REQUEST_DETAILS = 'my-request-details'
 export const MY_REQUEST_STATUS = 'my-request-status'
+export const MY_REQUEST_EDIT = 'my-request-edit'
 export const MY_REQUESTS_OVERVIEW = 'my-requests-overview'
 
 // assessment

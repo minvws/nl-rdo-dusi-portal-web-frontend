@@ -12,6 +12,7 @@ import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
 import MyMessagesView from '@portal/pages/MyMessagesView.vue'
 import MyRequestStatus from '@portal/pages/MyRequestStatus.vue'
 import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
+import MyRequestEdit from '@portal/pages/MyRequestEdit.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
@@ -33,6 +34,7 @@ import {
   MY_MESSAGES_PAGE,
   MY_REQUEST_DETAILS,
   MY_REQUEST_STATUS,
+  MY_REQUEST_EDIT,
   MY_REQUESTS_OVERVIEW,
   NOT_FOUND,
   PRIVACY_STATEMENT
@@ -94,15 +96,21 @@ const routes = [
     component: MyRequestsView,
     children: [
       {
-        path: ':id/status',
+        path: ':reference/status',
         name: MY_REQUEST_STATUS,
         component: MyRequestStatus,
         props: true
       },
       {
-        path: ':id/details',
+        path: ':reference/details',
         name: MY_REQUEST_DETAILS,
         component: MyRequestDetails,
+        props: true
+      },
+      {
+        path: ':reference/bewerken',
+        name: MY_REQUEST_EDIT,
+        component: MyRequestEdit,
         props: true
       }
     ]

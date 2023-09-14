@@ -5,20 +5,25 @@
       is-open
       is-highlighted
     >
-      <template #title><strong>Stap 1: </strong>Aanvraag</template>
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 1 }) }} </strong>
+        {{ translate('component.requestSteps.request') }}
+      </template>
       <template #content>
-        <p><strong>Datum indiening: </strong>{{ submitDate }}</p>
-        <p>Het kan voorkomen dat u om extra informatie gevraagd wordt.</p>
-        <p><strong>Bijbehorende informatie:</strong></p>
+        <p>{{ translate('component.requestSteps.submitDate', { date: submitDate }) }}</p>
+        <p>{{ translate('component.requestSteps.additionalInfo') }}</p>
+        <p>
+          <strong>{{ translate('component.requestSteps.info') }}</strong>
+        </p>
         <RouterLink
           class="ghost"
           :to="{
             name: MY_REQUEST_DETAILS,
-            params: { id }
+            params: { reference }
           }"
         >
           <AppIcon name="pdf-file" />
-          Aanvraag
+          {{ translate('component.requestSteps.request') }}
         </RouterLink>
       </template>
     </AppAccordionItem>
@@ -26,39 +31,39 @@
       id="step-2"
       is-open
     >
-      <template #title><strong>Stap 2: </strong>Beschikking</template>
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 2 }) }} </strong>
+        {{ translate('component.requestSteps.order') }}
+      </template>
       <template #content>
+        <p>{{ translate('component.requestSteps.decision') }}</p>
         <p>
-          U krijgt van ons een beschikking. Dit is een goedkeuring of afwijzing van de aanvraag.
+          {{ translate('component.requestSteps.finalDecision', { date: respondDate }) }}
         </p>
-        <p>
-          13 weken na ontvangst van de aanvraag zullen wij een beslissing nemen. Uiterste
-          beslisdatum komt daarmee op {{ respondDate }}.
-        </p>
-        <p>
-          <strong>Let op</strong>, als u tussentijds om aanvullende informatie gevraagd wordt wordt
-          het reactietermijn gepauzeerd totdat u de benodigde informatie geleverd heeft. Dit
-          betekend dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.
-        </p>
-        <p><strong>U hoeft op dit moment niets te doen.</strong></p>
+        <AppHtml
+          as="p"
+          :html="translate('component.requestSteps.notice')"
+        />
+        <p><strong>{{ translate('component.requestSteps.noAction') }}</strong></p>
       </template>
     </AppAccordionItem>
     <AppAccordionItem
       id="step-3"
       is-open
     >
-      <template #title><strong>Stap 3: </strong>Uitbetaling</template>
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 3 }) }} </strong>
+        {{ translate('component.requestSteps.payout') }}
+      </template>
       <template #content>
-        <p>Op basis van de beschikking ontvangt u van ons wel of geen uitbetaling.</p>
-        <p><strong>Bij goedkeuring</strong></p>
+        <p>{{ translate('component.requestSteps.payoutDecision') }}</p>
+        <p><strong>{{ translate('component.requestSteps.approval') }}</strong></p>
         <p>
-          Als we uw subsidieaanvraag goedkeuren, ontvangt u het subsidiebedrag op uw rekening. Dit
-          heet verlenen. We kunnen later controleren of u er daadwerkelijk recht op had. Het is dus
-          eigenlijk een voorschot.
+          {{ translate('component.requestSteps.subsidyApplication') }}
         </p>
-        <p><strong>Bij afwijzing</strong></p>
-        <p>Als we uw aanvraag afwijzen, ontvangt u geen subsidie.</p>
-        <p><strong>U hoeft op dit moment niets te doen.</strong></p>
+        <p><strong>{{ translate('component.requestSteps.rejection') }}</strong></p>
+        <p>{{ translate('component.requestSteps.onRejection') }}</p>
+        <p><strong>{{ translate('component.requestSteps.noAction') }}</strong></p>
       </template>
     </AppAccordionItem>
   </AppAccordion>
@@ -67,8 +72,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { translate } from '@shared/i18n'
@@ -78,7 +85,7 @@ import { MY_REQUEST_DETAILS } from '@shared/router/names'
 import { formatDate } from '@shared/utils/date'
 
 type Props = {
-  id: string
+  reference: string
   deadlineForResponseAt: string
   submittedAt: string
 }

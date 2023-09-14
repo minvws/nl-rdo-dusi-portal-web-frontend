@@ -83,12 +83,3 @@ export function formatMessagesData(data: any) {
     title: item.subject
   }))
 }
-
-export function formatRequestDetailsData(data: any) {
-  return {
-    intro:
-      'Transvrouwen zijn man-vrouw transgenders met genderdysforie die als man geboren zijn, en in transitie zijn om als vrouw te leven.',
-    body: 'Voor meer informatie bekijk de informatiepagina.',
-    ...data
-  }
-}

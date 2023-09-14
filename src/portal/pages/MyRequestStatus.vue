@@ -4,24 +4,20 @@
       v-if="data.subsidy"
       v-bind="{
         title: data.subsidy.title,
-        intro: data.intro,
-        body: data.body
+        intro: data.subsidy.description,
+        body: translate('pages.my-request-status.intro', { link: data.subsidy.pageUrl })
       }"
     />
-
     <AppSuspense v-bind="{ data, error, isFetching }">
       <h3>{{ translate('pages.my-request-status.status') }}</h3>
-      <p>
-        Uw aanvraag bevindt zich in stap {{ step }}. De huidige status van uw aanvraag staat op
-        <strong>{{ status }}</strong
-        >. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke
-        er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij
-        van u verwachten.
-      </p>
+      <AppHtml
+        as="p"
+        :html="translate('pages.my-request-status.statusDescription', { status, step })"
+      />
       <div class="steps">
         <RequestSteps
           v-bind="{
-            id: data.reference,
+            reference: data.reference,
             submittedAt: data.submittedAt,
             deadlineForResponseAt: data.deadlineForResponseAt
           }"
@@ -35,17 +31,18 @@
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchRequestDetails } from '@portal/composables/useFetchRequestDetails'
+import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
 import useSEO from '@shared/composables/useSeo'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
 
 import { RequestStatus } from '@shared/types/request'
 
 type Props = {
-  id: string
+  reference: string
 }
 
 const props = defineProps<Props>()
@@ -54,7 +51,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-status.title')}`
 })
 
-const { data, error, isFetching } = useFetchRequestDetails(props.id)
+const { data, error, isFetching } = useFetchRequestStatus(props.reference)
 
 const step = computed(() => {
   const mapStatusToStep: Record<string, number> = {

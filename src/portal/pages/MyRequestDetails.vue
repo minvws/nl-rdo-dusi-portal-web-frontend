@@ -32,7 +32,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
 type Props = {
-  id: string
+  reference: string
 }
 
 const props = defineProps<Props>()
@@ -41,5 +41,5 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-status.title')}`
 })
 
-const { forms, data, values, error, isFetching } = useFetchRequestDetails(props.id)
+const { forms, data, values, error, isFetching } = useFetchRequestDetails(props.reference)
 </script>
