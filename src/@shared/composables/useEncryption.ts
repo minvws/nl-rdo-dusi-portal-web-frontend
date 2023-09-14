@@ -36,7 +36,7 @@ export const useEncryption = () => {
     const encryptedData = sodium.crypto_box_seal(data, key)
 
     try {
-      return sodium.to_base64(encryptedData)
+      return sodium.to_base64(encryptedData, base64_variants.ORIGINAL)
     } catch (error) {
       log('Encryption error:', error)
     }
