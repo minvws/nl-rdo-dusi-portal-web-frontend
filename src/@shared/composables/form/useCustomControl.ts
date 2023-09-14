@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import { useForms } from '@shared/composables/form/useForms'
 import { InputType } from '@shared/types/input'
 import { getControlId } from '@shared/utils/control'
@@ -11,13 +12,14 @@ import { useFormConditionalIsRequired } from '@shared/composables/form/useFormCo
 export const useCustomControl = (props: any) => {
   const { useTouchedField } = useForms()
   const id = getControlId(props.uischema.scope)
-
+  const error = ref('')
   const type = useFieldType(props.schema, props.uischema)
   const $props =
     type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
-  const { onHandleChange } = useFieldChange($props as any)
+  const { onHandleChange } = useFieldChange({ error, ...($props as any) })
 
   const component = {
+    error,
     ...useVanillaControl($props, onHandleChange),
     ...useTouchedField(id),
     conditionalError: useFormConditionalRequiredError(id),
