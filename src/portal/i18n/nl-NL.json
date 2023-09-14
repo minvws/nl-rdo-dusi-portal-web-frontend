@@ -16,7 +16,7 @@
           "value": "{dayOfBirth}"
         },
         "email": {
-          "label": "E-mailadress",
+          "label": "E-mailadres",
           "value": "{email}"
         },
         "fullName": {
