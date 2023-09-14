@@ -66,7 +66,6 @@ const mapStatusToRouteText: Record<string, string> = {
  * @returns data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  console.log(data.items)
   return data.items.map(({ deadlineForResponseAt, reference, status, subsidy, submittedAt }) => ({
     ...setSubsidy(subsidy.pageUrl, subsidy.title),
     ...setFile(reference),
