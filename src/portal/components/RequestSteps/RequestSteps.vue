@@ -44,7 +44,9 @@
           as="p"
           :html="translate('component.requestSteps.notice')"
         />
-        <p><strong>{{ translate('component.requestSteps.noAction') }}</strong></p>
+        <p>
+          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+        </p>
       </template>
     </AppAccordionItem>
     <AppAccordionItem
@@ -57,13 +59,19 @@
       </template>
       <template #content>
         <p>{{ translate('component.requestSteps.payoutDecision') }}</p>
-        <p><strong>{{ translate('component.requestSteps.approval') }}</strong></p>
+        <p>
+          <strong>{{ translate('component.requestSteps.approval') }}</strong>
+        </p>
         <p>
           {{ translate('component.requestSteps.subsidyApplication') }}
         </p>
-        <p><strong>{{ translate('component.requestSteps.rejection') }}</strong></p>
+        <p>
+          <strong>{{ translate('component.requestSteps.rejection') }}</strong>
+        </p>
         <p>{{ translate('component.requestSteps.onRejection') }}</p>
-        <p><strong>{{ translate('component.requestSteps.noAction') }}</strong></p>
+        <p>
+          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+        </p>
       </template>
     </AppAccordionItem>
   </AppAccordion>
