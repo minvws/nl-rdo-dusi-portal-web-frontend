@@ -7,6 +7,7 @@ import { log } from '@shared/utils/logger'
 import { translate } from '@/@shared/i18n'
 import { FormSubmitTypes, type FormSubmitType } from '@/@shared/types/form'
 import { useEncryption } from '@shared/composables/useEncryption'
+import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
@@ -22,8 +23,8 @@ export const useFormSubmit = () => {
   async function onSubmit(type: FormSubmitType) {
     const { draftId, formData } = forms
     const url = useApiFormsSubmitUrl(draftId.value)
-    const encryptedData = await encrypt(publicKey, JSON.stringify(formData.value))
-    const body = { type, data: encryptedData }
+    const body = { data: formData.value, submit: type === FormSubmitTypes.SUBMIT }
+    const encryptedBody = await encrypt(publicKey, JSON.stringify(body))
 
     const options: RequestInit = {
       method: 'PUT',
@@ -32,15 +33,15 @@ export const useFormSubmit = () => {
         Accept: 'text/plain',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: encryptedBody
     }
 
     forms.setSubmitting(true)
 
     try {
-      const response = await fetch(url, options)
-      if (response.ok) return undefined
-      throw new Error(response?.statusText)
+      const response = await useFetchWithCredentials(url, options).json()
+      if (response.statusCode.value === 200) return undefined
+      throw new Error(response.data.value.message)
     } catch (error) {
       log(error)
       return error

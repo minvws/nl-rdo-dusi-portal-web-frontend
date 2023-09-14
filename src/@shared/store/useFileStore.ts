@@ -5,6 +5,7 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
+import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
@@ -53,27 +54,23 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   async function saveFile(name: string, file: File, error?: Ref<string>) {
     const { draftId } = form
-    const url = useApiFileUrl(draftId.value)
-    const body = new FormData()
+    const url = useApiFileUrl(draftId.value, name)
 
-    body.append('fieldCode', name)
     // @TODO: file should be encrypted before upload.
-    body.append('file', file)
 
     const options: RequestInit = {
       method: 'POST',
       credentials: 'include',
-      body: body
+      body: file
     }
 
     try {
-      const response = await fetch(url, options)
-      const data = await response.json()
-      if (data.id) {
-        setFileId(name, data.id)
+      const data = await useFetchWithCredentials(url, options).json()
+      if (data.data?.value?.id) {
+        setFileId(name, data.data.value.id)
         return
       }
-      throw new Error(data?.message)
+      throw new Error(data.data?.value?.message)
     } catch (errorResponse) {
       log(errorResponse)
       if (!errorResponse || !error) return
