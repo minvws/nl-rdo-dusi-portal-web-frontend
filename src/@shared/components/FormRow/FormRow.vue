@@ -4,39 +4,50 @@
     class="form-row"
     v-bind="rowProps"
   >
-    <FormFieldLabel
-      v-if="label"
-      class="form-row-label"
-      :class="{ margin: required && !hideRequiredLabel }"
-      v-bind="{
-        label
-      }"
-    />
-    <div
-      class="form-row-content"
-      :class="[contentClass, { 'with-label': label }]"
-    >
-      <FormRequiredLabel
-        v-if="!hideRequiredLabel"
-        v-bind="{ required, label }"
-      />
-      <FormNotification
-        v-if="tip"
-        v-bind="{
-          displayAs: 'explanation',
-          message: tip
-        }"
-      />
-      <slot />
-      <FormFieldDescription
+    <FormRowElement v-if="tip">
+      <template v-slot:right>
+        <FormNotification
+          v-if="tip"
+          v-bind="{
+            displayAs: 'explanation',
+            message: tip
+          }"
+        />
+      </template>
+    </FormRowElement>
+
+    <FormRowElement v-if="!hideRequiredLabel && !required && label">
+      <template v-slot:right>
+        <FormRequiredLabel v-bind="{ required, label }" />
+      </template>
+    </FormRowElement>
+
+    <FormRowElement v-bind="{ contentClass }">
+      <template v-slot:left>
+        <FormFieldLabel
+          v-if="label"
+          class="form-row-field-label"
+          :class="{ margin: required && !hideRequiredLabel }"
+          v-bind="{
+            label
+          }"
+        />
+      </template>
+      <template v-slot:right>
+        <slot />
+      </template>
+      <template
         v-if="fieldDescription"
-        v-bind="{ description: fieldDescription, labelFor: `${id}-input` }"
-      />
-      <FormFieldError
-        v-if="errors"
-        v-bind="{ errors }"
-      />
-    </div>
+        v-slot:description
+      >
+        <FormFieldDescription v-bind="{ description: fieldDescription, labelFor: `${id}-input` }" />
+      </template>
+    </FormRowElement>
+    <FormRowElement v-if="errors">
+      <template v-slot:right>
+        <FormFieldError v-bind="{ errors }" />
+      </template>
+    </FormRowElement>
   </div>
 </template>
 
@@ -46,6 +57,7 @@ import type { Options } from '@jsonforms/vue-vanilla'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
+import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
 import FormFieldLabel from '@shared/components/FormFieldLabel/FormFieldLabel.vue'
 import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
@@ -68,6 +80,7 @@ export default defineComponent({
     }
   },
   components: {
+    FormRowElement,
     FormFieldDescription,
     FormFieldError,
     FormFieldLabel,
@@ -102,33 +115,12 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .form-row {
-  display: flex;
-  flex-direction: column;
-
-  @include desktop {
-    flex-direction: row;
-    &.column {
-      flex-direction: column;
-    }
-
-    &-label {
-      flex: 0.25;
-    }
-
-    &-content {
-      flex: 1;
-
-      &.with-label {
-        flex: 0.75;
-      }
-    }
-  }
-
   &.inline {
-    display: inline-block;
-    .form-row-label {
-      &.margin {
-        margin-bottom: 1em;
+    .form-row-field {
+      display: inline-block;
+
+      &-label {
+        margin: 0;
       }
     }
   }

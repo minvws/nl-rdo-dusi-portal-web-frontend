@@ -121,7 +121,7 @@ function onValidate() {
 <style lang="scss" scoped>
 .form-view {
   @include mobile {
-    padding: 0;
+    padding: 1rem;
   }
 
   &.no-style {

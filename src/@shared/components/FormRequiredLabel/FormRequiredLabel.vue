@@ -2,8 +2,9 @@
   <span
     class="nota-bene"
     :class="{ required }"
-    >{{ text }}</span
   >
+    {{ text }}
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -23,6 +24,9 @@ const text = computed(() => {
 <style lang="scss" scoped>
 span {
   margin-bottom: 0.5em;
+  @include mobile {
+    margin: 0;
+  }
   &.required {
     // hide required fields
     display: none;
