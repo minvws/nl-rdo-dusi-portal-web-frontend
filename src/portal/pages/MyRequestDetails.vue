@@ -7,15 +7,9 @@
       }"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <FormView
-        v-bind="{
-          id: 'my-request-details',
-          forms,
-          values,
-          hideDebug: true,
-          noStyle: true,
-          noButtons: true
-        }"
+      <RequestDetailsForm
+        :id="data.form.id"
+        :values="data.data"
       />
     </AppSuspense>
   </section>
@@ -29,7 +23,7 @@ import useSEO from '@shared/composables/useSeo'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import FormView from '@shared/components/FormView/FormView.vue'
+import RequestDetailsForm from '@portal/components/RequestDetailsForm/RequestDetailsForm.vue'
 
 type Props = {
   reference: string
@@ -41,5 +35,5 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-status.title')}`
 })
 
-const { forms, data, values, error, isFetching } = useFetchRequestDetails(props.reference)
+const { data, error, isFetching } = useFetchRequestDetails(props.reference)
 </script>

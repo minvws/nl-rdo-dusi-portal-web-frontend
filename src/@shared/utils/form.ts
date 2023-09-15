@@ -29,6 +29,7 @@ export const transformForm = (form: Form): Form[] => {
     } as JsonSchema
 
     const uischema = el.elements[0]
+
     return { title, dataschema, uischema }
   })
 

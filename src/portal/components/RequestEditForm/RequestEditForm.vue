@@ -9,5 +9,6 @@ type Props = {
   id: string
   values?: Record<string, string> // @TODO
 }
+
 defineProps<Props>()
 </script>
