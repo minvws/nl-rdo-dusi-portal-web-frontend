@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
+import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
 
 export const useFormDraft = (formId: Ref<string>) => {
   const { setDraftId } = useActiveForm()
@@ -14,10 +15,8 @@ export const useFormDraft = (formId: Ref<string>) => {
       credentials: 'include'
     }
 
-    const response = await fetch(url, options)
-    const data = await response.json()
-
-    setDraftId(data.id)
+    const data = await useFetchWithCredentials(url, options).json()
+    setDraftId(data.data.value.reference)
   }
 
   return {

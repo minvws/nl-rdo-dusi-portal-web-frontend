@@ -118,7 +118,7 @@ export default async () => {
                 Adres: '{streetName} {houseNumber}{houseNumberSuffix}<br/>{postalCode} {city}',
                 Geboortedatum: '{dateOfBirth}',
                 Telefoon: '{phoneNumber}',
-                'E-mailadress': '{email}'
+                'E-mailadres': '{email}'
               }
             }
           }
