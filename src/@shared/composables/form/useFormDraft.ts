@@ -6,6 +6,7 @@ import { useNotificationsStore } from '@/@shared/store/useNotificationsStore'
 import { translate } from '@/@shared/i18n'
 import { useRouter } from 'vue-router'
 import { HOME } from '@/@shared/router/names'
+import { log } from '@shared/utils/logger'
 
 export const useFormDraft = (formId: Ref<string>) => {
   const { setDraftId } = useActiveForm()
@@ -35,6 +36,7 @@ export const useFormDraft = (formId: Ref<string>) => {
         id: 'form-draft-error',
         pageChangeCount: 2
       })
+      log('error creating draft',  error)
       router.replace({ name: HOME })
       return
     }
