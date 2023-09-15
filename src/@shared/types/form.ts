@@ -7,9 +7,15 @@ export type Form = {
   uischema: UISchemaElement
 } & FormTitle
 
+export type FileType = {
+  name: string
+  mimeType: string
+  id: string
+}
+
 export type FormResult = { dataschema: JsonSchema; uischema: UISchemaElement } & FormTitle
 
-export type FormValue = string | boolean | string[] | boolean[]
+export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 
 export type FormData = Record<string, FormValue>
 

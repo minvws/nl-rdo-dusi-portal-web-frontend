@@ -1,7 +1,7 @@
 <template>
   <div class="form-field-remove-file">
     <div class="form-field-remove-file-content">
-      <label v-bind="{ for: labelFor, class: { padding: !hasFile } }">{{ label }}</label>
+      <label v-bind="{ for: labelFor, class: { padding: !hasFile } }">{{ file?.name || label }}</label>
       <AppButton
         v-if="hasFile"
         class="button"
@@ -20,11 +20,13 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { getControlId } from '@shared/utils/control'
+import type { FileType } from '@/@shared/types/form'
 
 type Props = {
   handleChange?: (_path: string, _value: any) => void
   id: string
   labelFor: string
+  file?: FileType
 }
 
 const props = defineProps<Props>()

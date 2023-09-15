@@ -1,7 +1,10 @@
 <template>
   <section>
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <RequestEditForm :id="data.form.id" :values="values" />
+      <RequestEditForm
+        :id="data.form.id"
+        :values="values"
+      />
     </AppSuspense>
   </section>
 </template>

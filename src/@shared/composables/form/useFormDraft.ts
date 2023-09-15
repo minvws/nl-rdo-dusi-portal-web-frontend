@@ -36,7 +36,7 @@ export const useFormDraft = (formId: Ref<string>) => {
         id: 'form-draft-error',
         pageChangeCount: 2
       })
-      log('error creating draft',  error)
+      log('error creating draft', error)
       // router.replace({ name: HOME })
       return
     }

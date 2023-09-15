@@ -6,7 +6,7 @@
       @focus="onFocus"
     />
     <FormFieldRemoveFile
-      v-bind="{ handleChange, id: control.id, labelFor: id }"
+      v-bind="{ handleChange, id: control.id, file, labelFor: id }"
       @blur="onBlur"
     />
   </div>
@@ -18,6 +18,8 @@ import { InputType } from '@shared/types/input'
 import { type Control } from '@shared/types/field'
 import { translate } from '@shared/i18n'
 import { formatFileSize } from '@shared/utils/format'
+import { computed } from 'vue'
+import type { FileType } from '@/@shared/types/form'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 
@@ -31,10 +33,15 @@ type Props = {
   id: string
   placeholder?: string
   type: InputType
-  value?: string
 }
 
 const props = defineProps<Props>()
+
+const file = computed(() => {
+  // @TODO: for now we only support one file
+  const data = props.control.data as FileType[]
+  return data?.[0]
+})
 
 function onBlur(event: Event) {
   emit('blur', event)

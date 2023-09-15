@@ -22,15 +22,14 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     files.value[id] = updatedFiles
-
-    saveFile(name, file, error)
+    return saveFile(name, file, error)
   }
 
   function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
     const file = target?.files?.[0]
     const name = getControlId(id)
-
-    file ? addFile(name, file, error) : removeFile(name)
+    if (file) return addFile(name, file, error)
+    return removeFile(name)
   }
 
   function clearFiles(id: string) {
@@ -40,7 +39,6 @@ export const useFileStore = defineStore('useFileStore', () => {
   function getFile(id: string) {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
-
     return files.value[formId]?.[name]
   }
 
@@ -52,9 +50,9 @@ export const useFileStore = defineStore('useFileStore', () => {
     // deleteFile(id)
   }
 
-  async function saveFile(name: string, file: File, error?: Ref<string>) {
+  async function saveFile(id: string, file: File, error?: Ref<string>) {
     const { draftId } = form
-    const url = useApiFileUrl(draftId.value, name)
+    const url = useApiFileUrl(draftId.value, id)
 
     // @TODO: file should be encrypted before upload.
 
@@ -67,15 +65,15 @@ export const useFileStore = defineStore('useFileStore', () => {
     try {
       const { data } = await useFetchWithCredentials(url, options).json()
       if (data.value?.id) {
-        console.log(data.value)
-        setFileId(name, data.value.id)
-        return
+        onFileUpload({ id, file, data: data.value })
+        return  onFileUpload({ id, file, data: data.value })
       }
       throw new Error(data?.value?.message)
     } catch (errorResponse) {
       log(errorResponse)
       if (!errorResponse || !error) return
       error.value = translate('form.fields.error.upload') ?? ''
+      return undefined
     }
   }
 
@@ -91,16 +89,26 @@ export const useFileStore = defineStore('useFileStore', () => {
   //   log(response)
   // }
 
-  function setFileId(name: string, id: string) {
+  function onFileUpload({ id, file, data }: { id: string; file: File; data: { id: string } }) {
     const { index, activeForm } = form
     const currentFormData = activeForm.value.data[index.value] || {}
+    const { type: mimeType, name } = file
 
+    const result = [
+      {
+        id: data.id,
+        mimeType,
+        name
+      }
+    ]
     const updatedFormData = {
       ...currentFormData,
-      [name]: id
+      [id]: result
     }
 
     activeForm.value.data[index.value] = updatedFormData
+
+    return result
   }
 
   return {
