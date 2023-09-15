@@ -3,7 +3,7 @@
     class="form-row-field"
     :class="{
       center: !isNotCentered,
-      multiple: hasSlotLeft,
+      multiple: hasSlotLeft
     }"
   >
     <div v-if="hasSlotLeft">
@@ -20,7 +20,7 @@
 import type { Slot, VNodeChild } from 'vue'
 import { Comment, computed, useSlots } from 'vue'
 
-type Props ={
+type Props = {
   contentClass?: string
 }
 const props = defineProps<Props>()

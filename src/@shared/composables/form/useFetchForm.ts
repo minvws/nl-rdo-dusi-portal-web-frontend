@@ -5,7 +5,10 @@ import { useApiFormsUrl } from '@shared/composables/useApiUrl'
 import { transformForm, getFormTitle } from '@shared/utils/form'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
-export const useFetchForm = ({ id, values }: { id: string; values?: FormData }, readonly: boolean) => {
+export const useFetchForm = (
+  { id, values }: { id: string; values?: FormData },
+  readonly?: boolean
+) => {
   const title: Ref<string> = ref('')
   const forms: Ref<Form[]> = ref([])
   const formData: Ref<FormData | undefined> = ref(undefined)
