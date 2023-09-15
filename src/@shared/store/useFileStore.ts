@@ -9,7 +9,7 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
-  const pending = ref({} as Record<string, Record<string, File>>)
+  const pending = ref({} as Record<string, Record<string, boolean>>)
   const form = useForms()
 
   async function addFile(name: string, file: File, error?: Ref<string>) {
@@ -23,15 +23,16 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     files.value[id] = updatedFiles
-    pending.value[id] = updatedFiles
+    pending.value[id] = { ...pending.value[id], [name]: true }
     await saveFile(name, file, error)
-    delete pending.value[id]
+    delete pending.value[id][name]
   }
 
   function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
     const file = target?.files?.[0]
     const name = getControlId(id)
-    file ? addFile(name, file, error) : removeFile(name)
+    if (file) addFile(name, file, error)
+    else removeFile(name)
   }
 
   function clearFiles(id: string) {
@@ -54,34 +55,28 @@ export const useFileStore = defineStore('useFileStore', () => {
   function removeFile(name: string) {
     const { id } = form.activeForm.value
     delete files.value[id][name]
-
     // @TODO: remove file from server
     // deleteFile(id)
   }
 
-  async function saveFile(name: string, file: File, error?: Ref<string>) {
+  async function saveFile(id: string, file: File, error?: Ref<string>) {
     const { draftId } = form
-    const url = useApiFileUrl(draftId.value, name)
+    const url = useApiFileUrl(draftId.value, id)
 
     // @TODO: file should be encrypted before upload.
 
-    const options: RequestInit = {
-      method: 'POST',
-      credentials: 'include',
-      body: file
-    }
-
     try {
-      const data = await useFetchWithCredentials(url, options).json()
-      if (data.data?.value?.id) {
-        setFileId(name, data.data.value.id)
-        return
+      const { data } = await useFetchWithCredentials(url).post(file).json()
+      if (data.value?.id) {
+        onFileUpload({ id, file, data: data.value })
+        return onFileUpload({ id, file, data: data.value })
       }
-      throw new Error(data.data?.value?.message)
+      throw new Error(data?.value?.message)
     } catch (errorResponse) {
       log(errorResponse)
       if (!errorResponse || !error) return
       error.value = translate('form.fields.error.upload') ?? ''
+      return undefined
     }
   }
 
@@ -97,13 +92,20 @@ export const useFileStore = defineStore('useFileStore', () => {
   //   log(response)
   // }
 
-  function setFileId(name: string, id: string) {
+  function onFileUpload({ id, file, data }: { id: string; file: File; data: { id: string } }) {
     const { index, activeForm } = form
     const currentFormData = activeForm.value.data[index.value] || {}
+    const { type: mimeType, name } = file
 
     const updatedFormData = {
       ...currentFormData,
-      [name]: id
+      [id]: [
+        {
+          id: data.id,
+          mimeType,
+          name
+        }
+      ]
     }
 
     activeForm.value.data[index.value] = updatedFormData

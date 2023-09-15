@@ -46,12 +46,13 @@ export const useActiveForm = () => {
 
   function setFormDataFromValues(values?: FormData) {
     if (!values) return
-    activeForm.value.data = forms.value?.map(({ dataschema: { properties = {} } }) => {
+    const data = forms.value?.map(({ dataschema: { properties = {} } }) => {
       return Object.keys(properties).reduce((cul, key) => {
         if (key in values) cul[key] = values[key]
         return cul
       }, {} as FormData)
     })
+    activeForm.value.data = data
   }
 
   function getAllProperties() {
