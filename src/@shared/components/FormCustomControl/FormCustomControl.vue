@@ -5,7 +5,7 @@
       v-bind="field.props"
       @error="onError"
       @input="onInput"
-      @change="onChange"
+      @change="onBeforeChange"
       @focus="onFocus"
       @blur="onBlur"
     />

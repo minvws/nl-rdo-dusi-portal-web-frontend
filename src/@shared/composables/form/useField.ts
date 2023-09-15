@@ -104,10 +104,12 @@ export const useFieldFileRemove = ({ id }: { id: string }) => {
 export const useField = ({
   input,
   control,
+  error,
   handleChange
 }: {
   input: { id: string; type: InputType }
   control: Control
+  error: string
   handleChange?: (_path: string, _value: any) => void
 }) => {
   switch (input.type) {
@@ -131,7 +133,14 @@ export const useField = ({
       // when a input of type file restores, it will throw an error:
       // 'This input element accepts a filename, which may only be programmatically set to the empty string'
       return {
-        props: { ...input, value: undefined, control, handleChange },
+        props: {
+          ...input,
+          value: undefined,
+          control,
+          error,
+          isPending: useFileStore().isUploadPending(control.id),
+          handleChange
+        },
         tag: 'FormFileControl'
       }
     case InputType.RADIO:

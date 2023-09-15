@@ -1,10 +1,16 @@
 <template>
   <div class="form-field-remove-file">
     <div class="form-field-remove-file-content">
-      <label v-bind="{ for: labelFor, class: { padding: !hasFile } }">{{ file?.name || label }}</label>
+      <AppLoader v-if="isPending" />
+      <label
+        v-else
+        v-bind="{ for: labelFor, class: { padding: !hasFile } }"
+        >{{ label }}</label
+      >
       <AppButton
         v-if="hasFile"
         class="button"
+        :disabled="disabled || isPending"
         @click="onRemoveFile"
       >
         <AppIcon name="close" />
@@ -14,19 +20,23 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue'
+
 import { useFieldFileRemove } from '@shared/composables/form/useField'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
+import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 
 import { getControlId } from '@shared/utils/control'
-import type { FileType } from '@/@shared/types/form'
 
 type Props = {
   handleChange?: (_path: string, _value: any) => void
   id: string
   labelFor: string
-  file?: FileType
+  error: string
+  disabled?: boolean
+  isPending: boolean
 }
 
 const props = defineProps<Props>()
@@ -40,6 +50,16 @@ function onRemoveFile() {
   props.handleChange?.(getControlId(props.id), undefined)
   emit('blur')
 }
+
+watch(
+  () => props.error,
+  error => {
+    if (!error) return
+    // when there is an error
+    // remove the file
+    onRemoveFile()
+  }
+)
 </script>
 <style lang="scss" scoped>
 .form-field-remove-file {

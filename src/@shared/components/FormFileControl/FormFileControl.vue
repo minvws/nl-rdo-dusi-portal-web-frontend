@@ -1,24 +1,28 @@
 <template>
   <div class="file-control">
     <FormTextControl
-      v-bind="props"
+      v-bind="{ ...props, disabled: isDisabled }"
       @change="onChange"
       @focus="onFocus"
     />
     <FormFieldRemoveFile
-      v-bind="{ handleChange, id: control.id, file, labelFor: id }"
+      v-bind="{ handleChange, id: control.id, labelFor: id, file, error, disabled, isPending }"
       @blur="onBlur"
     />
   </div>
 </template>
 <script setup lang="ts">
+import { type Control } from '@shared/types/field'
+
+import { computed } from 'vue'
+
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFieldRemoveFile.vue'
+
 import { InputType } from '@shared/types/input'
-import { type Control } from '@shared/types/field'
 import { translate } from '@shared/i18n'
 import { formatFileSize } from '@shared/utils/format'
-import { computed } from 'vue'
+
 import type { FileType } from '@/@shared/types/form'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
@@ -33,9 +37,14 @@ type Props = {
   id: string
   placeholder?: string
   type: InputType
+  value?: string
+  error: string
+  isPending: boolean
 }
 
 const props = defineProps<Props>()
+
+const isDisabled = computed(() => props.disabled || props.isPending)
 
 const file = computed(() => {
   // @TODO: for now we only support one file

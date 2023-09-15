@@ -10,7 +10,10 @@
 </template>
 
 <script setup lang="ts">
+import { translate } from '@shared/i18n'
+
 import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
+import useSEO from '@shared/composables/useSeo'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestEditForm from '@portal/components/RequestEditForm/RequestEditForm.vue'
@@ -22,4 +25,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { data, error, isFetching, values } = useFetchRequestStatus(props.reference)
+useSEO({
+  title: `${translate('app.prefix')} | ${translate('pages.my-request-edit.title')}`
+})
 </script>

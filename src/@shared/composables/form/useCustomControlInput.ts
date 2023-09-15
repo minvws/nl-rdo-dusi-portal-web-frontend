@@ -53,6 +53,10 @@ export const useCustomControlInput = ({
       error.value = ''
       onChange(e)
       updateValue('onInput')
+    },
+    onBeforeChange(e: Event) {
+      error.value = ''
+      onChange(e)
     }
   }
 }

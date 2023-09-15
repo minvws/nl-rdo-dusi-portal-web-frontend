@@ -9,9 +9,10 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
+  const pending = ref({} as Record<string, Record<string, File>>)
   const form = useForms()
 
-  function addFile(name: string, file: File, error?: Ref<string>) {
+  async function addFile(name: string, file: File, error?: Ref<string>) {
     const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
 
@@ -22,7 +23,10 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     files.value[id] = updatedFiles
-    return saveFile(name, file, error)
+    pending.value[id] = updatedFiles
+    const result = await saveFile(name, file, error)
+    delete pending.value[id]
+    return result
   }
 
   function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
@@ -34,12 +38,19 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   function clearFiles(id: string) {
     delete files.value[id]
+    delete pending.value[id]
   }
 
   function getFile(id: string) {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
     return files.value[formId]?.[name]
+  }
+
+  function isUploadPending(id: string) {
+    const { id: formId } = form.activeForm.value
+    const name = getControlId(id)
+    return !!pending.value[formId]?.[name]
   }
 
   function removeFile(name: string) {
@@ -116,7 +127,8 @@ export const useFileStore = defineStore('useFileStore', () => {
     addOrRemoveFile,
     clearFiles,
     files,
+    pending,
     getFile,
-    saveFile
+    isUploadPending
   }
 })
