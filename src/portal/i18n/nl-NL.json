@@ -103,6 +103,9 @@
       "cancel": "Annuleren",
       "save": "Opslaan"
     },
+    "my-request-edit": {
+      "title": "Bewerken"
+    },
     "my-requests-overview": {
       "title": "Mijn aanvragen",
       "intro": "Het overzicht van uw aanvragen en regelingen. In dit overzicht ziet uw de status van uw aanvraag en eventuele openstaande acties.",
