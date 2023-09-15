@@ -25,7 +25,7 @@ export const useFieldChange = ({ control, error }: Field & { error: Ref<string> 
     addOrRemoveFile,
     onHandleChange: (target: HTMLInputElement) => {
       const prop = getFieldProp(control.value)
-      const value: any = target[prop]
+      const value = target[prop]
 
       if (control.value.schema.file) {
         // when file, add or remove from fileStore
