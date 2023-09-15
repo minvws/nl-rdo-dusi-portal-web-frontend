@@ -9,13 +9,13 @@ const getProps = (form: any, context: any) => {
 
   const title =
     context?.error?.parentSchema?.properties?.[property]?.title ??
-    form.schema.value.properties?.[property]?.title ??
+    form.schema.value?.properties?.[property]?.title ??
     context?.uischema?.label ??
     form.getScopedElement(property)?.label
 
   const field = title ?? property
   const isBoolean = context?.error?.parentSchema?.properties?.[property]?.type === 'boolean'
-  const schema = context?.schema ?? form.schema.value.properties[property]
+  const schema = context?.schema ?? form.schema?.value.properties[property]
   return { ...schema, field, isBoolean }
 }
 export const useI18n = () => {
