@@ -1,7 +1,7 @@
 <template>
   <section>
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <RequestEditForm :id="data.form.id" />
+      <RequestEditForm :id="data.form.id" :values="values" />
     </AppSuspense>
   </section>
 </template>
@@ -18,5 +18,5 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { data, error, isFetching } = useFetchRequestStatus(props.reference)
+const { data, error, isFetching, values } = useFetchRequestStatus(props.reference)
 </script>

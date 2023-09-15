@@ -8,9 +8,11 @@ export const useFetchRequestStatus = (reference: string) => {
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
   const data = computed(() => (json.value ? json.value : {}))
+  const values = computed(() => data.value?.data)
 
   return {
     data,
+    values,
     ...fetch
   }
 }
