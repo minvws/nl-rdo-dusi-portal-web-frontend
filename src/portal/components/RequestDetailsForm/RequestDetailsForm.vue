@@ -1,5 +1,5 @@
 <template>
-   <AppSuspense v-bind="{ data: forms, error, isFetching }">
+  <AppSuspense v-bind="{ data: forms, error, isFetching }">
     <div class="form-section">
       <FormView
         v-bind="{

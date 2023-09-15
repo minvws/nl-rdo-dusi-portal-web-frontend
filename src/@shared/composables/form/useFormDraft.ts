@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFormDraft = (formId: Ref<string>) => {
   const { setDraftId } = useActiveForm()

@@ -5,7 +5,7 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
-import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
