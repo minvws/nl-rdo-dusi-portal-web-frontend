@@ -7,7 +7,7 @@ import { log } from '@shared/utils/logger'
 import { translate } from '@/@shared/i18n'
 import { FormSubmitTypes, type FormSubmitType } from '@/@shared/types/form'
 import { useEncryption } from '@shared/composables/useEncryption'
-import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 

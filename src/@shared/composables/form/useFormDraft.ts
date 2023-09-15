@@ -1,7 +1,7 @@
 import { useRoute } from 'vue-router'
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFormDraft = () => {
   const route = useRoute()
