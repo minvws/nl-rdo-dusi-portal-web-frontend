@@ -121,7 +121,7 @@
         "iban": "Dit is geen geldige IBAN",
         "length": "{field} bestaat uit {maxLength} karakters",
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
-        "maxLength": "{field} bestaat uit maximaal {minLength} karakters",
+        "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
         "minLength": "{field} bestaat uit minimaal {minLength} karakters",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",

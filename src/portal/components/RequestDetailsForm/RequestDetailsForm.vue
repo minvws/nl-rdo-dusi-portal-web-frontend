@@ -27,5 +27,5 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { forms, error, isFetching } = useFetchForm(props.id)
+const { forms, error, isFetching } = useFetchForm(props)
 </script>

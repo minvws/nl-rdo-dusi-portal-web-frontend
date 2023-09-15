@@ -33,11 +33,7 @@ export const useActiveForm = () => {
     const restoredForm = formStorage.get(formId.value)
     const { data, index } = restoredForm ?? { data: [], index: 0 } // set cache for form
     formStorage.set({ id: formId.value, forms, errors: [], index, data })
-
-    // set values to form when form created
-    if (!restoredForm) {
-      setFormDataFromValues(values)
-    }
+    setFormDataFromValues(values)
   }
 
   function setDraftId(draftId: string) {
