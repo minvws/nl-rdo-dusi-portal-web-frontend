@@ -42,7 +42,7 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
  * @param {CaseStage} data - The data to format.
  * @returns {CaseDetailsItem[]} - The formatted data.
  */
-export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
+export function formatCaseDetailsData(data: CaseStage): CaseDetailsItem[] {
   if (!data?.uischema || !data?.dataschema) return []
 
   const { dataschema, uischema } = data

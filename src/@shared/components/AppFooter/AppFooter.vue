@@ -53,7 +53,7 @@ import { translate } from '@shared/i18n'
 import { ACCESSIBILITY_STATEMENT, PRIVACY_STATEMENT } from '@shared/router/names'
 
 import { version } from '@/../package.json'
-import { Rel, externalUrls } from '@/@shared/external-links'
+import { Rel, externalUrls } from '@shared/external-links'
 
 type FooterLink = {
   href: string

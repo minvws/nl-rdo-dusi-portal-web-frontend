@@ -8,7 +8,7 @@ export const useApiActionsCountUrl = () => {
   return useMockData ? `${mockUrl}/actions-count.json` : `${baseUrl}/api/actionables/counts`
 }
 
-export const useApiActiveRequestsUrl = () => {
+export const useApiRequestsUrl = () => {
   return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/applications`
 }
 

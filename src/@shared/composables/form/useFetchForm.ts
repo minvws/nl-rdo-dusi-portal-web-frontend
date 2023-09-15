@@ -21,8 +21,8 @@ export const useFetchForm = (id: string) => {
       values.value = undefined
       return
     }
-    const { title: formTitle, dataschema, uischema, values: formValues } = data
-    forms.value = transformForm({ title: formTitle, dataschema, uischema })
+    const { title: formTitle, dataschema, uischema, viewschema, values: formValues } = data
+    forms.value = transformForm({ title: formTitle, dataschema, uischema, viewschema })
     title.value = getFormTitle(data)
     values.value = formValues
   })

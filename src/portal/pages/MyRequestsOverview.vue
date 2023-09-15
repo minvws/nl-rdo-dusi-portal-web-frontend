@@ -29,7 +29,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
-import { useFetchActiveRequests } from '@portal/composables/useFetchActiveRequests'
+import { useFetchRequests } from '@portal/composables/useFetchRequests'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
@@ -39,7 +39,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}`
 })
 
-const { data, error, isFetching } = useFetchActiveRequests()
+const { data, error, isFetching } = useFetchRequests()
 
 const headings = computed(() =>
   [

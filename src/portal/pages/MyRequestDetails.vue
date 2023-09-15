@@ -1,19 +1,17 @@
 <template>
   <section>
-    <AppIntro v-bind="data" />
-    <div>
-      <h3>{{ translate('pages.my-request-details.status') }}</h3>
-      <AppSuspense v-bind="{ data, error, isFetching }">
-        <p>{{ data.statusIntro }}</p>
-        <RequestSteps
-          v-if="data.steps"
-          :items="data.steps"
-          @cancel="onCancel"
-          @download="onDownload"
-          @edit="onEdit"
-        />
-      </AppSuspense>
-    </div>
+    <AppIntro
+      v-if="data?.subsidy?.title"
+      v-bind="{
+        title: 'Aanvraag subsidie: ' + data.subsidy.title
+      }"
+    />
+    <AppSuspense v-bind="{ data, error, isFetching }">
+      <RequestDetailsForm
+        :id="data.form.id"
+        :values="data.data"
+      />
+    </AppSuspense>
   </section>
 </template>
 
@@ -25,37 +23,17 @@ import useSEO from '@shared/composables/useSeo'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
-
-import { log } from '@shared/utils/logger'
+import RequestDetailsForm from '@portal/components/RequestDetailsForm/RequestDetailsForm.vue'
 
 type Props = {
-  id: string
+  reference: string
 }
 
 const props = defineProps<Props>()
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-request-details.title')}`
+  title: `${translate('app.prefix')} | ${translate('pages.my-request-status.title')}`
 })
 
-const { data, error, isFetching } = useFetchRequestDetails(props.id)
-
-function onDownload(event: Event) {
-  log('download', event)
-}
-
-function onEdit(event: Event) {
-  log('edit', event)
-}
-
-function onCancel(event: Event) {
-  log('cancel', event)
-}
+const { data, error, isFetching } = useFetchRequestDetails(props.reference)
 </script>
-
-<style lang="scss" scoped>
-#main-content section {
-  --section-gap: 4rem;
-}
-</style>

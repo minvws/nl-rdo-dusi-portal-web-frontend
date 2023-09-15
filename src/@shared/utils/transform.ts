@@ -3,7 +3,7 @@ import { translate } from '@shared/i18n'
 
 import { RequestStatus } from '@shared/types/request'
 
-import { ARRANGEMENT_FORM_REMOTE, MY_REQUEST_DETAILS } from '@shared/router/names'
+import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@shared/router/names'
 
 import type {
   RawAssessmentData,
@@ -44,11 +44,11 @@ const mapStatusToRequiredAction: Record<string, string> = {
 }
 
 const mapStatusToRouteName: Record<string, string> = {
-  [RequestStatus.APPROVED]: MY_REQUEST_DETAILS,
-  [RequestStatus.DRAFT]: ARRANGEMENT_FORM_REMOTE,
-  [RequestStatus.REJECTED]: MY_REQUEST_DETAILS,
-  [RequestStatus.REQUEST_CHANGES]: ARRANGEMENT_FORM_REMOTE,
-  [RequestStatus.SUBMITTED]: MY_REQUEST_DETAILS
+  [RequestStatus.APPROVED]: MY_REQUEST_STATUS,
+  [RequestStatus.DRAFT]: MY_REQUEST_EDIT,
+  [RequestStatus.REJECTED]: MY_REQUEST_STATUS,
+  [RequestStatus.REQUEST_CHANGES]: MY_REQUEST_EDIT,
+  [RequestStatus.SUBMITTED]: MY_REQUEST_STATUS
 }
 
 const mapStatusToRouteText: Record<string, string> = {
@@ -66,14 +66,14 @@ const mapStatusToRouteText: Record<string, string> = {
  * @returns data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  return data.items.map(({ reference, subsidy, status, deadlineForResponseAt, submittedAt }) => ({
-    ...setSubsidy(subsidy.id, subsidy.title),
+  return data.items.map(({ deadlineForResponseAt, reference, status, subsidy, submittedAt }) => ({
+    ...setSubsidy(subsidy.pageUrl, subsidy.title),
     ...setFile(reference),
     ...setStatus(status),
     ...setDeadline(deadlineForResponseAt),
     ...setCreated(submittedAt),
     ...setActionRequired(status),
-    ...setAction(reference, subsidy.id, status)
+    ...setAction(reference, status)
   }))
 }
 
@@ -114,13 +114,10 @@ const createSet = (text: string, data: object) => ({
   [text]: data
 })
 
-const setSubsidy = (id: string, text: string) =>
+const setSubsidy = (url: string, text: string) =>
   createSet('subsidy', {
-    type: AssessmentsDataType.LINK,
-    to: {
-      name: ARRANGEMENT_FORM_REMOTE,
-      params: { id }
-    },
+    type: AssessmentsDataType.EXTERNAL_LINK,
+    to: url,
     text
   })
 
@@ -168,14 +165,12 @@ const setActionRequired = (status: string) =>
     text: mapStatusToRequiredAction[status]
   })
 
-const setAction = (reference: string, subsidyId: string, status: string) =>
+const setAction = (reference: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
     to: {
       name: mapStatusToRouteName[status],
-      params: {
-        id: reference
-      }
+      params: { reference }
     },
     text: mapStatusToRouteText[status]
   })

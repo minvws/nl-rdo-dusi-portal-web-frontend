@@ -8,7 +8,7 @@ export const useForms = () => {
   const forms = useActiveForm()
   const { useTouchedField, setTouchedField } = useTouchedFields(forms)
   const { touchedForms } = useTouchedForms(forms)
-  const { createFormDraft } = useFormDraft()
+  const { createFormDraft } = useFormDraft(forms.formId)
   const { onSubmitForm, onSubmitDraft } = useFormSubmit()
 
   function onValidate() {
