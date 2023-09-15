@@ -22,6 +22,8 @@
       <pre>{{ formsData }}</pre>
       <h2>errors:</h2>
       <pre>{{ errors }}</pre>
+      <h2>pending files:</h2>
+      <pre>{{ pending }}</pre>
       <h2>files:</h2>
       <pre>{{ files }}</pre>
     </div>
@@ -40,7 +42,7 @@ const isVisible = ref(false)
 const { setDummyData } = useFormDummyData()
 const fileStore = useFileStore()
 
-const { files } = storeToRefs(fileStore)
+const { files, pending } = storeToRefs(fileStore)
 const { data, formsData, errors } = useForms()
 </script>
 
