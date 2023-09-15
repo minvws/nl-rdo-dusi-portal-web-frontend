@@ -4,7 +4,22 @@ export default async () => {
       type: 'string'
     },
     file: {
-      type: 'string',
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'string'
+          },
+          name: {
+            type: 'string'
+          },
+          mimeType: {
+            type: 'string'
+          }
+        },
+        required: ['id']
+      },
       file: true
     }
   }
@@ -45,6 +60,9 @@ export default async () => {
         },
         title: 'Start'
       }
-    ]
+    ],
+    values: {
+      firstName: 'Foo bar'
+    }
   }
 }

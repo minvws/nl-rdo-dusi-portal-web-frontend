@@ -5,7 +5,7 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
-import { useFetchWithCredentials } from "@shared/composables/useFetchWithCredentials"
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
@@ -65,12 +65,13 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     try {
-      const data = await useFetchWithCredentials(url, options).json()
-      if (data.data?.value?.id) {
-        setFileId(name, data.data.value.id)
+      const { data } = await useFetchWithCredentials(url, options).json()
+      if (data.value?.id) {
+        console.log(data.value)
+        setFileId(name, data.value.id)
         return
       }
-      throw new Error(data.data?.value?.message)
+      throw new Error(data?.value?.message)
     } catch (errorResponse) {
       log(errorResponse)
       if (!errorResponse || !error) return
