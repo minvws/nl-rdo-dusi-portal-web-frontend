@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import FormView from '@shared/components/FormView/FormView.vue'
 
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 const meta: Meta<typeof FormView> = {
   title: 'core/form/Controls/FormFileControl',
   component: FormView
@@ -33,7 +38,7 @@ export const Default: Story = {
               type: 'CustomControl',
               scope: '#/properties/storybook',
               options: {
-                accept: 'image/*',
+                ...fileUploadOptions,
                 description: 'form.component.fileInput.description'
               }
             }
@@ -42,10 +47,7 @@ export const Default: Story = {
         schema: {
           required: ['storybook'],
           properties: {
-            storybook: {
-              type: 'string',
-              file: true
-            }
+            storybook: fileUploadProperties
           }
         }
       }

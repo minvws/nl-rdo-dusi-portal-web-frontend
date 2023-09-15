@@ -1,27 +1,14 @@
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 export default async () => {
   const properties = {
     firstName: {
       type: 'string'
     },
-    file: {
-      type: 'array',
-      items: {
-        type: 'object',
-        properties: {
-          id: {
-            type: 'string'
-          },
-          name: {
-            type: 'string'
-          },
-          mimeType: {
-            type: 'string'
-          }
-        },
-        required: ['id']
-      },
-      file: true
-    }
+    file: fileUploadProperties
   }
 
   const uischema = {
@@ -40,8 +27,7 @@ export default async () => {
             scope: '#/properties/file',
             label: 'file',
             options: {
-              accept: 'image/*,.pdf',
-              maxFileSize: 20971520,
+              ...fileUploadOptions,
               tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
             }
           }

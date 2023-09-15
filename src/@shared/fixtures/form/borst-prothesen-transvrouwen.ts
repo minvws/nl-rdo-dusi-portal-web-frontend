@@ -4,6 +4,11 @@ import {
   elements as personalInformationElements
 } from '@shared/fixtures/form/elements/personal-form-elements'
 
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 export default async () => {
   const fromExamplePage1 = await Object.values(
     import.meta.glob('@shared/fixtures/form/data/borst-prothesen-transvrouwen.html', {
@@ -91,8 +96,7 @@ export default async () => {
                 scope: '#/properties/bankStatement',
                 label: 'Kopie bankafschrift',
                 options: {
-                  accept: 'image/*,.pdf',
-                  maxFileSize: 20971520,
+                  ...fileUploadOptions,
                   tip: 'Op de kopie van een recent bankafschrift moeten het rekeningnummer en uw naam zichtbaar zijn. Adres en datum mogen ook, maar zijn niet verplicht. Maak de andere gegevens onleesbaar. U mag ook een afdruk van internet bankieren gebruiken of een kopie van uw bankpas. Zie ook dit <a title="voorbeeld" href="#" target="_blank" rel="noopener" class="external">voorbeeld</a>. Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
                 }
               }
@@ -112,8 +116,7 @@ export default async () => {
                 scope: '#/properties/extractPersonalRecordsDatabase',
                 label: 'Uittreksel bevolkingsregister',
                 options: {
-                  accept: 'image/*,.pdf',
-                  maxFileSize: 20971520,
+                  ...fileUploadOptions,
                   tip: 'U kunt een uittreksel uit het bevolkingsregister (de Basisregistratie personen) opvragen bij de gemeente waar u staat ingeschreven. Dit document bevat uw naam, geboortedatum en adres. Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
                 }
               }
@@ -133,8 +136,7 @@ export default async () => {
                 scope: '#/properties/proofOfMedicalTreatment',
                 label: 'Verklaring behandeltraject',
                 options: {
-                  accept: 'image/*,.pdf',
-                  maxFileSize: 20971520,
+                  ...fileUploadOptions,
                   tip: 'De <a title="medische verklaring over het behandeltraject" href="#" target="_blank" rel="noopener" class="external">medische verklaring over het behandeltraject</a> dat u tot nu toe heeft gevolgd moet zijn ingevuld door de BIG-geregistreerde arts waar u in behandeling bent. Dit kan een huisarts of medisch specialist zijn die de hormonen voorschrijft en de behandeling begeleidt. De verklaring mag niet ouder zijn dan twee maanden. Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
                 }
               }
@@ -154,8 +156,7 @@ export default async () => {
                 scope: '#/properties/proofOfTypeOfMedicalTreatment',
                 label: 'Verklaring type behandeling',
                 options: {
-                  accept: 'image/*,.pdf',
-                  maxFileSize: 20971520,
+                  ...fileUploadOptions,
                   tip: 'De <a title="medische verklaring van het type behandeling" href="#" target="_blank" rel="noopener" class="external">medische verklaring van het type behandeling</a> (operatie) dat zal worden uitgevoerd moet zijn ingevuld en ondertekend door een BIG-geregistreerde arts. Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
                 }
               }
@@ -240,24 +241,20 @@ export default async () => {
           ],
           properties: {
             bankStatement: {
-              type: 'string',
-              file: true,
-              title: 'Kopie bankafschrift'
+              title: 'Kopie bankafschrift',
+              ...fileUploadProperties
             },
             extractPersonalRecordsDatabase: {
-              type: 'string',
-              file: true,
-              title: 'Uittreksel bevolkingsregister'
+              title: 'Uittreksel bevolkingsregister',
+              ...fileUploadProperties
             },
             proofOfMedicalTreatment: {
-              type: 'string',
-              file: true,
-              title: 'Verklaring behandeltraject'
+              title: 'Verklaring behandeltraject',
+              ...fileUploadProperties
             },
             proofOfTypeOfMedicalTreatment: {
-              type: 'string',
-              file: true,
-              title: 'Verklaring type behandeling'
+              title: 'Verklaring type behandeling',
+              ...fileUploadProperties
             }
           }
         },

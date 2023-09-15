@@ -1,10 +1,14 @@
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 export const required = ['uwv']
 
 export const properties = {
   uwv: {
-    type: 'string',
-    file: true,
-    title: 'Gewaarmerkt verzekeringsbericht'
+    title: 'Gewaarmerkt verzekeringsbericht',
+    ...fileUploadProperties
   }
 }
 
@@ -18,8 +22,7 @@ export const elements = [
         scope: '#/properties/uwv',
         label: 'Gewaarmerkt verzekeringsbericht',
         options: {
-          accept: 'image/*,.pdf',
-          maxFileSize: 20971520
+          ...fileUploadOptions
         }
       }
     ]

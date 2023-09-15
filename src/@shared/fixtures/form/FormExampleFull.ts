@@ -1,3 +1,8 @@
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 export default async () => {
   const placeholder = 'Lorem ipsum dolor set'
   const fromExamplePage1 = await Object.values(
@@ -50,20 +55,16 @@ export default async () => {
       iban: true
     },
     bankStatement: {
-      type: 'string',
-      file: true
+      ...fileUploadProperties
     },
     extractPopulationRegister: {
-      type: 'string',
-      file: true
+      ...fileUploadProperties
     },
     medicalCertificateTreatmentProcess: {
-      type: 'string',
-      file: true
+      ...fileUploadProperties
     },
     medicalCertificateTreatmentType: {
-      type: 'string',
-      file: true
+      ...fileUploadProperties
     },
     signed: {
       type: 'boolean',
@@ -241,7 +242,7 @@ export default async () => {
             scope: '#/properties/bankStatement',
             options: {
               description: 'form.component.fileInput.description',
-              accept: 'image/*'
+              ...fileUploadOptions
             }
           },
           {
@@ -255,7 +256,7 @@ export default async () => {
             scope: '#/properties/extractPopulationRegister',
             options: {
               description: 'form.component.fileInput.description',
-              accept: 'image/*'
+              ...fileUploadOptions
             }
           },
           {
@@ -275,7 +276,7 @@ export default async () => {
             scope: '#/properties/medicalCertificateTreatmentProcess',
             options: {
               description: 'form.component.fileInput.description',
-              accept: 'image/*'
+              ...fileUploadOptions
             }
           },
           {
@@ -295,7 +296,7 @@ export default async () => {
             scope: '#/properties/medicalCertificateTreatmentType',
             options: {
               description: 'form.component.fileInput.description',
-              accept: 'image/*'
+              ...fileUploadOptions
             }
           },
           {

@@ -23,13 +23,14 @@ export const useFieldChange = ({ control, error }: Field & { error: Ref<string> 
 
   return {
     addOrRemoveFile,
-    onHandleChange: async (target: HTMLInputElement) => {
+    onHandleChange: (target: HTMLInputElement) => {
       const prop = getFieldProp(control.value)
-      let value: any = target[prop]
+      const value: any = target[prop]
 
       if (control.value.schema.file) {
         // when file, add or remove from fileStore
-        value = await addOrRemoveFile(control.value.id, target, error)
+        addOrRemoveFile(control.value.id, target, error)
+        return
       }
       if (value === '' ?? value === undefined) {
         // we need to set the value to undefined when the value

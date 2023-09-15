@@ -1,4 +1,8 @@
 export const required = ['wia']
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
 
 export const properties = {
   wia: {
@@ -7,9 +11,8 @@ export const properties = {
     enum: ['Ja', 'Nee']
   },
   wiaJudgement: {
-    type: 'string',
-    file: true,
-    title: 'WIA-Beslissing'
+    title: 'WIA-Beslissing',
+    ...fileUploadProperties
   }
 }
 
@@ -50,8 +53,7 @@ export const elements = [
           }
         },
         options: {
-          accept: 'image/*,.pdf',
-          maxFileSize: 20971520
+          ...fileUploadOptions
         }
       }
     ]

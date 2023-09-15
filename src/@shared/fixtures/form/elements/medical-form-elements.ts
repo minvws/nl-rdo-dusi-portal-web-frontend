@@ -1,10 +1,14 @@
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
+
 export const required = ['medicalAssessment', 'longtermCovid']
 
 export const properties = {
   medicalAssessment: {
-    type: 'string',
-    file: true,
-    title: 'Sociaal-medische beoordeling'
+    title: 'Sociaal-medische beoordeling',
+    ...fileUploadProperties
   },
   longtermCovid: {
     type: 'string',
@@ -12,9 +16,8 @@ export const properties = {
     title: 'Langdurige post-COVID klachten'
   },
   doctorsStatement: {
-    type: 'string',
-    file: true,
-    title: 'Verklaring arts'
+    title: 'Verklaring arts',
+    ...fileUploadProperties
   }
 }
 
@@ -42,8 +45,7 @@ export const elements = [
             scope: '#/properties/medicalAssessment',
             label: 'Sociaal-medische beoordeling',
             options: {
-              accept: 'image/*,.pdf',
-              maxFileSize: 20971520
+              ...fileUploadOptions
             }
           },
           {
@@ -59,8 +61,7 @@ export const elements = [
             scope: '#/properties/doctorsStatement',
             label: 'Verklaring arts',
             options: {
-              accept: 'image/*,.pdf',
-              maxFileSize: 20971520
+              ...fileUploadOptions
             },
             rule: {
               effect: 'SHOW',
