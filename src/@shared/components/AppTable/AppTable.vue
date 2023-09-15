@@ -1,5 +1,5 @@
 <template>
-  <div class="horizontal-scroll">
+  <div class="horizontal-scroll nowrap">
     <table>
       <caption
         v-if="caption"
