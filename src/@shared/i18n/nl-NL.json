@@ -98,6 +98,9 @@
       "prevLabel": "Ga naar de vorige pagina",
       "next": "Volgende",
       "nextLabel": "Ga naar de volgende pagina"
+    },
+    "table": {
+      "sortableColumnsHint": "Kolomkoppen met knoppen zijn sorteerbaar"
     }
   },
   "form": {
