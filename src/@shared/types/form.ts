@@ -5,7 +5,6 @@ export type FormTitle = { title?: string }
 export type Form = {
   dataschema: JsonSchema & { anyOf?: any }
   uischema: UISchemaElement
-  viewschema?: UISchemaElement
 } & FormTitle
 
 export type FileType = {

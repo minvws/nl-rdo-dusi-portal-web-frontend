@@ -27,5 +27,6 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { forms, error, isFetching } = useFetchForm(props)
+const readonlyForm = true
+const { forms, error, isFetching } = useFetchForm(props, readonlyForm)
 </script>

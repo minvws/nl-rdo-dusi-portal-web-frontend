@@ -1,9 +1,14 @@
 <template>
   <div
     class="form-row-field"
-    :class="{ center: !isNotCentered }"
+    :class="{
+      center: !isNotCentered,
+      multiple: hasSlotLeft
+    }"
   >
-    <div><slot name="left" /></div>
+    <div v-if="hasSlotLeft">
+      <slot name="left" />
+    </div>
     <div :class="contentClass">
       <slot name="right" />
       <slot name="description" />
@@ -12,8 +17,15 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-const props = defineProps<{ contentClass?: string }>()
+import type { Slot, VNodeChild } from 'vue'
+import { Comment, computed, useSlots } from 'vue'
+
+type Props = {
+  contentClass?: string
+}
+const props = defineProps<Props>()
+
+const slots = useSlots()
 
 const isNotCentered = computed(() => {
   switch (props.contentClass) {
@@ -23,6 +35,21 @@ const isNotCentered = computed(() => {
   }
   return false
 })
+
+// logic based on: https://mokkapps.de/vue-tips/check-if-slot-is-empty/
+const hasSlotLeft = computed(() => !isSlotEmpty(slots?.left))
+
+function isSlotEmpty(slot: Slot<any> | undefined, props = {}) {
+  return isNodeEmpty(slot?.(props))
+}
+
+function isNodeEmpty(node: VNodeChild) {
+  return !node || asArray(node).every((node: any) => node.type === Comment)
+}
+
+function asArray(arg: VNodeChild) {
+  return Array.isArray(arg) ? arg : arg !== null ? [arg] : []
+}
 </script>
 
 <style lang="scss" scoped>
@@ -38,13 +65,15 @@ const isNotCentered = computed(() => {
     gap: 0.2rem;
   }
 
-  @include desktop {
-    flex-direction: row;
-    * {
-      flex: 0.75;
-      align-items: center;
-      &:first-child {
-        flex: 0.25;
+  &.multiple {
+    @include desktop {
+      flex-direction: row;
+      * {
+        flex: 0.75;
+        align-items: center;
+        &:first-child {
+          flex: 0.25;
+        }
       }
     }
   }
