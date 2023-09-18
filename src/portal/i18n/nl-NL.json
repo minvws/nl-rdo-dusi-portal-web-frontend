@@ -37,10 +37,6 @@
       "messages": "bericht | berichten",
       "filter": "Toon zoek en filter opties"
     },
-    "messageSummary": {
-      "aria-label": "Berichtenkaart",
-      "button": "Bekijk volledig bericht"
-    },
     "notificationObligation": {
       "body1": "U bent verplicht ons op de hoogte te stellen als er iets verandert aan uw situatie. Of als u informatie heeft die de hoogte van uw subsidie kan beïnvloeden. Dit heet meldingsplicht. Doet u dit niet? Of niet op tijd? Dan moet u het gekregen bedrag misschien (deels) terugbetalen.",
       "body2": "Neem zo snel mogelijk contact met ons op. De link naar het contactformulier vindt u op de pagina over uw subsidie. Staat dit er niet? Of twijfelt u? Bel of mail ons via het Klantcontactcentrum.",

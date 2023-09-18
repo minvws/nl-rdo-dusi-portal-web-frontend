@@ -25,17 +25,26 @@ export const Default: Story = {
     items: [
       {
         date: '2022-02-01',
-        link: '/mock/shared/assets/test.pdf',
+        to: {
+          name: 'test',
+          params: { id: '1' }
+        },
         title: 'Example of a title'
       },
       {
         date: '2022-03-02',
-        link: '/mock/shared/assets/test.pdf',
+        to: {
+          name: 'test',
+          params: {}
+        },
         title: 'Example of a longer title'
       },
       {
         date: '2022-03-04',
-        link: '/mock/shared/assets/test.pdf',
+        to: {
+          name: 'testt',
+          params: {}
+        },
         title: 'Example of a very very very long title'
       }
     ]

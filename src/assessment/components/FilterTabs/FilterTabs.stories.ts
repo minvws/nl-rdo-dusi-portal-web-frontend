@@ -22,10 +22,10 @@ export const Default: Story = {
   argTypes: { onChange: { action: 'Filter selected' } },
   args: {
     items: [
-      { text: 'Hoge Prioriteit', value: 8 },
-      { text: 'Opgepakt', value: 10 },
-      { text: 'Aan mij toegekend', value: 4 },
-      { text: 'Al mijn zaken', value: 16 }
+      { text: 'Hoge Prioriteit', id: 'priority', count: 8 },
+      { text: 'Opgepakt', id: 'assigned', count: 10 },
+      { text: 'Aan mij toegekend', id: 'assigned-to-me', count: 4 },
+      { text: 'Al mijn zaken', id: 'all-cases', count: 16 }
     ]
   }
 }
