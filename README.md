@@ -100,6 +100,20 @@ npm ci --no-audit --no-fund
 ```
 *Note: the flags speed up the install process.*
 
+**In case you see this error:**
+
+```sh
+npm ERR! code E401
+npm ERR! 401 Unauthorized - GET https://npm.pkg.github.com/download/@minvws/nl-rdo-rijksoverheid-ui-theme/0.0.14/a308d2dc00f49516a605f0d499b5ec8c45bbb13b - authentication token not provide
+```
+
+Reason: you do not have a token to access the nl-rdo-rijksoverheid-ui-theme package
+
+Solution: create a (classic) personal access token in Github with `read:packages` and register it in your computer.
+
+How to to that: see <https://github.com/minvws/nl-rdo-dusi-coordination/tree/main/development#authentication>
+
+
 ### Environment variables
 
 The project uses environment variables to configure the application. You can
