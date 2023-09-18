@@ -27,7 +27,7 @@ export const Default: Story = {
         date: '2022-02-01',
         to: {
           name: 'test',
-          params: { id: '1' },
+          params: { id: '1' }
         },
         title: 'Example of a title'
       },
@@ -35,7 +35,7 @@ export const Default: Story = {
         date: '2022-03-02',
         to: {
           name: 'test',
-          params: {},
+          params: {}
         },
         title: 'Example of a longer title'
       },
@@ -43,7 +43,7 @@ export const Default: Story = {
         date: '2022-03-04',
         to: {
           name: 'testt',
-          params: {},
+          params: {}
         },
         title: 'Example of a very very very long title'
       }
