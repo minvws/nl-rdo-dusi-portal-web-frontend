@@ -6,8 +6,6 @@ import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
-import MyDetailsEdit from '@portal/pages/MyDetailsEdit.vue'
-import MyDetailsView from '@portal/pages/MyDetailsView.vue'
 import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
 import MyMessagesView from '@portal/pages/MyMessagesView.vue'
 import MyRequestStatus from '@portal/pages/MyRequestStatus.vue'
@@ -27,8 +25,6 @@ import {
   EXTERNAL,
   HOME,
   LOGIN_CALLBACK_VIEW,
-  MY_DETAILS_EDIT,
-  MY_DETAILS_OVERVIEW,
   MY_MESSAGE_DETAILS,
   MY_MESSAGES_OVERVIEW,
   MY_MESSAGES_PAGE,
@@ -131,18 +127,6 @@ const routes = [
         name: MY_MESSAGE_DETAILS,
         component: MyMessageDetails,
         props: true
-      }
-    ]
-  },
-  {
-    path: '/mijn-gegevens',
-    name: MY_DETAILS_OVERVIEW,
-    component: MyDetailsView,
-    children: [
-      {
-        path: 'bewerken',
-        name: MY_DETAILS_EDIT,
-        component: MyDetailsEdit
       }
     ]
   },
