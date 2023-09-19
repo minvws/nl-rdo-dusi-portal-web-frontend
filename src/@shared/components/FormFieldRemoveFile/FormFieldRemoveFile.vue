@@ -5,10 +5,10 @@
       <label
         v-else
         v-bind="{ for: labelFor, class: { padding: !hasFile } }"
-        >{{ label }}</label
-      >
+        :innerText="file?.name || label"
+      />
       <AppButton
-        v-if="hasFile"
+        v-if="hasFile || !!file"
         class="button"
         :disabled="disabled || isPending"
         @click="onRemoveFile"
@@ -20,6 +20,8 @@
 </template>
 
 <script setup lang="ts">
+import type { FileType } from '@/@shared/types/form'
+
 import { watch } from 'vue'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
@@ -36,6 +38,7 @@ type Props = {
   labelFor: string
   error: string
   disabled?: boolean
+  file?: FileType
   isPending: boolean
 }
 
