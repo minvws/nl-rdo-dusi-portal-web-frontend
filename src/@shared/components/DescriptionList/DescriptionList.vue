@@ -1,7 +1,7 @@
 <template>
   <dl class="description-list">
     <div
-      v-for="({ term, type, text, url }, index) in items"
+      v-for="({ term, type, text, url, field, files, formId }, index) in items"
       :key="index"
     >
       <dt>{{ term }}</dt>
@@ -10,20 +10,25 @@
         :html="text"
         as="dd"
       />
-      <dd v-else-if="type === 'date'">
+      <dd v-else-if="text && type === 'date'">
         {{ formatDate(text, locale) }}
       </dd>
-      <dd v-else-if="type === 'url' || type === 'file'">
+      <dd v-else-if="type === 'url'">
         <a
           :href="url"
           :title="text"
-          :download="type === 'file'"
           target="_blank"
           rel="external"
         >
           {{ text }}
         </a>
       </dd>
+      <AppFileLink
+        v-else-if="files && field && formId && type === 'file'"
+        v-for="(file, index) in files"
+        :key="`${field}-${index}`"
+        v-bind="{ field, file, formId }"
+      />
     </div>
   </dl>
 </template>
@@ -32,6 +37,7 @@
 import { useI18n } from 'vue-i18n'
 import { formatDate } from '@shared/utils/date'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
+import AppFileLink from '@shared/components/AppFileLink/AppFileLink.vue'
 
 import type { DescriptionListItem } from '@shared/types/details'
 

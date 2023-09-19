@@ -15,6 +15,8 @@ export type FieldProp = {
   enum?: string[]
   default?: FormValue
   title?: string
+  minLength?: number
+  maxLength?: number
 } & FieldOptions
 
 export type Control = {

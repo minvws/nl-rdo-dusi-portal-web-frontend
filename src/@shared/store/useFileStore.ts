@@ -54,7 +54,9 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   function removeFile(name: string) {
     const { id } = form.activeForm.value
-    delete files.value[id][name]
+    const target = files.value?.[id]
+    if (!target) return
+    delete target[name]
     // @TODO: remove file from server
     // deleteFile(id)
   }

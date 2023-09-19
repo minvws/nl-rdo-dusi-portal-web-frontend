@@ -3,7 +3,7 @@
     <div class="form-section">
       <FormView
         v-bind="{
-          id: 'my-request-details',
+          id: reference,
           forms,
           values,
           noStyle: true,
@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import type { FormData } from '@shared/types/form'
+
 import { useFetchForm } from '@shared/composables/form/useFetchForm'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
@@ -22,7 +24,8 @@ import FormView from '@shared/components/FormView/FormView.vue'
 
 type Props = {
   id: string
-  values?: Record<string, string> // @TODO
+  reference: string
+  values?: FormData
 }
 
 const props = defineProps<Props>()

@@ -4,7 +4,10 @@
     class="form-row"
     v-bind="rowProps"
   >
-    <FormRowElement v-if="tip">
+    <FormRowElement
+      v-if="tip"
+      :has-left="true"
+    >
       <template #right>
         <FormNotification
           v-if="tip"
@@ -16,7 +19,10 @@
       </template>
     </FormRowElement>
 
-    <FormRowElement v-if="!hideRequiredLabel && !required && label">
+    <FormRowElement
+      v-if="!hideRequiredLabel && !required && label"
+      :has-left="true"
+    >
       <template #right>
         <FormRequiredLabel v-bind="{ required, label }" />
       </template>
@@ -43,7 +49,10 @@
         <FormFieldDescription v-bind="{ description: fieldDescription, labelFor: `${id}-input` }" />
       </template>
     </FormRowElement>
-    <FormRowElement v-if="errors">
+    <FormRowElement
+      v-if="errors"
+      :has-left="true"
+    >
       <template #right>
         <FormFieldError v-bind="{ errors }" />
       </template>
