@@ -145,7 +145,7 @@
       "failed": "Er is iets mis gegaan met het verzenden van het formulier",
       "save-success": "Formulier is opgeslagen",
       "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
-      "application_already_exists": "Je hebt al eerder een aanvraag gedaan en je mag niet meerdere aanvragen doen"
+      "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag"
     }
   },
   "pages": {
