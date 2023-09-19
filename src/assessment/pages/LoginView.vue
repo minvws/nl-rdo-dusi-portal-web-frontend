@@ -78,12 +78,6 @@ const loginForm = computed(() => [
                   options: {
                     placeholder: '••••••••••••••••'
                   }
-                },
-                {
-                  type: 'FormHtml',
-                  options: {
-                    html: forgotPassword.value
-                  }
                 }
               ]
             }
