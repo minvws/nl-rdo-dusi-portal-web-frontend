@@ -9,7 +9,7 @@ import MyRequestEdit from '@portal/pages/MyRequestEdit.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
-import { routes as sharedRoutes } from '@/@shared/router/routes'
+import { sharedRoutes} from '@shared/router/routes'
 import { beforeEach, afterEach } from '@/portal/router/router-guards'
 
 const LOCAL_FORMS_ENABLED = import.meta.env.VITE_PORTAL_LOCAL_FORMS === 'true'

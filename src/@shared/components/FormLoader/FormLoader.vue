@@ -22,7 +22,7 @@
 import type { FormData } from '@shared/types/form'
 
 import { computed } from 'vue'
-import { translate } from '@/@shared/i18n'
+import { translate } from '@shared/i18n'
 
 import { useFetchForm } from '@shared/composables/form/useFetchForm'
 import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'

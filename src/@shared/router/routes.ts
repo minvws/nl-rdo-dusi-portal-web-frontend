@@ -3,7 +3,7 @@ import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
 
 import { ACCESSIBILITY_STATEMENT, NOT_FOUND, PRIVACY_STATEMENT } from '@shared/router/names'
 
-export const routes = [
+export const sharedRoutes = [
   {
     path: '/toegankelijkheidsverklaring',
     name: ACCESSIBILITY_STATEMENT,

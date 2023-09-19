@@ -18,7 +18,7 @@ import {
   REVIEW_CASE
 } from '@assessment/router/names'
 
-import { routes as sharedRoutes } from '@/@shared/router/routes'
+import { sharedRoutes} from '@shared/router/routes'
 
 import { setRouteCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
