@@ -35,6 +35,7 @@
       :touched="touchedForms"
       :readonly="readonly"
       :buttonLabels="buttonLabels"
+      :hasSaveButton="createDraft"
       @save="onSave"
       @submit="onSubmit"
       @step="onStep"
