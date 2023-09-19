@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
-import { HOME, LOGIN_VIEW } from '@shared/router/names'
+import { HOME, LOGIN_VIEW } from '@assessment/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()

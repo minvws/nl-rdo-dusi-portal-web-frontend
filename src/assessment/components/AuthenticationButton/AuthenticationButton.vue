@@ -21,7 +21,7 @@ import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-import { LOGIN_VIEW } from '@shared/router/names'
+import { LOGIN_VIEW } from '@assessment/router/names'
 
 const authStore = useAuthStore()
 const { isLoggedIn } = storeToRefs(authStore)

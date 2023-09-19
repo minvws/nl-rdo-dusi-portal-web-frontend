@@ -1,8 +1,8 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@assessment/store/useAuthStore'
 
-import NotFound from '@shared/pages/NotFound.vue'
+import { storeToRefs } from 'pinia'
+
+import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import LandingPage from '@assessment/pages/LandingPage.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
@@ -15,9 +15,10 @@ import {
   LOGIN_VIEW,
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
-  NOT_FOUND,
   REVIEW_CASE
-} from '@shared/router/names'
+} from '@assessment/router/names'
+
+import { routes as sharedRoutes } from '@/@shared/router/routes'
 
 import { setRouteCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
@@ -55,15 +56,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/:catchAll(.*)',
-    name: NOT_FOUND,
-    props: true,
-    component: NotFound,
-    meta: {
-      public: true
-    }
-  }
+  ...sharedRoutes
 ]
 
 // Protected router, redirect to home if not logged in.

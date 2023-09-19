@@ -57,7 +57,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
 
-import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@shared/router/names'
+import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@portal/router/names'
 
 type Props = {
   page?: string

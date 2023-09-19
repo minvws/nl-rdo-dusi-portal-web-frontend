@@ -1,6 +1,3 @@
-import AccessibilityStatementPage from '@shared/pages/AccessibilityStatementPage.vue'
-import PrivacyStatementPage from '@shared/pages/PrivacyStatementPage.vue'
-
 import ArrangementView from '@portal/pages/ArrangementView.vue'
 import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
 import ExternalPage from '@portal/pages/ExternalPage.vue'
@@ -14,12 +11,12 @@ import MyRequestEdit from '@portal/pages/MyRequestEdit.vue'
 import MyRequestsView from '@portal/pages/MyRequestsView.vue'
 import RemoteForm from '@portal/pages/RemoteForm.vue'
 
+import { routes as sharedRoutes } from '@/@shared/router/routes'
 import { beforeEach, afterEach } from '@/portal/router/router-guards'
 
 const LOCAL_FORMS_ENABLED = import.meta.env.VITE_PORTAL_LOCAL_FORMS === 'true'
 
 import {
-  ACCESSIBILITY_STATEMENT,
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
@@ -33,10 +30,8 @@ import {
   MY_REQUEST_DETAILS,
   MY_REQUEST_STATUS,
   MY_REQUEST_EDIT,
-  MY_REQUESTS_OVERVIEW,
-  NOT_FOUND,
-  PRIVACY_STATEMENT
-} from '@shared/router/names'
+  MY_REQUESTS_OVERVIEW
+} from '@portal/router/names'
 
 const routes = [
   {
@@ -138,21 +133,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/toegankelijkheidsverklaring',
-    name: ACCESSIBILITY_STATEMENT,
-    component: AccessibilityStatementPage
-  },
-  {
-    path: '/privacyverklaring',
-    name: PRIVACY_STATEMENT,
-    component: PrivacyStatementPage
-  },
-  {
-    path: '/:catchAll(.*)',
-    name: NOT_FOUND,
-    props: true
-  }
+  ...sharedRoutes
 ].filter(route => !!route)
 
 export default { routes, beforeEach, afterEach }

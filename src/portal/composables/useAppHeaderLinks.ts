@@ -9,7 +9,7 @@ import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
 
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { MY_REQUESTS_OVERVIEW, MY_MESSAGES_OVERVIEW } from '@shared/router/names'
+import { MY_REQUESTS_OVERVIEW, MY_MESSAGES_OVERVIEW } from '@portal/router/names'
 import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
