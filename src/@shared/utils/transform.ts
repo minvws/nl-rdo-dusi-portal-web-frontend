@@ -3,7 +3,7 @@ import { translate } from '@shared/i18n'
 
 import { RequestStatus } from '@shared/types/request'
 
-import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@shared/router/names'
+import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
 
 import type {
   RawAssessmentData,

@@ -8,7 +8,7 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { HOME, MY_CASES_OVERVIEW } from '@shared/router/names'
+import { HOME, MY_CASES_OVERVIEW } from '@assessment/router/names'
 import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {

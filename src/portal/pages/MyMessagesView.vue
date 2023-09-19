@@ -9,7 +9,7 @@ import { RouterView, useRoute } from 'vue-router'
 
 import MyMessagesOverview from '@portal/pages/MyMessagesOverview.vue'
 
-import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@shared/router/names'
+import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@portal/router/names'
 
 const route = useRoute()
 

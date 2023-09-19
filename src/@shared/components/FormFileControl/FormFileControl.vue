@@ -23,7 +23,7 @@ import { InputType } from '@shared/types/input'
 import { translate } from '@shared/i18n'
 import { formatFileSize } from '@shared/utils/format'
 
-import type { FileType } from '@/@shared/types/form'
+import type { FileType } from '@shared/types/form'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 

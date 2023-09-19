@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
-import { useApiMessageDetailsUrl } from '@/portal/composables/useApiUrl'
+import { useApiMessageDetailsUrl } from '@portal/composables/useApiUrl'
 
 export const useFetchMessageDetails = (id: string) => {
   const url = useApiMessageDetailsUrl(id)

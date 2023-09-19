@@ -88,7 +88,7 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { translate } from '@shared/i18n'
 
-import { MY_REQUEST_DETAILS } from '@shared/router/names'
+import { MY_REQUEST_DETAILS } from '@portal/router/names'
 
 import { formatDate } from '@shared/utils/date'
 

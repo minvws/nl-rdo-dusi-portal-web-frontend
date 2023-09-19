@@ -4,7 +4,7 @@ import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
 
 import { translate } from '@shared/i18n'
 
-import { MY_MESSAGE_DETAILS } from '@shared/router/names'
+import { MY_MESSAGE_DETAILS } from '@portal/router/names'
 
 export const formatFile = (path = '') => {
   const file = path.split('\\')

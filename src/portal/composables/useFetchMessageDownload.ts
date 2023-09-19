@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
-import { useApiMessageDownloadUrl } from '@/portal/composables/useApiUrl'
+import { useApiMessageDownloadUrl } from '@portal/composables/useApiUrl'
 
 export const useFetchMessageDownload = (id: string) => {
   const url = useApiMessageDownloadUrl(id, 'pdf')

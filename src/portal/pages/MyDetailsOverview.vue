@@ -36,7 +36,7 @@ import { useFetchPersonalDetails } from '@portal/composables/useFetchPersonalDet
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
-import { MY_DETAILS_EDIT } from '@shared/router/names'
+import { MY_DETAILS_EDIT } from '@portal/router/names'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-details-overview.title')}`

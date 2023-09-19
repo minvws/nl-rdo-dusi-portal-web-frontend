@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { useApiCaseReviewerUrl } from '@/assessment/composables/useApiUrl'
+import { useApiCaseReviewerUrl } from '@assessment/composables/useApiUrl'
 
 export const useFetchCaseReviewer = (id: string) => {
   const url = useApiCaseReviewerUrl(id)

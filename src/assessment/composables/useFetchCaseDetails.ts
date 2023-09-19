@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import type { Form, FormData } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { useApiCaseDetailsUrl } from '@/assessment/composables/useApiUrl'
+import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
 import { formatCaseDetailsData } from '@shared/utils/format'
 

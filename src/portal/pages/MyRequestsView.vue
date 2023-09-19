@@ -11,7 +11,7 @@ import { RouterView, useRoute } from 'vue-router'
 import MyRequestsOverview from '@portal/pages/MyRequestsOverview.vue'
 import NotificationObligation from '@portal/components/NotificationObligation/NotificationObligation.vue'
 
-import { MY_REQUESTS_OVERVIEW } from '@shared/router/names'
+import { MY_REQUESTS_OVERVIEW } from '@portal/router/names'
 
 const route = useRoute()
 
