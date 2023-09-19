@@ -56,6 +56,7 @@ type Props = {
   readonly: boolean
   touched?: number[]
   buttonLabels?: FormButtonLabels
+  hasSaveButton?: boolean
 }
 
 const props = defineProps<Props>()
