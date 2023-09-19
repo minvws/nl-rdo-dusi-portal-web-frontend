@@ -6,7 +6,7 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 import {
   useApiRequestEditPersonalDetailsUrl,
   useApiRequestPersonalDetailsUrl
-} from '@/portal/composables/useApiUrl'
+} from '@portal/composables/useApiUrl'
 
 import { transformForm } from '@shared/utils/form'
 

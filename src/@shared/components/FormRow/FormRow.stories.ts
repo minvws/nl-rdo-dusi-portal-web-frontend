@@ -26,7 +26,7 @@ export const Default: Story = {
   }),
   args: {
     id: 'row',
-    label: 'storybook'
+    label: 'Voornaam'
   }
 }
 
@@ -45,7 +45,7 @@ export const Error: Story = {
   }),
   args: {
     id: 'row',
-    label: 'storybook',
-    errors: 'Something went wrong'
+    label: 'Voornaam',
+    errors: 'Voornaam is verplicht'
   }
 }

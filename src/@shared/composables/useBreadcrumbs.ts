@@ -29,6 +29,11 @@ export const useBreadcrumbs = () => {
       })
     })
 
+    links.unshift({
+      name: '',
+      label: translate('app.name')
+    })
+
     if (links.length <= 1) return []
 
     return links

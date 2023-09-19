@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router'
 
 type Pagination = {
   items: Ref<[]>
+  isFetching: Ref<boolean>
   page?: Ref<string | undefined>
   pageSize?: number
   routes: {
@@ -12,16 +13,25 @@ type Pagination = {
   }
 }
 
-export const usePagination = ({ page, pageSize = 5, items, routes }: Pagination) => {
+export const usePagination = ({ isFetching, page, items, routes, pageSize = 5 }: Pagination) => {
   const router = useRouter()
 
-  const currentPage = computed(() => (page?.value ? parseInt(page.value) : 1))
+  const currentPage = computed(() => {
+    const isOverView = router.currentRoute.value.name === routes.overview
+    const value = isOverView ? 0 : page?.value ? parseInt(page.value) : 0
+    return Math.max(value, 1)
+  })
 
-  const slicedItems = computed(() =>
-    items.value.slice((currentPage.value - 1) * pageSize, currentPage.value * pageSize)
-  )
+  const slicedItems = computed(() => {
+    const page = currentPage.value
+    const from = (page - 1) * pageSize
+    const to = page * pageSize
+    return items.value.slice(from, to)
+  })
 
   const total = computed(() => items.value?.length ?? 0)
+
+  const pages = computed(() => Math.ceil(total.value / pageSize))
 
   function onPageChange(page: number) {
     page > 1
@@ -29,8 +39,10 @@ export const usePagination = ({ page, pageSize = 5, items, routes }: Pagination)
       : router.push({ name: routes.overview })
   }
 
-  watch(items, () => {
-    // when items change, go to the first page
+  watch(isFetching, isFetching => {
+    if (isFetching) return
+    if (currentPage.value <= pages.value) return
+    // when a page is greater then total pages, go to fist page
     onPageChange(0)
   })
 

@@ -1,7 +1,10 @@
 import type { CaseDetailsItem, DescriptionListItem } from '@shared/types/details'
 import type { CaseStage } from '@shared/types/cases'
 import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
+
 import { translate } from '@shared/i18n'
+
+import { MY_MESSAGE_DETAILS } from '@portal/router/names'
 
 export const formatFile = (path = '') => {
   const file = path.split('\\')
@@ -39,7 +42,7 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
  * @param {CaseStage} data - The data to format.
  * @returns {CaseDetailsItem[]} - The formatted data.
  */
-export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
+export function formatCaseDetailsData(data: CaseStage): CaseDetailsItem[] {
   if (!data?.uischema || !data?.dataschema) return []
 
   const { dataschema, uischema } = data
@@ -73,7 +76,10 @@ export function formatDetailsData(data: CaseStage): CaseDetailsItem[] {
 export function formatMessagesData(data: any) {
   return data.items.map((item: any) => ({
     date: item.sentAt,
-    url: `/${item.id}.pdf`, // @TODO: Replace with real path.
+    to: {
+      name: MY_MESSAGE_DETAILS,
+      params: { id: item.id }
+    },
     title: item.subject
   }))
 }

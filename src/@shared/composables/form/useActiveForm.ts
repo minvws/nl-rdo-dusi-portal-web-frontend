@@ -6,7 +6,7 @@ import type { Form, FormData } from '@shared/types/form'
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
 import { useFormStorage } from '@shared/store/useFormStorage'
-import type { FieldProp } from '@/@shared/types/field'
+import type { FieldProp } from '@shared/types/field'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string }
@@ -33,11 +33,7 @@ export const useActiveForm = () => {
     const restoredForm = formStorage.get(formId.value)
     const { data, index } = restoredForm ?? { data: [], index: 0 } // set cache for form
     formStorage.set({ id: formId.value, forms, errors: [], index, data })
-
-    // set values to form when form created
-    if (!restoredForm) {
-      setFormDataFromValues(values)
-    }
+    setFormDataFromValues(values)
   }
 
   function setDraftId(draftId: string) {
@@ -46,12 +42,13 @@ export const useActiveForm = () => {
 
   function setFormDataFromValues(values?: FormData) {
     if (!values) return
-    activeForm.value.data = forms.value?.map(({ dataschema: { properties = {} } }) => {
+    const data = forms.value?.map(({ dataschema: { properties = {} } }) => {
       return Object.keys(properties).reduce((cul, key) => {
         if (key in values) cul[key] = values[key]
         return cul
       }, {} as FormData)
     })
+    activeForm.value.data = data
   }
 
   function getAllProperties() {

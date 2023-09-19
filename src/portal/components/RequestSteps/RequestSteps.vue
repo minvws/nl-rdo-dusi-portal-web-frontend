@@ -1,94 +1,108 @@
 <template>
   <AppAccordion>
     <AppAccordionItem
-      v-for="(item, index) in items"
-      :id="item.title"
-      :key="index"
+      id="step-1"
+      is-open
+      is-highlighted
+    >
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 1 }) }} </strong>
+        {{ translate('component.requestSteps.request') }}
+      </template>
+      <template #content>
+        <p>{{ translate('component.requestSteps.submitDate', { date: submitDate }) }}</p>
+        <p>{{ translate('component.requestSteps.additionalInfo') }}</p>
+        <p>
+          <strong>{{ translate('component.requestSteps.info') }}</strong>
+        </p>
+        <RouterLink
+          class="ghost"
+          :to="{
+            name: MY_REQUEST_DETAILS,
+            params: { reference }
+          }"
+        >
+          <AppIcon name="pdf-file" />
+          {{ translate('component.requestSteps.request') }}
+        </RouterLink>
+      </template>
+    </AppAccordionItem>
+    <AppAccordionItem
+      id="step-2"
       is-open
     >
-      <template #title>{{ item.title }}</template>
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 2 }) }} </strong>
+        {{ translate('component.requestSteps.order') }}
+      </template>
       <template #content>
-        <AppHtml :html="item.content" />
-
-        <div class="horizontal-view">
-          <AppButton
-            v-if="item.actions.download"
-            class="ghost"
-            @click="onDownload"
-          >
-            <AppIcon
-              name="download"
-              aria-hidden="true"
-            />
-            {{ translate('pages.my-request-details.downloadLabel') }}
-          </AppButton>
-          <AppButton
-            v-if="item.actions.edit"
-            class="ghost"
-            @click="onEdit"
-          >
-            <AppIcon
-              name="chevron-light-right"
-              aria-hidden="true"
-            />
-            {{ translate('pages.my-request-details.editLabel') }}
-          </AppButton>
-          <AppButton
-            v-if="item.actions.cancel"
-            class="ghost"
-            @click="onCancel"
-          >
-            <AppIcon
-              name="chevron-light-right"
-              aria-hidden="true"
-            />
-            {{ translate('pages.my-request-details.cancelLabel') }}
-          </AppButton>
-          <p v-if="!item.actions.download && !item.actions.edit && !item.actions.cancel">
-            <strong>{{ translate('pages.my-request-details.noAction') }}</strong>
-          </p>
-        </div>
+        <p>{{ translate('component.requestSteps.decision') }}</p>
+        <p>
+          {{ translate('component.requestSteps.finalDecision', { date: respondDate }) }}
+        </p>
+        <AppHtml
+          as="p"
+          :html="translate('component.requestSteps.notice')"
+        />
+        <p>
+          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+        </p>
+      </template>
+    </AppAccordionItem>
+    <AppAccordionItem
+      id="step-3"
+      is-open
+    >
+      <template #title>
+        <strong>{{ translate('component.requestSteps.step', { step: 3 }) }} </strong>
+        {{ translate('component.requestSteps.payout') }}
+      </template>
+      <template #content>
+        <p>{{ translate('component.requestSteps.payoutDecision') }}</p>
+        <p>
+          <strong>{{ translate('component.requestSteps.approval') }}</strong>
+        </p>
+        <p>
+          {{ translate('component.requestSteps.subsidyApplication') }}
+        </p>
+        <p>
+          <strong>{{ translate('component.requestSteps.rejection') }}</strong>
+        </p>
+        <p>{{ translate('component.requestSteps.onRejection') }}</p>
+        <p>
+          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+        </p>
       </template>
     </AppAccordionItem>
   </AppAccordion>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
-import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { translate } from '@shared/i18n'
 
-type RequestStepItem = {
-  actions: {
-    download?: boolean
-    edit?: boolean
-    cancel?: boolean
-  }
-  content: string
-  title: string
+import { MY_REQUEST_DETAILS } from '@portal/router/names'
+
+import { formatDate } from '@shared/utils/date'
+
+type Props = {
+  reference: string
+  deadlineForResponseAt: string
+  submittedAt: string
 }
 
-export type RequestStepsProps = {
-  items: RequestStepItem[]
-}
+const props = defineProps<Props>()
 
-const emit = defineEmits(['cancel', 'download', 'edit'])
+const { locale } = useI18n()
 
-defineProps<RequestStepsProps>()
+const submitDate = computed(() => formatDate(props.submittedAt, locale.value))
 
-function onCancel(event: Event) {
-  emit('cancel', event)
-}
-
-function onDownload(event: Event) {
-  emit('download', event)
-}
-
-function onEdit(event: Event) {
-  emit('edit', event)
-}
+const respondDate = computed(() => formatDate(props.deadlineForResponseAt, locale.value))
 </script>

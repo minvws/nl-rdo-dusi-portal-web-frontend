@@ -28,6 +28,6 @@ export const Default: Story = {
     `
   }),
   args: {
-    reviewer: 'John Doe'
+    name: 'John Doe'
   }
 }

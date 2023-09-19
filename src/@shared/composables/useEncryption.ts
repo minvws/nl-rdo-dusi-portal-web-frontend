@@ -1,6 +1,6 @@
-import sodium, { base64_variants } from "libsodium-wrappers"
+import sodium, { base64_variants } from 'libsodium-wrappers'
 
-import { log } from "@shared/utils/logger"
+import { log } from '@shared/utils/logger'
 
 export const useEncryption = () => {
   /**
@@ -10,13 +10,15 @@ export const useEncryption = () => {
    * @returns {*} decrypted data
    */
   async function decrypt(
-    data: Uint8Array|string,
+    data: Uint8Array | Blob | string,
     keyPair: sodium.KeyPair
   ): Promise<Uint8Array | undefined> {
     await sodium.ready
 
     try {
-      if (typeof data === 'string') {
+      if (data instanceof Blob) {
+        data = new Uint8Array(await data.arrayBuffer())
+      } else if (typeof data === 'string') {
         data = sodium.from_base64(data, base64_variants.ORIGINAL)
       }
       return sodium.crypto_box_seal_open(data, keyPair.publicKey, keyPair.privateKey)
@@ -31,12 +33,11 @@ export const useEncryption = () => {
    * @param {string} data
    * @returns encrypted data
    */
-  async function encrypt(publicKey: CryptoKey, data: string): Promise<ArrayBuffer | undefined> {
-    const options = { name: 'RSA-OAEP' }
-    const dataBuffer = new TextEncoder().encode(data)
+  async function encrypt(publicKey: string, data: string): Promise<Uint8Array | undefined> {
+    const key = sodium.from_base64(publicKey, base64_variants.ORIGINAL)
+    const encryptedData = sodium.crypto_box_seal(data, key)
 
     try {
-      const encryptedData = await crypto.subtle.encrypt(options, publicKey, dataBuffer)
       return encryptedData
     } catch (error) {
       log('Encryption error:', error)

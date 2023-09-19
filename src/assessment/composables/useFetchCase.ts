@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
-import { useApiCaseDetailsUrl } from '@/assessment/composables/useApiUrl'
+import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
 import type { Case, CaseStage } from '@shared/types/cases'
 

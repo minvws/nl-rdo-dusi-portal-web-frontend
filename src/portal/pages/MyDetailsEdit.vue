@@ -4,11 +4,11 @@
       <h1>{{ translate('pages.my-details-edit.title') }}</h1>
       <p>{{ translate('pages.my-details-edit.intro') }}</p>
     </div>
-    <AppSuspense v-bind="{ data: details, error, isFetching }">
+    <AppSuspense v-bind="{ data, error, isFetching }">
       <FormView
         v-bind="{
           id: 'my-details-edit',
-          forms: details,
+          forms: data,
           values,
           hideDebug: true,
           buttonLabels: { submit: translate('pages.my-details-edit.save') }
@@ -33,7 +33,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-details-edit.title')}`
 })
 
-const { data: details, values, error, isFetching } = useFetchPersonalDetails({ editable: true })
+const { data, values, error, isFetching } = useFetchPersonalDetails({ editable: true })
 
 function onSubmit() {
   console.log('@TODO: save edited details')

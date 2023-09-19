@@ -25,8 +25,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const url = useApiUserStatusUrl()
       const response = await fetch(url, { method: 'GET', credentials: 'include' })
       const loggedIn = await response.json()
-      const isChanged = loggedIn !== isLoggedIn.value
-      setLoginStatus(loggedIn)
+      const isChanged = setLoginStatus(loggedIn)
 
       if (!isChanged && extendSession) {
         onLoginChange(isLoggedIn.value)
@@ -47,7 +46,9 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function setLoginStatus({ logged_in }: AuthResponse) {
+    const before = isLoggedIn.value
     isLoggedIn.value = logged_in
+    return before !== isLoggedIn.value
   }
 
   function restoreSession() {

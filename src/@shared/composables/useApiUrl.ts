@@ -2,14 +2,6 @@ import type { FormOptions } from '@shared/types/form-options'
 import { Project } from '@shared/types/project'
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 
-declare global {
-  interface Window {
-    config?: {
-      api?: string
-    }
-  }
-}
-
 function getBaseUrl() {
   if (window?.config?.api) {
     return window.config.api
@@ -26,13 +18,13 @@ const baseUrl = getBaseUrl()
 
 const mockUrl = `${useMockUrl()}/shared`
 
-export const useApiDraftFormUrl = (id: string) => {
-  return `${baseUrl}/api/forms/${id}/applications`
+export const useApiDraftFormUrl = (subsidyCode: string) => {
+  return `${baseUrl}/api/subsidies/${subsidyCode}/applications`
 }
 
-export const useApiFileUrl = (id?: string) => {
-  if (!id) throw new Error('id is not set for file upload')
-  return `${baseUrl}/api/applications/${id}/files`
+export const useApiFileUrl = (reference?: string, fieldCode?: string) => {
+  if (!reference) throw new Error('reference is not set for file upload')
+  return `${baseUrl}/api/applications/${reference}/fields/${fieldCode}/files`
 }
 
 export const useApiFilterOptionsUrl = (type: FormOptions) => {

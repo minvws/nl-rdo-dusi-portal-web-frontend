@@ -2,6 +2,7 @@
 export enum AssessmentsDataType {
   BUTTON = 'button',
   BUTTON_LINK = 'button-link',
+  EXTERNAL_LINK = 'external-link',
   DATE = 'date',
   LINK = 'link',
   STRING = 'string'

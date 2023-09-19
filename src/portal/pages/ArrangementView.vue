@@ -9,7 +9,7 @@ import { RouterView, useRoute } from 'vue-router'
 
 import ArrangementDetails from '@portal/pages/ArrangementDetails.vue'
 
-import { ARRANGEMENT_DETAILS } from '@shared/router/names'
+import { ARRANGEMENT_DETAILS } from '@portal/router/names'
 
 const route = useRoute()
 

@@ -35,6 +35,7 @@
       :touched="touchedForms"
       :readonly="readonly"
       :buttonLabels="buttonLabels"
+      @save="onSave"
       @submit="onSubmit"
       @step="onStep"
       @validate="onValidate"
@@ -103,8 +104,12 @@ function onStep(index: number) {
 emit('init', form.formData.value)
 
 function onSubmit() {
-  if (props.createDraft) form.onSubmit()
+  if (props.createDraft) form.onSubmitForm()
   else emit('submit', form.formData.value)
+}
+
+function onSave() {
+  if (props.createDraft) form.onSubmitDraft()
 }
 
 function onValidate() {
@@ -116,7 +121,7 @@ function onValidate() {
 <style lang="scss" scoped>
 .form-view {
   @include mobile {
-    padding: 0;
+    padding: 1rem;
   }
 
   &.no-style {

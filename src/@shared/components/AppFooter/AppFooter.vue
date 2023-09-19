@@ -53,7 +53,7 @@ import { translate } from '@shared/i18n'
 import { ACCESSIBILITY_STATEMENT, PRIVACY_STATEMENT } from '@shared/router/names'
 
 import { version } from '@/../package.json'
-import { Rel, externalUrls } from '@/@shared/external-links'
+import { Rel, externalUrls } from '@shared/external-links'
 
 type FooterLink = {
   href: string
@@ -69,7 +69,7 @@ const getExternalLinks = (keys: string[]) => {
       .split(' ')
       .filter(rel => rel !== Rel.EXTERNAL)
       .join(' ')
-    console.log(rel)
+
     return {
       text: translate(`component.footer.${key}`),
       ...link,
@@ -91,6 +91,10 @@ const aboutLinks: FooterLink[] = getExternalLinks(['copyright', 'disclaimer', 'v
 </script>
 
 <style lang="scss" scoped>
+footer {
+  @include hide-print;
+}
+
 a {
   display: block;
 }

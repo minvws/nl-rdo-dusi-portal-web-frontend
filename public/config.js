@@ -1,3 +1,4 @@
 window.config = {
-  api: undefined
+  api: undefined,
+  formEncryptionPublicKey: undefined,
 }

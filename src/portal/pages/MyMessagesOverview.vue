@@ -11,7 +11,7 @@
       <FilterOptions
         type="messages"
         v-model="query"
-        v-if="!isFilterEnabled"
+        v-if="!isFilterDisabled"
       >
         <p v-if="query">
           <span>{{ total }}</span>
@@ -32,7 +32,9 @@
         with-buttons
       />
       <template #fallback>
-        <p v-if="query">{{ translate('pages.my-messages-overview.noMessages') }}</p>
+        <p v-if="query || isFilterDisabled">
+          {{ translate('pages.my-messages-overview.noMessages') }}
+        </p>
       </template>
     </AppSuspense>
   </section>
@@ -55,7 +57,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import MessageList from '@shared/components/MessageList/MessageList.vue'
 
-import { MY_MESSAGES, MY_MESSAGES_PAGE } from '@shared/router/names'
+import { MY_MESSAGES_OVERVIEW, MY_MESSAGES_PAGE } from '@portal/router/names'
 
 type Props = {
   page?: string
@@ -67,14 +69,15 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
 })
 
-const isFilterEnabled = true // @TODO: for MVP the filter is disabled
-const { data, error, query, isFetching } = useFetchMessages(isFilterEnabled)
+const isFilterDisabled = true // @TODO: for MVP the filter is disabled
+const { data, error, query, isFetching } = useFetchMessages(isFilterDisabled)
 
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,
+  isFetching,
   routes: {
-    overview: MY_MESSAGES,
+    overview: MY_MESSAGES_OVERVIEW,
     pagination: MY_MESSAGES_PAGE
   }
 })

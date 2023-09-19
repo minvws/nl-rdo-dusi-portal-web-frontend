@@ -1,7 +1,7 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { Control, Field } from '@shared/types/field'
 
-import { computed } from 'vue'
+import { computed, type Ref } from 'vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'
@@ -18,7 +18,7 @@ function getFieldProp(control: Control) {
   }
 }
 
-export const useFieldChange = ({ control }: Field) => {
+export const useFieldChange = ({ control, error }: Field & { error: Ref<string> }) => {
   const { addOrRemoveFile } = useFileStore()
 
   return {
@@ -26,11 +26,11 @@ export const useFieldChange = ({ control }: Field) => {
     onHandleChange: (target: HTMLInputElement) => {
       const prop = getFieldProp(control.value)
       const value = target[prop]
-      const isFile = control.value.schema.file
 
-      if (isFile) {
+      if (control.value.schema.file) {
         // when file, add or remove from fileStore
-        addOrRemoveFile(control.value.id, target)
+        addOrRemoveFile(control.value.id, target, error)
+        return
       }
       if (value === '' ?? value === undefined) {
         // we need to set the value to undefined when the value
@@ -105,10 +105,12 @@ export const useFieldFileRemove = ({ id }: { id: string }) => {
 export const useField = ({
   input,
   control,
+  error,
   handleChange
 }: {
   input: { id: string; type: InputType }
   control: Control
+  error: string
   handleChange?: (_path: string, _value: any) => void
 }) => {
   switch (input.type) {
@@ -132,7 +134,14 @@ export const useField = ({
       // when a input of type file restores, it will throw an error:
       // 'This input element accepts a filename, which may only be programmatically set to the empty string'
       return {
-        props: { ...input, value: undefined, control, handleChange },
+        props: {
+          ...input,
+          value: undefined,
+          control,
+          error,
+          isPending: useFileStore().isUploadPending(control.id),
+          handleChange
+        },
         tag: 'FormFileControl'
       }
     case InputType.RADIO:

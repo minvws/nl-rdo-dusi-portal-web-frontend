@@ -21,7 +21,7 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
     const dialog = getModal()
     content.value = undefined
     setTimeout(() => {
-      // bacause there is a transition on the dialog, close the dialog with a delay
+      // because there is a transition on the dialog, close the dialog with a delay
       dialog?.close()
     }, 200)
   }

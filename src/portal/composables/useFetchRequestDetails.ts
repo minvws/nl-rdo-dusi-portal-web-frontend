@@ -1,13 +1,13 @@
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
-import { useApiRequestDetailsUrl } from '@/portal/composables/useApiUrl'
+import { useApiRequestDetailsUrl } from '@portal/composables/useApiUrl'
 
-export const useFetchRequestDetails = (id: string) => {
-  const url = useApiRequestDetailsUrl(id)
+export const useFetchRequestDetails = (reference: string) => {
+  const url = useApiRequestDetailsUrl(reference)
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
-  const data = computed(() => (json.value ? json.value : []))
+  const data = computed(() => (json.value ? json.value : {}))
 
   return {
     data,

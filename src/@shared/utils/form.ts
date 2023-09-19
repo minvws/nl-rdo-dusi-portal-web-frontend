@@ -2,6 +2,23 @@ import type { Form } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
 import { isLabeled, isLayout } from '@jsonforms/core'
 import { getValueFormKey } from '@shared/utils/object'
+import type { UISchemaElement } from '@jsonforms/core'
+import { getDeepProps } from '@shared/utils/array'
+import { getControlId } from './control'
+
+const getScopesFromUISchema = (uischema: UISchemaElement) => {
+  const key = 'elements'
+  const elements = (uischema as any)?.[key] ?? []
+  return getDeepProps(elements, key, 'scope').map(scope => getControlId(scope))
+}
+
+const filterPropertiesForUiSchema = ({ properties }: JsonSchema, uischema: UISchemaElement) => {
+  const scopes = getScopesFromUISchema(uischema)
+  return Object.entries(properties as any).reduce((cul, [key, value]) => {
+    if (scopes.includes(key)) return { ...cul, [key]: value }
+    return cul
+  }, {})
+}
 
 export const transformForm = (form: Form): Form[] => {
   const baseSchema: JsonSchema = form.dataschema
@@ -20,14 +37,16 @@ export const transformForm = (form: Form): Form[] => {
     }
 
     const title: string | undefined = isLabeled(el) ? el.label : undefined
+    const uischema = el.elements[0]
+    const properties = filterPropertiesForUiSchema(baseSchema, uischema)
 
     const dataschema: JsonSchema = {
       type: 'object',
-      properties: baseSchema.properties,
-      required: el.options?.['required'] ?? baseSchema.required ?? []
+      properties,
+      required: el.options?.required ?? baseSchema.required ?? [],
+      allOf: el.options?.allOf?.length ? el.options.allOf : baseSchema.allOf
     } as JsonSchema
 
-    const uischema = el.elements[0]
     return { title, dataschema, uischema }
   })
 

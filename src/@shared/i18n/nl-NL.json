@@ -6,13 +6,23 @@
     "skip-content": "Ga direct naar inhoud"
   },
   "authentication": {
-    "cancelled": {
+    "login_cancelled": {
       "label": "Inloggen geannuleerd",
       "message": "U heeft het inloggen geannuleerd, u bent niet ingelogd."
     },
-    "failed": {
+    "login_failed": {
       "label": "Inloggen mislukt",
       "message": "Het inloggen is mislukt, u bent niet ingelogd."
+    },
+    "minimum_loa": {
+      "label": "Inloggen mislukt",
+      "message": "Het betrouwbaarheidsniveau van het door uw gebruikte inlogmiddel voldoet niet aan de eisen van deze applicatie. U bent niet ingelogd.<br/><br/>Deze applicatie verplicht betrouwbaarheidsniveau: {minimum_loa}</br>Inlogmiddel betrouwbaarheidsniveau: {current_loa}",
+      "types": {
+        "basic": "Basis",
+        "low": "Midden",
+        "substantial": "Substantieel",
+        "high": "Hoog"
+      }
     },
     "unknown": {
       "label": "Inloggen mislukt",
@@ -95,7 +105,8 @@
       "start": "Aanvraag starten",
       "next": "Volgende",
       "prev": "Vorige",
-      "submit": "Verzenden"
+      "submit": "Verzenden",
+      "save": "Tussentijds opslaan"
     },
     "component": {
       "fileInput": {
@@ -110,14 +121,15 @@
         "iban": "Dit is geen geldige IBAN",
         "length": "{field} bestaat uit {maxLength} karakters",
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
-        "maxLength": "{field} bestaat uit maximaal {minLength} karakters",
+        "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
         "minLength": "{field} bestaat uit minimaal {minLength} karakters",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
         "required-boolean": "Dit veld is verplicht",
         "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
-        "tel": "Dit is geen geldig telefoonnummer"
+        "tel": "Dit is geen geldig telefoonnummer",
+        "upload": "Er is iets mis gegaan met uploaden van het bestand"
       },
       "email": {
         "error": {
@@ -130,7 +142,10 @@
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "submitting": "Formulier is bezig met verzenden",
       "success": "Formulier is succesvol verzonden",
-      "failed": "Er is iets mis gegaan met het verzenden van het formulier"
+      "failed": "Er is iets mis gegaan met het verzenden van het formulier",
+      "save-success": "Formulier is opgeslagen",
+      "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
+      "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag"
     }
   },
   "pages": {

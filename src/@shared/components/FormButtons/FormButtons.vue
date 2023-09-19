@@ -10,6 +10,15 @@
       {{ previousLabel }}
     </AppButton>
     <AppButton
+      v-if="hasSave"
+      type="button"
+      class="ghost"
+      :disabled="readonly"
+      @click="$emit('save', index - 1)"
+    >
+      {{ saveLabel }}
+    </AppButton>
+    <AppButton
       v-if="hasNextStep"
       type="submit"
       :class="{ disabled: isStepDisabled(index) }"
@@ -38,7 +47,7 @@ import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-defineEmits(['validate', 'step', 'submit'])
+defineEmits(['validate', 'step', 'save', 'submit'])
 
 type Props = {
   forms: FormTitle[]
@@ -51,7 +60,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { hasPrevStep, hasNextStep, hasSubmit, isStepDisabled } = useFormSteps(props)
+const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled } = useFormSteps(props)
 
 const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
 
@@ -61,6 +70,8 @@ const nextLabel = computed(() =>
   props.index === 0 ? startLabel.value : props.buttonLabels?.next || translate('form.button.next')
 )
 
+const saveLabel = computed(() => props.buttonLabels?.save || translate('form.button.save'))
+
 const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
 </script>
 
@@ -68,5 +79,12 @@ const submitLabel = computed(() => props.buttonLabels?.submit || translate('form
 .form-buttons {
   display: flex;
   flex-direction: row;
+
+  @include mobile {
+    flex-direction: column;
+    > * {
+      width: 100%;
+    }
+  }
 }
 </style>

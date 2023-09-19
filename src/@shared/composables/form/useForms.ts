@@ -8,8 +8,8 @@ export const useForms = () => {
   const forms = useActiveForm()
   const { useTouchedField, setTouchedField } = useTouchedFields(forms)
   const { touchedForms } = useTouchedForms(forms)
-  const { createFormDraft } = useFormDraft()
-  const { onSubmit } = useFormSubmit()
+  const { createFormDraft } = useFormDraft(forms.formId)
+  const { onSubmitForm, onSubmitDraft } = useFormSubmit()
 
   function onValidate() {
     forms.getCurrentScopes().forEach((id: string) => {
@@ -19,7 +19,8 @@ export const useForms = () => {
 
   return {
     createFormDraft,
-    onSubmit,
+    onSubmitForm,
+    onSubmitDraft,
     onValidate,
     touchedForms,
     useTouchedField,

@@ -9,9 +9,9 @@ import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
 import { removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
-import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@shared/router/names'
 
 import type { AuthResponse, TwoFactorResponse } from '@shared/types/api-response'
+import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()

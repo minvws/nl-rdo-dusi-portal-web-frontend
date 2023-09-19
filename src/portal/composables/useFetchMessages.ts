@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
-import { useApiMessagesUrl } from '@/portal/composables/useApiUrl'
+import { useApiMessagesUrl } from '@portal/composables/useApiUrl'
 
 import { formatMessagesData } from '@shared/utils/format'
 

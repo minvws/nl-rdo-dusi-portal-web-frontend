@@ -1,4 +1,8 @@
 import { allEmploymentFunctions } from '@shared/fixtures/form/data/all-employment-functions'
+import {
+  fileUploadProperties,
+  fileUploadOptions
+} from '@shared/fixtures/form/elements/file-upload-element'
 
 export const required = [
   'employmentContract',
@@ -36,9 +40,8 @@ export const allOf = [
 
 export const properties = {
   employmentContract: {
-    type: 'string',
-    file: true,
-    title: 'Arbeidsovereenkomst'
+    title: 'Arbeidsovereenkomst',
+    ...fileUploadProperties
   },
   employmentFunction: {
     type: 'string',
@@ -55,9 +58,8 @@ export const properties = {
     title: 'Werkgever'
   },
   medicalStatement: {
-    type: 'string',
-    file: true,
-    title: 'Zorgaanbiedersverklaring'
+    title: 'Zorgaanbiedersverklaring',
+    ...fileUploadProperties
   },
   judicialInstitution: {
     type: 'string',
@@ -85,8 +87,7 @@ export const elements = [
             scope: '#/properties/employmentContract',
             label: 'Arbeidsovereenkomst',
             options: {
-              accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              ...fileUploadOptions
             }
           },
           {
@@ -130,8 +131,7 @@ export const elements = [
               }
             },
             options: {
-              accept: 'image/*,.pdf',
-              maxFileSize: 5242880
+              ...fileUploadOptions
             }
           },
           {

@@ -14,6 +14,7 @@
       v-for="{ value, label } in options"
       :key="value"
       :value="value"
+      :textContent="value"
       :label="label"
     />
   </select>

@@ -1,5 +1,5 @@
 <template>
-  <div class="horizontal-scroll">
+  <div class="horizontal-scroll nowrap">
     <table>
       <caption
         v-if="caption"
@@ -44,8 +44,16 @@
           >
             <td :class="item[column.id].icon ? item[column.id].icon : null">
               <span v-if="item[column.id].icon" />
+              <a
+                v-if="item[column.id].type === 'external-link'"
+                :href="item[column.id].to"
+              >
+                {{ item[column.id].text }}
+              </a>
               <RouterLink
-                v-if="item[column.id].type === 'link' || item[column.id].type === 'button-link'"
+                v-else-if="
+                  item[column.id].type === 'link' || item[column.id].type === 'button-link'
+                "
                 :class="{
                   button: item[column.id].type === 'button-link'
                 }"

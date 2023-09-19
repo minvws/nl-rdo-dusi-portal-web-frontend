@@ -1,4 +1,4 @@
-import { ref, type Ref } from 'vue'
+import { type Ref } from 'vue'
 import { getControlId } from '@shared/utils/control'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
@@ -17,20 +17,20 @@ export const getValue = (type: ControlEvent, control: Control, value: FormValue)
 }
 
 export const useCustomControlInput = ({
+  error,
   control,
   isFocused,
   setTouchedField,
   onChange,
   handleChange
 }: {
+  error: Ref<string>
   control: Ref<Control>
   isFocused: Ref<boolean>
   setTouchedField: (_touched: boolean) => void
   onChange: (_event: Event) => void
   handleChange: (_path: string, _value: FormValue) => void
 }) => {
-  const error = ref('')
-
   const updateValue = (type: ControlEvent) => {
     handleChange(getControlId(control.value.id), getValue(type, control.value, control.value.data))
   }
@@ -53,6 +53,10 @@ export const useCustomControlInput = ({
       error.value = ''
       onChange(e)
       updateValue('onInput')
+    },
+    onBeforeChange(e: Event) {
+      error.value = ''
+      onChange(e)
     }
   }
 }

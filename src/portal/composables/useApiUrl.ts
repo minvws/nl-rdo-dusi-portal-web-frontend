@@ -1,14 +1,6 @@
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 import { Project } from '@shared/types/project'
 
-declare global {
-  interface Window {
-    config?: {
-      api?: string
-    }
-  }
-}
-
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = `${useMockUrl()}/${Project.PORTAL}`
 
@@ -16,7 +8,7 @@ export const useApiActionsCountUrl = () => {
   return useMockData ? `${mockUrl}/actions-count.json` : `${baseUrl}/api/actionables/counts`
 }
 
-export const useApiActiveRequestsUrl = () => {
+export const useApiRequestsUrl = () => {
   return useMockData ? `${mockUrl}/requests.json` : `${baseUrl}/api/applications`
 }
 
@@ -33,11 +25,15 @@ export const useApiMessagesUrl = () => {
 }
 
 export const useApiMessageDetailsUrl = (id: string) => {
-  return useMockData ? `${mockUrl}/messages.json` : `${baseUrl}/api/messages/${id}`
+  return useMockData ? `${mockUrl}/messages/${id}.json` : `${baseUrl}/api/messages/${id}`
+}
+
+export const useApiMessageDownloadUrl = (id: string, format: string) => {
+  return `${baseUrl}/api/messages/${id}/download/${format}`
 }
 
 export const useApiRequestDetailsUrl = (id: string) => {
-  return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/requests/${id}` // Not final url yet.
+  return useMockData ? `${mockUrl}/requests/${id}.json` : `${baseUrl}/api/applications/${id}`
 }
 
 export const useApiRequestPersonalDetailsUrl = () => {

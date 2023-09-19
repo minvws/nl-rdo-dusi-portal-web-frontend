@@ -1,6 +1,6 @@
 import { computed, watch, type Ref, ref } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
-import { useApiPersonalCasesUrl } from '@/assessment/composables/useApiUrl'
+import { useApiPersonalCasesUrl } from '@assessment/composables/useApiUrl'
 
 import { transformMyCasesData } from '@shared/utils/transform'
 import type { FilterItem } from '@shared/types/filters'

@@ -3,8 +3,10 @@ import { ref, type Ref } from 'vue'
 import { type Notification } from '@shared/types/notification'
 import { useRouter } from 'vue-router'
 
+const INTERVAL_IN_MS = 500
+
 export const useNotificationsStore = defineStore('useNotificationsStore', () => {
-  type AppNotification = Notification & { id?: string; pageChangeCount?: number }
+  type AppNotification = Notification & { id?: string; pageChangeCount?: number; duration?: number }
   const notifications: Ref<AppNotification[]> = ref([])
   const router = useRouter()
 
@@ -38,10 +40,26 @@ export const useNotificationsStore = defineStore('useNotificationsStore', () => 
     notifications.value.unshift(notification)
   }
 
+  const onInterval = () => {
+    notifications.value.forEach(notification => {
+      if (notification?.duration === undefined) return
+      notification.duration -= INTERVAL_IN_MS
+    })
+    let deleting = true
+    while (deleting) {
+      const index = notifications.value.findIndex(
+        ({ duration }) => duration !== undefined && duration <= 0
+      )
+      if (index !== -1) notifications.value.splice(index, 1)
+      else deleting = false
+    }
+  }
+
   router.beforeEach(() => {
     removeOnPageChange()
   })
 
+  setInterval(onInterval, INTERVAL_IN_MS)
   return {
     add,
     notifications

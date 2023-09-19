@@ -18,6 +18,7 @@
         <div
           class="modal-wrapper"
           :key="`${modal.content.title}-${modal.content.message}`"
+          @keyup.space="pressFirstButton"
         >
           <div
             class="modal-content"
@@ -29,13 +30,17 @@
               <span class="icon" />
             </div>
             <div>
-              <h2>{{ modal.content.title }}</h2>
+              <h2
+                ref="title"
+                tabindex="-1"
+              >
+                {{ modal.content.title }}
+              </h2>
               <p>{{ modal.content.message }}</p>
               <div class="buttons">
                 <AppButton
                   v-for="({ label, action }, index) in modal.content.buttons"
                   :key="index"
-                  :autofocus="!index"
                   @click="action"
                 >
                   {{ label }}
@@ -50,11 +55,24 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { translate } from '@shared/i18n'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import { useAppModal } from '@shared/store/useAppModal'
 
 const modal = useAppModal()
+
+const title = ref<HTMLHeadingElement>()
+
+watch(title, (current, previous) => {
+  if (current && !previous) {
+    current.focus()
+  }
+})
+
+function pressFirstButton() {
+  modal?.content?.buttons?.[0]?.action()
+}
 </script>
 
 <style lang="scss" scoped>

@@ -7,9 +7,15 @@ export type Form = {
   uischema: UISchemaElement
 } & FormTitle
 
+export type FileType = {
+  name: string
+  mimeType: string
+  id: string
+}
+
 export type FormResult = { dataschema: JsonSchema; uischema: UISchemaElement } & FormTitle
 
-export type FormValue = string | boolean | string[] | boolean[]
+export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 
 export type FormData = Record<string, FormValue>
 
@@ -17,11 +23,19 @@ export type FormError = Pick<JsonFormsCore, 'errors'> | any //  & { params?: { m
 
 export type FormResponse = any // @TODO
 
+export const FormSubmitTypes = {
+  SUBMIT: 'submit',
+  DRAFT: 'draft'
+}
+
+export type FormSubmitType = (typeof FormSubmitTypes)[keyof typeof FormSubmitTypes]
+
 export type FormButtonLabels = {
   start?: string
   previous?: string
   next?: string
   submit?: string
+  save?: string
 }
 
 export type FormViewProps = {
