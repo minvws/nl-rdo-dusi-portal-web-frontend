@@ -1,6 +1,8 @@
 export { HOME, NOT_FOUND } from '@shared/router/names'
+
 export const LOGIN = 'login'
 export const LOGIN_VIEW = 'login-view'
 export const MY_CASE_DETAILS = 'my-case-details'
 export const MY_CASES_OVERVIEW = 'my-cases-overview'
 export const REVIEW_CASE = 'review-case'
+export const TWO_FACTOR_VIEW = 'two-factor-view'

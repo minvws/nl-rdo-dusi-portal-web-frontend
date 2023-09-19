@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue';
-import { useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
+import { onBeforeMount } from 'vue'
+import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
 import { translate } from '@shared/i18n'
 
@@ -29,7 +29,7 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-import { LOGIN_VIEW } from '@shared/router/names'
+import { LOGIN_VIEW } from '@assessment/router/names'
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.two-factor.title')}` })
 
@@ -44,7 +44,7 @@ const twoFactorForm = [
       properties: {
         code: {
           type: 'string',
-          title: 'Code',
+          title: 'Code'
         }
       },
       required: ['code']
@@ -65,7 +65,7 @@ const twoFactorForm = [
                   label: 'Code',
                   options: {
                     placeholder: '123456',
-                    tip: "Voer de zescijferige code in die u via SMS of een authenticator-app heeft ontvangen."
+                    tip: 'Voer de zescijferige code in die u via SMS of een authenticator-app heeft ontvangen.'
                   }
                 }
               ]

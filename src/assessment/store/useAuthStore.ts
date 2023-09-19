@@ -122,9 +122,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function onTwoFactorChange(hasTwoFactor: boolean) {
-    hasTwoFactor
-      ? router.push({ name: TWO_FACTOR_VIEW })
-      : isLoggedIn.value = true
+    hasTwoFactor ? router.push({ name: TWO_FACTOR_VIEW }) : (isLoggedIn.value = true)
   }
 
   function setNotification(label: string, message: string) {
