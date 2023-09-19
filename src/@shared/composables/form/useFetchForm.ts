@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import type { Form, FormData, FormResult } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useApiFormsUrl } from '@shared/composables/useApiUrl'
-import { transformForm, getFormTitle } from '@shared/utils/form'
+import { transformForm, getFormTitle, transformFormValues } from '@shared/utils/form'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFetchForm = (
@@ -29,7 +29,7 @@ export const useFetchForm = (
       ? [{ dataschema, uischema: viewschema }]
       : transformForm({ title: formTitle, dataschema, uischema })
     title.value = getFormTitle(data)
-    formData.value = values ?? formValues
+    formData.value = transformFormValues(values ?? formValues)
   })
 
   return {

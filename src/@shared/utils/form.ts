@@ -1,4 +1,4 @@
-import type { Form } from '@shared/types/form'
+import type { Form, FormData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
 import { isLabeled, isLayout } from '@jsonforms/core'
 import { getValueFormKey } from '@shared/utils/object'
@@ -55,4 +55,21 @@ export const transformForm = (form: Form): Form[] => {
 
 export const getFormTitle = ({ metadata }: { metadata: Record<string, any> }) => {
   return getValueFormKey(metadata, 'title')
+}
+
+export const transformFormValues = (values?: FormData) => {
+  if (!values) return undefined
+  return Object.entries(values).reduce((cul, [key, value]) => {
+    if (typeof value === 'object' && 'items' in value) {
+      const { items } = value
+      return {
+        ...cul,
+        [key]: items
+      }
+    }
+    return {
+      ...cul,
+      [key]: value
+    }
+  }, {})
 }
