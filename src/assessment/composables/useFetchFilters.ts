@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { useApiCasesFilterCountUrl } from '@/assessment/composables/useApiUrl'
+import { useApiCasesFilterCountUrl } from '@assessment/composables/useApiUrl'
 
 import { formatFiltersData } from '@shared/utils/format'
 
