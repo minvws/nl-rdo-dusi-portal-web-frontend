@@ -16,6 +16,8 @@ import RemoteForm from '@portal/pages/RemoteForm.vue'
 
 import { beforeEach, afterEach } from '@/portal/router/router-guards'
 
+const LOCAL_FORMS_ENABLED = import.meta.env.VITE_PORTAL_LOCAL_FORMS === 'true'
+
 import {
   ACCESSIBILITY_STATEMENT,
   ARRANGEMENT_DETAILS,
@@ -67,7 +69,7 @@ const routes = [
       public: true
     }
   },
-  {
+  LOCAL_FORMS_ENABLED && {
     path: '/regelingen/:id',
     name: ARRANGEMENT_DETAILS,
     component: ArrangementView,
@@ -85,6 +87,12 @@ const routes = [
         component: LocalForm
       }
     ]
+  },
+  !LOCAL_FORMS_ENABLED && {
+    path: '/regelingen/:id',
+    name: ARRANGEMENT_FORM_REMOTE,
+    component: RemoteForm,
+    props: true
   },
   {
     path: '/mijn-aanvragen',
@@ -145,6 +153,6 @@ const routes = [
     name: NOT_FOUND,
     props: true
   }
-]
+].filter(route => !!route)
 
 export default { routes, beforeEach, afterEach }
