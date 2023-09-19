@@ -39,13 +39,6 @@ const props = defineProps<Props>()
 
 const { title, forms, isFetching, error, values } = useFetchForm(props)
 
-const buttonLabels = computed(() => {
-  // when editing the form, change the label of the start-button to next-button
-  if (props.edit) {
-    return {
-      start: translate('form.button.next')
-    }
-  }
-  return undefined
-})
+// when editing the form, change the label of the start-button to next-button
+const buttonLabels = computed(() => props.edit ? { start: translate('form.button.next') } : undefined)
 </script>
