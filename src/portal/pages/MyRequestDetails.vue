@@ -1,15 +1,16 @@
 <template>
   <section>
     <AppIntro
-      v-if="data?.subsidy?.title"
+      v-if="title"
       v-bind="{
-        title: 'Aanvraag subsidie: ' + data.subsidy.title
+        title
       }"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <RequestDetailsForm
         :id="data.form.id"
         :values="data.data"
+        :reference="reference"
       />
     </AppSuspense>
   </section>
@@ -24,6 +25,7 @@ import useSEO from '@shared/composables/useSeo'
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestDetailsForm from '@portal/components/RequestDetailsForm/RequestDetailsForm.vue'
+import { computed } from 'vue'
 
 type Props = {
   reference: string
@@ -36,4 +38,9 @@ useSEO({
 })
 
 const { data, error, isFetching } = useFetchRequestDetails(props.reference)
+
+const title = computed(() => {
+  const title = data.value?.subsidy?.title
+  return title ? translate('pages.my-request-status.heading', { title }) : undefined
+})
 </script>

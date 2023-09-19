@@ -21,7 +21,7 @@ import {
   type DescriptionListDetailsType,
   type DescriptionListItem
 } from '@shared/types/details'
-import type { FormData } from '@shared/types/form'
+import type { FileType, FormData } from '@shared/types/form'
 
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
@@ -40,9 +40,10 @@ export default defineComponent({
     ...rendererProps<ControlElement>()
   },
   data: () => {
-    const { getAllProperties } = useForms()
+    const { getAllProperties, formId } = useForms()
     return {
-      getAllProperties
+      getAllProperties,
+      formId
     }
   },
   computed: {
@@ -67,11 +68,21 @@ export default defineComponent({
     }
   },
   methods: {
-    formatListItem(field: [string, string]): DescriptionListItem {
-      const [term, template] = field
-      const { matches, text } = this.replaceTemplateWithData(template, this.formData)
-      const type = this.getItemType(matches)
+    formatListItem(item: [string, string]): DescriptionListItem {
+      const [term, template] = item
+      const { matches, text, field, files } = this.replaceTemplateWithData(template, this.formData)
 
+      if (files) {
+        return {
+          type: DescriptionListDetailsFieldType.FILE,
+          field,
+          term,
+          files,
+          formId: this.formId
+        }
+      }
+
+      const type = this.getItemType(matches)
       return { term, type, text }
     },
     getItemType(keys: string[]): DescriptionListDetailsType {
@@ -95,12 +106,28 @@ export default defineComponent({
       let matches: string[] = []
       let text: string = template
       const regex = /\{([a-zA-Z]+)\}/g
+      const result = Array.from(template.matchAll(regex))
 
-      Array.from(template.matchAll(regex)).forEach(match => {
-        matches.push(match[1])
-        text = text.replace('{' + match[1] + '}', (formData[match[1]] ?? '') + '')
-      })
+      while (result.length) {
+        const match = result.shift()
+        if (!match) break
+        const field = match[1]
+        matches.push(field)
 
+        const target = formData[field]
+
+        if (typeof target === 'object' && 'items' in target) {
+          // @TODO: for now we assume when there are items
+          // it are files
+          const { items } = target
+          return {
+            field,
+            files: items as FileType[],
+            matches
+          }
+        }
+        text = text.replace(`{${field}}`, `${formData[field] ?? ''}`)
+      }
       return { matches, text }
     }
   },

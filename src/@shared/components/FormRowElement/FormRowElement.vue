@@ -17,10 +17,12 @@
 </template>
 
 <script setup lang="ts">
+import { InputType } from '@/@shared/types/input'
 import type { Slot, VNodeChild } from 'vue'
 import { Comment, computed, useSlots } from 'vue'
 
 type Props = {
+  hasLeft?: boolean
   contentClass?: string
 }
 const props = defineProps<Props>()
@@ -29,7 +31,9 @@ const slots = useSlots()
 
 const isNotCentered = computed(() => {
   switch (props.contentClass) {
-    case 'radio':
+    case InputType.RADIO:
+    case InputType.CHECKBOX:
+    case InputType.CHECKBOX_GROUP:
     case undefined:
       return true
   }
@@ -37,7 +41,7 @@ const isNotCentered = computed(() => {
 })
 
 // logic based on: https://mokkapps.de/vue-tips/check-if-slot-is-empty/
-const hasSlotLeft = computed(() => !isSlotEmpty(slots?.left))
+const hasSlotLeft = computed(() => props.hasLeft || !isSlotEmpty(slots?.left))
 
 function isSlotEmpty(slot: Slot<any> | undefined, props = {}) {
   return isNodeEmpty(slot?.(props))

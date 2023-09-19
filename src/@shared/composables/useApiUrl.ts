@@ -1,4 +1,6 @@
+import type { FileLink } from '@shared/types/link'
 import type { FormOptions } from '@shared/types/form-options'
+
 import { Project } from '@shared/types/project'
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 
@@ -25,6 +27,10 @@ export const useApiDraftFormUrl = (subsidyCode: string) => {
 export const useApiFileUrl = (reference?: string, fieldCode?: string) => {
   if (!reference) throw new Error('reference is not set for file upload')
   return `${baseUrl}/api/applications/${reference}/fields/${fieldCode}/files`
+}
+
+export const useApiGetFileUrl = ({ reference, fieldCode, id }: FileLink) => {
+  return `${useApiFileUrl(reference, fieldCode)}/${id}`
 }
 
 export const useApiFilterOptionsUrl = (type: FormOptions) => {

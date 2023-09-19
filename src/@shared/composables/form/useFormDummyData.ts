@@ -3,16 +3,13 @@ import { InputType } from '@shared/types/input'
 import type { FieldProp } from '@shared/types/field'
 import { toNestedObject } from '@shared/utils/object'
 
-const getDummyData = ({
-  type,
-  format,
-  iban,
-  file,
-  tel,
-  postalCode,
-  title,
-  enum: enums
-}: FieldProp) => {
+const truncateMaxLength = (value = '', { maxLength }: FieldProp) => {
+  if (!maxLength) return value
+  return value.substring(0, maxLength)
+}
+
+const getDummyData = (props: FieldProp) => {
+  const { type, format, iban, file, tel, postalCode, title, enum: enums } = props
   if (enums) {
     return enums[0]
   }
@@ -39,7 +36,7 @@ const getDummyData = ({
     case 'boolean':
       return true
     case 'string':
-      return title
+      return truncateMaxLength(title, props)
     case 'integer':
       return 4
     case 'number':

@@ -1,3 +1,5 @@
+import type { FileType } from './form'
+
 export type DetailsDataInput = {
   values: Record<string, string>[]
   uischema: Record<string, any>
@@ -21,8 +23,11 @@ export type DescriptionListDetailsType =
 
 export type DescriptionListDetails = {
   type: DescriptionListDetailsType
+  text?: string
   url?: string
-  text: string
+  field?: string
+  files?: FileType[]
+  formId?: string
 }
 
 export type DescriptionListItem = {
