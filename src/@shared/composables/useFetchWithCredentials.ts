@@ -11,34 +11,39 @@ import sodium from 'libsodium-wrappers'
 const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
 const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER
 
-async function decryptResponse({
-  ctx,
-  keyPair
-}: {
+type DecryptResponse = {
   ctx: AfterFetchContext
   keyPair: sodium.KeyPair | undefined
-}) {
+}
+
+async function decryptResponse({ ctx, keyPair }: DecryptResponse) {
   const { decrypt } = useEncryption()
-  const isEncrypted = ctx.response.headers.get(ENCRYPTED_HEADER) === 'true'
+  const { data, response } = ctx
+  const { headers } = response
 
-  if (!keyPair || !isEncrypted) {
-    return undefined // not encrypted
+  const isEncrypted = headers.get(ENCRYPTED_HEADER) === 'true'
+  const isJson = headers.get('Content-Type') === 'application/json'
+
+  const notTypedArray = !(data instanceof Uint8Array)
+  const notBlob = !(data instanceof Blob)
+  const notString = typeof data !== 'string'
+  const unexpectedType = notString && notTypedArray && notBlob
+
+  if (!keyPair || !isEncrypted || unexpectedType) {
+    return undefined
   }
 
-  if (typeof ctx.data !== 'string' && !(ctx.data instanceof Uint8Array)) {
-    return undefined // unexpected type
-  }
-
-  const decryptedData = await decrypt(ctx.data, keyPair)
+  const decryptedData = await decrypt(data, keyPair)
 
   if (!(decryptedData instanceof Uint8Array)) {
     return undefined // decryption failed
   }
 
-  if (ctx.response.headers.get('Content-Type') === 'application/json') {
+  if (isJson) {
     const json = new TextDecoder().decode(decryptedData)
     return JSON.parse(json)
   }
+
   return decryptedData
 }
 

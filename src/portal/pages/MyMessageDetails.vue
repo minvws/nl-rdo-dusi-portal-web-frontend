@@ -29,6 +29,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Ref } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchMessageDetails } from '@portal/composables/useFetchMessageDetails'
@@ -40,11 +42,15 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
+import { openExternalLink } from '@shared/utils/link'
+
 type Props = {
   id: string
 }
 
 const props = defineProps<Props>()
+
+const fileURL: Ref<string> = ref('')
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-message-details.title')}`
@@ -55,20 +61,23 @@ const { data, error, isFetching } = useFetchMessageDetails(props.id)
 async function onDownload() {
   const { data, error, isFetching } = await useFetchMessageDownload(props.id)
 
-  if (error) {
+  if (error.value) {
     console.error(error.value)
     return
   }
 
-  if (!isFetching && data.value) {
-    console.log('download url:', data.value)
-    window.open(data.value, '_blank')
+  if (!isFetching.value && data.value) {
+    const file = new Blob([data.value], { type: 'application/pdf' })
+    fileURL.value = URL.createObjectURL(file)
+    openExternalLink(fileURL.value, '_blank')
   }
 }
 
 function onPrint() {
   window.print()
 }
+
+onBeforeUnmount(() => URL.revokeObjectURL(fileURL.value))
 </script>
 
 <style lang="scss" scoped>

@@ -10,13 +10,15 @@ export const useEncryption = () => {
    * @returns {*} decrypted data
    */
   async function decrypt(
-    data: Uint8Array | string,
+    data: Uint8Array | Blob | string,
     keyPair: sodium.KeyPair
   ): Promise<Uint8Array | undefined> {
     await sodium.ready
 
     try {
-      if (typeof data === 'string') {
+      if (data instanceof Blob) {
+        data = new Uint8Array(await data.arrayBuffer())
+      } else if (typeof data === 'string') {
         data = sodium.from_base64(data, base64_variants.ORIGINAL)
       }
       return sodium.crypto_box_seal_open(data, keyPair.publicKey, keyPair.privateKey)
