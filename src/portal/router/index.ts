@@ -1,6 +1,4 @@
 import ArrangementView from '@portal/pages/ArrangementView.vue'
-import ExternalDetailPage from '@portal/pages/ExternalDetailPage.vue'
-import ExternalPage from '@portal/pages/ExternalPage.vue'
 import LocalForm from '@portal/pages/LocalForm.vue'
 import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
 import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
@@ -20,8 +18,6 @@ import {
   ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
-  EXTERNAL_DETAIL,
-  EXTERNAL,
   HOME,
   LOGIN_CALLBACK_VIEW,
   MY_MESSAGE_DETAILS,
@@ -37,24 +33,6 @@ const routes = [
   {
     path: '/',
     name: HOME
-  },
-  {
-    path: '/external/detail/:id/:url?',
-    name: EXTERNAL_DETAIL,
-    component: ExternalDetailPage,
-    props: true,
-    meta: {
-      public: true
-    }
-  },
-  {
-    path: '/external/:page?',
-    name: EXTERNAL,
-    component: ExternalPage,
-    props: true,
-    meta: {
-      public: true
-    }
   },
   {
     path: '/login-callback',
