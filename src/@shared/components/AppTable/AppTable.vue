@@ -30,7 +30,10 @@
               class="button"
             >
               {{ column.text }}
-              <AppIcon :name="sortId === column.id ? sortDirection : 'sort'" />
+              <AppIcon
+                :name="sortId === column.id ? sortDirection : 'sort'"
+                aria-hidden="true"
+              />
             </AppButton>
             <template v-else>
               {{ column.text }}
