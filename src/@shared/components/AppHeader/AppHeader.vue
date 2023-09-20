@@ -15,29 +15,52 @@
             v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
           >
-            <RouterLink :to="{ name }">
-              <AppIcon
-                v-if="icon"
-                :name="icon"
-                aria-hidden="true"
-              />
-              {{ label }}
+            <RouterLink
+              :to="{ name }"
+              custom
+              v-slot="{ href, navigate, isActive, isExactActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : 'false'"
+                :class="{ active: isActive, 'exact-active': isExactActive }"
+              >
+                <AppIcon
+                  v-if="icon"
+                  :name="icon"
+                  aria-hidden="true"
+                />
+                {{ label }}
+              </a>
             </RouterLink>
           </li>
           <li
-            v-for="({ name, label, badge }, index) in rightLinks"
+            v-for="({ name, label, icon, badge }, index) in rightLinks"
             :key="`auth-link-${index}`"
           >
-            <RouterLink :to="{ name }">
-              <AppIcon
-                name="logout"
-                aria-hidden="true"
-              />
-              {{ label }}
-              <MessageCounter
-                v-if="badge"
-                :value="badge"
-              />
+            <RouterLink
+              :to="{ name }"
+              custom
+              v-slot="{ href, navigate, isActive, isExactActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : 'false'"
+                :class="{ active: isActive, 'exact-active': isExactActive }"
+              >
+                <AppIcon
+                  v-if="icon"
+                  :name="icon"
+                  aria-hidden="true"
+                />
+                {{ label }}
+                <MessageCounter
+                  v-if="badge"
+                  :value="badge"
+                />
+              </a>
             </RouterLink>
           </li>
         </ul>
