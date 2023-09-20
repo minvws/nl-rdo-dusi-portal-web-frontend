@@ -9,7 +9,7 @@
     <AppSuspense v-bind="{ data, error, isFetching }">
       <RequestDetailsForm
         :id="data.form.id"
-        :values="data.data"
+        :values="values"
         :reference="reference"
       />
     </AppSuspense>
@@ -37,7 +37,7 @@ useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-request-status.title')}`
 })
 
-const { data, error, isFetching } = useFetchRequestDetails(props.reference)
+const { data, error, isFetching, values } = useFetchRequestDetails(props.reference)
 
 const title = computed(() => {
   const title = data.value?.subsidy?.title
