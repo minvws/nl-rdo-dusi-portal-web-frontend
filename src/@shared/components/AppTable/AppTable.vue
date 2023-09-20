@@ -122,7 +122,7 @@ const props = defineProps<Props>()
 
 const currentPage = ref(1)
 const sortId = ref('')
-const sortDirection = ref('ascending')
+const sortDirection = ref<'ascending'|'descending'>('ascending')
 
 // Reset page when incoming data changes
 watch(
