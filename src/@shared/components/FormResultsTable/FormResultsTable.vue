@@ -115,14 +115,12 @@ export default defineComponent({
         matches.push(field)
 
         const target = formData[field]
-
-        if (typeof target === 'object' && 'items' in target) {
-          // @TODO: for now we assume when there are items
+        if (Array.isArray(target)) {
+          // @TODO: for now we assume when there value is an array
           // it are files
-          const { items } = target
           return {
             field,
-            files: items as FileType[],
+            files: target as FileType[],
             matches
           }
         }
