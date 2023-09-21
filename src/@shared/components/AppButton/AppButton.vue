@@ -3,6 +3,7 @@
     :type="type"
     :disabled="disabled"
   >
+    {{ text }}
     <slot></slot>
   </button>
 </template>
@@ -13,6 +14,7 @@ import type { ButtonHTMLAttributes } from 'vue'
 type Props = {
   disabled?: boolean
   type?: ButtonHTMLAttributes['type']
+  text?: string
 }
 
 defineProps<Props>()
