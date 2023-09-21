@@ -1,25 +1,44 @@
 <template>
   <section>
-    <div>
-      <h1>{{ translate('pages.review-case.title', {}, reviewNumber) }}</h1>
+    <div v-if="caseData">
+      <h1>{{ caseData.currentApplicationStage.metadata.subsidyStage.title }}</h1>
     </div>
-    <AppSuspense v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }">
-      <AppAccordion>
+    <AppSuspense v-bind="{ data: caseData, error: caseError, isFetching: isFetchingCase }" v-if="caseData">
+      <AppAccordion v-if="caseData">
         <AppAccordionItem id="case">
-          <template #title>{{ translate('pages.review-case.case') }}</template>
+          <template #title>{{ caseData.applicantApplicationStage.metadata.subsidyStage.title }}</template>
           <template #content>
-            <CaseDetails :items="details" />
+            <FormView
+              id="review-application-metadata"
+              :forms="[caseData.application]"
+              :values="caseData.application.data"
+              :hide-debug="true"
+              :no-buttons="true"
+            />
+            <FormView
+              id="review-stage-1"
+              :forms="[caseData.applicantApplicationStage]"
+              :values="caseData.applicantApplicationStage.data"
+              :hide-debug="true"
+              :no-buttons="true"
+            />
+          </template>
+        </AppAccordionItem>
+        <AppAccordionItem
+          v-for="stage in caseData.otherApplicationStages"
+          id="stage.metadata.applicationStage.id">
+          <template #title>{{ stage.metadata.subsidyStage.title }}</template>
+          <template #content>
+            <FormView
+              id="review-stage-{{ stage.metadata.subsidyStage.stage }}"
+              :forms="[stage]"
+              :values="stage.data"
+              :hide-debug="true"
+              :no-buttons="!stage.metadata.applicationStage.isCurrent"
+            />
           </template>
         </AppAccordionItem>
       </AppAccordion>
-    </AppSuspense>
-    <AppSuspense v-bind="{ data: caseData, error: caseError, isFetching: isFetchingCase }">
-      <FormView
-        id="review-case"
-        :forms="caseData"
-        :hide-debug="true"
-        @submit="onSubmit"
-      />
     </AppSuspense>
   </section>
 </template>
@@ -53,12 +72,6 @@ const {
   error: caseError,
   isFetching: isFetchingCase
 } = useFetchCase(props.id as string)
-
-const {
-  data: details,
-  error: detailsError,
-  isFetching: isFetchingDetails
-} = useFetchCaseDetails(props.id as string)
 
 const reviewNumber = computed(() => 1)
 

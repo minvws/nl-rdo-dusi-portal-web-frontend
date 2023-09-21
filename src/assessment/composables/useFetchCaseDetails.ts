@@ -6,7 +6,7 @@ import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
 import { formatCaseDetailsData } from '@shared/utils/format'
 
-import type { Case, CaseStage } from '@shared/types/cases'
+import type { ApplicationDetails, ApplicationForm, Case, CaseStage } from "@shared/types/cases"
 import { Stage } from '@shared/types/stages'
 
 import { transformForm } from '@shared/utils/form'
@@ -17,12 +17,12 @@ export const useFetchCaseDetails = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
-  const data = computed(() => (json.value ? getCaseDetails(json.value.data) : {}) as CaseStage)
+  const data = computed(() => (json.value ? getCaseDetails(json.value.data) : {}) as ApplicationForm)
 
   const details = computed(() => formatCaseDetailsData(data.value))
 
-  function getCaseDetails(data: Case) {
-    return data.stages.find((stage: CaseStage) => stage.metadata.title === Stage.REQUEST) || {}
+  function getCaseDetails(data: ApplicationDetails) {
+    return data.applicationStages[0]
   }
 
   watch(data, data => {
@@ -30,7 +30,7 @@ export const useFetchCaseDetails = (id: string) => {
       return
     }
 
-    const { dataschema, uischema, values: formValues } = data
+    const { dataschema, uischema, data: formValues } = data
     forms.value = transformForm({ dataschema, uischema })
     values.value = formValues
   })

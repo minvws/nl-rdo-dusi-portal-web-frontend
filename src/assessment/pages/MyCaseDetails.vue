@@ -46,13 +46,24 @@
       <TabPanels>
         <TabPanel>
           <AppSuspense
-            v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }"
+            v-bind="{ data: applicationData, error: applicationError, isFetching: isFetchingDetails }"
           >
             <FormView
               v-bind="{
-                id: 'my-details',
-                forms: details,
-                values,
+                id: 'my-details-application',
+                forms: [applicationData.application],
+                values: applicationData.application.data,
+                hideDebug: true,
+                buttonLabels: { submit: 'Submit' },
+                noStyle: true,
+                noButtons: true
+              }"
+            />
+            <FormView
+              v-bind="{
+                id: 'my-details-stage-1',
+                forms: [applicationData.applicantApplicationStage],
+                values: applicationData.applicantApplicationStage.data,
                 hideDebug: true,
                 buttonLabels: { submit: 'Submit' },
                 noStyle: true,
@@ -102,6 +113,7 @@ import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
+import { useFetchCase } from "@assessment/composables/useFetchCase"
 
 type Props = {
   id: string
@@ -112,11 +124,10 @@ const props = defineProps<Props>()
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
 const {
-  forms: details,
-  error: detailsError,
-  values,
+  data: applicationData,
+  error: applicationError,
   isFetching: isFetchingDetails
-} = useFetchCaseDetails(props.id as string)
+} = useFetchCase(props.id as string)
 const {
   data: history,
   error: historyError,
