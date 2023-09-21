@@ -58,7 +58,9 @@
         <li>
           hoofddomein:
           <ul>
-            <li><a v-bind="externalUrls.request">{{ externalUrls.request }}</a></li>
+            <li>
+              <a v-bind="externalUrls.request">{{ externalUrls.request.href }}</a>
+            </li>
           </ul>
         </li>
         <li>
@@ -72,7 +74,7 @@
         Een <strong>overzicht van alle websites, mobiele applicaties en verklaringen</strong> van
         Ministerie van Volksgezondheid, welzijn en sport is beschikbaar via de link
         <a v-bind="externalUrls.overview">
-          {{ externalUrls.overview }}
+          {{ externalUrls.overview.href }}
         </a>
       </p>
       <h3 id="verklaring-nalevingsstatus">Nalevingsstatus: eerste maatregelen genomen</h3>
@@ -106,10 +108,7 @@
         <strong>Resultaat:</strong> Deze verklaring is gebaseerd op een onafhankelijke expertreview
         uitgevoerd op 14-09-2023.
       </p>
-      <p>
-        <strong>Niveau:</strong>
-        <a v-bind="externalUrls.requirements">WCAG 2.1 niveau AA</a>
-      </p>
+      <p><strong>Niveau:</strong> <a v-bind="externalUrls.requirements">WCAG 2.1 niveau AA</a></p>
       <p>
         <strong>Verklaring:</strong> Mijn DUS-I voldoet gedeeltelijk aan WCAG 2.1 niveau AA. De
         website is op diverse onderdelen nog niet toegankelijk.
@@ -198,7 +197,7 @@
             <li>
               Tijdelijk besluit digitale toegankelijkheid overheid:
               <a v-bind="externalUrls.announcements">
-                {{ externalUrls.announcements }}
+                {{ externalUrls.announcements.href }}
               </a>
             </li>
           </ul>
@@ -209,13 +208,13 @@
             <li>
               Europese Richtlijn 2016/2102:
               <a v-bind="externalUrls.guideline">
-                {{ externalUrls.guideline }}
+                {{ externalUrls.guideline.href }}
               </a>
             </li>
             <li>
               Modeltoegankelijkheidsverklaring:
               <a v-bind="externalUrls.model">
-                {{ externalUrls.model }}
+                {{ externalUrls.model.href }}
               </a>
             </li>
           </ul>
@@ -227,7 +226,7 @@
               <abbr title="Europese Norm">EN</abbr> 301 549 v3.2.1, hoofdstuk 9 Web (voor websites)
               of 11 Software (voor mobiele applicaties):
               <a v-bind="externalUrls.norm">
-                {{ externalUrls.norm }}
+                {{ externalUrls.norm.href }}
               </a>
               <br />
               Zie voor aanvullende informatie ook tabel A.1 (voor websites) en A.2 (voor mobiele
@@ -236,26 +235,26 @@
             <li>
               <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1:
               <a v-bind="externalUrls.standards">
-                {{ externalUrls.standards }}
+                {{ externalUrls.standards.href }}
               </a>
             </li>
             <li>
               <abbr title="Website Accessibility Conformance Evaluation Methodology">WCAG-EM</abbr>
               1.0:
               <a v-bind="externalUrls.conformance">
-                {{ externalUrls.conformance }}
+                {{ externalUrls.conformance.href }}
               </a>
             </li>
             <li>
               <abbr title="Automated Conformance Testing">ACT</abbr> Rules Format 1.0:
               <a v-bind="externalUrls.testing">
-                {{ externalUrls.testing }}
+                {{ externalUrls.testing.href }}
               </a>
             </li>
             <li>
               <abbr title="Evaluation and Report Language">EARL</abbr> 1.0:
               <a v-bind="externalUrls.evaluation">
-                {{ externalUrls.evaluation }}
+                {{ externalUrls.evaluation.href }}
               </a>
             </li>
           </ul>
