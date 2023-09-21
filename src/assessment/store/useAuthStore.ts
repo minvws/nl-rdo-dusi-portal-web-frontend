@@ -68,12 +68,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function twoFactorChallenge(code: string) {
     try {
       const url = useApiTwoFactorChallengeUrl()
-      const options = {
+      const options: RequestInit = {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
+        credentials: 'include',
         body: JSON.stringify({ code })
       }
       const response = await fetch(url, options)
