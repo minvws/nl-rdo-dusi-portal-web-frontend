@@ -58,7 +58,7 @@
         <li>
           hoofddomein:
           <ul>
-            <li><a v-bind="externalUrls.request">https://aanvraag.dus-i.nl</a></li>
+            <li><a v-bind="externalUrls.request">{{ externalUrls.request }}</a></li>
           </ul>
         </li>
         <li>
@@ -72,7 +72,7 @@
         Een <strong>overzicht van alle websites, mobiele applicaties en verklaringen</strong> van
         Ministerie van Volksgezondheid, welzijn en sport is beschikbaar via de link
         <a v-bind="externalUrls.overview">
-          https://www.toegankelijkheidsverklaring.nl/register?w=Ministerie+van+Volksgezondheid%2C+welzijn+en+sport
+          {{ externalUrls.overview }}
         </a>
       </p>
       <h3 id="verklaring-nalevingsstatus">Nalevingsstatus: eerste maatregelen genomen</h3>
@@ -198,7 +198,7 @@
             <li>
               Tijdelijk besluit digitale toegankelijkheid overheid:
               <a v-bind="externalUrls.announcements">
-                https://zoek.officielebekendmakingen.nl/stb-2018-141.html
+                {{ externalUrls.announcements }}
               </a>
             </li>
           </ul>
@@ -209,13 +209,13 @@
             <li>
               Europese Richtlijn 2016/2102:
               <a v-bind="externalUrls.guideline">
-                https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32016L2102
+                {{ externalUrls.guideline }}
               </a>
             </li>
             <li>
               Modeltoegankelijkheidsverklaring:
               <a v-bind="externalUrls.model">
-                https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:32018D1523
+                {{ externalUrls.model }}
               </a>
             </li>
           </ul>
@@ -227,7 +227,7 @@
               <abbr title="Europese Norm">EN</abbr> 301 549 v3.2.1, hoofdstuk 9 Web (voor websites)
               of 11 Software (voor mobiele applicaties):
               <a v-bind="externalUrls.norm">
-                https://www.etsi.org/deliver/etsi_en/301500_301599/301549/03.02.01_60/en_301549v030201p.pdf
+                {{ externalUrls.norm }}
               </a>
               <br />
               Zie voor aanvullende informatie ook tabel A.1 (voor websites) en A.2 (voor mobiele
@@ -236,26 +236,26 @@
             <li>
               <abbr title="Web Content Accessibility Guidelines">WCAG</abbr> 2.1:
               <a v-bind="externalUrls.standards">
-                https://www.w3.org/WAI/standards-guidelines/wcag/
+                {{ externalUrls.standards }}
               </a>
             </li>
             <li>
               <abbr title="Website Accessibility Conformance Evaluation Methodology">WCAG-EM</abbr>
               1.0:
               <a v-bind="externalUrls.conformance">
-                https://www.w3.org/WAI/test-evaluate/conformance/
+                {{ externalUrls.conformance }}
               </a>
             </li>
             <li>
               <abbr title="Automated Conformance Testing">ACT</abbr> Rules Format 1.0:
               <a v-bind="externalUrls.testing">
-                https://www.w3.org/WAI/standards-guidelines/act/
+                {{ externalUrls.testing }}
               </a>
             </li>
             <li>
               <abbr title="Evaluation and Report Language">EARL</abbr> 1.0:
               <a v-bind="externalUrls.evaluation">
-                https://www.w3.org/WAI/standards-guidelines/earl/
+                {{ externalUrls.evaluation }}
               </a>
             </li>
           </ul>
