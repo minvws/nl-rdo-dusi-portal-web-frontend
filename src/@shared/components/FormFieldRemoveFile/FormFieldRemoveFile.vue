@@ -1,14 +1,18 @@
 <template>
   <div class="form-field-remove-file">
     <div class="form-field-remove-file-content">
-      <AppLoader v-if="isPending" />
+      <AppLoader
+        v-if="isPending"
+        class="loader"
+        :class="{ padding: !hasRemoveButton }"
+      />
       <label
         v-else
-        v-bind="{ for: labelFor, class: { padding: !hasFile } }"
+        v-bind="{ for: labelFor, class: { padding: !hasRemoveButton } }"
         :innerText="file?.name || label"
       />
       <AppButton
-        v-if="hasFile || !!file"
+        v-if="hasRemoveButton"
         class="button"
         :disabled="disabled || isPending"
         @click="onRemoveFile"
@@ -22,7 +26,7 @@
 <script setup lang="ts">
 import type { FileType } from '@/@shared/types/form'
 
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
 
@@ -48,6 +52,8 @@ const emit = defineEmits(['blur'])
 
 const { hasFile, label, addOrRemoveFile } = useFieldFileRemove(props)
 
+const hasRemoveButton = computed(() => hasFile.value || !!props.file)
+
 function onRemoveFile() {
   addOrRemoveFile(props.id)
   props.handleChange?.(getControlId(props.id), undefined)
@@ -69,23 +75,46 @@ watch(
   position: absolute;
   top: 0;
   right: 0;
-  width: auto;
+  width: 100%;
   height: 100%;
+  pointer-events: none;
 
   &-content {
     display: flex;
     flex-direction: row;
     height: 100%;
     align-items: center;
+    justify-content: flex-end;
+    text-overflow: ellipsis;
+    float: right;
 
     label {
       white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 220px);
+      text-align: right;
+      pointer-events: none;
+
       &.padding {
+        max-width: calc(100% - 130px);
         padding-right: 1em;
       }
     }
+
     .button {
       height: 100%;
+      width: 60px;
+      pointer-events: all;
+    }
+
+    .loader {
+      width: auto;
+      height: auto;
+      &.padding {
+        padding-right: 1em;
+      }
     }
   }
 }
