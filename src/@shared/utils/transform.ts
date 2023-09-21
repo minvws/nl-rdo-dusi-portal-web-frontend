@@ -12,6 +12,7 @@ import type {
   RequestData
 } from '../types/table'
 import { AssessmentsDataType } from '../types/table'
+import { MY_CASE_DETAILS } from '@assessment/router/names'
 
 const options = {
   day: 'numeric',
@@ -84,14 +85,16 @@ export function transformRequestsData(data: RawRequestData): RequestData {
  * @returns data
  */
 export function transformCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
-    ...setFile(id),
-    ...setArrangement(subsidy),
-    ...setStatus(status),
-    ...setDeadline(final_review_deadline),
-    ...setUpdated(updated_at),
-    ...setReviewer(status, reviewer)
-  }))
+  return data.data.map(
+    ({ id, reference, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
+      ...setFile(reference),
+      ...setArrangement(subsidy),
+      ...setStatus(status),
+      ...setDeadline(final_review_deadline),
+      ...setUpdated(updated_at),
+      ...setReviewer(status, reviewer, id)
+    })
+  )
 }
 
 /**
@@ -175,15 +178,16 @@ const setAction = (reference: string, status: string) =>
     text: mapStatusToRouteText[status]
   })
 
-const setReviewer = (status: string, text: string) =>
+const setReviewer = (status: string, text: string, id: string) =>
   status === 'ToDo'
-    ? createSet('reviewer', setReviewerButton())
+    ? createSet('reviewer', setReviewerButton(id))
     : createSet('reviewer', setReviewerPerson(text))
 
-const setReviewerButton = () => ({
-  type: AssessmentsDataType.BUTTON,
-  onClick: () => {
-    console.log('@TODO: assign to me')
+const setReviewerButton = (id: string) => ({
+  type: AssessmentsDataType.BUTTON_LINK,
+  to: {
+    name: MY_CASE_DETAILS,
+    params: { id }
   },
   text: translate('component.appTable.take')
 })

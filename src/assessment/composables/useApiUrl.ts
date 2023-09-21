@@ -19,7 +19,7 @@ export const useApiCaseHistoryUrl = (id: string) => {
 export const useApiCaseReviewerUrl = (id: string) => {
   return useMockData
     ? `${mockUrl}/reviewer/${id}.json`
-    : `${baseUrl}/api/applications/${id}/reviwer` // Not final url yet.
+    : `${baseUrl}/api/applications/${id}/reviewer` // Not final url yet.
 }
 
 export const useApiCasesFilterCountUrl = () => {
