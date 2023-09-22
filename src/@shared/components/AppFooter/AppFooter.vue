@@ -2,7 +2,6 @@
   <footer>
     <div>
       <div class="two-thirds-one-third">
-        <span class="slogan">{{ translate('component.footer.slogan') }}</span>
         <nav>
           <div class="column-2">
             <div>
