@@ -6,7 +6,7 @@ import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { useEncryption } from "@shared/composables/useEncryption"
+import { useEncryption } from '@shared/composables/useEncryption'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
@@ -68,7 +68,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, id)
 
-    const { encrypt } = useEncryption();
+    const { encrypt } = useEncryption()
 
     try {
       const fileData = new Uint8Array(await file.arrayBuffer())
