@@ -14,6 +14,7 @@ export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
   const pending = ref({} as Record<string, Record<string, boolean>>)
   const form = useForms()
+  const { encrypt } = useEncryption()
 
   async function addFile(name: string, file: File, error?: Ref<string>) {
     const { id } = form.activeForm.value
@@ -67,8 +68,6 @@ export const useFileStore = defineStore('useFileStore', () => {
   async function saveFile(id: string, file: File, error?: Ref<string>) {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, id)
-
-    const { encrypt } = useEncryption()
 
     try {
       const arrayBuffer = await file.arrayBuffer()
