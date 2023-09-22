@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="cards">
     <div
       v-for="(row, j) in items"
       :key="`${j}`"
@@ -110,16 +110,20 @@ const items = computed(() => {
 
 <style lang="scss" scoped>
 $padding: 0.7rem 0;
-
+.cards {
+  width: 100%;
+}
 .card {
   --width: 140px;
   @include desktop {
     --width: 236px;
   }
+
+  width: 100%;
   max-width: var(--max-line-length-max-width);
   padding-top: 1rem;
   padding-bottom: 0.5rem;
-  margin-bottom: 1em;
+  margin: 0 0 1em 0;
   border: 1px solid var(--grey-2);
 
   &-title {
