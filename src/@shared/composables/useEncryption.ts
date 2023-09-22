@@ -30,10 +30,13 @@ export const useEncryption = () => {
   /**
    * Encrypts data with a public key
    * @param {CryptoKey} publicKey
-   * @param {string} data
+   * @param {string|Uint8Array} data
    * @returns encrypted data
    */
-  async function encrypt(publicKey: string, data: string): Promise<Uint8Array | undefined> {
+  async function encrypt(
+    publicKey: string,
+    data: string | Uint8Array
+  ): Promise<Uint8Array | undefined> {
     const key = sodium.from_base64(publicKey, base64_variants.ORIGINAL)
     const encryptedData = sodium.crypto_box_seal(data, key)
 
