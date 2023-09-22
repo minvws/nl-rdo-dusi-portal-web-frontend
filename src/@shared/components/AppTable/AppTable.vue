@@ -32,7 +32,7 @@
               {{ column.text }}
               <AppIcon
                 :name="sortId === column.id ? sortDirection : 'sort'"
-                aria-hidden="true"
+                :ariaHidden="true"
               />
             </AppButton>
             <template v-else>
