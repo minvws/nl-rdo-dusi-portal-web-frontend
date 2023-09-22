@@ -46,6 +46,7 @@ type Props = {
   file: FileType
   formId: string
 }
+
 const props = defineProps<Props>()
 const download = ref()
 
@@ -57,11 +58,11 @@ const { error, isFetching, fileUrl, execute } = useFileLink({
 })
 
 watch(download, download => {
-    download?.click()
+  download?.click()
 })
 
-const onCreateDownloadLink = async () => {
-  await execute()
+const onCreateDownloadLink = () => {
+  execute()
 }
 </script>
 
