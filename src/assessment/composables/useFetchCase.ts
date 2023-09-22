@@ -16,9 +16,10 @@ export const useFetchCase = (id: string) => {
       application: data.application,
       applicantApplicationStage: data.applicationStages[0],
       otherApplicationStages: data.applicationStages.slice(1),
-      currentApplicationStage: data.applicationStages.find(
-        (s: ApplicationForm) => s.metadata.applicationStage.isCurrent
-      )
+      currentApplicationStage:
+        data.applicationStages.find(
+          (s: ApplicationForm) => s.metadata.applicationStage.isCurrent
+        ) || ({} as ApplicationForm)
     }
   }
 
