@@ -1,5 +1,3 @@
-import type { CaseDetailsItem, DescriptionListItem } from '@shared/types/details'
-import type { CaseStage } from '@shared/types/cases'
 import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
 
 import { translate } from '@shared/i18n'
@@ -32,43 +30,6 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
       text: translate(`component.filterTabs.${name.toLowerCase()}`),
       id: name.toLowerCase(),
       count
-    }
-  })
-}
-
-/**
- * Formats data from the API for the request details component.
- *
- * @param {CaseStage} data - The data to format.
- * @returns {CaseDetailsItem[]} - The formatted data.
- */
-export function formatCaseDetailsData(data: CaseStage): CaseDetailsItem[] {
-  if (!data?.uischema || !data?.dataschema) return []
-
-  const { dataschema, uischema } = data
-  const { properties } = dataschema as { properties: Record<string, any> }
-  const { elements } = uischema as { elements: { label: string; elements: any[] }[] }
-
-  return elements.map(({ label, elements }) => {
-    const fields = elements[0].options.fields as Record<string, string>
-    const items = Object.entries(fields) as [string, string][]
-
-    return {
-      title: label,
-      items: items.map(item => {
-        const key = item[1].slice(1, -1)
-        const title = properties[key].title || '-'
-        const type = properties[key].type || 'string'
-        const value = properties[key].default || '-'
-        const hasUrl = type === 'url' || type === 'file'
-
-        return {
-          term: title,
-          type,
-          text: value,
-          ...(hasUrl && { url: value })
-        } as DescriptionListItem
-      })
     }
   })
 }
