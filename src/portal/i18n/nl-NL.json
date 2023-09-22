@@ -58,8 +58,8 @@
       "payoutDecision": "Op basis van de beschikking ontvangt u van ons wel of geen uitbetaling.",
       "approval": "Bij toekenning",
       "rejection": "Bij afwijzing",
-      "subsidyApplication": "Als we uw subsidieaanvraag toekennen, ontvangt u het subsidiebedrag op uw rekening. Dit heet verlenen. We kunnen later controleren of u er daadwerkelijk recht op had. Het is dus eigenlijk een voorschot.",
-      "onRejection": "Als we uw aanvraag afwijzen, ontvangt u geen subsidie."
+      "subsidyApplication": "Als we uw aanvraag goedkeuren, ontvangt u de financiële ondersteuning op uw rekening. Dit heet verlenen. We kunnen later controleren of u er daadwerkelijk recht op had. Het is dus eigenlijk een voorschot.",
+      "onRejection": "Als we uw aanvraag afkeuren, ontvangt u geen financiële ondersteuning."
     }
   },
   "pages": {
