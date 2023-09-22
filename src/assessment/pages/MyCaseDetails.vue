@@ -46,9 +46,14 @@
       <TabPanels>
         <TabPanel>
           <AppSuspense
-            v-bind="{ data: applicationData, error: applicationError, isFetching: isFetchingDetails }"
+            v-bind="{
+              data: applicationData ?? [],
+              error: applicationError,
+              isFetching: isFetchingDetails
+            }"
           >
             <FormView
+              v-if="applicationData"
               v-bind="{
                 id: 'my-details-application',
                 forms: [applicationData.application],
@@ -60,6 +65,7 @@
               }"
             />
             <FormView
+              v-if="applicationData"
               v-bind="{
                 id: 'my-details-stage-1',
                 forms: [applicationData.applicantApplicationStage],
@@ -102,7 +108,6 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchCaseDetails } from '@assessment/composables/useFetchCaseDetails'
 import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import useSEO from '@shared/composables/useSeo'
@@ -113,7 +118,7 @@ import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
-import { useFetchCase } from "@assessment/composables/useFetchCase"
+import { useFetchCase } from '@assessment/composables/useFetchCase'
 
 type Props = {
   id: string

@@ -3,9 +3,7 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
 import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
-import type { ApplicationData, ApplicationDetails, ApplicationForm, Case, CaseStage } from "@shared/types/cases"
-
-import { Stage } from '@shared/types/stages'
+import type { ApplicationData, ApplicationDetails, ApplicationForm } from '@shared/types/cases'
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
@@ -18,7 +16,9 @@ export const useFetchCase = (id: string) => {
       application: data.application,
       applicantApplicationStage: data.applicationStages[0],
       otherApplicationStages: data.applicationStages.slice(1),
-      currentApplicationStage: data.applicationStages.find((s: ApplicationForm) => s.metadata.applicationStage.isCurrent)
+      currentApplicationStage: data.applicationStages.find(
+        (s: ApplicationForm) => s.metadata.applicationStage.isCurrent
+      )
     }
   }
 

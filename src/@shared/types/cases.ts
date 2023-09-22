@@ -17,5 +17,5 @@ export type ApplicationData = {
   application: ApplicationForm
   applicantApplicationStage: ApplicationForm
   otherApplicationStages: ApplicationForm[]
-  currentApplicationStage: ApplicationForm
+  currentApplicationStage?: ApplicationForm
 }

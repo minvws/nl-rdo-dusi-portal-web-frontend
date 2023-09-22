@@ -1,5 +1,5 @@
 import type { CaseDetailsItem, DescriptionListItem } from '@shared/types/details'
-import type { CaseStage } from '@shared/types/cases'
+import type { ApplicationForm } from '@shared/types/cases'
 import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
 
 import { translate } from '@shared/i18n'
@@ -39,10 +39,10 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
 /**
  * Formats data from the API for the request details component.
  *
- * @param {CaseStage} data - The data to format.
+ * @param {ApplicationForm} data - The data to format.
  * @returns {CaseDetailsItem[]} - The formatted data.
  */
-export function formatCaseDetailsData(data: CaseStage): CaseDetailsItem[] {
+export function formatCaseDetailsData(data: ApplicationForm): CaseDetailsItem[] {
   if (!data?.uischema || !data?.dataschema) return []
 
   const { dataschema, uischema } = data

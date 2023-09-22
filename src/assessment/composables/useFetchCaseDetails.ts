@@ -6,8 +6,7 @@ import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
 import { formatCaseDetailsData } from '@shared/utils/format'
 
-import type { ApplicationDetails, ApplicationForm, Case, CaseStage } from "@shared/types/cases"
-import { Stage } from '@shared/types/stages'
+import type { ApplicationDetails, ApplicationForm } from '@shared/types/cases'
 
 import { transformForm } from '@shared/utils/form'
 
@@ -17,7 +16,9 @@ export const useFetchCaseDetails = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
 
-  const data = computed(() => (json.value ? getCaseDetails(json.value.data) : {}) as ApplicationForm)
+  const data = computed(
+    () => (json.value ? getCaseDetails(json.value.data) : {}) as ApplicationForm
+  )
 
   const details = computed(() => formatCaseDetailsData(data.value))
 
