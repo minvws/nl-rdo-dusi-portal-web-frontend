@@ -70,8 +70,6 @@ export const useFileStore = defineStore('useFileStore', () => {
 
     const { encrypt } = useEncryption();
 
-    // @TODO: file should be encrypted before upload.
-
     try {
       const fileData = new Uint8Array(await file.arrayBuffer())
       const encryptedData = await encrypt(publicKey, fileData)
