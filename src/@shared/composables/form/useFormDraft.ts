@@ -18,7 +18,7 @@ export const useFormDraft = (formId: Ref<string>) => {
   function getDisplayType(code: string): NotificationDisplayType {
     switch (code) {
       case 'application_already_exists':
-        return NotificationType.WARNING
+        return NotificationType.EXPLANATION
     }
     return NotificationType.ERROR
   }
