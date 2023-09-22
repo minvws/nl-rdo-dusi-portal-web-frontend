@@ -6,6 +6,9 @@ import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useEncryption } from "@shared/composables/useEncryption"
+
+const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFileStore = defineStore('useFileStore', () => {
   const files = ref({} as Record<string, Record<string, File>>)
@@ -65,10 +68,14 @@ export const useFileStore = defineStore('useFileStore', () => {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, id)
 
+    const { encrypt } = useEncryption();
+
     // @TODO: file should be encrypted before upload.
 
     try {
-      const { data } = await useFetchWithCredentials(url).post(file).json()
+      const fileData = new Uint8Array(await file.arrayBuffer())
+      const encryptedData = await encrypt(publicKey, fileData)
+      const { data } = await useFetchWithCredentials(url).post(encryptedData).json()
       if (data.value?.id) {
         onFileUpload({ id, file, data: data.value })
         return onFileUpload({ id, file, data: data.value })
