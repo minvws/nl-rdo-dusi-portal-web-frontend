@@ -118,6 +118,14 @@
         "action": "Acties"
       }
     },
+    "my-request-details": {
+      "title": "Aanvraag",
+      "heading": "Aanvraag subsidie: {name}",
+      "meta": "Metagegevens",
+      "reference": "Dossiernummer",
+      "submittedAt": "Aangevraagd op",
+      "deadline": "Uiterste behandeldatum"
+    },
     "my-request-status": {
       "title": "Aanvraag",
       "heading": "Aanvraag subsidie: {name}",
@@ -131,7 +139,6 @@
     },
     "my-message-details": {
       "title": "Bericht",
-      "message": "Bericht",
       "download": "Download bericht",
       "print": "Bericht afdrukken"
     },
