@@ -1,7 +1,7 @@
 <template>
   <section>
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <h1>{{ translate('pages.my-message-details.message') }}: {{ data.subject }}</h1>
+      <h1>{{ translate('pages.my-message-details.title') }}: {{ data.subject }}</h1>
       <AppHtml
         v-if="data.body"
         :html="data.body"

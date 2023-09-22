@@ -105,7 +105,7 @@
     "my-requests-overview": {
       "title": "Mijn aanvragen",
       "intro": "Het overzicht van uw aanvragen en regelingen. In dit overzicht ziet uw de status van uw aanvraag en eventuele openstaande acties.",
-      "myRequests": "Mijn aanvragen",
+      "myRequests": "Aanvragen",
       "noRequests": "Er zijn geen aanvragen gevonden",
       "table": {
         "caption": "Overzicht van uw aanvragen",
@@ -117,6 +117,14 @@
         "actionRequired": "Actie benodigd",
         "action": "Acties"
       }
+    },
+    "my-request-details": {
+      "title": "Aanvraag",
+      "heading": "Aanvraag subsidie: {name}",
+      "meta": "Metagegevens",
+      "reference": "Dossiernummer",
+      "submittedAt": "Aangevraagd op",
+      "deadline": "Uiterste behandeldatum"
     },
     "my-request-status": {
       "title": "Aanvraag",
@@ -131,7 +139,6 @@
     },
     "my-message-details": {
       "title": "Bericht",
-      "message": "Bericht",
       "download": "Download bericht",
       "print": "Bericht afdrukken"
     },
