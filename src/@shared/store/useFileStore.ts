@@ -71,7 +71,8 @@ export const useFileStore = defineStore('useFileStore', () => {
     const { encrypt } = useEncryption()
 
     try {
-      const fileData = new Uint8Array(await file.arrayBuffer())
+      const arrayBuffer = await file.arrayBuffer()
+      const fileData = new Uint8Array(arrayBuffer)
       const encryptedData = await encrypt(publicKey, fileData)
       const { data } = await useFetchWithCredentials(url).post(encryptedData).json()
       if (data.value?.id) {
