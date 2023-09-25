@@ -8,7 +8,7 @@ import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'
 import { useAuthStore } from '@portal/store/useAuthStore'
-import { useApiLoginUrl } from '@shared/composables/useApiUrl'
+import { useApiLoginUrl } from '@portal/composables/useApiUrl'
 
 import { ModalType } from '@shared/types/modal'
 import { SessionType } from '@shared/types/session'

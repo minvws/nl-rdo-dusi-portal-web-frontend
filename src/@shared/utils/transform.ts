@@ -1,3 +1,15 @@
+import { formatDate } from '@shared/utils/date'
+import { translate } from '@shared/i18n'
+
+import {
+  requestStatusToTranslation,
+  caseStatusToTranslation,
+  statusToIcon,
+  statusToRequiredAction,
+  statusToRouteName,
+  statusToRouteText
+} from '@shared/utils/mappers'
+
 import type {
   RawAssessmentData,
   AssessmentsData,
@@ -6,12 +18,6 @@ import type {
 } from '@shared/types/table'
 
 import { AssessmentsDataType } from '@shared/types/table'
-import { RequestStatus } from '@shared/types/request'
-
-import { formatDate } from '@shared/utils/date'
-import { translate } from '@shared/i18n'
-
-import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
 
 import { MY_CASE_DETAILS } from '@assessment/router/names'
 
@@ -20,46 +26,6 @@ const options = {
   month: 'long',
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
-
-const mapStatusToTranslation: Record<string, string> = {
-  [RequestStatus.APPROVED]: 'Goedgekeurd',
-  [RequestStatus.DRAFT]: 'Nog niet ingediend',
-  [RequestStatus.REJECTED]: 'Afgekeurd',
-  [RequestStatus.REQUEST_CHANGES]: 'Aanvulling nodig',
-  [RequestStatus.SUBMITTED]: 'In behandeling'
-}
-
-const mapStatusToIcon: Record<string, string> = {
-  [RequestStatus.APPROVED]: 'confirmation',
-  [RequestStatus.DRAFT]: 'warning',
-  [RequestStatus.REJECTED]: 'error',
-  [RequestStatus.REQUEST_CHANGES]: 'warning',
-  [RequestStatus.SUBMITTED]: ''
-}
-
-const mapStatusToRequiredAction: Record<string, string> = {
-  [RequestStatus.APPROVED]: 'Nee',
-  [RequestStatus.DRAFT]: 'Ja',
-  [RequestStatus.REJECTED]: 'Nee',
-  [RequestStatus.REQUEST_CHANGES]: 'Ja',
-  [RequestStatus.SUBMITTED]: 'Nee'
-}
-
-const mapStatusToRouteName: Record<string, string> = {
-  [RequestStatus.APPROVED]: MY_REQUEST_STATUS,
-  [RequestStatus.DRAFT]: MY_REQUEST_EDIT,
-  [RequestStatus.REJECTED]: MY_REQUEST_STATUS,
-  [RequestStatus.REQUEST_CHANGES]: MY_REQUEST_EDIT,
-  [RequestStatus.SUBMITTED]: MY_REQUEST_STATUS
-}
-
-const mapStatusToRouteText: Record<string, string> = {
-  [RequestStatus.APPROVED]: 'Bekijk aanvraag',
-  [RequestStatus.DRAFT]: 'Open aanvraag',
-  [RequestStatus.REJECTED]: 'Bekijk aanvraag',
-  [RequestStatus.REQUEST_CHANGES]: 'Open aanvraag',
-  [RequestStatus.SUBMITTED]: 'Bekijk aanvraag'
-}
 
 /**
  * Transforms the 'all requests' data from the API to a format that we can use.
@@ -71,11 +37,11 @@ export function transformRequestsData(data: RawRequestData): RequestData {
   return data.items.map(({ deadlineForResponseAt, reference, status, subsidy, submittedAt }) => ({
     ...setSubsidy(subsidy.pageUrl, subsidy.title),
     ...setFile(reference),
-    ...setStatus(status),
+    ...setRequestStatus(status),
     ...setDeadline(deadlineForResponseAt),
     ...setCreated(submittedAt),
     ...setActionRequired(status),
-    ...setAction(reference, status)
+    ...setRequestAction(reference, status)
   }))
 }
 
@@ -90,7 +56,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
     ({ id, reference, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
       ...setFile(reference),
       ...setArrangement(subsidy),
-      ...setStatus(status),
+      ...setCaseStatus(status),
       ...setDeadline(final_review_deadline),
       ...setUpdated(updated_at),
       ...setReviewer(status, reviewer, id)
@@ -105,12 +71,13 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
  * @returns data
  */
 export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(({ id, subsidy, status, final_review_deadline, updated_at }) => ({
-    ...setFile(id),
+  return data.data.map(({ reference, subsidy, status, final_review_deadline, updated_at }) => ({
+    ...setFile(reference),
     ...setArrangement(subsidy),
-    ...setStatus(status),
+    ...setCaseStatus(status),
     ...setDeadline(final_review_deadline),
-    ...setUpdated(updated_at)
+    ...setUpdated(updated_at),
+    ...setCaseAction(reference, status)
   }))
 }
 
@@ -138,11 +105,18 @@ const setArrangement = (text: string) =>
     text
   })
 
-const setStatus = (text: string) =>
+const setRequestStatus = (text: string) =>
   createSet('status', {
-    icon: mapStatusToIcon[text],
+    icon: statusToIcon[text],
     type: AssessmentsDataType.STRING,
-    text: mapStatusToTranslation[text]
+    text: requestStatusToTranslation[text]
+  })
+
+const setCaseStatus = (text: string) =>
+  createSet('status', {
+    icon: statusToIcon[text],
+    type: AssessmentsDataType.STRING,
+    text: caseStatusToTranslation[text]
   })
 
 const setDeadline = (date: string) =>
@@ -166,17 +140,27 @@ const setCreated = (date: string) =>
 const setActionRequired = (status: string) =>
   createSet('actionRequired', {
     type: AssessmentsDataType.STRING,
-    text: mapStatusToRequiredAction[status]
+    text: statusToRequiredAction[status]
   })
 
-const setAction = (reference: string, status: string) =>
+const setRequestAction = (reference: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
     to: {
-      name: mapStatusToRouteName[status],
+      name: statusToRouteName[status],
       params: { reference }
     },
-    text: mapStatusToRouteText[status]
+    text: statusToRouteText[status]
+  })
+
+const setCaseAction = (reference: string, status: string) =>
+  createSet('action', {
+    type: AssessmentsDataType.BUTTON_LINK,
+    to: {
+      name: statusToRouteName[status],
+      params: { reference }
+    },
+    text: statusToRouteText[status]
   })
 
 const setReviewer = (status: string, text: string, id: string) =>

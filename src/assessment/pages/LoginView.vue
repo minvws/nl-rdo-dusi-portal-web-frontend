@@ -31,11 +31,6 @@ useSEO({ title: `${translate('app.prefix')} | ${translate('pages.login.title')}`
 
 const authStore = useAuthStore()
 
-const forgotPassword = computed(() => {
-  const text = translate('pages.login.forgot-password')
-  return `<a href="/wachtwoord-vergeten">${text}</a>`
-})
-
 const loginForm = computed(() => [
   {
     dataschema: {
@@ -78,12 +73,6 @@ const loginForm = computed(() => [
                   options: {
                     placeholder: '••••••••••••••••'
                   }
-                },
-                {
-                  type: 'FormHtml',
-                  options: {
-                    html: forgotPassword.value
-                  }
                 }
               ]
             }
@@ -94,9 +83,9 @@ const loginForm = computed(() => [
   }
 ])
 
-function onSubmit() {
-  console.log('@TODO: handle login')
-  authStore.logIn()
+function onSubmit(data: Record<string, string>) {
+  const { email, password } = data
+  authStore.logIn({ email, password })
 }
 </script>
 

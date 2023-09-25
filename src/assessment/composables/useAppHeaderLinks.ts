@@ -10,25 +10,27 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { HOME, MY_CASES_OVERVIEW } from '@assessment/router/names'
+import { MY_CASES_OVERVIEW, ALL_CASES_OVERVIEW } from '@assessment/router/names'
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
+  const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
   const leftLinks: Link[] = []
 
   const rightLinks: Ref<Link[]> = computed(() => {
-    if (!isLoggedIn.value) return []
+    if (!useMockData || !isLoggedIn) return []
+
     return [
       {
-        name: HOME,
+        name: MY_CASES_OVERVIEW,
         label: translate('app.name'),
         icon: 'home'
       },
       {
-        name: MY_CASES_OVERVIEW,
-        label: translate('pages.my-cases-overview.title')
+        name: ALL_CASES_OVERVIEW,
+        label: translate('pages.all-cases-overview.title')
       }
     ]
   })

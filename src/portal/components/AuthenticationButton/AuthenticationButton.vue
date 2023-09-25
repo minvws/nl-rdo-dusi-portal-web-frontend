@@ -17,7 +17,7 @@
 import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
-import { useApiLoginUrl } from '@shared/composables/useApiUrl'
+import { useApiLoginUrl } from '@portal/composables/useApiUrl'
 import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
