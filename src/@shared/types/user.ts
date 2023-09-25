@@ -1,7 +1,12 @@
-// Gebruikersbeheerder
-// Uitvoeringscoordinator
-// Beoordelaar
-// Interne Controleur
+/**
+ * User role types
+ *
+ * Order:
+ * 1. Gebruikersbeheerder
+ * 2. Uitvoeringscoordinator
+ * 3. Beoordelaar
+ * 4. Interne Controleur
+ */
 export const UserRoleType = {
   SUPER_ADMIN: 'super_admin',
   ADMIN: 'admin',
