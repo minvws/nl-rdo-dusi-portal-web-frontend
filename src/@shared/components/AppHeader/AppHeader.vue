@@ -23,7 +23,7 @@
               <a
                 :href="href"
                 @click="navigate"
-                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : 'false'"
+                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : undefined"
                 :class="{ active: isActive, 'exact-active': isExactActive }"
               >
                 <AppIcon
@@ -47,7 +47,7 @@
               <a
                 :href="href"
                 @click="navigate"
-                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : 'false'"
+                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : undefined"
                 :class="{ active: isActive, 'exact-active': isExactActive }"
               >
                 <AppIcon
