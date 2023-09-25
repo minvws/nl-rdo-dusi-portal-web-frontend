@@ -28,6 +28,7 @@
 
 <script lang="ts">
 import type { Layout } from '@jsonforms/core'
+
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'

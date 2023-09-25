@@ -5,7 +5,7 @@ import {
   type RouteLocationNormalized,
   type RouteRecordRaw
 } from 'vue-router'
-import { routerLoader } from '../utils/loader'
+import { routerLoader } from '@shared/utils/loader'
 
 const baseUrl = import.meta.env.BASE_URL
 

@@ -1,14 +1,17 @@
 import type { Ref } from 'vue'
+import type { LogInResponse, LogOutResponse } from '@shared/types/api-response'
+
 import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
+
 import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/useApiUrl'
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
+
 import { HOME } from '@shared/router/names'
-import type { LogInResponse, LogOutResponse } from '@shared/types/api-response'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()

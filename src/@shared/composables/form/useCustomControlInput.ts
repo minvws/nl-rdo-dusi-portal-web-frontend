@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
-import { getControlId } from '@shared/utils/control'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
+
+import { getControlId } from '@shared/utils/control'
 
 type ControlEvent = 'onFocus' | 'onBlur' | 'onInput' | 'onChange'
 

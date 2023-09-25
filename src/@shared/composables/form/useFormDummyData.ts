@@ -1,6 +1,7 @@
+import type { FieldProp } from '@shared/types/field'
+
 import { useForms } from '@shared/composables/form/useForms'
 import { InputType } from '@shared/types/input'
-import type { FieldProp } from '@shared/types/field'
 import { toNestedObject } from '@shared/utils/object'
 
 const truncateMaxLength = (value = '', { maxLength }: FieldProp) => {

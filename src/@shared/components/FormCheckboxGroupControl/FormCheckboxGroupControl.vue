@@ -20,10 +20,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from 'vue'
-import { getControlId } from '@shared/utils/control'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
+import { computed } from 'vue'
+import { getControlId } from '@shared/utils/control'
 
 defineEmits(['change', 'focus', 'blur'])
 

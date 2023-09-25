@@ -1,17 +1,18 @@
-import { formatDate } from '@shared/utils/date'
-import { translate } from '@shared/i18n'
-
-import { RequestStatus } from '@shared/types/request'
-
-import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
-
 import type {
   RawAssessmentData,
   AssessmentsData,
   RawRequestData,
   RequestData
-} from '../types/table'
-import { AssessmentsDataType } from '../types/table'
+} from '@shared/types/table'
+
+import { AssessmentsDataType } from '@shared/types/table'
+import { RequestStatus } from '@shared/types/request'
+
+import { formatDate } from '@shared/utils/date'
+import { translate } from '@shared/i18n'
+
+import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
+
 import { MY_CASE_DETAILS } from '@assessment/router/names'
 
 const options = {

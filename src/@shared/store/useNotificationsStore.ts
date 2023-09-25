@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
+import type { Notification } from '@shared/types/notification'
+
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Notification } from '@shared/types/notification'
 import { useRouter } from 'vue-router'
 
 const INTERVAL_IN_MS = 500

@@ -1,8 +1,9 @@
+import type { Link } from '@shared/types/link'
+
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { translate } from '@shared/i18n'
-import type { Link } from '@shared/types/link'
 
 export const useBreadcrumbs = () => {
   const route = useRoute()

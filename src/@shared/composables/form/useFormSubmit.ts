@@ -1,14 +1,18 @@
+import type { FormSubmitType } from '@shared/types/form'
+
 import { useRouter } from 'vue-router'
+
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useEncryption } from '@shared/composables/useEncryption'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
+
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+
 import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 import { translate } from '@shared/i18n'
-import type { FormSubmitType } from '@shared/types/form'
 import { FormSubmitTypes } from '@shared/types/form'
-import { useEncryption } from '@shared/composables/useEncryption'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 

@@ -3,8 +3,10 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue'
 import type { LocationQuery } from 'vue-router'
+import type { AuthErrorType } from '@shared/types/auth'
+
+import { onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '@portal/store/useAuthStore'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
@@ -13,7 +15,6 @@ import { getRouteFromCookie } from '@shared/utils/cookie'
 import { HOME } from '@shared/router/names'
 import { translate } from '@shared/i18n'
 
-import type { AuthErrorType } from '@shared/types/auth'
 import { AuthError, AuthMinimumLoaQuery } from '@shared/types/auth'
 
 const authStore = useAuthStore()

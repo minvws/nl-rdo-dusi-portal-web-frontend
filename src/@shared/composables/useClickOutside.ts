@@ -1,4 +1,5 @@
 import type { Ref } from 'vue'
+
 import { onMounted, onUnmounted } from 'vue'
 
 export const useClickOutside = (cb: () => void, hasModal: Ref<boolean>, persistent = false) => {

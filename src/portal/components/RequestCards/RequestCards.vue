@@ -38,6 +38,7 @@
 <script lang="ts" setup>
 import type { ComputedRef } from 'vue'
 import type { Column } from '@shared/types/table'
+
 import { computed } from 'vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 

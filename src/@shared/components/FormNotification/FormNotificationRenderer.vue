@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import type { ControlElement, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
+
 import { rankWith } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'

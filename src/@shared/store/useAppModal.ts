@@ -1,9 +1,11 @@
 import type { Ref } from 'vue'
+import type { Modal } from '@shared/types/modal'
+
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
+
 import { usePreventBodyScroll } from '@shared/composables/usePreventBodyScroll'
 import { useClickOutside } from '@shared/composables/useClickOutside'
-import type { Modal } from '@shared/types/modal'
 
 export const useAppModal = defineStore('useAppModal', (persistent = true) => {
   const el: Ref<HTMLDialogElement | HTMLDivElement | null> = ref(null)

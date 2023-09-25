@@ -28,10 +28,11 @@
 </template>
 
 <script setup lang="ts">
+import type { FormTitle, FormError } from '@shared/types/form'
+
 import { computed } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
 
-import type { FormTitle, FormError } from '@shared/types/form'
 import { useFormSteps } from '@shared/composables/form/useFormSteps'
 
 const emit = defineEmits(['step'])

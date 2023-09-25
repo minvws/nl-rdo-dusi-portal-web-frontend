@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import type { FormViewProps } from '@shared/types/form'
+
 import { provide } from 'vue'
 import FormViewRenderer from '@shared/components/FormView/FormViewRenderer.vue'
 

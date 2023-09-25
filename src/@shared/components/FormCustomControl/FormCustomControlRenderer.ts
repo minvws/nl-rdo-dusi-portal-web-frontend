@@ -1,4 +1,5 @@
 import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core'
+
 import { rankWith, isControl } from '@jsonforms/core'
 import FormCustomControl from './FormCustomControl.vue'
 

@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+import type { FilterItem } from '@shared/types/filters'
+
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
@@ -54,8 +56,6 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
-
-import type { FilterItem } from '@shared/types/filters'
 
 const headings = [
   { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },
