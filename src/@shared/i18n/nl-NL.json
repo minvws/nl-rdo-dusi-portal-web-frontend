@@ -91,12 +91,10 @@
       }
     },
     "pagination": {
-      "label": "Pagina",
-      "pageLabel": "Ga naar pagina {page}",
+      "pagination": "Paginering",
+      "page": "Pagina",
       "prev": "Vorige",
-      "prevLabel": "Ga naar de vorige pagina",
-      "next": "Volgende",
-      "nextLabel": "Ga naar de volgende pagina"
+      "next": "Volgende"
     }
   },
   "form": {

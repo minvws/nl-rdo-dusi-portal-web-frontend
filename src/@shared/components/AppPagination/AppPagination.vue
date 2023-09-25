@@ -2,16 +2,16 @@
   <nav
     v-if="totalPages > 1"
     class="pagination"
-    :aria-label="translate('component.pagination.label')"
+    :aria-label="translate('component.pagination.pagination')"
   >
     <AppButton
       v-if="withButtons"
-      :aria-label="translate('component.pagination.prev')"
       class="adjacent previous"
-      :class="{ disabled: previousPageDisabled }"
+      :disabled="previousPageDisabled"
       @click.prevent="goToPreviousPage"
     >
       {{ translate('component.pagination.prev') }}
+      <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
     </AppButton>
     <ul>
       <li
@@ -19,22 +19,23 @@
         :key="page"
       >
         <AppButton
-          :aria-label="translate('component.pagination.pageLabel', { page })"
           :disabled="isCurrentPage(page)"
+          :aria-current="isCurrentPage(page) ? 'true' : undefined"
           @click.prevent="setCurrentPage(page)"
         >
+          <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
           {{ page }}
         </AppButton>
       </li>
     </ul>
     <AppButton
       v-if="withButtons"
-      :aria-label="translate('component.pagination.nextLabel')"
       class="adjacent next"
-      :class="{ disabled: nextPageDisabled }"
+      :disabled="nextPageDisabled"
       @click.prevent="goToNextPage"
     >
       {{ translate('component.pagination.next') }}
+      <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
     </AppButton>
   </nav>
 </template>
