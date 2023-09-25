@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { type FileType } from '@shared/types/form'
+import type { FileType } from '@shared/types/form'
 
 import { ref, watch } from 'vue'
 

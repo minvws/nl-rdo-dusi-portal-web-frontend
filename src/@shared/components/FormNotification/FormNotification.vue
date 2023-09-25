@@ -7,7 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import { type Notification } from '@shared/types/notification'
+import type { Notification } from '@shared/types/notification'
+
 import { translate } from '@shared/i18n'
 import { computed } from 'vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'

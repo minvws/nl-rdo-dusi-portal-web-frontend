@@ -97,13 +97,13 @@
 </template>
 
 <script setup lang="ts">
+import type { Column } from '@shared/types/table'
+
 import { ref, computed, watch } from 'vue'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
-
-import type { Column } from '@shared/types/table'
 
 type Props = {
   caption?: string

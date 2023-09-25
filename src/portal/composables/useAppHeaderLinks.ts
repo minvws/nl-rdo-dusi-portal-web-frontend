@@ -1,4 +1,6 @@
 import type { Ref } from 'vue'
+import type { Link } from '@shared/types/link'
+
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
@@ -10,7 +12,6 @@ import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
 import { MY_REQUESTS_OVERVIEW, MY_MESSAGES_OVERVIEW } from '@portal/router/names'
-import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()

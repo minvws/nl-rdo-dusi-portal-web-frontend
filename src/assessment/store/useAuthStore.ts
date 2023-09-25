@@ -1,5 +1,6 @@
 import type { Ref } from 'vue'
 import type { User } from '@shared/types/user'
+
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
