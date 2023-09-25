@@ -83,9 +83,9 @@ const beforeEach = async (
 ) => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
-  const asdf = import.meta.env.VITE_MOCK_DATA === 'true'
+  const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
-  if (asdf || to.meta.public || isLoggedIn.value) {
+  if (useMockData || to.meta.public || isLoggedIn.value) {
     next()
     return
   }
