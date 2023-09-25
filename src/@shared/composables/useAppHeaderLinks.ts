@@ -1,4 +1,4 @@
-import { appHeaderLinksLoader } from '../utils/loader'
+import { appHeaderLinksLoader } from '@shared/utils/loader'
 
 export const useAppHeaderLinks = async () => {
   const { useAppHeaderLinks } = await appHeaderLinksLoader()

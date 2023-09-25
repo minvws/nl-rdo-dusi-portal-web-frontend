@@ -7,6 +7,7 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
+
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'

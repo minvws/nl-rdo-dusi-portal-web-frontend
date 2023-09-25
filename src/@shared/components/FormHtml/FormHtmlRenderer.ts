@@ -1,4 +1,5 @@
 import type { JsonFormsRendererRegistryEntry } from '@jsonforms/core'
+
 import { rankWith } from '@jsonforms/core'
 import FormHtml from './FormHtml.vue'
 

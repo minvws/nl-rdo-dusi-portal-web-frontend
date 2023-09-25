@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import type { FormError, FormTitle, FormButtonLabels } from '@shared/types/form'
+
 import { computed } from 'vue'
 import { useFormSteps } from '@shared/composables/form/useFormSteps'
 import { translate } from '@shared/i18n'

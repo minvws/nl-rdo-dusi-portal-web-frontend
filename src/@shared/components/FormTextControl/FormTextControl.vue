@@ -8,7 +8,8 @@
   />
 </template>
 <script setup lang="ts">
-import { type Control } from '@shared/types/field'
+import type { Control } from '@shared/types/field'
+
 import { InputType } from '@shared/types/input'
 import { computed } from 'vue'
 import { getInputAttrs } from '@shared/utils/control'

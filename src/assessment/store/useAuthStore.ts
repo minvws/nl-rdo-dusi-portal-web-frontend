@@ -1,5 +1,8 @@
 import type { Ref } from 'vue'
-import { ref, watch } from 'vue'
+import type { AuthResponse, TwoFactorResponse } from '@shared/types/api-response'
+import type { User } from '@shared/types/user'
+
+import { computed, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
@@ -10,7 +13,6 @@ import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 import { removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
 
-import type { AuthResponse, TwoFactorResponse } from '@shared/types/api-response'
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
@@ -20,8 +22,18 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const { setSessionLifetime } = useSessionLifetime()
 
   const hasTwoFactor: Ref<boolean> = ref(false)
-  const isLoggedIn: Ref<boolean> = ref(false)
   const token: Ref<string> = ref('')
+  const user: Ref<User | null> = ref(null)
+
+  const isLoggedIn: Ref<boolean> = computed(() => user.value !== null)
+
+  function hasRights(rights: number) {
+    return isLoggedIn.value && user.value && user?.value?.rights >= rights
+  }
+
+  function logOut() {
+    router.push({ name: LOGIN_VIEW })
+  }
 
   async function logIn(credentials: { email: string; password: string }) {
     try {
@@ -58,11 +70,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     } catch (error) {
       log(error)
     }
-  }
-
-  function logOut() {
-    isLoggedIn.value = false
-    router.push({ name: LOGIN_VIEW })
   }
 
   async function twoFactorChallenge(code: string) {
@@ -140,6 +147,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   return {
     isLoggedIn,
     hasTwoFactor,
+    hasRights,
     logIn,
     logOut,
     twoFactorChallenge

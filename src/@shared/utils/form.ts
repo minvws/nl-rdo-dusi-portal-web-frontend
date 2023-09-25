@@ -1,9 +1,12 @@
 import type { Form, FormData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
-import { isLabeled, isLayout } from '@jsonforms/core'
-import { getValueFormKey } from '@shared/utils/object'
 import type { UISchemaElement } from '@jsonforms/core'
+
+import { isLabeled, isLayout } from '@jsonforms/core'
+
+import { getValueFormKey } from '@shared/utils/object'
 import { getDeepProps } from '@shared/utils/array'
+
 import { getControlId } from './control'
 
 const getScopesFromUISchema = (uischema: UISchemaElement) => {

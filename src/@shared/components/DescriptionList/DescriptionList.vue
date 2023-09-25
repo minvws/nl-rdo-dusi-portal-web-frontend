@@ -30,11 +30,10 @@
 </template>
 
 <script setup lang="ts">
+import type { DescriptionListItem } from '@shared/types/details'
 import { useI18n } from 'vue-i18n'
 import { formatDate } from '@shared/utils/date'
 import AppFileLink from '@shared/components/AppFileLink/AppFileLink.vue'
-
-import type { DescriptionListItem } from '@shared/types/details'
 
 type Props = {
   items: DescriptionListItem[]

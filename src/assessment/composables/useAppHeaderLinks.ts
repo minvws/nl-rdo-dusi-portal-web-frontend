@@ -1,4 +1,6 @@
 import type { Ref } from 'vue'
+import type { Link } from '@shared/types/link'
+
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
@@ -9,7 +11,6 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
 import { HOME, MY_CASES_OVERVIEW } from '@assessment/router/names'
-import type { Link } from '@shared/types/link'
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()

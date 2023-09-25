@@ -11,9 +11,9 @@
 </template>
 
 <script setup lang="ts">
-import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
-
 import type { CaseDetailsItem } from '@shared/types/details'
+
+import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
 
 type Props = {
   items: CaseDetailsItem[]

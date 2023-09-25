@@ -8,6 +8,7 @@ import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
 import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
 import { log } from '@shared/utils/logger'
+
 import { HOME } from '@shared/router/names'
 
 import type { AuthResponse } from '@shared/types/api-response'

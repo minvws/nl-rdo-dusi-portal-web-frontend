@@ -18,9 +18,9 @@
 </template>
 
 <script setup lang="ts">
-import AppButton from '@shared/components/AppButton/AppButton.vue'
-
 import type { FilterItem } from '@shared/types/filters'
+
+import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 const emit = defineEmits(['change'])
 

@@ -1,5 +1,6 @@
-import cookie from 'js-cookie'
 import type { RouteLocationNormalized } from 'vue-router'
+
+import cookie from 'js-cookie'
 
 export const ROUTES_COOKIE_NAME = 'dus_i_portal_route'
 export const SESSION_COOKIE_NAME = 'dus_i_portal_session'

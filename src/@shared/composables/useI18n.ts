@@ -1,6 +1,7 @@
-import { translate } from '@shared/i18n'
 import type { JsonFormsI18nState } from '@jsonforms/core'
-import { useForms } from './form/useForms'
+
+import { translate } from '@shared/i18n'
+import { useForms } from '@shared/composables/form/useForms'
 
 const getProps = (form: any, context: any) => {
   // pass field of field to i18n

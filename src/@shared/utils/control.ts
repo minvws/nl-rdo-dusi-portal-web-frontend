@@ -1,4 +1,5 @@
-import { type Control } from '@shared/types/field'
+import type { Control } from '@shared/types/field'
+
 import { InputType } from '@shared/types/input'
 
 export function getControlId(id: string) {
