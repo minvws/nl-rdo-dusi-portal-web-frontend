@@ -57,12 +57,12 @@
     }
   },
   "pages": {
-    "home": {
+    "all-cases-overview": {
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
-      "title": "Zaken",
+      "title": "Alle zaken",
       "headings": {
         "file": "Dossier",
         "arrangement": "Regeling",

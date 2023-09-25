@@ -4,7 +4,7 @@ import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
-import LandingPage from '@assessment/pages/LandingPage.vue'
+import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
@@ -14,6 +14,7 @@ import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 import {
   HOME,
   LOGIN_VIEW,
+  ALL_CASES_OVERVIEW,
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
@@ -29,23 +30,7 @@ const routes = [
   {
     path: '/',
     name: HOME,
-    component: LandingPage
-  },
-  {
-    path: '/inloggen',
-    name: LOGIN_VIEW,
-    component: LoginView,
-    meta: {
-      public: true
-    }
-  },
-  {
-    path: '/verificatie',
-    name: TWO_FACTOR_VIEW,
-    component: TwoFactorView,
-    meta: {
-      public: true
-    }
+    redirect: { name: MY_CASES_OVERVIEW },
   },
   {
     path: '/mijn-zaken',
@@ -66,6 +51,27 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/alle-zaken',
+    name: ALL_CASES_OVERVIEW,
+    component: AllCasesOverview,
+  },
+  {
+    path: '/inloggen',
+    name: LOGIN_VIEW,
+    component: LoginView,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/verificatie',
+    name: TWO_FACTOR_VIEW,
+    component: TwoFactorView,
+    meta: {
+      public: true
+    }
+  },
   ...sharedRoutes
 ]
 
@@ -77,8 +83,9 @@ const beforeEach = async (
 ) => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
+  const asdf = import.meta.env.VITE_MOCK_DATA === 'true'
 
-  if (to.meta.public || isLoggedIn.value) {
+  if (asdf || to.meta.public || isLoggedIn.value) {
     next()
     return
   }
