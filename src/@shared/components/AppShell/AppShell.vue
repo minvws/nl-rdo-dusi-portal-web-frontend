@@ -1,4 +1,5 @@
 <template>
+  <VueAnnouncer class="visually-hidden" />
   <a
     href="#main-content"
     class="button skip-to-content"

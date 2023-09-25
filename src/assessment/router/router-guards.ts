@@ -1,4 +1,5 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import { nextTick } from 'vue'
 
 import { storeToRefs } from 'pinia'
 
@@ -50,8 +51,14 @@ export const beforeEach = async (
   next()
 }
 
-export const afterEach = (to: RouteLocationNormalized) => {
+export const afterEach = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
   if (to.name !== LOGIN_VIEW) {
     setRouteCookie(to)
+    if (to.path !== from.path) {
+      nextTick(() => {
+        const mainContent = document.querySelector('#main-content')
+        if (mainContent instanceof HTMLElement) mainContent.focus()
+      })
+    }
   }
 }
