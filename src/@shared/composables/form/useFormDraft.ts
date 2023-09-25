@@ -1,4 +1,6 @@
 import type { Ref } from 'vue'
+import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
+
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
@@ -12,6 +14,14 @@ export const useFormDraft = (formId: Ref<string>) => {
   const { setDraftId } = useActiveForm()
   const router = useRouter()
   const notification = useNotificationsStore()
+
+  function getDisplayType(code: string): NotificationDisplayType {
+    switch (code) {
+      case 'application_already_exists':
+        return NotificationType.EXPLANATION
+    }
+    return NotificationType.ERROR
+  }
 
   async function createFormDraft() {
     const id = formId.value
@@ -32,7 +42,7 @@ export const useFormDraft = (formId: Ref<string>) => {
           translate(`form.message.${error.code}`) ||
           translate('form.message.loadingError', { error: error.message }) ||
           '',
-        displayAs: 'error',
+        displayAs: getDisplayType(error.code),
         id: 'form-draft-error',
         pageChangeCount: 2
       })

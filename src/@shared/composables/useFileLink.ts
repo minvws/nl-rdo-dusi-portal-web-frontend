@@ -6,7 +6,9 @@ import type { FileType } from '../types/form'
 
 export const useFileLink = (props: FileLink & { file: FileType }) => {
   const url = useApiGetFileUrl(props)
-  const { data, error, ...fetch } = useFetchWithCredentials(url).blob()
+  const { data, error, ...fetch } = useFetchWithCredentials(url, undefined, {
+    immediate: false
+  }).blob()
 
   const fileUrl = computed(() => {
     if (!data.value || error.value) return undefined
