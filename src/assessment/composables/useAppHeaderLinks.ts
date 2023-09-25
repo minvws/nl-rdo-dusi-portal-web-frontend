@@ -15,12 +15,13 @@ import { MY_CASES_OVERVIEW, ALL_CASES_OVERVIEW } from '@assessment/router/names'
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
+  const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
 
   const leftLinks: Link[] = []
 
   const rightLinks: Ref<Link[]> = computed(() => {
-    const asdf = import.meta.env.VITE_MOCK_DATA === 'true'
-    if (!asdf) return []
+    if (!useMockData || !isLoggedIn) return []
+
     return [
       {
         name: MY_CASES_OVERVIEW,

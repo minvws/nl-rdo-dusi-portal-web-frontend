@@ -31,11 +31,6 @@ useSEO({ title: `${translate('app.prefix')} | ${translate('pages.login.title')}`
 
 const authStore = useAuthStore()
 
-const forgotPassword = computed(() => {
-  const text = translate('pages.login.forgot-password')
-  return `<a href="/wachtwoord-vergeten">${text}</a>`
-})
-
 const loginForm = computed(() => [
   {
     dataschema: {

@@ -7,7 +7,7 @@ import {
   statusToIcon,
   statusToRequiredAction,
   statusToRouteName,
-  statusToRouteText,
+  statusToRouteText
 } from '@shared/utils/mappers'
 
 import type {

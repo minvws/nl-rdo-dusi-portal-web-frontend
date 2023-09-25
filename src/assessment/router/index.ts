@@ -30,7 +30,7 @@ const routes = [
   {
     path: '/',
     name: HOME,
-    redirect: { name: MY_CASES_OVERVIEW },
+    redirect: { name: MY_CASES_OVERVIEW }
   },
   {
     path: '/mijn-zaken',
@@ -54,7 +54,7 @@ const routes = [
   {
     path: '/alle-zaken',
     name: ALL_CASES_OVERVIEW,
-    component: AllCasesOverview,
+    component: AllCasesOverview
   },
   {
     path: '/inloggen',

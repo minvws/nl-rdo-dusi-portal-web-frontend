@@ -59,7 +59,11 @@ import type { FilterItem } from '@shared/types/filters'
 
 const headings = [
   { id: 'file', text: translate('pages.all-cases-overview.headings.file'), sortable: true },
-  { id: 'arrangement', text: translate('pages.all-cases-overview.headings.arrangement'), sortable: true },
+  {
+    id: 'arrangement',
+    text: translate('pages.all-cases-overview.headings.arrangement'),
+    sortable: true
+  },
   { id: 'status', text: translate('pages.all-cases-overview.headings.status'), sortable: true },
   { id: 'deadline', text: translate('pages.all-cases-overview.headings.deadline'), sortable: true },
   { id: 'updated', text: translate('pages.all-cases-overview.headings.updated'), sortable: true },
