@@ -12,7 +12,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { type Control } from '@shared/types/field'
+import type { Control } from '@shared/types/field'
+import type { FileType } from '@shared/types/form'
 
 import { computed } from 'vue'
 
@@ -22,8 +23,6 @@ import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFiel
 import { InputType } from '@shared/types/input'
 import { translate } from '@shared/i18n'
 import { formatFileSize } from '@shared/utils/format'
-
-import type { FileType } from '@shared/types/form'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 

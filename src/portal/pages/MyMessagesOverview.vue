@@ -42,6 +42,7 @@
 
 <script setup lang="ts">
 import type { ComputedRef } from 'vue'
+
 import { toRefs } from 'vue'
 
 import { translate } from '@shared/i18n'

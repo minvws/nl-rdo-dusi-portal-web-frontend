@@ -1,7 +1,8 @@
-import { InputType } from '@shared/types/input'
 import type { ComputedRef } from 'vue'
 import type { JsonSchema } from '@jsonforms/core'
 import type { FormValue } from '@shared/types/form'
+
+import { InputType } from '@shared/types/input'
 
 type FieldOptions = {
   iban?: boolean

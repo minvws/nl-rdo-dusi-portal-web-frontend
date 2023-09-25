@@ -48,6 +48,7 @@
 <script setup lang="ts">
 import type { FormViewProps } from '@shared/types/form'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
+
 import { computed } from 'vue'
 import { JsonForms } from '@jsonforms/vue'
 

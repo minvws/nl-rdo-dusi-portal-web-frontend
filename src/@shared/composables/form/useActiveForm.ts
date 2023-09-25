@@ -1,12 +1,12 @@
-import { computed, inject } from 'vue'
-
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 import type { Form, FormData } from '@shared/types/form'
+import type { FieldProp } from '@shared/types/field'
+
+import { computed, inject } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
 import { useFormStorage } from '@shared/store/useFormStorage'
-import type { FieldProp } from '@shared/types/field'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string }

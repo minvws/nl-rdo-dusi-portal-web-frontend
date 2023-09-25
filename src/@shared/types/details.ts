@@ -1,4 +1,4 @@
-import type { FileType } from './form'
+import type { FileType } from '@shared/types/form'
 
 export type DetailsDataInput = {
   values: Record<string, string>[]

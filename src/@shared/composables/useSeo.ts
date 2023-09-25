@@ -1,4 +1,5 @@
 import type { HeadObject, UseHeadInput } from '@vueuse/head'
+
 import { useHead } from '@vueuse/head'
 import { translate } from '@shared/i18n'
 

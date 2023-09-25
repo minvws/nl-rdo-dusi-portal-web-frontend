@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import type { LocationAsRelativeRaw } from 'vue-router'
+
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 

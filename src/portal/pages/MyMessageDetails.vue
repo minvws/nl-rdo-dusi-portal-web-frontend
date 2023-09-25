@@ -30,6 +30,7 @@
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
+
 import { onBeforeUnmount, ref } from 'vue'
 import { translate } from '@shared/i18n'
 

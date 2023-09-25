@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
+import type { Form, FormData, FormError } from '@shared/types/form'
+
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import type { Form, FormData, FormError } from '@shared/types/form'
 
 type StoredForm = {
   forms: Form[]

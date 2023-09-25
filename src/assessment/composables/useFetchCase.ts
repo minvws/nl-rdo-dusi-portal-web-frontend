@@ -1,9 +1,9 @@
+import type { ApplicationData, ApplicationDetails, ApplicationForm } from '@shared/types/cases'
+
 import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 
 import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
-
-import type { ApplicationData, ApplicationDetails, ApplicationForm } from '@shared/types/cases'
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
