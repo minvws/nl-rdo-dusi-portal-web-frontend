@@ -22,7 +22,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const { setSessionLifetime } = useSessionLifetime()
 
   const hasTwoFactor: Ref<boolean> = ref(false)
-  const token: Ref<string> = ref('')
   const user: Ref<User | null> = ref(null)
 
   const isLoggedIn: Ref<boolean> = computed(() => user.value !== null)
@@ -32,6 +31,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function logOut() {
+    user.value = null
     router.push({ name: LOGIN_VIEW })
   }
 
