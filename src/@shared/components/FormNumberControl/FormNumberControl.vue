@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import { InputType } from '@shared/types/input'
-import { type Control } from '@shared/types/field'
+import type { Control } from '@shared/types/field'
 import { computed } from 'vue'
 import { getInputAttrs } from '@shared/utils/control'
 

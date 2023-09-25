@@ -1,7 +1,7 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { Control, Field } from '@shared/types/field'
-
-import { computed, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { computed } from 'vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'

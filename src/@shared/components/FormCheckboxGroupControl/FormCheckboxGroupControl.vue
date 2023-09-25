@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { getControlId } from '@shared/utils/control'
-import { type Control } from '@shared/types/field'
+import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
 defineEmits(['change', 'focus', 'blur'])

@@ -1,7 +1,9 @@
-import { SessionType, type Session } from '@shared/types/session'
+import type { Session } from '@shared/types/session'
+import { SessionType } from '@shared/types/session'
 
+import type { Ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { ref, watch, type Ref, computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'

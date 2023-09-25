@@ -1,4 +1,5 @@
-import { ref, watch, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { useApiLogoutUrl, useApiUserStatusUrl } from '@shared/composables/useApiUrl'

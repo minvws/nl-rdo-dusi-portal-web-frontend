@@ -1,4 +1,5 @@
-import { watch, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { watch } from 'vue'
 
 export const usePreventBodyScroll = (isEnabled: Ref<boolean>) => {
   watch(

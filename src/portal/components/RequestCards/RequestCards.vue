@@ -36,8 +36,9 @@
   </div>
 </template>
 <script lang="ts" setup>
+import type { ComputedRef } from 'vue'
 import type { Column } from '@shared/types/table'
-import { computed, type ComputedRef } from 'vue'
+import { computed } from 'vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 
 type Type = 'external-link' | 'string' | 'date' | 'button-link' | 'link'

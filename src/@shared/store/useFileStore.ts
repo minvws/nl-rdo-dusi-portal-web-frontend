@@ -1,4 +1,5 @@
-import { ref, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { getControlId } from '@shared/utils/control'
 import { useForms } from '@shared/composables/form/useForms'

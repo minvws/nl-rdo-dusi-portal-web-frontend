@@ -1,4 +1,4 @@
-import { type Ref } from 'vue'
+import type { Ref } from 'vue'
 import { getControlId } from '@shared/utils/control'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
