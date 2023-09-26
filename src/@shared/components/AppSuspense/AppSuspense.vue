@@ -34,7 +34,7 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 
 type Props = {
   as?: string
-  data: [] | object
+  data?: [] | object | null
   error: string | null
   isFetching: boolean
 }

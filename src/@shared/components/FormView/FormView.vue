@@ -2,6 +2,7 @@
   <FormViewRenderer
     v-bind="$props"
     @submit="onSubmit"
+    @save="onSave"
   />
 </template>
 
@@ -14,9 +15,13 @@ import FormViewRenderer from '@shared/components/FormView/FormViewRenderer.vue'
 const props = defineProps<FormViewProps>()
 provide('form', props)
 
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit', 'save'])
 
 function onSubmit(data: FormData) {
   emit('submit', data)
+}
+
+function onSave(data: FormData) {
+  emit('save', data)
 }
 </script>

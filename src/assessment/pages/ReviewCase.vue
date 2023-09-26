@@ -1,50 +1,56 @@
 <template>
   <section>
-    <div v-if="caseData?.currentApplicationStage">
-      <h1>{{ caseData.currentApplicationStage.metadata.subsidyStage.title }}</h1>
+    <div v-if="caseTitle">
+      <h1>{{ caseTitle }}</h1>
     </div>
     <AppSuspense
-      v-bind="{ data: caseData, error: caseError, isFetching: isFetchingCase }"
-      v-if="caseData"
+      v-bind="{
+        data: caseData,
+        error: caseError,
+        isFetching: isFetchingCase
+      }"
     >
       <AppAccordion v-if="caseData">
         <AppAccordionItem id="case">
-          <template #title>{{
-            caseData.applicantApplicationStage.metadata.subsidyStage.title
-          }}</template>
+          <template #title>{{ caseDetail?.title }}</template>
           <template #content>
+            <pre>{{ caseDetail?.forms.length }}</pre>
             <FormView
-              id="review-application-metadata"
-              :forms="[caseData.application]"
-              :values="caseData.application.data"
-              :hide-debug="true"
-              :no-buttons="true"
+              v-bind="{
+                id: 'review-application-metadata',
+                ...caseDetail,
+                ...formViewOptions
+              }"
             />
             <FormView
-              id="review-stage-1"
-              :forms="[caseData.applicantApplicationStage]"
-              :values="caseData.applicantApplicationStage.data"
-              :hide-debug="true"
-              :no-buttons="true"
+              v-if="caseStage"
+              v-bind="{
+                id: 'review-stage-item',
+                ...caseStage,
+                ...formViewOptions
+              }"
             />
           </template>
         </AppAccordionItem>
-        <AppAccordionItem
-          v-for="(stage, index) in caseData.otherApplicationStages"
-          :key="`stage-${index}`"
-          id="stage.metadata.applicationStage.id"
-        >
-          <template #title>{{ stage.metadata.subsidyStage.title }}</template>
-          <template #content>
-            <FormView
-              id="review-stage-{{ stage.metadata.subsidyStage.stage }}"
-              :forms="[stage]"
-              :values="stage.data"
-              :hide-debug="true"
-              :no-buttons="!stage.metadata.applicationStage.isCurrent"
-            />
-          </template>
-        </AppAccordionItem>
+        <template v-if="otherCases">
+          <AppAccordionItem
+            v-for="(stage, index) in otherCases"
+            :key="`stage-${index}`"
+            :id="`stage-${index}`"
+            :is-open="true"
+          >
+            <template #title>{{ stage.title }}</template>
+            <template #content>
+              <FormView
+                :id="`review-stage-item-${index}}`"
+                v-bind="{
+                  ...stage,
+                  ...(index < otherCases.length - 1 ? formViewOptions : formEditOptions)
+                }"
+              />
+            </template>
+          </AppAccordionItem>
+        </template>
       </AppAccordion>
     </AppSuspense>
   </section>
@@ -69,9 +75,24 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-case.title', {}, 3)}` })
 
+const formViewOptions = {
+  hideDebug: true,
+  noStyle: true,
+  noButtons: true
+}
+
+const formEditOptions = {
+  hideDebug: true,
+  noStyle: true
+}
+
 const {
   data: caseData,
   error: caseError,
-  isFetching: isFetchingCase
+  isFetching: isFetchingCase,
+  caseDetail,
+  caseStage,
+  otherCases,
+  caseTitle
 } = useFetchCase(props.id as string)
 </script>

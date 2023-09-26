@@ -47,42 +47,32 @@
         <TabPanel>
           <AppSuspense
             v-bind="{
-              data: applicationData ?? [],
-              error: applicationError,
-              isFetching: isFetchingDetails
+              data: caseData,
+              error: caseError,
+              isFetching: isFetchingCase
             }"
           >
             <FormView
-              v-if="applicationData"
               v-bind="{
                 id: 'my-details-application',
-                forms: [applicationData.application],
-                values: applicationData.application.data,
-                hideDebug: true,
-                buttonLabels: { submit: 'Submit' },
-                noStyle: true,
-                noButtons: true
+                ...formViewOptions,
+                ...caseDetail
               }"
             />
             <FormView
-              v-if="applicationData"
+              v-if="caseStage"
               v-bind="{
                 id: 'my-details-stage-1',
-                forms: [applicationData.applicantApplicationStage],
-                values: applicationData.applicantApplicationStage.data,
-                hideDebug: true,
-                buttonLabels: { submit: 'Submit' },
-                noStyle: true,
-                noButtons: true
+                ...formViewOptions,
+                ...caseStage
               }"
             />
+            <RouterLink
+              class="button"
+              :to="startReviewRoute"
+              :text="translate('pages.my-case-details.startReview')"
+            />
           </AppSuspense>
-          <RouterLink
-            :to="startReviewRoute"
-            class="button"
-          >
-            {{ translate('pages.my-case-details.startReview') }}
-          </RouterLink>
         </TabPanel>
         <TabPanel>
           <AppSuspense
@@ -128,16 +118,25 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
+const formViewOptions = {
+  hideDebug: true,
+  noStyle: true,
+  noButtons: true
+}
 const {
-  data: applicationData,
-  error: applicationError,
-  isFetching: isFetchingDetails
+  data: caseData,
+  error: caseError,
+  isFetching: isFetchingCase,
+  caseDetail,
+  caseStage
 } = useFetchCase(props.id as string)
+
 const {
   data: history,
   error: historyError,
   isFetching: isFetchingHistory
 } = useFetchCaseHistory(props.id as string)
+
 const {
   data: reviewer,
   error: reviewerError,

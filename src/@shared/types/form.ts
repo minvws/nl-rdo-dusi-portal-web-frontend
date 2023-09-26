@@ -1,10 +1,11 @@
 import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
 
 export type FormTitle = { title?: string }
-
+export type FormMetaData = Record<string, any>
 export type Form = {
   dataschema: JsonSchema & { anyOf?: any }
   uischema: UISchemaElement
+  metadata?: FormMetaData
 } & FormTitle
 
 export type FileType = {

@@ -12,10 +12,3 @@ export type ApplicationDetails = {
   application: ApplicationForm
   applicationStages: ApplicationForm[]
 }
-
-export type ApplicationData = {
-  application: ApplicationForm
-  applicantApplicationStage: ApplicationForm
-  otherApplicationStages: ApplicationForm[]
-  currentApplicationStage?: ApplicationForm
-}
