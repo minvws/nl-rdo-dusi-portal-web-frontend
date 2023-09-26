@@ -167,7 +167,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       pageChangeCount: 1,
       displayAs: 'error',
       label: translate(`authentication.${type}.label`) ?? '',
-      message: translate(`authentication.${type}.message`) ?? '',
+      message: translate(`authentication.${type}.message`) ?? ''
     })
   }
 
