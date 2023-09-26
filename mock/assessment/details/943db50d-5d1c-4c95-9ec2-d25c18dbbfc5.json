@@ -10,9 +10,12 @@
         "validTo": null
       }
     },
-    "stages": [
+    "applicationStages": [
       {
         "metadata": {
+          "applicationStage": {
+            "isCurrent": true
+          },
           "title": "Aanvraag",
           "uiType": "VIEW",
           "subjectRole": "applicant",
@@ -65,7 +68,7 @@
               "type": "string",
               "default": "NL00BANK0000000000"
             },
-            "bankAccountHolder":  {
+            "bankAccountHolder": {
               "title": "Naam rekeninghouder",
               "type": "string",
               "default": "Henk de Vries"
@@ -143,7 +146,10 @@
             {
               "type": "FormGroupControl",
               "label": "Meta",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -160,7 +166,10 @@
             {
               "type": "FormGroupControl",
               "label": "Persoonlijke informatie",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -177,7 +186,10 @@
             {
               "type": "FormGroupControl",
               "label": "Adres",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -197,7 +209,10 @@
             {
               "type": "FormGroupControl",
               "label": "Contact",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -214,7 +229,10 @@
             {
               "type": "FormGroupControl",
               "label": "Bank",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -230,7 +248,10 @@
             {
               "type": "FormGroupControl",
               "label": "Bestanden",
-              "options": { "section": true, "headingLevel": "2" },
+              "options": {
+                "section": true,
+                "headingLevel": "2"
+              },
               "elements": [
                 {
                   "type": "FormResultsTable",
@@ -250,6 +271,9 @@
       },
       {
         "metadata": {
+          "applicationStage": {
+            "isCurrent": false
+          },
           "title": "Beoordeling",
           "uiType": "INPUT",
           "subjectRole": "assessor",
