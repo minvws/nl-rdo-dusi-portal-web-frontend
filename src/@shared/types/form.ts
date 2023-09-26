@@ -45,8 +45,10 @@ export type FormViewProps = {
   title?: string
   values?: FormData
   createDraft?: boolean
+  locked?: boolean
   hideDebug?: boolean
   buttonLabels?: FormButtonLabels
+  hasSaveButton?: boolean
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
 }

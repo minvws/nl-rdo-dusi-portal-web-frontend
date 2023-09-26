@@ -36,8 +36,8 @@ export const statusToRequiredAction: Record<string, string> = {
 }
 
 export const caseStatusToRouteName: Record<string, string> = {
-  'ToDo': MY_CASE_DETAILS,
-  'in_progress': MY_CASE_DETAILS,
+  [Status.TODO]: MY_CASE_DETAILS,
+  [Status.IN_PROGRESS]: MY_CASE_DETAILS
 }
 
 export const requestStatusToRouteName: Record<string, string> = {
@@ -49,8 +49,8 @@ export const requestStatusToRouteName: Record<string, string> = {
 }
 
 export const statusToRouteText: Record<string, string> = {
-  'ToDo': 'Open zaak',
-  'in_progress': 'Open zaak',
+  [Status.TODO]: 'Open zaak',
+  [Status.IN_PROGRESS]: 'Open zaak',
   [Status.APPROVED]: 'Bekijk aanvraag',
   [Status.DRAFT]: 'Open aanvraag',
   [Status.REJECTED]: 'Bekijk aanvraag',

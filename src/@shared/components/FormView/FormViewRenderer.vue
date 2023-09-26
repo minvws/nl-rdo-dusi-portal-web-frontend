@@ -5,7 +5,7 @@
     :forms="forms"
     :formsErrors="formsErrors"
     :touched="touchedForms"
-    :readonly="readonly"
+    :readonly="readonly || !!locked"
     @step="onStep"
   />
   <form
@@ -24,7 +24,7 @@
       :uischema="uischema"
       :data="data"
       :ajv="ajv"
-      :readonly="readonly"
+      :readonly="readonly || !!locked"
       @change="onChange"
     />
     <FormButtons
@@ -35,7 +35,7 @@
       :touched="touchedForms"
       :readonly="readonly"
       :buttonLabels="buttonLabels"
-      :hasSaveButton="createDraft"
+      :hasSaveButton="createDraft || hasSaveButton"
       @save="onSave"
       @submit="onSubmit"
       @step="onStep"
