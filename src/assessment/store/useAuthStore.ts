@@ -164,8 +164,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   function setNotification(type: string) {
     notificationsStore.add({
       displayAs: 'error',
-      label: translate(`auth.${type}.label`) ?? '',
-      message: translate(`auth.${type}.message`) ?? ''
+      label: translate(`authentication.${type}.label`) ?? '',
+      message: translate(`authentication.${type}.message`) ?? '',
     })
   }
 
