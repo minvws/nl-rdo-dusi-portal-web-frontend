@@ -1,4 +1,4 @@
-import type { Form, FormData } from '@shared/types/form'
+import type { Form, FormData, FormMetaData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
 import type { UISchemaElement } from '@jsonforms/core'
 
@@ -56,7 +56,7 @@ export const transformForm = (form: Form): Form[] => {
   return forms
 }
 
-export const getFormTitle = ({ metadata }: { metadata: Record<string, any> }) => {
+export const getFormTitle = ({ metadata }: { metadata?: FormMetaData }) => {
   return getValueFormKey(metadata, 'title')
 }
 
