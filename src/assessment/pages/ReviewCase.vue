@@ -80,20 +80,22 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-case.title', {}, 3)}` })
 
-const { onSubmitCase, onSaveCase, locked } = useSubmitCase()
+const { onSubmitForm, onSubmitDraft, locked } = useSubmitCase()
 
 const formViewOptions = computed(() => ({
   hideDebug: true,
   noStyle: true,
   noButtons: true,
-  locked: locked.value
+  locked: locked.value,
+  title: undefined
 }))
 
 const formEditOptions = computed(() => ({
   hideDebug: true,
   noStyle: true,
   locked: locked.value,
-  hasSaveButton: true
+  hasSaveButton: true,
+  title: undefined
 }))
 
 const {
@@ -108,11 +110,11 @@ const {
 
 const onSubmit = (data: FormData) => {
   const { id } = props
-  onSubmitCase({ id, data })
+  onSubmitForm({ id, data })
 }
 
 const onSave = (data: FormData) => {
   const { id } = props
-  onSaveCase({ id, data })
+  onSubmitDraft({ id, data })
 }
 </script>
