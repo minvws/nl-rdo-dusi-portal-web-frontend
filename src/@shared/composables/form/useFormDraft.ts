@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
-import type { NotificationDisplayType } from '@/@shared/types/notification'
+import type { NotificationDisplayType } from '@shared/types/notification'
 
-import { NotificationType } from '@/@shared/types/notification'
+import { NotificationType } from '@shared/types/notification'
 
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
