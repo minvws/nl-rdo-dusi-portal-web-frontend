@@ -14,7 +14,6 @@
         <AppAccordionItem id="case">
           <template #title>{{ caseDetail?.title }}</template>
           <template #content>
-            <pre>{{ caseDetail?.forms.length }}</pre>
             <FormView
               v-bind="{
                 id: 'review-application-metadata',
