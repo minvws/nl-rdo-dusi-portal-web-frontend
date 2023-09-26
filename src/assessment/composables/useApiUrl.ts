@@ -9,7 +9,7 @@ export const useApiTwoFactorChallengeUrl = () => {
 }
 
 export const useSubmitCaseUrl = (id: string) => {
-  return `${baseUrl}/api/application/${id}`
+  return `${baseUrl}/api/applications/${id}`
 }
 
 export const useApiCaseDetailsUrl = (id: string) => {
