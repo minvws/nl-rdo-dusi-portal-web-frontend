@@ -44,12 +44,12 @@ export const useFormSubmit = () => {
     forms.setSubmitting(true)
 
     try {
-      const response = await useFetchWithCredentials(url, options).json()
-      if (response.statusCode.value === 200) return undefined
-      throw new Error(response.data.value.message)
+      const { statusCode, data, error } = await useFetchWithCredentials(url, options).json()
+      if (statusCode.value === 200) return undefined
+      throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
-      return error
+      return error as Error
     } finally {
       forms.setSubmitting(false)
     }
@@ -59,7 +59,7 @@ export const useFormSubmit = () => {
     const error = await onSubmit(FormSubmitTypes.SUBMIT)
     if (error) {
       notification.add({
-        message: translate('form.message.failed') || '',
+        message: translate('form.message.failed', { error: error?.message }) || '',
         displayAs: 'error',
         id: NOTIFICATION_SUBMIT_ID,
         pageChangeCount: 1

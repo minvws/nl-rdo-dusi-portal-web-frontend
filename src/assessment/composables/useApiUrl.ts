@@ -8,6 +8,10 @@ export const useApiTwoFactorChallengeUrl = () => {
   return `${baseUrl}/api/two-factor-challenge`
 }
 
+export const useSubmitCaseUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}`
+}
+
 export const useApiCaseDetailsUrl = (id: string) => {
   return useMockData ? `${mockUrl}/details/${id}.json` : `${baseUrl}/api/applications/${id}`
 }

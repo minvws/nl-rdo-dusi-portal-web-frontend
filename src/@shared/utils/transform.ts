@@ -2,11 +2,12 @@ import { formatDate } from '@shared/utils/date'
 import { translate } from '@shared/i18n'
 
 import {
-  requestStatusToTranslation,
   caseStatusToTranslation,
+  caseStatusToRouteName,
+  requestStatusToRouteName,
+  requestStatusToTranslation,
   statusToIcon,
   statusToRequiredAction,
-  statusToRouteName,
   statusToRouteText
 } from '@shared/utils/mappers'
 
@@ -71,13 +72,13 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
  * @returns data
  */
 export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(({ reference, subsidy, status, final_review_deadline, updated_at }) => ({
+  return data.data.map(({ id, reference, subsidy, status, final_review_deadline, updated_at }) => ({
     ...setFile(reference),
     ...setArrangement(subsidy),
     ...setCaseStatus(status),
     ...setDeadline(final_review_deadline),
     ...setUpdated(updated_at),
-    ...setCaseAction(reference, status)
+    ...setCaseAction(id, status)
   }))
 }
 
@@ -147,18 +148,18 @@ const setRequestAction = (reference: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
     to: {
-      name: statusToRouteName[status],
+      name: requestStatusToRouteName[status],
       params: { reference }
     },
     text: statusToRouteText[status]
   })
 
-const setCaseAction = (reference: string, status: string) =>
+const setCaseAction = (id: string, status: string) =>
   createSet('action', {
     type: AssessmentsDataType.BUTTON_LINK,
     to: {
-      name: statusToRouteName[status],
-      params: { reference }
+      name: caseStatusToRouteName[status],
+      params: { id }
     },
     text: statusToRouteText[status]
   })
