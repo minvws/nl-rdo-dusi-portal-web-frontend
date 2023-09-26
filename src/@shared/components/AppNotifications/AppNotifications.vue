@@ -30,7 +30,8 @@ const { notifications } = useNotificationsStore()
   padding-left: 0;
 
   &-wrapper {
-    padding: 0 var(--notification-confirmation-page-content-wrapper-padding-right) 0 var(--notification-confirmation-page-content-wrapper-padding-left);
+    padding: 0 var(--notification-confirmation-page-content-wrapper-padding-right) 0
+      var(--notification-confirmation-page-content-wrapper-padding-left);
     margin: 0;
   }
 
