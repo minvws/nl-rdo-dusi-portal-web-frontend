@@ -1,5 +1,5 @@
 {
-  "auth": {
+  "authentication": {
     "2fa-invalid-code": {
       "label": "Code ongeldig",
       "message": "De verificatiecode die u heeft ingevoerd is ongeldig. Probeer het opnieuw."
