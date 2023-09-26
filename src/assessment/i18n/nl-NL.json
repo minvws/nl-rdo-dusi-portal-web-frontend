@@ -1,4 +1,26 @@
 {
+  "auth": {
+    "2fa-invalid-code": {
+      "label": "Code ongeldig",
+      "message": "De verificatiecode die u heeft ingevoerd is ongeldig. Probeer het opnieuw."
+    },
+    "2fa-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    },
+    "login-invalid-credentials": {
+      "label": "Inloggen mislukt",
+      "message": "Controleer uw gebruikersnaam en wachtwoord en probeer het opnieuw."
+    },
+    "login-too-many-attempts": {
+      "label": "Inloggen mislukt",
+      "message": "U heeft te vaak geprobeerd in te loggen. Probeer het later nog eens."
+    },
+    "login-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    }
+  },
   "component": {
     "appTable": {
       "open": "Open zaak",

@@ -1,9 +1,3 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-
-import { storeToRefs } from 'pinia'
-
-import { useAuthStore } from '@assessment/store/useAuthStore'
-
 import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
@@ -22,9 +16,7 @@ import {
 } from '@assessment/router/names'
 
 import { sharedRoutes } from '@shared/router/routes'
-
-import { setRouteCookie } from '@shared/utils/cookie'
-import { log } from '@shared/utils/logger'
+import { beforeEach, afterEach } from '@assessment/router/router-guards'
 
 const routes = [
   {
@@ -74,31 +66,5 @@ const routes = [
   },
   ...sharedRoutes
 ]
-
-// Protected router, redirect to home if not logged in.
-const beforeEach = async (
-  to: RouteLocationNormalized,
-  from: RouteLocationNormalized,
-  next: NavigationGuardNext
-) => {
-  const authStore = useAuthStore()
-  const { isLoggedIn } = storeToRefs(authStore)
-  const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
-
-  if (useMockData || to.meta.public || isLoggedIn.value) {
-    next()
-    return
-  }
-
-  log('route is not `public` and user is not logged-in, redirection to `login`')
-  next({ name: LOGIN_VIEW })
-}
-
-// Set cookie with current route after each route change.
-const afterEach = (to: RouteLocationNormalized) => {
-  if (to.name !== LOGIN_VIEW) {
-    setRouteCookie(to)
-  }
-}
 
 export default { routes, beforeEach, afterEach }

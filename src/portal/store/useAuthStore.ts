@@ -6,7 +6,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
-import { getSessionCookie, removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
+import {
+  getSessionCookie,
+  removeSessionCookie,
+  setSessionCookie
+} from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME } from '@shared/router/names'

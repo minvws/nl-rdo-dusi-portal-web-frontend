@@ -1,49 +1,90 @@
 import type { Ref } from 'vue'
-import type { AuthResponse, TwoFactorResponse } from '@shared/types/api-response'
+import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User } from '@shared/types/user'
 
-import { computed, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
-import { useApiTwoFactorChallengeUrl, useApiLoginUrl } from '@assessment/composables/useApiUrl'
-import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+import { translate } from '@shared/i18n'
 
-import { removeSessionCookie, setSessionCookie } from '@shared/utils/cookie'
+import {
+  useApiLoginUrl,
+  useApiLogoutUrl,
+  useApiTwoFactorChallengeUrl,
+  useApiUserStatusUrl
+} from '@assessment/composables/useApiUrl'
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+
+import {
+  getSessionCookie,
+  removeSessionCookie,
+  setSessionCookie
+} from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 
+const useCredendials = !import.meta.env.PROD
+
 export const useAuthStore = defineStore('useAuthStore', () => {
-  const route = useRoute()
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
-  const { setSessionLifetime } = useSessionLifetime()
 
-  const hasTwoFactor: Ref<boolean> = ref(false)
+  const init: Ref<boolean> = ref(false)
   const user: Ref<User | null> = ref(null)
 
-  const isLoggedIn: Ref<boolean> = computed(() => user.value !== null)
+  const isLoggedIn: Ref<boolean> = ref(false)
 
-  function hasRights(rights: number) {
-    return isLoggedIn.value && user.value && user?.value?.rights >= rights
+  async function getUserInfo() {
+    try {
+      const url = useApiUserStatusUrl()
+      const options: RequestInit = { method: 'GET', credentials: 'include' }
+      const response = await fetch(url, options)
+      const json = await response.json()
+
+      user.value = json
+      isLoggedIn.value = true
+
+      setSessionCookie()
+      router.push({ name: HOME })
+    } catch (error) {
+      log('Error getting user info', error)
+    }
   }
 
-  function logOut() {
-    user.value = null
-    router.push({ name: LOGIN_VIEW })
+  async function logOut() {
+    try {
+      const url = useApiLogoutUrl()
+      const options: RequestInit = {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }
+      const response = await fetch(url, options)
+
+      if (response.ok) {
+        user.value = null
+        isLoggedIn.value = false
+      }
+    } catch (error) {
+      log('Error trying to log out', error)
+    }
   }
 
   async function logIn(credentials: { email: string; password: string }) {
     try {
       const url = useApiLoginUrl()
-      const options = {
+      const options: RequestInit = {
         method: 'POST',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
+        ...(useCredendials && { credentials: 'include' }),
         body: JSON.stringify(credentials)
       }
       const response = await fetch(url, options)
@@ -51,24 +92,21 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
       if (!response.ok) {
         switch (response.status) {
-          case 401:
-            setNotification('Login failed', 'Invalid credentials')
-            break
           case 422:
-            setNotification('Login failed', 'Invalid credentials')
-            break
+            return setNotification('login-invalid-credentials')
           case 429:
-            setNotification('Login failed', 'Too many attempts')
-            break
+            return setNotification('login-too-many-attempts')
           default:
-            setNotification('Login failed', 'Something went wrong')
-            break
+            return setNotification('login-failed')
         }
       }
 
-      setTwoFactorStatus(json)
+      if (json) {
+        const { two_factor } = json
+        determineTwoFactorRoute({ two_factor })
+      }
     } catch (error) {
-      log(error)
+      log('Error trying to log in', error)
     }
   }
 
@@ -85,71 +123,64 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         body: JSON.stringify({ code })
       }
       const response = await fetch(url, options)
-      const json = await response.json()
 
       if (!response.ok) {
         switch (response.status) {
-          case 419:
-            setNotification('Login failed', 'Session expired')
-            break
+          case 422:
+            return setNotification('2fa-invalid-code')
           default:
-            setNotification('Login failed', 'Something went wrong')
-            break
+            return setNotification('2fa-failed')
         }
       }
 
-      setLoginStatus(json)
+      if (response.status === 204) {
+        isLoggedIn.value = true
+      }
     } catch (error) {
-      log(error)
+      log('Error trying to use two-factor auth', error)
     }
-  }
-
-  function setTwoFactorStatus({ two_factor }: TwoFactorResponse) {
-    hasTwoFactor.value = two_factor
-  }
-
-  function setLoginStatus({ logged_in }: AuthResponse) {
-    isLoggedIn.value = logged_in
   }
 
   function onLoginChange(isLoggedIn: boolean) {
     if (isLoggedIn) {
-      const duration = setSessionCookie()
-      setSessionLifetime(duration)
+      getUserInfo()
+    } else {
+      removeSessionCookie()
+      router.push({ name: LOGIN_VIEW })
+    }
+  }
+
+  function restoreSession() {
+    const sessionCookie = getSessionCookie()
+
+    if (init.value) {
       return
     }
 
-    removeSessionCookie()
-    setSessionLifetime(undefined)
-
-    if (route.meta.public || route.name === HOME) {
-      return
-    }
-
-    router.push({ name: HOME })
+    init.value = true
+    isLoggedIn.value = !!sessionCookie
   }
 
-  function onTwoFactorChange(hasTwoFactor: boolean) {
-    hasTwoFactor ? router.push({ name: TWO_FACTOR_VIEW }) : (isLoggedIn.value = true)
-  }
-
-  function setNotification(label: string, message: string) {
+  function setNotification(type: string) {
     notificationsStore.add({
       displayAs: 'error',
-      label: label,
-      message: message
+      label: translate(`auth.${type}.label`) ?? '',
+      message: translate(`auth.${type}.message`) ?? ''
     })
   }
 
-  watch(hasTwoFactor, hasTwoFactor => onTwoFactorChange(hasTwoFactor))
+  function determineTwoFactorRoute({ two_factor }: TwoFactorResponse) {
+    two_factor ? router.push({ name: TWO_FACTOR_VIEW }) : getUserInfo()
+  }
+
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
   return {
     isLoggedIn,
-    hasTwoFactor,
-    hasRights,
     logIn,
     logOut,
-    twoFactorChallenge
+    restoreSession,
+    twoFactorChallenge,
+    user
   }
 })

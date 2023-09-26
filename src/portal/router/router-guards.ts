@@ -9,7 +9,7 @@ import { useApiLoginUrl } from '@portal/composables/useApiUrl'
 import { log } from '@shared/utils/logger'
 import { notFoundLoggedOutRedirectLink } from '@shared/external-links'
 import { openExternalLink } from '@shared/utils/link'
-import { setRouteCookie } from '@shared/utils/cookie'
+import { setRouteCookie } from '@shared/utils/route-cookie'
 
 import { HOME, LOGIN_CALLBACK_VIEW, MY_REQUESTS_OVERVIEW, NOT_FOUND } from '@portal/router/names'
 
@@ -50,6 +50,7 @@ export const beforeEach = async (
     log(`user is logged-in. go to '${MY_REQUESTS_OVERVIEW}'`)
     return next({ name: MY_REQUESTS_OVERVIEW })
   }
+
   next()
 }
 

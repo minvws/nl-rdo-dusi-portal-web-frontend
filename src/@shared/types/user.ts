@@ -8,24 +8,23 @@
  * 4. Interne Controleur
  */
 export const UserRoleType = {
-  SUPER_ADMIN: 'super_admin',
-  ADMIN: 'admin',
-  REVIEWER: 'reviewer',
-  FORM_REVIEWER: 'form_reviewer'
+  USER_ADMIN: 'userAdmin',
+  IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
+  ASSESSOR: 'assessor',
+  INTERNAL_AUDITOR: 'internalAuditor'
 } as const
 
-export type UserRole = (typeof UserRoleType)[keyof typeof UserRoleType]
-
-export type UserRoleWeight = {
-  [UserRoleType.SUPER_ADMIN]: 4
-  [UserRoleType.ADMIN]: 3
-  [UserRoleType.REVIEWER]: 2
-  [UserRoleType.FORM_REVIEWER]: 1
+export type UserRole = {
+  name: typeof UserRoleType
+  subsidyId: string
+  viewAllStages: boolean
 }
 
 export type User = {
-  name?: string
-  role: UserRole
-  rights: UserRoleWeight[UserRole]
-  twoFactor: boolean
+  email: string
+  name: string
+  organisation: {
+    name: string
+  }
+  roles: UserRole[]
 }

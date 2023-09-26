@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia'
 
 import { translate } from '@shared/i18n'
 
-import { useAuthStore } from '@portal/store/useAuthStore'
+import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
@@ -15,12 +15,10 @@ import { MY_CASES_OVERVIEW, ALL_CASES_OVERVIEW } from '@assessment/router/names'
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
-  const useMockData = import.meta.env.VITE_MOCK_DATA === 'true'
-
   const leftLinks: Link[] = []
 
   const rightLinks: Ref<Link[]> = computed(() => {
-    if (!useMockData || !isLoggedIn) return []
+    if (!isLoggedIn.value) return []
 
     return [
       {

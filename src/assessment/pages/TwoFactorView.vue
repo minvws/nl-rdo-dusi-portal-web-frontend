@@ -36,7 +36,7 @@ useSEO({ title: `${translate('app.prefix')} | ${translate('pages.two-factor.titl
 const authStore = useAuthStore()
 const router = useRouter()
 
-const { hasTwoFactor, isLoggedIn } = storeToRefs(authStore)
+const { isLoggedIn } = storeToRefs(authStore)
 
 const twoFactorForm = [
   {
@@ -82,11 +82,7 @@ function onSubmit(data: Record<string, string>) {
   authStore.twoFactorChallenge(code)
 }
 
-onBeforeMount(() => {
-  if (!hasTwoFactor.value && !isLoggedIn.value) {
-    router.push({ name: LOGIN_VIEW })
-  }
-})
+onBeforeMount(() => !isLoggedIn.value && router.push({ name: LOGIN_VIEW }))
 </script>
 
 <style lang="scss" scoped>

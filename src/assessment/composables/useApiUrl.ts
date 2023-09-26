@@ -45,3 +45,7 @@ export const useApiPersonalCasesUrl = () => {
 export const useApiCasesUrl = () => {
   return useMockData ? `${mockUrl}/cases.json` : `${baseUrl}/api/applications`
 }
+
+export const useApiUserStatusUrl = () => {
+  return `${baseUrl}/api/user`
+}
