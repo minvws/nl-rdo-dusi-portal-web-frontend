@@ -47,17 +47,17 @@
         <TabPanel>
           <AppSuspense
             v-bind="{
-              data: applicationData ?? [],
-              error: applicationError,
-              isFetching: isFetchingDetails
+              data: caseData ?? [],
+              error: caseError,
+              isFetching: isFetchingCase
             }"
           >
             <FormView
-              v-if="applicationData"
+              v-if="caseData"
               v-bind="{
                 id: 'my-details-application',
-                forms: [applicationData.application],
-                values: applicationData.application.data,
+                forms: [caseData.application],
+                values: caseData.application.data,
                 hideDebug: true,
                 buttonLabels: { submit: 'Submit' },
                 noStyle: true,
@@ -65,11 +65,11 @@
               }"
             />
             <FormView
-              v-if="applicationData"
+              v-if="caseData"
               v-bind="{
                 id: 'my-details-stage-1',
-                forms: [applicationData.applicantApplicationStage],
-                values: applicationData.applicantApplicationStage.data,
+                forms: [caseData.applicantApplicationStage],
+                values: caseData.applicantApplicationStage.data,
                 hideDebug: true,
                 buttonLabels: { submit: 'Submit' },
                 noStyle: true,
@@ -129,9 +129,9 @@ const props = defineProps<Props>()
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
 const {
-  data: applicationData,
-  error: applicationError,
-  isFetching: isFetchingDetails
+  data: caseData,
+  error: caseError,
+  isFetching: isFetchingCase
 } = useFetchCase(props.id as string)
 const {
   data: history,

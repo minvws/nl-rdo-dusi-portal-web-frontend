@@ -1,6 +1,6 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 
-export type ApplicationForm = {
+export type CaseForm = {
   metadata: Record<string, any>
   dataschema: JsonSchema
   uischema: UISchemaElement & { elements: [] }
@@ -8,14 +8,14 @@ export type ApplicationForm = {
   [key: string]: any
 }
 
-export type ApplicationDetails = {
-  application: ApplicationForm
-  applicationStages: ApplicationForm[]
+export type CaseData = {
+  application: CaseForm
+  applicationStages: CaseForm[]
 }
 
-export type ApplicationData = {
-  application: ApplicationForm
-  applicantApplicationStage: ApplicationForm
-  otherApplicationStages: ApplicationForm[]
-  currentApplicationStage?: ApplicationForm
+export type CaseDetails = {
+  application: CaseForm
+  applicantApplicationStage: CaseForm
+  otherApplicationStages: CaseForm[]
+  currentApplicationStage?: CaseForm
 }

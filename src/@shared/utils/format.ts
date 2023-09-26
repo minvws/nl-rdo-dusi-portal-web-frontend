@@ -1,4 +1,5 @@
 import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
+import type { CaseData, CaseDetails, CaseForm } from '@shared/types/cases'
 
 import { translate } from '@shared/i18n'
 
@@ -19,7 +20,7 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
 }
 
 /**
- * Formats data from the API for the filters component.
+ * Formats data from the API for filters
  *
  * @param {FiltersDataInput} data - The data to format.
  * @returns {FilterItem[]} - The formatted data.
@@ -34,6 +35,12 @@ export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
   })
 }
 
+/**
+ * Formats data from the API for messages
+ *
+ * @param data
+ * @returns
+ */
 export function formatMessagesData(data: any) {
   return data.items.map((item: any) => ({
     date: item.sentAt,
@@ -43,4 +50,32 @@ export function formatMessagesData(data: any) {
     },
     title: item.subject
   }))
+}
+
+/**
+ * Formats data from the API for cases
+ *
+ * @param data
+ * @returns
+ */
+export function formatCaseData(data: CaseData): CaseDetails {
+  const { application, applicationStages: stages } = data
+
+  if (!application || !stages.length) {
+    return {} as CaseDetails
+  }
+
+  const stage = stages[0]
+  const otherStages = stages.slice(1)
+  const currentStage: CaseForm | undefined = stages.find((stage: CaseForm) => {
+    const { isCurrent } = stage.metadata.applicationStage
+    return isCurrent || false
+  })
+
+  return {
+    application: application,
+    applicantApplicationStage: stage,
+    otherApplicationStages: otherStages,
+    currentApplicationStage: currentStage
+  }
 }
