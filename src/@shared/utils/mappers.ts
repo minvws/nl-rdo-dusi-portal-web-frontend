@@ -1,6 +1,7 @@
 import { RequestStatus as Status } from '@shared/types/request'
 
 import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
+import { MY_CASE_DETAILS } from '@assessment/router/names'
 
 export const caseStatusToTranslation: Record<string, string> = {
   [Status.APPROVED]: 'Goedgekeurd',
@@ -34,7 +35,12 @@ export const statusToRequiredAction: Record<string, string> = {
   [Status.SUBMITTED]: 'Nee'
 }
 
-export const statusToRouteName: Record<string, string> = {
+export const caseStatusToRouteName: Record<string, string> = {
+  'ToDo': MY_CASE_DETAILS,
+  'in_progress': MY_CASE_DETAILS,
+}
+
+export const requestStatusToRouteName: Record<string, string> = {
   [Status.APPROVED]: MY_REQUEST_STATUS,
   [Status.DRAFT]: MY_REQUEST_EDIT,
   [Status.REJECTED]: MY_REQUEST_STATUS,
@@ -43,6 +49,8 @@ export const statusToRouteName: Record<string, string> = {
 }
 
 export const statusToRouteText: Record<string, string> = {
+  'ToDo': 'Open zaak',
+  'in_progress': 'Open zaak',
   [Status.APPROVED]: 'Bekijk aanvraag',
   [Status.DRAFT]: 'Open aanvraag',
   [Status.REJECTED]: 'Bekijk aanvraag',
