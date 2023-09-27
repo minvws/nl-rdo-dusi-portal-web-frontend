@@ -27,7 +27,6 @@
 <script setup lang="ts">
 import type { FilterItem } from '@shared/types/filters'
 
-import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
