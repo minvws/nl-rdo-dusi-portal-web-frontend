@@ -29,14 +29,14 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-import { LOGIN_VIEW } from '@assessment/router/names'
+import { LOGIN_VIEW, HOME } from '@assessment/router/names'
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.two-factor.title')}` })
 
 const authStore = useAuthStore()
 const router = useRouter()
 
-const { isLoggedIn } = storeToRefs(authStore)
+const { isLoggedIn, needsTwoFactor } = storeToRefs(authStore)
 
 const twoFactorForm = [
   {
@@ -82,7 +82,15 @@ function onSubmit(data: Record<string, string>) {
   authStore.twoFactorChallenge(code)
 }
 
-onBeforeMount(() => !isLoggedIn.value && router.push({ name: LOGIN_VIEW }))
+onBeforeMount(() => {
+  if (isLoggedIn.value) {
+    router.push({ name: HOME })
+  }
+
+  if (!needsTwoFactor.value) {
+    router.push({ name: LOGIN_VIEW })
+  }
+})
 </script>
 
 <style lang="scss" scoped>

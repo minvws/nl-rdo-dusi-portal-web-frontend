@@ -35,6 +35,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const user: Ref<User | null> = ref(null)
 
   const isLoggedIn: Ref<boolean> = ref(false)
+  const needsTwoFactor: Ref<boolean> = ref(false)
 
   async function getUserInfo() {
     try {
@@ -172,13 +173,20 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function determineTwoFactorRoute({ two_factor }: TwoFactorResponse) {
-    two_factor ? router.push({ name: TWO_FACTOR_VIEW }) : getUserInfo()
+    if (two_factor) {
+      needsTwoFactor.value = true
+      router.push({ name: TWO_FACTOR_VIEW })
+    } else {
+      needsTwoFactor.value = false
+      getUserInfo()
+    }
   }
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
   return {
     isLoggedIn,
+    needsTwoFactor,
     logIn,
     logOut,
     restoreSession,
