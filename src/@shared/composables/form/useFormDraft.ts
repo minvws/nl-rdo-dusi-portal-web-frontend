@@ -5,7 +5,7 @@ import { NotificationType } from '@shared/types/notification'
 
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { translate } from '@shared/i18n'
 import { useRouter } from 'vue-router'
@@ -36,7 +36,7 @@ export const useFormDraft = (formId: Ref<string>) => {
     const {
       data: { value: data },
       error: { value: error }
-    } = await useFetchWithCredentials(url, options).json()
+    } = await useFetchWithEncryption(url, options).json()
 
     if (error?.code) {
       notification.add({

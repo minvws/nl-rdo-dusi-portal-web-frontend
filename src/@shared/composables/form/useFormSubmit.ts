@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 import { useEncryption } from '@shared/composables/useEncryption'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
 
 import { HOME } from '@shared/router/names'
@@ -40,7 +40,7 @@ export const useFormSubmit = () => {
     forms.setSubmitting(true)
 
     try {
-      const { statusCode, data, error } = await useFetchWithCredentials(url, options).json()
+      const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
       if (statusCode.value === 200) return undefined
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {

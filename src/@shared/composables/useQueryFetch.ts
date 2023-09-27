@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 
 import { computed, ref } from 'vue'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 
 type UseFetchConfig = {
   refetch?: boolean
@@ -40,7 +40,7 @@ export const useQueryFetch = (
   const fetchOptions = { ...fetchConfig }
   const useFetchOptions = { ...{ refetch: true, immediate: true }, ...useFetchConfig }
 
-  const { data, error, isFetching } = useFetchWithCredentials(
+  const { data, error, isFetching } = useFetchWithEncryption(
     url,
     fetchOptions,
     useFetchOptions

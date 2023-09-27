@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 
 import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useEncryption } from '@shared/composables/useEncryption'
 
 import { translate } from '@shared/i18n'
@@ -77,7 +77,7 @@ export const useFileStore = defineStore('useFileStore', () => {
       const arrayBuffer = await file.arrayBuffer()
       const fileData = new Uint8Array(arrayBuffer)
       const encryptedData = await encrypt(publicKey, fileData)
-      const { data } = await useFetchWithCredentials(url).post(encryptedData).json()
+      const { data } = await useFetchWithEncryption(url).post(encryptedData).json()
       if (data.value?.id) {
         onFileUpload({ id, file, data: data.value })
         return onFileUpload({ id, file, data: data.value })

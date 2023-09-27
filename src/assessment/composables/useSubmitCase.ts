@@ -3,7 +3,7 @@ import { FormSubmitTypes } from '@shared/types/form'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useFormSubmitNotification } from '@shared/composables/form/useFormSubmitNotification'
 import { useSubmitCaseUrl } from '@assessment/composables/useApiUrl'
 
@@ -35,7 +35,7 @@ export const useSubmitCase = () => {
     locked.value = true
 
     try {
-      const { statusCode, data, error } = await useFetchWithCredentials(url).put(payload).json()
+      const { statusCode, data, error } = await useFetchWithEncryption(url).put(payload).json()
       if (statusCode.value === 200) return undefined
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
