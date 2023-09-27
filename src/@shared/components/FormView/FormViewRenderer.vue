@@ -5,7 +5,7 @@
     :forms="forms"
     :formsErrors="formsErrors"
     :touched="touchedForms"
-    :readonly="readonly"
+    :readonly="readonly || !!locked"
     @step="onStep"
   />
   <form
@@ -24,7 +24,7 @@
       :uischema="uischema"
       :data="data"
       :ajv="ajv"
-      :readonly="readonly"
+      :readonly="readonly || !!locked"
       @change="onChange"
     />
     <FormButtons
@@ -35,7 +35,7 @@
       :touched="touchedForms"
       :readonly="readonly"
       :buttonLabels="buttonLabels"
-      :hasSaveButton="createDraft"
+      :hasSaveButton="createDraft || hasSaveButton"
       @save="onSave"
       @submit="onSubmit"
       @step="onStep"
@@ -48,6 +48,7 @@
 <script setup lang="ts">
 import type { FormViewProps } from '@shared/types/form'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
+
 import { computed } from 'vue'
 import { JsonForms } from '@jsonforms/vue'
 
@@ -61,7 +62,7 @@ import FormButtons from '@shared/components/FormButtons/FormButtons.vue'
 import FormDebugView from '@shared/components/FormDebugView/FormDebugView.vue'
 import FormStepper from '@shared/components/FormStepper/FormStepper.vue'
 
-const emit = defineEmits(['submit', 'init'])
+const emit = defineEmits(['submit', 'save', 'init'])
 const props = defineProps<FormViewProps>()
 
 const ajv = useAjv()
@@ -111,6 +112,7 @@ function onSubmit() {
 
 function onSave() {
   if (props.createDraft) form.onSubmitDraft()
+  else emit('save', form.formData.value)
 }
 
 function onValidate() {

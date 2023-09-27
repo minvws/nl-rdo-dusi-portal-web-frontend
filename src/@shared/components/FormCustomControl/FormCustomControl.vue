@@ -13,8 +13,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import type { ControlElement } from '@jsonforms/core'
+
+import { defineComponent } from 'vue'
 import { rendererProps } from '@jsonforms/vue'
 
 import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'

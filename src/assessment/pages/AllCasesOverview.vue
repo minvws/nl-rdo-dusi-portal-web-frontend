@@ -1,8 +1,8 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.home.title') }}</h1>
-      <p>{{ translate('pages.home.subtitle') }}</p>
+      <h1>{{ translate('pages.all-cases-overview.title') }}</h1>
+      <p>{{ translate('pages.all-cases-overview.subtitle') }}</p>
     </div>
     <AppSuspense v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
       <FilterTabs
@@ -18,13 +18,13 @@
       >
         <p v-if="query">
           <span>{{ numberOfCases }}</span>
-          {{ translate('pages.home.cases', {}, numberOfCases) }}
+          {{ translate('pages.all-cases-overview.cases', {}, numberOfCases) }}
         </p>
         <AppButton
-          :data-show-filters-label="translate('pages.home.showFilters')"
+          :data-show-filters-label="translate('pages.all-cases-overview.showFilters')"
           aria-expanded="false"
         >
-          {{ translate('pages.home.showFilters') }}
+          {{ translate('pages.all-cases-overview.showFilters') }}
         </AppButton>
       </FilterOptions>
     </div>
@@ -35,7 +35,7 @@
         :items-per-page="10"
       />
       <template #fallback>
-        <p>{{ translate('pages.home.noCases') }}</p>
+        <p>{{ translate('pages.all-cases-overview.noCases') }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -58,15 +58,19 @@ import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import type { FilterItem } from '@shared/types/filters'
 
 const headings = [
-  { id: 'file', text: translate('pages.home.headings.file'), sortable: true },
-  { id: 'arrangement', text: translate('pages.home.headings.arrangement'), sortable: true },
-  { id: 'status', text: translate('pages.home.headings.status'), sortable: true },
-  { id: 'deadline', text: translate('pages.home.headings.deadline'), sortable: true },
-  { id: 'updated', text: translate('pages.home.headings.updated'), sortable: true },
-  { id: 'reviewer', text: translate('pages.home.headings.reviewer'), sortable: true }
+  { id: 'file', text: translate('pages.all-cases-overview.headings.file'), sortable: true },
+  {
+    id: 'arrangement',
+    text: translate('pages.all-cases-overview.headings.arrangement'),
+    sortable: true
+  },
+  { id: 'status', text: translate('pages.all-cases-overview.headings.status'), sortable: true },
+  { id: 'deadline', text: translate('pages.all-cases-overview.headings.deadline'), sortable: true },
+  { id: 'updated', text: translate('pages.all-cases-overview.headings.updated'), sortable: true },
+  { id: 'reviewer', text: translate('pages.all-cases-overview.headings.reviewer'), sortable: true }
 ]
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.home.title')}` })
+useSEO({ title: `${translate('app.prefix')} | ${translate('pages.all-cases-overview.title')}` })
 
 const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
 const {

@@ -1,14 +1,18 @@
-import { SessionType, type Session } from '@shared/types/session'
+import type { Ref } from 'vue'
+import type { Session } from '@shared/types/session'
 
+import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
-import { ref, watch, type Ref, computed } from 'vue'
+
 import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'
 import { useAuthStore } from '@portal/store/useAuthStore'
-import { useApiLoginUrl } from '@shared/composables/useApiUrl'
+import { useApiLoginUrl } from '@portal/composables/useApiUrl'
 
 import { ModalType } from '@shared/types/modal'
+import { SessionType } from '@shared/types/session'
+
 import { openExternalLink } from '@shared/utils/link'
 
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000

@@ -1,9 +1,11 @@
-import { computed, watch, type Ref, ref } from 'vue'
+import type { Ref } from 'vue'
+import type { FilterItem } from '@shared/types/filters'
+
+import { computed, watch, ref } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCasesUrl } from '@assessment/composables/useApiUrl'
 
 import { transformCasesData } from '@shared/utils/transform'
-import type { FilterItem } from '@shared/types/filters'
 
 export const useFetchAllCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiCasesUrl()

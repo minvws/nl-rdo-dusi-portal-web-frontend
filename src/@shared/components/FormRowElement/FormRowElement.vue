@@ -17,8 +17,9 @@
 </template>
 
 <script setup lang="ts">
-import { InputType } from '@/@shared/types/input'
 import type { Slot, VNodeChild } from 'vue'
+
+import { InputType } from '@shared/types/input'
 import { Comment, computed, useSlots } from 'vue'
 
 type Props = {

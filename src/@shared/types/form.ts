@@ -1,10 +1,11 @@
 import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
 
 export type FormTitle = { title?: string }
-
+export type FormMetaData = Record<string, any>
 export type Form = {
   dataschema: JsonSchema & { anyOf?: any }
   uischema: UISchemaElement
+  metadata?: FormMetaData
 } & FormTitle
 
 export type FileType = {
@@ -44,8 +45,10 @@ export type FormViewProps = {
   title?: string
   values?: FormData
   createDraft?: boolean
+  locked?: boolean
   hideDebug?: boolean
   buttonLabels?: FormButtonLabels
+  hasSaveButton?: boolean
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
 }

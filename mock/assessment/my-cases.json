@@ -6,7 +6,8 @@
       "subsidy": "BTV",
       "status": "ToDo",
       "final_review_deadline": "2023-12-10T12:30:00Z",
-      "updated_at": "2023-06-04T12:30:00Z"
+      "updated_at": "2023-06-04T12:30:00Z",
+      "reference": "BOSA2207890"
     },
     {
       "id": "b55a1c9f-01e4-4ea9-9b08-0d8672482b71",
@@ -14,39 +15,9 @@
       "subsidy": "BTV",
       "status": "in_progress",
       "final_review_deadline": "2023-12-11T12:30:00Z",
-      "updated_at": "2023-06-05T12:30:00Z"
-    },
-    {
-      "id": "e8714e2b-547f-4a84-9da2-578c1c8ff924",
-      "application_title": "Aanvraag",
-      "subsidy": "DAMU",
-      "status": "in_progress",
-      "final_review_deadline": "2023-12-12T12:30:00Z",
-      "updated_at": "2023-06-06T12:30:00Z"
-    },
-    {
-      "id": "a82e3616-c5a0-481f-8f28-6b2bcafe1d0f",
-      "application_title": "Aanvraag",
-      "subsidy": "DAMU",
-      "status": "in_progress",
-      "final_review_deadline": "2023-12-13T12:30:00Z",
-      "updated_at": "2023-06-07T12:30:00Z"
-    },
-    {
-      "id": "943db50d-5d1c-4c95-9ec2-d25c18dbbfc5",
-      "application_title": "Aanvraag",
-      "subsidy": "BTV",
-      "status": "ToDo",
-      "final_review_deadline": "2023-12-14T12:30:00Z",
-      "updated_at": "2023-06-08T12:30:00Z"
-    },
-    {
-      "id": "62fe849b-c19f-41aa-bbac-7ad168cc7a1e",
-      "application_title": "Aanvraag",
-      "subsidy": "BTV",
-      "status": "in_progress",
-      "final_review_deadline": "2023-12-15T12:30:00Z",
-      "updated_at": "2023-06-09T12:30:00Z"
+      "updated_at": "2023-06-05T12:30:00Z",
+      "reference": "BOSA2234567"
     }
-  ]
+]
+
 }

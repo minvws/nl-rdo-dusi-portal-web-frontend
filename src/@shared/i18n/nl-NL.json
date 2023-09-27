@@ -46,7 +46,6 @@
       "ariaLabel": "Kruimelpad"
     },
     "footer": {
-      "slogan": "De Rijksoverheid. Voor Nederland",
       "serviceTitle": "Service",
       "aboutTitle": "Over deze site",
       "version": "Versie v{version}",
@@ -92,12 +91,10 @@
       }
     },
     "pagination": {
-      "label": "Pagina",
-      "pageLabel": "Ga naar pagina {page}",
+      "pagination": "Paginering",
+      "page": "Pagina",
       "prev": "Vorige",
-      "prevLabel": "Ga naar de vorige pagina",
-      "next": "Volgende",
-      "nextLabel": "Ga naar de volgende pagina"
+      "next": "Volgende"
     },
     "table": {
       "sortableColumnsHint": "Kolomkoppen met knoppen zijn sorteerbaar"
@@ -145,7 +142,7 @@
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "submitting": "Formulier is bezig met verzenden",
       "success": "Formulier is succesvol verzonden",
-      "failed": "Er is iets mis gegaan met het verzenden van het formulier",
+      "failed": "Er is iets mis gegaan met het verzenden van het formulier. { error }",
       "save-success": "Formulier is opgeslagen",
       "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
       "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag"

@@ -1,12 +1,15 @@
+import type { FileLink } from '@shared/types/link'
+import type { FileType } from '@shared/types/form'
+
 import { computed, onBeforeUnmount } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useApiGetFileUrl } from './useApiUrl'
-import type { FileLink } from '@shared/types/link'
-import type { FileType } from '../types/form'
 
 export const useFileLink = (props: FileLink & { file: FileType }) => {
   const url = useApiGetFileUrl(props)
-  const { data, error, ...fetch } = useFetchWithCredentials(url).blob()
+  const { data, error, ...fetch } = useFetchWithCredentials(url, undefined, {
+    immediate: false
+  }).blob()
 
   const fileUrl = computed(() => {
     if (!data.value || error.value) return undefined

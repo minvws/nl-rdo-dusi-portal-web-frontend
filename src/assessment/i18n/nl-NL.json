@@ -1,4 +1,26 @@
 {
+  "authentication": {
+    "2fa-invalid-code": {
+      "label": "Code ongeldig",
+      "message": "De verificatiecode die u heeft ingevoerd is ongeldig. Probeer het opnieuw."
+    },
+    "2fa-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    },
+    "login-invalid-credentials": {
+      "label": "Inloggen mislukt",
+      "message": "Controleer uw gebruikersnaam en wachtwoord en probeer het opnieuw."
+    },
+    "login-too-many-attempts": {
+      "label": "Inloggen mislukt",
+      "message": "U heeft te vaak geprobeerd in te loggen. Probeer het later nog eens."
+    },
+    "login-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    }
+  },
   "component": {
     "appTable": {
       "open": "Open zaak",
@@ -57,12 +79,12 @@
     }
   },
   "pages": {
-    "home": {
+    "all-cases-overview": {
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
-      "title": "Zaken",
+      "title": "Alle zaken",
       "headings": {
         "file": "Dossier",
         "arrangement": "Regeling",
@@ -102,6 +124,10 @@
     "review-case": {
       "title": "Eerste beoordeling|Tweede beoordeling|Beoordeling",
       "case": "Aanvraag"
+    },
+    "two-factor": {
+      "title": "Twee-staps verificatie",
+      "submit": "Verstuur code"
     }
   }
 }

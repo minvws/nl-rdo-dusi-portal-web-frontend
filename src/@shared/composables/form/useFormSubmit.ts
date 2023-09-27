@@ -1,24 +1,25 @@
+import type { FormSubmitType } from '@shared/types/form'
+
 import { useRouter } from 'vue-router'
+
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
-import { HOME } from '@shared/router/names'
-import { log } from '@shared/utils/logger'
-import { translate } from '@shared/i18n'
-import { FormSubmitTypes, type FormSubmitType } from '@shared/types/form'
 import { useEncryption } from '@shared/composables/useEncryption'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useApiFormsSubmitUrl } from '@shared/composables/useApiUrl'
+
+import { HOME } from '@shared/router/names'
+import { log } from '@shared/utils/logger'
+import { FormSubmitTypes } from '@shared/types/form'
+import { useFormSubmitNotification } from './useFormSubmitNotification'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
-  const notification = useNotificationsStore()
+  const notification = useFormSubmitNotification()
+
   const router = useRouter()
   const { encrypt } = useEncryption()
-
-  const NOTIFICATION_SUBMIT_ID = 'form-submit'
-  const NOTIFICATION_SAVE_ID = 'form-save'
 
   async function onSubmit(type: FormSubmitType) {
     const { draftId, formData } = forms
@@ -39,54 +40,37 @@ export const useFormSubmit = () => {
     forms.setSubmitting(true)
 
     try {
-      const response = await useFetchWithCredentials(url, options).json()
-      if (response.statusCode.value === 200) return undefined
-      throw new Error(response.data.value.message)
+      const { statusCode, data, error } = await useFetchWithCredentials(url, options).json()
+      if (statusCode.value === 200) return undefined
+      throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
-      return error
+      return error as Error
     } finally {
       forms.setSubmitting(false)
     }
   }
 
-  async function onSubmitForm() {
-    const error = await onSubmit(FormSubmitTypes.SUBMIT)
+  function showNotification({ type, error }: { type: FormSubmitType; error?: Error }) {
     if (error) {
-      notification.add({
-        message: translate('form.message.failed') || '',
-        displayAs: 'error',
-        id: NOTIFICATION_SUBMIT_ID,
-        pageChangeCount: 1
-      })
+      notification.showError({ type, error })
     } else {
-      notification.add({
-        message: translate('form.message.success') || '',
-        displayAs: 'confirmation',
-        id: NOTIFICATION_SUBMIT_ID,
-        pageChangeCount: 2
-      })
-      return router.replace({ name: HOME })
+      notification.showSuccess(type)
     }
   }
 
+  async function onSubmitForm() {
+    const type = FormSubmitTypes.SUBMIT
+    const error = await onSubmit(type)
+    showNotification({ type, error })
+    if (error) return
+    return router.replace({ name: HOME })
+  }
+
   async function onSubmitDraft() {
-    const error = await onSubmit(FormSubmitTypes.DRAFT)
-    if (error) {
-      notification.add({
-        message: translate('form.message.save-failed') || '',
-        displayAs: 'error',
-        id: NOTIFICATION_SAVE_ID,
-        duration: 3000
-      })
-    } else {
-      notification.add({
-        message: translate('form.message.save-success') || '',
-        displayAs: 'confirmation',
-        id: NOTIFICATION_SAVE_ID,
-        duration: 3000
-      })
-    }
+    const type = FormSubmitTypes.DRAFT
+    const error = await onSubmit(type)
+    showNotification({ type, error })
   }
 
   return {

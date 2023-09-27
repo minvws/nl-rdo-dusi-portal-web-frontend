@@ -1,14 +1,18 @@
 <template>
   <div class="form-field-remove-file">
     <div class="form-field-remove-file-content">
-      <AppLoader v-if="isPending" />
+      <AppLoader
+        v-if="isPending"
+        class="loader"
+        :class="{ padding: !hasRemoveButton }"
+      />
       <label
         v-else
-        v-bind="{ for: labelFor, class: { padding: !hasFile } }"
-        >{{ label }}</label
-      >
+        v-bind="{ for: labelFor, class: { padding: !hasRemoveButton } }"
+        :innerText="file?.name || label"
+      />
       <AppButton
-        v-if="hasFile"
+        v-if="hasRemoveButton"
         class="button"
         :disabled="disabled || isPending"
         @click="onRemoveFile"
@@ -20,7 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue'
+import type { FileType } from '@shared/types/form'
+
+import { computed, watch } from 'vue'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
 
@@ -36,6 +42,7 @@ type Props = {
   labelFor: string
   error: string
   disabled?: boolean
+  file?: FileType
   isPending: boolean
 }
 
@@ -44,6 +51,8 @@ const props = defineProps<Props>()
 const emit = defineEmits(['blur'])
 
 const { hasFile, label, addOrRemoveFile } = useFieldFileRemove(props)
+
+const hasRemoveButton = computed(() => hasFile.value || !!props.file)
 
 function onRemoveFile() {
   addOrRemoveFile(props.id)
@@ -66,23 +75,46 @@ watch(
   position: absolute;
   top: 0;
   right: 0;
-  width: auto;
+  width: 100%;
   height: 100%;
+  pointer-events: none;
 
   &-content {
     display: flex;
     flex-direction: row;
     height: 100%;
     align-items: center;
+    justify-content: flex-end;
+    text-overflow: ellipsis;
+    float: right;
 
     label {
       white-space: nowrap;
+      overflow: hidden;
+      display: block;
+      text-overflow: ellipsis;
+      max-width: calc(100% - 220px);
+      text-align: right;
+      pointer-events: none;
+
       &.padding {
+        max-width: calc(100% - 130px);
         padding-right: 1em;
       }
     }
+
     .button {
       height: 100%;
+      width: 60px;
+      pointer-events: all;
+    }
+
+    .loader {
+      width: auto;
+      height: auto;
+      &.padding {
+        padding-right: 1em;
+      }
     }
   }
 }

@@ -61,8 +61,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
 import type { Options } from '@jsonforms/vue-vanilla'
+
+import { defineComponent } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'

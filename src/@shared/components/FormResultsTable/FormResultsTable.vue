@@ -51,7 +51,9 @@ export default defineComponent({
       return (Object.entries(this.appliedOptions.fields) as [string, string][]) ?? []
     },
     items(): DescriptionListItem[] {
-      return this.fields.map(field => this.formatListItem(field))
+      return this.fields
+        .map(field => this.formatListItem(field))
+        .filter(field => !!field) as DescriptionListItem[]
     },
     wrapperProps() {
       const { styles, appliedOptions, control } = this
@@ -68,9 +70,14 @@ export default defineComponent({
     }
   },
   methods: {
-    formatListItem(item: [string, string]): DescriptionListItem {
+    formatListItem(item: [string, string]): DescriptionListItem | undefined {
       const [term, template] = item
-      const { matches, text, field, files } = this.replaceTemplateWithData(template, this.formData)
+
+      const result = this.replaceTemplateWithData(template, this.formData)
+
+      if (!result) return undefined
+
+      const { matches, text, field, files } = result
 
       if (files) {
         return {
@@ -108,6 +115,8 @@ export default defineComponent({
       const regex = /\{([a-zA-Z]+)\}/g
       const result = Array.from(template.matchAll(regex))
 
+      let hasValue = false // Will become true if there is any data for this template. If there is no date, return undefined, so empty values will not be shown in the table
+
       while (result.length) {
         const match = result.shift()
         if (!match) break
@@ -115,20 +124,19 @@ export default defineComponent({
         matches.push(field)
 
         const target = formData[field]
-
-        if (typeof target === 'object' && 'items' in target) {
-          // @TODO: for now we assume when there are items
+        if (Array.isArray(target)) {
+          // @TODO: for now we assume when there value is an array
           // it are files
-          const { items } = target
           return {
             field,
-            files: items as FileType[],
+            files: target as FileType[],
             matches
           }
         }
+        if (!hasValue && formData[field] !== undefined) hasValue = true
         text = text.replace(`{${field}}`, `${formData[field] ?? ''}`)
       }
-      return { matches, text }
+      return !hasValue ? undefined : { matches, text }
     }
   },
   setup(props) {

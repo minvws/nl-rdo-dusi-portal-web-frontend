@@ -46,26 +46,33 @@
       <TabPanels>
         <TabPanel>
           <AppSuspense
-            v-bind="{ data: details, error: detailsError, isFetching: isFetchingDetails }"
+            v-bind="{
+              data: caseData,
+              error: caseError,
+              isFetching: isFetchingCase
+            }"
           >
             <FormView
               v-bind="{
-                id: 'my-details',
-                forms: details,
-                values,
-                hideDebug: true,
-                buttonLabels: { submit: 'Submit' },
-                noStyle: true,
-                noButtons: true
+                id: 'my-details-application',
+                ...formViewOptions,
+                ...caseDetail
               }"
             />
+            <FormView
+              v-if="caseStage"
+              v-bind="{
+                id: 'my-details-stage-1',
+                ...formViewOptions,
+                ...caseStage
+              }"
+            />
+            <RouterLink
+              class="button"
+              :to="startReviewRoute"
+              :text="translate('pages.my-case-details.startReview')"
+            />
           </AppSuspense>
-          <RouterLink
-            :to="startReviewRoute"
-            class="button"
-          >
-            {{ translate('pages.my-case-details.startReview') }}
-          </RouterLink>
         </TabPanel>
         <TabPanel>
           <AppSuspense
@@ -91,7 +98,6 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchCaseDetails } from '@assessment/composables/useFetchCaseDetails'
 import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import useSEO from '@shared/composables/useSeo'
@@ -102,6 +108,7 @@ import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
+import { useFetchCase } from '@assessment/composables/useFetchCase'
 
 type Props = {
   id: string
@@ -111,17 +118,25 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
+const formViewOptions = {
+  hideDebug: true,
+  noStyle: true,
+  noButtons: true
+}
 const {
-  forms: details,
-  error: detailsError,
-  values,
-  isFetching: isFetchingDetails
-} = useFetchCaseDetails(props.id as string)
+  data: caseData,
+  error: caseError,
+  isFetching: isFetchingCase,
+  caseDetail,
+  caseStage
+} = useFetchCase(props.id as string)
+
 const {
   data: history,
   error: historyError,
   isFetching: isFetchingHistory
 } = useFetchCaseHistory(props.id as string)
+
 const {
   data: reviewer,
   error: reviewerError,

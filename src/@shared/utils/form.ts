@@ -1,9 +1,12 @@
-import type { Form } from '@shared/types/form'
+import type { Form, FormData, FormMetaData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
-import { isLabeled, isLayout } from '@jsonforms/core'
-import { getValueFormKey } from '@shared/utils/object'
 import type { UISchemaElement } from '@jsonforms/core'
+
+import { isLabeled, isLayout } from '@jsonforms/core'
+
+import { getValueFormKey } from '@shared/utils/object'
 import { getDeepProps } from '@shared/utils/array'
+
 import { getControlId } from './control'
 
 const getScopesFromUISchema = (uischema: UISchemaElement) => {
@@ -53,6 +56,23 @@ export const transformForm = (form: Form): Form[] => {
   return forms
 }
 
-export const getFormTitle = ({ metadata }: { metadata: Record<string, any> }) => {
+export const getFormTitle = ({ metadata }: { metadata?: FormMetaData }) => {
   return getValueFormKey(metadata, 'title')
+}
+
+export const transformFormValues = (values?: FormData) => {
+  if (!values) return undefined
+  return Object.entries(values).reduce((cul, [key, value]) => {
+    if (typeof value === 'object' && 'items' in value) {
+      const { items } = value
+      return {
+        ...cul,
+        [key]: items
+      }
+    }
+    return {
+      ...cul,
+      [key]: value
+    }
+  }, {})
 }

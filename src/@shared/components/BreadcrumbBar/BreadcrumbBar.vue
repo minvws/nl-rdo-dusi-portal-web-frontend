@@ -9,7 +9,7 @@
           v-for="({ name, params, label }, index) in links"
           :key="index"
         >
-          <span v-if="index === links.length - 1 || index === 0">
+          <span v-if="index === 0">
             {{ label }}
           </span>
           <RouterLink
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import type { Link } from '@shared/types/link'
+
 import { translate } from '@shared/i18n'
 
 type Props = {

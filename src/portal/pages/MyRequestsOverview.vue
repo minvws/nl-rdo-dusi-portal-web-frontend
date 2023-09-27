@@ -10,11 +10,11 @@
       <template #title>
         <h2>{{ translate('pages.my-requests-overview.myRequests') }}</h2>
       </template>
-      <AppTable
-        :caption="translate('pages.my-requests-overview.table.caption')"
-        :columns="headings"
-        :data="data"
-        :items-per-page="10"
+      <RequestCards
+        v-bind="{
+          headings,
+          data
+        }"
       />
       <template #fallback>
         <p>{{ translate('pages.my-requests-overview.noRequests') }}</p>
@@ -33,7 +33,7 @@ import { useFetchRequests } from '@portal/composables/useFetchRequests'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import AppTable from '@shared/components/AppTable/AppTable.vue'
+import RequestCards from '@portal/components/RequestCards/RequestCards.vue'
 
 useSEO({
   title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}`
