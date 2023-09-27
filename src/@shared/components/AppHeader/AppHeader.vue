@@ -15,53 +15,31 @@
             v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
           >
-            <RouterLink
-              :to="{ name }"
-              custom
-              v-slot="{ href, navigate, isActive, isExactActive }"
-            >
-              <a
-                :href="href"
-                @click="navigate"
-                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : undefined"
-                :class="{ active: isActive, 'exact-active': isExactActive }"
-              >
-                <AppIcon
-                  v-if="icon"
-                  :name="icon"
-                  aria-hidden="true"
-                />
-                {{ label }}
-              </a>
-            </RouterLink>
+            <NavLink :to="{ name }">
+              <AppIcon
+                v-if="icon"
+                :name="icon"
+                aria-hidden="true"
+              />
+              {{ label }}
+            </NavLink>
           </li>
           <li
             v-for="({ name, label, icon, badge }, index) in rightLinks"
             :key="`auth-link-${index}`"
           >
-            <RouterLink
-              :to="{ name }"
-              custom
-              v-slot="{ href, navigate, isActive, isExactActive }"
-            >
-              <a
-                :href="href"
-                @click="navigate"
-                :aria-current="isActive ? (isExactActive ? 'page' : 'true') : undefined"
-                :class="{ active: isActive, 'exact-active': isExactActive }"
-              >
-                <AppIcon
-                  v-if="icon"
-                  :name="icon"
-                  aria-hidden="true"
-                />
-                {{ label }}
-                <MessageCounter
-                  v-if="badge"
-                  :value="badge"
-                />
-              </a>
-            </RouterLink>
+            <NavLink :to="{ name }">
+              <AppIcon
+                v-if="icon"
+                :name="icon"
+                aria-hidden="true"
+              />
+              {{ label }}
+              <MessageCounter
+                v-if="badge"
+                :value="badge"
+              />
+            </NavLink>
           </li>
         </ul>
         <ul v-if="AuthComponent">
@@ -89,6 +67,7 @@ import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLog
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
 import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
+import NavLink from '@shared/components/NavLink/NavLink.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
 
