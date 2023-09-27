@@ -11,23 +11,6 @@
         @change="onFilterChange"
       />
     </AppSuspense>
-    <div>
-      <FilterOptions
-        type="all-cases"
-        v-model="query"
-      >
-        <p v-if="query">
-          <span>{{ numberOfCases }}</span>
-          {{ translate('pages.all-cases-overview.cases', {}, numberOfCases) }}
-        </p>
-        <AppButton
-          :data-show-filters-label="translate('pages.all-cases-overview.showFilters')"
-          aria-expanded="false"
-        >
-          {{ translate('pages.all-cases-overview.showFilters') }}
-        </AppButton>
-      </FilterOptions>
-    </div>
     <AppSuspense v-bind="{ data: casesData, error: casesError, isFetching: isFetchingCases }">
       <AppTable
         :data="casesData"
@@ -49,10 +32,8 @@ import useSEO from '@shared/composables/useSeo'
 import { useFetchAllCases } from '@assessment/composables/useFetchAllCases'
 import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
-import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
-import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 
 import type { FilterItem } from '@shared/types/filters'
@@ -77,11 +58,8 @@ const {
   data: casesData,
   error: casesError,
   isFetching: isFetchingCases,
-  query,
   params
 } = useFetchAllCases(filters)
-
-const numberOfCases = computed(() => casesData.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item
