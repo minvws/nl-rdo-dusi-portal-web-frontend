@@ -28,17 +28,6 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-case-details.history') }}
-          </AppButton>
-        </Tab>
-        <Tab
-          as="li"
-          v-slot="{ selected }"
-        >
-          <AppButton
-            class="button"
-            :class="{ selected }"
-          >
             {{ translate('pages.my-case-details.reviewer') }}
           </AppButton>
         </Tab>
@@ -76,13 +65,6 @@
         </TabPanel>
         <TabPanel>
           <AppSuspense
-            v-bind="{ data: history, error: historyError, isFetching: isFetchingHistory }"
-          >
-            <CaseHistory :items="history" />
-          </AppSuspense>
-        </TabPanel>
-        <TabPanel>
-          <AppSuspense
             v-bind="{ data: reviewer, error: reviewerError, isFetching: isFetchingReviewer }"
           >
             <CaseReviewers :name="reviewer.name" />
@@ -98,13 +80,11 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
@@ -130,12 +110,6 @@ const {
   caseDetail,
   caseStage
 } = useFetchCase(props.id as string)
-
-const {
-  data: history,
-  error: historyError,
-  isFetching: isFetchingHistory
-} = useFetchCaseHistory(props.id as string)
 
 const {
   data: reviewer,
