@@ -9,13 +9,15 @@ export const useFetchWithCredentials = <T>(
   fetchOptions?: RequestInit,
   useFetchOptions?: UseFetchOptions
 ) => {
-  const defaultOptions: Record<string, RequestCredentials> = useCredendials ? { credentials: 'include' } : {}
+  const defaultOptions: Record<string, RequestCredentials> = useCredendials
+    ? { credentials: 'include' }
+    : {}
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true, updateDataOnError: true }
 
   const fetchConfig = { ...defaultOptions, ...fetchOptions }
   const useFetchConfig = {
     ...defaultUseFetchOptions,
-    ...useFetchOptions,
+    ...useFetchOptions
   }
 
   return useFetch<T>(url, fetchConfig, useFetchConfig)
