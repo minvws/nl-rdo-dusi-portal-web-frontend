@@ -10,7 +10,7 @@ import { transformCasesData } from '@shared/utils/transform'
 export const useFetchAllCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
-  const { data: json, ...fetch } = useQueryFetch({ url, params }, { immediate: false })
+  const { data: json, ...fetch } = useQueryFetch('with-encryption', { url, params }, { immediate: false })
 
   const data = computed(() => (json.value ? transformCasesData(json.value) : []))
 

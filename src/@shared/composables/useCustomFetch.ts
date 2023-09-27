@@ -1,5 +1,4 @@
-import type { ComputedRef } from 'vue'
-import { Project } from '@shared/types/project'
+import type { MaybeRefOrGetter } from 'vue'
 
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
@@ -10,15 +9,14 @@ export type UseFetchConfig = {
 }
 
 export const useCustomFetch = (
-  url: string | ComputedRef<string>,
+  type: 'with-credentials' | 'with-encryption' = 'with-credentials',
+  url: MaybeRefOrGetter<string>,
   useFetchOptions?: RequestInit,
   fetchOptions?: UseFetchConfig
 ) => {
-  if (import.meta.env.VITE_PROJECT === Project.PORTAL) {
-    console.log('useFetchWithEncryption')
+  if (type === 'with-encryption') {
     return useFetchWithEncryption(url, useFetchOptions, fetchOptions)
   } else {
-    console.log('useFetchWithEncryption')
     return useFetchWithCredentials(url, useFetchOptions, fetchOptions)
   }
 }

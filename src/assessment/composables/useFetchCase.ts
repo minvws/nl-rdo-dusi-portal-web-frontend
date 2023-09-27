@@ -10,7 +10,7 @@ import { transformForm, transformFormValues, getFormTitle } from '@shared/utils/
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
-  const { data: json, ...fetch } = useQueryFetch({ url })
+  const { data: json, ...fetch } = useQueryFetch('with-credentials', { url })
   const data = computed(() => json.value?.data as ApplicationDetails)
 
   const caseDetail = computed(() => {
