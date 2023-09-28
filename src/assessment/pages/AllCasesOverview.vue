@@ -4,6 +4,13 @@
       <h1>{{ translate('pages.all-cases-overview.title') }}</h1>
       <p>{{ translate('pages.all-cases-overview.subtitle') }}</p>
     </div>
+    <AppSuspense v-if="enabledFeature" v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
+      <FilterTabs
+        :items="filters"
+        :selected="params?.id"
+        @change="onFilterChange"
+      />
+    </AppSuspense>
     <div>
       <FilterOptions
         type="all-cases"
@@ -46,6 +53,11 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
+
+import type { FilterItem } from '@shared/types/filters'
+
+const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 const headings = [
   { id: 'file', text: translate('pages.all-cases-overview.headings.file'), sortable: true },
@@ -62,15 +74,21 @@ const headings = [
 
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.all-cases-overview.title')}` })
 
-const { data: filters } = useFetchFilters()
+const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
 const {
   data: casesData,
   error: casesError,
   isFetching: isFetchingCases,
   query,
+  params,
 } = useFetchAllCases(filters)
 
 const numberOfCases = computed(() => casesData.value.length ?? 0)
+
+function onFilterChange(item: FilterItem) {
+  const { id } = item
+  params.value = { id }
+}
 </script>
 
 <style lang="scss" scoped>

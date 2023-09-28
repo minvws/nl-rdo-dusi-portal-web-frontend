@@ -11,6 +11,23 @@
         @change="onFilterChange"
       />
     </AppSuspense>
+    <div v-if="enabledFeature">
+      <FilterOptions
+        type="cases"
+        v-model="query"
+      >
+        <p v-if="query">
+          <span>{{ numberOfCases }}</span>
+          {{ translate('pages.my-cases-overview.cases', {}, numberOfCases) }}
+        </p>
+        <AppButton
+          :data-show-filters-label="translate('pages.my-cases-overview.showFilters')"
+          aria-expanded="false"
+        >
+          {{ translate('pages.my-cases-overview.showFilters') }}
+        </AppButton>
+      </FilterOptions>
+    </div>
     <AppSuspense v-bind="{ data: casesData, error: casesError, isFetching: isFetchingCases }">
       <AppTable
         :data="casesData"
@@ -27,15 +44,20 @@
 <script setup lang="ts">
 import type { FilterItem } from '@shared/types/filters'
 
+import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import useSEO from '@shared/composables/useSeo'
 import { useFetchMyCases } from '@assessment/composables/useFetchMyCases'
 import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
+import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
+import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+
+const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 const headings = [
   { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },
@@ -61,8 +83,11 @@ const {
   data: casesData,
   error: casesError,
   isFetching: isFetchingCases,
+  query,
   params
 } = useFetchMyCases(filters)
+
+const numberOfCases = computed(() => casesData.value.length ?? 0)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

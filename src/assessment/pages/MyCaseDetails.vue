@@ -21,6 +21,18 @@
           </AppButton>
         </Tab>
         <Tab
+          v-if="enabledFeature"
+          as="li"
+          v-slot="{ selected }"
+        >
+          <AppButton
+            class="button"
+            :class="{ selected }"
+          >
+            {{ translate('pages.my-case-details.history') }}
+          </AppButton>
+        </Tab>
+        <Tab
           as="li"
           v-slot="{ selected }"
         >
@@ -63,6 +75,13 @@
             />
           </AppSuspense>
         </TabPanel>
+        <TabPanel v-if="enabledFeature">
+          <AppSuspense
+            v-bind="{ data: history, error: historyError, isFetching: isFetchingHistory }"
+          >
+            <CaseHistory :items="history" />
+          </AppSuspense>
+        </TabPanel>
         <TabPanel>
           <AppSuspense
             v-bind="{ data: reviewer, error: reviewerError, isFetching: isFetchingReviewer }"
@@ -80,15 +99,19 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
+import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import useSEO from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
+import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 import { useFetchCase } from '@assessment/composables/useFetchCase'
+
+const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 type Props = {
   id: string
@@ -110,6 +133,12 @@ const {
   caseDetail,
   caseStage
 } = useFetchCase(props.id as string)
+
+const {
+  data: history,
+  error: historyError,
+  isFetching: isFetchingHistory
+} = useFetchCaseHistory(props.id as string)
 
 const {
   data: reviewer,
