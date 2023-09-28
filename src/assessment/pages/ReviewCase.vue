@@ -110,11 +110,11 @@ const {
 
 const onSubmit = (data: FormData) => {
   const { id } = props
-  onSubmitForm({ id, data })
+  onSubmitDraft({ id, data })
 }
 
 const onSave = (data: FormData) => {
   const { id } = props
-  onSubmitDraft({ id, data })
+  onSubmitForm({ id, data })
 }
 </script>
