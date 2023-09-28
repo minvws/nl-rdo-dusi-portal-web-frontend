@@ -64,7 +64,7 @@ export const useSubmitCase = () => {
 
   async function onSubmitDraft({ id, data }: { id: string; data: FormData }) {
     const type = FormSubmitTypes.DRAFT
-    const error = await onSubmit({ id, data, type: FormSubmitTypes.SUBMIT })
+    const error = await onSubmit({ id, data, type: FormSubmitTypes.DRAFT })
     showNotification({ type, error })
   }
 
