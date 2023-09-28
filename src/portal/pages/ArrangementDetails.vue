@@ -29,7 +29,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { translate } from '@shared/i18n'
 
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import { ARRANGEMENT_FORM_LOCAL, ARRANGEMENT_FORM_REMOTE } from '@portal/router/names'
 

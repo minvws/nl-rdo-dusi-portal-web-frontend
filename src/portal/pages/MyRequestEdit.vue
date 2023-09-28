@@ -13,7 +13,7 @@
 import { translate } from '@shared/i18n'
 
 import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestEditForm from '@portal/components/RequestEditForm/RequestEditForm.vue'

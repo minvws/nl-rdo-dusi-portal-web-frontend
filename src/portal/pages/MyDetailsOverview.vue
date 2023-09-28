@@ -29,7 +29,7 @@
 <script setup lang="ts">
 import { translate } from '@shared/i18n'
 
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import { useFetchPersonalDetails } from '@portal/composables/useFetchPersonalDetails'
 

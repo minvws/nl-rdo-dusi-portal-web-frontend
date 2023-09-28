@@ -60,7 +60,7 @@
               <AppButton
                 v-else-if="isAppButton(item[column.id])"
                 class="button ghost"
-                @click="item[column.id].onClick"
+                @click="onButtonClick(item[column.id].action)"
               >
                 {{ item[column.id].text }}
               </AppButton>
@@ -94,8 +94,11 @@
 
 <script setup lang="ts">
 import type { Column } from '@shared/types/table'
+import type { CaseAction } from '@assessment/composables/useCaseAction'
 
 import { ref, computed, watch } from 'vue'
+
+import { useCaseAction } from '@assessment/composables/useCaseAction'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
@@ -121,6 +124,8 @@ const props = defineProps<Props>()
 const currentPage = ref(1)
 const sortId = ref('')
 const sortDirection = ref('asc')
+
+const caseAction = useCaseAction()
 
 // Reset page when incoming data changes
 watch(
@@ -156,6 +161,11 @@ const sortedData = computed(() => {
 
   return clonedData
 })
+
+function onButtonClick(action: CaseAction) {
+  const { type, params } = action
+  caseAction.executeAction(type, params)
+}
 
 function onPageChange(page: number) {
   currentPage.value = page

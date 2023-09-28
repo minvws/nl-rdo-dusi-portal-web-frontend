@@ -28,7 +28,7 @@ import { computed } from 'vue'
 
 import { translate } from '@shared/i18n'
 
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 import { useFetchRequests } from '@portal/composables/useFetchRequests'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
