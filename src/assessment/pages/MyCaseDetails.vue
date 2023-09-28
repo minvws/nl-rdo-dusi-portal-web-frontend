@@ -101,7 +101,7 @@ import { translate } from '@shared/i18n'
 
 import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'

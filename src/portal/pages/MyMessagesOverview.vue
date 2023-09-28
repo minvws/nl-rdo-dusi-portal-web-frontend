@@ -49,7 +49,7 @@ import { translate } from '@shared/i18n'
 
 import { useFetchMessages } from '@portal/composables/useFetchMessages'
 import { usePagination } from '@shared/composables/usePagination'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'

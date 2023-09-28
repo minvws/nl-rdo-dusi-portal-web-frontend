@@ -32,7 +32,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'

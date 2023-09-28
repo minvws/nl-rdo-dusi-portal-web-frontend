@@ -4,6 +4,7 @@ import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
+import RefreshView from '@assessment/pages/RefreshView.vue'
 
 import {
   HOME,
@@ -12,7 +13,8 @@ import {
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
-  TWO_FACTOR_VIEW
+  TWO_FACTOR_VIEW,
+  REFRESH
 } from '@assessment/router/names'
 
 import { sharedRoutes } from '@shared/router/routes'
@@ -55,6 +57,11 @@ const routes = [
     meta: {
       public: true
     }
+  },
+  {
+    path: '/refresh',
+    name: REFRESH,
+    component: RefreshView
   },
   {
     path: '/verificatie',

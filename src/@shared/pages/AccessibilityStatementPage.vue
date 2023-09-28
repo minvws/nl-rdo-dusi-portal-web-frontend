@@ -267,7 +267,7 @@
 <script setup lang="ts">
 import { translate } from '@shared/i18n'
 
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 import { externalUrls } from '@shared/external-links'
 
 useSEO({
