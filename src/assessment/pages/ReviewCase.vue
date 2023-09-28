@@ -36,7 +36,7 @@
             v-for="(stage, index) in otherCases"
             :key="`stage-${index}`"
             :id="`stage-${index}`"
-            :is-open="true"
+            :is-open="index === otherCases.length - 1"
           >
             <template #title>{{ stage.title }}</template>
             <template #content>

@@ -1,7 +1,11 @@
 import type { Directive } from 'vue'
 
+let init = false // prevent loading of multiple scripts
+
 const vAccordion: Directive = {
   mounted() {
+    if (init) return
+    init = true
     // temporary fix for using accordion script in vue
     // remove when accordion script is updated
     const script = document.createElement('script')
