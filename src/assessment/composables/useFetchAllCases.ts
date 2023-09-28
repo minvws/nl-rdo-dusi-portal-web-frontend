@@ -11,7 +11,7 @@ export const useFetchAllCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
   const { data: json, ...fetch } = useQueryFetch(
-    'with-encryption',
+    'with-credentials',
     { url, params },
     { immediate: false }
   )

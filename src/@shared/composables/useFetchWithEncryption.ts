@@ -12,6 +12,8 @@ import sodium from 'libsodium-wrappers'
 const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
 const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER
 
+const useCredendials = !import.meta.env.PROD
+
 type DecryptResponse = {
   ctx: AfterFetchContext
   keyPair: sodium.KeyPair | undefined
@@ -54,7 +56,9 @@ export const useFetchWithEncryption = <T>(
   useFetchOptions?: UseFetchOptions
 ) => {
   const { generateKeyPair, getPublicKey } = useEncryption()
-  const defaultOptions: Record<string, RequestCredentials> = { credentials: 'include' }
+  const defaultOptions: Record<string, RequestCredentials> = useCredendials
+    ? { credentials: 'include' }
+    : {}
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true, updateDataOnError: true }
 
   let keyPair: sodium.KeyPair | undefined

@@ -12,7 +12,7 @@ export const useFetchMyCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiPersonalCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
   const { data: json, ...fetch } = useQueryFetch(
-    'with-encryption',
+    'with-credentials',
     { url, params },
     { immediate: false }
   )
