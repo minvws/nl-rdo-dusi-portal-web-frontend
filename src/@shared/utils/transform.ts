@@ -57,7 +57,7 @@ export function transformRequestsData(data: RawRequestData): RequestData {
  * @returns data
  */
 export function transformCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(
+  return data.data?.map(
     ({
       id,
       reference,
@@ -67,7 +67,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
       status,
       final_review_deadline,
       updated_at,
-      reviewer
+      assessor
     }) => ({
       ...setFile(reference),
       ...setArrangement(subsidy, subsidy_page_url),
@@ -75,7 +75,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
       ...setCaseStatus(status),
       ...setDeadline(final_review_deadline),
       ...setUpdated(updated_at),
-      ...setReviewer(status, reviewer, id)
+      ...setReviewer(status, assessor?.name, id)
     })
   )
 }
@@ -87,7 +87,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
  * @returns data
  */
 export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(
+  return data.data?.map(
     ({
       id,
       reference,

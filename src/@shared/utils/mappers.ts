@@ -3,7 +3,6 @@ import { translate } from '@shared/i18n'
 import { RequestStatus as Status } from '@shared/types/request'
 
 import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
-import { MY_CASE_DETAILS } from '@assessment/router/names'
 import { ReviewerAction } from '@shared/types/reviewer'
 import { REVIEW_CASE } from '@assessment/router/names'
 

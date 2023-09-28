@@ -39,7 +39,7 @@ export const useApiLogoutUrl = () => {
 }
 
 export const useApiPersonalCasesUrl = () => {
-  return useMockData ? `${mockUrl}/my-cases.json` : `${baseUrl}/api/applications` // Not final url yet.
+  return useMockData ? `${mockUrl}/my-cases.json` : `${baseUrl}/api/applications/assigned` // Not final url yet.
 }
 
 export const useApiCasesUrl = () => {
