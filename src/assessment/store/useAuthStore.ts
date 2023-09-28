@@ -1,8 +1,9 @@
 import type { Ref } from 'vue'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User } from '@shared/types/user'
+import type { UserRoleType } from '@shared/types/user'
 
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
@@ -16,11 +17,7 @@ import {
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
-import {
-  getSessionCookie,
-  removeSessionCookie,
-  setSessionCookie
-} from '@shared/utils/session-cookie'
+import { removeSessionCookie, setSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
@@ -31,11 +28,16 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
 
-  const init: Ref<boolean> = ref(false)
   const user: Ref<User | null> = ref(null)
 
   const isLoggedIn: Ref<boolean> = ref(false)
   const needsTwoFactor: Ref<boolean> = ref(false)
+
+  const userRoles = computed(() => user.value?.roles ?? [])
+
+  function checkUserRights(roleTypes: UserRoleType[]) {
+    return userRoles.value.some(role => roleTypes.includes(role.name))
+  }
 
   async function getUserInfo() {
     try {
@@ -44,11 +46,17 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const response = await fetch(url, options)
       const json = await response.json()
 
-      user.value = json
-      isLoggedIn.value = true
+      if (!response.ok) {
+        user.value = null
+        isLoggedIn.value = false
 
-      setSessionCookie()
-      router.push({ name: HOME })
+        removeSessionCookie()
+      } else {
+        user.value = json.data
+        isLoggedIn.value = true
+
+        setSessionCookie()
+      }
     } catch (error) {
       log('Error getting user info', error)
     }
@@ -135,7 +143,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       }
 
       if (response.status === 204) {
-        isLoggedIn.value = true
+        router.push({ name: HOME })
       }
     } catch (error) {
       log('Error trying to use two-factor auth', error)
@@ -143,23 +151,10 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function onLoginChange(isLoggedIn: boolean) {
-    if (isLoggedIn) {
-      getUserInfo()
-    } else {
+    if (!isLoggedIn) {
       removeSessionCookie()
       router.push({ name: LOGIN_VIEW })
     }
-  }
-
-  function restoreSession() {
-    const sessionCookie = getSessionCookie()
-
-    if (init.value) {
-      return
-    }
-
-    init.value = true
-    isLoggedIn.value = !!sessionCookie
   }
 
   function setNotification(type: string) {
@@ -178,19 +173,19 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       router.push({ name: TWO_FACTOR_VIEW })
     } else {
       needsTwoFactor.value = false
-      getUserInfo()
+      router.push({ name: HOME })
     }
   }
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
   return {
+    getUserInfo,
     isLoggedIn,
     needsTwoFactor,
     logIn,
     logOut,
-    restoreSession,
     twoFactorChallenge,
-    user
+    checkUserRights
   }
 })

@@ -7,15 +7,18 @@
  * 3. Beoordelaar
  * 4. Interne Controleur
  */
-export const UserRoleType = {
+
+export const UserRoles = {
   USER_ADMIN: 'userAdmin',
   IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
   ASSESSOR: 'assessor',
   INTERNAL_AUDITOR: 'internalAuditor'
 } as const
 
+export type UserRoleType = (typeof UserRoles)[keyof typeof UserRoles]
+
 export type UserRole = {
-  name: typeof UserRoleType
+  name: UserRoleType
   subsidyId: string
   viewAllStages: boolean
 }
