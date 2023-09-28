@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
-import { transformForm, transformFormValues, getFormTitle } from '@shared/utils/form'
+import {transformForm, transformFormValues, getFormTitle, getApplicationStageId} from '@shared/utils/form'
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
@@ -39,14 +39,17 @@ export const useFetchCase = (id: string) => {
     return getFormTitle(target)
   })
 
+  const caseStageId = computed(() => {
+    return caseStage?.value?.forms[0].metadata?.applicationStage?.id
+  })
+
   function transform(data: Form & { data?: FormData }) {
     const forms = transformForm(data)
     return {
       forms,
       values: transformFormValues(data?.data),
-      title: getFormTitle(data)
+      title: getFormTitle(data),
     }
   }
-
-  return { data, caseDetail, caseStage, otherCases, caseTitle, ...fetch }
+  return { data, caseDetail, caseStage, otherCases, caseTitle, caseStageId, ...fetch }
 }

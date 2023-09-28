@@ -60,6 +60,10 @@ export const getFormTitle = ({ metadata }: { metadata?: FormMetaData }) => {
   return getValueFormKey(metadata, 'title')
 }
 
+export const getApplicationStageId = ({ metadata }: { metadata?: FormMetaData }) => {
+  return getValueFormKey(metadata, 'applicationStage.id')
+}
+
 export const transformFormValues = (values?: FormData) => {
   if (!values) return undefined
   return Object.entries(values).reduce((cul, [key, value]) => {

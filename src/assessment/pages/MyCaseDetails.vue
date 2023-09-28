@@ -62,7 +62,7 @@
             <FormView
               v-if="caseStage"
               v-bind="{
-                id: 'my-details-stage-1',
+                id: props.id + '/stages/' + caseStageId,
                 ...formViewOptions,
                 ...caseStage
               }"
@@ -115,7 +115,6 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
 
 const formViewOptions = {
@@ -128,7 +127,8 @@ const {
   error: caseError,
   isFetching: isFetchingCase,
   caseDetail,
-  caseStage
+  caseStage,
+  caseStageId
 } = useFetchCase(props.id as string)
 
 const {
