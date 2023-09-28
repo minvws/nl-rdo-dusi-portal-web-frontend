@@ -11,7 +11,7 @@
         @change="onFilterChange"
       />
     </AppSuspense>
-    <div>
+    <div v-if="enabledFeature">
       <FilterOptions
         type="cases"
         v-model="query"
@@ -56,6 +56,8 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
+
+const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 const headings = [
   { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },

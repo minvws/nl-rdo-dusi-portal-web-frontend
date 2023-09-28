@@ -4,7 +4,10 @@
       <h1>{{ translate('pages.all-cases-overview.title') }}</h1>
       <p>{{ translate('pages.all-cases-overview.subtitle') }}</p>
     </div>
-    <AppSuspense v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
+    <AppSuspense
+      v-if="enabledFeature"
+      v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }"
+    >
       <FilterTabs
         :items="filters"
         :selected="params?.id"
@@ -56,6 +59,8 @@ import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 
 import type { FilterItem } from '@shared/types/filters'
+
+const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 const headings = [
   { id: 'file', text: translate('pages.all-cases-overview.headings.file'), sortable: true },
