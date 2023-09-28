@@ -3,7 +3,7 @@
     :is="wrapperComponent"
     class="form-group"
     :class="formGroupClassName"
-    :role="wrapperComponent == 'div' ? 'group' : undefined"
+    :role="role"
     :aria-labelledby="labelUuid"
   >
     <component
@@ -58,6 +58,9 @@ export default defineComponent({
     }
   },
   computed: {
+    role() {
+      return this.wrapperComponent == 'div' ? 'group' : undefined
+    },
     wrapperComponent() {
       return this.appliedOptions.section ? 'fieldset' : 'div'
     },
