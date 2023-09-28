@@ -24,7 +24,7 @@
             <FormView
               v-if="caseStage"
               v-bind="{
-                id: 'review-stage-item',
+                id: `${props.id}/stages/${caseStageId}`,
                 ...caseStage,
                 ...formViewOptions
               }"
@@ -105,7 +105,8 @@ const {
   caseDetail,
   caseStage,
   otherCases,
-  caseTitle
+  caseTitle,
+  caseStageId
 } = useFetchCase(props.id as string)
 
 const onSubmit = (data: FormData) => {
