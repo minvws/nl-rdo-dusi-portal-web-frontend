@@ -11,7 +11,11 @@ import { transformMyCasesData } from '@shared/utils/transform'
 export const useFetchMyCases = (filters: Ref<FilterItem[]>) => {
   const url = useApiPersonalCasesUrl()
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
-  const { data: json, ...fetch } = useQueryFetch({ url, params }, { immediate: false })
+  const { data: json, ...fetch } = useQueryFetch(
+    'with-credentials',
+    { url, params },
+    { immediate: false }
+  )
 
   const data = computed(() => (json.value ? transformMyCasesData(json.value) : []))
 

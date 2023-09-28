@@ -4,7 +4,7 @@ import type { Form, FormData, FormResult } from '@shared/types/form'
 import { computed, ref, watch } from 'vue'
 import { useApiFormsUrl } from '@shared/composables/useApiUrl'
 import { transformForm, getFormTitle, transformFormValues } from '@shared/utils/form'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 
 export const useFetchForm = (
   { id, values }: { id: string; values?: FormData },
@@ -16,7 +16,7 @@ export const useFetchForm = (
 
   const url = computed(() => useApiFormsUrl(id))
 
-  const { data, ...fetch } = useFetchWithCredentials<FormResult>(url).json()
+  const { data, ...fetch } = useFetchWithEncryption<FormResult>(url).json()
 
   watch(data, data => {
     if (!data) {

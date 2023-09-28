@@ -3,12 +3,12 @@ import type { Form } from '@shared/types/form'
 import type { FormOptions } from '@shared/types/form-options'
 
 import { ref, watch } from 'vue'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useApiFilterOptionsUrl } from '@shared/composables/useApiUrl'
 
 export const useFetchFilterOptions = (type: FormOptions) => {
   const url = useApiFilterOptionsUrl(type)
-  const { data, error, ...fetch } = useFetchWithCredentials(url).json()
+  const { data, error, ...fetch } = useCustomFetch('with-encryption', url).json()
   const forms: Ref<Form[] | undefined> = ref(undefined)
 
   watch(
