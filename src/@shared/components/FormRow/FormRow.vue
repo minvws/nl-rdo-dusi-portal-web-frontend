@@ -34,6 +34,7 @@
           v-if="label"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
+          :for="`${id}-input`"
           v-bind="{
             label
           }"
