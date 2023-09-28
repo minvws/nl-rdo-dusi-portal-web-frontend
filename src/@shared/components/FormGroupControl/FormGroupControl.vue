@@ -59,7 +59,7 @@ export default defineComponent({
   },
   computed: {
     role() {
-      return this.wrapperComponent == 'div' ? 'group' : undefined
+      return this.wrapperComponent === 'div' ? 'group' : undefined
     },
     wrapperComponent() {
       return this.appliedOptions.section ? 'fieldset' : 'div'
