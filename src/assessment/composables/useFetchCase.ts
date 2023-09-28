@@ -6,7 +6,7 @@ import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
 
-import {transformForm, transformFormValues, getFormTitle, getApplicationStageId} from '@shared/utils/form'
+import {transformForm, transformFormValues, getFormTitle} from '@shared/utils/form'
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
