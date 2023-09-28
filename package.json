@@ -34,6 +34,7 @@
     "npm-check": "^6.0.1",
     "pinia": "^2.1.6",
     "sass": "^1.68.0",
+    "uuid": "^9.0.0",
     "vue": "^3.3.4",
     "vue-i18n": "^9.4.1",
     "vue-router": "^4.2.5"
@@ -53,6 +54,7 @@
     "@types/libsodium-wrappers": "^0.7.11",
     "@types/lodash.merge": "^4.6.7",
     "@types/node": "^20.7.0",
+    "@types/uuid": "^9.0.4",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@vitejs/plugin-vue": "^4.3.4",
     "@vue/eslint-config-prettier": "^8.0.0",

@@ -3,12 +3,15 @@
     :is="wrapperComponent"
     class="form-group"
     :class="formGroupClassName"
+    :role="role"
+    :aria-labelledby="labelUuid"
   >
     <component
       v-if="label"
       class="form-group-label"
       :class="labelClass"
       :is="labelComponent"
+      :id="labelUuid"
     >
       {{ label }}
     </component>
@@ -32,6 +35,7 @@ import type { Layout } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
+import { v4 as uuidv4 } from 'uuid'
 
 import { translate } from '@shared/i18n'
 
@@ -48,9 +52,15 @@ export default defineComponent({
     ...rendererProps<Layout>()
   },
   setup(props) {
-    return useVanillaLayout(useJsonFormsLayout(props))
+    return {
+      ...useVanillaLayout(useJsonFormsLayout(props)),
+      labelUuid: uuidv4()
+    }
   },
   computed: {
+    role() {
+      return this.wrapperComponent === 'div' ? 'group' : undefined
+    },
     wrapperComponent() {
       return this.appliedOptions.section ? 'fieldset' : 'div'
     },
