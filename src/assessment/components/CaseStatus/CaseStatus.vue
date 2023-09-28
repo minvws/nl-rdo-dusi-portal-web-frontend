@@ -1,6 +1,6 @@
 <template>
   <span class="case-status">
-    <strong>{{ translate('component.caseStatus.status') }} </strong>
+    <strong>{{ translate('component.caseStatus.status') }}: </strong>
     <span class="tag tags-color-1">
       {{ translate(`component.caseStatus.${type}`) }}
     </span>

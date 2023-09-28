@@ -71,7 +71,7 @@
       "removeReviewer": "Verwijder beoordeelaar"
     },
     "caseStatus": {
-      "status": "Status:",
+      "status": "Status",
       "approved": "Goedgekeurd",
       "rejected": "Afgekeurd",
       "new": "Nieuw",
