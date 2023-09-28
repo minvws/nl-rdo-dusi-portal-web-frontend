@@ -3,7 +3,7 @@ import { translate } from '@shared/i18n'
 import { RequestStatus as Status } from '@shared/types/request'
 
 import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
-import { MY_CASE_DETAILS } from '@assessment/router/names'
+import { REVIEW_CASE } from '@assessment/router/names'
 
 const transformRequestStatus = (id: string) => {
   return Object.values(Status).reduce(
@@ -24,8 +24,11 @@ export const statusToIcon: Record<string, string> = {
 }
 
 export const caseStatusToRouteName: Record<string, string> = {
-  [Status.TODO]: MY_CASE_DETAILS,
-  [Status.IN_PROGRESS]: MY_CASE_DETAILS
+  [Status.APPROVED]: REVIEW_CASE,
+  [Status.DRAFT]: REVIEW_CASE,
+  [Status.REJECTED]: REVIEW_CASE,
+  [Status.REQUEST_CHANGES]: REVIEW_CASE,
+  [Status.SUBMITTED]: REVIEW_CASE
 }
 
 export const requestStatusToRouteName: Record<string, string> = {
