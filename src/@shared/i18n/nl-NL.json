@@ -157,30 +157,5 @@
     "privacy": {
       "title": "Privacyverklaring"
     }
-  },
-  "requestStatus": {
-    "status": {
-      "approved": "Goedgekeurd",
-      "draft": "Nog niet ingediend",
-      "rejected": "Afgekeurd",
-      "requestForChanges": "Aanvulling nodig",
-      "submitted": "In behandeling"
-    },
-    "action": {
-      "approved": "Nee",
-      "draft": "Ja",
-      "rejected": "Nee",
-      "requestForChanges": "Ja",
-      "submitted": "Nee"
-    },
-    "route": {
-      "approved": "Bekijk aanvraag",
-      "draft": "Open aanvraag",
-      "in_progress": "Open zaak",
-      "rejected": "Bekijk aanvraag",
-      "requestForChanges": "Open aanvraag",
-      "submitted": "Bekijk aanvraag",
-      "ToDo": "Open zaak"
-    }
   }
 }

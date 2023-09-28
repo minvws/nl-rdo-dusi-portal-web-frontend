@@ -4,11 +4,13 @@ import { translate } from '@shared/i18n'
 import {
   caseStatusToTranslation,
   caseStatusToRouteName,
+  caseStatusToRouteText,
   requestStatusToRouteName,
   requestStatusToTranslation,
   statusToIcon,
   statusToRequiredAction,
-  statusToRouteText
+  statusToRouteText,
+  reviewerActionToRouteText
 } from '@shared/utils/mappers'
 
 import type {
@@ -21,6 +23,8 @@ import type {
 import { AssessmentsDataType } from '@shared/types/table'
 
 import { MY_CASE_DETAILS } from '@assessment/router/names'
+import { RequestStatus } from '@shared/types/request'
+import { ReviewerAction, type ReviewerActionType } from '@shared/types/reviewer'
 
 const options = {
   day: 'numeric',
@@ -54,9 +58,20 @@ export function transformRequestsData(data: RawRequestData): RequestData {
  */
 export function transformCasesData(data: RawAssessmentData): AssessmentsData {
   return data.data.map(
-    ({ id, reference, subsidy, status, final_review_deadline, updated_at, reviewer }) => ({
+    ({
+      id,
+      reference,
+      subsidy,
+      subsidy_page_url,
+      subsidy_stage_title,
+      status,
+      final_review_deadline,
+      updated_at,
+      reviewer
+    }) => ({
       ...setFile(reference),
-      ...setArrangement(subsidy),
+      ...setArrangement(subsidy, subsidy_page_url),
+      ...setStageTitle(subsidy_stage_title),
       ...setCaseStatus(status),
       ...setDeadline(final_review_deadline),
       ...setUpdated(updated_at),
@@ -72,14 +87,28 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
  * @returns data
  */
 export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(({ id, reference, subsidy, status, final_review_deadline, updated_at }) => ({
-    ...setFile(reference),
-    ...setArrangement(subsidy),
-    ...setCaseStatus(status),
-    ...setDeadline(final_review_deadline),
-    ...setUpdated(updated_at),
-    ...setCaseAction(id, status)
-  }))
+  return data.data.map(
+    ({
+      id,
+      reference,
+      subsidy,
+      subsidy_page_url,
+      subsidy_stage_title,
+      status,
+      final_review_deadline,
+      updated_at,
+      actions
+    }) => ({
+      ...setFile(reference),
+      ...setArrangement(subsidy, subsidy_page_url),
+      ...setStageTitle(subsidy_stage_title),
+      ...setCaseStatus(status),
+      ...setDeadline(final_review_deadline),
+      ...setUpdated(updated_at),
+      ...setCaseAction(id, status, actions),
+      ...setReviewerAction(actions)
+    })
+  )
 }
 
 const createSet = (text: string, data: object) => ({
@@ -99,10 +128,10 @@ const setFile = (text: string) =>
     text
   })
 
-const setArrangement = (text: string) =>
+const setArrangement = (text: string, url: string) =>
   createSet('arrangement', {
-    type: AssessmentsDataType.LINK,
-    to: '/regeling', // @TODO: replace with real DUS-I link
+    type: AssessmentsDataType.EXTERNAL_LINK,
+    to: url,
     text
   })
 
@@ -120,6 +149,11 @@ const setCaseStatus = (text: string) =>
     text: caseStatusToTranslation[text]
   })
 
+const setStageTitle = (text: string) =>
+  createSet('stage-title', {
+    type: AssessmentsDataType.STRING,
+    text: text
+  })
 const setDeadline = (date: string) =>
   createSet('deadline', {
     type: AssessmentsDataType.DATE,
@@ -154,23 +188,39 @@ const setRequestAction = (reference: string, status: string) =>
     text: statusToRouteText[status]
   })
 
-const setCaseAction = (id: string, status: string) =>
-  createSet('action', {
-    type: AssessmentsDataType.BUTTON_LINK,
+const setReviewerAction = (actions?: ReviewerActionType[]) => {
+  const type = actions?.find(action => action !== ReviewerAction.SHOW)
+  if (!type) return createSet('action', {})
+  return createSet('action', {
+    type: AssessmentsDataType.BUTTON,
+    text: reviewerActionToRouteText[type],
+    onClick: () => {
+      console.log('@TODO', type)
+    }
+  })
+}
+
+const setCaseAction = (id: string, status: string, actions?: ReviewerActionType[]) => {
+  const type = actions?.find(action => action === ReviewerAction.SHOW)
+  if (!type) return createSet('case', {})
+  return createSet('case', {
+    type: AssessmentsDataType.BUTTON_GHOST_LINK,
     to: {
       name: caseStatusToRouteName[status],
       params: { id }
     },
-    text: statusToRouteText[status]
+    text: caseStatusToRouteText[status]
   })
+}
 
 const setReviewer = (status: string, text: string, id: string) =>
-  status === 'ToDo'
+  // TODO: fix for 2nd and 3rd reviewer
+  status === RequestStatus.SUBMITTED
     ? createSet('reviewer', setReviewerButton(id))
     : createSet('reviewer', setReviewerPerson(text))
 
 const setReviewerButton = (id: string) => ({
-  type: AssessmentsDataType.BUTTON_LINK,
+  type: AssessmentsDataType.BUTTON_GHOST_LINK,
   to: {
     name: MY_CASE_DETAILS,
     params: { id }

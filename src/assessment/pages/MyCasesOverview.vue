@@ -43,6 +43,7 @@
 
 <script setup lang="ts">
 import type { FilterItem } from '@shared/types/filters'
+import type { Column } from '@/@shared/types/table'
 
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
@@ -59,23 +60,6 @@ import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 
 const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
-const headings = [
-  { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },
-  {
-    id: 'arrangement',
-    text: translate('pages.my-cases-overview.headings.arrangement'),
-    sortable: true
-  },
-  { id: 'status', text: translate('pages.my-cases-overview.headings.status'), sortable: true },
-  {
-    id: 'deadline',
-    text: translate('pages.my-cases-overview.headings.deadline'),
-    sortable: true
-  },
-  { id: 'updated', text: translate('pages.my-cases-overview.headings.updated'), sortable: true },
-  { id: 'action', text: translate('pages.my-cases-overview.headings.action'), sortable: false }
-]
-
 useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-cases-overview.title')}` })
 
 const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
@@ -88,6 +72,54 @@ const {
 } = useFetchMyCases(filters)
 
 const numberOfCases = computed(() => casesData.value.length ?? 0)
+
+const hasCases = computed(() => {
+  // hide case row when there are no cases
+  return casesData.value?.find(({ case: cases }) => cases && !!Object.keys(cases).length)
+})
+
+const hasActions = computed(() => {
+  // hide actions row when there are no actions
+  return casesData.value?.find(({ action }) => action && !!Object.keys(action).length)
+})
+
+const headings = computed(
+  () =>
+    [
+      hasCases.value && {
+        id: 'case',
+        text: translate('pages.my-cases-overview.headings.case'),
+        sortable: false
+      },
+      { id: 'file', text: translate('pages.my-cases-overview.headings.file'), sortable: true },
+      {
+        id: 'arrangement',
+        text: translate('pages.my-cases-overview.headings.arrangement'),
+        sortable: true
+      },
+      {
+        id: 'stage-title',
+        text: translate('pages.my-cases-overview.headings.stage-title'),
+        sortable: true
+      },
+      { id: 'status', text: translate('pages.my-cases-overview.headings.status'), sortable: true },
+      {
+        id: 'deadline',
+        text: translate('pages.my-cases-overview.headings.deadline'),
+        sortable: true
+      },
+      {
+        id: 'updated',
+        text: translate('pages.my-cases-overview.headings.updated'),
+        sortable: true
+      },
+      hasActions.value && {
+        id: 'action',
+        text: translate('pages.my-cases-overview.headings.action'),
+        sortable: true
+      }
+    ].filter(row => !!row) as Column[]
+)
 
 function onFilterChange(item: FilterItem) {
   const { id } = item

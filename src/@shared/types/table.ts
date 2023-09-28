@@ -1,12 +1,15 @@
-/* eslint-disable */
-export enum AssessmentsDataType {
-  BUTTON = 'button',
-  BUTTON_LINK = 'button-link',
-  EXTERNAL_LINK = 'external-link',
-  DATE = 'date',
-  LINK = 'link',
-  STRING = 'string'
-}
+export const AssessmentsDataType = {
+  BUTTON: 'button',
+  BUTTON_LINK: 'button-link',
+  BUTTON_GHOST_LINK: 'button-link-ghost',
+  EXTERNAL_LINK: 'external-link',
+  DATE: 'date',
+  LINK: 'link',
+  STRING: 'string',
+  ICON: 'icon'
+} as const
+
+export type AssessmentsDataTypes = (typeof AssessmentsDataType)[keyof typeof AssessmentsDataType]
 
 export type AssessmentsData = Record<string, Record<string, any>>[]
 

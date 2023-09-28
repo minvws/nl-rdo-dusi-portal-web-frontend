@@ -1,23 +1,28 @@
 {
   "data": [
-    {
-      "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
-      "application_title": "Aanvraag",
-      "subsidy": "BTV",
-      "status": "ToDo",
-      "final_review_deadline": "2023-12-10T12:30:00Z",
-      "updated_at": "2023-06-04T12:30:00Z",
-      "reference": "BOSA2207890"
-    },
-    {
-      "id": "b55a1c9f-01e4-4ea9-9b08-0d8672482b71",
-      "application_title": "Aanvraag",
-      "subsidy": "BTV",
-      "status": "in_progress",
-      "final_review_deadline": "2023-12-11T12:30:00Z",
-      "updated_at": "2023-06-05T12:30:00Z",
-      "reference": "BOSA2234567"
-    }
-]
-
+      {
+        "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
+        "reference": "PCZM23-23348985",
+        "subsidy_page_url": "https:\/\/www.dus-i.nl\/subsidies\/zorgmedewerkers-met-langdurige-post-covid-klachten",
+        "application_title": "Zorgmedewerkers met langdurige post-COVID klachten",
+        "subsidy": "PCZM",
+        "status": "submitted",
+        "subsidy_stage_title": "Eerste beoordeling",
+        "final_review_deadline": "2024-01-22T23:59:59.000000Z",
+        "updated_at": "2023-09-28T11:32:32.000000Z",
+        "actions": ["show", "claim"]
+      },
+      {
+        "id": "99db57ed-73ac-4220-8991-a5aac01e93eb",
+        "reference": "PCZM23-23348985",
+        "subsidy_page_url": "https:\/\/www.dus-i.nl\/subsidies\/zorgmedewerkers-met-langdurige-post-covid-klachten",
+        "application_title": "Zorgmedewerkers met langdurige post-COVID klachten",
+        "subsidy": "PCZM",
+        "status": "submitted",
+        "subsidy_stage_title": "Eerste beoordeling",
+        "final_review_deadline": "2024-01-22T23:59:59.000000Z",
+        "updated_at": "2023-09-28T11:32:32.000000Z",
+        "actions": ["show", "release"]
+      }
+  ]
 }

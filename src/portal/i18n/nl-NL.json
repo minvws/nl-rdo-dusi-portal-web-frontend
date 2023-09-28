@@ -151,5 +151,41 @@
     "my-messages-overview-page": {
       "title": "Mijn berichten"
     }
+  },
+  "requestStatus": {
+    "status": {
+      "approved": "Goedgekeurd",
+      "draft": "Nog niet ingediend",
+      "rejected": "Afgekeurd",
+      "requestForChanges": "Aanvulling nodig",
+      "submitted": "In behandeling",
+      "ToDo": "Nieuw"
+    },
+    "action": {
+      "approved": "Nee",
+      "draft": "Ja",
+      "rejected": "Nee",
+      "requestForChanges": "Ja",
+      "submitted": "Nee",
+      "ToDo": "Ja"
+    },
+    "cases": {
+      "approved": "Open zaak",
+      "draft": "Open zaak",
+      "in_progress": "Open zaak",
+      "rejected": "Open zaak",
+      "requestForChanges": "Open zaak",
+      "submitted": "Open zaak",
+      "ToDo": "Open zaak"
+    },
+    "route": {
+      "approved": "Bekijk aanvraag",
+      "draft": "Open aanvraag",
+      "in_progress": "Open zaak",
+      "rejected": "Bekijk aanvraag",
+      "requestForChanges": "Open aanvraag",
+      "submitted": "Bekijk aanvraag",
+      "ToDo": "Open zaak"
+    }
   }
 }

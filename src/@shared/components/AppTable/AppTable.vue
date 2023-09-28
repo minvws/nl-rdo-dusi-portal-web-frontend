@@ -45,31 +45,27 @@
             <td :class="item[column.id].icon ? item[column.id].icon : null">
               <span v-if="item[column.id].icon" />
               <a
-                v-if="item[column.id].type === 'external-link'"
+                v-if="isExternalLink(item[column.id])"
                 :href="item[column.id].to"
               >
                 {{ item[column.id].text }}
               </a>
               <RouterLink
-                v-else-if="
-                  item[column.id].type === 'link' || item[column.id].type === 'button-link'
-                "
-                :class="{
-                  button: item[column.id].type === 'button-link'
-                }"
+                v-else-if="isRouterLink(item[column.id])"
+                :class="getRouterLinkClasses(item[column.id])"
                 :to="item[column.id].to"
               >
                 {{ item[column.id].text }}
               </RouterLink>
               <AppButton
-                v-else-if="item[column.id].type === 'button'"
+                v-else-if="isAppButton(item[column.id])"
                 class="button ghost"
                 @click="item[column.id].onClick"
               >
                 {{ item[column.id].text }}
               </AppButton>
               <RouterLink
-                v-else-if="item[column.id].type === 'icon'"
+                v-else-if="isIcon(item[column.id])"
                 :to="item[column.id].to"
               >
                 <AppIcon
@@ -104,6 +100,14 @@ import { ref, computed, watch } from 'vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
+
+import {
+  isRouterLink,
+  isExternalLink,
+  isAppButton,
+  isIcon,
+  getRouterLinkClasses
+} from '@/@shared/utils/app-table'
 
 type Props = {
   caption?: string

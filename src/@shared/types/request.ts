@@ -4,6 +4,5 @@ export const RequestStatus = {
   IN_PROGRESS: 'in_progress',
   REJECTED: 'rejected',
   REQUEST_CHANGES: 'requestForChanges',
-  SUBMITTED: 'submitted',
-  TODO: 'ToDo'
+  SUBMITTED: 'submitted'
 } as const

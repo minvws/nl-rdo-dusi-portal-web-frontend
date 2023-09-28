@@ -88,6 +88,7 @@
       "headings": {
         "file": "Dossier",
         "arrangement": "Regeling",
+        "stage-title": "Fase",
         "status": "Status",
         "deadline": "Deadline",
         "updated": "Laatste update",
@@ -115,10 +116,12 @@
       "headings": {
         "file": "Dossier",
         "arrangement": "Regeling",
+        "stage-title": "Fase",
         "status": "Status",
         "deadline": "Deadline",
         "updated": "Laatste update",
-        "action": "Actie"
+        "action": "Actie",
+        "case": "Zaak"
       }
     },
     "review-case": {
@@ -128,6 +131,47 @@
     "two-factor": {
       "title": "Twee-staps verificatie",
       "submit": "Verstuur code"
+    }
+  },
+  "reviewerAction": {
+    "show": "Open zaak",
+    "claim": "Pak op",
+    "release": "Zaak loslaten"
+  },
+  "requestStatus": {
+    "status": {
+      "approved": "Goedgekeurd",
+      "draft": "Nog niet ingediend",
+      "rejected": "Afgekeurd",
+      "requestForChanges": "Aanvulling nodig",
+      "submitted": "Nieuw",
+      "ToDo": "Nieuw"
+    },
+    "action": {
+      "approved": "Nee",
+      "draft": "Ja",
+      "rejected": "Nee",
+      "requestForChanges": "Ja",
+      "submitted": "Nee",
+      "ToDo": "Ja"
+    },
+    "cases": {
+      "approved": "Open zaak",
+      "draft": "Open zaak",
+      "in_progress": "Open zaak",
+      "rejected": "Open zaak",
+      "requestForChanges": "Open zaak",
+      "submitted": "Open zaak",
+      "ToDo": "Open zaak"
+    },
+    "route": {
+      "approved": "Bekijk aanvraag",
+      "draft": "Open aanvraag",
+      "in_progress": "Open zaak",
+      "rejected": "Bekijk aanvraag",
+      "requestForChanges": "Open aanvraag",
+      "submitted": "Bekijk aanvraag",
+      "ToDo": "Open zaak"
     }
   }
 }
