@@ -25,7 +25,7 @@
     "filterTabs": {
       "priority": "Hoge prioriteit",
       "taken": "Opgepakt",
-      "assigned": "Alle zaken",
+      "assigned": "Alle Zaken",
       "assigned_to_me": "Aan mij toegekend"
     },
     "caseDetails": {
@@ -62,9 +62,9 @@
       }
     },
     "caseReviers": {
-      "intro": "Als uitvoeringscoordinator kunt u een beoordeelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordeelaars.",
+      "intro": "Als uitvoeringscoordinator kunt u een beoordelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
-      "removeReviewer": "Verwijder beoordeelaar"
+      "removeReviewer": "Verwijder beoordelaar"
     },
     "caseStatus": {
       "status": "Status",
@@ -90,8 +90,8 @@
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
-      "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
-      "title": "Alle zaken"
+      "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder het tabblad \"Mijn Zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
+      "title": "Alle Zaken"
     },
     "login": {
       "title": "Inloggen",
@@ -109,7 +109,7 @@
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
-      "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of  al beoordeeld heeft.",
+      "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of al beoordeeld heeft.",
       "title": "Mijn Zaken"
     },
     "review-case": {
