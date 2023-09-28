@@ -2,6 +2,7 @@ export { HOME, NOT_FOUND } from '@shared/router/names'
 
 export const LOGIN = 'login'
 export const LOGIN_VIEW = 'login-view'
+export const REFRESH = 'refresh'
 export const ALL_CASES_OVERVIEW = 'all-cases-overview'
 export const MY_CASE_DETAILS = 'my-case-details'
 export const MY_CASES_OVERVIEW = 'my-cases-overview'

@@ -36,7 +36,7 @@ import { translate } from '@shared/i18n'
 
 import { useFetchMessageDetails } from '@portal/composables/useFetchMessageDetails'
 import { useFetchMessageDownload } from '@portal/composables/useFetchMessageDownload'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'

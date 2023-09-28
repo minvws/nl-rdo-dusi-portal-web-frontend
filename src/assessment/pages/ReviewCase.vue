@@ -64,7 +64,7 @@ import { translate } from '@shared/i18n'
 
 import { useFetchCase } from '@assessment/composables/useFetchCase'
 import { useSubmitCase } from '@assessment/composables/useSubmitCase'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'

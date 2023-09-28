@@ -12,3 +12,10 @@ export type ApplicationDetails = {
   application: ApplicationForm
   applicationStages: ApplicationForm[]
 }
+
+export const Case = {
+  ALL_CASES: 'all-cases',
+  MY_CASES: 'cases'
+} as const
+
+export type CaseType = (typeof Case)[keyof typeof Case]

@@ -22,10 +22,6 @@
     }
   },
   "component": {
-    "appTable": {
-      "open": "Open zaak",
-      "take": "Pak op"
-    },
     "filterTabs": {
       "priority": "Hoge prioriteit",
       "taken": "Opgepakt",
@@ -76,6 +72,17 @@
       "rejected": "Afgekeurd",
       "new": "Nieuw",
       "inProgress": "In behandeling"
+    },
+    "caseColum": {
+      "action": "Actie",
+      "arrangement": "Regeling",
+      "case": "Zaak",
+      "deadline": "Deadline",
+      "file": "Dossier",
+      "reviewer": "Beoordelaar",
+      "stage-title": "Fase",
+      "status": "Status",
+      "updated": "Laatste update"
     }
   },
   "pages": {
@@ -84,16 +91,7 @@
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder  het tabblad \"Mijn zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
-      "title": "Alle zaken",
-      "headings": {
-        "file": "Dossier",
-        "arrangement": "Regeling",
-        "stage-title": "Fase",
-        "status": "Status",
-        "deadline": "Deadline",
-        "updated": "Laatste update",
-        "reviewer": "Beoordelaar"
-      }
+      "title": "Alle zaken"
     },
     "login": {
       "title": "Inloggen",
@@ -107,22 +105,12 @@
       "reviewer": "Beoordelaar",
       "startReview": "Beoordeling starten"
     },
-    "my-cases-overview": {
+    "cases-overview": {
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of  al beoordeeld heeft.",
-      "title": "Mijn Zaken",
-      "headings": {
-        "file": "Dossier",
-        "arrangement": "Regeling",
-        "stage-title": "Fase",
-        "status": "Status",
-        "deadline": "Deadline",
-        "updated": "Laatste update",
-        "action": "Actie",
-        "case": "Zaak"
-      }
+      "title": "Mijn Zaken"
     },
     "review-case": {
       "title": "Eerste beoordeling|Tweede beoordeling|Beoordeling",

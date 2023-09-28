@@ -21,7 +21,7 @@
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 

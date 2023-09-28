@@ -23,7 +23,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useFetchRequestDetails } from '@portal/composables/useFetchRequestDetails'
-import useSEO from '@shared/composables/useSeo'
+import { useSEO } from '@shared/composables/useSeo'
 
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
