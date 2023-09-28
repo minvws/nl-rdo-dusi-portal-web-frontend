@@ -4,7 +4,10 @@
       <h1>{{ translate('pages.all-cases-overview.title') }}</h1>
       <p>{{ translate('pages.all-cases-overview.subtitle') }}</p>
     </div>
-    <AppSuspense v-if="enabledFeature" v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }">
+    <AppSuspense
+      v-if="enabledFeature"
+      v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }"
+    >
       <FilterTabs
         :items="filters"
         :selected="params?.id"
@@ -80,7 +83,7 @@ const {
   error: casesError,
   isFetching: isFetchingCases,
   query,
-  params,
+  params
 } = useFetchAllCases(filters)
 
 const numberOfCases = computed(() => casesData.value.length ?? 0)
