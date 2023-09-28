@@ -62,7 +62,7 @@
             <FormView
               v-if="caseStage"
               v-bind="{
-                id: props.id + '/stages/' + caseStageId,
+                id: `${props.id}-stage-${caseStageId}`,
                 ...formViewOptions,
                 ...caseStage
               }"
