@@ -33,11 +33,15 @@ export const useFetchCase = (id: string) => {
 
   const caseTitle = computed(() => {
     const target = data.value?.applicationStages.find(
-      (s: ApplicationForm) => s.metadata.applicationStage.isCurrent
+      (application: ApplicationForm) => application.metadata.applicationStage.isCurrent
     )
     if (!target) return undefined
     return getFormTitle(target)
   })
+
+  const caseStageId = computed(
+    () => data.value.applicationStages?.[0]?.metadata?.applicationStage?.id
+  )
 
   function transform(data: Form & { data?: FormData }) {
     const forms = transformForm(data)
@@ -47,6 +51,5 @@ export const useFetchCase = (id: string) => {
       title: getFormTitle(data)
     }
   }
-
-  return { data, caseDetail, caseStage, otherCases, caseTitle, ...fetch }
+  return { data, caseDetail, caseStage, otherCases, caseTitle, caseStageId, ...fetch }
 }
