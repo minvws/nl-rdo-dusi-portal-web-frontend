@@ -57,7 +57,7 @@ export function transformRequestsData(data: RawRequestData): RequestData {
  * @returns data
  */
 export function transformCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(
+  return data.data?.map(
     ({
       id,
       reference,
@@ -87,7 +87,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
  * @returns data
  */
 export function transformMyCasesData(data: RawAssessmentData): AssessmentsData {
-  return data.data.map(
+  return data.data?.map(
     ({
       id,
       reference,
