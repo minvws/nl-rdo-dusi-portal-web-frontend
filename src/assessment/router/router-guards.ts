@@ -22,7 +22,7 @@ export const beforeEach = async (
     await authStore.getUserInfo()
   }
 
-  const { isLoggedIn } = storeToRefs(authStore)
+  const { isLoggedIn, isPasswordExpired } = storeToRefs(authStore)
 
   if (to.meta.public) {
     return next()
@@ -35,8 +35,11 @@ export const beforeEach = async (
     return next({ name: LOGIN_VIEW })
   }
 
-  if (authStore.isPasswordExpired) {
-    return next({ name: PASSWORD_UPDATE_VIEW })
+  if (isPasswordExpired.value) {
+    if (to.name !== PASSWORD_UPDATE_VIEW) {
+      return next({ name: PASSWORD_UPDATE_VIEW })
+    }
+    return next()
   }
 
   if (needsRedirect) {

@@ -7,6 +7,9 @@
       <p>
         {{ translate('pages.update-password.intro') }}
       </p>
+      <p>
+        {{ translate('pages.update-password.requirements') }}
+      </p>
     </div>
     <div>
       <FormView
