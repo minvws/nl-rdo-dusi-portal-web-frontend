@@ -22,10 +22,10 @@ import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { removeSessionCookie, setSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
-import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW, PASSWORD_UPDATE_VIEW } from '@assessment/router/names'
+import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 import { fromCamelCaseToSnakeCase } from '@/@shared/utils/format'
 
-const useCredendials = !import.meta.env.PROD
+const useCredentials = !import.meta.env.PROD
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
@@ -97,7 +97,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        ...(useCredendials && { credentials: 'include' }),
+        ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(credentials)
       }
       const response = await fetch(url, options)
@@ -175,7 +175,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
           Accept: 'application/json',
           'Content-Type': 'application/json'
         },
-        ...(useCredendials && { credentials: 'include' }),
+        ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(data)
       }
       const response = await fetch(url, options)
@@ -228,11 +228,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
-
-  watch(isPasswordExpired, isPasswordExpired => {
-    if (!isPasswordExpired) return
-    router.push({ name: PASSWORD_UPDATE_VIEW })
-  })
 
   return {
     getUserInfo,
