@@ -87,7 +87,8 @@ const formViewOptions = computed(() => ({
   noStyle: true,
   noButtons: true,
   locked: locked.value,
-  title: undefined
+  title: undefined,
+  hideRequiredLabel: true
 }))
 
 const formEditOptions = computed(() => ({
@@ -95,7 +96,8 @@ const formEditOptions = computed(() => ({
   noStyle: true,
   locked: locked.value,
   hasSaveButton: true,
-  title: undefined
+  title: undefined,
+  hideRequiredLabel: true
 }))
 
 const {

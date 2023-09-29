@@ -1,5 +1,5 @@
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
-import type { Form, FormData } from '@shared/types/form'
+import { FormUiTypes, type Form, type FormData } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 
 import { computed, inject } from 'vue'
@@ -9,7 +9,7 @@ import { getControlId, getLinkedControlId } from '@shared/utils/control'
 import { useFormStorage } from '@shared/store/useFormStorage'
 
 export const useActiveForm = () => {
-  const formProps = inject('form') as { id: string }
+  const formProps = inject('form') as { id: string; hideRequiredLabel?: boolean }
 
   const formStorage = useFormStorage()
 
@@ -28,6 +28,8 @@ export const useActiveForm = () => {
   const readonly = computed(() => !!activeForm.value?.isSubmitting)
   const schema = computed(() => form.value?.dataschema)
   const uischema = computed(() => form.value?.uischema)
+  const isReadOnly = computed(() => form.value?.uiType === FormUiTypes.VIEW)
+  const hideRequiredLabel = computed(() => formProps?.hideRequiredLabel === true)
 
   function setForms({ forms, values }: { forms: Form[]; values?: FormData }) {
     const restoredForm = formStorage.get(formId.value)
@@ -118,7 +120,9 @@ export const useActiveForm = () => {
     getCurrentLinkedScopes,
     getCurrentScopes,
     getScopedElement,
+    hideRequiredLabel,
     index,
+    isReadOnly,
     readonly,
     schema,
     setDraftId,

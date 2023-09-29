@@ -72,7 +72,9 @@ export default defineComponent({
         isTouched,
         error,
         conditionalError,
-        isConditionalRequired
+        isConditionalRequired,
+        isReadOnly,
+        hideRequiredLabel
       } = this
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
@@ -89,7 +91,8 @@ export default defineComponent({
         required: required || isConditionalRequired,
         styles,
         visible,
-        contentClass: type
+        contentClass: type,
+        hideRequiredLabel: hideRequiredLabel || isReadOnly
       }
     },
     field() {

@@ -28,7 +28,7 @@
       @change="onChange"
     />
     <FormButtons
-      v-if="!noButtons"
+      v-if="isReadOnly ? false : !noButtons"
       :index="index"
       :forms="forms"
       :formsErrors="formsErrors"
@@ -81,7 +81,8 @@ const {
   touchedForms,
   uischema,
   createFormDraft,
-  setForms
+  setForms,
+  isReadOnly
 } = form
 
 if (props.createDraft) createFormDraft()

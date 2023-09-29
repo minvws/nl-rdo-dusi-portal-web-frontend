@@ -10,7 +10,7 @@ import { useFormConditionalRequiredError } from '@shared/composables/form/useFor
 import { useFormConditionalIsRequired } from '@shared/composables/form/useFormConditionalIsRequired'
 
 export const useCustomControl = (props: any) => {
-  const { useTouchedField } = useForms()
+  const { useTouchedField, isReadOnly, hideRequiredLabel } = useForms()
   const id = getControlId(props.uischema.scope)
   const error = ref('')
   const type = useFieldType(props.schema, props.uischema)
@@ -26,6 +26,8 @@ export const useCustomControl = (props: any) => {
     isConditionalRequired: useFormConditionalIsRequired(id)
   }
   return {
+    isReadOnly,
+    hideRequiredLabel,
     ...component,
     ...useCustomControlInput(component)
   }

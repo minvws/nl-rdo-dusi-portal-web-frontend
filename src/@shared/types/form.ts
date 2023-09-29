@@ -2,10 +2,19 @@ import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core
 
 export type FormTitle = { title?: string }
 export type FormMetaData = Record<string, any>
+
+export const FormUiTypes = {
+  INPUT: 'INPUT',
+  VIEW: 'VIEW'
+}
+
+export type FormUiType = (typeof FormUiTypes)[keyof typeof FormUiTypes]
+
 export type Form = {
   dataschema: JsonSchema & { anyOf?: any }
   uischema: UISchemaElement
   metadata?: FormMetaData
+  uiType?: FormUiType
 } & FormTitle
 
 export type FileType = {
@@ -51,4 +60,5 @@ export type FormViewProps = {
   hasSaveButton?: boolean
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
+  hideRequiredLabel?: boolean
 }
