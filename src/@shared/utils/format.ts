@@ -44,3 +44,6 @@ export function formatMessagesData(data: any) {
     title: item.subject
   }))
 }
+
+export const fromCamelCaseToSnakeCase = (target: string) =>
+  target.replace(/[A-Z]/g, char => `_${char.toLowerCase()}`)

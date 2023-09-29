@@ -128,6 +128,11 @@
         "tel": "Dit is geen geldig telefoonnummer",
         "upload": "Er is iets mis gegaan met uploaden van het bestand"
       },
+      "passwordConfirmation": {
+        "error": {
+          "custom": "Wachtwoorden komen niet overeen"
+        }
+      },
       "email": {
         "error": {
           "format": "Voer een geldig email-adres in"

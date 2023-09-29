@@ -1,5 +1,13 @@
 {
   "authentication": {
+    "password-update-failed": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden met het wijzigen van je wachtwoord. {error}"
+    },
+    "password-update-success": {
+      "label": "Gelukt",
+      "message": "Je wachtwoord is gewijzigd"
+    },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
       "message": "De verificatiecode die u heeft ingevoerd is ongeldig. Probeer het opnieuw."
@@ -83,6 +91,15 @@
       "stage-title": "Fase",
       "status": "Status",
       "updated": "Laatste update"
+    },
+    "passwordUpdate": {
+      "currentPassword": "Huidig wachtwoord",
+      "newPassword": "Nieuw wachtwoord",
+      "passwordConfirmation": "Herhaling niew wachtwoord"
+    },
+    "passwordLogin": {
+      "email": { "title": "E-mail", "label": "E-mailadres" },
+      "password": "Password"
     }
   },
   "pages": {
@@ -119,6 +136,11 @@
     "two-factor": {
       "title": "Twee-staps verificatie",
       "submit": "Verstuur code"
+    },
+    "update-password": {
+      "title": "Wachtwoord wijzigen",
+      "intro": "Vul uw nieuwe wachtwoord in en herhaal ter controle uw nieuwe wachtwoord.",
+      "submit": "Verzenden"
     }
   },
   "reviewerAction": {

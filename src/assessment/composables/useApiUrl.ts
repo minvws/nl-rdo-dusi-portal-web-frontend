@@ -53,3 +53,7 @@ export const useApiSetCaseUrl = (id: string) => {
 export const useApiUserStatusUrl = () => {
   return `${baseUrl}/api/user`
 }
+
+export const useApiPasswordUpdateUrl = () => {
+  return `${baseUrl}/api/user/password`
+}

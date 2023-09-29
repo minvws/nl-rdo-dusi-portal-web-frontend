@@ -30,4 +30,5 @@ export type User = {
     name: string
   }
   roles: UserRole[]
+  passwordExpired: boolean
 }

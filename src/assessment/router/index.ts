@@ -5,6 +5,7 @@ import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
+import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
 
 import {
   HOME,
@@ -14,7 +15,8 @@ import {
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
   TWO_FACTOR_VIEW,
-  REFRESH
+  REFRESH,
+  PASSWORD_UPDATE_VIEW
 } from '@assessment/router/names'
 
 import { sharedRoutes } from '@shared/router/routes'
@@ -70,6 +72,11 @@ const routes = [
     meta: {
       public: true
     }
+  },
+  {
+    path: '/wachtwoord-wijzigen',
+    name: PASSWORD_UPDATE_VIEW,
+    component: PasswordUpdateView
   },
   ...sharedRoutes
 ]

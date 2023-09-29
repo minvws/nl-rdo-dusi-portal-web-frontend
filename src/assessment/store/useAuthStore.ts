@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User } from '@shared/types/user'
 import type { UserRoleType } from '@shared/types/user'
+import { type NotificationDisplayType, NotificationType } from '@/@shared/types/notification'
 
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -12,6 +13,7 @@ import { translate } from '@shared/i18n'
 import {
   useApiLoginUrl,
   useApiLogoutUrl,
+  useApiPasswordUpdateUrl,
   useApiTwoFactorChallengeUrl,
   useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
@@ -20,7 +22,8 @@ import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { removeSessionCookie, setSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
-import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
+import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW, PASSWORD_UPDATE_VIEW } from '@assessment/router/names'
+import { fromCamelCaseToSnakeCase } from '@/@shared/utils/format'
 
 const useCredendials = !import.meta.env.PROD
 
@@ -34,6 +37,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const needsTwoFactor: Ref<boolean> = ref(false)
 
   const userRoles = computed(() => user.value?.roles ?? [])
+  const isPasswordExpired = computed(() => user.value?.passwordExpired)
 
   function checkUserRights(roleTypes: UserRoleType[]) {
     return userRoles.value.some(role => roleTypes.includes(role.name))
@@ -102,11 +106,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.ok) {
         switch (response.status) {
           case 422:
-            return setNotification('login-invalid-credentials')
+            return setNotification('login-invalid-credentials', NotificationType.ERROR)
           case 429:
-            return setNotification('login-too-many-attempts')
+            return setNotification('login-too-many-attempts', NotificationType.ERROR)
           default:
-            return setNotification('login-failed')
+            return setNotification('login-failed', NotificationType.ERROR)
         }
       }
 
@@ -136,9 +140,9 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.ok) {
         switch (response.status) {
           case 422:
-            return setNotification('2fa-invalid-code')
+            return setNotification('2fa-invalid-code', NotificationType.ERROR)
           default:
-            return setNotification('2fa-failed')
+            return setNotification('2fa-failed', NotificationType.ERROR)
         }
       }
 
@@ -150,6 +154,48 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
+  async function updatePassword(payload: {
+    currentPassword?: string
+    password: string
+    passwordConfirmation: string
+  }) {
+    try {
+      const url = useApiPasswordUpdateUrl()
+      const data = Object.entries(payload).reduce(
+        (cul, [key, value]) => {
+          if (value) return { ...cul, [fromCamelCaseToSnakeCase(key)]: value }
+          return cul
+        },
+        {} as Record<string, string>
+      )
+
+      const options: RequestInit = {
+        method: 'PUT',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        ...(useCredendials && { credentials: 'include' }),
+        body: JSON.stringify(data)
+      }
+      const response = await fetch(url, options)
+      const json = await response.json()
+
+      if (!response.ok) {
+        throw new Error(response?.statusText)
+      }
+
+      if (json) {
+        setNotification('password-update-success', NotificationType.CONFIRMATION)
+        router.push({ name: HOME })
+      }
+    } catch (e) {
+      const error = e as Error
+      log('Error trying to update password', error)
+      setNotification('password-update-failed', NotificationType.ERROR, { error: error?.message })
+    }
+  }
+
   function onLoginChange(isLoggedIn: boolean) {
     if (!isLoggedIn) {
       removeSessionCookie()
@@ -157,13 +203,17 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
-  function setNotification(type: string) {
+  function setNotification(
+    id: string,
+    type: NotificationDisplayType,
+    props?: Record<string, string>
+  ) {
     notificationsStore.add({
-      id: 'login-error',
-      pageChangeCount: 1,
-      displayAs: 'error',
-      label: translate(`authentication.${type}.label`) ?? '',
-      message: translate(`authentication.${type}.message`) ?? ''
+      id: 'login-message',
+      displayAs: type,
+      label: translate(`authentication.${id}.label`, props) ?? '',
+      message: translate(`authentication.${id}.message`, props) ?? '',
+      pageChangeCount: type === NotificationType.CONFIRMATION ? 2 : 1
     })
   }
 
@@ -179,13 +229,20 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
+  watch(isPasswordExpired, isPasswordExpired => {
+    if (!isPasswordExpired) return
+    router.push({ name: PASSWORD_UPDATE_VIEW })
+  })
+
   return {
     getUserInfo,
     isLoggedIn,
+    isPasswordExpired,
     needsTwoFactor,
     logIn,
     logOut,
     twoFactorChallenge,
+    updatePassword,
     checkUserRights
   }
 })
