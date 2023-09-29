@@ -117,7 +117,6 @@ export const useFileStore = defineStore('useFileStore', () => {
         }
       ]
     }
-    alert(name)
     activeForm.value.data[index.value] = updatedFormData
   }
 
