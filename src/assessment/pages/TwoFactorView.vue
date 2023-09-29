@@ -65,7 +65,7 @@ const twoFactorForm = [
                   label: 'Code',
                   options: {
                     placeholder: '123456',
-                    tip: 'Voer de zescijferige code in die u via SMS of een authenticator-app heeft ontvangen.'
+                    tip: 'Voer de zescijferige code in van uw authenticator-app.'
                   }
                 }
               ]
