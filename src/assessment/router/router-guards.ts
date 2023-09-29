@@ -7,7 +7,7 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 import { log } from '@shared/utils/logger'
 import { setRouteCookie } from '@shared/utils/route-cookie'
 
-import { HOME, LOGIN_VIEW, NOT_FOUND } from '@assessment/router/names'
+import { HOME, LOGIN_VIEW, NOT_FOUND, PASSWORD_UPDATE_VIEW } from '@assessment/router/names'
 
 const REDIRECT = [NOT_FOUND, HOME]
 
@@ -33,6 +33,10 @@ export const beforeEach = async (
   if (!isLoggedIn.value) {
     log(`page is non-public and user is not logged-in. go to'${LOGIN_VIEW}'`)
     return next({ name: LOGIN_VIEW })
+  }
+
+  if (authStore.isPasswordExpired) {
+    return next({ name: PASSWORD_UPDATE_VIEW })
   }
 
   if (needsRedirect) {
