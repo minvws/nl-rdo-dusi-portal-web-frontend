@@ -79,7 +79,6 @@ export const useFileStore = defineStore('useFileStore', () => {
       const encryptedData = await encrypt(publicKey, fileData)
       const { data } = await useFetchWithEncryption(url).post(encryptedData).json()
       if (data.value?.id) {
-        onFileUpload({ id, file, data: data.value })
         return onFileUpload({ id, file, data: data.value })
       }
       throw new Error(data?.value?.message)
@@ -118,7 +117,7 @@ export const useFileStore = defineStore('useFileStore', () => {
         }
       ]
     }
-
+    alert(name)
     activeForm.value.data[index.value] = updatedFormData
   }
 
