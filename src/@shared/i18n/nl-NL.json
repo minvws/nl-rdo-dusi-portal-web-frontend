@@ -135,7 +135,7 @@
       },
       "email": {
         "error": {
-          "format": "Voer een geldig email-adres in"
+          "format": "Voer een geldig e-mailadres in"
         }
       }
     },
