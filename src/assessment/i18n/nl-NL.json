@@ -99,7 +99,7 @@
     },
     "passwordLogin": {
       "email": { "title": "E-mail", "label": "E-mailadres" },
-      "password": "Password"
+      "password": "Wachtwoord"
     }
   },
   "pages": {
