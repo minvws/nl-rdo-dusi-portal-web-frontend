@@ -67,8 +67,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   function onLoginChange(isLoggedIn: boolean) {
     // update session-cookie when isLoggedIn changes
     if (isLoggedIn) {
-      const duration = setSessionCookie()
-      setSessionLifetime(duration)
+      extendSession()
       return
     }
 
@@ -85,10 +84,16 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
+  function extendSession() {
+    const duration = setSessionCookie()
+    setSessionLifetime(duration)
+  }
+
   return {
     restoreSession,
     logIn,
     logOut,
-    isLoggedIn
+    isLoggedIn,
+    extendSession
   }
 })
