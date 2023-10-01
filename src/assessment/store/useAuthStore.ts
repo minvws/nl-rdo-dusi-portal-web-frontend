@@ -179,16 +179,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         body: JSON.stringify(data)
       }
       const response = await fetch(url, options)
-      const json = await response.json()
 
       if (!response.ok) {
         throw new Error(response?.statusText)
       }
 
-      if (json) {
-        setNotification('password-update-success', NotificationType.CONFIRMATION)
-        router.push({ name: HOME })
-      }
+      setNotification('password-update-success', NotificationType.CONFIRMATION)
+      router.push({ name: HOME })
     } catch (e) {
       const error = e as Error
       log('Error trying to update password', error)

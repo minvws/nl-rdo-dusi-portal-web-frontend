@@ -10,7 +10,7 @@ export const usePasswordUpdate = () => {
   const { updatePassword, isPasswordExpired } = useAuthStore()
 
   const required = computed(() => {
-    return [isPasswordExpired && 'currentPassword', 'password', 'passwordConfirmation'].filter(
+    return [!isPasswordExpired && 'currentPassword', 'password', 'passwordConfirmation'].filter(
       required => !!required
     ) as string[]
   })
@@ -34,7 +34,7 @@ export const usePasswordUpdate = () => {
         }
       }
     ]
-    if (isPasswordExpired)
+    if (!isPasswordExpired)
       elements.unshift({
         type: 'CustomControl',
         scope: '#/properties/currentPassword',
