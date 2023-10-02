@@ -30,7 +30,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-details-edit.title')}`
+  title: `${translate('pages.my-details-edit.title')} | ${translate('app.prefix')}`
 })
 
 const { data, values, error, isFetching } = useFetchPersonalDetails({ editable: true })

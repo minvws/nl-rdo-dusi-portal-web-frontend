@@ -37,7 +37,7 @@ type Props = {
 const props = defineProps<Props>()
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-request-details.title')}`
+  title: `${translate('pages.my-request-details.title')} | ${translate('app.prefix')}`
 })
 
 const { data, error, isFetching, values } = useFetchRequestDetails(props.reference)

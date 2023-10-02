@@ -25,7 +25,7 @@ import { usePasswordLogin } from '@assessment/composables/usePasswordLogin'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.login.title')}` })
+useSEO({ title: `${translate('pages.login.title')} | ${translate('app.prefix')}` })
 
 const { forms, onSubmit } = usePasswordLogin()
 </script>

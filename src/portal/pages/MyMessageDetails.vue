@@ -54,7 +54,7 @@ const props = defineProps<Props>()
 const fileURL: Ref<string> = ref('')
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-message-details.title')}`
+  title: `${translate('pages.my-message-details.title')} | ${translate('app.prefix')}`
 })
 
 const { data, error, isFetching } = useFetchMessageDetails(props.id)

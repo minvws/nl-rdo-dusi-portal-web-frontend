@@ -71,7 +71,7 @@ const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 const t = (key: string, values?: Record<string, string | number>, count?: number) =>
   translate(`pages.${props.type}-overview.${key}`, values, count)
 
-useSEO({ title: `${translate('app.prefix')} | ${t('title')}` })
+useSEO({ title: `${t('title')} | ${translate('app.prefix')}` })
 
 const { data, error, filters, filtersError, isFetching, isFetchingFilters, params, query } =
   useFetchCases(props)

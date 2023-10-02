@@ -271,6 +271,6 @@ import { useSEO } from '@shared/composables/useSeo'
 import { externalUrls } from '@shared/external-links'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.accessibility.title')}`
+  title: `${translate('pages.accessibility.title')} | ${translate('app.prefix')}`
 })
 </script>
