@@ -181,7 +181,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const response = await fetch(url, options)
 
       if (!response.ok) {
-        throw new Error(response?.statusText)
+        try {
+          const json = await response.json()
+          throw new Error(json.message)
+        } catch (e) {
+          const error = e as Error
+          throw new Error(error.message ?? response?.statusText)
+        }
       }
 
       setNotification('password-update-success', NotificationType.CONFIRMATION)
