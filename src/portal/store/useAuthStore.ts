@@ -6,11 +6,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
-import {
-  getSessionCookie,
-  removeSessionCookie,
-  setSessionCookie
-} from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME } from '@shared/router/names'
@@ -20,10 +15,9 @@ import type { AuthResponse } from '@shared/types/api-response'
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const { setSessionLifetime } = useSessionLifetime()
+  const { extendSession, removeSession, restoreSession } = useSessionLifetime()
 
   const isLoggedIn: Ref<boolean> = ref(false)
-  const init = ref(false)
 
   async function logIn(extendSession = false) {
     try {
@@ -56,10 +50,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     return before !== isLoggedIn.value
   }
 
-  function restoreSession() {
-    if (init.value) return
-    init.value = true
-    if (getSessionCookie()) {
+  function sessionRestore() {
+    if (restoreSession()) {
       return logIn()
     }
   }
@@ -71,10 +63,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       return
     }
 
-    removeSessionCookie()
-    setSessionLifetime(undefined)
+    removeSession()
 
-    if (route.meta.public || route.name === HOME) {
+    // Possible fix for redirect to dus-i issue on logout
+    // Cannot read properties of undefined (reading 'meta')
+    if (route?.meta.public || route?.name === HOME) {
       return
     }
 
@@ -84,16 +77,10 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
-  function extendSession() {
-    const duration = setSessionCookie()
-    setSessionLifetime(duration)
-  }
-
   return {
-    restoreSession,
+    sessionRestore,
     logIn,
     logOut,
-    isLoggedIn,
-    extendSession
+    isLoggedIn
   }
 })

@@ -15,12 +15,20 @@ import { SessionType } from '@shared/types/session'
 
 import { openExternalLink } from '@shared/utils/link'
 
+import {
+  getSessionCookie,
+  removeSessionCookie,
+  setSessionCookie
+} from '@shared/utils/session-cookie'
+
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000
 const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when the user is prompt to extend its session
 
 export const useSessionLifetime = defineStore('useSessionLifetime', () => {
   const authStore = useAuthStore()
   const { openModal, closeModal } = useAppModal()
+
+  const init = ref(false)
 
   const duration: Ref<number | undefined> = ref(undefined)
   const elapsedTime: Ref<number> = ref(0)
@@ -86,6 +94,22 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
     }
   }
 
+  const extendSession = () => {
+    const duration = setSessionCookie()
+    setSessionLifetime(duration)
+  }
+
+  const removeSession = () => {
+    removeSessionCookie()
+    setSessionLifetime(undefined)
+  }
+
+  const restoreSession = () => {
+    if (init.value) return
+    init.value = true
+    return getSessionCookie()
+  }
+
   watch(duration, duration => {
     stopInterval()
     if (!duration) return
@@ -116,6 +140,8 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
   )
 
   return {
-    setSessionLifetime
+    restoreSession,
+    extendSession,
+    removeSession
   }
 })

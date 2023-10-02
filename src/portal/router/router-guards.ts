@@ -21,7 +21,8 @@ export const beforeEach = async (
   next: NavigationGuardNext
 ) => {
   const authStore = useAuthStore()
-  await authStore.restoreSession()
+  await authStore.sessionRestore()
+
   const { isLoggedIn } = storeToRefs(authStore)
 
   if (to.meta.public) {

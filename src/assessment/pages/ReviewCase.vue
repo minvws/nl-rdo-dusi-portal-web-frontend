@@ -78,8 +78,6 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.review-case.title', {}, 3)}` })
-
 const { onSubmitForm, onSubmitDraft, locked } = useSubmitCase()
 
 const formViewOptions = computed(() => ({
@@ -110,6 +108,10 @@ const {
   caseTitle,
   caseStageId
 } = useFetchCase(props.id as string)
+
+// Set page title dynamically based on case title
+const pageTitle = computed(() => `${translate('app.prefix')} | ${caseTitle.value}`)
+useSEO({ title: pageTitle })
 
 const onSubmit = (data: FormData) => {
   const { id } = props

@@ -37,7 +37,12 @@ export const useFetchCases = (props: { type: CaseType }) => {
   const data = computed(() => (json.value ? transformCasesData(json.value) : []))
 
   watch(filters, filters => {
-    const id = filters?.[0]?.id
+    const filter = filters?.[0]
+    if (!filter) {
+      delete params.value?.id
+      return
+    }
+    const { id } = filter
     params.value = { id }
   })
 

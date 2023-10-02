@@ -24,8 +24,9 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
  * @param {FiltersDataInput} data - The data to format.
  * @returns {FilterItem[]} - The formatted data.
  */
-export function formatFiltersData(data: FiltersDataInput): FilterItem[] {
-  return Object.entries(data.data).map(([name, count]) => {
+export function formatFiltersData({ data }: FiltersDataInput): FilterItem[] | undefined {
+  if (!data) return undefined
+  return Object.entries(data).map(([name, count]) => {
     return {
       text: translate(`component.filterTabs.${name.toLowerCase()}`),
       id: name.toLowerCase(),

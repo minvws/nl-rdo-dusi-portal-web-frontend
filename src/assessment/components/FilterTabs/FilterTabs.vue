@@ -25,7 +25,7 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 const emit = defineEmits(['change'])
 
 type Props = {
-  items: FilterItem[]
+  items?: FilterItem[]
   selected?: string
 }
 

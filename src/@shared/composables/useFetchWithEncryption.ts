@@ -7,15 +7,14 @@ import type {
 
 import { useFetch } from '@vueuse/core'
 import { useEncryption } from '@shared/composables/useEncryption'
+import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+
 import sodium from 'libsodium-wrappers'
-import { useAuthStore } from '@portal/store/useAuthStore'
 
 const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
 const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER
 
 const useCredentials = !import.meta.env.PROD
-
-const authStore = useAuthStore()
 
 type DecryptResponse = {
   ctx: AfterFetchContext
@@ -58,6 +57,7 @@ export const useFetchWithEncryption = <T>(
   fetchOptions?: RequestInit,
   useFetchOptions?: UseFetchOptions
 ) => {
+  const { extendSession } = useSessionLifetime()
   const { generateKeyPair, getPublicKey } = useEncryption()
   const defaultOptions: Record<string, RequestCredentials> = useCredentials
     ? { credentials: 'include' }
@@ -84,9 +84,7 @@ export const useFetchWithEncryption = <T>(
   async function afterFetch(ctx: AfterFetchContext) {
     const data = await decryptResponse({ ctx, keyPair })
     if (data) ctx.data = data
-
-    // Extend session time because call to backend
-    authStore.extendSession()
+    extendSession()
     return ctx
   }
 
