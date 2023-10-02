@@ -63,6 +63,7 @@ export const getFormTitle = ({ metadata }: { metadata?: FormMetaData }) => {
 export const transformFormValues = (values?: FormData) => {
   if (!values) return undefined
   return Object.entries(values).reduce((cul, [key, value]) => {
+    if (value === null) return cul
     if (typeof value === 'object' && 'items' in value) {
       const { items } = value
       return {
