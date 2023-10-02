@@ -20,7 +20,7 @@
     </AppButton>
     <AppButton
       v-if="hasNextStep"
-      type="submit"
+      type="button"
       :class="{ disabled: isStepDisabled(index) }"
       :disabled="readonly"
       @click="isStepDisabled(index) ? $emit('validate') : $emit('step', index + 1)"
