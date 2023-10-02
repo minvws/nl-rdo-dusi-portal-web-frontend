@@ -18,6 +18,6 @@ import { useSEO } from '@shared/composables/useSeo'
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.not-found.title')}`
+  title: `${translate('pages.not-found.title')} | ${translate('app.prefix')}`
 })
 </script>

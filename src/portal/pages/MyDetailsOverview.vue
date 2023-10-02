@@ -39,7 +39,7 @@ import FormView from '@shared/components/FormView/FormView.vue'
 import { MY_DETAILS_EDIT } from '@portal/router/names'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-details-overview.title')}`
+  title: `${translate('pages.my-details-overview.title')} | ${translate('app.prefix')}`
 })
 
 const { data: details, error, isFetching, values } = useFetchPersonalDetails({ editable: false })

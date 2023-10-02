@@ -118,7 +118,7 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.my-case-details.title')}` })
+useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
 
 const formViewOptions = {
   hideDebug: true,

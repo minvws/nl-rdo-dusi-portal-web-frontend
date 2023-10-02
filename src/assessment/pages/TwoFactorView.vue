@@ -31,7 +31,7 @@ import FormView from '@shared/components/FormView/FormView.vue'
 
 import { LOGIN_VIEW, HOME } from '@assessment/router/names'
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.two-factor.title')}` })
+useSEO({ title: `${translate('pages.two-factor.title')} | ${translate('app.prefix')}` })
 
 const authStore = useAuthStore()
 const router = useRouter()

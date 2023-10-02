@@ -67,7 +67,7 @@ type Props = {
 const props = defineProps<Props>()
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-messages-overview.title')}`
+  title: `${translate('pages.my-messages-overview.title')} | ${translate('app.prefix')}`
 })
 
 const isFilterDisabled = true // @TODO: for MVP the filter is disabled

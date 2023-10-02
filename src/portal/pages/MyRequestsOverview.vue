@@ -36,7 +36,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestCards from '@portal/components/RequestCards/RequestCards.vue'
 
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-requests-overview.title')}`
+  title: `${translate('pages.my-requests-overview.title')} | ${translate('app.prefix')}`
 })
 
 const { data, error, isFetching } = useFetchRequests()

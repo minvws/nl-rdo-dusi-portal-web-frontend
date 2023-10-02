@@ -33,7 +33,7 @@ import { usePasswordUpdate } from '@assessment/composables/usePasswordUpdate'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-useSEO({ title: `${translate('app.prefix')} | ${translate('pages.update-password.title')}` })
+useSEO({ title: `${translate('pages.update-password.title')} | ${translate('app.prefix')}` })
 
 const { forms, onSubmit } = usePasswordUpdate()
 </script>
