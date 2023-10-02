@@ -78,6 +78,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
+useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.prefix')}` })
+
 const { onSubmitForm, onSubmitDraft, locked } = useSubmitCase()
 
 const formViewOptions = computed(() => ({
@@ -110,20 +112,20 @@ const {
   otherCases
 } = useFetchCase(props.id as string)
 
-const onSubmit = (data: FormData) => {
+function onSubmit(data: FormData) {
   const { id } = props
   onSubmitForm({ id, data })
 }
 
-const onSave = (data: FormData) => {
+function onSave(data: FormData) {
   const { id } = props
   onSubmitDraft({ id, data })
 }
 
 watch(caseReference, reference => {
   if (reference) {
-    const title = `${reference} - ${translate('pages.review-case.title')}`
-    useSEO({ title: `${title} | ${translate('app.prefix')}` })
+    const title = `${reference} - ${window.document.title}`
+    window.document.title = title
   }
 })
 </script>
