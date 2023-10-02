@@ -46,7 +46,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function getUserInfo() {
     try {
       const url = useApiUserStatusUrl()
-      const options: RequestInit = { method: 'GET', credentials: 'include' }
+      const options: RequestInit = {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json'
+        }
+      }
       const response = await fetch(url, options)
       const json = await response.json()
 
