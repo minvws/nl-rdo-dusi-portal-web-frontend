@@ -222,6 +222,13 @@ table thead th .button {
   font-weight: inherit;
 }
 
+th .button:only-child {
+  /* counteract padding and border-width */
+  margin-left: calc(
+    (-1 * var(--button-base-padding-left, 0.25rem)) - var(--button-base-border-width, 2px)
+  );
+}
+
 // we need to overwrite the 'notification' class styles...
 .error,
 .confirmation,
