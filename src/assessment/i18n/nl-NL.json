@@ -95,7 +95,7 @@
     "passwordUpdate": {
       "currentPassword": "Huidig wachtwoord",
       "newPassword": "Nieuw wachtwoord",
-      "passwordConfirmation": "Herhaling niew wachtwoord"
+      "passwordConfirmation": "Herhaling nieuw wachtwoord"
     },
     "passwordLogin": {
       "email": { "title": "E-mail", "label": "E-mailadres" },
