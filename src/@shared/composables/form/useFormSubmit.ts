@@ -64,7 +64,8 @@ export const useFormSubmit = () => {
     const error = await onSubmit(type)
     showNotification({ type, error })
     if (error) return
-    return router.replace({ name: HOME })
+    router.replace({ name: HOME })
+    forms.clearForm()
   }
 
   async function onSubmitDraft() {

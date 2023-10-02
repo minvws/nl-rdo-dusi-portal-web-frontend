@@ -10,6 +10,7 @@
         id: type,
         forms,
         hideDebug: true,
+        persistent: true,
         buttonLabels: { submit: translate('component.filterOptions.submit') }
       }"
       @init="onSubmit"

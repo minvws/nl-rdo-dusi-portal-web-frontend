@@ -61,4 +61,5 @@ export type FormViewProps = {
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
   hideRequiredLabel?: boolean
+  persistent?: boolean
 }
