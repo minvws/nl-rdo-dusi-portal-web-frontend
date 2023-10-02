@@ -122,10 +122,16 @@ function onSave(data: FormData) {
   onSubmitDraft({ id, data })
 }
 
-watch(caseReference, reference => {
-  if (reference) {
-    const title = `${reference} - ${window.document.title}`
-    window.document.title = title
-  }
-})
+watch(
+  caseReference,
+  reference => {
+    if (reference) {
+      const title = `${reference} - ${translate('pages.review-case.title')} | ${translate(
+        'app.prefix'
+      )}`
+      window.document.title = title
+    }
+  },
+  { immediate: true }
+)
 </script>
