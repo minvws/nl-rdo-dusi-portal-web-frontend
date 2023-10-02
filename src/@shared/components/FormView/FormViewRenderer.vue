@@ -49,7 +49,7 @@
 import type { FormViewProps } from '@shared/types/form'
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 
-import { computed } from 'vue'
+import { computed, onBeforeUnmount } from 'vue'
 import { JsonForms } from '@jsonforms/vue'
 
 import { useRenderers } from '@shared/composables/useRenderers'
@@ -82,7 +82,8 @@ const {
   uischema,
   createFormDraft,
   setForms,
-  isReadOnly
+  isReadOnly,
+  clearForm
 } = form
 
 if (props.createDraft) createFormDraft()
@@ -120,6 +121,11 @@ function onValidate() {
   form.onValidate()
   error.scrollToError()
 }
+
+onBeforeUnmount(() => {
+  if (props.createDraft || props.persistent) return
+  clearForm()
+})
 </script>
 
 <style lang="scss" scoped>

@@ -6,7 +6,9 @@ import { computed, inject } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
+
 import { useFormStorage } from '@shared/store/useFormStorage'
+import { useClearForm } from '@shared/composables/form/useClearForm'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string; hideRequiredLabel?: boolean }
@@ -30,6 +32,8 @@ export const useActiveForm = () => {
   const uischema = computed(() => form.value?.uischema)
   const isReadOnly = computed(() => form.value?.uiType === FormUiTypes.VIEW)
   const hideRequiredLabel = computed(() => formProps?.hideRequiredLabel === true)
+
+  const clearForm = useClearForm(formId)
 
   function setForms({ forms, values }: { forms: Form[]; values?: FormData }) {
     const restoredForm = formStorage.get(formId.value)
@@ -106,6 +110,7 @@ export const useActiveForm = () => {
     activeForm,
     data,
     draftId,
+    clearForm,
     errors,
     events: {
       change: onChange
