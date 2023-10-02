@@ -58,12 +58,14 @@ export const usePasswordUpdate = () => {
           password: {
             type: 'string',
             title: translate('component.passwordUpdate.newPassword'),
+            updatePassword: true,
             format: 'password'
           },
           passwordConfirmation: {
             type: 'string',
             title: translate('component.passwordUpdate.passwordConfirmation'),
             format: 'password',
+            updatePassword: true,
             const: {
               $data: '1/password'
             }

@@ -1,9 +1,12 @@
 import { createAjv } from '@jsonforms/core'
 import type Ajv from '@jsonforms/core/node_modules/ajv'
 
+import { translate } from '@shared/i18n'
+
 import { isValidIban } from '@shared/custom-input/iban-input'
 import { isValidPostalCode } from '@shared/custom-input/postal-code-input'
 import { isValidPhoneNumber } from '@shared/custom-input/phone-number-input'
+import { isValidPassword } from '@shared/custom-input/password-input'
 
 export const useAjv = (): Ajv => {
   const ajv = createAjv({
@@ -26,5 +29,14 @@ export const useAjv = (): Ajv => {
     keyword: 'tel',
     validate: isValidPhoneNumber
   })
+
+  ajv.addKeyword({
+    keyword: 'updatePassword',
+    validate: isValidPassword,
+    error: {
+      message: () => translate('form.fields.error.password-update') ?? ''
+    }
+  })
+
   return ajv
 }

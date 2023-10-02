@@ -126,7 +126,8 @@
         "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
         "tel": "Dit is geen geldig telefoonnummer",
-        "upload": "Er is iets mis gegaan met uploaden van het bestand"
+        "upload": "Er is iets mis gegaan met uploaden van het bestand",
+        "password-update": "Een wachtwoord moet minimaal 12 tekens lang zijn en ten minste één hoofdletter, één cijfer en één speciaal teken bevatten"
       },
       "passwordConfirmation": {
         "error": {
