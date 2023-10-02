@@ -120,7 +120,7 @@ const onSave = (data: FormData) => {
   onSubmitDraft({ id, data })
 }
 
-watch(caseReference, (reference) => {
+watch(caseReference, reference => {
   if (reference) {
     const title = `${reference} - ${translate('pages.review-case.title')}`
     useSEO({ title: `${title} | ${translate('app.prefix')}` })

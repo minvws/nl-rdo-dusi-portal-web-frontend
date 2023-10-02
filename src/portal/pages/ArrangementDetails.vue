@@ -36,7 +36,9 @@ import { ARRANGEMENT_FORM_LOCAL, ARRANGEMENT_FORM_REMOTE } from '@portal/router/
 const route = useRoute()
 
 useSEO({
-  title: `${route.params.id} - ${translate('pages.arrangement-details.title')} | ${translate('app.prefix')}`
+  title: `${route.params.id} - ${translate('pages.arrangement-details.title')} | ${translate(
+    'app.prefix'
+  )}`
 })
 
 const requestLocalFormPostCovidRoute = computed(() => {

@@ -48,5 +48,14 @@ export const useFetchCase = (id: string) => {
       title: getFormTitle(data)
     }
   }
-  return { data, caseDetail, caseStage, otherCases, caseTitle, caseStageId, caseReference, ...fetch }
+  return {
+    data,
+    caseDetail,
+    caseStage,
+    otherCases,
+    caseTitle,
+    caseStageId,
+    caseReference,
+    ...fetch
+  }
 }
