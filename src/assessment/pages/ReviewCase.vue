@@ -125,12 +125,13 @@ function onSave(data: FormData) {
 watch(
   caseReference,
   reference => {
-    if (reference) {
-      const title = `${reference} - ${translate('pages.review-case.title')} | ${translate(
-        'app.prefix'
-      )}`
-      window.document.title = title
-    }
+    if (!reference) return
+
+    const title = `${reference} - ${translate('pages.review-case.title')} | ${translate(
+      'app.prefix'
+    )}`
+
+    window.document.title = title
   },
   { immediate: true }
 )
