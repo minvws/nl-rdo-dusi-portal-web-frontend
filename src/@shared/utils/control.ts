@@ -25,16 +25,20 @@ function getInputType(type: InputType) {
   return InputType.TEXT
 }
 
-function getInputAutoCompleteAttrs(control: Control) {
-  switch (control.schema.format) {
-    case 'email':
-      return {
-        autocomplete: 'username'
-      }
-    case 'password':
-      return {
-        autocomplete: 'current-password'
-      }
+function createAutoComplete(autocomplete: string) {
+  return {
+    autocomplete
+  }
+}
+
+function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Control) {
+  if (updatePassword) return createAutoComplete('new-password')
+
+  switch (format) {
+    case InputType.EMAIL:
+      return createAutoComplete('username')
+    case InputType.PASSWORD:
+      return createAutoComplete('current-password')
   }
 }
 
