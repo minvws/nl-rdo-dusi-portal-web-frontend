@@ -1,7 +1,6 @@
 import { type JsonSchema } from '@jsonforms/core'
 
-export const isValidPassword = (schema: JsonSchema, password: string, ctx: any) => {
-
+export const isValidPassword = (schema: JsonSchema, password: string) => {
   if (password.length < 12) {
     return false
   }

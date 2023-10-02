@@ -35,7 +35,7 @@ export const useAjv = (): Ajv => {
     validate: isValidPassword,
     error: {
       message: () => translate('form.fields.error.password-update') ?? ''
-    },
+    }
   })
 
   return ajv
