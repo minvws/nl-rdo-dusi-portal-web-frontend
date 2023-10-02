@@ -15,7 +15,9 @@ export const useTouchedForms = ({
   const { touched } = storeToRefs(useTouchedFormsStore())
 
   const touchedForms = computed(() => {
-    return touched.value[activeForm.value.id]
+    const id = activeForm.value.id
+    if (!id) return undefined
+    return touched.value[id]
   })
 
   const clearTouchedForms = (id?: string) => {
@@ -32,8 +34,8 @@ export const useTouchedForms = ({
         if (!touchedForms.value) touched.value[activeForm.value.id] = []
         const { index } = form
         if (index === undefined) return
-        if (!touchedForms.value.includes(index)) {
-          touchedForms.value.push(index)
+        if (!touchedForms.value?.includes(index)) {
+          touchedForms.value?.push(index)
         }
       },
       { immediate: true }
