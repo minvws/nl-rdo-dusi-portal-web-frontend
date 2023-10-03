@@ -51,6 +51,8 @@
       "submitDate": "Datum indiening: {date}",
       "additionalInfo": "Het kan voorkomen dat u om extra informatie gevraagd wordt.",
       "info": "Bijbehorende informatie:",
+      "customerSatisfaction": "Hoe is het aanvragen gegaan?",
+      "customerSatisfactionLink": "Laat het ons weten via het <a target=\"_blank\" rel=\"{customerStatisfactionRel}\" href=\"{customerStatisfactionHref}{referenceCode}\">klanttevredenheidsonderzoek</a>",
       "decision": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.",
       "finalDecision": "De uiterste beslisdatum is {date}.",
       "notice": "<strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
