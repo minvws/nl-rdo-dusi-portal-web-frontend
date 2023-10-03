@@ -8,6 +8,13 @@ export default async () => {
     firstName: {
       type: 'string'
     },
+    dateOfBirth: {
+      type: 'string',
+      format: 'date',
+      title: 'Geboortedatum',
+      formatMinimum: '2023-10-14',
+      formatMaximum: '2023-10-15'
+    },
     file: fileUploadProperties
   }
 
@@ -18,6 +25,11 @@ export default async () => {
       {
         type: 'VerticalLayout',
         elements: [
+          {
+            type: 'CustomControl',
+            scope: '#/properties/dateOfBirth',
+            label: 'Geboortedatum'
+          },
           {
             type: 'CustomControl',
             scope: '#/properties/firstName'

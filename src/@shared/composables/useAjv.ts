@@ -1,5 +1,5 @@
 import { createAjv } from '@jsonforms/core'
-import type Ajv from '@jsonforms/core/node_modules/ajv'
+import type Ajv from 'ajv'
 
 import { translate } from '@shared/i18n'
 
