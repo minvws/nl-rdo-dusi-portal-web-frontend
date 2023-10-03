@@ -59,6 +59,7 @@
 
 <script setup lang="ts">
 import type { FormData } from '@shared/types/form'
+import { computed, watch } from 'vue'
 
 import { translate } from '@shared/i18n'
 
@@ -70,13 +71,14 @@ import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
-import { computed } from 'vue'
 
 type Props = {
   id: string
 }
 
 const props = defineProps<Props>()
+
+useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.prefix')}` })
 
 const { onSubmitForm, onSubmitDraft, locked } = useSubmitCase()
 
@@ -103,23 +105,34 @@ const {
   error: caseError,
   isFetching: isFetchingCase,
   caseDetail,
+  caseReference,
   caseStage,
-  otherCases,
+  caseStageId,
   caseTitle,
-  caseStageId
+  otherCases
 } = useFetchCase(props.id as string)
 
-// Set page title dynamically based on case title
-const pageTitle = computed(() => `${translate('app.prefix')} | ${caseTitle.value}`)
-useSEO({ title: pageTitle })
-
-const onSubmit = (data: FormData) => {
+function onSubmit(data: FormData) {
   const { id } = props
   onSubmitForm({ id, data })
 }
 
-const onSave = (data: FormData) => {
+function onSave(data: FormData) {
   const { id } = props
   onSubmitDraft({ id, data })
 }
+
+watch(
+  caseReference,
+  reference => {
+    if (!reference) return
+
+    const title = `${reference} - ${translate('pages.review-case.title')} | ${translate(
+      'app.prefix'
+    )}`
+
+    window.document.title = title
+  },
+  { immediate: true }
+)
 </script>

@@ -26,6 +26,6 @@ const props = defineProps<Props>()
 
 const { data, error, isFetching, values } = useFetchRequestStatus(props.reference)
 useSEO({
-  title: `${translate('app.prefix')} | ${translate('pages.my-request-edit.title')}`
+  title: `${translate('pages.my-request-edit.title')} | ${translate('app.prefix')}`
 })
 </script>

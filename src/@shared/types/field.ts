@@ -11,6 +11,7 @@ type FieldOptions = {
   postalCode?: boolean
   formatMinimum?: string
   formatMaximum?: string
+  updatePassword?: boolean
 }
 export type FieldProp = {
   type: string
