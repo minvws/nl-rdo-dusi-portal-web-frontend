@@ -25,6 +25,13 @@
           <AppIcon name="pdf-file" />
           {{ translate('component.requestSteps.request') }}
         </RouterLink>
+        <p>
+          <strong>{{ translate('component.requestSteps.customerSatisfaction') }}</strong>
+        </p>
+        <AppHtml
+          as="p"
+          :html="translate('component.requestSteps.customerSatisfactionLink', { referenceCode })"
+        />
       </template>
     </AppAccordionItem>
     <AppAccordionItem
@@ -101,6 +108,8 @@ type Props = {
 const props = defineProps<Props>()
 
 const { locale } = useI18n()
+
+const referenceCode = computed(() => props?.reference?.split('-')?.[0])
 
 const submitDate = computed(() => formatDate(props.submittedAt, locale.value))
 

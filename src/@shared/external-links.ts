@@ -17,6 +17,8 @@ export const urls = {
   conformance: 'https://www.w3.org/WAI/test-evaluate/conformance/',
   contact: 'https://www.dus-i.nl/contact',
   copyright: 'https://www.dus-i.nl/copyright',
+  customerStatisfaction:
+    'https://klantmonitor-enq.onderzoekdoen.nl/?t=kuaqchdk&attributes=subsidiecode:',
   disagree: 'https://www.dus-i.nl/oneens-met-dus-i',
   disclaimer: 'https://www.dus-i.nl/disclaimer',
   documents: 'https://www.dus-i.nl/documenten',
