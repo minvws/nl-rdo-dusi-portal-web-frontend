@@ -35,6 +35,7 @@ const isNotCentered = computed(() => {
     case InputType.RADIO:
     case InputType.CHECKBOX:
     case InputType.CHECKBOX_GROUP:
+    case InputType.TEXTAREA:
     case undefined:
       return true
   }

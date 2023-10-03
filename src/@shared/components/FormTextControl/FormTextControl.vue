@@ -1,5 +1,6 @@
 <template>
-  <input
+  <component
+    :is="component"
     v-bind="input"
     @input="$emit('input', $event)"
     @change="$emit('change', $event)"
@@ -27,6 +28,14 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const component = computed(() => {
+  switch (props.type) {
+    case InputType.TEXTAREA:
+      return InputType.TEXTAREA
+  }
+  return 'input'
+})
 
 const input = computed(() => {
   const { id, value, placeholder, disabled, autofocus } = props

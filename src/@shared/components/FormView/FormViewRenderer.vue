@@ -14,7 +14,6 @@
     :class="{
       'no-style': isFirstStep || noStyle
     }"
-    @keypress.enter.prevent.stop
     @submit.prevent.stop
   >
     <JsonForms
