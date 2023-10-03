@@ -9,6 +9,7 @@ import { getControlId, getLinkedControlId } from '@shared/utils/control'
 
 import { useFormStorage } from '@shared/store/useFormStorage'
 import { useClearForm } from '@shared/composables/form/useClearForm'
+import { transformFormValues } from '@/@shared/utils/form'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string; hideRequiredLabel?: boolean }
@@ -42,8 +43,9 @@ export const useActiveForm = () => {
     setFormDataFromValues(values)
   }
 
-  function setDraftId(draftId: string) {
+  function setDraft({ reference: draftId, data }: { reference: string; data?: FormData }) {
     formStorage.update(formId.value, { draftId })
+    setFormDataFromValues(transformFormValues(data))
   }
 
   function setFormDataFromValues(values?: FormData) {
@@ -130,7 +132,7 @@ export const useActiveForm = () => {
     isReadOnly,
     readonly,
     schema,
-    setDraftId,
+    setDraft,
     setFormData,
     setForms,
     setFormStep,

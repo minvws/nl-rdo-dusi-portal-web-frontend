@@ -13,7 +13,7 @@ import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 
 export const useFormDraft = (formId: Ref<string>) => {
-  const { setDraftId } = useActiveForm()
+  const { setDraft } = useActiveForm()
   const router = useRouter()
   const notification = useNotificationsStore()
 
@@ -52,7 +52,7 @@ export const useFormDraft = (formId: Ref<string>) => {
       router.replace({ name: HOME })
       return
     }
-    setDraftId(data.reference)
+    setDraft(data)
   }
 
   return {
