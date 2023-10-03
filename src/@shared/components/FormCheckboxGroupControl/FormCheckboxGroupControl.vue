@@ -1,21 +1,21 @@
 <template>
   <div class="form-checkbox-group">
     <div
-      v-for="(item, index) in items"
+      v-for="({ title, value }, index) in items"
       :key="index"
       class="checkbox"
     >
       <input
         type="checkbox"
-        :value="item"
+        :value="value"
         :id="`${id}-${index}`"
         :disabled="disabled"
-        :checked="values.includes(item)"
+        :checked="values.includes(value)"
         @input="onChange"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"
       />
-      <label :for="`${id}-${index}`">{{ item }}</label>
+      <label :for="`${id}-${index}`">{{ title }}</label>
     </div>
   </div>
 </template>
@@ -43,7 +43,16 @@ const values = computed(() => {
 })
 
 const items = computed(() => {
-  return (props.control.schema.items as { type: string; enum: string[] })?.enum
+  const items = props.control.schema.items as {
+    type: string
+    enum: string[]
+    oneOf?: { title: string; const: string }[]
+  }
+
+  return items?.enum.map(title => {
+    const value = items.oneOf?.find(({ title: target }) => target === title)?.const
+    return { title: title ?? value, value: value ?? title }
+  })
 })
 const onChange = (e: Event) => {
   e.stopPropagation()
