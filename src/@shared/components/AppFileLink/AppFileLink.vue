@@ -13,7 +13,7 @@
       v-else-if="fileUrl"
       :href="fileUrl"
       :title="file.name"
-      download
+      :download="file.name"
       ref="download"
       target="_blank"
       rel="external"
