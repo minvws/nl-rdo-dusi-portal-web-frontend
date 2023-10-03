@@ -8,9 +8,9 @@
           centered
         />
         <FormNotification
-          v-else-if="error"
+          v-else-if="errorMessage"
           display-as="error"
-          :message="error"
+          :message="errorMessage"
         />
         <template v-else-if="!isFetching && hasData">
           <slot />
@@ -35,11 +35,19 @@ import FormNotification from '@shared/components/FormNotification/FormNotificati
 type Props = {
   as?: string
   data?: [] | object | null
-  error: string | null
+  error: { message?: string; code?: string } | string | null
   isFetching: boolean
 }
 
 const props = defineProps<Props>()
+
+const errorMessage = computed(() => {
+  if (!props.error) return undefined
+  if (typeof props.error === 'object' && props.error?.message) {
+    return props.error.message
+  }
+  return props.error
+})
 
 const hasData = computed(
   () =>
