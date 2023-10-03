@@ -9,6 +9,8 @@ type FieldOptions = {
   tel?: boolean
   file?: boolean
   postalCode?: boolean
+  formatMinimum?: string
+  formatMaximum?: string
 }
 export type FieldProp = {
   type: string

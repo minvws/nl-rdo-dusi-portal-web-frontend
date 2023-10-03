@@ -41,11 +41,19 @@ function getInputAutoCompleteAttrs(control: Control) {
 export function getInputAttrs(props: { type: InputType; control: Control }) {
   const { type, control } = props
   const {
-    schema: { minimum: min, maximum: max, minLength: minlength, maxLength: maxlength }
+    schema: {
+      minimum,
+      maximum,
+      minLength: minlength,
+      maxLength: maxlength,
+      formatMinimum,
+      formatMaximum
+    }
   } = control
+
   return {
-    min,
-    max,
+    min: minimum ?? formatMinimum,
+    max: maximum ?? formatMaximum,
     minlength,
     maxlength,
     ...getInputAutoCompleteAttrs(control),
