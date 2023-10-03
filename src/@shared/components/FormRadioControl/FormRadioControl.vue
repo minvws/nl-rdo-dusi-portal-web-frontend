@@ -21,7 +21,7 @@
   </div>
 </template>
 <script setup lang="ts">
-const emit = defineEmits(['input', 'change', 'focus', 'blur'])
+defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
   items: { id: string; value: string; checked: boolean }[]
