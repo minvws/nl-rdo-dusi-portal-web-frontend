@@ -29,6 +29,7 @@ export const useTouchedFields = ({ activeForm }: { activeForm: ComputedRef<{ id:
     useTouchedField(id: string) {
       return {
         setTouchedField(value: boolean) {
+          if (!activeForm.value?.id) return
           setTouchedField(id, activeForm.value.id, value)
         },
         isTouched: computed(() => {

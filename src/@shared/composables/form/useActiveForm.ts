@@ -100,6 +100,7 @@ export const useActiveForm = () => {
   }
 
   function onChange({ data, errors }: JsonFormsChangeEvent) {
+    if (!activeForm.value) return
     activeForm.value.data[index.value] = data
     activeForm.value.errors[index.value] = errors
   }
