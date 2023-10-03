@@ -15,7 +15,7 @@ export const useTouchedForms = ({
   const { touched } = storeToRefs(useTouchedFormsStore())
 
   const touchedForms = computed(() => {
-    const id = activeForm.value.id
+    const id = activeForm.value?.id
     if (!id) return undefined
     return touched.value[id]
   })
