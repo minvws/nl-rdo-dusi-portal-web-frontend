@@ -22,20 +22,25 @@ export const useQueryFetch = (
   const query: Ref<Record<string, string | string[]> | undefined> = ref(undefined)
 
   const url = computed(() => {
-    const url = new URL(location)
-    const requestParams = new URLSearchParams()
     const payload = { ...query?.value, ...params?.value }
+    const entries = Object.entries(payload)
 
-    Object.entries(payload).forEach(([key, value]) => {
-      if (Array.isArray(value)) {
-        value.forEach(item => requestParams.append(key, item))
-      } else if (value !== undefined) {
-        requestParams.set(key, value)
-      }
-    })
+    if (!entries.length) return location
 
-    url.search = requestParams.toString()
-    return url.toString()
+    const queryString = entries
+      .map(([key, value]) => {
+        if (Array.isArray(value)) {
+          return value
+            .map(v => `${key}[]=${encodeURIComponent(v)}`)
+            .join('&')
+            .substring(-1)
+        } else {
+          return `${key}=${encodeURIComponent(value)}`
+        }
+      })
+      .join('&')
+
+    return `${location}?${queryString}`
   })
 
   const fetchOptions = { ...fetchConfig }
