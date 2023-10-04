@@ -28,6 +28,15 @@
       {{ nextLabel }}
     </AppButton>
     <AppButton
+      v-if="hasPreview"
+      type="submit"
+      :class="{ disabled: isStepDisabled(index) }"
+      :disabled="readonly"
+      @click="isStepDisabled(index) ? $emit('validate') : $emit('preview')"
+    >
+      {{ previewLabel }}
+    </AppButton>
+    <AppButton
       v-if="hasSubmit"
       type="submit"
       :class="{ disabled: isStepDisabled(index) }"
@@ -48,7 +57,7 @@ import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-defineEmits(['validate', 'step', 'save', 'submit'])
+defineEmits(['validate', 'step', 'save', 'preview', 'submit'])
 
 type Props = {
   forms: FormTitle[]
@@ -58,11 +67,13 @@ type Props = {
   touched?: number[]
   buttonLabels?: FormButtonLabels
   hasSaveButton?: boolean
+  hasPreviewButton?: boolean
 }
 
 const props = defineProps<Props>()
 
-const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled } = useFormSteps(props)
+const { hasPrevStep, hasNextStep, hasSave, hasSubmit, hasPreview, isStepDisabled } =
+  useFormSteps(props)
 
 const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
 
@@ -75,6 +86,8 @@ const nextLabel = computed(() =>
 const saveLabel = computed(() => props.buttonLabels?.save || translate('form.button.save'))
 
 const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
+
+const previewLabel = computed(() => props.buttonLabels?.preview || translate('form.button.preview'))
 </script>
 
 <style lang="scss" scoped>

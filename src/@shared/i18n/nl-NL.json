@@ -103,7 +103,8 @@
       "next": "Volgende",
       "prev": "Vorige",
       "submit": "Verzenden",
-      "save": "Tussentijds opslaan"
+      "save": "Tussentijds opslaan",
+      "preview": "Opslaan en preview"
     },
     "component": {
       "fileInput": {

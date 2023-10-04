@@ -133,6 +133,21 @@
       "title": "Beoordeling",
       "case": "Aanvraag"
     },
+    "preview-case-submit": {
+      "title": "Beoordeling preview",
+      "caption": "Bij het versturen van deze beoordeling vinden de volgende wijzigingen plaats:",
+      "message": "Daarnaast zal de volgende brief worden verstuurd naar de aanvrager:",
+      "button": {
+        "edit": "Bewerken",
+        "submit": "Verzenden"
+      },
+      "column": {
+        "status": "Aanvraag status",
+        "phase": "Aanvraag fase",
+        "current": "Huidige waarde",
+        "target": "Nieuwe waarde"
+      }
+    },
     "two-factor": {
       "title": "Twee-staps verificatie",
       "submit": "Verstuur code"

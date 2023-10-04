@@ -3,6 +3,8 @@ import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
+import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
+
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
 import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
@@ -14,6 +16,7 @@ import {
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
+  PREVIEW_CASE_SUBMIT,
   TWO_FACTOR_VIEW,
   REFRESH,
   PASSWORD_UPDATE_VIEW
@@ -43,6 +46,12 @@ const routes = [
         path: ':id/beoordeling',
         name: REVIEW_CASE,
         component: ReviewCase,
+        props: true
+      },
+      {
+        path: ':id/beoordeling/preview',
+        name: PREVIEW_CASE_SUBMIT,
+        component: PreviewCaseSubmit,
         props: true
       }
     ]

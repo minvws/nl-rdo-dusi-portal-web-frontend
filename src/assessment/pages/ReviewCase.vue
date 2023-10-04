@@ -48,6 +48,7 @@
                 }"
                 @submit="onSubmit"
                 @save="onSave"
+                @preview="onPreview"
               />
             </template>
           </AppAccordionItem>
@@ -71,12 +72,16 @@ import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
+import { useRouter } from 'vue-router'
+import { PREVIEW_CASE_SUBMIT } from '../router/names'
 
 type Props = {
   id: string
 }
 
 const props = defineProps<Props>()
+
+const router = useRouter()
 
 useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.prefix')}` })
 
@@ -96,6 +101,7 @@ const formEditOptions = computed(() => ({
   noStyle: true,
   locked: locked.value,
   hasSaveButton: true,
+  hasPreviewButton: true,
   title: undefined,
   hideRequiredLabel: true
 }))
@@ -122,6 +128,11 @@ function onSave(data: FormData) {
   onSubmitDraft({ id, data })
 }
 
+async function onPreview(data: FormData) {
+  const { id } = props
+  await onSubmitDraft({ id, data })
+  router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
+}
 watch(
   caseReference,
   reference => {

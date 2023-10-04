@@ -25,8 +25,8 @@ export type RawRequestData = {
 
 export type Column = {
   id: string
-  text: string | undefined
-  sortable: boolean
+  text?: string
+  sortable?: boolean
 }
 
 export type Response = {

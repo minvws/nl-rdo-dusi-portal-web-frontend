@@ -35,7 +35,7 @@
       </thead>
       <tbody>
         <tr
-          v-for="item in paginatedData"
+          v-for="item in tableData"
           :key="item.id"
         >
           <template
@@ -83,6 +83,7 @@
     </table>
 
     <AppPagination
+      v-if="itemsPerPage"
       :items-total="totalItems"
       :page-size="itemsPerPage"
       :current-page="currentPage"
@@ -116,7 +117,7 @@ type Props = {
   caption?: string
   columns: Column[]
   data: any[]
-  itemsPerPage: number
+  itemsPerPage?: number
 }
 
 const props = defineProps<Props>()
@@ -138,8 +139,9 @@ watch(
 const totalItems = computed(() => props.data.length ?? 0)
 
 const paginatedData = computed(() => {
-  const start = (currentPage.value - 1) * props.itemsPerPage
-  const end = start + props.itemsPerPage
+  const itemsPerPage = props.itemsPerPage ?? 0
+  const start = (currentPage.value - 1) * itemsPerPage
+  const end = start + itemsPerPage
   return sortedData.value.slice(start, end)
 })
 
@@ -161,6 +163,8 @@ const sortedData = computed(() => {
 
   return clonedData
 })
+
+const tableData = computed(() => (props.itemsPerPage ? paginatedData.value : sortedData.value))
 
 function onButtonClick(action: CaseAction) {
   const { type, params } = action

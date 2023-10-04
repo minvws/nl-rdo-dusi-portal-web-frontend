@@ -26,6 +26,14 @@ export const useApiCaseReviewerUrl = (id: string) => {
     : `${baseUrl}/api/applications/${id}/reviewer` // Not final url yet.
 }
 
+export const useApiCaseTransitionPreviewUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}/transition-preview`
+}
+
+export const useApiCaseTransitionPreviewSubmitUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}/submit`
+}
+
 export const useApiCasesFilterCountUrl = () => {
   return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
 }
