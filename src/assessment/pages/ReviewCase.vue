@@ -48,7 +48,6 @@
                 }"
                 @submit="onSubmit"
                 @save="onSave"
-                @preview="onPreview"
               />
             </template>
           </AppAccordionItem>
@@ -101,7 +100,8 @@ const formEditOptions = computed(() => ({
   noStyle: true,
   locked: locked.value,
   hasSaveButton: true,
-  hasPreviewButton: true,
+  hasPreviewButton: false,
+  hasSubmitButton: false,
   title: undefined,
   hideRequiredLabel: true
 }))
@@ -118,9 +118,10 @@ const {
   otherCases
 } = useFetchCase(props.id as string)
 
-function onSubmit(data: FormData) {
+async function onSubmit(data: FormData) {
   const { id } = props
-  onSubmitForm({ id, data })
+  await onSubmitDraft({ id, data })
+  router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
 }
 
 function onSave(data: FormData) {
@@ -128,11 +129,6 @@ function onSave(data: FormData) {
   onSubmitDraft({ id, data })
 }
 
-async function onPreview(data: FormData) {
-  const { id } = props
-  await onSubmitDraft({ id, data })
-  router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
-}
 watch(
   caseReference,
   reference => {

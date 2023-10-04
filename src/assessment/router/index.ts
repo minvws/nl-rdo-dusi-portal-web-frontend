@@ -49,7 +49,7 @@ const routes = [
         props: true
       },
       {
-        path: ':id/beoordeling/preview',
+        path: ':id/beoordeling/bevestigen',
         name: PREVIEW_CASE_SUBMIT,
         component: PreviewCaseSubmit,
         props: true
