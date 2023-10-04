@@ -31,7 +31,7 @@
     <FormRowElement v-bind="{ contentClass }">
       <template #left>
         <FormFieldLabel
-          v-if="label"
+          v-if="label && !group"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :for="`${id}-input`"
@@ -39,6 +39,14 @@
             label
           }"
         />
+        <div
+          v-else-if="label"
+          class="form-row-field-label"
+          :class="{ margin: required && !hideRequiredLabel }"
+          :id="labelUuid"
+        >
+          {{ label }}
+        </div>
       </template>
       <template #right>
         <slot />
@@ -66,6 +74,7 @@ import type { Options } from '@jsonforms/vue-vanilla'
 
 import { defineComponent } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
+import { v4 as uuidv4 } from 'uuid'
 
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
 import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
@@ -80,12 +89,21 @@ import { translate } from '@shared/i18n'
 
 export default defineComponent({
   extends: ControlWrapper,
+  setup() {
+    return {
+      labelUuid: uuidv4()
+    }
+  },
   props: {
     contentClass: {
       type: String,
       required: false
     },
     hideRequiredLabel: {
+      type: Boolean,
+      required: false
+    },
+    group: {
       type: Boolean,
       required: false
     }
@@ -116,6 +134,8 @@ export default defineComponent({
       const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
       return {
         id,
+        role: this.group ? 'group' : undefined,
+        'aria-labelledby': this.group ? this.labelUuid : undefined,
         class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }

@@ -38,7 +38,7 @@ export const Default: Story = {
             }
           ]
         },
-        schema: {
+        dataschema: {
           required: ['storybook'],
           properties: {
             storybook: {

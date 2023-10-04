@@ -79,12 +79,14 @@ export default defineComponent({
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
+      const group = type === 'radio'
 
       return {
         appliedOptions,
         data,
         description: isFocused ? description : undefined,
         errors: error || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
+        group,
         id,
         isFocused,
         label,
