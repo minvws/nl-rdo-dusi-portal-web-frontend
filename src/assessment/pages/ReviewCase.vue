@@ -101,7 +101,6 @@ const formEditOptions = computed(() => ({
   locked: locked.value,
   hasSaveButton: true,
   hasPreviewButton: false,
-  hasSubmitButton: false,
   title: undefined,
   hideRequiredLabel: true
 }))
