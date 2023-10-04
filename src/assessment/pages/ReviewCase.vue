@@ -84,7 +84,7 @@ const router = useRouter()
 
 useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.prefix')}` })
 
-const { onSubmitForm, onSubmitDraft, locked } = useSubmitCase()
+const { onSubmitDraft, locked } = useSubmitCase()
 
 const formViewOptions = computed(() => ({
   hideDebug: true,
@@ -100,7 +100,6 @@ const formEditOptions = computed(() => ({
   noStyle: true,
   locked: locked.value,
   hasSaveButton: true,
-  hasPreviewButton: false,
   title: undefined,
   hideRequiredLabel: true
 }))
