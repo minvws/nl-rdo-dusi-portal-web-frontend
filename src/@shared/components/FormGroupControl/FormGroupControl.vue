@@ -4,14 +4,14 @@
     class="form-group"
     :class="formGroupClassName"
     :role="role"
-    :aria-labelledby="labelUuid"
+    :aria-labelledby="labelId"
   >
     <component
       v-if="label"
       class="form-group-label"
       :class="labelClass"
       :is="labelComponent"
-      :id="labelUuid"
+      :id="labelId"
     >
       {{ label }}
     </component>
@@ -54,7 +54,7 @@ export default defineComponent({
   setup(props) {
     return {
       ...useVanillaLayout(useJsonFormsLayout(props)),
-      labelUuid: uuidv4()
+      labelId: uuidv4()
     }
   },
   computed: {

@@ -43,7 +43,7 @@
           v-else-if="label"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
-          :id="labelUuid"
+          :id="labelId"
         >
           {{ label }}
         </div>
@@ -91,7 +91,7 @@ export default defineComponent({
   extends: ControlWrapper,
   setup() {
     return {
-      labelUuid: uuidv4()
+      labelId: uuidv4()
     }
   },
   props: {
@@ -135,7 +135,7 @@ export default defineComponent({
       return {
         id,
         role: this.group ? 'group' : undefined,
-        'aria-labelledby': this.group ? this.labelUuid : undefined,
+        'aria-labelledby': this.group ? this.labelId : undefined,
         class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }
