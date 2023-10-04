@@ -1,6 +1,6 @@
 <template>
   <RouterLink
-    v-bind="$attrs"
+    v-bind="$props"
     custom
     v-slot="{ href, navigate, isActive, isExactActive }"
   >
@@ -14,3 +14,11 @@
     </a>
   </RouterLink>
 </template>
+
+<script setup lang="ts">
+import type { RouterLinkProps } from 'vue-router'
+
+import { defineProps } from 'vue'
+
+defineProps<RouterLinkProps>()
+</script>
