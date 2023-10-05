@@ -45,14 +45,14 @@ const values = computed(() => {
 const items = computed(() => {
   const items = props.control.schema.items as {
     type: string
-    enum: string[]
+    enum?: string[]
     oneOf?: { title: string; const: string }[]
   }
 
-  return items?.enum.map(title => {
-    const value = items.oneOf?.find(({ title: target }) => target === title)?.const
-    return { title: title ?? value, value: value ?? title }
-  })
+  return (
+    items?.oneOf?.map(({ title, const: value }) => ({ title, value })) ??
+    items?.enum?.map(title => ({ title, value: title }))
+  )
 })
 const onChange = (e: Event) => {
   e.stopPropagation()
