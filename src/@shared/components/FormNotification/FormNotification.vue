@@ -59,12 +59,6 @@ function onDismiss(id: string) {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  // width: 100%;
-  // box-sizing: border-box;
-  // margin: 0 auto;
-  // padding-right: var(--section-content-wrapper-padding-right);
-  // padding-left: var(--section-content-wrapper-padding-left);
-  // max-width: var(--section-content-wrapper-max-width);
 }
 
 .button {
