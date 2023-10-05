@@ -29,9 +29,12 @@
     </FormRowElement>
 
     <FormRowElement v-bind="{ contentClass }">
-      <template #left>
+      <template
+        #left
+        v-if="label"
+      >
         <FormFieldLabel
-          v-if="label && !isGroup"
+          v-if="!isGroup"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :for="`${id}-input`"
@@ -40,7 +43,7 @@
           }"
         />
         <div
-          v-else-if="label"
+          v-else
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :id="labelId"
