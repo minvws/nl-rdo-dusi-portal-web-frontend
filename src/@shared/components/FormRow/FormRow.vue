@@ -31,7 +31,7 @@
     <FormRowElement v-bind="{ contentClass }">
       <template #left>
         <FormFieldLabel
-          v-if="label && !group"
+          v-if="label && !isGroup"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :for="`${id}-input`"
@@ -103,7 +103,7 @@ export default defineComponent({
       type: Boolean,
       required: false
     },
-    group: {
+    isGroup: {
       type: Boolean,
       required: false
     }
@@ -130,12 +130,12 @@ export default defineComponent({
       return undefined
     },
     rowProps() {
-      const { id, errors, appliedOptions = {} } = this
+      const { id, errors, isGroup, labelId, appliedOptions = {} } = this
       const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
       return {
         id,
-        role: this.group ? 'group' : undefined,
-        'aria-labelledby': this.group ? this.labelId : undefined,
+        role: isGroup ? 'group' : undefined,
+        'aria-labelledby': isGroup ? labelId : undefined,
         class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }

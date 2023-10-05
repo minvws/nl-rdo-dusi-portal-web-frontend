@@ -28,6 +28,7 @@ import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupContro
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
+import { InputType } from '@/@shared/types/input'
 
 export default defineComponent({
   components: {
@@ -79,14 +80,14 @@ export default defineComponent({
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
-      const group = type === 'radio'
+      const isGroup = type === InputType.RADIO
 
       return {
         appliedOptions,
         data,
         description: isFocused ? description : undefined,
         errors: error || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
-        group,
+        isGroup,
         id,
         isFocused,
         label,
