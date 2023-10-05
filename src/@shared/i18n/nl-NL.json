@@ -102,9 +102,8 @@
       "start": "Aanvraag starten",
       "next": "Volgende",
       "prev": "Vorige",
-      "submit": "Verzenden",
-      "save": "Tussentijds opslaan",
-      "preview": "Opslaan en preview"
+      "submit": "Opslaan en bevestigen",
+      "save": "Tussentijds opslaan"
     },
     "component": {
       "fileInput": {

@@ -36,10 +36,8 @@
       :readonly="readonly"
       :buttonLabels="buttonLabels"
       :hasSaveButton="createDraft || hasSaveButton"
-      :hasPreviewButton="hasPreviewButton"
       @save="onSave"
       @submit="onSubmit"
-      @preview="onPreview"
       @step="onStep"
       @validate="onValidate"
     />
@@ -64,7 +62,7 @@ import FormButtons from '@shared/components/FormButtons/FormButtons.vue'
 import FormDebugView from '@shared/components/FormDebugView/FormDebugView.vue'
 import FormStepper from '@shared/components/FormStepper/FormStepper.vue'
 
-const emit = defineEmits(['submit', 'save', 'init', 'preview'])
+const emit = defineEmits(['submit', 'save', 'init'])
 const props = defineProps<FormViewProps>()
 
 const ajv = useAjv()
@@ -117,10 +115,6 @@ function onSubmit() {
 function onSave() {
   if (props.createDraft) form.onSubmitDraft()
   else emit('save', form.formData.value)
-}
-
-function onPreview() {
-  props.createDraft ? form.onSubmitDraft() : emit('preview', form.formData.value)
 }
 
 function onValidate() {

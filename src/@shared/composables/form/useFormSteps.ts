@@ -8,7 +8,6 @@ export const useFormSteps = (props: {
   formsErrors: FormError[]
   touched?: number[]
   hasSaveButton?: boolean
-  hasPreviewButton?: boolean
 }) => {
   const hasErrors = () => {
     return props.formsErrors
@@ -52,8 +51,6 @@ export const useFormSteps = (props: {
     return props.index === props.forms.length - 1
   })
 
-  const hasPreview = computed(() => props.hasPreviewButton && hasSubmit.value)
-
   const hasSave = computed(() => {
     if (!props.hasSaveButton) return false
     return hasPrevStep.value || hasSubmit.value
@@ -69,7 +66,6 @@ export const useFormSteps = (props: {
     hasSave,
     hasSteps,
     hasSubmit,
-    hasPreview,
     hasErrors,
     isStepDisabled,
     isTouched,

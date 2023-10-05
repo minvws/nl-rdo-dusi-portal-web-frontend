@@ -46,7 +46,6 @@ export type FormButtonLabels = {
   next?: string
   submit?: string
   save?: string
-  preview?: string
 }
 
 export type FormViewProps = {
@@ -59,7 +58,6 @@ export type FormViewProps = {
   hideDebug?: boolean
   buttonLabels?: FormButtonLabels
   hasSaveButton?: boolean
-  hasPreviewButton?: boolean
   noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
   noButtons?: boolean
   hideRequiredLabel?: boolean
