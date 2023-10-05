@@ -33,7 +33,7 @@ export const useNotificationsStore = defineStore('useNotificationsStore', () => 
 
     while (isDeleting.value) {
       const startIndex = notifications.value.findIndex(
-        ({ pageChangeCount }) => pageChangeCount && pageChangeCount <= 0
+        ({ pageChangeCount }) => pageChangeCount !== undefined && pageChangeCount <= 0
       )
 
       startIndex !== -1 ? notifications.value.splice(startIndex, 1) : (isDeleting.value = false)
