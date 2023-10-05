@@ -13,11 +13,23 @@
       {{ translate('component.pagination.prev') }}
       <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
     </AppButton>
+
     <ul>
-      <li
-        v-for="page in totalPages"
-        :key="page"
-      >
+      <template v-if="condensedLayout && !hideFirstGroup">
+        <li>
+          <AppButton
+            :disabled="isCurrentPage(1)"
+            :aria-current="isCurrentPage(1) ? 'true' : undefined"
+            @click.prevent="setCurrentPage(1)"
+          >
+            <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+            1
+          </AppButton>
+        </li>
+        <li v-if="currentPage > 4">...</li>
+      </template>
+
+      <li v-for="page in currentPageGroup" :key="page">
         <AppButton
           :disabled="isCurrentPage(page)"
           :aria-current="isCurrentPage(page) ? 'true' : undefined"
@@ -27,7 +39,22 @@
           {{ page }}
         </AppButton>
       </li>
+
+      <template v-if="condensedLayout  && !hideLastGroup">
+        <li v-if="currentPage < totalPages - 2">...</li>
+        <li>
+          <AppButton
+            :disabled="isCurrentPage(totalPages)"
+            :aria-current="isCurrentPage(totalPages) ? 'true' : undefined"
+            @click.prevent="setCurrentPage(totalPages)"
+          >
+            <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+            {{ totalPages }}
+          </AppButton>
+        </li>
+      </template>
     </ul>
+
     <AppButton
       v-if="withButtons"
       class="adjacent next"
@@ -63,6 +90,26 @@ const previousPageDisabled = computed(() => props.currentPage === 1)
 
 const totalPages = computed(() => Math.ceil(props.itemsTotal / props.pageSize))
 
+const condensedLayout = computed(() => totalPages.value >= 10)
+
+const currentPageGroup = computed(() => {
+  const maxPages = 5
+
+  if (totalPages.value <= maxPages) {
+    return Array.from({ length: totalPages.value }, (_, i) => i + 1)
+  } else if (props.currentPage <= 3) {
+    return Array.from({ length: maxPages }, (_, i) => i + 1)
+  } else if (props.currentPage >= totalPages.value - 2) {
+    return Array.from({ length: maxPages }, (_, i) => totalPages.value - maxPages + i + 1)
+  } else {
+    return Array.from({ length: maxPages }, (_, i) => props.currentPage - 2 + i)
+  }
+})
+
+const hideFirstGroup = computed(() => props.currentPage <= 3)
+
+const hideLastGroup = computed(() => props.currentPage >= totalPages.value - 2)
+
 function goToNextPage() {
   if (props.currentPage < totalPages.value) {
     setCurrentPage(props.currentPage + 1)
@@ -83,3 +130,30 @@ function setCurrentPage(page: number) {
   emit('page-change', page)
 }
 </script>
+
+<style lang="scss" scoped>
+:root {
+  --pagination-adjacent-button-width: 120px;
+}
+.pagination ul {
+  display: flex;
+  justify-content: center;
+  flex: 0 1 calc(100% - (var(--pagination-adjacent-button-width) * 2));
+  overflow-x: auto;
+}
+
+@include mobile {
+  .pagination ul li {
+    --pagination-item-width: 2rem;
+  }
+
+  .pagination ul button {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+.pagination .adjacent {
+  flex: 0 0 var(--pagination-adjacent-button-width);
+}
+</style>
