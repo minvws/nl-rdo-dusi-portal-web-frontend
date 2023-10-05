@@ -29,7 +29,10 @@
         <li v-if="currentPage > 4">...</li>
       </template>
 
-      <li v-for="page in currentPageGroup" :key="page">
+      <li
+        v-for="page in currentPageGroup"
+        :key="page"
+      >
         <AppButton
           :disabled="isCurrentPage(page)"
           :aria-current="isCurrentPage(page) ? 'true' : undefined"
@@ -40,7 +43,7 @@
         </AppButton>
       </li>
 
-      <template v-if="condensedLayout  && !hideLastGroup">
+      <template v-if="condensedLayout && !hideLastGroup">
         <li v-if="currentPage < totalPages - 2">...</li>
         <li>
           <AppButton
