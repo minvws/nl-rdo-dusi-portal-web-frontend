@@ -32,8 +32,7 @@ export const useFormSubmitNotification = () => {
     notification.add({
       message: translate('form.message.save-failed', { error: error?.message ?? '' }) || '',
       displayAs: 'error',
-      id: NOTIFICATION_SAVE_ID,
-      duration: 3000
+      id: NOTIFICATION_SAVE_ID
     })
   }
 
@@ -41,8 +40,7 @@ export const useFormSubmitNotification = () => {
     notification.add({
       message: translate('form.message.save-success') || '',
       displayAs: 'confirmation',
-      id: NOTIFICATION_SAVE_ID,
-      duration: 3000
+      id: NOTIFICATION_SAVE_ID
     })
   }
 

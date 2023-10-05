@@ -2,16 +2,12 @@
   <div class="notification-sticky">
     <div
       v-for="(notification, index) in notifications"
-      class="notification-wrapper"
-      :class="notification.displayAs"
       :key="index"
     >
-      <div class="notification-container">
-        <FormNotification
-          v-bind="notification"
-          class="notification"
-        />
-      </div>
+      <FormNotification
+        v-bind="notification"
+        dismissable
+      />
     </div>
   </div>
 </template>
@@ -28,22 +24,11 @@ const { notifications } = useNotificationsStore()
 .notification {
   border: none;
   padding-left: 0;
+}
 
-  &-wrapper {
-    padding: 0 var(--notification-confirmation-page-content-wrapper-padding-right) 0
-      var(--notification-confirmation-page-content-wrapper-padding-left);
-    margin: 0;
-  }
-
-  &-container {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  &-sticky {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-  }
+.notification-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 </style>
