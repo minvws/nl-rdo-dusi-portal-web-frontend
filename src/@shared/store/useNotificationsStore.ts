@@ -5,65 +5,53 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 
-const INTERVAL_IN_MS = 500
-
 export const useNotificationsStore = defineStore('useNotificationsStore', () => {
-  type AppNotification = Notification & { id?: string; pageChangeCount?: number; duration?: number }
+  type AppNotification = Notification & { id: string; pageChangeCount?: number }
   const notifications: Ref<AppNotification[]> = ref([])
+  const isDeleting: Ref<boolean> = ref(false)
   const router = useRouter()
 
-  const removeById = ({ id }: { id?: string }) => {
-    if (!id) return
-    let deleting = true
-    while (deleting) {
-      const index = notifications.value.findIndex(({ id: notificationId }) => id === notificationId)
-      if (index !== -1) notifications.value.splice(index, 1)
-      else deleting = false
+  function removeById(id: string) {
+    isDeleting.value = true
+
+    while (isDeleting.value) {
+      const startIndex = notifications.value.findIndex(
+        ({ id: notificationId }) => id === notificationId
+      )
+
+      startIndex !== -1 ? notifications.value.splice(startIndex, 1) : (isDeleting.value = false)
     }
   }
 
-  const removeOnPageChange = () => {
+  function removeOnPageChange() {
     notifications.value.forEach(notification => {
       if (notification?.pageChangeCount === undefined) return
       notification.pageChangeCount--
     })
-    let deleting = true
-    while (deleting) {
-      const index = notifications.value.findIndex(
-        ({ pageChangeCount }) => pageChangeCount !== undefined && pageChangeCount <= 0
+
+    isDeleting.value = true
+
+    while (isDeleting.value) {
+      const startIndex = notifications.value.findIndex(
+        ({ pageChangeCount }) => pageChangeCount && pageChangeCount <= 0
       )
-      if (index !== -1) notifications.value.splice(index, 1)
-      else deleting = false
+
+      startIndex !== -1 ? notifications.value.splice(startIndex, 1) : (isDeleting.value = false)
     }
   }
 
-  const add = (notification: AppNotification) => {
-    removeById(notification) // if notification has an id, remove all previous notifications with that id
+  function add(notification: AppNotification) {
+    // Remove all previous notifications with that id
+    removeById(notification.id)
+    // Add new notification to the top
     notifications.value.unshift(notification)
   }
 
-  const onInterval = () => {
-    notifications.value.forEach(notification => {
-      if (notification?.duration === undefined) return
-      notification.duration -= INTERVAL_IN_MS
-    })
-    let deleting = true
-    while (deleting) {
-      const index = notifications.value.findIndex(
-        ({ duration }) => duration !== undefined && duration <= 0
-      )
-      if (index !== -1) notifications.value.splice(index, 1)
-      else deleting = false
-    }
-  }
+  router.beforeEach(() => removeOnPageChange())
 
-  router.beforeEach(() => {
-    removeOnPageChange()
-  })
-
-  setInterval(onInterval, INTERVAL_IN_MS)
   return {
     add,
-    notifications
+    notifications,
+    removeById
   }
 })
