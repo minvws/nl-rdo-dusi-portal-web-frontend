@@ -29,9 +29,12 @@
     </FormRowElement>
 
     <FormRowElement v-bind="{ contentClass }">
-      <template #left>
+      <template
+        #left
+        v-if="label"
+      >
         <FormFieldLabel
-          v-if="label"
+          v-if="!isGroup"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :for="`${id}-input`"
@@ -39,6 +42,14 @@
             label
           }"
         />
+        <div
+          v-else
+          class="form-row-field-label"
+          :class="{ margin: required && !hideRequiredLabel }"
+          :id="labelId"
+        >
+          {{ label }}
+        </div>
       </template>
       <template #right>
         <slot />
@@ -66,6 +77,7 @@ import type { Options } from '@jsonforms/vue-vanilla'
 
 import { defineComponent } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
+import { v4 as uuidv4 } from 'uuid'
 
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
 import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
@@ -80,12 +92,21 @@ import { translate } from '@shared/i18n'
 
 export default defineComponent({
   extends: ControlWrapper,
+  setup() {
+    return {
+      labelId: uuidv4()
+    }
+  },
   props: {
     contentClass: {
       type: String,
       required: false
     },
     hideRequiredLabel: {
+      type: Boolean,
+      required: false
+    },
+    isGroup: {
       type: Boolean,
       required: false
     }
@@ -112,10 +133,12 @@ export default defineComponent({
       return undefined
     },
     rowProps() {
-      const { id, errors, appliedOptions = {} } = this
+      const { id, errors, isGroup, labelId, appliedOptions = {} } = this
       const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
       return {
         id,
+        role: isGroup ? 'group' : undefined,
+        'aria-labelledby': isGroup ? labelId : undefined,
         class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }
