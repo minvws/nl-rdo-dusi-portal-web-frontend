@@ -66,6 +66,7 @@ onBeforeMount(async () => {
   if (authError) {
     const { code } = authError
     notificationsStore.add({
+      id: 'login-error',
       displayAs: 'error',
       label: translate(`authentication.${code}.label`, authError) ?? '',
       message: translate(`authentication.${code}.message`, authError) ?? ''
