@@ -13,8 +13,8 @@
       "message": "Er is een onbekende fout opgetreden"
     },
     "password-reset-success": {
-      "label": "Mislukt",
-      "message": "Verzoek tot wachtwoord wijzigen succesvol verstuurd."
+      "label": "Bevestiging",
+      "message": "Wachtwoord is gewijzigd"
     },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
@@ -27,6 +27,10 @@
     "forgot-password-failed": {
       "label": "Mislukt",
       "message": "Er is een onbekende fout opgetreden. {error}"
+    },
+    "forgot-password-success": {
+      "label": "Bevestiging",
+      "message": "Verzoek tot wachtwoord wijzigen succesvol verstuurd."
     },
     "login-invalid-credentials": {
       "label": "Inloggen mislukt",
@@ -151,8 +155,7 @@
       "case": "Aanvraag"
     },
     "password-reset": {
-      "title": "Wachtwoord reset",
-      "succes-message": "Bevestiging: Verzoek tot wachtwoord wijzigen succesvol verstuurd."
+      "title": "Wachtwoord reset"
     },
     "preview-case-submit": {
       "title": "Beoordeling bevestigen",

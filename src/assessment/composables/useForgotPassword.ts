@@ -6,15 +6,19 @@ import { useFetch } from '@vueuse/core'
 import { ref, computed, watch, type Ref } from 'vue'
 import { useApiForgotPasswordUrl } from './useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useRouter } from 'vue-router'
+import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
+import { LOGIN_VIEW } from '@assessment/router/names'
 
 export const useForgotPassword = () => {
   const NOTIFICATION_ID = 'forget-password'
 
+  const router = useRouter()
   const notifications = useNotificationsStore()
 
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
-  const { execute, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), {
+  const { execute, isFinished, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), {
     immediate: false
   }).post(payload)
 
@@ -63,25 +67,28 @@ export const useForgotPassword = () => {
     execute()
   }
 
-  const showNotificationError = (error?: string) => {
+  const showNotification = (type: NotificationDisplayType, error?: string) => {
     const props = error ? { error } : undefined
+    const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
+    const pageChangeCount = type === NotificationType.CONFIRMATION ? 2 : 1
 
     notifications.add({
       id: NOTIFICATION_ID,
-      displayAs: 'error',
-      label: translate('authentication.forgot-password-failed.label', props) ?? '',
-      message: translate('authentication.forgot-password-failed.message', props) ?? '',
-      pageChangeCount: 1
+      displayAs: type,
+      label: translate(`authentication.forgot-password-${id}.label`, props) ?? '',
+      message: translate(`authentication.forgot-password-${id}.message`, props) ?? '',
+      pageChangeCount
     })
   }
 
-  const removeNotificationError = () => {
-    notifications.removeById(NOTIFICATION_ID)
-  }
-
-  watch(error, error => {
-    if (error) showNotificationError(error)
-    else removeNotificationError()
+  watch(isFinished, isFinished => {
+    if (!isFinished) return
+    if (error.value) {
+      showNotification(NotificationType.ERROR, error.value)
+      return
+    }
+    showNotification(NotificationType.CONFIRMATION)
+    router.replace({ name: LOGIN_VIEW })
   })
 
   return {

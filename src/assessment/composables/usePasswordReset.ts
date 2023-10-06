@@ -6,6 +6,9 @@ import { useApiPasswordResetUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useRouter, type LocationQuery } from 'vue-router'
 
+import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
+
+
 import { LOGIN_VIEW } from '@assessment/router/names'
 
 export const usePasswordReset = ({ email, token }: LocationQuery) => {
@@ -16,20 +19,22 @@ export const usePasswordReset = ({ email, token }: LocationQuery) => {
 
   const { error, ...fetch } = useFetch(useApiPasswordResetUrl()).post({ email, token })
 
-  const showNotification = (type: 'success' | 'failed', error?: string) => {
+  const showNotification = (type: NotificationDisplayType, error?: string) => {
     const props = error ? { error } : undefined
+    const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
 
     notifications.add({
       id: NOTIFICATION_ID,
-      displayAs: 'error',
-      label: translate(`authentication.password-reset-${type}.label`, props) ?? '',
-      message: translate(`authentication.password-reset-${type}.message`, props) ?? ''
+      displayAs: type,
+      label: translate(`authentication.password-reset-${id}.label`, props) ?? '',
+      message: translate(`authentication.password-reset-${id}.message`, props) ?? '',
+      pageChangeCount: 2
     })
   }
 
   watch(error, error => {
-    if (error) showNotification('failed', error)
-    else showNotification('success')
+    if (error) showNotification(NotificationType.ERROR, error)
+    else showNotification(NotificationType.CONFIRMATION)
     router.replace({ name: LOGIN_VIEW })
   })
 
