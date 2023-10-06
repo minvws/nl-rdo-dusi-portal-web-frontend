@@ -7,6 +7,7 @@ import { useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApi
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
 
 import { log } from '@shared/utils/logger'
+import { deleteRouteCookie } from '@shared/utils/route-cookie'
 
 import { HOME } from '@shared/router/names'
 
@@ -60,6 +61,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     // update session-cookie when isLoggedIn changes
     if (isLoggedIn) {
       extendSession()
+      deleteRouteCookie()
       return
     }
 

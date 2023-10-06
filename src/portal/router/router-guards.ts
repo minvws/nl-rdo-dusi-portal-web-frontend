@@ -9,7 +9,7 @@ import { useApiLoginUrl } from '@portal/composables/useApiUrl'
 import { log } from '@shared/utils/logger'
 import { notFoundLoggedOutRedirectLink } from '@shared/external-links'
 import { openExternalLink } from '@shared/utils/link'
-import { deleteRouteCookie, setRouteCookie } from '@shared/utils/route-cookie'
+import { setRouteCookie } from '@shared/utils/route-cookie'
 
 import { HOME, LOGIN_CALLBACK_VIEW, MY_REQUESTS_OVERVIEW, NOT_FOUND } from '@portal/router/names'
 
@@ -56,12 +56,8 @@ export const beforeEach = async (
 }
 
 export const afterEach = (to: RouteLocationNormalized) => {
-  const authStore = useAuthStore()
-  const { isLoggedIn } = storeToRefs(authStore)
-
   if (to.name !== LOGIN_CALLBACK_VIEW) {
-    // After each route change, set or delete cookie
-    // with current route, based on login status
-    !isLoggedIn.value ? setRouteCookie(to) : deleteRouteCookie()
+    // Set cookie with current route after each route change.
+    setRouteCookie(to)
   }
 }
