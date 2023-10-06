@@ -15,47 +15,32 @@
     </AppButton>
 
     <ul>
-      <template v-if="condensedLayout && !hideFirstGroup">
-        <li>
-          <AppButton
-            :disabled="isCurrentPage(1)"
-            :aria-current="isCurrentPage(1) ? 'true' : undefined"
-            @click.prevent="setCurrentPage(1)"
-          >
-            <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
-            1
-          </AppButton>
-        </li>
-        <li v-if="currentPage > 4">...</li>
-      </template>
+      <AppPaginationItem
+        v-if="condensedLayout && !hideFirstGroup"
+        :current-page="currentPage"
+        :ellipsis-position="'end'"
+        label="1"
+        :page-index="1"
+        @page-change="onPageChange"
+      />
 
-      <li
+      <AppPaginationItem
         v-for="page in currentPageGroup"
         :key="page"
-      >
-        <AppButton
-          :disabled="isCurrentPage(page)"
-          :aria-current="isCurrentPage(page) ? 'true' : undefined"
-          @click.prevent="setCurrentPage(page)"
-        >
-          <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
-          {{ page }}
-        </AppButton>
-      </li>
+        :current-page="currentPage"
+        :label="page"
+        :page-index="page"
+        @page-change="onPageChange"
+      />
 
-      <template v-if="condensedLayout && !hideLastGroup">
-        <li v-if="currentPage < totalPages - 2">...</li>
-        <li>
-          <AppButton
-            :disabled="isCurrentPage(totalPages)"
-            :aria-current="isCurrentPage(totalPages) ? 'true' : undefined"
-            @click.prevent="setCurrentPage(totalPages)"
-          >
-            <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
-            {{ totalPages }}
-          </AppButton>
-        </li>
-      </template>
+      <AppPaginationItem
+        v-if="condensedLayout && !hideLastGroup"
+        :current-page="currentPage"
+        :ellipsis-position="'start'"
+        :label="totalPages"
+        :page-index="totalPages"
+        @page-change="onPageChange"
+      />
     </ul>
 
     <AppButton
@@ -75,6 +60,7 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+import AppPaginationItem from '@shared/components/AppPaginationItem/AppPaginationItem.vue'
 
 const emit = defineEmits(['page-change'])
 
@@ -115,22 +101,20 @@ const hideLastGroup = computed(() => props.currentPage >= totalPages.value - 2)
 
 function goToNextPage() {
   if (props.currentPage < totalPages.value) {
-    setCurrentPage(props.currentPage + 1)
+    const page = props.currentPage + 1
+    onPageChange(page)
   }
 }
 
 function goToPreviousPage() {
   if (props.currentPage > 1) {
-    setCurrentPage(props.currentPage - 1)
+    const page = props.currentPage - 1
+    onPageChange(page)
   }
 }
 
-function isCurrentPage(page: number) {
-  return props.currentPage === page
-}
-
-function setCurrentPage(page: number) {
-  emit('page-change', page)
+function onPageChange(index: number) {
+  emit('page-change', index)
 }
 </script>
 
