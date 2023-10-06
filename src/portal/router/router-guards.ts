@@ -56,7 +56,10 @@ export const beforeEach = async (
 }
 
 export const afterEach = (to: RouteLocationNormalized) => {
-  if (to.name !== LOGIN_CALLBACK_VIEW) {
+  const authStore = useAuthStore()
+  const { isLoggedIn } = storeToRefs(authStore)
+
+  if (to.name !== LOGIN_CALLBACK_VIEW && !isLoggedIn.value) {
     // Set cookie with current route after each route change.
     setRouteCookie(to)
   }
