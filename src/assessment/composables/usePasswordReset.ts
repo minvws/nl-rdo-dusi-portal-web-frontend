@@ -11,7 +11,7 @@ import { NotificationType, type NotificationDisplayType } from '@/@shared/types/
 import { LOGIN_VIEW } from '@assessment/router/names'
 
 const NOTIFICATION_ID = 'password-reset'
-  
+
 export const usePasswordReset = ({ email, token }: LocationQuery) => {
   const router = useRouter()
   const notifications = useNotificationsStore()
