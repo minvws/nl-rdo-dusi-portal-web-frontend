@@ -1,5 +1,4 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
-import { nextTick } from 'vue'
 
 import { storeToRefs } from 'pinia'
 
