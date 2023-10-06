@@ -3,7 +3,8 @@ import { emailPlaceholder as placeholder } from '@/@shared/fixtures/form/data/pl
 import { translate } from '@/@shared/i18n'
 import { useFetch } from '@vueuse/core'
 
-import { ref, computed, watch, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useApiForgotPasswordUrl } from './useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useRouter } from 'vue-router'
