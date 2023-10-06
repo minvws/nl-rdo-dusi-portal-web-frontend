@@ -15,22 +15,23 @@
             v-for="({ name, label, icon }, index) in leftLinks"
             :key="`default-link-${index}`"
           >
-            <RouterLink :to="{ name }">
+            <NavLink :to="{ name }">
               <AppIcon
                 v-if="icon"
                 :name="icon"
                 aria-hidden="true"
               />
               {{ label }}
-            </RouterLink>
+            </NavLink>
           </li>
           <li
-            v-for="({ name, label, badge }, index) in rightLinks"
+            v-for="({ name, label, icon, badge }, index) in rightLinks"
             :key="`auth-link-${index}`"
           >
-            <RouterLink :to="{ name }">
+            <NavLink :to="{ name }">
               <AppIcon
-                name="logout"
+                v-if="icon"
+                :name="icon"
                 aria-hidden="true"
               />
               {{ label }}
@@ -38,7 +39,7 @@
                 v-if="badge"
                 :value="badge"
               />
-            </RouterLink>
+            </NavLink>
           </li>
         </ul>
         <ul v-if="AuthComponent">
@@ -66,6 +67,7 @@ import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLog
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
 import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
+import NavLink from '@shared/components/NavLink/NavLink.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
 
