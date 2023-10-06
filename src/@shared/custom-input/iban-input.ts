@@ -12,6 +12,6 @@ export default {
     return control.schema.iban
   },
   onChange(value: string) {
-    return value?.split(' ').join('')
+    return value?.split(' ').join('').toUpperCase()
   }
 }
