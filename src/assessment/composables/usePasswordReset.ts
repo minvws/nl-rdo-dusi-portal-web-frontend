@@ -8,7 +8,6 @@ import { useRouter, type LocationQuery } from 'vue-router'
 
 import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
 
-
 import { LOGIN_VIEW } from '@assessment/router/names'
 
 export const usePasswordReset = ({ email, token }: LocationQuery) => {
