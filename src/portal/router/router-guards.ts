@@ -56,15 +56,9 @@ export const beforeEach = async (
   next()
 }
 
-export const afterEach = (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
+export const afterEach = (to: RouteLocationNormalized) => {
   if (to.name !== LOGIN_CALLBACK_VIEW) {
     // Set cookie with current route after each route change.
     setRouteCookie(to)
-    if (to.path !== from.path) {
-      nextTick(() => {
-        const mainContent = document.querySelector('#main-content')
-        if (mainContent instanceof HTMLElement) mainContent.focus()
-      })
-    }
   }
 }
