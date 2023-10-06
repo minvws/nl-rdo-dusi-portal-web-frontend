@@ -16,7 +16,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
-import type { promiseHooks } from 'v8';
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
