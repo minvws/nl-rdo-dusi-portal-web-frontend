@@ -18,7 +18,5 @@
 <script setup lang="ts">
 import type { RouterLinkProps } from 'vue-router'
 
-import { defineProps } from 'vue'
-
 defineProps<RouterLinkProps>()
 </script>
