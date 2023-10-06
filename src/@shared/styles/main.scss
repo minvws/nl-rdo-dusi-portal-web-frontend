@@ -69,3 +69,12 @@ $ro-img-path: '~@minvws/nl-rdo-rijksoverheid-ui-theme/img';
 .exact-active {
   @extend .active !optional;
 }
+
+/* Experimental fix, see https://github.com/minvws/nl-rdo-manon/pull/380 */
+.visually-hidden,
+.sr-only {
+  width: 1px;
+  height: 1px;
+  max-width: initial;
+  max-height: initial;
+}

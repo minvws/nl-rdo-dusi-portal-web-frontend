@@ -95,6 +95,9 @@
       "page": "Pagina",
       "prev": "Vorige",
       "next": "Volgende"
+    },
+    "table": {
+      "sortableColumnsHint": "Kolomkoppen met knoppen zijn sorteerbaar"
     }
   },
   "form": {
