@@ -1,5 +1,4 @@
 <template>
-  {{ wrapperComponent }}
   <component
     :is="wrapperComponent"
     class="form-group"
