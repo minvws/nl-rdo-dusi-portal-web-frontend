@@ -31,13 +31,15 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const isAriaCurrent = computed(() => props.currentPage === props.pageIndex ? 'true' : undefined)
+const isAriaCurrent = computed(() => (props.currentPage === props.pageIndex ? 'true' : undefined))
 
 const isDisabled = computed(() => props.currentPage === props.pageIndex)
 
 const showEndEllipsis = computed(() => props.ellipsisPosition === 'end' && props.currentPage > 4)
 
-const showStartEllipsis = computed(() => props.ellipsisPosition === 'start' && props.currentPage < props.pageIndex - 3)
+const showStartEllipsis = computed(
+  () => props.ellipsisPosition === 'start' && props.currentPage < props.pageIndex - 3
+)
 
 function onClick() {
   emit('page-change', props.pageIndex)
