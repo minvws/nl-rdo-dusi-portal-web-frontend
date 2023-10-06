@@ -6,7 +6,15 @@
     },
     "password-update-success": {
       "label": "Gelukt",
-      "message": "Je wachtwoord is gewijzigd"
+      "message": "Er is een onbekende fout opgetreden. {error}"
+    },
+    "password-reset-failed": {
+      "label": "Mislukt",
+      "message": "Er is een onbekende fout opgetreden"
+    },
+    "password-reset-success": {
+      "label": "Bevestiging",
+      "message": "Wachtwoord is gewijzigd"
     },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
@@ -15,6 +23,14 @@
     "2fa-failed": {
       "label": "Inloggen mislukt",
       "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    },
+    "forgot-password-failed": {
+      "label": "Mislukt",
+      "message": "Er is een onbekende fout opgetreden. {error}"
+    },
+    "forgot-password-success": {
+      "label": "Bevestiging",
+      "message": "Verzoek tot wachtwoord wijzigen succesvol verstuurd."
     },
     "login-invalid-credentials": {
       "label": "Inloggen mislukt",
@@ -99,7 +115,8 @@
     },
     "passwordLogin": {
       "email": { "title": "E-mail", "label": "E-mailadres" },
-      "password": "Wachtwoord"
+      "password": "Wachtwoord",
+      "forgotPassword": "Wachtwoord vergeten"
     }
   },
   "pages": {
@@ -109,6 +126,10 @@
       "showFilters": "Toon filters",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder het tabblad \"Mijn Zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
       "title": "Alle Zaken"
+    },
+    "forgot-password": {
+      "title": "Wachtwoord vergeten",
+      "body": "Vul uw e-mailadres in en ontvang een link om uw wachtwoord te wijzigen."
     },
     "login": {
       "title": "Inloggen",
@@ -132,6 +153,9 @@
     "review-case": {
       "title": "Beoordeling",
       "case": "Aanvraag"
+    },
+    "password-reset": {
+      "title": "Wachtwoord reset"
     },
     "preview-case-submit": {
       "title": "Beoordeling bevestigen",

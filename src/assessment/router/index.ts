@@ -1,25 +1,28 @@
 import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
+import ForgotPasswordView from '@assessment/pages/ForgotPasswordView.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
 import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
-
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
 import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
+import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
 
 import {
   HOME,
   LOGIN_VIEW,
   ALL_CASES_OVERVIEW,
+  FORGOT_PASSWORD,
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
   PREVIEW_CASE_SUBMIT,
   TWO_FACTOR_VIEW,
   REFRESH,
-  PASSWORD_UPDATE_VIEW
+  PASSWORD_UPDATE_VIEW,
+  PASSWORDS_RESET
 } from '@assessment/router/names'
 
 import { sharedRoutes } from '@shared/router/routes'
@@ -86,6 +89,22 @@ const routes = [
     path: '/wachtwoord-wijzigen',
     name: PASSWORD_UPDATE_VIEW,
     component: PasswordUpdateView
+  },
+  {
+    path: '/wachtwoord-vergeten',
+    name: FORGOT_PASSWORD,
+    component: ForgotPasswordView,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/wachtwoord-reset',
+    name: PASSWORDS_RESET,
+    component: PasswordResetView,
+    meta: {
+      public: true
+    }
   },
   ...sharedRoutes
 ]
