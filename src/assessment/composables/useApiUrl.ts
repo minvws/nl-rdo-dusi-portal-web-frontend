@@ -65,3 +65,11 @@ export const useApiUserStatusUrl = () => {
 export const useApiPasswordUpdateUrl = () => {
   return `${baseUrl}/api/user/password`
 }
+
+export const useApiForgotPasswordUrl = () => {
+  return `${baseUrl}/api/forgot-password`
+}
+
+export const useApiPasswordResetUrl = () => {
+  return `${baseUrl}/api/reset-password`
+}

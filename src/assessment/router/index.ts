@@ -1,20 +1,20 @@
 import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
-import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
-
+import ForgotPasswordView from '@assessment/pages/ForgotPasswordView.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
 import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
 import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
-
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
 import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
+import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
 
 import {
   HOME,
   LOGIN_VIEW,
   ALL_CASES_OVERVIEW,
+  FORGOT_PASSWORD,
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
@@ -27,8 +27,6 @@ import {
 
 import { sharedRoutes } from '@shared/router/routes'
 import { beforeEach, afterEach } from '@assessment/router/router-guards'
-
-const isPasswordResetEnabled = import.meta.env.VITE_ENABLE_PASSWORD_RESET === 'true'
 
 const routes = [
   {
@@ -70,9 +68,6 @@ const routes = [
     path: '/inloggen',
     name: LOGIN_VIEW,
     component: LoginView,
-    props: {
-      isPasswordResetEnabled
-    },
     meta: {
       public: true
     }
@@ -95,12 +90,23 @@ const routes = [
     name: PASSWORD_UPDATE_VIEW,
     component: PasswordUpdateView
   },
-  isPasswordResetEnabled && {
+  {
     path: '/wachtwoord-vergeten',
+    name: FORGOT_PASSWORD,
+    component: ForgotPasswordView,
+    meta: {
+      public: true
+    }
+  },
+  {
+    path: '/wachtwoord-reset',
     name: PASSWORDS_RESET,
-    component: PasswordResetView
+    component: PasswordResetView,
+    meta: {
+      public: true
+    }
   },
   ...sharedRoutes
-].filter(route => !!route)
+]
 
 export default { routes, beforeEach, afterEach }

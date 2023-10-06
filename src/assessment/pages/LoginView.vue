@@ -25,11 +25,9 @@ import { usePasswordLogin } from '@assessment/composables/usePasswordLogin'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-const props = defineProps<{ isPasswordResetEnabled: boolean }>()
-
 useSEO({ title: `${translate('pages.login.title')} | ${translate('app.prefix')}` })
 
-const { forms, onSubmit } = usePasswordLogin(props)
+const { forms, onSubmit } = usePasswordLogin()
 </script>
 
 <style lang="scss" scoped>

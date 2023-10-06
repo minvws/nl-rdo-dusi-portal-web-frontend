@@ -6,11 +6,7 @@ import { computed } from 'vue'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
-export const usePasswordLogin = ({
-  isPasswordResetEnabled
-}: {
-  isPasswordResetEnabled: boolean
-}) => {
+export const usePasswordLogin = () => {
   const authStore = useAuthStore()
   const forms = computed(() => [
     {
@@ -55,7 +51,7 @@ export const usePasswordLogin = ({
                       placeholder: passWordPlaceholder
                     }
                   },
-                  isPasswordResetEnabled && {
+                  {
                     type: 'FormGroupControl',
                     label: ' ',
                     elements: [
@@ -69,7 +65,7 @@ export const usePasswordLogin = ({
                       }
                     ]
                   }
-                ].filter(element => !!element)
+                ]
               }
             ]
           }

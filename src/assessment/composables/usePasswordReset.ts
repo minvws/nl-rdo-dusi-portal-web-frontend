@@ -1,56 +1,39 @@
-import { emailPlaceholder as placeholder } from '@/@shared/fixtures/form/data/placeholder'
-
 import { translate } from '@/@shared/i18n'
+import { useFetch } from '@vueuse/core'
 
-import { computed } from 'vue'
+import { watch } from 'vue'
+import { useApiPasswordResetUrl } from '@assessment/composables/useApiUrl'
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useRouter, type LocationQuery } from 'vue-router'
 
-export const usePasswordReset = () => {
-  const forms = computed(() => [
-    {
-      dataschema: {
-        properties: {
-          email: {
-            type: 'string',
-            title: translate('component.passwordLogin.email.title'),
-            format: 'email'
-          }
-        },
-        required: ['email']
-      },
-      uischema: {
-        type: 'FormGroupControl',
-        options: { section: true },
-        elements: [
-          {
-            type: 'Group',
-            elements: [
-              {
-                type: 'VerticalLayout',
-                elements: [
-                  {
-                    type: 'CustomControl',
-                    scope: '#/properties/email',
-                    label: translate('component.passwordLogin.email.label'),
-                    options: {
-                      placeholder
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    }
-  ])
+import { LOGIN_VIEW } from '@assessment/router/names'
 
-  function onSubmit(data: Record<'email', string>) {
-    const { email } = data
-    console.log(`TODO: password reset for  ${email}`)
+export const usePasswordReset = ({ email, token }: LocationQuery) => {
+  const NOTIFICATION_ID = 'password-reset'
+
+  const router = useRouter()
+  const notifications = useNotificationsStore()
+
+  const { error, ...fetch } = useFetch(useApiPasswordResetUrl()).post({ email, token })
+
+  const showNotification = (type: 'success' | 'failed', error?: string) => {
+    const props = error ? { error } : undefined
+
+    notifications.add({
+      id: NOTIFICATION_ID,
+      displayAs: 'error',
+      label: translate(`authentication.password-reset-${type}.label`, props) ?? '',
+      message: translate(`authentication.password-reset-${type}.message`, props) ?? ''
+    })
   }
 
+  watch(error, error => {
+    if (error) showNotification('failed', error)
+    else showNotification('success')
+    router.replace({ name: LOGIN_VIEW })
+  })
+
   return {
-    forms,
-    onSubmit
+    ...fetch
   }
 }
