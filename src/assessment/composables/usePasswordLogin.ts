@@ -1,4 +1,4 @@
-import { passWordPlaceholder as placeholder } from '@/@shared/fixtures/form/data/placeholder'
+import { passWordPlaceholder, emailPlaceholder } from '@/@shared/fixtures/form/data/placeholder'
 
 import { translate } from '@/@shared/i18n'
 
@@ -6,9 +6,12 @@ import { computed } from 'vue'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
-export const usePasswordLogin = () => {
+export const usePasswordLogin = ({
+  isPasswordResetEnabled
+}: {
+  isPasswordResetEnabled: boolean
+}) => {
   const authStore = useAuthStore()
-
   const forms = computed(() => [
     {
       dataschema: {
@@ -41,7 +44,7 @@ export const usePasswordLogin = () => {
                     scope: '#/properties/email',
                     label: translate('component.passwordLogin.email.label'),
                     options: {
-                      placeholder: 'email@example.com'
+                      placeholder: emailPlaceholder
                     }
                   },
                   {
@@ -49,10 +52,24 @@ export const usePasswordLogin = () => {
                     scope: '#/properties/password',
                     label: translate('component.passwordLogin.password'),
                     options: {
-                      placeholder
+                      placeholder: passWordPlaceholder
                     }
+                  },
+                  isPasswordResetEnabled && {
+                    type: 'FormGroupControl',
+                    label: ' ',
+                    elements: [
+                      {
+                        type: 'FormHtml',
+                        options: {
+                          html: `<a href='/wachtwoord-vergeten'>${translate(
+                            'component.passwordLogin.forgotPassword'
+                          )}</a>`
+                        }
+                      }
+                    ]
                   }
-                ]
+                ].filter(element => !!element)
               }
             ]
           }
