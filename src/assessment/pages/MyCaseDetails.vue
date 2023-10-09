@@ -7,6 +7,8 @@
     <TabGroup
       as="div"
       class="tabs filter-tabs"
+      v-bind="{ defaultIndex }"
+      @change="$event => (selectedIndex = $event)"
     >
       <TabList as="ul">
         <Tab
@@ -44,14 +46,14 @@
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel>
-          <CaseOverview v-bind="{ id }" />
-        </TabPanel>
-        <TabPanel>
-          <CaseHistory v-bind="{ id }" />
-        </TabPanel>
-        <TabPanel>
-          <CaseReviewers v-bind="{ id }" />
+        <TabPanel
+          v-for="({ component }, index) in tabs"
+          :key="`tab-${index}`"
+        >
+          <component
+            :is="component"
+            v-bind="{ id }"
+          />
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -59,23 +61,56 @@
 </template>
 
 <script setup lang="ts">
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
+import { computed, ref, watch } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
+import { useRouter } from 'vue-router'
 
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
-
 import CaseOverview from '@assessment/components/CaseOverview/CaseOverview.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
+
+import {
+  MY_CASE_DETAILS,
+  MY_CASE_DETAILS_HISTORY,
+  MY_CASE_DETAILS_REVIEWER
+} from '@assessment/router/names'
 
 type Props = {
   id: string
 }
 
 const props = defineProps<Props>()
+
+const router = useRouter()
+
+const tabs = [
+  { component: CaseOverview, name: MY_CASE_DETAILS },
+  { component: CaseHistory, name: MY_CASE_DETAILS_HISTORY },
+  { component: CaseReviewers, name: MY_CASE_DETAILS_REVIEWER }
+]
+const defaultIndex = computed(() => {
+  return Math.max(
+    0,
+    tabs.findIndex(({ name }) => router.currentRoute.value.name === name)
+  )
+})
+
+const selectedIndex = ref(defaultIndex.value)
+
+watch(
+  selectedIndex,
+  selectedIndex => {
+    const { name } = tabs[selectedIndex]
+    router.replace({ name, params: props })
+  },
+  { immediate: true }
+)
+
 useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
 </script>
 

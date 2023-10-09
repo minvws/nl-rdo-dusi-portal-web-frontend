@@ -150,6 +150,12 @@
       "reviewer": "Beoordelaar",
       "startReview": "Beoordeling starten"
     },
+    "my-case-details-history": {
+      "title": "Beoordelingsverzoek"
+    },
+    "my-case-details-reviewer": {
+      "title": "Beoordelingsverzoek"
+    },
     "cases-overview": {
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",
