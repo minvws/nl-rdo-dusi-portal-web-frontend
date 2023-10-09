@@ -23,6 +23,7 @@
     </AppSuspense>
     <div class="filter-options-container">
       <FilterOptions
+        auto-close
         :type="type"
         v-model="query"
       >
