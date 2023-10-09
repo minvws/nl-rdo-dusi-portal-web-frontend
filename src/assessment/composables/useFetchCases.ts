@@ -24,7 +24,7 @@ const getUrl = ({ type }: { type: CaseType }) => {
 export const useFetchCases = (props: { type: CaseType }) => {
   const url = getUrl(props)
 
-  const { data: filters, error: filtersError, isFetching: isFetchingFilters } = useFetchFilters()
+  const { data: filters, error: filtersError, isFetching: isFetchingFilters, execute } = useFetchFilters()
 
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
 
@@ -35,6 +35,11 @@ export const useFetchCases = (props: { type: CaseType }) => {
   )
 
   const data = computed(() => (json.value ? transformCasesData(json.value) : []))
+
+  const onFilterReady = watch(data, () => {
+    onFilterReady()
+    execute()
+  })
 
   watch(filters, filters => {
     const filter = filters?.[0]

@@ -9,7 +9,7 @@ import { useApiFilterOptionsUrl } from '@shared/composables/useApiUrl'
 export const useFetchFilterOptions = (type: FormOptions) => {
   const url = useApiFilterOptionsUrl(type)
   const { data, error, ...fetch } = useCustomFetch('with-encryption', url, undefined, {
-    immediate: false
+    immediate: true
   }).json()
   const forms: Ref<Form[] | undefined> = ref(undefined)
 
