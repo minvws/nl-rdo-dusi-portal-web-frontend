@@ -57,3 +57,7 @@ export const getRouterLinkClasses = (item: { type: AssessmentsDataTypes }) => {
     ghost: isGhostButton(item)
   }
 }
+
+export const hasItems = (data: Record<string, Record<string, unknown>>[], key: string) => {
+  return data?.find(({ [key]: value }) => value && !!Object.keys(value).length)
+}

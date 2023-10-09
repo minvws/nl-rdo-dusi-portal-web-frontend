@@ -16,6 +16,8 @@ import {
   ALL_CASES_OVERVIEW,
   FORGOT_PASSWORD,
   MY_CASE_DETAILS,
+  MY_CASE_DETAILS_HISTORY,
+  MY_CASE_DETAILS_REVIEWER,
   MY_CASES_OVERVIEW,
   REVIEW_CASE,
   PREVIEW_CASE_SUBMIT,
@@ -42,6 +44,18 @@ const routes = [
       {
         path: ':id',
         name: MY_CASE_DETAILS,
+        component: MyCaseDetails,
+        props: true
+      },
+      {
+        path: ':id/geschiedenis',
+        name: MY_CASE_DETAILS_HISTORY,
+        component: MyCaseDetails,
+        props: true
+      },
+      {
+        path: ':id/beoordelaar',
+        name: MY_CASE_DETAILS_REVIEWER,
         component: MyCaseDetails,
         props: true
       },

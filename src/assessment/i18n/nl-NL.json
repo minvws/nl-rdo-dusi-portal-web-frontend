@@ -85,10 +85,11 @@
         "communicationPreference": "Communicatievoorkeur"
       }
     },
-    "caseReviers": {
+    "caseReviewers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
-      "removeReviewer": "Verwijder beoordelaar"
+      "removeReviewer": "Verwijder beoordelaar",
+      "noReviewers": "Er zijn geen beoordelaars gevonden"
     },
     "caseStatus": {
       "status": "Status",
@@ -107,6 +108,12 @@
       "stage-title": "Fase",
       "status": "Status",
       "updated": "Laatste update"
+    },
+    "caseHistoryColumn": {
+      "action": "Actie",
+      "assessor": "Uitgevoerd door",
+      "internalNote": "Notitie",
+      "updatedAt": "Datum en tijd"
     },
     "passwordUpdate": {
       "currentPassword": "Huidig wachtwoord",
@@ -142,6 +149,12 @@
       "history": "Geschiedenis",
       "reviewer": "Beoordelaar",
       "startReview": "Beoordeling starten"
+    },
+    "my-case-details-history": {
+      "title": "Beoordelingsverzoek"
+    },
+    "my-case-details-reviewer": {
+      "title": "Beoordelingsverzoek"
     },
     "cases-overview": {
       "cases": "Zaak|Zaken",

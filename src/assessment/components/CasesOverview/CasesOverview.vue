@@ -77,6 +77,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
+import { hasItems } from '@/@shared/utils/app-table'
 
 const props = defineProps<{ type: CaseType }>()
 
@@ -99,9 +100,6 @@ const {
 
 const numberOfCases = computed(() => data.value.length ?? 0)
 
-const hasItems = (key: string) => {
-  return data.value?.find(({ [key]: value }) => value && !!Object.keys(value).length)
-}
 const headings = computed(() => {
   const items = [
     { id: 'case', sortable: false },
@@ -113,7 +111,7 @@ const headings = computed(() => {
     { id: 'updated', sortable: true },
     { id: 'reviewer', sortable: true },
     { id: 'action', sortable: true }
-  ].filter(({ id }) => !!hasItems(id)) as Column[]
+  ].filter(({ id }) => !!hasItems(data.value, id)) as Column[]
 
   return items.map(({ id, ...item }) => ({
     ...item,

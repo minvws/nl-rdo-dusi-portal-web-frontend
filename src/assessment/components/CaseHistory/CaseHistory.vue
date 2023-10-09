@@ -1,35 +1,26 @@
 <template>
-  <div class="case-history">
-    <AppTable
-      :data="items"
-      :columns="headings"
-      :items-per-page="10"
-    />
-  </div>
+  <AppSuspense v-bind="{ data, error, isFetching }">
+    <div class="case-history">
+      <AppTable
+        :data="data"
+        :columns="columns"
+        :items-per-page="10"
+      />
+    </div>
+  </AppSuspense>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 
+import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
-type HistoryItem = {
-  datetime: string
-  action: string
-  note: string
-  performed_by: string
-}
-
 type Props = {
-  items: HistoryItem[]
+  id: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
-const headings = ref([
-  { id: 'datetime', text: 'Datum en tijd', sortable: true },
-  { id: 'action', text: 'Actie', sortable: false },
-  { id: 'note', text: 'Notitie', sortable: false },
-  { id: 'performed_by', text: 'Uitgevoerd door', sortable: true }
-])
+const { columns, data, error, isFetching } = useFetchCaseHistory(props.id)
 </script>
