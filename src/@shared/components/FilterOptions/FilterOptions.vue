@@ -4,7 +4,7 @@
     class="filter"
     v-filters
   >
-    <div><slot /></div>
+    <div ref="el"><slot /></div>
     <FormView
       v-bind="{
         id: type,
@@ -28,6 +28,8 @@
 import type { FormOptions } from '@shared/types/form-options'
 import type { FormData } from '@shared/types/form'
 
+import { ref } from 'vue'
+
 import { translate } from '@shared/i18n'
 import { useFetchFilterOptions } from '@shared/composables/useFetchFilterOptions'
 
@@ -35,15 +37,25 @@ import FormView from '@shared/components/FormView/FormView.vue'
 import vFilters from '@shared/directives/filters'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
+import { toggleAriaExpanded } from '@shared/utils/button'
+
 type Props = {
   type: FormOptions
+  autoClose?: boolean
 }
 const props = defineProps<Props>()
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue', 'close'])
 
+const el = ref()
 const { forms, error } = useFetchFilterOptions(props.type)
 
 const onSubmit = (data: FormData) => {
   emit('update:modelValue', data)
+  if (!props.autoClose) return
+  const button = el.value?.querySelector('button')
+  if (toggleAriaExpanded(button, true)) {
+    // filter is closed, scroll to top
+    scrollTo(0, 0)
+  }
 }
 </script>
