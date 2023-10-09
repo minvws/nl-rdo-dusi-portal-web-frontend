@@ -7,8 +7,13 @@
       }"
     />
     <AppSuspense
-      v-if="enabledFeature"
-      v-bind="{ data: filters, error: filtersError, isFetching: isFetchingFilters }"
+      class="filter-tabs-container"
+      v-bind="{
+        data: filters,
+        error: filtersError,
+        isFetching: isFetchingFilters || !isFinishedFilters,
+        loaderIsCentered: false
+      }"
     >
       <FilterTabs
         :items="filters"
@@ -16,7 +21,7 @@
         @change="onFilterChange"
       />
     </AppSuspense>
-    <div v-if="enabledFeature">
+    <div class="filter-options-container">
       <FilterOptions
         :type="type"
         v-model="query"
@@ -33,7 +38,15 @@
         </AppButton>
       </FilterOptions>
     </div>
-    <AppSuspense v-bind="{ data, error, isFetching }">
+    <AppSuspense
+      v-bind="{
+        data,
+        error,
+        isFetching: isFetching || !isFinishedFilters,
+        loaderIsCentered: false,
+        showLoader: !(isFetchingFilters || !isFinishedFilters)
+      }"
+    >
       <AppTable
         :data="data"
         :columns="headings"
@@ -66,15 +79,22 @@ import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 
 const props = defineProps<{ type: CaseType }>()
 
-const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
-
 const t = (key: string, values?: Record<string, string | number>, count?: number) =>
   translate(`pages.${props.type}-overview.${key}`, values, count)
 
 useSEO({ title: `${t('title')} | ${translate('app.prefix')}` })
 
-const { data, error, filters, filtersError, isFetching, isFetchingFilters, params, query } =
-  useFetchCases(props)
+const {
+  data,
+  error,
+  filters,
+  filtersError,
+  isFetching,
+  isFetchingFilters,
+  isFinishedFilters,
+  params,
+  query
+} = useFetchCases(props)
 
 const numberOfCases = computed(() => data.value.length ?? 0)
 
@@ -110,5 +130,12 @@ function onFilterChange(item: FilterItem) {
 <style lang="scss" scoped>
 main section {
   --section-gap: 2.5rem;
+}
+.filter-tabs-container {
+  min-height: 55px;
+}
+
+.filter-options-container {
+  min-height: 45px;
 }
 </style>

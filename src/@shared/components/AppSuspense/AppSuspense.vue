@@ -3,10 +3,11 @@
     <slot name="title" />
     <Suspense>
       <template #default>
-        <AppLoader
-          v-if="isFetching"
-          centered
-        />
+        <template v-if="isFetching">
+          <AppLoader
+            v-if="showLoader"
+            :centered="loaderIsCentered"
+        /></template>
         <FormNotification
           v-else-if="errorMessage"
           display-as="error"
@@ -20,7 +21,7 @@
         </template>
       </template>
       <template #fallback>
-        <AppLoader centered />
+        <AppLoader :centered="loaderIsCentered" />
       </template>
     </Suspense>
   </component>
@@ -37,9 +38,11 @@ type Props = {
   data?: [] | object | null
   error: { message?: string; code?: string } | string | null
   isFetching: boolean
+  loaderIsCentered?: boolean
+  showLoader?: boolean
 }
 
-const props = defineProps<Props>()
+const props = withDefaults(defineProps<Props>(), { loaderIsCentered: true, showLoader: true })
 
 const errorMessage = computed(() => {
   if (!props.error) return undefined
