@@ -78,11 +78,7 @@
           <CaseHistory v-bind="{ id }" />
         </TabPanel>
         <TabPanel>
-          <AppSuspense
-            v-bind="{ data: reviewer, error: reviewerError, isFetching: isFetchingReviewer }"
-          >
-            <CaseReviewers :name="reviewer.name" />
-          </AppSuspense>
+          <CaseReviewers v-bind="{ id }" />
         </TabPanel>
       </TabPanels>
     </TabGroup>
@@ -94,8 +90,6 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-// import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
-import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -126,12 +120,6 @@ const {
   caseStage,
   caseStageId
 } = useFetchCase(props.id as string)
-
-const {
-  data: reviewer,
-  error: reviewerError,
-  isFetching: isFetchingReviewer
-} = useFetchCaseReviewer(props.id as string)
 
 const startReviewRoute = computed(() => ({
   name: 'review-case',

@@ -88,7 +88,8 @@
     "caseReviewers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
-      "removeReviewer": "Verwijder beoordelaar"
+      "removeReviewer": "Verwijder beoordelaar",
+      "noReviewers": "Er zijn geen beoordelaars gevonden"
     },
     "caseStatus": {
       "status": "Status",

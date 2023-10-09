@@ -5,7 +5,7 @@ import { useApiCaseReviewerUrl } from '@assessment/composables/useApiUrl'
 export const useFetchCaseReviewer = (id: string) => {
   const url = useApiCaseReviewerUrl(id)
   const { data: json, ...fetch } = useFetchWithCredentials(url).json()
-
+  console.log(url, '<<')
   const data = computed(() => (json.value ? json.value.data : {}))
 
   return {
