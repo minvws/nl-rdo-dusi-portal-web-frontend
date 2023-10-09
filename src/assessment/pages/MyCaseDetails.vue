@@ -45,34 +45,7 @@
       </TabList>
       <TabPanels>
         <TabPanel>
-          <AppSuspense
-            v-bind="{
-              data: caseData,
-              error: caseError,
-              isFetching: isFetchingCase
-            }"
-          >
-            <FormView
-              v-bind="{
-                id: 'my-details-application',
-                ...formViewOptions,
-                ...caseDetail
-              }"
-            />
-            <FormView
-              v-if="caseStage"
-              v-bind="{
-                id: `${props.id}/stages/${caseStageId}`,
-                ...formViewOptions,
-                ...caseStage
-              }"
-            />
-            <RouterLink
-              class="button"
-              :to="startReviewRoute"
-              :text="translate('pages.my-case-details.startReview')"
-            />
-          </AppSuspense>
+          <CaseOverview v-bind="{ id }" />
         </TabPanel>
         <TabPanel>
           <CaseHistory v-bind="{ id }" />
@@ -86,19 +59,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import CaseHistory from '@assessment/components/CaseHistory/CaseHistory.vue'
 import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vue'
+
+import CaseOverview from '@assessment/components/CaseOverview/CaseOverview.vue'
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
-import FormView from '@shared/components/FormView/FormView.vue'
-import { useFetchCase } from '@assessment/composables/useFetchCase'
 
 type Props = {
   id: string
@@ -106,25 +77,6 @@ type Props = {
 
 const props = defineProps<Props>()
 useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
-
-const formViewOptions = {
-  hideDebug: true,
-  noStyle: true,
-  noButtons: true
-}
-const {
-  data: caseData,
-  error: caseError,
-  isFetching: isFetchingCase,
-  caseDetail,
-  caseStage,
-  caseStageId
-} = useFetchCase(props.id as string)
-
-const startReviewRoute = computed(() => ({
-  name: 'review-case',
-  params: { id: props.id }
-}))
 </script>
 
 <style lang="scss" scoped>
