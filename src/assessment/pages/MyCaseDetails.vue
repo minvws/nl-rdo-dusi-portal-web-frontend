@@ -75,11 +75,7 @@
           </AppSuspense>
         </TabPanel>
         <TabPanel>
-          <AppSuspense
-            v-bind="{ data: history, error: historyError, isFetching: isFetchingHistory }"
-          >
-            <CaseHistory :items="history" />
-          </AppSuspense>
+          <CaseHistory v-bind="{ id }" />
         </TabPanel>
         <TabPanel>
           <AppSuspense
@@ -98,7 +94,7 @@ import { computed } from 'vue'
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import { translate } from '@shared/i18n'
 
-import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
+// import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 import { useSEO } from '@shared/composables/useSeo'
 
@@ -130,12 +126,6 @@ const {
   caseStage,
   caseStageId
 } = useFetchCase(props.id as string)
-
-const {
-  data: history,
-  error: historyError,
-  isFetching: isFetchingHistory
-} = useFetchCaseHistory(props.id as string)
 
 const {
   data: reviewer,

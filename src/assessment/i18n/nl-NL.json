@@ -85,7 +85,7 @@
         "communicationPreference": "Communicatievoorkeur"
       }
     },
-    "caseReviers": {
+    "caseReviewers": {
       "intro": "Als uitvoeringscoordinator kunt u een beoordelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordelaars.",
       "handledBy": "Deze zaak is op dit moment opgepakt door:",
       "removeReviewer": "Verwijder beoordelaar"
@@ -107,6 +107,12 @@
       "stage-title": "Fase",
       "status": "Status",
       "updated": "Laatste update"
+    },
+    "caseHistoryColumn": {
+      "action": "Actie",
+      "assessor": "Uitgevoerd door",
+      "internalNote": "Notitie",
+      "updatedAt": "Datum en tijd"
     },
     "passwordUpdate": {
       "currentPassword": "Huidig wachtwoord",

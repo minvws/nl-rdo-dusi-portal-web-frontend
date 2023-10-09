@@ -1,10 +1,10 @@
 <template>
   <div class="case-reviewers">
     <p>
-      {{ translate('component.caseReviers.intro') }}
+      {{ translate('component.caseReviewers.intro') }}
     </p>
     <p>
-      {{ translate('component.caseReviers.handledBy') }}
+      {{ translate('component.caseReviewers.handledBy') }}
     </p>
     <p>
       <strong>{{ name }}</strong>
@@ -14,7 +14,7 @@
       class="ghost"
       @click="onRemove"
     >
-      {{ translate('component.caseReviers.removeReviewer') }}
+      {{ translate('component.caseReviewers.removeReviewer') }}
     </AppButton>
   </div>
 </template>

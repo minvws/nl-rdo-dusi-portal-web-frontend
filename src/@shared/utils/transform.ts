@@ -23,12 +23,6 @@ import { AssessmentsDataType } from '@shared/types/table'
 
 import { ReviewerAction, type ReviewerActionType } from '@shared/types/reviewer'
 
-const options = {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric'
-} as Intl.DateTimeFormatOptions
-
 /**
  * Transforms the 'all requests' data from the API to a format that we can use.
  *
@@ -126,19 +120,19 @@ const setStageTitle = (text: string) =>
 const setDeadline = (date: string) =>
   createSet('deadline', {
     type: AssessmentsDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL', options) : '-'
+    text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setUpdated = (date: string) =>
   createSet('updated', {
     type: AssessmentsDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL', options) : '-'
+    text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setCreated = (date: string) =>
   createSet('created', {
     type: AssessmentsDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL', options) : '-'
+    text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setActionRequired = (status: string) =>
