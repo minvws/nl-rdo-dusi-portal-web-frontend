@@ -21,7 +21,6 @@
           </AppButton>
         </Tab>
         <Tab
-          v-if="enabledFeature"
           as="li"
           v-slot="{ selected }"
         >
@@ -75,7 +74,7 @@
             />
           </AppSuspense>
         </TabPanel>
-        <TabPanel v-if="enabledFeature">
+        <TabPanel>
           <AppSuspense
             v-bind="{ data: history, error: historyError, isFetching: isFetchingHistory }"
           >
@@ -110,8 +109,6 @@ import CaseReviewers from '@assessment/components/CaseReviewers/CaseReviewers.vu
 import CaseStatus from '@assessment/components/CaseStatus/CaseStatus.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 import { useFetchCase } from '@assessment/composables/useFetchCase'
-
-const enabledFeature = import.meta.env.VITE_DISABLE_MVP_FEATURES === 'false'
 
 type Props = {
   id: string
