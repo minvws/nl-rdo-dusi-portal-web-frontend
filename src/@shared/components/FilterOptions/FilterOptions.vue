@@ -9,9 +9,10 @@
       v-bind="{
         id: type,
         forms,
+        buttonLabels: { submit: translate('component.filterOptions.submit') },
         hideDebug: true,
-        persistent: true,
-        buttonLabels: { submit: translate('component.filterOptions.submit') }
+        hideRequiredLabel: true,
+        persistent: true
       }"
       @init="onSubmit"
       @submit="onSubmit"
