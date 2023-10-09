@@ -12,7 +12,7 @@
 <script setup lang="ts">
 type Props = {
   name: string
-  ariaHidden?: boolean
+  ariaHidden?: boolean | 'true'
 }
 
 defineProps<Props>()
