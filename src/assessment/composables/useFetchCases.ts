@@ -24,7 +24,13 @@ const getUrl = ({ type }: { type: CaseType }) => {
 export const useFetchCases = (props: { type: CaseType }) => {
   const url = getUrl(props)
 
-  const { data: filters, error: filtersError, isFetching: isFetchingFilters, execute } = useFetchFilters()
+  const {
+    data: filters,
+    error: filtersError,
+    isFetching: isFetchingFilters,
+    isFinished: isFinishedFilters,
+    execute
+  } = useFetchFilters()
 
   const params: Ref<Record<string, string> | undefined> = ref(undefined)
 
@@ -57,6 +63,7 @@ export const useFetchCases = (props: { type: CaseType }) => {
     filters,
     filtersError,
     isFetchingFilters,
+    isFinishedFilters,
     params
   }
 }
