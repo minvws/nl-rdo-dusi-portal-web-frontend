@@ -1,7 +1,7 @@
 <template>
   <main
     id="main-content"
-    ref="content"
+    ref="main"
     tabindex="-1"
   >
     <slot />
@@ -9,31 +9,36 @@
 </template>
 
 <script lang="ts" setup>
-import type { RouteLocationNormalized } from 'vue-router'
-
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, START_LOCATION } from 'vue-router'
+
+import { translate } from '@shared/i18n'
+import { useAnnounce } from '@shared/composables/useAnnounce'
 
 const router = useRouter()
+const announce = useAnnounce()
+const main = ref()
 
-const initialRoute = ref(true)
+const trimTitle = title => (title || '').replace(' | ' + translate('app.prefix'), '')
 
-const content = ref()
-
-const onFocusMainElement = () => {
-  content?.value?.focus()
+const announcePageTitle = () => {
+  const title = trimTitle(document.title || translate('announcement.page'))
+  const message = `${title} ${translate('announcement.loaded')}`
+  announce(message, 'assertive')
 }
 
-router.afterEach(
-  ({ path: toPath }: RouteLocationNormalized, { path: fromPath }: RouteLocationNormalized) => {
-    if (initialRoute.value) {
-      initialRoute.value = false
-      return
-    }
-    if (toPath === fromPath) return
-    onFocusMainElement()
-  }
-)
+router.afterEach((to, from) => {
+  if (from === START_LOCATION) return
+  if (to.path === from.path) return
+  if (from.name === 'login-callback') return
+  setTimeout(() => {
+    main?.value?.focus()
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+      announcePageTitle()
+    })
+  }, 300)
+})
 </script>
 
 <style lang="scss" scoped>
