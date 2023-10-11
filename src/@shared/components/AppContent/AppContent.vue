@@ -19,10 +19,10 @@ const router = useRouter()
 const announce = useAnnounce()
 const main = ref()
 
-const trimTitle = title => (title || '').replace(' | ' + translate('app.prefix'), '')
+const trimTitle = (title: string) => (title || '').replace(' | ' + translate('app.prefix'), '')
 
 const announcePageTitle = () => {
-  const title = trimTitle(document.title || translate('announcement.page'))
+  const title = trimTitle(document.title || translate('announcement.page') || '')
   const message = `${title} ${translate('announcement.loaded')}`
   announce(message, 'assertive')
 }

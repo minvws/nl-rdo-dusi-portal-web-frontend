@@ -3,5 +3,5 @@ import { defineStore } from 'pinia'
 
 export const useAnnouncementStore = defineStore('useAnnouncementStore', () => ({
   message: ref<string>(''),
-  politeness: ref<'polite'|'assertive'>('polite')
+  politeness: ref<'polite' | 'assertive'>('polite')
 }))
