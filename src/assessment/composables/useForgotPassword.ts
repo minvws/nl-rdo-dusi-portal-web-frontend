@@ -19,9 +19,24 @@ export const useForgotPassword = () => {
 
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
-  const { execute, isFinished, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), {
-    immediate: false
-  }).post(payload)
+  const options: RequestInit = {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }
+  const { execute, isFinished, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), options, {
+    immediate: false,
+    onFetchError: ctx => {
+      if (ctx.data && ctx.data.message) {
+        ctx.error = new Error(ctx.data.message)
+      }
+      return ctx
+    }
+  })
+    .post(payload)
+    .json()
 
   const forms = computed(() => [
     {
@@ -85,7 +100,7 @@ export const useForgotPassword = () => {
   watch(isFinished, isFinished => {
     if (!isFinished) return
     if (error.value) {
-      showNotification(NotificationType.ERROR, error.value)
+      showNotification(NotificationType.ERROR, error.value.message)
       return
     }
     showNotification(NotificationType.CONFIRMATION)
