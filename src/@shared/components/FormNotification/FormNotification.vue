@@ -6,6 +6,8 @@
     <AppHtml
       as="p"
       :html="html"
+      :aria-live="props.announce ? 'assertive' : undefined"
+      :aria-atomic="props.announce ? 'true' : undefined"
     />
     <AppButton
       v-if="dismissable && id"
@@ -34,6 +36,7 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 type Props = Notification & {
   dismissable?: boolean
   id?: string
+  announce?: boolean
 }
 
 const props = defineProps<Props>()

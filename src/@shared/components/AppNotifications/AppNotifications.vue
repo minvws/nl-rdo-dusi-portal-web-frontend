@@ -7,6 +7,7 @@
       <FormNotification
         v-bind="notification"
         dismissable
+        announce
       />
     </div>
   </div>
