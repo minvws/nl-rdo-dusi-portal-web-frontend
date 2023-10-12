@@ -43,7 +43,7 @@ export const beforeEach = async (
 
   if (!isLoggedIn.value) {
     log('page is non-public and user is not logged-in. goto api-login')
-    openExternalLink(useApiLoginUrl())
+    authStore.onAuthenticate()
     return next(false)
   }
 

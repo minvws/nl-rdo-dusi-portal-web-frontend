@@ -1,22 +1,26 @@
 import type { Ref } from 'vue'
+import type { AuthResponse } from '@shared/types/api-response'
+import { SessionType } from '@/@shared/types/session'
+
 import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 
-import { useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
+import { useApiLoginUrl, useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
 import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+import { useDispatcher } from '@/@shared/store/useDispatcher'
 
 import { log } from '@shared/utils/logger'
 import { deleteRouteCookie } from '@shared/utils/route-cookie'
+import { openExternalLink } from '@/@shared/utils/link'
 
 import { HOME } from '@shared/router/names'
-
-import type { AuthResponse } from '@shared/types/api-response'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
   const { extendSession, removeSession, restoreSession } = useSessionLifetime()
+  const { on } = useDispatcher()
 
   const isLoggedIn: Ref<boolean> = ref(false)
 
@@ -77,10 +81,23 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     router.push({ name: HOME })
   }
 
+  function onAuthenticate() {
+    openExternalLink(useApiLoginUrl())
+  }
+
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
+
+  on(SessionType.EXPIRING, () => {
+    logIn(true)
+  })
+
+  on(SessionType.EXPIRED, () => {
+    onAuthenticate()
+  })
 
   return {
     sessionRestore,
+    onAuthenticate,
     logIn,
     logOut,
     isLoggedIn
