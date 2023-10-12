@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import { onMounted, onUnmounted } from 'vue'
 
 export const useClickOutside = (cb: () => void, hasModal: Ref<boolean>, persistent = false) => {
-  const onKeyDown = (e: KeyboardEvent) => {
+  function onKeyDown(e: KeyboardEvent) {
     const { key } = e
     if (key !== 'Escape' || !hasModal.value) return
 
@@ -14,18 +14,15 @@ export const useClickOutside = (cb: () => void, hasModal: Ref<boolean>, persiste
     cb()
   }
 
-  onMounted(() => {
-    document.addEventListener('keydown', onKeyDown)
-  })
-
-  onUnmounted(() => {
-    document.removeEventListener('keydown', onKeyDown)
-  })
-
-  const onClickOutside = () => {
+  function onClickOutside() {
     if (persistent) return
     cb()
   }
+
+  onMounted(() => document.addEventListener('keydown', onKeyDown))
+
+  onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
+
   return {
     onClickOutside
   }

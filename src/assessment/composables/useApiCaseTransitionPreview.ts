@@ -12,6 +12,7 @@ import { statusToIcon } from '@/@shared/utils/mappers'
 import { useRouter } from 'vue-router'
 
 export const useApiCaseTransitionPreview = (id: string) => {
+  const types = ['current', 'target']
   const router = useRouter()
 
   const { data: json, ...fetch } = useFetchWithCredentials(
@@ -29,12 +30,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
     .patch()
     .json()
 
-  const transition = computed(() => {
-    if (!json.value) return undefined
-    return json.value?.data?.transition
-  })
-
-  const types = ['current', 'target']
+  const transition = computed(() => (json.value ? json.value?.data?.transition : undefined))
 
   const columns = computed(() => [
     { id: 'title' },
@@ -76,7 +72,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
 
   const html = computed(() => transition.value?.message?.html)
 
-  const onSubmit = () => {
+  function onSubmit() {
     execute()
   }
 

@@ -38,9 +38,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const values = computed(() => {
-  return props.value ?? []
-})
+const values = computed(() => props.value ?? [])
 
 const items = computed(() => {
   const items = props.control.schema.items as {
@@ -54,16 +52,20 @@ const items = computed(() => {
     items?.enum?.map(title => ({ title, value: title }))
   )
 })
-const onChange = (e: Event) => {
+
+function onChange(e: Event) {
   e.stopPropagation()
   const target = e.target as HTMLInputElement
   const { value, checked } = target
   const data = [...values.value]
+
   while (data.includes(value)) {
     const index = data.indexOf(value)
     data.splice(index, 1)
   }
+
   if (checked) data.push(value)
+
   props.handleChange(getControlId(props.control.id), data)
 }
 </script>

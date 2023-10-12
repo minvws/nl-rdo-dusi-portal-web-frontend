@@ -2,13 +2,16 @@
   <div
     class="visually-hidden"
     aria-atomic="true"
-    :aria-live="announcement.politeness"
-    v-text="announcement.message"
+    :aria-live="politeness"
+    v-text="message"
   />
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import { useAnnouncementStore } from '@shared/store/useAnnouncementStore'
 
-const announcement = useAnnouncementStore()
+const announcementStore = useAnnouncementStore()
+
+const { message, politeness } = storeToRefs(announcementStore)
 </script>

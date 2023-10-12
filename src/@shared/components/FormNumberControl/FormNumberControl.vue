@@ -27,7 +27,16 @@ type Props = {
   autofocus?: boolean
 }
 
-const onKeyDown = (e: KeyboardEvent) => {
+const props = defineProps<Props>()
+
+const input = computed(() => ({
+  ...getInputAttrs(props),
+  ...props,
+  step: InputType.INTEGER ? 1 : undefined,
+  type: InputType.NUMBER
+}))
+
+function onKeyDown(e: KeyboardEvent) {
   // Fix: Chrome and Firefox behave differently with input type = 'number'
   // only allow numbers for `integers`
   // only allow numbers and decimals for `numbers`
@@ -51,15 +60,4 @@ const onKeyDown = (e: KeyboardEvent) => {
     }
   }
 }
-
-const props = defineProps<Props>()
-
-const input = computed(() => {
-  return {
-    ...getInputAttrs(props),
-    ...props,
-    step: InputType.INTEGER ? 1 : undefined,
-    type: InputType.NUMBER
-  }
-})
 </script>

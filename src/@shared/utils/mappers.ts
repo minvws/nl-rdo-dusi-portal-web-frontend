@@ -6,7 +6,7 @@ import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
 import { ReviewerAction } from '@shared/types/reviewer'
 import { REVIEW_CASE } from '@assessment/router/names'
 
-const transformRequestStatus = (id: string) => {
+function transformRequestStatus(id: string) {
   return Object.values(Status).reduce(
     (cul, key) => {
       const value = translate(`requestStatus.${id}.${key}`) ?? ''
@@ -16,7 +16,7 @@ const transformRequestStatus = (id: string) => {
   )
 }
 
-const transformRevieuwerActions = () => {
+function transfromReviewerActions() {
   return Object.values(ReviewerAction).reduce(
     (cul, key) => {
       const value = translate(`reviewerAction.${key}`) ?? ''
@@ -55,4 +55,4 @@ export const caseStatusToTranslation: Record<string, string> = transformRequestS
 export const requestStatusToTranslation: Record<string, string> = transformRequestStatus('status')
 export const statusToRouteText: Record<string, string> = transformRequestStatus('route')
 export const caseStatusToRouteText: Record<string, string> = transformRequestStatus('cases')
-export const reviewerActionToRouteText: Record<string, string> = transformRevieuwerActions()
+export const reviewerActionToRouteText: Record<string, string> = transfromReviewerActions()

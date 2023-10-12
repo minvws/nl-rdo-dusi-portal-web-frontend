@@ -50,6 +50,20 @@ const props = defineProps<Props>()
 const { isStepDisabled, isTouched } = useFormSteps(props)
 const isLarge = useMediaQuery('(min-width: 800px)')
 
+const stepsWithTitle = computed(
+  () =>
+    props.forms.map(({ title }, index) => [title, index]).filter(([title]) => !!title) as [
+      string,
+      number
+    ][]
+)
+
+const steps = computed(() => {
+  const titles = stepsWithTitle.value
+  const stepHasTitle = titles.some(([, i]) => i === props.index)
+  return stepHasTitle ? titles : []
+})
+
 function isActive(index: number) {
   const { index: activeIndex } = props
   return index === activeIndex
@@ -81,19 +95,6 @@ function isValid(index: number) {
 function onButtonClick(index: number) {
   emit('step', index)
 }
-
-const stepsWithTitle = computed(() => {
-  return props.forms.map(({ title }, index) => [title, index]).filter(([title]) => !!title) as [
-    string,
-    number
-  ][]
-})
-
-const steps = computed(() => {
-  const titles = stepsWithTitle.value
-  const stepHasTitle = titles.some(([, i]) => i === props.index)
-  return stepHasTitle ? titles : []
-})
 </script>
 
 <style lang="scss" scoped>

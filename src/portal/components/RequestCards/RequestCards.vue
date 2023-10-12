@@ -45,6 +45,7 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 type Type = 'external-link' | 'string' | 'date' | 'button-link' | 'link'
 type Text = { text: string }
 type ExternalLink = { to: string } & Text
+type AppHtmlContent = { icon?: string } & Text
 
 type Props = {
   headings: Column[]
@@ -56,30 +57,24 @@ const labels: ComputedRef<Record<string, string>> = computed(() =>
   props.headings.reduce((cul, { id, text }) => ({ ...cul, [id]: text }), {})
 )
 
-const toExternalLink = ({ to, text }: ExternalLink) => {
-  return {
-    component: 'a',
-    href: to,
-    text
-  }
-}
+const toExternalLink = ({ to, text }: ExternalLink) => ({
+  component: 'a',
+  href: to,
+  text
+})
 
-const toButtonLink = ({ type, ...params }: any) => {
-  return {
-    component: 'RouterLink',
-    className: ['button', type].join(' '),
-    ...params
-  }
-}
+const toButtonLink = ({ type, ...params }: any) => ({
+  component: 'RouterLink',
+  className: ['button', type].join(' '),
+  ...params
+})
 
-const toAppHtml = ({ text, icon }: Text & { icon?: string }) => {
-  return {
-    component: AppHtml,
-    html: `<b>${text}</b>`,
-    icon,
-    as: 'div'
-  }
-}
+const toAppHtml = ({ text, icon }: AppHtmlContent) => ({
+  component: AppHtml,
+  html: `<b>${text}</b>`,
+  icon,
+  as: 'div'
+})
 
 const getComponent = (params: { type: Type } & any) => {
   switch (params.type) {
@@ -90,13 +85,13 @@ const getComponent = (params: { type: Type } & any) => {
       return toButtonLink(params as ExternalLink)
     case 'date':
     case 'string':
-      return toAppHtml(params as Text)
+      return toAppHtml(params as AppHtmlContent)
   }
 }
 
-const items = computed(() => {
-  return props.data.map(row => {
-    return Object.entries(row)
+const items = computed(() =>
+  props.data.map(row =>
+    Object.entries(row)
       .map(([id, item]: [string, any]) => {
         const component = getComponent(item)
         if (!component) return undefined
@@ -106,8 +101,8 @@ const items = computed(() => {
         }
       })
       .filter(item => !!item)
-  })
-})
+  )
+)
 </script>
 
 <style lang="scss" scoped>

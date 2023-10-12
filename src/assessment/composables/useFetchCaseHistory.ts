@@ -55,17 +55,15 @@ export const useFetchCaseHistory = (id: string) => {
 
   const data = computed(() => (json.value ? transform(json.value.data) : []))
 
-  const columns = computed(() => {
-    return Object.entries(COLUMNS)
-      .map(([id, { sortable }]) => {
-        return {
-          id,
-          sortable,
-          text: translate(`component.caseHistoryColumn.${id}`)
-        }
-      })
+  const columns = computed(() =>
+    Object.entries(COLUMNS)
+      .map(([id, { sortable }]) => ({
+        id,
+        sortable,
+        text: translate(`component.caseHistoryColumn.${id}`)
+      }))
       .filter(({ id }) => !!hasItems(data.value, id))
-  })
+  )
 
   return {
     data,

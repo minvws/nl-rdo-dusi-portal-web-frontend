@@ -51,26 +51,26 @@ const file = computed(() => {
   return data?.[0]
 })
 
-function onBlur(event: Event) {
-  emit('blur', event)
+function onBlur(e: Event) {
+  emit('blur', e)
 }
 
-function onChange(event: Event) {
-  const target = event.target as HTMLInputElement
+function onChange(e: Event) {
+  const target = e.target as HTMLInputElement
   const file = target?.files?.[0]
   const { maxFileSize } = props
   if (file && maxFileSize && file.size > maxFileSize) {
     // file exceeds maxFileSize
-    event.preventDefault()
+    e.preventDefault()
     const size = formatFileSize(maxFileSize)
     emit('error', translate('form.fields.error.maxFileSize', { maxFileSize: size }))
     return
   }
-  emit('change', event)
+  emit('change', e)
 }
 
-function onFocus(event: Event) {
-  emit('focus', event)
+function onFocus(e: Event) {
+  emit('focus', e)
 }
 </script>
 

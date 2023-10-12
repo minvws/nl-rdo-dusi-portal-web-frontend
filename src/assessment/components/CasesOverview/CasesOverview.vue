@@ -79,7 +79,11 @@ import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
 import { hasItems } from '@/@shared/utils/app-table'
 
-const props = defineProps<{ type: CaseType }>()
+type Props = {
+  type: CaseType
+}
+
+const props = defineProps<Props>()
 
 const t = (key: string, values?: Record<string, string | number>, count?: number) =>
   translate(`pages.${props.type}-overview.${key}`, values, count)

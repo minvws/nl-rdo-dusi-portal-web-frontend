@@ -32,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
+
 import { ref, computed } from 'vue'
 
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
@@ -46,8 +48,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const inputValue = ref('')
-const selectedIndex = ref(-1)
+const inputValue: Ref<string> = ref('')
+const selectedIndex: Ref<number> = ref(-1)
 
 const filteredResults = computed(() =>
   props.options.filter(result => result.toLowerCase().includes(inputValue.value.toLowerCase()))

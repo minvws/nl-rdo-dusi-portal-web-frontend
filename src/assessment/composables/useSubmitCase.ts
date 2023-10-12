@@ -1,4 +1,6 @@
+import type { Ref } from 'vue'
 import type { FormData, FormSubmitType } from '@shared/types/form'
+
 import { FormSubmitTypes } from '@shared/types/form'
 
 import { ref } from 'vue'
@@ -15,9 +17,9 @@ export const useSubmitCase = () => {
   const router = useRouter()
   const notification = useFormSubmitNotification()
 
-  const locked = ref(false)
+  const locked: Ref<boolean> = ref(false)
 
-  const onSubmit = async ({
+  async function onSubmit({
     id,
     data,
     type
@@ -25,7 +27,7 @@ export const useSubmitCase = () => {
     id: string
     data: FormData
     type: FormSubmitType
-  }) => {
+  }) {
     const url = useSubmitCaseUrl(id)
     const payload = {
       submit: type === FormSubmitTypes.SUBMIT,

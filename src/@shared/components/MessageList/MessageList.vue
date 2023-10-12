@@ -45,12 +45,9 @@ const props = defineProps<Props>()
 
 const { locale } = useI18n()
 
-const list = computed(() => {
-  return props.items.map(item => ({
-    ...item,
-    formattedDate: formatDate(item.date, locale.value)
-  }))
-})
+const list = computed(() =>
+  props.items.map(item => ({ ...item, formattedDate: formatDate(item.date, locale.value) }))
+)
 </script>
 
 <style lang="scss" scoped>

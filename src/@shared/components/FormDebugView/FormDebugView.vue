@@ -31,6 +31,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
+
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
@@ -38,7 +40,7 @@ import { useFileStore } from '@shared/store/useFileStore'
 import { useForms } from '@shared/composables/form/useForms'
 import { useFormDummyData } from '@shared/composables/form/useFormDummyData'
 
-const isVisible = ref(false)
+const isVisible: Ref<boolean> = ref(false)
 const { setDummyData } = useFormDummyData()
 const fileStore = useFileStore()
 

@@ -32,7 +32,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const notificationsStore = useNotificationsStore()
 
   const user: Ref<User | null> = ref(null)
-
   const isLoggedIn: Ref<boolean> = ref(false)
   const needsTwoFactor: Ref<boolean> = ref(false)
 

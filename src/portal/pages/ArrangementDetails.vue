@@ -41,24 +41,18 @@ useSEO({
   )}`
 })
 
-const requestLocalFormPostCovidRoute = computed(() => {
-  return {
-    name: ARRANGEMENT_FORM_LOCAL,
-    params: { id: route.params.id, name: 'post-covid' }
-  }
-})
+const requestLocalFormPostCovidRoute = computed(() => ({
+  name: ARRANGEMENT_FORM_LOCAL,
+  params: { id: route.params.id, name: 'post-covid' }
+}))
 
-const requestLocalFormBTVRoute = computed(() => {
-  return {
-    name: ARRANGEMENT_FORM_LOCAL,
-    params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
-  }
-})
+const requestLocalFormBTVRoute = computed(() => ({
+  name: ARRANGEMENT_FORM_LOCAL,
+  params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
+}))
 
-const requestRemoteFormRoute = computed(() => {
-  return {
-    name: ARRANGEMENT_FORM_REMOTE,
-    params: { id: route.params.id }
-  }
-})
+const requestRemoteFormRoute = computed(() => ({
+  name: ARRANGEMENT_FORM_REMOTE,
+  params: { id: route.params.id }
+}))
 </script>

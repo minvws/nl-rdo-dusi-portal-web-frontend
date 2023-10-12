@@ -5,11 +5,13 @@ import { ref, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 
+type AppNotification = Notification & { id: string; pageChangeCount?: number }
+
 export const useNotificationsStore = defineStore('useNotificationsStore', () => {
-  type AppNotification = Notification & { id: string; pageChangeCount?: number }
+  const router = useRouter()
+
   const notifications: Ref<AppNotification[]> = ref([])
   const isDeleting: Ref<boolean> = ref(false)
-  const router = useRouter()
 
   function removeById(id: string) {
     isDeleting.value = true

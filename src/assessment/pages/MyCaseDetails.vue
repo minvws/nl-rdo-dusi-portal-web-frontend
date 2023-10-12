@@ -61,6 +61,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import { computed, ref, watch } from 'vue'
 import { translate } from '@shared/i18n'
 
@@ -80,6 +81,8 @@ import {
   MY_CASE_DETAILS_REVIEWER
 } from '@assessment/router/names'
 
+useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
+
 type Props = {
   id: string
 }
@@ -93,14 +96,15 @@ const tabs = [
   { component: CaseHistory, name: MY_CASE_DETAILS_HISTORY },
   { component: CaseReviewers, name: MY_CASE_DETAILS_REVIEWER }
 ]
-const defaultIndex = computed(() => {
-  return Math.max(
+
+const defaultIndex = computed(() =>
+  Math.max(
     0,
     tabs.findIndex(({ name }) => router.currentRoute.value.name === name)
   )
-})
+)
 
-const selectedIndex = ref(defaultIndex.value)
+const selectedIndex: Ref<number> = ref(defaultIndex.value)
 
 watch(
   selectedIndex,
@@ -110,8 +114,6 @@ watch(
   },
   { immediate: true }
 )
-
-useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
 </script>
 
 <style lang="scss" scoped>

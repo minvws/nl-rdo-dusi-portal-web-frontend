@@ -11,7 +11,12 @@
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
-const props = defineProps<{ required: boolean | undefined; label?: string }>()
+type Props = {
+  required: boolean | undefined
+  label?: string
+}
+
+const props = defineProps<Props>()
 
 const text = computed(() => {
   const type = props.required ? 'required' : 'optional'
