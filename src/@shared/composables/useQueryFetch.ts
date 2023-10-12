@@ -23,13 +23,16 @@ export const useQueryFetch = (
 
   const url = computed(() => {
     const payload = { ...query?.value, ...params?.value }
-    const entries = Object.entries(payload)
+    const entries = Object.entries(payload).filter(
+      ([, value]) => !!value !== undefined && value !== null
+    )
 
     if (!entries.length) return location
 
     const queryString = entries
       .map(([key, value]) => {
         if (Array.isArray(value)) {
+          if (!value.length) return ''
           return value
             .map(v => `${key}[]=${encodeURIComponent(v)}`)
             .join('&')
@@ -38,8 +41,9 @@ export const useQueryFetch = (
           return `${key}=${encodeURIComponent(value)}`
         }
       })
+      .filter(value => !!value)
       .join('&')
-
+    if (!queryString) return location
     return `${location}?${queryString}`
   })
 
