@@ -4,8 +4,6 @@ import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
 
-import { useApiLoginUrl } from '@portal/composables/useApiUrl'
-
 import { log } from '@shared/utils/logger'
 import { notFoundLoggedOutRedirectLink } from '@shared/external-links'
 import { openExternalLink } from '@shared/utils/link'
