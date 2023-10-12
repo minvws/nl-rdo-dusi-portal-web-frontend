@@ -14,7 +14,7 @@
     },
     "password-reset-success": {
       "label": "Bevestiging",
-      "message": "Wachtwoord is gewijzigd"
+      "message": "Wachtwoord is gewijzigd."
     },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
