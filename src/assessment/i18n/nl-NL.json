@@ -6,15 +6,15 @@
     },
     "password-update-success": {
       "label": "Gelukt",
-      "message": "Er is een onbekende fout opgetreden. {error}"
+      "message": "Wachtwoord is succesvol gewijzigd."
     },
     "password-reset-failed": {
       "label": "Mislukt",
-      "message": "Er is een onbekende fout opgetreden"
+      "message": "Er is een onbekende fout opgetreden. {error}"
     },
     "password-reset-success": {
       "label": "Bevestiging",
-      "message": "Wachtwoord is gewijzigd"
+      "message": "Wachtwoord is gewijzigd."
     },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
