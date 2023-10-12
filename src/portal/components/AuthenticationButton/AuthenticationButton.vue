@@ -18,9 +18,9 @@ const authStore = useAuthStore()
 const { logOut, onAuthenticate } = authStore
 const { isLoggedIn } = storeToRefs(authStore)
 
-const onButtonClick = () => {
-  if (isLoggedIn.value) logOut()
-  else onAuthenticate()
+function onButtonClick() {
+  isLoggedIn.value ? logOut() : onAuthenticate()
+}
 }
 
 const buttonLabel = computed(() => {
