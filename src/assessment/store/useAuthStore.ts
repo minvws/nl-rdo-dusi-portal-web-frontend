@@ -18,18 +18,22 @@ import {
   useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+import { useDispatcher } from '@/@shared/store/useDispatcher'
 
-import { removeSessionCookie, setSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 import { fromCamelCaseToSnakeCase } from '@/@shared/utils/format'
+import { SessionType } from '@/@shared/types/session'
 
 const useCredentials = !import.meta.env.PROD
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
+  const { extendSession, removeSession } = useSessionLifetime()
+  const { on } = useDispatcher()
 
   const user: Ref<User | null> = ref(null)
   const isLoggedIn: Ref<boolean> = ref(false)
@@ -58,13 +62,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.ok) {
         user.value = null
         isLoggedIn.value = false
-
-        removeSessionCookie()
+        removeSession()
       } else {
         user.value = json.data
         isLoggedIn.value = true
-
-        setSessionCookie()
+        extendSession()
       }
     } catch (error) {
       log('Error getting user info', error)
@@ -206,7 +208,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   function onLoginChange(isLoggedIn: boolean) {
     if (!isLoggedIn) {
-      removeSessionCookie()
+      removeSession()
       router.push({ name: LOGIN_VIEW })
     }
   }
@@ -234,6 +236,14 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       router.push({ name: HOME })
     }
   }
+
+  on(SessionType.EXPIRING, () => {
+    getUserInfo()
+  })
+
+  on(SessionType.EXPIRED, () => {
+    onLoginChange(false)
+  })
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 

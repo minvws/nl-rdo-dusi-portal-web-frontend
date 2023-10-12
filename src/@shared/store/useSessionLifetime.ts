@@ -7,25 +7,21 @@ import { defineStore } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'
-import { useAuthStore } from '@portal/store/useAuthStore'
-import { useApiLoginUrl } from '@portal/composables/useApiUrl'
-
 import { ModalType } from '@shared/types/modal'
 import { SessionType } from '@shared/types/session'
-
-import { openExternalLink } from '@shared/utils/link'
 
 import {
   getSessionCookie,
   removeSessionCookie,
   setSessionCookie
 } from '@shared/utils/session-cookie'
+import { useDispatcher } from '@shared/store/useDispatcher'
 
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000
 const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when the user is prompt to extend its session
 
 export const useSessionLifetime = defineStore('useSessionLifetime', () => {
-  const authStore = useAuthStore()
+  const { dispatch } = useDispatcher()
   const { openModal, closeModal } = useAppModal()
 
   const init: Ref<boolean> = ref(false)
@@ -55,18 +51,7 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
     return [
       {
         label: translate(`authentication.modal.${session}.buttonLabel`) ?? '',
-        action: () => {
-          switch (session) {
-            case SessionType.EXPIRING:
-              // extend session
-              authStore.logIn(true)
-              break
-            case SessionType.EXPIRED:
-              // login
-              openExternalLink(useApiLoginUrl())
-              break
-          }
-        }
+        action: () => dispatch(session)
       }
     ]
   }
