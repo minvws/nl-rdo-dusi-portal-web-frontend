@@ -21,7 +21,6 @@ const { isLoggedIn } = storeToRefs(authStore)
 function onButtonClick() {
   isLoggedIn.value ? logOut() : onAuthenticate()
 }
-}
 
 const buttonLabel = computed(() => {
   const id = isLoggedIn.value ? 'logout' : 'login'
