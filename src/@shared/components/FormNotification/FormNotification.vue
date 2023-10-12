@@ -81,22 +81,38 @@ function onDismiss(id: string) {
 }
 
 .error .button {
-  --button-base-hover-border-color: var(--notification-error-border-color);
+  --button-base-active-background-color: var(--notification-error-color-intense);
+  --button-base-focus-background-color: var(--notification-error-color-intense);
   --button-base-hover-background-color: var(--notification-error-border-color);
+  --button-base-active-border-color: var(--notification-error-color-intense);
+  --button-base-focus-border-color: var(--notification-error-color-intense);
+  --button-base-hover-border-color: var(--notification-error-border-color);
 }
 
 .warning .button {
-  --button-base-hover-border-color: var(--notification-warning-border-color);
+  --button-base-active-background-color: var(--notification-warning-color-intense);
+  --button-base-focus-background-color: var(--notification-warning-color-intense);
   --button-base-hover-background-color: var(--notification-warning-border-color);
+  --button-base-active-border-color: var(--notification-warning-color-intense);
+  --button-base-focus-border-color: var(--notification-warning-color-intense);
+  --button-base-hover-border-color: var(--notification-warning-border-color);
 }
 
 .explanation .button {
-  --button-base-hover-border-color: var(--notification-explanation-border-color);
+  --button-base-active-background-color: var(--notification-explanation-color-intense);
+  --button-base-focus-background-color: var(--notification-explanation-color-intense);
   --button-base-hover-background-color: var(--notification-explanation-border-color);
+  --button-base-active-border-color: var(--notification-explanation-color-intense);
+  --button-base-focus-border-color: var(--notification-explanation-color-intense);
+  --button-base-hover-border-color: var(--notification-explanation-border-color);
 }
 
 .confirmation .button {
-  --button-base-hover-border-color: var(--notification-confirmation-border-color);
+  --button-base-active-background-color: var(--notification-confirmation-color-intense);
+  --button-base-focus-background-color: var(--notification-confirmation-color-intense);
   --button-base-hover-background-color: var(--notification-confirmation-border-color);
+  --button-base-active-border-color: var(--notification-confirmation-color-intense);
+  --button-base-focus-border-color: var(--notification-confirmation-color-intense);
+  --button-base-hover-border-color: var(--notification-confirmation-border-color);
 }
 </style>
