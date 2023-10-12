@@ -3,20 +3,22 @@
     class="form-notification"
     :class="[{ dismissable: dismissable }, displayAs]"
   >
-    <AppHtml
-      as="p"
-      :html="html"
-      :aria-live="props.announce ? 'assertive' : undefined"
-      :aria-atomic="props.announce ? 'true' : undefined"
-    />
-    <AppButton
-      v-if="dismissable && id"
-      class="button"
-      @click="onDismiss(id)"
-    >
-      <span class="visually-hidden">Sluiten</span>
-      <AppIcon name="close" />
-    </AppButton>
+    <div>
+      <AppHtml
+        as="p"
+        :html="html"
+        :aria-live="props.announce ? 'assertive' : undefined"
+        :aria-atomic="props.announce ? 'true' : undefined"
+      />
+      <AppButton
+        v-if="dismissable && id"
+        class="button"
+        @click="onDismiss(id)"
+      >
+        <span class="visually-hidden">Sluiten</span>
+        <AppIcon name="close" />
+      </AppButton>
+    </div>
   </div>
 </template>
 
@@ -57,19 +59,25 @@ function onDismiss(id: string) {
 </script>
 
 <style lang="scss" scoped>
-.dismissable {
+.dismissable div {
   display: flex;
+  box-sizing: border-box;
   flex-direction: row;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--section-content-wrapper-max-width);
+  margin: 0 auto;
+  padding-right: var(--section-content-wrapper-padding-right);
+  padding-left: var(--section-content-wrapper-padding-left);
 }
 
 .button {
-  color: var(--ruby-red-text-color-dark);
   --button-base-padding-left: 12px;
   --button-base-padding-right: 12px;
   --button-base-border-color: transparent;
   --button-base-background-color: transparent;
+  color: var(--ruby-red-text-color-dark);
 }
 
 .error .button {
