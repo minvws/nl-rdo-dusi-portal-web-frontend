@@ -84,6 +84,7 @@ const submitLabel = computed(() => props.buttonLabels?.submit || translate('form
 
   @include mobile {
     flex-direction: column;
+
     > * {
       width: 100%;
     }

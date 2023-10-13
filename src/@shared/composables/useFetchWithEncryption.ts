@@ -7,7 +7,7 @@ import type {
 
 import { useFetch } from '@vueuse/core'
 import { useEncryption } from '@shared/composables/useEncryption'
-import { useSessionLifetime } from '@shared/store/useSessionLifetime'
+import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 
 import sodium from 'libsodium-wrappers'
 
@@ -57,7 +57,7 @@ export const useFetchWithEncryption = <T>(
   fetchOptions?: RequestInit,
   useFetchOptions?: UseFetchOptions
 ) => {
-  const { extendSession } = useSessionLifetime()
+  const sessionLifetimeStore = useSessionLifetimeStore()
   const { generateKeyPair, getPublicKey } = useEncryption()
   const defaultOptions: Record<string, RequestCredentials> = useCredentials
     ? { credentials: 'include' }
@@ -84,7 +84,7 @@ export const useFetchWithEncryption = <T>(
   async function afterFetch(ctx: AfterFetchContext) {
     const data = await decryptResponse({ ctx, keyPair })
     if (data) ctx.data = data
-    extendSession()
+    sessionLifetimeStore.extendSession()
     return ctx
   }
 

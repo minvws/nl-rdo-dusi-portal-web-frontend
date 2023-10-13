@@ -82,19 +82,19 @@ watch(
   &-content {
     display: flex;
     flex-direction: row;
-    height: 100%;
     align-items: center;
     justify-content: flex-end;
-    text-overflow: ellipsis;
+    height: 100%;
     float: right;
+    text-overflow: ellipsis;
 
     label {
-      white-space: nowrap;
-      overflow: hidden;
       display: block;
-      text-overflow: ellipsis;
       max-width: calc(100% - 220px);
+      overflow: hidden;
       text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
       pointer-events: none;
 
       &.padding {
@@ -104,14 +104,15 @@ watch(
     }
 
     .button {
-      height: 100%;
       width: 60px;
+      height: 100%;
       pointer-events: all;
     }
 
     .loader {
       width: auto;
       height: auto;
+
       &.padding {
         padding-right: 1em;
       }

@@ -1,25 +1,25 @@
 import type { Ref } from 'vue'
 import type { AuthResponse } from '@shared/types/api-response'
-import { SessionType } from '@/@shared/types/session'
+import { SessionType } from '@shared/types/session'
 
 import { ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 
 import { useApiLoginUrl, useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
-import { useSessionLifetime } from '@shared/store/useSessionLifetime'
-import { useDispatcher } from '@/@shared/store/useDispatcher'
+import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
+import { useDispatcher } from '@shared/store/useDispatcher'
 
 import { log } from '@shared/utils/logger'
 import { deleteRouteCookie } from '@shared/utils/route-cookie'
-import { openExternalLink } from '@/@shared/utils/link'
+import { openExternalLink } from '@shared/utils/link'
 
 import { HOME } from '@shared/router/names'
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const route = useRoute()
   const router = useRouter()
-  const { extendSession, removeSession, restoreSession } = useSessionLifetime()
+  const sessionLifetimeStore = useSessionLifetimeStore()
   const { on } = useDispatcher()
 
   const isLoggedIn: Ref<boolean> = ref(false)
@@ -56,7 +56,9 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function sessionRestore() {
-    if (restoreSession()) {
+    const restore = sessionLifetimeStore.restoreSession()
+
+    if (restore) {
       return logIn()
     }
   }
@@ -64,12 +66,12 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   function onLoginChange(isLoggedIn: boolean) {
     // update session-cookie when isLoggedIn changes
     if (isLoggedIn) {
-      extendSession()
+      sessionLifetimeStore.extendSession()
       deleteRouteCookie()
       return
     }
 
-    removeSession()
+    sessionLifetimeStore.removeSession()
 
     // Possible fix for redirect to dus-i issue on logout
     // Cannot read properties of undefined (reading 'meta')

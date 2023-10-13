@@ -68,8 +68,8 @@ function onCreateDownloadLink() {
 <style lang="scss" scoped>
 .app-file-link {
   display: flex;
-  height: 100%;
   justify-content: center;
+  height: 100%;
 }
 
 .loader {

@@ -59,7 +59,9 @@
 
 <script setup lang="ts">
 import type { FormData } from '@shared/types/form'
+
 import { computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { translate } from '@shared/i18n'
 
@@ -71,8 +73,8 @@ import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
-import { useRouter } from 'vue-router'
-import { PREVIEW_CASE_SUBMIT } from '../router/names'
+
+import { PREVIEW_CASE_SUBMIT } from '@assessment/router/names'
 
 type Props = {
   id: string

@@ -148,15 +148,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form-row {
-  &.inline {
-    .form-row-field {
-      display: inline-block;
+.form-row.inline {
+  .form-row-field {
+    display: inline-block;
+  }
 
-      &-label {
-        margin: 0;
-      }
-    }
+  .form-row-field-label {
+    margin: 0;
   }
 }
 </style>

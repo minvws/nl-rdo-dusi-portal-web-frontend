@@ -74,12 +74,12 @@ import { useSEO } from '@shared/composables/useSeo'
 import { useFetchCases } from '@assessment/composables/useFetchCases'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppIntro from '@/@shared/components/AppIntro/AppIntro.vue'
+import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
-import { hasItems } from '@/@shared/utils/app-table'
+import { hasItems } from '@shared/utils/app-table'
 
 type Props = {
   type: CaseType

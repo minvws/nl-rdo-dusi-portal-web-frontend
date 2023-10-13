@@ -20,7 +20,7 @@ import { useDispatcher } from '@shared/store/useDispatcher'
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000
 const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when the user is prompt to extend its session
 
-export const useSessionLifetime = defineStore('useSessionLifetime', () => {
+export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', () => {
   const { dispatch } = useDispatcher()
   const { openModal, closeModal } = useAppModal()
 

@@ -1,6 +1,7 @@
-import { Case, type CaseType } from '@shared/types/cases'
-
 import type { Ref } from 'vue'
+import type { CaseType } from '@shared/types/cases'
+
+import { Case } from '@shared/types/cases'
 
 import { computed, ref, watch } from 'vue'
 

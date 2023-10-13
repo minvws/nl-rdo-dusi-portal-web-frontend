@@ -106,61 +106,17 @@ const items = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-$padding: 0.7rem 0;
 .cards {
   width: 100%;
 }
-.card {
-  --width: 140px;
-  @include desktop {
-    --width: 236px;
-  }
 
+.card {
   width: 100%;
   max-width: var(--max-line-length-max-width);
+  margin: 0 0 1em 0;
   padding-top: 1rem;
   padding-bottom: 0.5rem;
-  margin: 0 0 1em 0;
   border: 1px solid var(--grey-2);
-
-  &-title {
-    padding-bottom: 1rem;
-  }
-
-  &-row {
-    width: 100%;
-    display: block;
-    border-bottom: 1px solid var(--grey-2);
-
-    &:last-child {
-      border: none;
-    }
-  }
-
-  &-name {
-    display: inline-flex;
-    height: 100%;
-    width: var(--width);
-    padding: $padding;
-  }
-
-  &-component {
-    display: inline-flex;
-    width: 100%;
-    padding: $padding;
-    background-color: transparent;
-    border: none;
-
-    &.with-label {
-      width: calc(100% - var(--width));
-    }
-
-    @include mobile {
-      .button-link {
-        width: 100%;
-      }
-    }
-  }
 
   .has-icon,
   .html {
@@ -170,8 +126,56 @@ $padding: 0.7rem 0;
   .error {
     color: var(--notification-error-intense-default, #d52a1e);
   }
+
   .confirmation {
     color: var(--notification-success-intense-default, #348834);
+  }
+}
+
+.card-title {
+  padding-bottom: 1rem;
+}
+
+.card-row {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid var(--grey-2);
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.card-name {
+  --width: 140px;
+
+  display: inline-flex;
+  width: var(--width);
+  height: 100%;
+  padding: 0.7rem 0;
+
+  @include desktop {
+    --width: 236px;
+  }
+}
+
+.card-component {
+  --width: 140px;
+
+  display: inline-flex;
+  width: 100%;
+  padding: 0.7rem 0;
+  border: none;
+  background-color: transparent;
+
+  @include mobile {
+    .button-link {
+      width: 100%;
+    }
+  }
+
+  &.with-label {
+    width: calc(100% - var(--width));
   }
 }
 </style>

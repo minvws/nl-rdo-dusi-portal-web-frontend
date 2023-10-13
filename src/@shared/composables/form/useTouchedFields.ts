@@ -6,7 +6,8 @@ import { storeToRefs } from 'pinia'
 import { useTouchedFieldsStore } from '@shared/store/useTouchedFieldsStore'
 
 export const useTouchedFields = ({ activeForm }: { activeForm: ComputedRef<{ id: string }> }) => {
-  const { touched } = storeToRefs(useTouchedFieldsStore())
+  const touchedFieldsStore = useTouchedFieldsStore()
+  const { touched } = storeToRefs(touchedFieldsStore)
 
   const getTouchedField = (id: string, formId: string) => {
     return !!touched.value?.[formId]?.[id]

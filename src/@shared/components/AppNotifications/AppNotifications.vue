@@ -14,22 +14,26 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-const { notifications } = useNotificationsStore()
+const notificationsStore = useNotificationsStore()
+
+const { notifications } = storeToRefs(notificationsStore)
 </script>
 
 <style lang="scss" scoped>
 .notification {
-  border: none;
   padding-left: 0;
+  border: none;
 }
 
 .notification-sticky {
   position: sticky;
-  top: 0;
   z-index: 1;
+  top: 0;
 }
 </style>

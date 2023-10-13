@@ -29,9 +29,11 @@ const text = computed(() => {
 <style lang="scss" scoped>
 span {
   margin-bottom: 0.5em;
+
   @include mobile {
     margin: 0;
   }
+
   &.required {
     // hide required fields
     display: none;

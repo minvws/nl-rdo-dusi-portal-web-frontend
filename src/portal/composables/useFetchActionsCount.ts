@@ -5,7 +5,8 @@ import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncrypti
 import { storeToRefs } from 'pinia'
 
 export const useFetchActionsCount = () => {
-  const { isLoggedIn } = storeToRefs(useAuthStore())
+  const authStore = useAuthStore()
+  const { isLoggedIn } = storeToRefs(authStore)
   const url = useApiActionsCountUrl()
   const {
     data: json,

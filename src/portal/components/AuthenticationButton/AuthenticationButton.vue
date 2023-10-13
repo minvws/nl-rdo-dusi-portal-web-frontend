@@ -15,11 +15,10 @@ import { useAuthStore } from '@portal/store/useAuthStore'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 const authStore = useAuthStore()
-const { logOut, onAuthenticate } = authStore
 const { isLoggedIn } = storeToRefs(authStore)
 
 function onButtonClick() {
-  isLoggedIn.value ? logOut() : onAuthenticate()
+  isLoggedIn.value ? authStore.logOut() : authStore.onAuthenticate()
 }
 
 const buttonLabel = computed(() => {

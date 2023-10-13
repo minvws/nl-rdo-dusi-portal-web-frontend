@@ -121,7 +121,7 @@ import {
   isAppButton,
   isIcon,
   getRouterLinkClasses
-} from '@/@shared/utils/app-table'
+} from '@shared/utils/app-table'
 
 type Props = {
   caption?: string

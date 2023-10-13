@@ -1,13 +1,13 @@
-import type { CaseHistory } from '@/@shared/types/case-history'
+import type { CaseHistory } from '@shared/types/case-history'
 
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useApiCaseHistoryUrl } from '@assessment/composables/useApiUrl'
 
-import { formatDateWithTime } from '@/@shared/utils/date'
-import { AssessmentsDataType } from '@/@shared/types/table'
-import { hasItems } from '@/@shared/utils/app-table'
-import { translate } from '@/@shared/i18n'
+import { formatDateWithTime } from '@shared/utils/date'
+import { AssessmentsDataType } from '@shared/types/table'
+import { hasItems } from '@shared/utils/app-table'
+import { translate } from '@shared/i18n'
 
 const COLUMNS = {
   updatedAt: {

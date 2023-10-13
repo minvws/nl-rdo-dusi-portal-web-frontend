@@ -124,8 +124,8 @@ function onPageChange(index: number) {
 }
 .pagination ul {
   display: flex;
-  justify-content: center;
   flex: 0 1 calc(100% - (var(--pagination-adjacent-button-width) * 2));
+  justify-content: center;
   overflow-x: auto;
 }
 

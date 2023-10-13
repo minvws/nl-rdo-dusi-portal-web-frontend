@@ -1,14 +1,14 @@
 import { computed, watch } from 'vue'
 
-import { translate } from '@/@shared/i18n'
+import { translate } from '@shared/i18n'
 
-import { useFetchWithCredentials } from '@/@shared/composables/useFetchWithCredentials'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import {
   useApiCaseTransitionPreviewUrl,
   useApiCaseTransitionPreviewSubmitUrl
 } from '@assessment/composables/useApiUrl'
 
-import { statusToIcon } from '@/@shared/utils/mappers'
+import { statusToIcon } from '@shared/utils/mappers'
 import { useRouter } from 'vue-router'
 
 export const useApiCaseTransitionPreview = (id: string) => {

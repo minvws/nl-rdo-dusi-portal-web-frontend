@@ -77,6 +77,7 @@ function onFocus(e: Event) {
 <style lang="scss" scoped>
 .file-control {
   position: relative;
+
   input[type='file'] {
     color: transparent;
   }

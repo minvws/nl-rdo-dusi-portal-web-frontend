@@ -99,13 +99,6 @@ function onButtonClick(index: number) {
 
 <style lang="scss" scoped>
 .form-stepper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 0;
-  gap: 0.75rem;
-  overflow: hidden;
-
   --stepper-step-height: 55px;
   --stepper-arrow-size: 15px;
   --stepper-border-size: 12px;
@@ -115,11 +108,14 @@ function onButtonClick(index: number) {
   --stepper-after-position-left: calc(50% - calc(var(--stepper-arrow-size) / 2));
   --stepper-after-position-transform: rotate(90deg) translateX(-9px);
 
-  &.large {
-    flex-direction: row;
-    width: auto;
-    overflow: visible;
+  display: flex;
+  gap: 0.75rem;
+  flex-direction: column;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
 
+  &.large {
     --stepper-step-height: 44px;
     --stepper-arrow-size: calc(var(--stepper-step-height) / 2);
     --stepper-border-size: 26px;
@@ -129,33 +125,24 @@ function onButtonClick(index: number) {
     --stepper-after-position-left: unset;
     --stepper-after-position-right: calc(var(--stepper-border-size) * -1);
     --stepper-after-position-transform: unset;
+
+    flex-direction: row;
+    width: auto;
+    overflow: visible;
   }
 
   li {
-    position: relative;
     display: flex;
+    position: relative;
     align-items: center;
     justify-content: center;
     width: 100%;
     max-width: 100%;
     height: var(--stepper-step-height);
-    background-color: var(--grey-1);
     padding: 0;
+    background-color: var(--grey-1);
 
     button {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-
-      width: 100%;
-      height: 100%;
-
-      font-family: var(--application-base-font-family);
-      white-space: nowrap;
-      border: none;
-
       --button-base-background-color: var(--grey-1);
       --button-base-border-color: var(--grey-1);
       --button-base-text-color: var(--ro-blue-text-color-dark);
@@ -163,12 +150,25 @@ function onButtonClick(index: number) {
       --button-base-active-border-color: var(--ro-blue);
       --button-base-active-text-color: var(--ro-blue-text-color-light);
 
+      display: flex;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      border: none;
+      font-family: var(--application-base-font-family);
+      text-decoration: none;
+      white-space: nowrap;
+
       &.large {
         padding: 0 1rem 0 3rem;
+
         &.last {
           padding: 0 2rem 0 3rem;
         }
       }
+
       &.first {
         padding-left: 1rem;
       }
@@ -176,30 +176,26 @@ function onButtonClick(index: number) {
       &:before {
         content: '';
         position: absolute;
-        width: 0;
-        height: 0;
-
         top: 0;
         left: var(--stepper-before-position-left);
+        width: 0;
+        height: 0;
         transform: var(--stepper-before-transform);
-
-        border-bottom: var(--stepper-arrow-size) solid transparent;
         border-top: var(--stepper-arrow-size) solid transparent;
+        border-bottom: var(--stepper-arrow-size) solid transparent;
         border-left: var(--stepper-border-size) solid var(--application-base-background-color);
       }
 
       &:after {
         content: '';
         position: absolute;
+        z-index: 1;
+        top: var(--stepper-after-position-top);
+        right: var(--stepper-after-position-right);
+        left: var(--stepper-after-position-left);
         width: 0;
         height: 0;
-        z-index: 1;
-
-        top: var(--stepper-after-position-top);
-        left: var(--stepper-after-position-left);
-        right: var(--stepper-after-position-right);
         transform: var(--stepper-after-position-transform);
-
         border-top: var(--stepper-arrow-size) solid transparent;
         border-bottom: var(--stepper-arrow-size) solid transparent;
         border-left: var(--stepper-border-size) solid var(--grey-1);
@@ -215,10 +211,9 @@ function onButtonClick(index: number) {
       &.active {
         color: var(--button-base-hover-text-color);
       }
-      &:hover {
-        &:after {
-          border-left: var(--stepper-border-size) solid var(--button-base-hover-background-color);
-        }
+
+      &:hover:after {
+        border-left: var(--stepper-border-size) solid var(--button-base-hover-background-color);
       }
 
       &:focus {
@@ -228,6 +223,7 @@ function onButtonClick(index: number) {
         &:after {
           border-left: var(--stepper-border-size) solid var(--button-base-focus-background-color);
         }
+
         &.active,
         &:active {
           &:after {
@@ -246,8 +242,9 @@ function onButtonClick(index: number) {
       &:hover:disabled {
         // when step is disabled, do not set the hover classes for touch devices
         @include is-touch-device {
-          color: var(--button-base-text-color);
           background: var(--button-base-background-color);
+          color: var(--button-base-text-color);
+
           &:after {
             border-left: var(--stepper-border-size) solid var(--button-base-background-color);
           }

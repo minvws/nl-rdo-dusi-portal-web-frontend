@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User } from '@shared/types/user'
 import type { UserRoleType } from '@shared/types/user'
-import { type NotificationDisplayType, NotificationType } from '@/@shared/types/notification'
+import { type NotificationDisplayType, NotificationType } from '@shared/types/notification'
 
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -18,21 +18,21 @@ import {
   useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useSessionLifetime } from '@shared/store/useSessionLifetime'
-import { useDispatcher } from '@/@shared/store/useDispatcher'
+import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
+import { useDispatcher } from '@shared/store/useDispatcher'
 
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
-import { fromCamelCaseToSnakeCase } from '@/@shared/utils/format'
-import { SessionType } from '@/@shared/types/session'
+import { fromCamelCaseToSnakeCase } from '@shared/utils/format'
+import { SessionType } from '@shared/types/session'
 
 const useCredentials = !import.meta.env.PROD
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
-  const { extendSession, removeSession } = useSessionLifetime()
+  const sessionLifetimeStore = useSessionLifetimeStore()
   const { on } = useDispatcher()
 
   const user: Ref<User | null> = ref(null)
@@ -62,11 +62,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.ok) {
         user.value = null
         isLoggedIn.value = false
-        removeSession()
+        sessionLifetimeStore.removeSession()
       } else {
         user.value = json.data
         isLoggedIn.value = true
-        extendSession()
+        sessionLifetimeStore.extendSession()
       }
     } catch (error) {
       log('Error getting user info', error)
@@ -208,7 +208,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   function onLoginChange(isLoggedIn: boolean) {
     if (!isLoggedIn) {
-      removeSession()
+      sessionLifetimeStore.removeSession()
       router.push({ name: LOGIN_VIEW })
     }
   }

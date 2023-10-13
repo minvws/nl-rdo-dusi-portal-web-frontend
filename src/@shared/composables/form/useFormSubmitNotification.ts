@@ -5,13 +5,14 @@ import { translate } from '@shared/i18n'
 
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
+const NOTIFICATION_SUBMIT_ID = 'form-submit'
+const NOTIFICATION_SAVE_ID = 'form-save'
+
 export const useFormSubmitNotification = () => {
-  const notification = useNotificationsStore()
-  const NOTIFICATION_SUBMIT_ID = 'form-submit'
-  const NOTIFICATION_SAVE_ID = 'form-save'
+  const notificationsStore = useNotificationsStore()
 
   function setSubmitError(error?: Error) {
-    notification.add({
+    notificationsStore.add({
       message: translate('form.message.failed', { error: error?.message ?? '' }) || '',
       displayAs: 'error',
       id: NOTIFICATION_SUBMIT_ID,
@@ -20,7 +21,7 @@ export const useFormSubmitNotification = () => {
   }
 
   function setSubmitSuccess() {
-    notification.add({
+    notificationsStore.add({
       message: translate('form.message.success') || '',
       displayAs: 'confirmation',
       id: NOTIFICATION_SUBMIT_ID,
@@ -29,7 +30,7 @@ export const useFormSubmitNotification = () => {
   }
 
   function setSaveError(error?: Error) {
-    notification.add({
+    notificationsStore.add({
       message: translate('form.message.save-failed', { error: error?.message ?? '' }) || '',
       displayAs: 'error',
       id: NOTIFICATION_SAVE_ID
@@ -37,7 +38,7 @@ export const useFormSubmitNotification = () => {
   }
 
   function setSaveSuccess() {
-    notification.add({
+    notificationsStore.add({
       message: translate('form.message.save-success') || '',
       displayAs: 'confirmation',
       id: NOTIFICATION_SAVE_ID

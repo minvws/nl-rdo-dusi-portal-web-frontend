@@ -1,4 +1,5 @@
-import { AssessmentsDataType, type AssessmentsDataTypes } from '@shared/types/table'
+import type { AssessmentsDataTypes } from '@shared/types/table'
+import { AssessmentsDataType } from '@shared/types/table'
 
 const isButtonLink = ({ type }: { type: AssessmentsDataTypes }) => {
   switch (type) {

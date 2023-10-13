@@ -35,6 +35,16 @@ import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestCards from '@portal/components/RequestCards/RequestCards.vue'
 
+const columns = [
+  { id: 'subsidy', sortable: false },
+  { id: 'file', sortable: false },
+  { id: 'created', sortable: false },
+  { id: 'deadline', sortable: false },
+  { id: 'status', sortable: false },
+  { id: 'actionRequired', sortable: false },
+  { id: 'action', sortable: false }
+]
+
 useSEO({
   title: `${translate('pages.my-requests-overview.title')} | ${translate('app.prefix')}`
 })
@@ -42,15 +52,7 @@ useSEO({
 const { data, error, isFetching } = useFetchRequests()
 
 const headings = computed(() =>
-  [
-    { id: 'subsidy', sortable: false },
-    { id: 'file', sortable: false },
-    { id: 'created', sortable: false },
-    { id: 'deadline', sortable: false },
-    { id: 'status', sortable: false },
-    { id: 'actionRequired', sortable: false },
-    { id: 'action', sortable: false }
-  ].map(item => ({
+  columns.map(item => ({
     ...item,
     text: translate(`pages.my-requests-overview.table.${item.id}`)
   }))

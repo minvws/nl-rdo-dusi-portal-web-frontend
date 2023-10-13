@@ -28,7 +28,7 @@ import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupContro
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
-import { InputType } from '@/@shared/types/input'
+import { InputType } from '@shared/types/input'
 
 export default defineComponent({
   components: {

@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import AppLoader from '@/@shared/components/AppLoader/AppLoader.vue'
+import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 </script>

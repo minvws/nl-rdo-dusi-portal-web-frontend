@@ -63,20 +63,22 @@ function asArray(arg: VNodeChild) {
   display: flex;
   flex-direction: column;
 
-  &.center {
-    align-items: center;
-  }
-
   @include mobile {
     gap: 0.2rem;
+  }
+
+  &.center {
+    align-items: center;
   }
 
   &.multiple {
     @include desktop {
       flex-direction: row;
+
       * {
         flex: 0.75;
         align-items: center;
+
         &:first-child {
           flex: 0.25;
         }

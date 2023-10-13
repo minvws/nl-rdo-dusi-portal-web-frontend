@@ -154,19 +154,17 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.form-results-table {
-  &-row {
-    display: flex;
-    flex-direction: row;
-    background-color: var(--grey-1);
+.form-results-table-row {
+  display: flex;
+  flex-direction: row;
+  background-color: var(--grey-1);
 
-    &:nth-child(odd) {
-      background-color: white;
-    }
+  &:nth-child(odd) {
+    background-color: white;
+  }
 
-    div {
-      padding: 0.5rem 1rem;
-    }
+  div {
+    padding: 0.5rem 1rem;
   }
 }
 </style>

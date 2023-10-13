@@ -15,7 +15,7 @@ import { log } from '@shared/utils/logger'
 export const useFormDraft = (formId: Ref<string>) => {
   const { setDraft } = useActiveForm()
   const router = useRouter()
-  const notification = useNotificationsStore()
+  const notificationsStore = useNotificationsStore()
 
   function getDisplayType(code: string): NotificationDisplayType {
     switch (code) {
@@ -39,7 +39,7 @@ export const useFormDraft = (formId: Ref<string>) => {
     } = await useFetchWithEncryption(url, options).json()
 
     if (error?.code) {
-      notification.add({
+      notificationsStore.add({
         message:
           translate(`form.message.${error.code}`) ||
           translate('form.message.loadingError', { error: error.message }) ||
