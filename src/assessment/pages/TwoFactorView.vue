@@ -64,6 +64,7 @@ const twoFactorForm = [
                   scope: '#/properties/code',
                   label: 'Code',
                   options: {
+                    autofocus: true,
                     placeholder: '123456',
                     tip: 'Voer de zescijferige code in van uw authenticator-app.'
                   }
