@@ -20,7 +20,6 @@ export const useForgotPassword = () => {
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
   const options: RequestInit = {
-    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json'
