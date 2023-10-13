@@ -25,7 +25,7 @@ import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
-import { fromCamelCaseToSnakeCase } from '@shared/utils/format'
+import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { SessionType } from '@shared/types/session'
 
 const useCredentials = !import.meta.env.PROD
@@ -158,13 +158,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }) {
     try {
       const url = useApiPasswordUpdateUrl()
-      const data = Object.entries(payload).reduce(
-        (cul, [key, value]) => {
-          if (value) return { ...cul, [fromCamelCaseToSnakeCase(key)]: value }
-          return cul
-        },
-        {} as Record<string, string>
-      )
+      const data = formatPayloadFromCamelCaseToSnakeCase(payload)
 
       const options: RequestInit = {
         method: 'PUT',
