@@ -18,6 +18,7 @@
       <FilterTabs
         :items="filters"
         :selected="params?.id"
+        :disabled="isFetching || isFetchingFilters"
         @change="onFilterChange"
       />
     </AppSuspense>
@@ -26,8 +27,9 @@
         auto-close
         :type="type"
         v-model="query"
+        :disabled="isFetching || isFetchingFilters"
       >
-        <p v-if="query">
+        <p :class="{ transparent: !query || isFetching || isFetchingFilters }">
           <span>{{ numberOfCases }}</span>
           {{ t('cases', {}, numberOfCases) }}
         </p>
@@ -140,5 +142,9 @@ main section {
 
 .filter-options-container {
   min-height: 45px;
+}
+
+.transparent {
+  opacity: 0;
 }
 </style>
