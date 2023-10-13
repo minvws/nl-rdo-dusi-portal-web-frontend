@@ -13,7 +13,8 @@
           v-if="tip"
           v-bind="{
             displayAs: 'explanation',
-            message: tip
+            message: tip,
+            htmlId: `${id}-explanation`
           }"
         />
       </template>
@@ -66,7 +67,7 @@
       :has-left="true"
     >
       <template #right>
-        <FormFieldError v-bind="{ errors }" />
+        <FormFieldError v-bind="{ errors, id: `${id}-error` }" />
       </template>
     </FormRowElement>
   </div>
