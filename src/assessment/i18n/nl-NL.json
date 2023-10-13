@@ -124,6 +124,12 @@
       "email": { "title": "E-mail", "label": "E-mailadres" },
       "password": "Wachtwoord",
       "forgotPassword": "Wachtwoord vergeten"
+    },
+    "twoFactor": {
+      "label": "Twee-staps verificatiecode",
+      "placeholder": "123456",
+      "submit": "Verstuur code",
+      "tip": "Voer de zescijferige code in van uw authenticator-app."
     }
   },
   "pages": {
@@ -188,8 +194,7 @@
       }
     },
     "two-factor": {
-      "title": "Twee-staps verificatie",
-      "submit": "Verstuur code"
+      "title": "Twee-staps verificatie"
     },
     "update-password": {
       "title": "Wachtwoord wijzigen",
