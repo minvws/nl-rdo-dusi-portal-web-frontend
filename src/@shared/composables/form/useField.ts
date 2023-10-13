@@ -149,14 +149,7 @@ export const useField = ({
       return {
         props: {
           ...input,
-          items: control.schema.enum?.map(radio => {
-            return {
-              ...input,
-              id: radio,
-              value: radio,
-              checked: radio === control.data
-            }
-          })
+          control
         },
         tag: 'FormRadioControl'
       }
