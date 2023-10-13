@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router'
 
 import { translate } from '@shared/i18n'
 import { useFetch } from '@vueuse/core'
+import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
 import { useApiForgotPasswordUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
@@ -23,21 +24,19 @@ export const useForgotPassword = () => {
 
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
-  const options: RequestInit = {
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    }
-  }
-  const { execute, isFinished, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), options, {
-    immediate: false,
-    onFetchError: ctx => {
-      if (ctx.data && ctx.data.message) {
-        ctx.error = new Error(ctx.data.message)
+  const { execute, isFinished, error, ...fetch } = useFetch(
+    useApiForgotPasswordUrl(),
+    JSONRequestHeaders,
+    {
+      immediate: false,
+      onFetchError: ctx => {
+        if (ctx.data && ctx.data.message) {
+          ctx.error = new Error(ctx.data.message)
+        }
+        return ctx
       }
-      return ctx
     }
-  })
+  )
     .post(payload)
     .json()
 
