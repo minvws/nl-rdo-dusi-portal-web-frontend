@@ -48,3 +48,13 @@ export function formatMessagesData(data: any) {
 
 export const fromCamelCaseToSnakeCase = (target: string) =>
   target.replace(/[A-Z]/g, char => `_${char.toLowerCase()}`)
+
+export const formatPayloadFromCamelCaseToSnakeCase = (payload: Record<string, string>) => {
+  return Object.entries(payload).reduce(
+    (cul, [key, value]) => {
+      if (value) return { ...cul, [fromCamelCaseToSnakeCase(key)]: value }
+      return cul
+    },
+    {} as Record<string, string>
+  )
+}

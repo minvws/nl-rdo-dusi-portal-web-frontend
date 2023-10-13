@@ -20,11 +20,12 @@ import {
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 import { useDispatcher } from '@shared/store/useDispatcher'
+import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
-import { fromCamelCaseToSnakeCase } from '@shared/utils/format'
+import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { SessionType } from '@shared/types/session'
 
 const useCredentials = !import.meta.env.PROD
@@ -52,9 +53,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const options: RequestInit = {
         method: 'GET',
         credentials: 'include',
-        headers: {
-          Accept: 'application/json'
-        }
+        ...JSONRequestHeaders
       }
       const response = await fetch(url, options)
       const json = await response.json()
@@ -79,10 +78,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const options: RequestInit = {
         method: 'POST',
         credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        }
+        ...JSONRequestHeaders
       }
       const response = await fetch(url, options)
 
@@ -100,10 +96,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const url = useApiLoginUrl()
       const options: RequestInit = {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
+        ...JSONRequestHeaders,
         ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(credentials)
       }
@@ -135,10 +128,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const url = useApiTwoFactorChallengeUrl()
       const options: RequestInit = {
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
+        ...JSONRequestHeaders,
         credentials: 'include',
         body: JSON.stringify({ code })
       }
@@ -168,20 +158,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }) {
     try {
       const url = useApiPasswordUpdateUrl()
-      const data = Object.entries(payload).reduce(
-        (cul, [key, value]) => {
-          if (value) return { ...cul, [fromCamelCaseToSnakeCase(key)]: value }
-          return cul
-        },
-        {} as Record<string, string>
-      )
+      const data = formatPayloadFromCamelCaseToSnakeCase(payload)
 
       const options: RequestInit = {
         method: 'PUT',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
+        ...JSONRequestHeaders,
         ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(data)
       }

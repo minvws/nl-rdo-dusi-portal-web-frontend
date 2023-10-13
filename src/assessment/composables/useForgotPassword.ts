@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router'
 
 import { translate } from '@shared/i18n'
 import { useFetch } from '@vueuse/core'
+import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
 import { useApiForgotPasswordUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
@@ -23,9 +24,21 @@ export const useForgotPassword = () => {
 
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
-  const { execute, isFinished, error, ...fetch } = useFetch(useApiForgotPasswordUrl(), {
-    immediate: false
-  }).post(payload)
+  const { execute, isFinished, error, ...fetch } = useFetch(
+    useApiForgotPasswordUrl(),
+    JSONRequestHeaders,
+    {
+      immediate: false,
+      onFetchError: ctx => {
+        if (ctx.data && ctx.data.message) {
+          ctx.error = new Error(ctx.data.message)
+        }
+        return ctx
+      }
+    }
+  )
+    .post(payload)
+    .json()
 
   const forms = computed(() => [
     {
@@ -89,7 +102,7 @@ export const useForgotPassword = () => {
   watch(isFinished, isFinished => {
     if (!isFinished) return
     if (error.value) {
-      showNotification(NotificationType.ERROR, error.value)
+      showNotification(NotificationType.ERROR, error.value.message)
       return
     }
     showNotification(NotificationType.CONFIRMATION)
