@@ -9,7 +9,7 @@
           id: 'two-factor',
           forms: twoFactorForm,
           hideDebug: true,
-          buttonLabels: { submit: translate('pages.two-factor.submit') }
+          buttonLabels: { submit: translate('component.twoFactor.submit') }
         }"
         @submit="onSubmit"
       />
@@ -62,11 +62,11 @@ const twoFactorForm = [
                 {
                   type: 'CustomControl',
                   scope: '#/properties/code',
-                  label: 'Code',
+                  label: translate('component.twoFactor.label'),
                   options: {
                     autofocus: true,
-                    placeholder: '123456',
-                    tip: 'Voer de zescijferige code in van uw authenticator-app.'
+                    placeholder: translate('component.twoFactor.placeholder'),
+                    tip: translate('component.twoFactor.tip')
                   }
                 }
               ]
