@@ -1,5 +1,8 @@
 <template>
-  <div class="error">
+  <div
+    class="error"
+    :id="id"
+  >
     <div class="error-inner">
       <p
         :key="`error-${index}`"
@@ -15,6 +18,7 @@ import { computed } from 'vue'
 
 type Props = {
   errors: string
+  id?: string
 }
 
 const props = defineProps<Props>()

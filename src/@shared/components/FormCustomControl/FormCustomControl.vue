@@ -8,6 +8,8 @@
       @change="onBeforeChange"
       @focus="onFocus"
       @blur="onBlur"
+      :aria-describedby="`${control.id}-explanation ${control.id}-error`"
+      :aria-invalid="wrapperProps.errors ? 'true' : undefined"
     />
   </FormRow>
 </template>

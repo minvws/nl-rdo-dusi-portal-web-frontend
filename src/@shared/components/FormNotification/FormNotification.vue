@@ -2,6 +2,7 @@
   <div
     class="form-notification"
     :class="[{ dismissable: dismissable }, displayAs]"
+    :id="htmlId"
   >
     <div>
       <AppHtml
@@ -39,6 +40,7 @@ type Props = Notification & {
   dismissable?: boolean
   id?: string
   announce?: boolean
+  htmlId?: string
 }
 
 const props = defineProps<Props>()
