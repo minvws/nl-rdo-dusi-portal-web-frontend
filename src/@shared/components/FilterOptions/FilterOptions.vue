@@ -46,6 +46,7 @@ type Props = {
   type: FormOptions
   autoClose?: boolean
   disabled?: boolean
+  modelValue?: FormData
 }
 const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue', 'close'])
