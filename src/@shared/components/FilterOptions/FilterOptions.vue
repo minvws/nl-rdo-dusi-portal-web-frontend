@@ -55,9 +55,15 @@ const { forms, error } = useFetchFilterOptions(props.type)
 
 function onSubmit(data: FormData) {
   emit('update:modelValue', data)
-  if (!props.autoClose) return
+
+  if (!props.autoClose) {
+    return
+  }
+
   const button = el.value?.querySelector('button')
-  if (toggleAriaExpanded(button, true)) {
+  const notExpanded = toggleAriaExpanded(button, true)
+
+  if (notExpanded) {
     // filter is closed, scroll to top
     scrollTo(0, 0)
   }
