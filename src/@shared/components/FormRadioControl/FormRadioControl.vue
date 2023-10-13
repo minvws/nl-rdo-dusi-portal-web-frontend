@@ -22,8 +22,8 @@
 </template>
 <script setup lang="ts">
 import type { Control } from '@shared/types/field'
-import { computed } from 'vue'
 import type { InputType } from '@/@shared/types/input'
+import { computed } from 'vue'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
 
