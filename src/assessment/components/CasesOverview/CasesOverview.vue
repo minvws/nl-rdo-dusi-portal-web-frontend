@@ -29,10 +29,13 @@
         v-model="query"
         :disabled="isFetching || isFetchingFilters"
       >
-        <p :class="{ transparent: !query || isFetching || isFetchingFilters }">
-          <span>{{ numberOfCases }}</span>
+        <span :class="{ transparent: !query || isFetching || isFetchingFilters }">
+          {{ numberOfCases }}
           {{ t('cases', {}, numberOfCases) }}
-        </p>
+          <template v-if="activeFilterCount">
+            - ({{ t('activeFilters', { count: activeFilterCount }, activeFilterCount) }})
+          </template>
+        </span>
         <AppButton
           :data-show-filters-label="t('showFilters')"
           aria-expanded="false"
@@ -105,6 +108,13 @@ const {
 } = useFetchCases(props)
 
 const numberOfCases = computed(() => data.value.length ?? 0)
+
+const activeFilterCount = computed(() =>
+  Object.keys(query.value ?? {}).reduce(
+    (count, key) => (query.value && query.value[key].length ? count++ : count),
+    0
+  )
+)
 
 const headings = computed(() => {
   const items = [
