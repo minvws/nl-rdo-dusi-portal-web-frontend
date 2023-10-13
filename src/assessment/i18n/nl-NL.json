@@ -126,7 +126,7 @@
       "forgotPassword": "Wachtwoord vergeten"
     },
     "twoFactor": {
-      "label": "Code",
+      "label": "Twee-staps verificatiecode",
       "placeholder": "123456",
       "submit": "Verstuur code",
       "tip": "Voer de zescijferige code in van uw authenticator-app."
