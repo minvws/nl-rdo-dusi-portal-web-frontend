@@ -15,10 +15,11 @@ import { getControlId } from '@shared/utils/control'
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFileStore = defineStore('useFileStore', () => {
-  const files = ref({} as Record<string, Record<string, File>>)
-  const pending = ref({} as Record<string, Record<string, boolean>>)
   const form = useForms()
   const { encrypt } = useEncryption()
+
+  const files: Ref<Record<string, Record<string, File>>> = ref({})
+  const pending: Ref<Record<string, Record<string, boolean>>> = ref({})
 
   async function addFile(name: string, file: File, error?: Ref<string>) {
     const { id } = form.activeForm.value

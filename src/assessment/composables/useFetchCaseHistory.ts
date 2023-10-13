@@ -1,13 +1,13 @@
-import type { CaseHistory } from '@/@shared/types/case-history'
+import type { CaseHistory } from '@shared/types/case-history'
 
 import { computed } from 'vue'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useApiCaseHistoryUrl } from '@assessment/composables/useApiUrl'
 
-import { formatDateWithTime } from '@/@shared/utils/date'
-import { AssessmentsDataType } from '@/@shared/types/table'
-import { hasItems } from '@/@shared/utils/app-table'
-import { translate } from '@/@shared/i18n'
+import { formatDateWithTime } from '@shared/utils/date'
+import { AssessmentsDataType } from '@shared/types/table'
+import { hasItems } from '@shared/utils/app-table'
+import { translate } from '@shared/i18n'
 
 const COLUMNS = {
   updatedAt: {
@@ -55,17 +55,15 @@ export const useFetchCaseHistory = (id: string) => {
 
   const data = computed(() => (json.value ? transform(json.value.data) : []))
 
-  const columns = computed(() => {
-    return Object.entries(COLUMNS)
-      .map(([id, { sortable }]) => {
-        return {
-          id,
-          sortable,
-          text: translate(`component.caseHistoryColumn.${id}`)
-        }
-      })
+  const columns = computed(() =>
+    Object.entries(COLUMNS)
+      .map(([id, { sortable }]) => ({
+        id,
+        sortable,
+        text: translate(`component.caseHistoryColumn.${id}`)
+      }))
       .filter(({ id }) => !!hasItems(data.value, id))
-  })
+  )
 
   return {
     data,

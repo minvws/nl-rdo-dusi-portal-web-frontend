@@ -1,5 +1,6 @@
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
-import { FormUiTypes, type Form, type FormData } from '@shared/types/form'
+import type { Form, FormData } from '@shared/types/form'
+import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 
 import { computed, inject } from 'vue'
@@ -9,7 +10,7 @@ import { getControlId, getLinkedControlId } from '@shared/utils/control'
 
 import { useFormStorage } from '@shared/store/useFormStorage'
 import { useClearForm } from '@shared/composables/form/useClearForm'
-import { transformFormValues } from '@/@shared/utils/form'
+import { transformFormValues } from '@shared/utils/form'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as { id: string; hideRequiredLabel?: boolean }

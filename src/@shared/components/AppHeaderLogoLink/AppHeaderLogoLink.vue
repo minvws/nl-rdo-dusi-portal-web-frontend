@@ -29,9 +29,9 @@ const logo = {
 
 <style lang="scss" scoped>
 .app-header-logo-link {
-  text-decoration: none;
   position: relative;
   left: -5px;
+  text-decoration: none;
 
   .logo-desktop {
     display: none;

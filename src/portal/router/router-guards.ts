@@ -4,8 +4,6 @@ import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
 
-import { useApiLoginUrl } from '@portal/composables/useApiUrl'
-
 import { log } from '@shared/utils/logger'
 import { notFoundLoggedOutRedirectLink } from '@shared/external-links'
 import { openExternalLink } from '@shared/utils/link'
@@ -43,7 +41,7 @@ export const beforeEach = async (
 
   if (!isLoggedIn.value) {
     log('page is non-public and user is not logged-in. goto api-login')
-    openExternalLink(useApiLoginUrl())
+    authStore.onAuthenticate()
     return next(false)
   }
 

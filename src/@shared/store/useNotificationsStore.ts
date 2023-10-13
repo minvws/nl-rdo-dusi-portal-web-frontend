@@ -1,15 +1,17 @@
 import type { Ref } from 'vue'
 import type { Notification } from '@shared/types/notification'
 
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { defineStore } from 'pinia'
 import { useRouter } from 'vue-router'
 
+type AppNotification = Notification & { id: string; pageChangeCount?: number }
+
 export const useNotificationsStore = defineStore('useNotificationsStore', () => {
-  type AppNotification = Notification & { id: string; pageChangeCount?: number }
+  const router = useRouter()
+
   const notifications: Ref<AppNotification[]> = ref([])
   const isDeleting: Ref<boolean> = ref(false)
-  const router = useRouter()
 
   function removeById(id: string) {
     isDeleting.value = true
@@ -44,7 +46,10 @@ export const useNotificationsStore = defineStore('useNotificationsStore', () => 
     // Remove all previous notifications with that id
     removeById(notification.id)
     // Add new notification to the top
-    notifications.value.unshift(notification)
+    // Using nextTick to ensure a new DOM element is used (for aria-live)
+    nextTick(() => {
+      notifications.value.unshift(notification)
+    })
   }
 
   router.beforeEach(() => removeOnPageChange())

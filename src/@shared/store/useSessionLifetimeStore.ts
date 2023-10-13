@@ -7,47 +7,31 @@ import { defineStore } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import { useAppModal } from '@shared/store/useAppModal'
-import { useAuthStore } from '@portal/store/useAuthStore'
-import { useApiLoginUrl } from '@portal/composables/useApiUrl'
-
 import { ModalType } from '@shared/types/modal'
 import { SessionType } from '@shared/types/session'
-
-import { openExternalLink } from '@shared/utils/link'
 
 import {
   getSessionCookie,
   removeSessionCookie,
   setSessionCookie
 } from '@shared/utils/session-cookie'
+import { useDispatcher } from '@shared/store/useDispatcher'
 
 const UPDATE_INTERVAL_IN_MILLISECONDS = 1000
 const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when the user is prompt to extend its session
 
-export const useSessionLifetime = defineStore('useSessionLifetime', () => {
-  const authStore = useAuthStore()
+export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', () => {
+  const { dispatch } = useDispatcher()
   const { openModal, closeModal } = useAppModal()
 
-  const init = ref(false)
-
+  const init: Ref<boolean> = ref(false)
   const duration: Ref<number | undefined> = ref(undefined)
   const elapsedTime: Ref<number> = ref(0)
   const lastTime: Ref<number> = ref(0)
 
   let interval: NodeJS.Timeout | undefined = undefined
 
-  const setSessionLifetime = (miliseconds?: number) => {
-    duration.value = miliseconds
-    elapsedTime.value = 0
-  }
-
-  const stopInterval = () => {
-    clearInterval(interval)
-  }
-
-  const timeLeft = computed(() => {
-    return duration.value ? duration.value - elapsedTime.value : 0
-  })
+  const timeLeft = computed(() => (duration.value ? duration.value - elapsedTime.value : 0))
 
   const aboutToExpire = computed(() => (duration.value ?? 0) * EXTEND_SESSION_FRACTION)
 
@@ -63,29 +47,19 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
     }
   })
 
-  const getModalButtons = (session: Session) => {
+  function getModalButtons(session: Session) {
     return [
       {
         label: translate(`authentication.modal.${session}.buttonLabel`) ?? '',
-        action: () => {
-          switch (session) {
-            case SessionType.EXPIRING:
-              // extend session
-              authStore.logIn(true)
-              break
-            case SessionType.EXPIRED:
-              // login
-              openExternalLink(useApiLoginUrl())
-              break
-          }
-        }
+        action: () => dispatch(session)
       }
     ]
   }
 
-  const getModal = (session: Session) => {
+  function getModal(session: Session) {
     const title = translate(`authentication.modal.${session}.title`) ?? ''
     const message = translate(`authentication.modal.${session}.message`) ?? ''
+
     return {
       type: ModalType.WARNING,
       title,
@@ -94,17 +68,26 @@ export const useSessionLifetime = defineStore('useSessionLifetime', () => {
     }
   }
 
-  const extendSession = () => {
+  function setSessionLifetime(miliseconds?: number) {
+    duration.value = miliseconds
+    elapsedTime.value = 0
+  }
+
+  function stopInterval() {
+    clearInterval(interval)
+  }
+
+  function extendSession() {
     const duration = setSessionCookie()
     setSessionLifetime(duration)
   }
 
-  const removeSession = () => {
+  function removeSession() {
     removeSessionCookie()
     setSessionLifetime(undefined)
   }
 
-  const restoreSession = () => {
+  function restoreSession() {
     if (init.value) return
     init.value = true
     return getSessionCookie()

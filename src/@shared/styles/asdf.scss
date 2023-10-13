@@ -1,0 +1,21 @@
+.card {
+  width: 100%;
+  max-width: var(--max-line-length-max-width);
+  margin: 0 0 1em 0;
+  padding-top: 1rem;
+  padding-bottom: 0.5rem;
+  border: 1px solid var(--grey-2);
+
+  .has-icon,
+  .html {
+    display: inline-block;
+  }
+
+  .error {
+    color: var(--notification-error-intense-default, #d52a1e);
+  }
+
+  .confirmation {
+    color: var(--notification-success-intense-default, #348834);
+  }
+}

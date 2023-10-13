@@ -114,6 +114,8 @@ export const useField = ({
   error: string
   handleChange?: (_path: string, _value: any) => void
 }) => {
+  const fileStore = useFileStore()
+
   switch (input.type) {
     case InputType.NUMBER:
     case InputType.INTEGER:
@@ -140,7 +142,7 @@ export const useField = ({
           value: undefined,
           control,
           error,
-          isPending: useFileStore().isUploadPending(control.id),
+          isPending: fileStore.isUploadPending(control.id),
           handleChange
         },
         tag: 'FormFileControl'
@@ -149,14 +151,7 @@ export const useField = ({
       return {
         props: {
           ...input,
-          items: control.schema.enum?.map(radio => {
-            return {
-              ...input,
-              id: radio,
-              value: radio,
-              checked: radio === control.data
-            }
-          })
+          control
         },
         tag: 'FormRadioControl'
       }

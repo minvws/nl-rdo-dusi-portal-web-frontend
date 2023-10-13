@@ -1,6 +1,6 @@
-import { passWordPlaceholder, emailPlaceholder } from '@/@shared/fixtures/form/data/placeholder'
+import { passWordPlaceholder, emailPlaceholder } from '@shared/fixtures/form/data/placeholder'
 
-import { translate } from '@/@shared/i18n'
+import { translate } from '@shared/i18n'
 
 import { computed } from 'vue'
 

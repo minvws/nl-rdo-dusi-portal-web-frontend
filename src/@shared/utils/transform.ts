@@ -1,5 +1,12 @@
-import { formatDate } from '@shared/utils/date'
+import type { ReviewerActionType } from '@shared/types/reviewer'
+import type {
+  RawAssessmentData,
+  AssessmentsData,
+  RawRequestData,
+  RequestData
+} from '@shared/types/table'
 
+import { formatDate } from '@shared/utils/date'
 import {
   caseStatusToTranslation,
   caseStatusToRouteName,
@@ -12,16 +19,8 @@ import {
   reviewerActionToRouteText
 } from '@shared/utils/mappers'
 
-import type {
-  RawAssessmentData,
-  AssessmentsData,
-  RawRequestData,
-  RequestData
-} from '@shared/types/table'
-
 import { AssessmentsDataType } from '@shared/types/table'
-
-import { ReviewerAction, type ReviewerActionType } from '@shared/types/reviewer'
+import { ReviewerAction } from '@shared/types/reviewer'
 
 /**
  * Transforms the 'all requests' data from the API to a format that we can use.

@@ -2,6 +2,7 @@
   <div
     v-if="forms"
     class="filter"
+    :class="{ disabled }"
     v-filters
   >
     <div ref="el"><slot /></div>
@@ -26,6 +27,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import type { FormOptions } from '@shared/types/form-options'
 import type { FormData } from '@shared/types/form'
 
@@ -43,14 +45,15 @@ import { toggleAriaExpanded } from '@shared/utils/button'
 type Props = {
   type: FormOptions
   autoClose?: boolean
+  disabled?: boolean
 }
 const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue', 'close'])
 
-const el = ref()
+const el: Ref = ref()
 const { forms, error } = useFetchFilterOptions(props.type)
 
-const onSubmit = (data: FormData) => {
+function onSubmit(data: FormData) {
   emit('update:modelValue', data)
   if (!props.autoClose) return
   const button = el.value?.querySelector('button')
@@ -60,3 +63,9 @@ const onSubmit = (data: FormData) => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.disabled {
+  pointer-events: none;
+}
+</style>

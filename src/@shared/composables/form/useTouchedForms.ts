@@ -12,7 +12,8 @@ export const useTouchedForms = ({
   formKey?: ComputedRef<string>
   activeForm: ComputedRef<{ id: string; index?: number }>
 }) => {
-  const { touched } = storeToRefs(useTouchedFormsStore())
+  const touchedFormsStore = useTouchedFormsStore()
+  const { touched } = storeToRefs(touchedFormsStore)
 
   const touchedForms = computed(() => {
     const id = activeForm.value?.id

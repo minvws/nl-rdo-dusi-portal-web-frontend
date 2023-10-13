@@ -1,12 +1,15 @@
-import { translate } from '@/@shared/i18n'
+import type { LocationQuery } from 'vue-router'
+import type { NotificationDisplayType } from '@shared/types/notification'
+
+import { translate } from '@shared/i18n'
 import { useFetch } from '@vueuse/core'
 
 import { watch } from 'vue'
 import { useApiPasswordResetUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useRouter, type LocationQuery } from 'vue-router'
+import { useRouter } from 'vue-router'
 
-import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
+import { NotificationType } from '@shared/types/notification'
 
 import { LOGIN_VIEW } from '@assessment/router/names'
 
@@ -14,15 +17,16 @@ const NOTIFICATION_ID = 'password-reset'
 
 export const usePasswordReset = ({ email, token }: LocationQuery) => {
   const router = useRouter()
-  const notifications = useNotificationsStore()
+  const notificationsStore = useNotificationsStore()
+  const url = useApiPasswordResetUrl()
 
-  const { error, ...fetch } = useFetch(useApiPasswordResetUrl()).post({ email, token })
+  const { error, ...fetch } = useFetch(url).post({ email, token })
 
   const showNotification = (type: NotificationDisplayType, error?: string) => {
     const props = error ? { error } : undefined
     const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
 
-    notifications.add({
+    notificationsStore.add({
       id: NOTIFICATION_ID,
       displayAs: type,
       label: translate(`authentication.password-reset-${id}.label`, props) ?? '',
@@ -32,8 +36,9 @@ export const usePasswordReset = ({ email, token }: LocationQuery) => {
   }
 
   watch(error, error => {
-    if (error) showNotification(NotificationType.ERROR, error)
-    else showNotification(NotificationType.CONFIRMATION)
+    error
+      ? showNotification(NotificationType.ERROR, error)
+      : showNotification(NotificationType.CONFIRMATION)
     router.replace({ name: LOGIN_VIEW })
   })
 

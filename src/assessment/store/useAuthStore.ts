@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User } from '@shared/types/user'
 import type { UserRoleType } from '@shared/types/user'
-import { type NotificationDisplayType, NotificationType } from '@/@shared/types/notification'
+import { type NotificationDisplayType, NotificationType } from '@shared/types/notification'
 
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -18,21 +18,24 @@ import {
   useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
+import { useDispatcher } from '@shared/store/useDispatcher'
 
-import { removeSessionCookie, setSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
-import { fromCamelCaseToSnakeCase } from '@/@shared/utils/format'
+import { fromCamelCaseToSnakeCase } from '@shared/utils/format'
+import { SessionType } from '@shared/types/session'
 
 const useCredentials = !import.meta.env.PROD
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
+  const sessionLifetimeStore = useSessionLifetimeStore()
+  const { on } = useDispatcher()
 
   const user: Ref<User | null> = ref(null)
-
   const isLoggedIn: Ref<boolean> = ref(false)
   const needsTwoFactor: Ref<boolean> = ref(false)
 
@@ -59,13 +62,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.ok) {
         user.value = null
         isLoggedIn.value = false
-
-        removeSessionCookie()
+        sessionLifetimeStore.removeSession()
       } else {
         user.value = json.data
         isLoggedIn.value = true
-
-        setSessionCookie()
+        sessionLifetimeStore.extendSession()
       }
     } catch (error) {
       log('Error getting user info', error)
@@ -207,7 +208,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   function onLoginChange(isLoggedIn: boolean) {
     if (!isLoggedIn) {
-      removeSessionCookie()
+      sessionLifetimeStore.removeSession()
       router.push({ name: LOGIN_VIEW })
     }
   }
@@ -235,6 +236,14 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       router.push({ name: HOME })
     }
   }
+
+  on(SessionType.EXPIRING, () => {
+    getUserInfo()
+  })
+
+  on(SessionType.EXPIRED, () => {
+    onLoginChange(false)
+  })
 
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 

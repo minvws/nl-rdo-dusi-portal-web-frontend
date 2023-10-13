@@ -102,6 +102,7 @@
 </template>
 
 <script setup lang="ts">
+import type { Ref } from 'vue'
 import type { Column } from '@shared/types/table'
 import type { CaseAction } from '@assessment/composables/useCaseAction'
 
@@ -120,7 +121,7 @@ import {
   isAppButton,
   isIcon,
   getRouterLinkClasses
-} from '@/@shared/utils/app-table'
+} from '@shared/utils/app-table'
 
 type Props = {
   caption?: string
@@ -131,9 +132,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const currentPage = ref(1)
-const sortId = ref('')
-const sortDirection = ref<'ascending' | 'descending'>('ascending')
+const currentPage: Ref<number> = ref(1)
+const sortId: Ref<string> = ref('')
+const sortDirection: Ref<'ascending' | 'descending'> = ref('ascending')
 
 const caseAction = useCaseAction()
 

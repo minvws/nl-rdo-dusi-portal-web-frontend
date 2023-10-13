@@ -78,21 +78,22 @@ function pressFirstButton() {
 <style lang="scss" scoped>
 .modal {
   position: fixed;
+  z-index: 2;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
-  z-index: 2;
 
   .icon {
     &-wrapper {
       font-size: var(--h2-font-size, inherit);
     }
+
     &::before {
       width: 2em !important;
-      height: 2em !important;
       max-width: 2em !important;
+      height: 2em !important;
     }
   }
 
@@ -109,12 +110,12 @@ function pressFirstButton() {
   }
 
   &-content {
+    display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
-    display: flex;
-    flex-direction: row;
     gap: 0.5em;
+    flex-direction: row;
     max-width: 600px;
     transform: translate(-50%, -50%);
   }

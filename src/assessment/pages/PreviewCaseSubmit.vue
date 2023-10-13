@@ -55,14 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@/@shared/i18n'
+import { translate } from '@shared/i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
-import AppHtml from '@/@shared/components/AppHtml/AppHtml.vue'
-import AppTable from '@/@shared/components/AppTable/AppTable.vue'
+import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
+import AppTable from '@shared/components/AppTable/AppTable.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import AppButton from '@/@shared/components/AppButton/AppButton.vue'
+import AppButton from '@shared/components/AppButton/AppButton.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { useApiCaseTransitionPreview } from '@assessment/composables/useApiCaseTransitionPreview'
@@ -101,6 +101,7 @@ const message = translate('pages.preview-case-submit.message')
 
   .html {
     padding: 1em;
+
     :deep(h2) {
       font-size: var(--p-font-size);
     }

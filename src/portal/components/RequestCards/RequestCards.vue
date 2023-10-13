@@ -45,6 +45,7 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 type Type = 'external-link' | 'string' | 'date' | 'button-link' | 'link'
 type Text = { text: string }
 type ExternalLink = { to: string } & Text
+type AppHtmlContent = { icon?: string } & Text
 
 type Props = {
   headings: Column[]
@@ -56,30 +57,24 @@ const labels: ComputedRef<Record<string, string>> = computed(() =>
   props.headings.reduce((cul, { id, text }) => ({ ...cul, [id]: text }), {})
 )
 
-const toExternalLink = ({ to, text }: ExternalLink) => {
-  return {
-    component: 'a',
-    href: to,
-    text
-  }
-}
+const toExternalLink = ({ to, text }: ExternalLink) => ({
+  component: 'a',
+  href: to,
+  text
+})
 
-const toButtonLink = ({ type, ...params }: any) => {
-  return {
-    component: 'RouterLink',
-    className: ['button', type].join(' '),
-    ...params
-  }
-}
+const toButtonLink = ({ type, ...params }: any) => ({
+  component: 'RouterLink',
+  className: ['button', type].join(' '),
+  ...params
+})
 
-const toAppHtml = ({ text, icon }: Text & { icon?: string }) => {
-  return {
-    component: AppHtml,
-    html: `<b>${text}</b>`,
-    icon,
-    as: 'div'
-  }
-}
+const toAppHtml = ({ text, icon }: AppHtmlContent) => ({
+  component: AppHtml,
+  html: `<b>${text}</b>`,
+  icon,
+  as: 'div'
+})
 
 const getComponent = (params: { type: Type } & any) => {
   switch (params.type) {
@@ -90,13 +85,13 @@ const getComponent = (params: { type: Type } & any) => {
       return toButtonLink(params as ExternalLink)
     case 'date':
     case 'string':
-      return toAppHtml(params as Text)
+      return toAppHtml(params as AppHtmlContent)
   }
 }
 
-const items = computed(() => {
-  return props.data.map(row => {
-    return Object.entries(row)
+const items = computed(() =>
+  props.data.map(row =>
+    Object.entries(row)
       .map(([id, item]: [string, any]) => {
         const component = getComponent(item)
         if (!component) return undefined
@@ -106,66 +101,22 @@ const items = computed(() => {
         }
       })
       .filter(item => !!item)
-  })
-})
+  )
+)
 </script>
 
 <style lang="scss" scoped>
-$padding: 0.7rem 0;
 .cards {
   width: 100%;
 }
-.card {
-  --width: 140px;
-  @include desktop {
-    --width: 236px;
-  }
 
+.card {
   width: 100%;
   max-width: var(--max-line-length-max-width);
+  margin: 0 0 1em 0;
   padding-top: 1rem;
   padding-bottom: 0.5rem;
-  margin: 0 0 1em 0;
   border: 1px solid var(--grey-2);
-
-  &-title {
-    padding-bottom: 1rem;
-  }
-
-  &-row {
-    width: 100%;
-    display: block;
-    border-bottom: 1px solid var(--grey-2);
-
-    &:last-child {
-      border: none;
-    }
-  }
-
-  &-name {
-    display: inline-flex;
-    height: 100%;
-    width: var(--width);
-    padding: $padding;
-  }
-
-  &-component {
-    display: inline-flex;
-    width: 100%;
-    padding: $padding;
-    background-color: transparent;
-    border: none;
-
-    &.with-label {
-      width: calc(100% - var(--width));
-    }
-
-    @include mobile {
-      .button-link {
-        width: 100%;
-      }
-    }
-  }
 
   .has-icon,
   .html {
@@ -175,8 +126,56 @@ $padding: 0.7rem 0;
   .error {
     color: var(--notification-error-intense-default, #d52a1e);
   }
+
   .confirmation {
     color: var(--notification-success-intense-default, #348834);
+  }
+}
+
+.card-title {
+  padding-bottom: 1rem;
+}
+
+.card-row {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid var(--grey-2);
+
+  &:last-child {
+    border: none;
+  }
+}
+
+.card-name {
+  --width: 140px;
+
+  display: inline-flex;
+  width: var(--width);
+  height: 100%;
+  padding: 0.7rem 0;
+
+  @include desktop {
+    --width: 236px;
+  }
+}
+
+.card-component {
+  --width: 140px;
+
+  display: inline-flex;
+  width: 100%;
+  padding: 0.7rem 0;
+  border: none;
+  background-color: transparent;
+
+  @include mobile {
+    .button-link {
+      width: 100%;
+    }
+  }
+
+  &.with-label {
+    width: calc(100% - var(--width));
   }
 }
 </style>

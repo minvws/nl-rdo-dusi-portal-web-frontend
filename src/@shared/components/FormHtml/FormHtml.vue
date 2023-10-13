@@ -36,9 +36,9 @@ export default defineComponent({
 
   &:deep(h2),
   &:deep(p) {
-    padding: 0.5em 0;
     width: 100%;
     max-width: 100%;
+    padding: 0.5em 0;
   }
 
   &:deep(ol) {

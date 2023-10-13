@@ -90,10 +90,9 @@ if (props.createDraft) createFormDraft()
 
 setForms(props)
 
-const isDebug = computed(() => {
-  if (props.hideDebug) return false
-  return !import.meta.env.PROD
-})
+emit('init', form.formData.value)
+
+const isDebug = computed(() => (props.hideDebug ? false : !import.meta.env.PROD))
 
 const isFirstStep = computed(() => index.value === 0 && props.forms.length > 1)
 
@@ -104,8 +103,6 @@ function onChange({ data, errors }: JsonFormsChangeEvent) {
 function onStep(index: number) {
   form.setFormStep(index)
 }
-
-emit('init', form.formData.value)
 
 function onSubmit() {
   if (props.createDraft) form.onSubmitForm()

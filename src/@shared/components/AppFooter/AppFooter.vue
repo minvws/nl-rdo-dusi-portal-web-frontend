@@ -60,7 +60,7 @@ type FooterLink = {
   rel: string
 }
 
-const getExternalLinks = (keys: string[]) => {
+function getExternalLinks(keys: string[]) {
   return keys.map(key => {
     const { rel: attr, ...link } = externalUrls[key]
     // we remove the Rel.EXTERNAL in the footer-links, because this causes styling issues atm

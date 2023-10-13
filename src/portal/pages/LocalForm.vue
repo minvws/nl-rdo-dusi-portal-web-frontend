@@ -41,11 +41,17 @@ const forms = Object.entries(import.meta.glob('@shared/fixtures/form/*.ts')).red
   {} as Record<string, () => any>
 )
 
-const props = defineProps<{ name?: string; id: string }>()
+type Props = {
+  name?: string
+  id: string
+}
+
+const props = defineProps<Props>()
+
 const form: Ref<{ title?: string; data: Form[]; values?: FormData } | undefined> = ref(undefined)
 const error: Ref<string | undefined> = ref(undefined)
 
-const load = async () => {
+async function load() {
   const name = props.name ?? 'post-covid'
 
   try {

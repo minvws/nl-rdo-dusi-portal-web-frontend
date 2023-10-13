@@ -1,21 +1,25 @@
-import { emailPlaceholder as placeholder } from '@/@shared/fixtures/form/data/placeholder'
+import type { Ref } from 'vue'
+import type { NotificationDisplayType } from '@shared/types/notification'
 
-import { translate } from '@/@shared/i18n'
+import { ref, computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+import { translate } from '@shared/i18n'
 import { useFetch } from '@vueuse/core'
 
-import type { Ref } from 'vue'
-import { ref, computed, watch } from 'vue'
-import { useApiForgotPasswordUrl } from './useApiUrl'
+import { useApiForgotPasswordUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useRouter } from 'vue-router'
-import { NotificationType, type NotificationDisplayType } from '@/@shared/types/notification'
+import { NotificationType } from '@shared/types/notification'
+
+import { emailPlaceholder as placeholder } from '@shared/fixtures/form/data/placeholder'
+
 import { LOGIN_VIEW } from '@assessment/router/names'
 
 export const useForgotPassword = () => {
   const NOTIFICATION_ID = 'forget-password'
 
   const router = useRouter()
-  const notifications = useNotificationsStore()
+  const notificationsStore = useNotificationsStore()
 
   const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
 
@@ -87,7 +91,7 @@ export const useForgotPassword = () => {
     const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
     const pageChangeCount = type === NotificationType.CONFIRMATION ? 2 : 1
 
-    notifications.add({
+    notificationsStore.add({
       id: NOTIFICATION_ID,
       displayAs: type,
       label: translate(`authentication.forgot-password-${id}.label`, props) ?? '',

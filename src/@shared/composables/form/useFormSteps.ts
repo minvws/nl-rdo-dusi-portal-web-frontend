@@ -9,56 +9,37 @@ export const useFormSteps = (props: {
   touched?: number[]
   hasSaveButton?: boolean
 }) => {
-  const hasErrors = () => {
+  const hasSteps = computed(() => steps.value > 1)
+
+  const hasForms = computed(() => !!steps.value)
+
+  const hasPrevStep = computed(() => hasForms.value && props.index > 0)
+
+  const hasNextStep = computed(() => hasForms.value && props.index < props.forms.length - 1)
+
+  const hasSubmit = computed(() => props.index === props.forms.length - 1)
+
+  const hasSave = computed(() =>
+    !props.hasSaveButton ? false : hasPrevStep.value || hasSubmit.value
+  )
+
+  const isCurrentStepValid = computed(() => !props.formsErrors[props.index]?.length)
+
+  const steps = computed(() => props.forms.length)
+
+  function hasErrors() {
     return props.formsErrors
-      ?.map((errors, index) => {
-        if (!errors?.length) return undefined
-        return index
-      })
+      ?.map((errors, index) => (!errors?.length ? undefined : index))
       .filter((value: number | undefined) => value !== undefined) as number[]
   }
 
-  const isStepDisabled = (index: number) => {
+  function isStepDisabled(index: number) {
     return !!hasErrors()?.some((step: number) => step <= index)
   }
 
-  const isTouched = (index: number) => {
-    if (index < 0) return true
-    return props.touched?.includes(index)
+  function isTouched(index: number) {
+    return index < 0 ? true : props.touched?.includes(index)
   }
-
-  const steps = computed(() => {
-    return props.forms.length
-  })
-
-  const hasSteps = computed(() => {
-    return steps.value > 1
-  })
-
-  const hasForms = computed(() => {
-    return !!steps.value
-  })
-
-  const hasPrevStep = computed(() => {
-    return hasForms.value && props.index > 0
-  })
-
-  const hasNextStep = computed(() => {
-    return hasForms.value && props.index < props.forms.length - 1
-  })
-
-  const hasSubmit = computed(() => {
-    return props.index === props.forms.length - 1
-  })
-
-  const hasSave = computed(() => {
-    if (!props.hasSaveButton) return false
-    return hasPrevStep.value || hasSubmit.value
-  })
-
-  const isCurrentStepValid = computed(() => {
-    return !props.formsErrors[props.index]?.length
-  })
 
   return {
     hasPrevStep,

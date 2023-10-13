@@ -12,11 +12,18 @@
 import { computed } from 'vue'
 import { useRouter } from 'vue-router'
 
+type Props = {
+  as?: string
+  html?: string
+}
+
+const props = defineProps<Props>()
+
 const router = useRouter()
-const props = defineProps<{ as?: string; html?: string }>()
+
 const tag = computed(() => props.as ?? 'div')
 
-const onClick = (e: Event) => {
+function onClick(e: Event) {
   // open links with router if it is a local link and target !== _blank
   const el = e.target as HTMLElement
 

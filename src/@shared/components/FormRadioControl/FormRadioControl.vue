@@ -14,22 +14,53 @@
           @blur="$emit('blur', $event)"
         />
         <label :for="`${id}-${item.id}`">
-          {{ item.id }}
+          {{ item.title }}
         </label>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
+import type { Control } from '@shared/types/field'
+import type { InputType } from '@/@shared/types/input'
+import { computed } from 'vue'
+
 defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
-  items: { id: string; value: string; checked: boolean }[]
-  value?: string
   id: string
+  type: InputType
+  control: Control
+  value?: string
+  disabled?: boolean
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const items = computed(() => {
+  const values = props.control.schema as {
+    enum?: string[]
+    oneOf?: { title: string; const: string }[]
+  }
+  const {
+    type,
+    disabled,
+    control: { data }
+  } = props
+
+  const items =
+    values?.oneOf?.map(({ title, const: value }) => ({ title, value })) ||
+    values?.enum?.map(title => ({ title, value: title }))
+
+  return items?.map(({ title, value }, index) => ({
+    title,
+    value,
+    type,
+    id: index + 1,
+    checked: value === data,
+    disabled
+  }))
+})
 </script>
 
 <style>

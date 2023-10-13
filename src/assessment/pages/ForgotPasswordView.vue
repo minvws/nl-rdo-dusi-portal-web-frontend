@@ -27,7 +27,7 @@ import { translate } from '@shared/i18n'
 import { useSEO } from '@shared/composables/useSeo'
 import { useForgotPassword } from '@assessment/composables/useForgotPassword'
 
-import AppIntro from '@/@shared/components/AppIntro/AppIntro.vue'
+import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
 useSEO({ title: `${translate('pages.forgot-password.title')} | ${translate('app.prefix')}` })

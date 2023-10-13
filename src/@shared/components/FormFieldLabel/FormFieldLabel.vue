@@ -13,8 +13,8 @@ defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
-@include mobile {
-  .label {
+.label {
+  @include mobile {
     margin: 0.5rem 0 0.2rem 0;
   }
 }

@@ -1,3 +1,5 @@
+import type { ReviewerActionType } from '@shared/types/reviewer'
+
 import { useRouter } from 'vue-router'
 import { useFetch } from '@vueuse/core'
 
@@ -5,7 +7,7 @@ import { useApiSetCaseUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { REVIEW_CASE, REFRESH, HOME } from '@assessment/router/names'
-import { ReviewerAction, type ReviewerActionType } from '@/@shared/types/reviewer'
+import { ReviewerAction } from '@shared/types/reviewer'
 
 export type CaseAction = {
   type: ReviewerActionType
@@ -14,12 +16,13 @@ export type CaseAction = {
 
 export const useCaseAction = () => {
   const router = useRouter()
-  const notification = useNotificationsStore()
+  const notificationsStore = useNotificationsStore()
 
   function updateReviewer(remove: boolean, id: string) {
     const url = useApiSetCaseUrl(id)
+    const method = remove ? 'DELETE' : 'PUT'
     const options: RequestInit = {
-      method: remove ? 'DELETE' : 'PUT',
+      method,
       credentials: 'include'
     }
     const { onFetchResponse, onFetchError } = useFetch(url, options)
@@ -33,7 +36,7 @@ export const useCaseAction = () => {
     })
 
     onFetchError(error => {
-      notification.add({
+      notificationsStore.add({
         message: error,
         displayAs: 'error',
         id: 'case-action',

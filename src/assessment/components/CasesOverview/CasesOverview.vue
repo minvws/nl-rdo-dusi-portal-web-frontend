@@ -18,6 +18,7 @@
       <FilterTabs
         :items="filters"
         :selected="params?.id"
+        :disabled="isFetching || isFetchingFilters"
         @change="onFilterChange"
       />
     </AppSuspense>
@@ -26,8 +27,9 @@
         auto-close
         :type="type"
         v-model="query"
+        :disabled="isFetching || isFetchingFilters"
       >
-        <p v-if="query">
+        <p :class="{ transparent: !query || isFetching || isFetchingFilters }">
           <span>{{ numberOfCases }}</span>
           {{ t('cases', {}, numberOfCases) }}
         </p>
@@ -72,14 +74,18 @@ import { useSEO } from '@shared/composables/useSeo'
 import { useFetchCases } from '@assessment/composables/useFetchCases'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppIntro from '@/@shared/components/AppIntro/AppIntro.vue'
+import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 import FilterTabs from '@assessment/components/FilterTabs/FilterTabs.vue'
-import { hasItems } from '@/@shared/utils/app-table'
+import { hasItems } from '@shared/utils/app-table'
 
-const props = defineProps<{ type: CaseType }>()
+type Props = {
+  type: CaseType
+}
+
+const props = defineProps<Props>()
 
 const t = (key: string, values?: Record<string, string | number>, count?: number) =>
   translate(`pages.${props.type}-overview.${key}`, values, count)
@@ -136,5 +142,9 @@ main section {
 
 .filter-options-container {
   min-height: 45px;
+}
+
+.transparent {
+  opacity: 0;
 }
 </style>

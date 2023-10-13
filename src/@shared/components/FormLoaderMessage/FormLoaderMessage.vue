@@ -31,12 +31,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const loadingMessage = computed(() => {
-  return (
+const loadingMessage = computed(
+  () =>
     (props.isFetching && translate('form.message.loading')) ||
     (props.isSubmitting && translate('form.message.submitting'))
-  )
-})
+)
 
 const errorMessage = computed(() => {
   const { error } = props

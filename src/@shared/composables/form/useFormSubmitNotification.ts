@@ -5,13 +5,14 @@ import { translate } from '@shared/i18n'
 
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
-export const useFormSubmitNotification = () => {
-  const notification = useNotificationsStore()
-  const NOTIFICATION_SUBMIT_ID = 'form-submit'
-  const NOTIFICATION_SAVE_ID = 'form-save'
+const NOTIFICATION_SUBMIT_ID = 'form-submit'
+const NOTIFICATION_SAVE_ID = 'form-save'
 
-  const setSubmitError = (error?: Error) => {
-    notification.add({
+export const useFormSubmitNotification = () => {
+  const notificationsStore = useNotificationsStore()
+
+  function setSubmitError(error?: Error) {
+    notificationsStore.add({
       message: translate('form.message.failed', { error: error?.message ?? '' }) || '',
       displayAs: 'error',
       id: NOTIFICATION_SUBMIT_ID,
@@ -19,8 +20,8 @@ export const useFormSubmitNotification = () => {
     })
   }
 
-  const setSubmitSuccess = () => {
-    notification.add({
+  function setSubmitSuccess() {
+    notificationsStore.add({
       message: translate('form.message.success') || '',
       displayAs: 'confirmation',
       id: NOTIFICATION_SUBMIT_ID,
@@ -28,30 +29,28 @@ export const useFormSubmitNotification = () => {
     })
   }
 
-  const setSaveError = (error?: Error) => {
-    notification.add({
+  function setSaveError(error?: Error) {
+    notificationsStore.add({
       message: translate('form.message.save-failed', { error: error?.message ?? '' }) || '',
       displayAs: 'error',
       id: NOTIFICATION_SAVE_ID
     })
   }
 
-  const setSaveSuccess = () => {
-    notification.add({
+  function setSaveSuccess() {
+    notificationsStore.add({
       message: translate('form.message.save-success') || '',
       displayAs: 'confirmation',
       id: NOTIFICATION_SAVE_ID
     })
   }
 
-  const showError = ({ type, error }: { type: FormSubmitType; error?: Error }) => {
-    if (type === FormSubmitTypes.SUBMIT) return setSubmitError(error)
-    return setSaveError(error)
+  function showError({ type, error }: { type: FormSubmitType; error?: Error }) {
+    type === FormSubmitTypes.SUBMIT ? setSubmitError(error) : setSaveError(error)
   }
 
-  const showSuccess = (type: FormSubmitType) => {
-    if (type === FormSubmitTypes.SUBMIT) return setSubmitSuccess()
-    return setSaveSuccess()
+  function showSuccess(type: FormSubmitType) {
+    type === FormSubmitTypes.SUBMIT ? setSubmitSuccess() : setSaveSuccess()
   }
 
   return {

@@ -118,45 +118,13 @@ export default defineComponent({
     flex-direction: row;
   }
 
-  &-label {
-    flex: 0.25;
-    @include heading;
-  }
-
-  &-renderer {
-    width: 100%;
-    flex: 0.75;
-
-    :deep(.group-label) {
-      padding-bottom: 0.5em;
-      padding-left: 0;
-
-      @include mobile {
-        margin-bottom: 0;
-      }
-    }
-
-    :deep(.group) {
-      padding-bottom: 2em;
-
-      @include desktop {
-        padding-bottom: 3em;
-      }
-    }
-
-    :deep(> .group) {
-      > .group-item:last-of-type > .group {
-        padding-bottom: 0;
-      }
-    }
-  }
-
   &:not(.section) {
     .size-1 {
       &:deep(.group-item) {
         width: 100%;
       }
     }
+
     .size-2 {
       &:deep(.group-item) {
         width: calc(50% - var(--form-group-gap) / 2);
@@ -196,6 +164,40 @@ export default defineComponent({
     // make sure this element does not take any space
     &:empty {
       display: none;
+    }
+  }
+}
+
+.form-group-label {
+  @include heading;
+
+  flex: 0.25;
+}
+
+.form-group-renderer {
+  width: 100%;
+  flex: 0.75;
+
+  :deep(.group-label) {
+    padding-bottom: 0.5em;
+    padding-left: 0;
+
+    @include mobile {
+      margin-bottom: 0;
+    }
+  }
+
+  :deep(.group) {
+    padding-bottom: 2em;
+
+    @include desktop {
+      padding-bottom: 3em;
+    }
+  }
+
+  :deep(> .group) {
+    > .group-item:last-of-type > .group {
+      padding-bottom: 0;
     }
   }
 }

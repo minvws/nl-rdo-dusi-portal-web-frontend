@@ -17,15 +17,26 @@ type StoredForm = {
 export const useFormStorage = defineStore('useFormStorage', () => {
   const storage: Ref<Record<string, StoredForm>> = ref({})
 
-  const set = (data: StoredForm) => (storage.value[data.id] = data)
+  function set(data: StoredForm) {
+    storage.value[data.id] = data
+  }
 
-  const get = (id: string) => storage.value[id]
+  function get(id: string) {
+    return storage.value[id]
+  }
 
-  const update = (id: string, props: any) => Object.assign(get(id), props)
+  function update(id: string, props: any) {
+    const form = get(id)
 
-  const clear = (id?: string) => {
-    if (!id) return
-    delete storage.value[id]
+    if (form) {
+      Object.assign(form, props)
+    }
+  }
+
+  function clear(id?: string) {
+    if (id) {
+      delete storage.value[id]
+    }
   }
 
   return {

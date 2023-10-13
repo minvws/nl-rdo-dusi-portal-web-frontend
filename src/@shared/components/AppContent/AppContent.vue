@@ -1,7 +1,7 @@
 <template>
   <main
     id="main-content"
-    ref="content"
+    ref="main"
     tabindex="-1"
   >
     <slot />
@@ -9,31 +9,47 @@
 </template>
 
 <script lang="ts" setup>
-import type { RouteLocationNormalized } from 'vue-router'
-
+import type { Ref } from 'vue'
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, START_LOCATION } from 'vue-router'
+
+import { translate } from '@shared/i18n'
+import { useAnnouncementStore } from '@shared/store/useAnnouncementStore'
+
+import { LOGIN_CALLBACK_VIEW } from '@portal/router/names'
 
 const router = useRouter()
+const announcementStore = useAnnouncementStore()
 
-const initialRoute = ref(true)
+const main: Ref = ref()
 
-const content = ref()
+const trimTitle = (title: string) => (title || '').replace(' | ' + translate('app.prefix'), '')
 
-const onFocusMainElement = () => {
-  content?.value?.focus()
-}
+router.afterEach((to, from) => {
+  const isStartLocation = from === START_LOCATION
+  const isSamePage = to.path === from.path
+  const isLoginCallbackView = from.name === LOGIN_CALLBACK_VIEW
 
-router.afterEach(
-  ({ path: toPath }: RouteLocationNormalized, { path: fromPath }: RouteLocationNormalized) => {
-    if (initialRoute.value) {
-      initialRoute.value = false
-      return
-    }
-    if (toPath === fromPath) return
-    onFocusMainElement()
+  if (isStartLocation || isSamePage || isLoginCallbackView) {
+    return
   }
-)
+
+  announcePageTitle()
+})
+
+function announcePageTitle() {
+  const title = trimTitle(document.title || translate('announcement.page') || '')
+  const message = `${title} ${translate('announcement.loaded')}`
+
+  setTimeout(() => {
+    main?.value?.focus()
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+      announcementStore.announce(message, 'assertive')
+    })
+  }, 300)
+}
 </script>
 
 <style lang="scss" scoped>

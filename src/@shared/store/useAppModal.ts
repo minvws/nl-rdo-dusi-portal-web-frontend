@@ -11,7 +11,17 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
   const el: Ref<HTMLDialogElement | HTMLDivElement | null> = ref(null)
   const content: Ref<Modal | undefined> = ref(undefined)
 
-  const getModal = () => {
+  const hasModal = computed(() => !!content.value)
+
+  const component = computed(() =>
+    typeof window !== 'undefined' &&
+    typeof window['HTMLDialogElement'] !== 'undefined' &&
+    typeof window['HTMLDialogElement'].prototype.show === 'function'
+      ? 'dialog'
+      : 'div'
+  )
+
+  function getModal() {
     const dialog = el.value
     if (!dialog) return
     if (dialog.tagName === 'DIALOG') {
@@ -20,7 +30,7 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
     return undefined
   }
 
-  const closeModal = () => {
+  function closeModal() {
     const dialog = getModal()
     content.value = undefined
     setTimeout(() => {
@@ -29,26 +39,17 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
     }, 200)
   }
 
-  const openModal = (modal: Modal) => {
+  function openModal(modal: Modal) {
     content.value = modal
   }
 
-  const setElement = (element: HTMLDialogElement | HTMLDivElement | null) => {
+  function setElement(element: HTMLDialogElement | HTMLDivElement | null) {
     el.value = element
   }
 
-  const hasModal = computed(() => !!content.value)
   const { onClickOutside } = useClickOutside(closeModal, hasModal, persistent)
 
   usePreventBodyScroll(hasModal)
-
-  const component = computed(() => {
-    const hasNativeDialogSupport =
-      typeof window !== 'undefined' &&
-      typeof window['HTMLDialogElement'] !== 'undefined' &&
-      typeof window['HTMLDialogElement'].prototype.show === 'function'
-    return hasNativeDialogSupport ? 'dialog' : 'div'
-  })
 
   watch(
     () => [content.value, el.value],
