@@ -1,5 +1,8 @@
 <template>
-  <div class="tabs filter-tabs">
+  <div
+    class="tabs filter-tabs"
+    :class="{ disabled }"
+  >
     <ul>
       <li
         v-for="(item, index) in items"
@@ -27,6 +30,7 @@ const emit = defineEmits(['change'])
 type Props = {
   items?: FilterItem[]
   selected?: string
+  disabled?: boolean
 }
 
 defineProps<Props>()
@@ -76,5 +80,9 @@ function onClick(item: FilterItem | null) {
 .filter-tabs .button.selected:disabled {
   --disabled-cursor: pointer;
   --disabled-opacity: 1;
+}
+
+.disabled {
+  pointer-events: none;
 }
 </style>

@@ -2,6 +2,7 @@
   <div
     v-if="forms"
     class="filter"
+    :class="{ disabled }"
     v-filters
   >
     <div ref="el"><slot /></div>
@@ -44,6 +45,7 @@ import { toggleAriaExpanded } from '@shared/utils/button'
 type Props = {
   type: FormOptions
   autoClose?: boolean
+  disabled?: boolean
 }
 const props = defineProps<Props>()
 const emit = defineEmits(['update:modelValue', 'close'])
@@ -61,3 +63,9 @@ function onSubmit(data: FormData) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.disabled {
+  pointer-events: none;
+}
+</style>
