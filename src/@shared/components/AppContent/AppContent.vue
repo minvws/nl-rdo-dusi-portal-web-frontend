@@ -43,15 +43,20 @@ router.afterEach((to, from) => {
 })
 
 function focusMain() {
+  if (!main.value) {
+    return
+  }
   // don't move focus if focus is already on an element inside main
-  if (main.value?.contains(document.activeElement)) {
+  if (main.value.contains(document.activeElement)) {
     return
   }
-  // don't move focus if there's an element with the autofocus attribute
-  if (main.value?.querySelector('[autofocus]')) {
+  // if there's an element with the autofocus attribute, move focus there
+  const autofocus = main.value.querySelector('[autofocus]')
+  if (autofocus) {
+    autofocus.focus()
     return
   }
-  main.value?.focus()
+  main.value.focus()
 }
 
 function announcePageTitle() {
