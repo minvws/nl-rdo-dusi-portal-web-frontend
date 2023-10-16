@@ -32,13 +32,13 @@ router.afterEach((to, from) => {
     return
   }
 
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     focusMain()
+    window.scrollTo(0, 0)
+  })
 
-    requestAnimationFrame(() => {
-      window.scrollTo(0, 0)
-      announcePageTitle()
-    })
+  setTimeout(() => {
+    announcePageTitle()
   }, 300)
 })
 
