@@ -23,8 +23,6 @@ const announcementStore = useAnnouncementStore()
 
 const main: Ref = ref()
 
-const trimTitle = (title: string) => (title || '').replace(' | ' + translate('app.prefix'), '')
-
 router.afterEach((to, from) => {
   const isStartLocation = from === START_LOCATION
   const isSamePage = to.path === from.path
@@ -34,21 +32,36 @@ router.afterEach((to, from) => {
     return
   }
 
-  announcePageTitle()
+  setTimeout(() => {
+    focusMain()
+
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0)
+      announcePageTitle()
+    })
+  }, 300)
 })
+
+function focusMain() {
+  // don't move focus if focus is already on an element inside main
+  if (main.value?.contains(document.activeElement)) {
+    return
+  }
+  // don't move focus if there's an element with the autofocus attribute
+  if (main.value?.querySelector('[autofocus]')) {
+    return
+  }
+  main.value?.focus()
+}
 
 function announcePageTitle() {
   const title = trimTitle(document.title || translate('announcement.page') || '')
   const message = `${title} ${translate('announcement.loaded')}`
+  announcementStore.announce(message, 'assertive')
+}
 
-  setTimeout(() => {
-    main?.value?.focus()
-
-    requestAnimationFrame(() => {
-      window.scrollTo(0, 0)
-      announcementStore.announce(message, 'assertive')
-    })
-  }, 300)
+function trimTitle(title: string) {
+  return (title || '').replace(' | ' + translate('app.prefix'), '')
 }
 </script>
 
