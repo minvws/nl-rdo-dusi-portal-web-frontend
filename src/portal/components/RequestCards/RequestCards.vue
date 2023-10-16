@@ -168,6 +168,10 @@ const items = computed(() =>
   border: none;
   background-color: transparent;
 
+  @include desktop {
+    --width: 236px;
+  }
+
   @include mobile {
     .button-link {
       width: 100%;
