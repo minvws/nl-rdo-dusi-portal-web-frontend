@@ -112,12 +112,11 @@ const {
 
 const numberOfCases = computed(() => data.value.length ?? 0)
 
-const activeFilterCount = computed(() =>
-  Object.keys(query.value ?? {}).reduce(
-    (count, key) => (query.value && query.value[key].length ? count++ : count),
-    0
-  )
-)
+const activeFilterCount = computed(() => {
+  return Object.keys(query.value ?? {}).reduce((count, key) => {
+    return query.value && query.value[key].length ? count++ : count
+  }, 0)
+})
 
 const headings = computed(() => {
   const items = [
