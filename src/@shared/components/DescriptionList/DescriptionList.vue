@@ -19,12 +19,13 @@
           {{ text }}
         </a>
       </dd>
-      <AppFileLink
-        v-else-if="files && field && formId && type === 'file'"
-        v-for="(file, index) in files"
-        :key="`${field}-${index}`"
-        v-bind="{ field, file, formId }"
-      />
+      <dd v-else-if="files && field && formId && type === 'file'">
+        <AppFileLink
+          v-for="(file, index) in files"
+          :key="`${field}-${index}`"
+          v-bind="{ field, file, formId }"
+        />
+      </dd>
     </div>
   </dl>
 </template>
@@ -46,7 +47,6 @@ const { locale } = useI18n()
 
 <style lang="scss" scoped>
 dl > div {
-  display: grid;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--grey-2);
 
@@ -56,10 +56,6 @@ dl > div {
 
   + div {
     padding-top: 0.75rem;
-  }
-
-  dt {
-    width: 100%;
   }
 
   dd {
