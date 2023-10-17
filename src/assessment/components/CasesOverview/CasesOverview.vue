@@ -7,6 +7,7 @@
       }"
     />
     <AppSuspense
+      v-if="!disableFilterTabs"
       class="filter-tabs-container"
       v-bind="{
         data: filters,
@@ -94,6 +95,8 @@ const t = (key: string, values?: Record<string, string | number>, count?: number
   translate(`pages.${props.type}-overview.${key}`, values, count)
 
 useSEO({ title: `${t('title')} | ${translate('app.prefix')}` })
+
+const disableFilterTabs = import.meta.env.VITE_DISABLE_FILTER_TABS === 'true'
 
 const {
   data,
