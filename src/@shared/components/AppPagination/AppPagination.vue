@@ -1,58 +1,60 @@
 <template>
-  <nav
-    v-if="totalPages > 1"
-    class="pagination"
-    :aria-label="translate('component.pagination.pagination')"
-  >
-    <AppButton
-      v-if="withButtons"
-      class="adjacent previous"
-      :disabled="previousPageDisabled"
-      @click.prevent="goToPreviousPage"
+  <div class="app-pagination">
+    <nav
+      v-if="totalPages > 1"
+      class="pagination"
+      :aria-label="translate('component.app-pagination.app-pagination')"
     >
-      {{ translate('component.pagination.prev') }}
-      <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
-    </AppButton>
+      <AppButton
+        v-if="withButtons"
+        class="adjacent previous"
+        :disabled="previousPageDisabled"
+        @click.prevent="goToPreviousPage"
+      >
+        {{ translate('component.pagination.prev') }}
+        <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+      </AppButton>
 
-    <ul>
-      <AppPaginationItem
-        v-if="condensedLayout && !hideFirstGroup"
-        :current-page="currentPage"
-        :ellipsis-position="'end'"
-        label="1"
-        :page-index="1"
-        @page-change="onPageChange"
-      />
+      <ul>
+        <AppPaginationItem
+          v-if="condensedLayout && !hideFirstGroup"
+          :current-page="currentPage"
+          :ellipsis-position="'end'"
+          label="1"
+          :page-index="1"
+          @page-change="onPageChange"
+        />
 
-      <AppPaginationItem
-        v-for="page in currentPageGroup"
-        :key="page"
-        :current-page="currentPage"
-        :label="page"
-        :page-index="page"
-        @page-change="onPageChange"
-      />
+        <AppPaginationItem
+          v-for="page in currentPageGroup"
+          :key="page"
+          :current-page="currentPage"
+          :label="page"
+          :page-index="page"
+          @page-change="onPageChange"
+        />
 
-      <AppPaginationItem
-        v-if="condensedLayout && !hideLastGroup"
-        :current-page="currentPage"
-        :ellipsis-position="'start'"
-        :label="totalPages"
-        :page-index="totalPages"
-        @page-change="onPageChange"
-      />
-    </ul>
+        <AppPaginationItem
+          v-if="condensedLayout && !hideLastGroup"
+          :current-page="currentPage"
+          :ellipsis-position="'start'"
+          :label="totalPages"
+          :page-index="totalPages"
+          @page-change="onPageChange"
+        />
+      </ul>
 
-    <AppButton
-      v-if="withButtons"
-      class="adjacent next"
-      :disabled="nextPageDisabled"
-      @click.prevent="goToNextPage"
-    >
-      {{ translate('component.pagination.next') }}
-      <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
-    </AppButton>
-  </nav>
+      <AppButton
+        v-if="withButtons"
+        class="adjacent next"
+        :disabled="nextPageDisabled"
+        @click.prevent="goToNextPage"
+      >
+        {{ translate('component.app-pagination.next') }}
+        <span class="visually-hidden">{{ translate('component.app-pagination.page') }}</span>
+      </AppButton>
+    </nav>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -122,25 +124,36 @@ function onPageChange(index: number) {
 :root {
   --pagination-adjacent-button-width: 120px;
 }
-.pagination ul {
+
+.app-pagination {
+  width: 100%;
+}
+
+.pagination {
+  width: calc(100% - 4px);
+  padding: 2px;
+}
+
+:deep(.pagination ul) {
   display: flex;
   flex: 0 1 calc(100% - (var(--pagination-adjacent-button-width) * 2));
   justify-content: center;
   overflow-x: auto;
+  padding: 2px;
 }
 
 @include mobile {
-  .pagination ul li {
+  :deep(.pagination ul li) {
     --pagination-item-width: 2rem;
   }
 
-  .pagination ul button {
+  :deep(.pagination ul button) {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
   }
 }
 
-.pagination .adjacent {
+:deep(.pagination .adjacent) {
   flex: 0 0 var(--pagination-adjacent-button-width);
 }
 </style>

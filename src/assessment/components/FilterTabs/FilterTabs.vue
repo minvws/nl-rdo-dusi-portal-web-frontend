@@ -41,6 +41,9 @@ function onClick(item: FilterItem | null) {
 </script>
 
 <style lang="scss" scoped>
+.filter-tabs li {
+  padding: 2px;
+}
 .filter-tabs .button {
   --button-base-background-color: transparent;
   --button-base-border-color: transparent;

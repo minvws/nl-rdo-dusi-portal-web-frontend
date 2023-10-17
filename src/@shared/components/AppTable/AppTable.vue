@@ -1,94 +1,96 @@
 <template>
-  <div class="horizontal-scroll nowrap">
-    <table>
-      <caption :class="{ 'visually-hidden': !caption }">
-        <span
-          v-if="caption"
-          v-html="caption"
-        />
-        <span
-          v-if="hasSortableColumns"
-          class="visually-hidden"
-        >
-          <span v-if="caption">,</span>
-          {{ translate('component.table.sortableColumnsHint') }}
-        </span>
-      </caption>
-      <thead>
-        <tr>
-          <th
-            v-for="column in columns"
-            :key="column.id"
-            scope="col"
-            :class="{ sortable: column.sortable }"
-            :abbr="column.text"
-            :aria-sort="sortId === column.id ? sortDirection : 'none'"
+  <div class="app-table">
+    <div class="horizontal-scroll nowrap">
+      <table>
+        <caption :class="{ 'visually-hidden': !caption }">
+          <span
+            v-if="caption"
+            v-html="caption"
+          />
+          <span
+            v-if="hasSortableColumns"
+            class="visually-hidden"
           >
-            <AppButton
-              v-if="column.sortable"
-              @click="sortTableById(column.id)"
-              class="button"
+            <span v-if="caption">,</span>
+            {{ translate('component.table.sortableColumnsHint') }}
+          </span>
+        </caption>
+        <thead>
+          <tr>
+            <th
+              v-for="column in columns"
+              :key="column.id"
+              scope="col"
+              :class="{ sortable: column.sortable }"
+              :abbr="column.text"
+              :aria-sort="sortId === column.id ? sortDirection : 'none'"
             >
-              {{ column.text }}
-              <AppIcon
-                :name="sortId === column.id ? sortDirection : 'sort'"
-                :ariaHidden="true"
-              />
-            </AppButton>
-            <template v-else>
-              {{ column.text }}
-            </template>
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="item in tableData"
-          :key="item.id"
-        >
-          <template
-            v-for="column in columns"
-            :key="column.id"
-          >
-            <td :class="item[column.id].icon ? item[column.id].icon : null">
-              <span v-if="item[column.id].icon" />
-              <a
-                v-if="isExternalLink(item[column.id])"
-                :href="item[column.id].to"
-              >
-                {{ item[column.id].text }}
-              </a>
-              <RouterLink
-                v-else-if="isRouterLink(item[column.id])"
-                :class="getRouterLinkClasses(item[column.id])"
-                :to="item[column.id].to"
-              >
-                {{ item[column.id].text }}
-              </RouterLink>
               <AppButton
-                v-else-if="isAppButton(item[column.id])"
-                class="button ghost"
-                @click="onButtonClick(item[column.id].action)"
+                v-if="column.sortable"
+                @click="sortTableById(column.id)"
+                class="button"
               >
-                {{ item[column.id].text }}
-              </AppButton>
-              <RouterLink
-                v-else-if="isIcon(item[column.id])"
-                :to="item[column.id].to"
-              >
+                {{ column.text }}
                 <AppIcon
-                  :name="item[column.id].text"
-                  aria-hidden="true"
+                  :name="sortId === column.id ? sortDirection : 'sort'"
+                  :ariaHidden="true"
                 />
-              </RouterLink>
+              </AppButton>
               <template v-else>
-                {{ item[column.id].text }}
+                {{ column.text }}
               </template>
-            </td>
-          </template>
-        </tr>
-      </tbody>
-    </table>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="item in tableData"
+            :key="item.id"
+          >
+            <template
+              v-for="column in columns"
+              :key="column.id"
+            >
+              <td :class="item[column.id].icon ? item[column.id].icon : null">
+                <span v-if="item[column.id].icon" />
+                <a
+                  v-if="isExternalLink(item[column.id])"
+                  :href="item[column.id].to"
+                >
+                  {{ item[column.id].text }}
+                </a>
+                <RouterLink
+                  v-else-if="isRouterLink(item[column.id])"
+                  :class="getRouterLinkClasses(item[column.id])"
+                  :to="item[column.id].to"
+                >
+                  {{ item[column.id].text }}
+                </RouterLink>
+                <AppButton
+                  v-else-if="isAppButton(item[column.id])"
+                  class="button ghost"
+                  @click="onButtonClick(item[column.id].action)"
+                >
+                  {{ item[column.id].text }}
+                </AppButton>
+                <RouterLink
+                  v-else-if="isIcon(item[column.id])"
+                  :to="item[column.id].to"
+                >
+                  <AppIcon
+                    :name="item[column.id].text"
+                    aria-hidden="true"
+                  />
+                </RouterLink>
+                <template v-else>
+                  {{ item[column.id].text }}
+                </template>
+              </td>
+            </template>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <AppPagination
       v-if="itemsPerPage"
@@ -201,6 +203,10 @@ function sortTableById(id: any) {
 </script>
 
 <style lang="scss" scoped>
+.app-table {
+  width: 100%;
+}
+
 table tr th,
 table tr td {
   border-top: none;
