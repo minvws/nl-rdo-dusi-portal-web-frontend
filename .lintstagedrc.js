@@ -1,4 +1,4 @@
 module.exports = {
-  "*.{vue,js,ts}": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-  "*.{vue}": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
+  "*.{vue,js,ts}": "npm run lint-fix && npm run format",
+  "*.{vue}": "npm run type-check"
 };
