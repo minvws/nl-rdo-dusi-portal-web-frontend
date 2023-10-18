@@ -8,11 +8,15 @@
       class="logo-desktop"
       :src="logo.desktop"
       :alt="translate('component.header.homeLink.alt')"
+      width="314"
+      height="125"
     />
     <img
       class="logo-mobile"
       :src="logo.mobile"
       :alt="translate('component.header.homeLink.alt')"
+      width="40"
+      height="70"
     />
     <span class="visually-hidden">{{ translate('component.header.homeLink.label') }}</span>
   </RouterLink>
