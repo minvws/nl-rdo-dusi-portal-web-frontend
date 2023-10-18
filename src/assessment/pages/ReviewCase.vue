@@ -7,7 +7,7 @@
       v-bind="{
         data: caseData,
         error: caseError,
-        isFetching: isFetchingCase
+        isFetching: isFetchingCase || isFetchingTransitionHistory
       }"
     >
       <AppAccordion v-if="caseData">
@@ -36,23 +36,32 @@
             v-for="(stage, index) in otherCases"
             :key="`stage-${index}`"
             :id="`stage-${index}`"
-            :is-open="index === otherCases.length - 1"
           >
             <template #title>{{ stage.title }}</template>
             <template #content>
               <FormView
                 :id="`review-stage-item-${index}}`"
                 v-bind="{
+                  ...formViewOptions,
                   ...stage,
-                  ...(index < otherCases.length - 1 ? formViewOptions : formEditOptions)
+                  title: undefined
                 }"
-                @submit="onSubmit"
-                @save="onSave"
               />
             </template>
           </AppAccordionItem>
         </template>
       </AppAccordion>
+      <FormView
+        v-if="lastCase"
+        :id="`review-stage-item-`"
+        v-bind="{
+          ...formEditOptions,
+          ...lastCase,
+          title: undefined
+        }"
+        @submit="onSubmit"
+        @save="onSave"
+      />
     </AppSuspense>
   </section>
 </template>
@@ -110,12 +119,14 @@ const {
   data: caseData,
   error: caseError,
   isFetching: isFetchingCase,
+  isFetchingTransitionHistory,
   caseDetail,
   caseReference,
   caseStage,
   caseStageId,
   caseTitle,
-  otherCases
+  otherCases,
+  lastCase
 } = useFetchCase(props.id as string)
 
 async function onSubmit(data: FormData) {

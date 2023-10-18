@@ -20,6 +20,12 @@ export const useApiCaseHistoryUrl = (id: string) => {
   return useMockData ? `${mockUrl}/history/${id}.json` : `${baseUrl}/api/applications/${id}/history` // Not final url yet.
 }
 
+export const useApiTransitionHistoryUrl = (id: string) => {
+  return useMockData
+    ? `${mockUrl}/transitions/mock.json`
+    : `${baseUrl}/api/applications/${id}/transitions`
+}
+
 export const useApiCaseReviewerUrl = (id: string) => {
   return useMockData
     ? `${mockUrl}/reviewer/${id}.json`
@@ -72,4 +78,8 @@ export const useApiForgotPasswordUrl = () => {
 
 export const useApiPasswordResetUrl = () => {
   return `${baseUrl}/api/reset-password`
+}
+
+export const useApiMessageDownloadUrl = (id: string, format: string) => {
+  return `${baseUrl}/api/messages/${id}/download/${format}`
 }

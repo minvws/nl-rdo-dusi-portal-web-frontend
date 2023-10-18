@@ -5,6 +5,7 @@ import { FormGroupControlRenderer } from '@shared/components/FormGroupControl/Fo
 import { FormHtmlRenderer } from '@shared/components/FormHtml/FormHtmlRenderer'
 import { FormNotificationRenderer } from '@shared/components/FormNotification/FormNotificationRenderer.vue' // @TODO extract vue file and renderer
 import { FormResultsTableRenderer } from '@shared/components/FormResultsTable/FormResultsTableRenderer'
+import { FormTransitionHistoryRenderer } from '@shared/components/FormTransitionHistory/FormTransitionHistoryRenderer'
 
 export const useRenderers = () => {
   const renderers = [
@@ -13,7 +14,8 @@ export const useRenderers = () => {
     FormResultsTableRenderer,
     FormGroupControlRenderer,
     FormHtmlRenderer,
-    FormNotificationRenderer
+    FormNotificationRenderer,
+    FormTransitionHistoryRenderer
   ]
   return Object.freeze(renderers)
 }

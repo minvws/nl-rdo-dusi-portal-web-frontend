@@ -46,6 +46,10 @@
     }
   },
   "component": {
+    "transitionHistory": {
+      "title": "Geschiedenis",
+      "stage": "{title} uitgevoerd door {assessor}"
+    },
     "filterTabs": {
       "priority": "Hoge prioriteit",
       "taken": "Opgepakt",

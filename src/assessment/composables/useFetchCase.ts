@@ -5,12 +5,16 @@ import { computed } from 'vue'
 
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCaseDetailsUrl } from '@assessment/composables/useApiUrl'
+import { useFetchTransitionHistory } from '@assessment/composables/useFetchTransitionHistory'
 
 import { transformForm, transformFormValues, getFormTitle } from '@shared/utils/form'
 
 export const useFetchCase = (id: string) => {
   const url = useApiCaseDetailsUrl(id)
   const { data: json, ...fetch } = useQueryFetch('with-credentials', { url })
+
+  const { transitionHistory, isFetching: isFetchingTransitionHistory } =
+    useFetchTransitionHistory(id)
 
   const data = computed(() => json.value?.data as ApplicationDetails)
 
@@ -24,7 +28,22 @@ export const useFetchCase = (id: string) => {
 
   const caseStage = computed(() => caseStages?.value?.[0])
 
-  const otherCases = computed(() => caseStages?.value?.slice(1))
+  const otherCases = computed(() => {
+    const cases = caseStages?.value?.slice(2)
+    if (!cases) {
+      return transitionHistory.value ? [transitionHistory.value] : undefined
+    }
+
+    if (transitionHistory.value) {
+      const last = cases.splice(-1)
+      return [...cases, transitionHistory.value, ...last]
+    }
+    return cases
+  })
+
+  const lastCase = computed(() => {
+    return caseStages?.value?.slice(-1)?.[0]
+  })
 
   const caseTitle = computed(() => {
     const target = data.value?.applicationStages.find(
@@ -50,12 +69,14 @@ export const useFetchCase = (id: string) => {
   }
   return {
     data,
+    lastCase,
     caseDetail,
     caseStage,
     otherCases,
     caseTitle,
     caseStageId,
     caseReference,
+    isFetchingTransitionHistory,
     ...fetch
   }
 }
