@@ -29,14 +29,13 @@ export const useFetchCase = (id: string) => {
   const caseStage = computed(() => caseStages?.value?.[0])
 
   const otherCases = computed(() => {
-    const cases = caseStages?.value?.slice(2)
+    const cases = caseStages?.value?.slice(1, -1)
     if (!cases) {
       return transitionHistory.value ? [transitionHistory.value] : undefined
     }
 
     if (transitionHistory.value) {
-      const last = cases.splice(-1)
-      return [...cases, transitionHistory.value, ...last]
+      return [...cases, transitionHistory.value]
     }
     return cases
   })
