@@ -23,9 +23,7 @@ export const useQueryFetch = (
 
   const url = computed(() => {
     const payload = { ...query?.value, ...params?.value }
-    const entries = Object.entries(payload).filter(
-      ([, value]) => !!value !== undefined && value !== null
-    )
+    const entries = Object.entries(payload).filter(([, value]) => !!value)
 
     if (!entries.length) return location
 
