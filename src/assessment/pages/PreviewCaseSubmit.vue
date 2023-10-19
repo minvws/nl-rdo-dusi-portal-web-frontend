@@ -16,7 +16,7 @@
           v-bind="{
             columns,
             data,
-            itemsPerPage: -1
+            itemsPerPage: null
           }"
         />
       </template>
