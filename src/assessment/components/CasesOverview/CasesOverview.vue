@@ -114,7 +114,7 @@ const numberOfCases = computed(() => data.value.length ?? 0)
 
 const activeFilterCount = computed(() => {
   return Object.keys(query.value ?? {}).reduce((count, key) => {
-    return query.value && query.value[key].length ? count++ : count
+    return query.value && query.value[key]?.length ? count++ : count
   }, 0)
 })
 
