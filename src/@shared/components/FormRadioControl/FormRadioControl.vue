@@ -1,6 +1,6 @@
 <template>
   <div class="radio-control">
-    <div class="radio-control-innner">
+    <div class="radio-control-inner">
       <div
         v-for="item in items"
         :key="item.id"
@@ -63,8 +63,14 @@ const items = computed(() => {
 })
 </script>
 
-<style>
-.radio-control-innner > div {
-  flex-direction: row;
+<style lang="scss" scoped>
+.radio-control-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  & > div {
+    flex-direction: row;
+  }
 }
 </style>

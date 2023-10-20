@@ -72,6 +72,8 @@ function onChange(e: Event) {
 
 <style lang="scss" scoped>
 .form-checkbox-group {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 </style>
