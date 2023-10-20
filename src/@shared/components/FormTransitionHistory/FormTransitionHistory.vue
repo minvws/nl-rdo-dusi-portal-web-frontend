@@ -53,7 +53,6 @@ import { translate } from '@shared/i18n'
 import { openExternalLink } from '@shared/utils/link'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import NewLineToBr from "@shared/components/NewLineToBr/NewLineToBr.vue"
 
@@ -85,9 +84,6 @@ export default defineComponent({
         this.fileURL = URL.createObjectURL(file)
         openExternalLink(this.fileURL, '_blank')
       }
-    },
-    nlToBr(text: string) {
-      return text.replace(/\n/g, '<br />')
     }
   },
   computed: {
