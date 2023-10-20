@@ -166,6 +166,13 @@ export default defineComponent({
       display: none;
     }
   }
+
+  /* Add margin between nested non-emtpy group-items */
+  :deep(.group > .group-item > .group > .group-item + .group-item .vertical-layout-item) > :first-child {
+    margin-top: 2rem;
+    /*border-left: 5px solid pink;*/
+  }
+
 }
 
 .form-group-label {
