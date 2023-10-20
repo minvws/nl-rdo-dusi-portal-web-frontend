@@ -19,11 +19,7 @@
               translate('component.transitionHistory.stage', { title, assessor })
             }}</small>
           </p>
-          <NewLineToBr
-            v-if="item.internalNote"
-            as="p"
-            :text="item.internalNote"
-          />
+          <p class="internal-note">{{ item.internalNote }}</p>
 
           <AppButton
             v-if="item.message?.id"
@@ -54,13 +50,12 @@ import { openExternalLink } from '@shared/utils/link'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
-import NewLineToBr from '@shared/components/NewLineToBr/NewLineToBr.vue'
 
 export default defineComponent({
   data: () => ({
     fileURL: ''
   }),
-  components: { NewLineToBr, AppButton, AppIcon },
+  components: { AppButton, AppIcon },
   props: {
     ...rendererProps<ControlElement>()
   },
@@ -105,5 +100,9 @@ export default defineComponent({
 
 .ghost {
   --form-button-font-weight: 400;
+}
+
+.internal-note {
+  white-space: pre-line;
 }
 </style>
