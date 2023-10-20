@@ -54,7 +54,7 @@ import { openExternalLink } from '@shared/utils/link'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
-import NewLineToBr from "@shared/components/NewLineToBr/NewLineToBr.vue"
+import NewLineToBr from '@shared/components/NewLineToBr/NewLineToBr.vue'
 
 export default defineComponent({
   data: () => ({
