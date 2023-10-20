@@ -19,10 +19,10 @@
               translate('component.transitionHistory.stage', { title, assessor })
             }}</small>
           </p>
-          <AppHtml
+          <NewLineToBr
             v-if="item.internalNote"
             as="p"
-            :html="nlToBr(item.internalNote)"
+            :text="item.internalNote"
           />
 
           <AppButton
@@ -55,12 +55,13 @@ import { openExternalLink } from '@shared/utils/link'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
+import NewLineToBr from "@shared/components/NewLineToBr/NewLineToBr.vue"
 
 export default defineComponent({
   data: () => ({
     fileURL: ''
   }),
-  components: { AppButton, AppHtml, AppIcon },
+  components: { NewLineToBr, AppButton, AppIcon },
   props: {
     ...rendererProps<ControlElement>()
   },
