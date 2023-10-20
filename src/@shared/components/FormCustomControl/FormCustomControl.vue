@@ -111,7 +111,10 @@ export default defineComponent({
 .input-wrapper {
   position: relative;
 }
-::root {
+</style>
+
+<style>
+:root {
   /* Jsonform's .radio class conflicts with Manon's, and we want to use
    * flexbox for radios and checkboxes anyway. So we disable Manon's
    * default margins: */
