@@ -6,14 +6,14 @@
         :key="item.id"
       >
         <input
-          v-bind="item"
-          :id="`${id}-${item.id}`"
+          :id="item.id"
+          v-bind="item.attrs"
           @input="$emit('input', $event)"
           @change="$emit('change', $event)"
           @focus="$emit('focus', $event)"
           @blur="$emit('blur', $event)"
         />
-        <label :for="`${id}-${item.id}`">
+        <label :for="item.id">
           {{ item.title }}
         </label>
       </div>
@@ -53,12 +53,15 @@ const items = computed(() => {
     values?.enum?.map(title => ({ title, value: title }))
 
   return items?.map(({ title, value }, index) => ({
+    id: `${props.id}-${index + 1}`,
     title,
-    value,
-    type,
-    id: index + 1,
-    checked: value === data,
-    disabled
+    attrs: {
+      name: props.id,
+      type,
+      value,
+      checked: value === data,
+      disabled
+    }
   }))
 })
 </script>
