@@ -17,8 +17,11 @@
           <span>{{ total }}</span>
           {{ translate('component.messagesOverview.messages', { total }, total) }}
         </p>
-        <AppButton aria-expanded="false">
-          {{ translate('component.messagesOverview.filter') }}
+        <AppButton
+          :data-hide-filters-label="translate('component.messagesOverview.hideFilters')"
+          aria-expanded="false"
+        >
+          {{ translate('component.messagesOverview.showFilters') }}
         </AppButton>
       </FilterOptions>
     </div>

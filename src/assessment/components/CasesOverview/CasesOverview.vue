@@ -38,7 +38,7 @@
           </template>
         </span>
         <AppButton
-          :data-show-filters-label="t('showFilters')"
+          :data-hide-filters-label="t('hideFilters')"
           aria-expanded="false"
         >
           {{ t('showFilters') }}
