@@ -82,7 +82,8 @@ export default defineComponent({
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
-      const isGroup = type === InputType.RADIO
+      const isGroup =
+        type === InputType.RADIO || type === InputType.CHECKBOX || type === InputType.CHECKBOX_GROUP
 
       return {
         appliedOptions,
