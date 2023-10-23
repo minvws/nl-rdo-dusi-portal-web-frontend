@@ -1,9 +1,10 @@
 <template>
   <component
     :is="component"
+    ref="el"
     v-bind="input"
-    @input="$emit('input', $event)"
-    @change="$emit('change', $event)"
+    @input="onInput"
+    @change="emit('change', $event)"
     @focus="$emit('focus', $event)"
     @blur="$emit('blur', $event)"
   />
@@ -14,8 +15,9 @@ import type { Control } from '@shared/types/field'
 import { InputType } from '@shared/types/input'
 import { computed } from 'vue'
 import { getInputAttrs } from '@shared/utils/control'
+import { useTextAreaAutoSize } from '@shared/composables/useTextAreaAutoSize'
 
-defineEmits(['input', 'change', 'focus', 'blur'])
+const emit = defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
   id: string
@@ -29,6 +31,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { el, onResize } = useTextAreaAutoSize(props.type)
+
 const component = computed(() => {
   switch (props.type) {
     case InputType.TEXTAREA:
@@ -37,6 +41,10 @@ const component = computed(() => {
   return 'input'
 })
 
+const onInput = (event: Event) => {
+  onResize()
+  emit('input', event)
+}
 const input = computed(() => {
   const { id, value, placeholder, disabled, autofocus } = props
   return {
@@ -49,3 +57,9 @@ const input = computed(() => {
   }
 })
 </script>
+
+<style lang="scss" scoped>
+textarea {
+  resize: none;
+}
+</style>
