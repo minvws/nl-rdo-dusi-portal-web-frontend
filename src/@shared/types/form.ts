@@ -62,4 +62,5 @@ export type FormViewProps = {
   noButtons?: boolean
   hideRequiredLabel?: boolean
   persistent?: boolean
+  ariaLabel?: string
 }

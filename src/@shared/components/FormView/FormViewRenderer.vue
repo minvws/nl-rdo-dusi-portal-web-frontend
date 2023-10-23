@@ -14,6 +14,7 @@
     :class="{
       'no-style': isFirstStep || noStyle
     }"
+    :aria-label="props.ariaLabel"
     @submit.prevent.stop
   >
     <JsonForms

@@ -13,7 +13,8 @@
         buttonLabels: { submit: translate('component.filterOptions.submit') },
         hideDebug: true,
         hideRequiredLabel: true,
-        persistent: true
+        persistent: true,
+        ariaLabel: translate('component.filterOptions.title')
       }"
       @init="onSubmit"
       @submit="onSubmit"

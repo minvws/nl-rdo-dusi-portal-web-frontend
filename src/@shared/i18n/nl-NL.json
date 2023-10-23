@@ -66,6 +66,7 @@
       "vulnerability": "Kwetsbaarheid melden"
     },
     "filterOptions": {
+      "title": "Filters",
       "submit": "Filter"
     },
     "formNotification": {
