@@ -19,11 +19,7 @@
               translate('component.transitionHistory.stage', { title, assessor })
             }}</small>
           </p>
-          <AppHtml
-            v-if="item.internalNote"
-            as="p"
-            :html="nlToBr(item.internalNote)"
-          />
+          <p class="internal-note">{{ item.internalNote }}</p>
 
           <AppButton
             v-if="item.message?.id"
@@ -53,14 +49,13 @@ import { translate } from '@shared/i18n'
 import { openExternalLink } from '@shared/utils/link'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 export default defineComponent({
   data: () => ({
     fileURL: ''
   }),
-  components: { AppButton, AppHtml, AppIcon },
+  components: { AppButton, AppIcon },
   props: {
     ...rendererProps<ControlElement>()
   },
@@ -84,9 +79,6 @@ export default defineComponent({
         this.fileURL = URL.createObjectURL(file)
         openExternalLink(this.fileURL, '_blank')
       }
-    },
-    nlToBr(text: string) {
-      return text.replace(/\n/g, '<br />')
     }
   },
   computed: {
@@ -108,5 +100,9 @@ export default defineComponent({
 
 .ghost {
   --form-button-font-weight: 400;
+}
+
+.internal-note {
+  white-space: pre-line;
 }
 </style>
