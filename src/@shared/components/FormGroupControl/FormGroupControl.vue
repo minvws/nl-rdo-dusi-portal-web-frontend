@@ -166,13 +166,6 @@ export default defineComponent({
       display: none;
     }
   }
-
-  /* Add margin between nested non-emtpy group-items */
-  :deep(.group > .group-item > .group > .group-item + .group-item .vertical-layout-item) > :first-child {
-    margin-top: 2rem;
-    /*border-left: 5px solid pink;*/
-  }
-
 }
 
 .form-group-label {
@@ -189,23 +182,30 @@ export default defineComponent({
     padding-bottom: 0.5em;
     padding-left: 0;
 
-    @include mobile {
-      margin-bottom: 0;
+    &:not(:last-child) {
+      @include mobile {
+        margin-bottom: 0;
+      }
     }
   }
 
   :deep(.group) {
-    padding-bottom: 2em;
+    padding-bottom: 0;
 
     @include desktop {
-      padding-bottom: 3em;
+      padding-bottom: 1em;
     }
   }
 
-  :deep(> .group) {
+  > :deep(.group) {
     > .group-item:last-of-type > .group {
       padding-bottom: 0;
     }
+  }
+
+  :deep(.group-item > .form-row),
+  :deep(.group-item > .vertical-layout > .vertical-layout-item > .form-row) {
+    margin-bottom: 2rem;
   }
 }
 </style>
