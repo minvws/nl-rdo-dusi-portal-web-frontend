@@ -3,17 +3,18 @@
     v-if="forms"
     class="filter"
     :class="{ disabled }"
-    v-filters
   >
     <div ref="el"><slot /></div>
     <FormView
+      v-filters
       v-bind="{
         id: type,
         forms,
         buttonLabels: { submit: translate('component.filterOptions.submit') },
         hideDebug: true,
         hideRequiredLabel: true,
-        persistent: true
+        persistent: true,
+        ariaLabel: translate('component.filterOptions.title')
       }"
       @init="onSubmit"
       @submit="onSubmit"

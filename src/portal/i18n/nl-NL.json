@@ -35,7 +35,8 @@
     },
     "messagesOverview": {
       "messages": "bericht | berichten",
-      "filter": "Toon zoek en filter opties"
+      "showFilters": "Toon zoek- en filter-opties",
+      "hideFilters": "Verberg zoek- en filter-opties"
     },
     "notificationObligation": {
       "body1": "U bent verplicht ons op de hoogte te stellen als er iets verandert aan uw situatie. Of als u informatie heeft die de hoogte van uw subsidie kan beïnvloeden. Dit heet meldingsplicht. Doet u dit niet? Of niet op tijd? Dan moet u het gekregen bedrag misschien (deels) terugbetalen.",
