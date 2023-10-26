@@ -18,7 +18,7 @@
           large: isLarge
         }"
         :disabled="isDisabled(step)"
-        :aria-current="isAriaCurrent(step)"
+        :aria-current="ariaCurrent(step)"
         @click="onButtonClick(step)"
       >
         <span>{{ index + 1 }} {{ title }}</span>
@@ -69,8 +69,8 @@ function isActive(index: number) {
   return index === activeIndex
 }
 
-function isAriaCurrent(index: number) {
-  return index === 0 ? 'step' : undefined
+function ariaCurrent(index: number) {
+  return index === props.index ? 'step' : undefined
 }
 
 function isDisabled(index: number) {
