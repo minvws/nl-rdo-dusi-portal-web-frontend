@@ -3,10 +3,10 @@
     v-if="forms"
     class="filter"
     :class="{ disabled }"
+    v-filters
   >
     <div ref="el"><slot /></div>
     <FormView
-      v-filters
       v-bind="{
         id: type,
         forms,
