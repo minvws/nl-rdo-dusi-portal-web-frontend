@@ -87,9 +87,8 @@ const {
   clearForm
 } = form
 
-if (props.createDraft) createFormDraft()
-
 setForms(props)
+if (props.createDraft) createFormDraft()
 
 emit('init', form.formData.value)
 

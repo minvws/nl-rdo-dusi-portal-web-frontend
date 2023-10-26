@@ -20,6 +20,7 @@ export const useActiveForm = () => {
   const activeForm = computed(() => formStorage.get(formId.value))
   const data = computed(() => formsData.value?.[index.value] ?? {})
   const draftId = computed(() => activeForm.value?.draftId)
+  const draftIsPending = computed(() => activeForm.value?.draftIsPending)
   const errors = computed(() => formsErrors.value?.[index.value])
   const form = computed(() => activeForm.value?.forms[index.value])
   const formData = computed(() => formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {}))
@@ -38,15 +39,19 @@ export const useActiveForm = () => {
   const clearForm = useClearForm(formId)
 
   function setForms({ forms, values }: { forms: Form[]; values?: FormData }) {
-    const restoredForm = formStorage.get(formId.value)
-    const { data, index } = restoredForm ?? { data: [], index: 0 } // set cache for form
-    formStorage.set({ id: formId.value, forms, errors: [], index, data })
+    const restoredForm = formStorage.get(formId.value) ?? { data: [], index: 0 }
+    formStorage.set({ ...restoredForm, id: formId.value, forms, errors: [] })
     setFormDataFromValues(values)
   }
 
   function setDraft({ reference: draftId, data }: { reference: string; data?: FormData }) {
     formStorage.update(formId.value, { draftId })
     setFormDataFromValues(transformFormValues(data))
+    setDraftIsPending(false)
+  }
+
+  function setDraftIsPending(isPending: boolean) {
+    formStorage.update(formId.value, { draftIsPending: isPending })
   }
 
   function setFormDataFromValues(values?: FormData) {
@@ -114,6 +119,7 @@ export const useActiveForm = () => {
     activeForm,
     data,
     draftId,
+    draftIsPending,
     clearForm,
     errors,
     events: {
@@ -135,6 +141,7 @@ export const useActiveForm = () => {
     readonly,
     schema,
     setDraft,
+    setDraftIsPending,
     setFormData,
     setForms,
     setFormStep,

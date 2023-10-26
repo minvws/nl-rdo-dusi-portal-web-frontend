@@ -13,7 +13,7 @@ import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 
 export const useFormDraft = (formId: Ref<string>) => {
-  const { setDraft } = useActiveForm()
+  const { setDraft, setDraftIsPending, draftIsPending, draftId } = useActiveForm()
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
 
@@ -26,12 +26,17 @@ export const useFormDraft = (formId: Ref<string>) => {
   }
 
   async function createFormDraft() {
+    if (draftIsPending.value || draftId.value) {
+      // do not create a draft when draft is pending or a draftId is set
+      return
+    }
     const id = formId.value
     const url = useApiDraftFormUrl(id)
 
     const options: RequestInit = {
       method: 'POST'
     }
+    setDraftIsPending(true)
 
     const {
       data: { value: data },
