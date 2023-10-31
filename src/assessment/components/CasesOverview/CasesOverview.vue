@@ -31,11 +31,14 @@
         :disabled="isFetching || isFetchingFilters"
       >
         <span :class="{ transparent: !query || isFetching || isFetchingFilters }">
-          {{ numberOfCases }}
-          {{ t('cases', {}, numberOfCases) }}
-          <template v-if="activeFilterCount">
-            - ({{ t('activeFilters', { count: activeFilterCount }, activeFilterCount) }})
-          </template>
+          <strong>{{ numberOfCases }}</strong>
+          <span class="count">&nbsp;{{ t('cases', {}, numberOfCases) }}&nbsp;</span>
+          <small
+            v-if="activeFilterCount"
+            class="message"
+          >
+            {{ t('activeFilters', { count: activeFilterCount }, activeFilterCount) }}
+          </small>
         </span>
         <AppButton
           :data-hide-filters-label="t('hideFilters')"
@@ -113,9 +116,13 @@ const {
 const numberOfCases = computed(() => data.value.length ?? 0)
 
 const activeFilterCount = computed(() => {
-  return Object.keys(query.value ?? {}).reduce((count, key) => {
-    return query.value && query.value[key]?.length ? count++ : count
-  }, 0)
+  return Object.values(query.value ?? {}).filter(item => {
+    if (!item) return item
+    if (Array.isArray(item)) {
+      return item.length
+    }
+    return !!item
+  }).length
 })
 
 const headings = computed(() => {
@@ -158,5 +165,10 @@ main section {
 
 .transparent {
   opacity: 0;
+}
+
+.count,
+.message {
+  color: var(--grey-6);
 }
 </style>
