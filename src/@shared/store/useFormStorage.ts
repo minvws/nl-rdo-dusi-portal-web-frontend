@@ -7,6 +7,7 @@ import { defineStore } from 'pinia'
 type StoredForm = {
   forms: Form[]
   draftId?: string
+  draftIsPending?: boolean
   id: string
   index: number
   data: FormData[]
@@ -27,10 +28,8 @@ export const useFormStorage = defineStore('useFormStorage', () => {
 
   function update(id: string, props: any) {
     const form = get(id)
-
-    if (form) {
-      Object.assign(form, props)
-    }
+    if (!form) return
+    Object.assign(form, props)
   }
 
   function clear(id?: string) {
