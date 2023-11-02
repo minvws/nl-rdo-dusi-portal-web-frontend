@@ -1,18 +1,20 @@
 import type { Ref } from 'vue'
-import type { Form, FormData, FormError } from '@shared/types/form'
+import type { Form, FormData, FormError, FormValidationResult } from '@shared/types/form'
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
-type StoredForm = {
+export type StoredForm = {
   forms: Form[]
   draftId?: string
   draftIsPending?: boolean
+  validationResult?: FormValidationResult
   id: string
   index: number
   data: FormData[]
   errors: FormError[]
   isSubmitting?: boolean
+  isValidationPending?: boolean
 }
 
 export const useFormStorage = defineStore('useFormStorage', () => {

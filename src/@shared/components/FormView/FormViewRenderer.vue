@@ -4,6 +4,7 @@
     :index="index"
     :forms="forms"
     :formsErrors="formsErrors"
+    :validationResult="validationResult"
     :touched="touchedForms"
     :readonly="readonly || !!locked"
     @step="onStep"
@@ -33,6 +34,7 @@
       :index="index"
       :forms="forms"
       :formsErrors="formsErrors"
+      :validationResult="validationResult"
       :touched="touchedForms"
       :readonly="readonly"
       :buttonLabels="buttonLabels"
@@ -77,6 +79,7 @@ const {
   index,
   formKey,
   formsErrors,
+  validationResult,
   readonly,
   schema,
   touchedForms,

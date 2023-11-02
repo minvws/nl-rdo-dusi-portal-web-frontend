@@ -1,10 +1,9 @@
-import type { Ref } from 'vue'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
+import type { ControlEvent } from '@/@shared/types/control'
 
+import { computed, watch, type Ref } from 'vue'
 import { getControlId } from '@shared/utils/control'
-
-type ControlEvent = 'onFocus' | 'onBlur' | 'onInput' | 'onChange'
 
 // auto import from custom-input
 const customInputs = Object.values(import.meta.glob('@shared/custom-input/*.ts', { eager: true }))
@@ -23,7 +22,10 @@ export const useCustomControlInput = ({
   isFocused,
   setTouchedField,
   onChange,
-  handleChange
+  handleChange,
+  controlId,
+  onRemoteValidation,
+  errors
 }: {
   error: Ref<string>
   control: Ref<Control>
@@ -31,10 +33,33 @@ export const useCustomControlInput = ({
   setTouchedField: (_touched: boolean) => void
   onChange: (_event: Event) => void
   handleChange: (_path: string, _value: FormValue) => void
+  onRemoteValidation: () => void
+  controlId: string
+  errors: Ref<{ instancePath: string; params: { missingProperty: string } }[]>
 }) => {
+  const handleRemoteValidation = (type: ControlEvent) => {
+    // trigger remove validation when type is in list of validations
+    if (!control.value.uischema.options?.validation?.includes(type)) return
+    onRemoteValidation()
+  }
   const updateValue = (type: ControlEvent) => {
     handleChange(getControlId(control.value.id), getValue(type, control.value, control.value.data))
+    handleRemoteValidation(type)
   }
+
+  const isValid = computed(() => {
+    return !errors.value?.find(({ instancePath, params }) => {
+      if (!instancePath) {
+        return params?.missingProperty === controlId
+      }
+      return getControlId(instancePath) === controlId
+    })
+  })
+
+  watch(isValid, isValid => {
+    if (!isValid) return
+    updateValue('onValid')
+  })
 
   return {
     error,
@@ -54,6 +79,9 @@ export const useCustomControlInput = ({
       error.value = ''
       onChange(e)
       updateValue('onInput')
+      setTimeout(() => {
+        updateValue('onValid')
+      })
     },
     onBeforeChange(e: Event) {
       error.value = ''

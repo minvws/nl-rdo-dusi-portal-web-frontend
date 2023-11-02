@@ -13,10 +13,18 @@ import { useFormConditionalRequiredError } from '@shared/composables/form/useFor
 import { useFormConditionalIsRequired } from '@shared/composables/form/useFormConditionalIsRequired'
 
 export const useCustomControl = (props: any) => {
-  const { useTouchedField, isReadOnly, hideRequiredLabel } = useForms()
+  const {
+    useTouchedField,
+    isReadOnly,
+    hideRequiredLabel,
+    validationResult,
+    onRemoteValidation,
+    errors
+  } = useForms()
+
   const error: Ref<string> = ref('')
 
-  const id = getControlId(props.uischema.scope)
+  const controlId = getControlId(props.uischema.scope)
   const type = useFieldType(props.schema, props.uischema)
   const $props =
     type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
@@ -25,11 +33,14 @@ export const useCustomControl = (props: any) => {
   const component = {
     error,
     ...useVanillaControl($props, onHandleChange),
-    ...useTouchedField(id),
-    conditionalError: useFormConditionalRequiredError(id),
-    isConditionalRequired: useFormConditionalIsRequired(id)
+    ...useTouchedField(controlId),
+    conditionalError: useFormConditionalRequiredError(controlId),
+    isConditionalRequired: useFormConditionalIsRequired(controlId),
+    validationResult,
+    controlId,
+    errors,
+    onRemoteValidation
   }
-
   return {
     isReadOnly,
     hideRequiredLabel,

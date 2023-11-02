@@ -3,6 +3,7 @@ import type { JsonSchema } from '@jsonforms/core'
 import type { FormValue } from '@shared/types/form'
 
 import { InputType } from '@shared/types/input'
+import type { ControlEvent } from './control'
 
 type FieldOptions = {
   iban?: boolean
@@ -27,6 +28,7 @@ export type Control = {
   id: string
   data: FormValue
   schema: JsonSchema & FieldOptions
+  uischema: { options?: { validation?: ControlEvent[] } }
   options?: { label: string; value: string }[]
 }
 

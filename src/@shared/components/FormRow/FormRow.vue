@@ -70,6 +70,14 @@
         <FormFieldError v-bind="{ errors, id: `${id}-error` }" />
       </template>
     </FormRowElement>
+    <FormRowElement
+      v-else-if="validationResult"
+      :has-left="true"
+    >
+      <template #right>
+        <FormFieldValidationResult :validations="validationResult" />
+      </template>
+    </FormRowElement>
   </div>
 </template>
 
@@ -80,16 +88,18 @@ import { defineComponent } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 import { v4 as uuidv4 } from 'uuid'
 
-import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
-import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
+import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
 import FormFieldLabel from '@shared/components/FormFieldLabel/FormFieldLabel.vue'
-import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
+import FormFieldValidationResult from '@shared/components/FormFieldValidationResult/FormFieldValidationResult.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
+import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
 import { translate } from '@shared/i18n'
+import type { FormValidationEntry } from '@/@shared/types/form'
 
 export default defineComponent({
   extends: ControlWrapper,
@@ -110,15 +120,20 @@ export default defineComponent({
     isGroup: {
       type: Boolean,
       required: false
+    },
+    validationResult: {
+      type: Array<FormValidationEntry>,
+      required: false
     }
   },
   components: {
-    FormRowElement,
     FormFieldDescription,
     FormFieldError,
     FormFieldLabel,
+    FormFieldValidationResult,
     FormNotification,
-    FormRequiredLabel
+    FormRequiredLabel,
+    FormRowElement
   },
   computed: {
     tip() {
