@@ -58,6 +58,8 @@ export const useFormSubmit = () => {
     try {
       const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
       if (statusCode.value === 200) return { data: data.value }
+      if (type === FormSubmitTypes.VALIDATION && statusCode.value === 422)
+        return { data: error.value }
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
