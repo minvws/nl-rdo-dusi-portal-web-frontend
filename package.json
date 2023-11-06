@@ -56,7 +56,7 @@
     "@storybook/vue3-vite": "^7.4.6",
     "@tsconfig/node18": "^18.2.2",
     "@types/jsdom": "^21.1.3",
-    "@types/libsodium-wrappers": "^0.7.11",
+    "@types/libsodium-wrappers": "^0.7.12",
     "@types/lodash.merge": "^4.6.8",
     "@types/node": "^20.8.6",
     "@types/uuid": "^9.0.5",
