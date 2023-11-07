@@ -47,18 +47,17 @@ export const useActiveForm = () => {
     .filter(key => !!key)
 )
 
-  const formsValidationErrors = computed(() => {
-    // set remote-validations for each page
-    return activeForm.value?.forms
-      ?.map(form => {
-        const properties = Object.keys(form.dataschema?.properties ?? {})
-        const instancePath = properties.find(instancePath =>
-          validationResultErrors.value.includes(instancePath)
-        )
-        return instancePath ? [{ instancePath }] : undefined
-      })
-      .filter(item => !!item)
-  })
+  // set remote-validations for each page
+  const formsValidationErrors = computed(() => activeForm.value?.forms
+    ?.map(form => {
+      const properties = Object.keys(form.dataschema?.properties ?? {})
+      const instancePath = properties.find(instancePath =>
+        validationResultErrors.value.includes(instancePath)
+      )
+      return instancePath ? [{ instancePath }] : undefined
+    })
+    .filter(item => !!item)
+  )
 
   const formsErrors = computed(() => {
     // combine local validation errors with remote-validation errors
