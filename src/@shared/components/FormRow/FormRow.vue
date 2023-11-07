@@ -87,7 +87,7 @@
 <script lang="ts">
 import type { Options } from '@jsonforms/vue-vanilla'
 
-import { defineComponent } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -174,7 +174,7 @@ export default defineComponent({
   methods: {
     onSuggestion({ code, value }: { code: string; value: FormValue }) {
       this.handleChange?.(code, value)
-      this.onRemoteValidation?.()
+      nextTick(() => this.onRemoteValidation?.())
     }
   }
 })

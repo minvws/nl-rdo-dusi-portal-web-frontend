@@ -2,7 +2,7 @@ import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 import type { ControlEvent } from '@/@shared/types/control'
 
-import { computed, watch, type Ref } from 'vue'
+import { computed, watch, nextTick, type Ref } from 'vue'
 import { getControlId } from '@shared/utils/control'
 
 // auto import from custom-input
@@ -79,7 +79,7 @@ export const useCustomControlInput = ({
       error.value = ''
       onChange(e)
       updateValue('onInput')
-      setTimeout(() => {
+      nextTick(() => {
         updateValue('onValid')
       })
     },

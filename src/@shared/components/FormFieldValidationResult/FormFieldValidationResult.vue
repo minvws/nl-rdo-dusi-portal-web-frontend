@@ -35,7 +35,9 @@ const items = computed(() => {
         if (!target) continue
         let [key, { code, value }] = target
         const data = JSON.stringify({ code, value })
-        message = message.split(`{${key}}`).join(`<a data-${key}=${data}>${value}</a>`)
+        message = message
+          .split(`{${key}}`)
+          .join(`<button class="suggestion" data-${key}=${data}>${value}</button>`)
       }
     }
     return { ...item, message }
@@ -44,7 +46,8 @@ const items = computed(() => {
 
 const onClick = (e: Event) => {
   const el = e.target as HTMLElement
-  if (el.nodeName !== 'A') return
+  if (el.nodeName !== 'BUTTON') return
+  e.stopPropagation()
   const { suggestion } = el.dataset
   if (!suggestion) return
   emit('suggestion', JSON.parse(suggestion))
@@ -54,5 +57,15 @@ const onClick = (e: Event) => {
 <style lang="scss" scoped>
 .form-field-validation-result {
   display: flex;
+  :deep(.suggestion) {
+    border: 10px solid red;
+    display: inline;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--notification-link-text-color);
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 </style>
