@@ -35,12 +35,8 @@ export const useActiveForm = () => {
   const createDraft = computed(() => !!formProps.createDraft)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
 
-  const validationResult = computed(() => {
-    // only show remote-validations when validation is not pending and there are no local validation errors
-    return isValidationPending.value || !!errors.value?.length
-      ? undefined
-      : activeForm.value?.validationResult
-  })
+ // only show remote-validations when validation is not pending and there are no local validation errors
+  const validationResult = computed(() => isValidationPending.value || !!errors.value?.length ? undefined : activeForm.value?.validationResult)
 
   const validationResultErrors = computed(() => {
     // get all remote-validations of type = 'error'
