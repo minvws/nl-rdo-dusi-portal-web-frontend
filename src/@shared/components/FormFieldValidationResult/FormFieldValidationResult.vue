@@ -1,17 +1,17 @@
 <template>
   <div>
-    <p
+    <div
       :class="type"
       v-for="({ type, message }, index) in items"
       :key="`validation-${index}`"
       class="form-field-validation-result"
     >
       <span />
-      <span
+      <div
         v-html="message"
         @click="onClick"
       />
-    </p>
+    </div>
   </div>
 </template>
 
@@ -57,9 +57,15 @@ const onClick = (e: Event) => {
 <style lang="scss" scoped>
 .form-field-validation-result {
   display: flex;
+  flex-direction: row;
+
+  span {
+    width: auto;
+  }
   :deep(.suggestion) {
-    border: 10px solid red;
-    display: inline;
+    display: inline-block;
+    width: auto;
+    float: none;
     background: none;
     border: none;
     padding: 0;
