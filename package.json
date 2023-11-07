@@ -47,7 +47,7 @@
   "devDependencies": {
     "@intlify/eslint-plugin-vue-i18n": "^2.0.0",
     "@rushstack/eslint-patch": "^1.5.1",
-    "@storybook/addon-essentials": "^7.4.6",
+    "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-interactions": "^7.4.6",
     "@storybook/addon-links": "^7.4.6",
     "@storybook/blocks": "^7.4.6",
