@@ -3,7 +3,7 @@
     <nav
       v-if="totalPages > 1"
       class="pagination"
-      :aria-label="translate('component.app-pagination.app-pagination')"
+      :aria-label="translate('component.app-pagination.pagination')"
     >
       <AppButton
         v-if="withButtons"
@@ -17,7 +17,7 @@
 
       <ul>
         <AppPaginationItem
-          v-if="condensedLayout && !hideFirstGroup"
+          v-if="condensedLayout && showFirstGroup"
           :current-page="currentPage"
           :ellipsis-position="'end'"
           label="1"
@@ -35,7 +35,7 @@
         />
 
         <AppPaginationItem
-          v-if="condensedLayout && !hideLastGroup"
+          v-if="condensedLayout && showLastGroup"
           :current-page="currentPage"
           :ellipsis-position="'start'"
           :label="totalPages"
@@ -50,8 +50,8 @@
         :disabled="nextPageDisabled"
         @click.prevent="goToNextPage"
       >
-        {{ translate('component.app-pagination.next') }}
-        <span class="visually-hidden">{{ translate('component.app-pagination.page') }}</span>
+        {{ translate('component.pagination.next') }}
+        <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
       </AppButton>
     </nav>
   </div>
@@ -63,6 +63,9 @@ import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppPaginationItem from '@shared/components/AppPaginationItem/AppPaginationItem.vue'
+
+const MAX_GROUP_SIZE = 3
+const CONDENSED_LAYOUT_THRESHOLD = 8
 
 const emit = defineEmits(['page-change'])
 
@@ -81,25 +84,25 @@ const previousPageDisabled = computed(() => props.currentPage === 1)
 
 const totalPages = computed(() => Math.ceil(props.itemsTotal / props.pageSize))
 
-const condensedLayout = computed(() => totalPages.value >= 10)
+const condensedLayout = computed(() => totalPages.value >= CONDENSED_LAYOUT_THRESHOLD)
+
+const groupSize = computed(() => (condensedLayout.value ? MAX_GROUP_SIZE : totalPages.value))
 
 const currentPageGroup = computed(() => {
-  const maxPages = 5
-
-  if (totalPages.value <= maxPages) {
+  if (totalPages.value <= groupSize.value) {
     return Array.from({ length: totalPages.value }, (_, i) => i + 1)
   } else if (props.currentPage <= 3) {
-    return Array.from({ length: maxPages }, (_, i) => i + 1)
+    return Array.from({ length: MAX_GROUP_SIZE }, (_, i) => i + 2)
   } else if (props.currentPage >= totalPages.value - 2) {
-    return Array.from({ length: maxPages }, (_, i) => totalPages.value - maxPages + i + 1)
+    return Array.from({ length: MAX_GROUP_SIZE }, (_, i) => totalPages.value - MAX_GROUP_SIZE + i)
   } else {
-    return Array.from({ length: maxPages }, (_, i) => props.currentPage - 2 + i)
+    return Array.from({ length: MAX_GROUP_SIZE }, (_, i) => props.currentPage - 1 + i)
   }
 })
 
-const hideFirstGroup = computed(() => props.currentPage <= 3)
+const showFirstGroup = computed(() => props.currentPage >= 1)
 
-const hideLastGroup = computed(() => props.currentPage >= totalPages.value - 2)
+const showLastGroup = computed(() => props.currentPage <= totalPages.value)
 
 function goToNextPage() {
   if (props.currentPage < totalPages.value) {

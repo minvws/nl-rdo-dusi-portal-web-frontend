@@ -35,10 +35,10 @@ const isAriaCurrent = computed(() => (props.currentPage === props.pageIndex ? 't
 
 const isDisabled = computed(() => props.currentPage === props.pageIndex)
 
-const showEndEllipsis = computed(() => props.ellipsisPosition === 'end' && props.currentPage > 4)
+const showEndEllipsis = computed(() => props.ellipsisPosition === 'end' && props.currentPage > 3)
 
 const showStartEllipsis = computed(
-  () => props.ellipsisPosition === 'start' && props.currentPage < props.pageIndex - 3
+  () => props.ellipsisPosition === 'start' && props.currentPage < props.pageIndex - 2
 )
 
 function onClick() {
