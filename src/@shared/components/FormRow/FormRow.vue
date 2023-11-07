@@ -70,26 +70,39 @@
         <FormFieldError v-bind="{ errors, id: `${id}-error` }" />
       </template>
     </FormRowElement>
+    <FormRowElement
+      v-else-if="validationResult"
+      :has-left="true"
+    >
+      <template #right>
+        <FormFieldValidationResult
+          :validations="validationResult"
+          @suggestion="onSuggestion"
+        />
+      </template>
+    </FormRowElement>
   </div>
 </template>
 
 <script lang="ts">
 import type { Options } from '@jsonforms/vue-vanilla'
 
-import { defineComponent } from 'vue'
+import { defineComponent, nextTick } from 'vue'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 import { v4 as uuidv4 } from 'uuid'
 
-import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
-import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
+import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
 import FormFieldLabel from '@shared/components/FormFieldLabel/FormFieldLabel.vue'
-import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
+import FormFieldValidationResult from '@shared/components/FormFieldValidationResult/FormFieldValidationResult.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequiredLabel.vue'
+import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
 import { translate } from '@shared/i18n'
+import type { FormValidationEntry, FormValue } from '@/@shared/types/form'
 
 export default defineComponent({
   extends: ControlWrapper,
@@ -110,15 +123,28 @@ export default defineComponent({
     isGroup: {
       type: Boolean,
       required: false
+    },
+    validationResult: {
+      type: Array<FormValidationEntry>,
+      required: false
+    },
+    handleChange: {
+      type: Function,
+      required: false
+    },
+    onRemoteValidation: {
+      type: Function,
+      required: false
     }
   },
   components: {
-    FormRowElement,
     FormFieldDescription,
     FormFieldError,
     FormFieldLabel,
+    FormFieldValidationResult,
     FormNotification,
-    FormRequiredLabel
+    FormRequiredLabel,
+    FormRowElement
   },
   computed: {
     tip() {
@@ -143,6 +169,12 @@ export default defineComponent({
         class: [type ?? 'row', { inline }],
         [ERROR_ATTRIBUTE]: !!errors?.length || undefined
       }
+    }
+  },
+  methods: {
+    onSuggestion({ code, value }: { code: string; value: FormValue }) {
+      this.handleChange?.(code, value)
+      nextTick(() => this.onRemoteValidation?.())
     }
   }
 })

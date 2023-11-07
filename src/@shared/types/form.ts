@@ -35,7 +35,8 @@ export type FormResponse = any // @TODO
 
 export const FormSubmitTypes = {
   SUBMIT: 'submit',
-  DRAFT: 'draft'
+  DRAFT: 'draft',
+  VALIDATION: 'validation'
 }
 
 export type FormSubmitType = (typeof FormSubmitTypes)[keyof typeof FormSubmitTypes]
@@ -64,3 +65,11 @@ export type FormViewProps = {
   persistent?: boolean
   ariaLabel?: string
 }
+
+export type FormValidationEntry = {
+  type: 'error' | 'warning' | 'explanation' | 'confirmation'
+  message: string
+  params?: { suggestion?: { code: string; value: FormValue } }
+}
+
+export type FormValidationResult = Record<string, FormValidationEntry[]>

@@ -1,9 +1,9 @@
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
-import type { Form, FormData } from '@shared/types/form'
+import type { Form, FormData, FormValidationResult } from '@shared/types/form'
 import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 
-import { computed, inject } from 'vue'
+import { computed, inject, watch } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
@@ -13,23 +13,70 @@ import { useClearForm } from '@shared/composables/form/useClearForm'
 import { transformFormValues } from '@shared/utils/form'
 
 export const useActiveForm = () => {
-  const formProps = inject('form') as { id: string; hideRequiredLabel?: boolean }
+  const formProps = inject('form') as {
+    id: string
+    createDraft?: boolean
+    hideRequiredLabel?: boolean
+  }
 
   const formStorage = useFormStorage()
-
+  const index = computed(() => activeForm.value?.index ?? -1)
   const activeForm = computed(() => formStorage.get(formId.value))
   const data = computed(() => formsData.value?.[index.value] ?? {})
   const draftId = computed(() => activeForm.value?.draftId)
   const draftIsPending = computed(() => activeForm.value?.draftIsPending)
-  const errors = computed(() => formsErrors.value?.[index.value])
+  const errors = computed(() => activeForm.value?.errors[index.value])
   const form = computed(() => activeForm.value?.forms[index.value])
   const formData = computed(() => formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {}))
   const formId = computed(() => formProps?.id)
   const formKey = computed(() => `form-${formId.value}-${index.value}`)
   const forms = computed(() => activeForm.value?.forms)
   const formsData = computed(() => activeForm.value?.data)
-  const formsErrors = computed(() => activeForm.value?.errors)
-  const index = computed(() => activeForm.value?.index ?? -1)
+  const createDraft = computed(() => !!formProps.createDraft)
+  const isValidationPending = computed(() => activeForm.value?.isValidationPending)
+
+  // only show remote-validations when validation is not pending and there are no local validation errors
+  const validationResult = computed(() =>
+    isValidationPending.value || !!errors.value?.length
+      ? undefined
+      : activeForm.value?.validationResult
+  )
+
+  // get all remote-validations of type = 'error'
+  const validationResultErrors = computed(() =>
+    Object.entries(activeForm.value?.validationResult ?? {})
+      .map(([key, value]) => {
+        const hasError = value.find(({ type }) => type === 'error')
+        return hasError ? key : undefined
+      })
+      .filter(key => !!key)
+  )
+
+  // set remote-validations for each page
+  const formsValidationErrors = computed(
+    () =>
+      activeForm.value?.forms
+        ?.map(form => {
+          const properties = Object.keys(form.dataschema?.properties ?? {})
+          const instancePath = properties.find(instancePath =>
+            validationResultErrors.value.includes(instancePath)
+          )
+          return instancePath ? [{ instancePath }] : undefined
+        })
+        .filter(item => !!item)
+  )
+
+  const formsErrors = computed(() => {
+    // combine local validation errors with remote-validation errors
+    const combined = activeForm.value?.forms?.map((form, index) => {
+      return [
+        ...(formsValidationErrors.value[index] || []),
+        ...(activeForm.value?.errors[index] || [])
+      ]
+    })
+    return combined
+  })
+
   const readonly = computed(() => !!activeForm.value?.isSubmitting)
   const schema = computed(() => form.value?.dataschema)
   const uischema = computed(() => form.value?.uischema)
@@ -52,6 +99,9 @@ export const useActiveForm = () => {
 
   function setDraftIsPending(isPending: boolean) {
     formStorage.update(formId.value, { draftIsPending: isPending })
+  }
+  function setValidatingIsPending(isPending: boolean) {
+    formStorage.update(formId.value, { isValidationPending: isPending })
   }
 
   function setFormDataFromValues(values?: FormData) {
@@ -115,8 +165,21 @@ export const useActiveForm = () => {
     formStorage.update(formId.value, { isSubmitting })
   }
 
+  function setValidationResult(result?: { validationResult: FormValidationResult }) {
+    formStorage.update(formId.value, result ?? { validationResult: undefined })
+  }
+
+  watch(errors, errors => {
+    // clear any remote errors when local validation fails
+    if (!errors?.length || !activeForm.value?.validationResult) {
+      return
+    }
+    setValidationResult()
+  })
+
   return {
     activeForm,
+    createDraft,
     data,
     draftId,
     draftIsPending,
@@ -138,6 +201,7 @@ export const useActiveForm = () => {
     hideRequiredLabel,
     index,
     isReadOnly,
+    isValidationPending,
     readonly,
     schema,
     setDraft,
@@ -146,6 +210,9 @@ export const useActiveForm = () => {
     setForms,
     setFormStep,
     setSubmitting,
+    setValidationResult,
+    setValidatingIsPending,
+    validationResult,
     uischema
   }
 }

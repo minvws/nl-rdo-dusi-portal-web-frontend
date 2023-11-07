@@ -44,6 +44,11 @@ export const useApiFormsSubmitUrl = (id?: string) => {
   return `${baseUrl}/api/applications/${id}`
 }
 
+export const useApiFormsValidateUrl = (id?: string) => {
+  if (!id) throw new Error('id is not set for submitting form')
+  return `${baseUrl}/api/applications/${id}/validate`
+}
+
 export const useApiFormsUrl = (id: string | number) => {
   return `${baseUrl}/api/forms/${id}`
 }

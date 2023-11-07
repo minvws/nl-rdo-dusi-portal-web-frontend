@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormTitle, FormError } from '@shared/types/form'
+import type { FormTitle, FormError, FormValidationResult } from '@shared/types/form'
 
 import { computed } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
@@ -43,6 +43,7 @@ type Props = {
   index: number
   readonly: boolean
   touched?: number[]
+  validationResult?: FormValidationResult
 }
 
 const props = defineProps<Props>()

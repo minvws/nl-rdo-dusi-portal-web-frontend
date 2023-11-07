@@ -77,7 +77,11 @@ export default defineComponent({
         conditionalError,
         isConditionalRequired,
         isReadOnly,
-        hideRequiredLabel
+        hideRequiredLabel,
+        validationResult,
+        handleChange,
+        onRemoteValidation,
+        controlId
       } = this
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
@@ -98,7 +102,10 @@ export default defineComponent({
         styles,
         visible,
         contentClass: type,
-        hideRequiredLabel: hideRequiredLabel || isReadOnly
+        hideRequiredLabel: hideRequiredLabel || isReadOnly,
+        validationResult: validationResult?.[controlId],
+        handleChange,
+        onRemoteValidation
       }
     },
     field() {
