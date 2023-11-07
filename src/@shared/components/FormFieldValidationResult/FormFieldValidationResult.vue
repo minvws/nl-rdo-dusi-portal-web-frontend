@@ -45,7 +45,7 @@ const items = computed(() => {
 const onClick = (e: Event) => {
   const el = e.target as HTMLElement
   if (el.nodeName !== 'A') return
-  const suggestion = el.dataset.suggestion
+  const { suggestion } = el.dataset
   if (!suggestion) return
   emit('suggestion', JSON.parse(suggestion))
 }
