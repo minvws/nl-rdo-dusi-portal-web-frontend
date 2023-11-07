@@ -30,7 +30,7 @@ export const useFormSubmit = () => {
           method: 'PUT',
           url: useApiFormsSubmitUrl(draftId.value),
           data: formData.value,
-          params: { submit: type === FormSubmitTypes.SUBMIT }
+          submit: type === FormSubmitTypes.SUBMIT
         }
       case FormSubmitTypes.VALIDATION:
         return {
