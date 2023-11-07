@@ -38,16 +38,14 @@ export const useActiveForm = () => {
  // only show remote-validations when validation is not pending and there are no local validation errors
   const validationResult = computed(() => isValidationPending.value || !!errors.value?.length ? undefined : activeForm.value?.validationResult)
 
-  const validationResultErrors = computed(() => {
-    // get all remote-validations of type = 'error'
-    return Object.entries(activeForm.value?.validationResult ?? {})
-      .map(([key, value]) => {
-        const hasError = value.find(({ type }) => type === 'error')
-        if (hasError) return key
-        return undefined
-      })
-      .filter(key => !!key)
-  })
+  // get all remote-validations of type = 'error'
+  const validationResultErrors = computed(() => Object.entries(activeForm.value?.validationResult ?? {})
+    .map(([key, value]) => {
+      const hasError = value.find(({ type }) => type === 'error')
+      hasError ? key : undefined
+    })
+    .filter(key => !!key)
+)
 
   const formsValidationErrors = computed(() => {
     // set remote-validations for each page
