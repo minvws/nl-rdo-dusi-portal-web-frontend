@@ -79,6 +79,8 @@ export default defineComponent({
         isReadOnly,
         hideRequiredLabel,
         validationResult,
+        handleChange,
+        onRemoteValidation,
         controlId
       } = this
 
@@ -101,7 +103,9 @@ export default defineComponent({
         visible,
         contentClass: type,
         hideRequiredLabel: hideRequiredLabel || isReadOnly,
-        validationResult: validationResult?.[controlId]
+        validationResult: validationResult?.[controlId],
+        handleChange,
+        onRemoteValidation
       }
     },
     field() {

@@ -69,7 +69,7 @@ export type FormViewProps = {
 export type FormValidationEntry = {
   type: 'error' | 'warning' | 'explanation' | 'confirmation'
   message: string
-  params?: Record<string, unknown>
+  params?: { suggestion?: { code: string; value: FormValue } }
 }
 
 export type FormValidationResult = Record<string, FormValidationEntry[]>

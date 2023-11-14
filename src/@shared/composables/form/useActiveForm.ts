@@ -35,36 +35,36 @@ export const useActiveForm = () => {
   const createDraft = computed(() => !!formProps.createDraft)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
 
-  const validationResult = computed(() => {
-    // only show remote-validations when validation is not pending and there are no local validation errors
-    return isValidationPending.value || !!errors.value?.length
+  // only show remote-validations when validation is not pending and there are no local validation errors
+  const validationResult = computed(() =>
+    isValidationPending.value || !!errors.value?.length
       ? undefined
       : activeForm.value?.validationResult
-  })
+  )
 
-  const validationResultErrors = computed(() => {
-    // get all remote-validations of type = 'error'
-    return Object.entries(activeForm.value?.validationResult ?? {})
+  // get all remote-validations of type = 'error'
+  const validationResultErrors = computed(() =>
+    Object.entries(activeForm.value?.validationResult ?? {})
       .map(([key, value]) => {
         const hasError = value.find(({ type }) => type === 'error')
-        if (hasError) return key
-        return undefined
+        return hasError ? key : undefined
       })
       .filter(key => !!key)
-  })
+  )
 
-  const formsValidationErrors = computed(() => {
-    // set remote-validations for each page
-    return activeForm.value?.forms
-      ?.map(form => {
-        const properties = Object.keys(form.dataschema?.properties ?? {})
-        const instancePath = properties.find(instancePath =>
-          validationResultErrors.value.includes(instancePath)
-        )
-        return instancePath ? [{ instancePath }] : undefined
-      })
-      .filter(item => !!item)
-  })
+  // set remote-validations for each page
+  const formsValidationErrors = computed(
+    () =>
+      activeForm.value?.forms
+        ?.map(form => {
+          const properties = Object.keys(form.dataschema?.properties ?? {})
+          const instancePath = properties.find(instancePath =>
+            validationResultErrors.value.includes(instancePath)
+          )
+          return instancePath ? [{ instancePath }] : undefined
+        })
+        .filter(item => !!item)
+  )
 
   const formsErrors = computed(() => {
     // combine local validation errors with remote-validation errors

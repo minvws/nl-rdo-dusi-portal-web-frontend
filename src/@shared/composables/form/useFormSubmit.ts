@@ -30,7 +30,7 @@ export const useFormSubmit = () => {
           method: 'PUT',
           url: useApiFormsSubmitUrl(draftId.value),
           data: formData.value,
-          params: { submit: type === FormSubmitTypes.SUBMIT }
+          submit: type === FormSubmitTypes.SUBMIT
         }
       case FormSubmitTypes.VALIDATION:
         return {
@@ -58,6 +58,8 @@ export const useFormSubmit = () => {
     try {
       const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
       if (statusCode.value === 200) return { data: data.value }
+      if (type === FormSubmitTypes.VALIDATION && statusCode.value === 422)
+        return { data: error.value }
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)

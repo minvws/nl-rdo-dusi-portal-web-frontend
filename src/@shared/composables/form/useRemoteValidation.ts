@@ -31,8 +31,8 @@ export const useRemoteValidation = (
 
   watch(
     data,
-    (now, before) => {
-      const changed = JSON.stringify(now) !== JSON.stringify(before)
+    (current, previous) => {
+      const changed = JSON.stringify(current) !== JSON.stringify(previous)
       if (!changed) return
       isDataChanged.value = true
     },
