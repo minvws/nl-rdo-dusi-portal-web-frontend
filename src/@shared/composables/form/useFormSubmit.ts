@@ -58,8 +58,13 @@ export const useFormSubmit = () => {
     try {
       const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
       if (statusCode.value === 200) return { data: data.value }
-      if (type === FormSubmitTypes.VALIDATION && statusCode.value === 422)
-        return { data: error.value }
+      if (statusCode.value === 422) {
+        forms.setValidationResult(error.value ?? [])
+
+        if (type === FormSubmitTypes.VALIDATION) {
+          return { error: undefined }
+        }
+      }
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
@@ -95,8 +100,7 @@ export const useFormSubmit = () => {
   async function onSubmitValidation() {
     forms.setValidatingIsPending(true)
     const type = FormSubmitTypes.VALIDATION
-    const { data } = await onSubmit(type)
-    forms.setValidationResult(data ?? [])
+    await onSubmit(type)
     forms.setValidatingIsPending(false)
   }
 
