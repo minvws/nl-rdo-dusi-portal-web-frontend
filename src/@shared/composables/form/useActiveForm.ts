@@ -3,7 +3,7 @@ import type { Form, FormData, FormValidationResult } from '@shared/types/form'
 import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 
-import { computed, inject, watch } from 'vue'
+import { computed, inject } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
@@ -34,13 +34,7 @@ export const useActiveForm = () => {
   const formsData = computed(() => activeForm.value?.data)
   const createDraft = computed(() => !!formProps.createDraft)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
-
-  // only show remote-validations when validation is not pending and there are no local validation errors
-  const validationResult = computed(() =>
-    isValidationPending.value || !!errors.value?.length
-      ? undefined
-      : activeForm.value?.validationResult
-  )
+  const validationResult = computed(() => activeForm.value?.validationResult)
 
   // get all remote-validations of type = 'error'
   const validationResultErrors = computed(() =>
@@ -168,14 +162,6 @@ export const useActiveForm = () => {
   function setValidationResult(result?: { validationResult: FormValidationResult }) {
     formStorage.update(formId.value, result ?? { validationResult: undefined })
   }
-
-  watch(errors, errors => {
-    // clear any remote errors when local validation fails
-    if (!errors?.length || !activeForm.value?.validationResult) {
-      return
-    }
-    setValidationResult()
-  })
 
   return {
     activeForm,

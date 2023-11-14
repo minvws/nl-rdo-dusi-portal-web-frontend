@@ -3,7 +3,6 @@ import { watch, type ComputedRef, ref } from 'vue'
 
 export const useRemoteValidation = (
   {
-    errors,
     data,
     createDraft,
     isValidationPending
@@ -18,13 +17,7 @@ export const useRemoteValidation = (
   const isDataChanged = ref(false)
 
   const onValidationChange = () => {
-    if (
-      errors.value?.length ||
-      !createDraft.value ||
-      isValidationPending.value ||
-      !isDataChanged.value
-    )
-      return
+    if (!createDraft.value || isValidationPending.value || !isDataChanged.value) return
     isDataChanged.value = false
     return onSubmitValidation()
   }
