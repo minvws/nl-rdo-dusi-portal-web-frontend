@@ -56,11 +56,6 @@ export const useCustomControlInput = ({
     })
   })
 
-  watch(isValid, isValid => {
-    if (!isValid) return
-    updateValue('onValid')
-  })
-
   return {
     error,
     onError(message?: string) {
@@ -80,6 +75,7 @@ export const useCustomControlInput = ({
       onChange(e)
       updateValue('onInput')
       setTimeout(() => {
+        if (!isValid.value) return
         updateValue('onValid')
       })
     },
