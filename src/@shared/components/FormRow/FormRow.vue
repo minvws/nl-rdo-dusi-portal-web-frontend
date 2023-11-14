@@ -160,14 +160,14 @@ export default defineComponent({
       return undefined
     },
     rowProps() {
-      const { id, errors, isGroup, labelId, appliedOptions = {} } = this
+      const { id, errors, isGroup, labelId, validationResult, appliedOptions = {} } = this
       const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
       return {
         id,
         role: isGroup ? 'group' : undefined,
         'aria-labelledby': isGroup ? labelId : undefined,
         class: [type ?? 'row', { inline }],
-        [ERROR_ATTRIBUTE]: !!errors?.length || undefined
+        [ERROR_ATTRIBUTE]: !!errors?.length || !!validationResult?.length || undefined
       }
     }
   },
