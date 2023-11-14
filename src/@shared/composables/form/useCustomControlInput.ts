@@ -2,7 +2,8 @@ import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 import type { ControlEvent } from '@/@shared/types/control'
 
-import { computed, nextTick, type Ref } from 'vue'
+import type { Ref } from 'vue'
+import { computed, nextTick } from 'vue'
 import { getControlId } from '@shared/utils/control'
 
 // auto import from custom-input
