@@ -25,6 +25,7 @@
             role="group"
             :aria-label="translate(`component.modal.aria-label.${modal.content.type}`)"
             :class="modal.content.type"
+            @click.stop
           >
             <div class="icon-wrapper">
               <span class="icon" />
