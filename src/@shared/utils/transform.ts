@@ -152,7 +152,7 @@ const setRequestAction = (reference: string, status: string) =>
 
 const setReviewerAction = (id: string, actions?: ReviewerActionType[]) => {
   const type = actions?.find(action => action !== ReviewerAction.SHOW)
-  if (!type) return createSet('case', {})
+  if (!type) return createSet('action', {})
 
   switch (type) {
     case ReviewerAction.ASSIGN:
