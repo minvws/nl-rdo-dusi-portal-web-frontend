@@ -1,4 +1,4 @@
-import type { FormError, FormData } from '@/@shared/types/form'
+import type { FormError, FormData } from '@shared/types/form'
 import { watch, type ComputedRef, ref } from 'vue'
 
 export const useRemoteValidation = (

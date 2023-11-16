@@ -152,12 +152,22 @@ const setRequestAction = (reference: string, status: string) =>
 
 const setReviewerAction = (id: string, actions?: ReviewerActionType[]) => {
   const type = actions?.find(action => action !== ReviewerAction.SHOW)
-  if (!type) return createSet('action', {})
-  return createSet('action', {
-    type: AssessmentsDataType.BUTTON,
-    text: reviewerActionToRouteText[type],
-    action: { type, params: { id } }
-  })
+  if (!type) return createSet('case', {})
+
+  switch (type) {
+    case ReviewerAction.ASSIGN:
+      return createSet('action', {
+        type: AssessmentsDataType.BUTTON,
+        text: reviewerActionToRouteText[type],
+        action: { type, params: { id } }
+      })
+    default:
+      return createSet('action', {
+        type: AssessmentsDataType.BUTTON,
+        text: reviewerActionToRouteText[type],
+        action: { type, params: { id } }
+      })
+  }
 }
 
 const setCaseAction = (id: string, status: string, actions?: ReviewerActionType[]) => {

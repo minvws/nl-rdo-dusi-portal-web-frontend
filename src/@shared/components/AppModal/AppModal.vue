@@ -4,11 +4,11 @@
     appear
   >
     <component
-      v-if="modal.content"
-      :ref="modal.setElement"
-      :is="modal.component"
+      v-if="modalStore.content"
+      :ref="modalStore.setElement"
+      :is="modalStore.component"
       class="modal"
-      @click="modal.onClickOutside"
+      @click="modalStore.onClickOutside"
     >
       <Transition
         name="content"
@@ -17,30 +17,35 @@
       >
         <div
           class="modal-wrapper"
-          :key="`${modal.content.title}-${modal.content.message}`"
+          :key="`${modalStore.content.title}-${modalStore.content.message}`"
           @keyup.space="pressFirstButton"
         >
           <div
             class="modal-content"
+            :class="modalTypeClass"
             role="group"
-            :aria-label="translate(`component.modal.aria-label.${modal.content.type}`)"
-            :class="modal.content.type"
+            :aria-label="translate(`component.modal.aria-label.${modalStore.content.type}`)"
             @click.stop
           >
-            <div class="icon-wrapper">
+            <div class="modal-content__icon">
               <span class="icon" />
             </div>
-            <div>
+            <div class="modal-content__wrapper">
               <h2
                 ref="title"
                 tabindex="-1"
               >
-                {{ modal.content.title }}
+                {{ modalStore.content.title }}
               </h2>
-              <p>{{ modal.content.message }}</p>
+              <p>{{ modalStore.content.message }}</p>
+              <component
+                v-if="modalStore.content.component"
+                :is="modalStore.content.component.name"
+                v-bind="modalStore.content.component.props"
+              />
               <div class="buttons">
                 <AppButton
-                  v-for="({ label, action }, index) in modal.content.buttons"
+                  v-for="({ label, action }, index) in modalStore.content.buttons"
                   :key="index"
                   @click="action"
                 >
@@ -56,24 +61,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { translate } from '@shared/i18n'
-import AppButton from '@shared/components/AppButton/AppButton.vue'
-import { useAppModal } from '@shared/store/useAppModal'
+import { ModalType } from '@shared/types/modal'
 
-const modal = useAppModal()
+import { computed, ref, watch } from 'vue'
+
+import { useAppModalStore } from '@shared/store/useAppModalStore'
+
+import AppButton from '@shared/components/AppButton/AppButton.vue'
+
+import { translate } from '@shared/i18n'
+
+const modalStore = useAppModalStore()
 
 const title = ref<HTMLHeadingElement>()
+
+const modalTypeClass = computed(() => {
+  const type = modalStore?.content?.type ?? ModalType.DEFAULT
+  return type !== ModalType.DEFAULT ? type : ''
+})
+
+function pressFirstButton() {
+  modalStore?.content?.buttons?.[0]?.action()
+}
 
 watch(title, (current, previous) => {
   if (current && !previous) {
     current.focus()
   }
 })
-
-function pressFirstButton() {
-  modal?.content?.buttons?.[0]?.action()
-}
 </script>
 
 <style lang="scss" scoped>
@@ -86,40 +101,63 @@ function pressFirstButton() {
   height: 100vh;
   background: rgba(0, 0, 0, 0.2);
 
-  .icon {
-    &-wrapper {
-      font-size: var(--h2-font-size, inherit);
-    }
+  .icon::before {
+    width: 2em !important;
+    max-width: 2em !important;
+    height: 2em !important;
+  }
 
-    &::before {
-      width: 2em !important;
-      max-width: 2em !important;
-      height: 2em !important;
-    }
+  .modal-content__icon {
+    font-size: var(--h2-font-size, inherit);
   }
 
   .buttons {
     padding-top: 1em;
   }
 
-  &-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  .modal-content__wrapper {
+    flex: 1 1 auto;
   }
+}
 
-  &-content {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    gap: 0.5em;
-    flex-direction: row;
-    max-width: 600px;
-    transform: translate(-50%, -50%);
-  }
+.modal-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-content {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  gap: 0.5em;
+  flex-direction: row;
+  max-width: 600px;
+  transform: translate(-50%, -50%);
+}
+
+.modal-content:not(.notification, .error, .warning, .confirmation, .explanation, .system) {
+  display: flex;
+  max-width: 600px;
+  width: 100%;
+  background-color: var(--application-base-background-color);
+  color: var(--notification-explanation-text-color);
+  border-width: var(--notification-explanation-border-width);
+  border-style: var(--notification-explanation-border-style);
+  border-color: var(--notification-explanation-border-color);
+  padding-top: var(--notification-block-element-padding-top);
+  padding-right: var(--notification-block-element-padding-right);
+  padding-bottom: var(--notification-block-element-padding-bottom);
+  padding-left: var(--notification-block-element-padding-left);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  gap: 0.5em;
+  flex-direction: row;
+  transform: translate(-50%, -50%);
 }
 
 // transitions

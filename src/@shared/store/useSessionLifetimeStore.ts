@@ -6,7 +6,7 @@ import { defineStore } from 'pinia'
 
 import { translate } from '@shared/i18n'
 
-import { useAppModal } from '@shared/store/useAppModal'
+import { useAppModalStore } from '@shared/store/useAppModalStore'
 import { ModalType } from '@shared/types/modal'
 import { SessionType } from '@shared/types/session'
 
@@ -22,7 +22,7 @@ const EXTEND_SESSION_FRACTION = 1 / 15 // fraction of the total duration when th
 
 export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', () => {
   const { dispatch } = useDispatcher()
-  const { openModal, closeModal } = useAppModal()
+  const { openModal, closeModal } = useAppModalStore()
 
   const init: Ref<boolean> = ref(false)
   const duration: Ref<number | undefined> = ref(undefined)

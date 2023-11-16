@@ -1,6 +1,7 @@
 export const ReviewerAction = {
-  SHOW: 'show',
+  ASSIGN: 'assign',
   CLAIM: 'claim',
+  SHOW: 'show',
   RELEASE: 'release'
 } as const
 

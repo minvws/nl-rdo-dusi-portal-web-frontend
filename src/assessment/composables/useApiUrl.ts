@@ -83,3 +83,11 @@ export const useApiPasswordResetUrl = () => {
 export const useApiMessageDownloadUrl = (id: string, format: string) => {
   return `${baseUrl}/api/messages/${id}/download/${format}`
 }
+
+export const useApiAssessorPoolUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}/assessorpool`
+}
+
+export const useApiAssignCaseAssessorUrl = (id: string) => {
+  return `${baseUrl}/api/applications/${id}/assign`
+}

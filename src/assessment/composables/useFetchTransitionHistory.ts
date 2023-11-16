@@ -6,7 +6,7 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiTransitionHistoryUrl } from '@assessment/composables/useApiUrl'
 
 import { formatDateWithTime } from '@shared/utils/date'
-import { translate } from '@/@shared/i18n'
+import { translate } from '@shared/i18n'
 
 const transformStage = (stage: HistoryTransitionStage) => {
   return {

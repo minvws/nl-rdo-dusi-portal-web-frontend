@@ -46,6 +46,11 @@
     }
   },
   "component": {
+    "assignAssessor": {
+      "label": "Zoek op naam",
+      "placeholder": "Naam beoordelaar",
+      "assign": "Toekennen"
+    },
     "transitionHistory": {
       "title": "Geschiedenis",
       "stage": "{title} uitgevoerd door {assessor}"
@@ -136,6 +141,23 @@
       "tip": "Voer de zescijferige code in van uw authenticator-app."
     }
   },
+  "modal": {
+    "assignAssessor": {
+      "title": "Zaak toekennen",
+      "message": "Selecteer een beoordelaar om de zaak aan toe te wijzen. Gebruik het zoekveld om te zoeken op naam.",
+      "assign": "Toekennen"
+    }
+  },
+  "notification": {
+    "assign-case-assessor-success": {
+      "label": "Gelukt",
+      "message": "De beoordelaar is succesvol toegevoegd aan de zaak."
+    },
+    "assign-case-assessor-error": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden tijdens het toevoegen. Probeer het later nog eens."
+    }
+  },
   "pages": {
     "all-cases-overview": {
       "cases": "Zaak|Zaken",
@@ -210,6 +232,7 @@
     }
   },
   "reviewerAction": {
+    "assign": "Toekennen",
     "show": "Open zaak",
     "claim": "Pak op",
     "release": "Zaak loslaten"

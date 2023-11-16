@@ -22,7 +22,7 @@
 </template>
 <script setup lang="ts">
 import type { Control } from '@shared/types/field'
-import type { InputType } from '@/@shared/types/input'
+import type { InputType } from '@shared/types/input'
 import { computed } from 'vue'
 
 defineEmits(['input', 'change', 'focus', 'blur'])

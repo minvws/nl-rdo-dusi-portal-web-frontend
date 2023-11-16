@@ -102,7 +102,7 @@ import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
 import { translate } from '@shared/i18n'
-import type { FormValidationEntry, FormValue } from '@/@shared/types/form'
+import type { FormValidationEntry, FormValue } from '@shared/types/form'
 
 export default defineComponent({
   extends: ControlWrapper,

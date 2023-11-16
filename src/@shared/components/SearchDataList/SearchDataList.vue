@@ -12,22 +12,27 @@
         id="autocomplete"
         v-model="inputValue"
         :placeholder="placeholder"
+        @input="reset"
       />
       <AppIcon name="search" />
     </div>
     <datalist>
       <option
-        v-for="(result, index) in filteredResults"
-        :key="index"
+        v-for="({ id, name }, index) in filteredResults"
+        :key="id"
         :class="{
           'is-selected': index === selectedIndex
         }"
-        :value="result"
+        :value="id"
         @click="selectResult(index)"
       >
-        {{ result }}
+        {{ name }}
       </option>
     </datalist>
+    <div v-if="selectedResult">
+      <h4>{{ translate('component.searchDataList.result') }}</h4>
+      <p>{{ selectedResult.name }}</p>
+    </div>
   </div>
 </template>
 
@@ -38,11 +43,18 @@ import { ref, computed } from 'vue'
 
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
+import { translate } from '@shared/i18n'
+
 const emit = defineEmits(['select'])
+
+export type OptionItem = {
+  id: string
+  name: string
+}
 
 type Props = {
   label: string
-  options: string[]
+  options: OptionItem[]
   placeholder?: string
 }
 
@@ -51,28 +63,38 @@ const props = defineProps<Props>()
 const inputValue: Ref<string> = ref('')
 const selectedIndex: Ref<number> = ref(-1)
 
+const selectedResult = computed(() => filteredResults.value[selectedIndex.value])
+
 const filteredResults = computed(() =>
-  props.options.filter(result => result.toLowerCase().includes(inputValue.value.toLowerCase()))
+  props.options.filter(result => {
+    const name = result.name.toLowerCase()
+    const query = inputValue.value.toLowerCase()
+
+    return name.includes(query)
+  })
 )
 
 function selectResult(index: number) {
   selectedIndex.value = index
-  const result = filteredResults.value[index]
 
-  emit('select', result)
+  emit('select', selectedResult.value)
+}
+
+function reset() {
+  selectedIndex.value = -1
 }
 </script>
 
 <style lang="scss" scoped>
 .search-data-list {
-  max-width: 320px;
-  border: 1px solid var(--grey-2);
-  box-shadow: 0px 8px 16px 0px rgba(17, 20, 22, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .search-data-list-input {
   position: relative;
-  padding: 1rem;
 }
 
 .app-icon {
@@ -91,7 +113,7 @@ input:hover + .app-icon {
 
 datalist {
   display: block;
-  max-height: 250px;
+  max-height: 175px;
   padding-bottom: 0.375rem;
   overflow-y: auto;
 }
@@ -103,6 +125,10 @@ option {
   &.is-selected {
     background-color: var(--application-base-tint-1-background-color);
     font-weight: bold;
+  }
+
+  + option {
+    border-top: 1px solid var(--grey-2);
   }
 }
 </style>

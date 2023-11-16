@@ -1,15 +1,15 @@
 import type { Ref } from 'vue'
 import type { Modal } from '@shared/types/modal'
 
-import { computed, ref, watch } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import { defineStore } from 'pinia'
 
 import { usePreventBodyScroll } from '@shared/composables/usePreventBodyScroll'
-import { useClickOutside } from '@shared/composables/useClickOutside'
 
-export const useAppModal = defineStore('useAppModal', (persistent = true) => {
+export const useAppModalStore = defineStore('useAppModalStore', () => {
   const el: Ref<HTMLDialogElement | HTMLDivElement | null> = ref(null)
   const content: Ref<Modal | undefined> = ref(undefined)
+  const persistent: Ref<boolean> = ref(true)
 
   const hasModal = computed(() => !!content.value)
 
@@ -47,7 +47,9 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
     el.value = element
   }
 
-  const { onClickOutside } = useClickOutside(closeModal, hasModal, persistent)
+  function setPersistence(persist: boolean) {
+    persistent.value = persist
+  }
 
   usePreventBodyScroll(hasModal)
 
@@ -59,13 +61,41 @@ export const useAppModal = defineStore('useAppModal', (persistent = true) => {
     { immediate: true }
   )
 
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key !== 'Escape' || !hasModal.value) {
+      return
+    }
+
+    e.preventDefault()
+    e.stopImmediatePropagation()
+
+    if (persistent.value) {
+      return
+    }
+
+    closeModal()
+  }
+
+  function onClickOutside() {
+    if (persistent.value) {
+      return
+    }
+
+    closeModal()
+  }
+
+  onMounted(() => document.addEventListener('keydown', onKeyDown))
+
+  onUnmounted(() => document.removeEventListener('keydown', onKeyDown))
+
   return {
-    el,
-    content,
-    setElement,
-    openModal,
     closeModal,
+    component,
+    content,
+    el,
     onClickOutside,
-    component
+    openModal,
+    setPersistence,
+    setElement
   }
 })

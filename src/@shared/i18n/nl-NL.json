@@ -101,6 +101,9 @@
       "prev": "Vorige",
       "next": "Volgende"
     },
+    "searchDataList": {
+      "result": "De zaak wordt toegekend aan:"
+    },
     "table": {
       "sortableColumnsHint": "Kolomkoppen met knoppen zijn sorteerbaar"
     }

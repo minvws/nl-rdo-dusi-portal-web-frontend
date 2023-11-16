@@ -11,7 +11,7 @@ import { useRouter } from 'vue-router'
 
 import { NotificationType } from '@shared/types/notification'
 
-import { JSONRequestHeaders } from '@/@shared/composables/useFetchHeaders'
+import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { passWordPlaceholder as placeholder } from '@shared/fixtures/form/data/placeholder'
 

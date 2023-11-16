@@ -1,4 +1,7 @@
+import type { Component, Raw } from 'vue'
+
 export const ModalType = {
+  DEFAULT: 'notification',
   ERROR: 'error',
   WARNING: 'warning',
   EXPLANATION: 'explanation',
@@ -7,10 +10,14 @@ export const ModalType = {
 
 export type Modal = {
   type: (typeof ModalType)[keyof typeof ModalType]
-  title: string
-  message: string
+  title: string | undefined
+  message: string | undefined
+  component?: {
+    name: Raw<Component>
+    props: Record<string, unknown>
+  }
   buttons?: {
-    label: string
+    label: string | undefined
     action: () => void
   }[]
 }

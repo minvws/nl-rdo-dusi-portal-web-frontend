@@ -115,13 +115,14 @@ import { useCaseAction } from '@assessment/composables/useCaseAction'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
+
 import { translate } from '@shared/i18n'
 
 import {
-  isRouterLink,
-  isExternalLink,
   isAppButton,
+  isExternalLink,
   isIcon,
+  isRouterLink,
   getRouterLinkClasses
 } from '@shared/utils/app-table'
 
