@@ -51,15 +51,13 @@ export const useActiveForm = () => {
   // set remote-validations for each page
   const formsValidationErrors = computed(
     () =>
-      activeForm.value?.forms
-        ?.map(form => {
-          const properties = Object.keys(form.dataschema?.properties ?? {})
-          const instancePath = properties.find(instancePath =>
-            validationResultErrors.value.includes(instancePath)
-          )
-          return instancePath ? [{ instancePath }] : undefined
-        })
-        .filter(item => !!item)
+      activeForm.value?.forms?.map(form => {
+        const properties = Object.keys(form.dataschema?.properties ?? {})
+        const instancePath = properties.find(instancePath =>
+          validationResultErrors.value.includes(instancePath)
+        )
+        return instancePath ? [{ instancePath }] : undefined
+      })
   )
 
   const formsErrors = computed(() => {
