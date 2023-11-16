@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
@@ -19,6 +19,7 @@ export const useCustomControl = (props: any) => {
     hideRequiredLabel,
     validationResult,
     onRemoteValidation,
+    validationId,
     errors
   } = useForms()
 
@@ -43,6 +44,7 @@ export const useCustomControl = (props: any) => {
   }
   return {
     isReadOnly,
+    isValidating: computed(() => validationId.value === controlId),
     hideRequiredLabel,
     ...component,
     ...useCustomControlInput(component)

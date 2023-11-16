@@ -31,6 +31,7 @@ import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import { InputType } from '@shared/types/input'
+import { getInputId } from '@/@shared/utils/control'
 
 export default defineComponent({
   components: {
@@ -51,16 +52,18 @@ export default defineComponent({
   computed: {
     input() {
       const {
-        control: { id, enabled, schema, uischema },
+        isValidating,
+        control,
         appliedOptions: { placeholder, autofocus }
       } = this
+      const { enabled, schema, uischema } = control
       const type = useFieldType(schema, uischema)
       const value = useFieldValue(this)
       return {
-        id: `${id}-input`,
+        id: getInputId(control),
         class: `input ${type}-input`,
         type,
-        disabled: !enabled,
+        disabled: !enabled || isValidating,
         autofocus,
         placeholder,
         ...value

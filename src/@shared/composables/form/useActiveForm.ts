@@ -34,6 +34,8 @@ export const useActiveForm = () => {
   const formsData = computed(() => activeForm.value?.data)
   const createDraft = computed(() => !!formProps.createDraft)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
+  const validationId = computed(() => activeForm.value?.validationId)
+
   const validationResult = computed(() => activeForm.value?.validationResult)
 
   // get all remote-validations of type = 'error'
@@ -71,7 +73,7 @@ export const useActiveForm = () => {
     return combined
   })
 
-  const readonly = computed(() => !!activeForm.value?.isSubmitting)
+  const readonly = computed(() => (validationId.value ? false : !!activeForm.value?.isSubmitting))
   const schema = computed(() => form.value?.dataschema)
   const uischema = computed(() => form.value?.uischema)
   const isReadOnly = computed(() => form.value?.uiType === FormUiTypes.VIEW)
@@ -96,6 +98,11 @@ export const useActiveForm = () => {
   }
   function setValidatingIsPending(isPending: boolean) {
     formStorage.update(formId.value, { isValidationPending: isPending })
+    if (!isPending) setIdIsValidating()
+  }
+
+  function setIdIsValidating(validationId?: string) {
+    formStorage.update(formId.value, { validationId })
   }
 
   function setFormDataFromValues(values?: FormData) {
@@ -195,10 +202,12 @@ export const useActiveForm = () => {
     setFormData,
     setForms,
     setFormStep,
+    setIdIsValidating,
     setSubmitting,
-    setValidationResult,
     setValidatingIsPending,
-    validationResult,
-    uischema
+    setValidationResult,
+    uischema,
+    validationId,
+    validationResult
   }
 }

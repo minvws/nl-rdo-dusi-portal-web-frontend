@@ -12,14 +12,14 @@ export const useRemoteValidation = (
     data: ComputedRef<FormData>
     isValidationPending: ComputedRef<boolean | undefined>
   },
-  onSubmitValidation: () => void
+  onSubmitValidation: (_id?: string) => Promise<void>
 ) => {
   const isDataChanged = ref(false)
 
-  const onValidationChange = () => {
+  const onValidationChange = async (id?: string) => {
     if (!createDraft.value || isValidationPending.value || !isDataChanged.value) return
     isDataChanged.value = false
-    return onSubmitValidation()
+    await onSubmitValidation(id)
   }
 
   watch(

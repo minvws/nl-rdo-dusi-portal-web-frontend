@@ -99,7 +99,8 @@ export const useFormSubmit = () => {
     showNotification({ type, error })
   }
 
-  async function onSubmitValidation() {
+  async function onSubmitValidation(id?: string): Promise<void> {
+    if (id) forms.setIdIsValidating(id)
     forms.setValidatingIsPending(true)
     const type = FormSubmitTypes.VALIDATION
     await onSubmit(type)
