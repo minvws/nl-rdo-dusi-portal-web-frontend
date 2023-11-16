@@ -15,6 +15,7 @@ export type StoredForm = {
   errors: FormError[]
   isSubmitting?: boolean
   isValidationPending?: boolean
+  validationId?: string
 }
 
 export const useFormStorage = defineStore('useFormStorage', () => {

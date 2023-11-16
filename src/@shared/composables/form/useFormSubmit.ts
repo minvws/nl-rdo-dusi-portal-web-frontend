@@ -57,7 +57,8 @@ export const useFormSubmit = () => {
     forms.setSubmitting(true)
     try {
       const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
-      forms.setValidationResult(error.value ?? [])
+      const validationResult = error?.value?.validationResult ?? data?.value?.validationResult
+      forms.setValidationResult({ validationResult })
 
       if (statusCode.value === 200) {
         return { data: data.value }
@@ -99,7 +100,8 @@ export const useFormSubmit = () => {
     showNotification({ type, error })
   }
 
-  async function onSubmitValidation() {
+  async function onSubmitValidation(id?: string): Promise<void> {
+    if (id) forms.setIdIsValidating(id)
     forms.setValidatingIsPending(true)
     const type = FormSubmitTypes.VALIDATION
     await onSubmit(type)

@@ -16,6 +16,8 @@
       debug information
     </div>
     <div v-if="isVisible">
+      <h2>remote validation result:</h2>
+      <pre>{{ validationResult }}</pre>
       <h2>step data:</h2>
       <pre>{{ data }}</pre>
       <h2>all data:</h2>
@@ -45,7 +47,7 @@ const { setDummyData } = useFormDummyData()
 const fileStore = useFileStore()
 
 const { files, pending } = storeToRefs(fileStore)
-const { data, formsData, errors } = useForms()
+const { data, formsData, errors, validationResult } = useForms()
 </script>
 
 <style lang="scss" scoped>

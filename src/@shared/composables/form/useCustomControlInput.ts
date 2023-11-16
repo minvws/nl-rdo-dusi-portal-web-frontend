@@ -4,7 +4,7 @@ import type { ControlEvent } from '@/@shared/types/control'
 
 import type { Ref } from 'vue'
 import { computed, nextTick } from 'vue'
-import { getControlId } from '@shared/utils/control'
+import { getControlId, getInputId } from '@shared/utils/control'
 
 // auto import from custom-input
 const customInputs = Object.values(import.meta.glob('@shared/custom-input/*.ts', { eager: true }))
@@ -34,14 +34,18 @@ export const useCustomControlInput = ({
   setTouchedField: (_touched: boolean) => void
   onChange: (_event: Event) => void
   handleChange: (_path: string, _value: FormValue) => void
-  onRemoteValidation: () => void
+  onRemoteValidation: (_id?: string) => Promise<void>
   controlId: string
   errors: Ref<{ instancePath: string; params: { missingProperty: string } }[]>
 }) => {
-  const handleRemoteValidation = (type: ControlEvent) => {
+  const handleRemoteValidation = async (type: ControlEvent) => {
     // trigger remove validation when type is in list of validations
     if (!control.value.uischema.options?.validation?.includes(type)) return
-    onRemoteValidation()
+    await onRemoteValidation(controlId)
+    if (type !== 'onValid') return
+    // input is validating and disabled, restore focus on element after validation
+    const inputId = getInputId(control.value)
+    document.getElementById(inputId)?.focus()
   }
   const updateValue = (type: ControlEvent) => {
     handleChange(getControlId(control.value.id), getValue(type, control.value, control.value.data))

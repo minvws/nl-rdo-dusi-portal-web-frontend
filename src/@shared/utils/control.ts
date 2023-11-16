@@ -31,6 +31,11 @@ function createAutoComplete(autocomplete: string) {
   }
 }
 
+export function getInputId(control: Control) {
+  const { id } = control
+  return `${id}-input`
+}
+
 function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Control) {
   if (updatePassword) return createAutoComplete('new-password')
 
