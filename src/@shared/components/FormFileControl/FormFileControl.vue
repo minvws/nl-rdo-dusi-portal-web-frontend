@@ -1,14 +1,30 @@
 <template>
-  <div class="file-control">
-    <FormTextControl
-      v-bind="{ ...props, disabled: isDisabled }"
-      @change="onChange"
-      @focus="onFocus"
-    />
-    <FormFieldRemoveFile
-      v-bind="{ handleChange, id: control.id, labelFor: id, file, error, disabled, isPending }"
-      @blur="onBlur"
-    />
+  <div>
+    <div
+      class="file-control"
+      v-for="index in 3"
+      :key="index - 1"
+    >
+      <FormTextControl
+        v-bind="{ ...props, disabled: disabled || !!isPending?.[index - 1] }"
+        :data-index="index - 1"
+        @change="onChange"
+        @focus="onFocus"
+      />
+      <FormFieldRemoveFile
+        v-bind="{
+          handleChange,
+          index: index - 1,
+          id: control.id,
+          labelFor: id,
+          files,
+          error,
+          disabled,
+          isPending: !!isPending?.[index - 1]
+        }"
+        @blur="onBlur"
+      />
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -38,17 +54,17 @@ type Props = {
   type: InputType
   value?: string
   error: string
-  isPending: boolean
+  isPending?: boolean[]
 }
 
 const props = defineProps<Props>()
 
-const isDisabled = computed(() => props.disabled || props.isPending)
+// const isDisabled = computed(() => props.disabled || props.isPending)
 
-const file = computed(() => {
+const files = computed(() => {
   // @TODO: for now we only support one file
   const data = props.control.data as FileType[]
-  return data?.[0]
+  return data
 })
 
 function onBlur(e: Event) {

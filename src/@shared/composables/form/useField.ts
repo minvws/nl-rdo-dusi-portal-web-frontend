@@ -31,7 +31,7 @@ export const useFieldChange = ({ control, error }: Field & { error: Ref<string> 
       if (control.value.schema.file) {
         // when file, add or remove from fileStore
         addOrRemoveFile(control.value.id, target, error)
-        return
+        return control.value.data
       }
       if (value === '' ?? value === undefined) {
         // we need to set the value to undefined when the value
@@ -90,16 +90,17 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
   return (type as InputType) ?? InputType.TEXT
 }
 
-export const useFieldFileRemove = ({ id }: { id: string }) => {
-  const { getFile, addOrRemoveFile } = useFileStore()
-  const file = computed(() => getFile(id))
+export const useFieldFileRemove = ({ id, index }: { id: string, index: number }) => {
+  const { getFile, addOrRemoveFile, removeFileByIdAndIndex } = useFileStore()
+  const file = computed(() => getFile(id, index))
   const hasFile = computed(() => !!file.value)
   const label = computed(() => formatFile(file.value?.name))
 
   return {
     hasFile,
     label,
-    addOrRemoveFile
+    addOrRemoveFile,
+    removeFileByIdAndIndex
   }
 }
 

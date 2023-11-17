@@ -39,10 +39,11 @@ import { getControlId } from '@shared/utils/control'
 type Props = {
   handleChange?: (_path: string, _value: any) => void
   id: string
+  index: number
   labelFor: string
   error: string
   disabled?: boolean
-  file?: FileType
+  files?: FileType[]
   isPending: boolean
 }
 
@@ -50,13 +51,16 @@ const props = defineProps<Props>()
 
 const emit = defineEmits(['blur'])
 
-const { hasFile, label, addOrRemoveFile } = useFieldFileRemove(props)
+const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
 
-const hasRemoveButton = computed(() => hasFile.value || !!props.file)
+const file = computed(() => props.files?.[props.index])
+const hasRemoveButton = computed(() => hasFile.value || !!file.value)
 
 function onRemoveFile() {
-  addOrRemoveFile(props.id)
-  props.handleChange?.(getControlId(props.id), undefined)
+  removeFileByIdAndIndex(props.id, props.index)
+  const files = [...(props.files || [])]
+  files.splice(props.index, 1)
+  props.handleChange?.(getControlId(props.id), files)
   emit('blur')
 }
 
