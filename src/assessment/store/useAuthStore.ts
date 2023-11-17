@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         isLoggedIn.value = false
         sessionLifetimeStore.removeSession()
       } else {
-        user.value = data.value
+        user.value = data.value.data
         isLoggedIn.value = true
         sessionLifetimeStore.extendSession()
       }
