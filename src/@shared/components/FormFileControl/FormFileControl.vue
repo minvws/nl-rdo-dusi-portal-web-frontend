@@ -65,10 +65,7 @@ type Props = {
 
 const addFileCount = ref(1)
 
-const files = computed(() => {
-  const data = props.control.data as FileType[]
-  return data
-})
+const files = computed(() => props.control.data as FileType[])
 
 const props = defineProps<Props>()
 
