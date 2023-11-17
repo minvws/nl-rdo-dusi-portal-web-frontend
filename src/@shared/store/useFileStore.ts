@@ -11,6 +11,7 @@ import { useEncryption } from '@shared/composables/useEncryption'
 import { translate } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
+import type { FileType } from '../types/form'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
@@ -18,30 +19,44 @@ export const useFileStore = defineStore('useFileStore', () => {
   const form = useForms()
   const { encrypt } = useEncryption()
 
-  const files: Ref<Record<string, Record<string, File>>> = ref({})
-  const pending: Ref<Record<string, Record<string, boolean>>> = ref({})
+  const files: Ref<Record<string, Record<string, File[]>>> = ref({})
+  const pending: Ref<Record<string, Record<string, boolean[]>>> = ref({})
 
-  async function addFile(name: string, file: File, error?: Ref<string>) {
+  async function addFile(name: string, file: File, index: number, error?: Ref<string>) {
     const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
+    const target = currentFiles[name] ?? []
 
-    // Use object spread syntax to assign the file to the specific name
+    if (target[index]) removeFile(name, index)
+
+    target[index] = file
     const updatedFiles = {
       ...currentFiles,
-      [name]: file
+      [name]: target
     }
 
     files.value[id] = updatedFiles
-    pending.value[id] = { ...pending.value[id], [name]: true }
-    await saveFile(name, file, error)
-    delete pending.value[id][name]
+
+    const filesPending = [...(pending.value[id]?.[name] || [])]
+    if (!pending.value[id]) pending.value[id] = {}
+    filesPending[index] = true
+    Object.assign(pending.value[id], { [name]: filesPending })
+    await saveFile(name, file, index, error)
+    pending.value[id][name][index] = false
   }
 
   function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
     const file = target?.files?.[0]
+    const index = parseInt(target?.dataset.index || '0')
+    if (file) {
+      const name = getControlId(id)
+      addFile(name, file, index, error)
+    } else removeFileByIdAndIndex(id, index)
+  }
+
+  function removeFileByIdAndIndex(id: string, index: number) {
     const name = getControlId(id)
-    if (file) addFile(name, file, error)
-    else removeFile(name)
+    removeFile(name, index)
   }
 
   function clearFiles(id: string) {
@@ -49,28 +64,26 @@ export const useFileStore = defineStore('useFileStore', () => {
     delete pending.value[id]
   }
 
-  function getFile(id: string) {
+  function getFile(id: string, index: number) {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
-    return files.value[formId]?.[name]
+    return files.value[formId]?.[name]?.[index]
   }
 
   function isUploadPending(id: string) {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
-    return !!pending.value[formId]?.[name]
+    return pending.value[formId]?.[name]
   }
 
-  function removeFile(name: string) {
+  function removeFile(name: string, index = 0) {
     const { id } = form.activeForm.value
     const target = files.value?.[id]
-    if (!target) return
-    delete target[name]
-    // @TODO: remove file from server
-    // deleteFile(id)
+    if (!target?.[name]) return
+    target[name].splice(index, 1)
   }
 
-  async function saveFile(id: string, file: File, error?: Ref<string>) {
+  async function saveFile(id: string, file: File, index: number, error?: Ref<string>) {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, id)
 
@@ -80,7 +93,7 @@ export const useFileStore = defineStore('useFileStore', () => {
       const encryptedData = await encrypt(publicKey, fileData)
       const { data } = await useFetchWithEncryption(url).post(encryptedData).json()
       if (data.value?.id) {
-        return onFileUpload({ id, file, data: data.value })
+        return onFileUpload({ id, file, index, data: data.value })
       }
       throw new Error(data?.value?.message)
     } catch (errorResponse) {
@@ -91,39 +104,39 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
   }
 
-  // async function deleteFile(id: string) {
-  //   const { draftId } = form
-  //   const url = useApiFileUrl(draftId.value)
-  //   const options: RequestInit = {
-  //     method: 'DELETE',
-  //     credentials: 'include'
-  //   }
+  function onFileUpload({
+    id,
+    file,
+    index,
+    data
+  }: {
+    id: string
+    file: File
+    index: number
+    data: { id: string }
+  }) {
+    const { index: formIndex, activeForm } = form
+    const currentFormData = activeForm.value.data[formIndex.value] || {}
+    const target = (currentFormData[id] as FileType[]) || []
 
-  //   const response = await fetch(url, options)
-  //   log(response)
-  // }
-
-  function onFileUpload({ id, file, data }: { id: string; file: File; data: { id: string } }) {
-    const { index, activeForm } = form
-    const currentFormData = activeForm.value.data[index.value] || {}
     const { type: mimeType, name } = file
 
+    target[index] = {
+      id: data.id,
+      mimeType,
+      name
+    }
     const updatedFormData = {
       ...currentFormData,
-      [id]: [
-        {
-          id: data.id,
-          mimeType,
-          name
-        }
-      ]
+      [id]: target
     }
-    activeForm.value.data[index.value] = updatedFormData
+    activeForm.value.data[formIndex.value] = updatedFormData
   }
 
   return {
     addFile,
     addOrRemoveFile,
+    removeFileByIdAndIndex,
     clearFiles,
     files,
     pending,

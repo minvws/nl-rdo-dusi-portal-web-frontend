@@ -116,7 +116,8 @@
     "component": {
       "fileInput": {
         "chooseFile": "Kies een bestand",
-        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 20 MB."
+        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.",
+        "addFile": "Nog een bestand toevoegen"
       }
     },
     "fields": {
@@ -128,6 +129,7 @@
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
         "minLength": "{field} bestaat uit minimaal {minLength} karakters",
+        "minItems": "{field} moet minimaal {minItems} items bevatten",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
         "required-boolean": "Dit veld is verplicht",

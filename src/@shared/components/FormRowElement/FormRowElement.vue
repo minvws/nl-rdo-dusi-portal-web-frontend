@@ -36,6 +36,7 @@ const isNotCentered = computed(() => {
     case InputType.CHECKBOX:
     case InputType.CHECKBOX_GROUP:
     case InputType.TEXTAREA:
+    case InputType.FILE:
     case undefined:
       return true
   }

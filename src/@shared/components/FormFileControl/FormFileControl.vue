@@ -1,13 +1,34 @@
 <template>
-  <div class="file-control">
-    <FormTextControl
-      v-bind="{ ...props, disabled: isDisabled }"
-      @change="onChange"
-      @focus="onFocus"
-    />
-    <FormFieldRemoveFile
-      v-bind="{ handleChange, id: control.id, labelFor: id, file, error, disabled, isPending }"
-      @blur="onBlur"
+  <div>
+    <div
+      class="file-control"
+      :class="{ margin: !!index }"
+      v-for="index in numberOfFiles"
+      :key="index"
+    >
+      <FormTextControl
+        v-bind="{ ...props, disabled: disabled || !!isPending?.[index] }"
+        :data-index="index"
+        @change="onChange"
+        @focus="onFocus"
+      />
+      <FormFieldRemoveFile
+        v-bind="{
+          handleChange,
+          index: index,
+          id: control.id,
+          labelFor: id,
+          files,
+          error,
+          disabled,
+          isPending: !!isPending?.[index]
+        }"
+        @blur="onBlur"
+      />
+    </div>
+    <FormFieldAddFileButton
+      v-if="hasAddFileButton"
+      @click="onAddFileButton"
     />
   </div>
 </template>
@@ -15,10 +36,11 @@
 import type { Control } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
-import { computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFieldRemoveFile.vue'
+import FormFieldAddFileButton from '@shared/components/FormFieldAddFileButton/FormFieldAddFileButton.vue'
 
 import { InputType } from '@shared/types/input'
 import { translate } from '@shared/i18n'
@@ -38,17 +60,27 @@ type Props = {
   type: InputType
   value?: string
   error: string
-  isPending: boolean
+  isPending?: boolean[]
 }
+
+const addFileCount = ref(1)
+
+const files = computed(() => props.control.data as FileType[])
 
 const props = defineProps<Props>()
 
-const isDisabled = computed(() => props.disabled || props.isPending)
+const maxFiles = computed(() => props.control.schema.maxItems ?? 1)
 
-const file = computed(() => {
-  // @TODO: for now we only support one file
-  const data = props.control.data as FileType[]
-  return data?.[0]
+const numberOfFilesAdded = computed(() => files.value?.length ?? 0)
+
+const numberOfFiles = computed(() =>
+  Array.from(Array(Math.min(numberOfFilesAdded.value + 1, addFileCount.value)).keys())
+)
+
+const hasAddFileButton = computed(() => {
+  return (
+    numberOfFilesAdded.value === addFileCount.value && numberOfFilesAdded.value < maxFiles.value
+  )
 })
 
 function onBlur(e: Event) {
@@ -72,11 +104,25 @@ function onChange(e: Event) {
 function onFocus(e: Event) {
   emit('focus', e)
 }
+
+function onAddFileButton() {
+  addFileCount.value++
+}
+
+watch(files, (files, before) => {
+  const to = files?.length || 0
+  const from = before?.length || 0
+  if (to > from) return
+  addFileCount.value = Math.max(addFileCount.value - 1, 1)
+})
 </script>
 
 <style lang="scss" scoped>
 .file-control {
   position: relative;
+  &.margin {
+    margin-top: 0.5em;
+  }
 
   input[type='file'] {
     color: transparent;
