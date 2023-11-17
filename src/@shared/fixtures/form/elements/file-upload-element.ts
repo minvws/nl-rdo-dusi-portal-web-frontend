@@ -1,5 +1,7 @@
 export const fileUploadProperties = {
   type: 'array',
+  minItems: 2,
+  maxItems: 2,
   items: {
     type: 'object',
     properties: {
