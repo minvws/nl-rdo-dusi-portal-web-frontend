@@ -111,7 +111,7 @@ watch(title, (current, previous) => {
     font-size: var(--h2-font-size, inherit);
   }
 
-  .buttons {
+  .buttons:not(:empty) {
     padding-top: 1em;
   }
 

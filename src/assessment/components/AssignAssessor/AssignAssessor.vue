@@ -1,15 +1,47 @@
 <template>
-  <div class="assign-user">
-    <AppSuspense v-bind="{ data, error, isFetching }">
-      <SearchDataList
-        :label="translate('component.assignAssessor.label') ?? ''"
-        :options="data"
+  <div class="assign-assessor">
+    <div class="assign-assessor__input">
+      <label
+        for="autocomplete"
+        class="visually-hidden"
+        >{{ translate('component.assignAssessor.label') }}</label
+      >
+      <input
+        type="search"
+        autocomplete="off"
+        id="autocomplete"
+        v-model="searchQuery"
         :placeholder="translate('component.assignAssessor.placeholder')"
-        @select="onSelectUser"
       />
+      <AppIcon name="search" />
+    </div>
+    <AppSuspense
+      v-bind="{ data, error, isFetching }"
+      as="datalist"
+    >
+      <option
+        v-for="({ id, name }, index) in data"
+        :key="id"
+        :class="{
+          'is-selected': index === selectedIndex
+        }"
+        :value="id"
+        @click="selectResult(index)"
+      >
+        {{ name }}
+      </option>
+      <template #fallback>
+        <p class="de-emphasized">
+          {{ translate('component.assignAssessor.noResults', { query: searchQuery }) }}
+        </p>
+      </template>
     </AppSuspense>
+    <div v-if="selectedResult">
+      <h4>{{ translate('component.assignAssessor.result') }}</h4>
+      <p>{{ selectedResult.name }}</p>
+    </div>
     <AppButton
-      class="assign-user__button"
+      class="assign-assessor__button"
       @click="submit"
       :disabled="isDisabled"
     >
@@ -20,7 +52,6 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import type { OptionItem } from '@shared/components/SearchDataList/SearchDataList.vue'
 
 import { computed, ref } from 'vue'
 
@@ -28,10 +59,12 @@ import { useFetchAssessors } from '@assessment/composables/useFetchAssessors'
 import { useAssignCaseAssessor } from '@assessment/composables/useAssignCaseAssessor'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import SearchDataList from '@shared/components/SearchDataList/SearchDataList.vue'
 
 import { translate } from '@shared/i18n'
+
+const emit = defineEmits(['select', 'update:modelValue'])
 
 type Props = {
   id: string
@@ -39,34 +72,77 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { data, error, isFetching } = useFetchAssessors(props.id)
+const selectedIndex: Ref<number> = ref(-1)
+
+const { data, error, isFetching, searchQuery } = useFetchAssessors(props.id)
 const { onSubmitCaseAssessor } = useAssignCaseAssessor()
 
-const selectedUser: Ref<OptionItem | null> = ref(null)
+const selectedResult = computed(() => data.value[selectedIndex.value])
 
 const isDisabled = computed(() =>
   Boolean(
-    selectedUser.value &&
-      !Object.prototype.hasOwnProperty.call(selectedUser.value, 'id') &&
-      !Object.prototype.hasOwnProperty.call(selectedUser.value, 'name')
+    selectedResult.value &&
+      !Object.prototype.hasOwnProperty.call(selectedResult.value, 'id') &&
+      !Object.prototype.hasOwnProperty.call(selectedResult.value, 'name')
   )
 )
 
-function onSelectUser(user: OptionItem) {
-  selectedUser.value = user
+function selectResult(index: number) {
+  selectedIndex.value = index
 }
 
 function submit() {
-  if (!selectedUser.value) {
+  if (!selectedResult.value) {
     return
   }
 
-  onSubmitCaseAssessor(props.id, selectedUser.value?.id)
+  onSubmitCaseAssessor(props.id, selectedResult.value?.id)
 }
 </script>
 
-<style>
-.assign-user__button {
-  margin-top: 1rem;
+<style lang="scss" scoped>
+.assign-assessor {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+
+.assign-assessor__input {
+  position: relative;
+}
+
+.app-icon {
+  position: absolute;
+  top: 50%;
+  right: 1.75rem;
+  width: 20px;
+  transform: translateY(-50%);
+  color: var(--ruby-red-background-color);
+}
+
+input:focus + .app-icon,
+input:hover + .app-icon {
+  display: none;
+}
+
+datalist {
+  display: block;
+  max-height: 175px;
+  overflow-y: auto;
+}
+
+option {
+  padding: 0.375rem 1rem;
+  cursor: pointer;
+
+  &.is-selected {
+    background-color: var(--application-base-tint-1-background-color);
+    font-weight: bold;
+  }
+
+  + option {
+    border-top: 1px solid var(--grey-2);
+  }
 }
 </style>
