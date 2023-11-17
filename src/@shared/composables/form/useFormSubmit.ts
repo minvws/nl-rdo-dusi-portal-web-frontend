@@ -47,7 +47,6 @@ export const useFormSubmit = () => {
     const encryptedBody = await encrypt(publicKey, JSON.stringify(body))
     const options: RequestInit = {
       method,
-      credentials: 'include',
       headers: {
         Accept: 'text/plain',
         'Content-Type': 'application/json'

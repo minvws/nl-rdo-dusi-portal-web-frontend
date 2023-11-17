@@ -17,7 +17,7 @@
           id: 'password-reset',
           forms,
           hideDebug: true,
-          locked: isFetching,
+          locked,
           buttonLabels: { submit: translate('pages.update-password.submit') }
         }"
         @submit="onSubmit"
@@ -38,7 +38,7 @@ useSEO({ title: `${translate('pages.password-reset.title')} | ${translate('app.p
 
 const route = useRoute()
 
-const { forms, isFetching, onSubmit } = usePasswordReset(route.query)
+const { forms, onSubmit, locked } = usePasswordReset(route.query)
 </script>
 
 <style lang="scss" scoped>

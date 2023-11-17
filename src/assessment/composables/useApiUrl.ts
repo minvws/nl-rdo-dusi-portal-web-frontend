@@ -44,6 +44,10 @@ export const useApiCasesFilterCountUrl = () => {
   return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
 }
 
+export const useCsrfCookieUrl = () => {
+  return `${baseUrl}/sanctum/csrf-cookie`
+}
+
 export const useApiLoginUrl = () => {
   return `${baseUrl}/api/login`
 }

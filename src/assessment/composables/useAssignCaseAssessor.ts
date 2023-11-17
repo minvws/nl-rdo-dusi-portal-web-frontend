@@ -1,10 +1,10 @@
 import { NotificationType } from '@shared/types/notification'
 
-import { useFetch } from '@vueuse/core'
 import { useRouter } from 'vue-router'
 
 import { useAppModalStore } from '@shared/store/useAppModalStore'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 import { useApiAssignCaseAssessorUrl } from '@assessment/composables/useApiUrl'
 
@@ -20,13 +20,10 @@ export const useAssignCaseAssessor = () => {
 
   async function onSubmitCaseAssessor(caseId: string, userId: string) {
     const url = useApiAssignCaseAssessorUrl(caseId)
-    const options: RequestInit = {
-      credentials: 'include'
-    }
     const payload = { id: userId }
 
     try {
-      const { statusCode, error } = await useFetch(url, options).put(payload).json()
+      const { statusCode, error } = await useFetchWithCredentials(url).put(payload).json()
 
       if (statusCode.value === 200) {
         const { name, params } = router.currentRoute.value

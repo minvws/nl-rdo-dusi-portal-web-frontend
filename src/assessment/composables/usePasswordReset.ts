@@ -1,41 +1,31 @@
+import type { Ref } from 'vue'
 import type { LocationQuery } from 'vue-router'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
 import { translate } from '@shared/i18n'
-import { useFetch } from '@vueuse/core'
 
-import { computed, ref, watch } from 'vue'
-import { useApiPasswordResetUrl } from '@assessment/composables/useApiUrl'
+import { computed, ref } from 'vue'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useRouter } from 'vue-router'
 
 import { NotificationType } from '@shared/types/notification'
 
-import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { passWordPlaceholder as placeholder } from '@shared/fixtures/form/data/placeholder'
 
 import { LOGIN_VIEW } from '@assessment/router/names'
+import { useAuthStore } from '@assessment/store/useAuthStore'
 
-const NOTIFICATION_ID = 'password-reset'
+export const usePasswordReset = (queryParams: LocationQuery) => {
+  const NOTIFICATION_ID = 'password-reset'
 
-export const usePasswordReset = ({ email, token }: LocationQuery) => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
-  const url = useApiPasswordResetUrl()
-  const payload = ref({ email, token })
+  const { resetPassword } = useAuthStore()
 
-  const { error, execute, ...fetch } = useFetch(url, JSONRequestHeaders, {
-    immediate: false,
-    onFetchError: ctx => {
-      if (ctx.data && ctx.data.message) {
-        ctx.error = new Error(ctx.data.message)
-      }
-      return ctx
-    }
-  })
-    .post(payload)
-    .json()
+  const locked: Ref<boolean> = ref(false)
+  const email: string = queryParams.email ? (queryParams.email as string) : ''
+  const token: string = queryParams.token ? (queryParams.token as string) : ''
 
   const showNotification = (type: NotificationDisplayType, error?: string) => {
     const props = error ? { error } : undefined
@@ -107,30 +97,30 @@ export const usePasswordReset = ({ email, token }: LocationQuery) => {
     }
   ])
 
-  watch(
-    () => [error.value, fetch.isFetching.value],
-    ([error, isFetching]) => {
-      if (isFetching) {
-        notificationsStore.removeById(NOTIFICATION_ID)
-        return
-      }
-      if (error) {
-        showNotification(NotificationType.ERROR, error)
-        return
-      }
-      showNotification(NotificationType.CONFIRMATION)
-      router.replace({ name: LOGIN_VIEW })
-    }
-  )
+  async function onSubmit(data: Record<string, string>) {
+    locked.value = true
+    notificationsStore.removeById(NOTIFICATION_ID)
 
-  function onSubmit(data: Record<string, string>) {
-    Object.assign(payload.value, formatPayloadFromCamelCaseToSnakeCase(data))
-    execute()
+    const { password, password_confirmation } = formatPayloadFromCamelCaseToSnakeCase(data)
+
+    const { error } = await resetPassword({
+      email,
+      token,
+      password,
+      password_confirmation
+    })
+    if (error.value) {
+      locked.value = false
+      showNotification(NotificationType.ERROR, error.value)
+      return
+    }
+    showNotification(NotificationType.CONFIRMATION)
+    router.replace({ name: LOGIN_VIEW })
   }
 
   return {
-    ...fetch,
     forms,
-    onSubmit
+    onSubmit,
+    locked
   }
 }

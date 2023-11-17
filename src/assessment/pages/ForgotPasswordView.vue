@@ -10,7 +10,7 @@
       <FormView
         v-bind="{
           id: 'forgot-password',
-          locked: isFetching,
+          locked,
           forms,
           hideDebug: true,
           buttonLabels: { submit: translate('pages.update-password.submit') }
@@ -32,7 +32,7 @@ import FormView from '@shared/components/FormView/FormView.vue'
 
 useSEO({ title: `${translate('pages.forgot-password.title')} | ${translate('app.prefix')}` })
 
-const { forms, onSubmit, isFetching } = useForgotPassword()
+const { forms, onSubmit, locked } = useForgotPassword()
 </script>
 
 <style lang="scss" scoped>

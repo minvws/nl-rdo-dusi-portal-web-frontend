@@ -9,6 +9,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useApiLoginUrl, useApiLogoutUrl, useApiUserStatusUrl } from '@portal/composables/useApiUrl'
 import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 import { useDispatcher } from '@shared/store/useDispatcher'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 import { log } from '@shared/utils/logger'
 import { deleteRouteCookie } from '@shared/utils/route-cookie'
@@ -27,9 +28,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function logIn(extendSession = false) {
     try {
       const url = useApiUserStatusUrl()
-      const response = await fetch(url, { method: 'GET', credentials: 'include' })
-      const loggedIn = await response.json()
-      const isChanged = setLoginStatus(loggedIn)
+      const { data } = await useFetchWithCredentials(url, { method: 'GET' }).json()
+      const isChanged = setLoginStatus(data.value)
 
       if (!isChanged && extendSession) {
         onLoginChange(isLoggedIn.value)
@@ -42,8 +42,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   async function logOut() {
     try {
       const url = useApiLogoutUrl()
-      const response = await fetch(url, { method: 'POST', credentials: 'include' })
-      setLoginStatus(await response.json())
+      const { data } = await useFetchWithCredentials(url, { method: 'POST' }).json()
+      setLoginStatus(data.value)
     } catch (error) {
       log(error)
     }

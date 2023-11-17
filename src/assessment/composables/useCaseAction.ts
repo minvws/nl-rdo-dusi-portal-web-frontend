@@ -4,12 +4,12 @@ import { ReviewerAction } from '@shared/types/reviewer'
 
 import { markRaw } from 'vue'
 import { useRouter } from 'vue-router'
-import { useFetch } from '@vueuse/core'
 
 import { useApiSetCaseUrl } from '@assessment/composables/useApiUrl'
 
 import { useAppModalStore } from '@shared/store/useAppModalStore'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 import AssignAssessor from '@assessment/components/AssignAssessor/AssignAssessor.vue'
 
@@ -31,10 +31,9 @@ export const useCaseAction = () => {
     const url = useApiSetCaseUrl(id)
     const method = remove ? 'DELETE' : 'PUT'
     const options: RequestInit = {
-      method,
-      credentials: 'include'
+      method
     }
-    const { onFetchResponse, onFetchError } = useFetch(url, options)
+    const { onFetchResponse, onFetchError } = useFetchWithCredentials(url, options)
 
     onFetchResponse(async () => {
       if (remove) {

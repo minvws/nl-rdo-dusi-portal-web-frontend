@@ -1,11 +1,11 @@
 import { computed } from 'vue'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 
 import { useApiMessageDownloadUrl } from '@assessment/composables/useApiUrl'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 
 export const useFetchMessageDownload = (id: string) => {
   const url = useApiMessageDownloadUrl(id, 'pdf')
-  const { data: json, ...fetch } = useFetchWithEncryption(url).blob()
+  const { data: json, ...fetch } = useFetchWithCredentials(url).blob()
 
   const data = computed(() => (json.value ? json.value : []))
 

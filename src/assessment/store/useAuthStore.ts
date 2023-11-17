@@ -11,15 +11,19 @@ import { defineStore } from 'pinia'
 import { translate } from '@shared/i18n'
 
 import {
+  useApiForgotPasswordUrl,
   useApiLoginUrl,
   useApiLogoutUrl,
+  useApiPasswordResetUrl,
   useApiPasswordUpdateUrl,
   useApiTwoFactorChallengeUrl,
-  useApiUserStatusUrl
+  useApiUserStatusUrl,
+  useCsrfCookieUrl
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 import { useDispatcher } from '@shared/store/useDispatcher'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
 import { log } from '@shared/utils/logger'
@@ -27,8 +31,6 @@ import { log } from '@shared/utils/logger'
 import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
 import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { SessionType } from '@shared/types/session'
-
-const useCredentials = !import.meta.env.PROD
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
@@ -52,18 +54,16 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const url = useApiUserStatusUrl()
       const options: RequestInit = {
         method: 'GET',
-        credentials: 'include',
         ...JSONRequestHeaders
       }
-      const response = await fetch(url, options)
-      const json = await response.json()
+      const { data, response } = await useFetchWithCredentials(url, options).json()
 
-      if (!response.ok) {
+      if (!response.value?.ok) {
         user.value = null
         isLoggedIn.value = false
         sessionLifetimeStore.removeSession()
       } else {
-        user.value = json.data
+        user.value = data.value
         isLoggedIn.value = true
         sessionLifetimeStore.extendSession()
       }
@@ -77,12 +77,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const url = useApiLogoutUrl()
       const options: RequestInit = {
         method: 'POST',
-        credentials: 'include',
         ...JSONRequestHeaders
       }
-      const response = await fetch(url, options)
+      const { response } = await useFetchWithCredentials(url, options).json()
 
-      if (response.ok) {
+      if (response.value?.ok) {
         user.value = null
         isLoggedIn.value = false
       }
@@ -93,18 +92,18 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   async function logIn(credentials: { email: string; password: string }) {
     try {
+      await getCsrfCookie()
+
       const url = useApiLoginUrl()
       const options: RequestInit = {
         method: 'POST',
         ...JSONRequestHeaders,
-        ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(credentials)
       }
-      const response = await fetch(url, options)
-      const json = await response.json()
+      const { data, response } = await useFetchWithCredentials(url, options).json()
 
-      if (!response.ok) {
-        switch (response.status) {
+      if (!response.value?.ok) {
+        switch (response.value?.status) {
           case 422:
             return setNotification('login-invalid-credentials', NotificationType.ERROR)
           case 429:
@@ -114,12 +113,32 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         }
       }
 
-      if (json) {
-        const { two_factor } = json
+      if (data.value) {
+        const { two_factor } = data.value
         determineTwoFactorRoute({ two_factor })
       }
     } catch (error) {
       log('Error trying to log in', error)
+    }
+  }
+
+  async function getCsrfCookie() {
+    try {
+      const url = useCsrfCookieUrl()
+      const options: RequestInit = {
+        method: 'GET'
+      }
+      const { response } = await useFetchWithCredentials(url, options)
+      if (!response.value?.ok) {
+        switch (response.value?.status) {
+          case 429:
+            return setNotification('too-many-attempts', NotificationType.ERROR)
+          default:
+            return setNotification('failed', NotificationType.ERROR)
+        }
+      }
+    } catch (error) {
+      log('Error trying to get csrf cookie', error)
     }
   }
 
@@ -129,13 +148,12 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const options: RequestInit = {
         method: 'POST',
         ...JSONRequestHeaders,
-        credentials: 'include',
         body: JSON.stringify({ code })
       }
-      const response = await fetch(url, options)
+      const { response } = await useFetchWithCredentials(url, options)
 
-      if (!response.ok) {
-        switch (response.status) {
+      if (!response.value?.ok) {
+        switch (response.value?.status) {
           case 422:
             return setNotification('2fa-invalid-code', NotificationType.ERROR)
           default:
@@ -143,7 +161,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
         }
       }
 
-      if (response.status === 204) {
+      if (response.value?.status === 204) {
         router.push({ name: HOME })
       }
     } catch (error) {
@@ -163,18 +181,16 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const options: RequestInit = {
         method: 'PUT',
         ...JSONRequestHeaders,
-        ...(useCredentials && { credentials: 'include' }),
         body: JSON.stringify(data)
       }
-      const response = await fetch(url, options)
+      const { data: json, response } = await useFetchWithCredentials(url, options).json()
 
-      if (!response.ok) {
+      if (!response.value?.ok) {
         try {
-          const json = await response.json()
-          throw new Error(json.message)
+          throw new Error(json.value.message)
         } catch (e) {
           const error = e as Error
-          throw new Error(error.message ?? response?.statusText)
+          throw new Error(error.message ?? response.value?.statusText)
         }
       }
 
@@ -185,6 +201,38 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       log('Error trying to update password', error)
       setNotification('password-update-failed', NotificationType.ERROR, { error: error?.message })
     }
+  }
+
+  async function forgotPassword(payload: { email: string }) {
+    await getCsrfCookie()
+
+    const url = useApiForgotPasswordUrl()
+    const options = { ...JSONRequestHeaders }
+    const useFetchOptions = { onFetchError: fetchErrorMessage }
+
+    return useFetchWithCredentials(url, options, useFetchOptions).post(payload).json()
+  }
+
+  async function resetPassword(payload: {
+    email: string
+    token: string
+    password: string
+    password_confirmation: string
+  }) {
+    await getCsrfCookie()
+
+    const url = useApiPasswordResetUrl()
+    const options = { ...JSONRequestHeaders }
+    const useFetchOptions = { onFetchError: fetchErrorMessage }
+
+    return useFetchWithCredentials(url, options, useFetchOptions).post(payload).json()
+  }
+
+  function fetchErrorMessage(ctx: { data: any; response: Response | null; error: any }) {
+    if (ctx.data && ctx.data.message) {
+      ctx.error = new Error(ctx.data.message)
+    }
+    return ctx
   }
 
   function onLoginChange(isLoggedIn: boolean) {
@@ -237,6 +285,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     logOut,
     twoFactorChallenge,
     updatePassword,
-    checkUserRights
+    checkUserRights,
+    forgotPassword,
+    resetPassword
   }
 })

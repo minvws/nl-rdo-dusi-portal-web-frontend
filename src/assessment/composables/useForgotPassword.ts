@@ -1,15 +1,13 @@
 import type { Ref } from 'vue'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
-import { ref, computed, watch } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { translate } from '@shared/i18n'
-import { useFetch } from '@vueuse/core'
-import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
-import { useApiForgotPasswordUrl } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useAuthStore } from '@assessment/store/useAuthStore'
 import { NotificationType } from '@shared/types/notification'
 
 import { emailPlaceholder as placeholder } from '@shared/fixtures/form/data/placeholder'
@@ -22,23 +20,9 @@ export const useForgotPassword = () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
 
-  const payload: Ref<{ email: string | undefined }> = ref({ email: undefined })
+  const locked: Ref<boolean> = ref(false)
 
-  const { execute, isFinished, error, ...fetch } = useFetch(
-    useApiForgotPasswordUrl(),
-    JSONRequestHeaders,
-    {
-      immediate: false,
-      onFetchError: ctx => {
-        if (ctx.data && ctx.data.message) {
-          ctx.error = new Error(ctx.data.message)
-        }
-        return ctx
-      }
-    }
-  )
-    .post(payload)
-    .json()
+  const { forgotPassword } = useAuthStore()
 
   const forms = computed(() => [
     {
@@ -79,10 +63,21 @@ export const useForgotPassword = () => {
     }
   ])
 
-  function onSubmit(data: Record<'email', string>) {
-    const { email } = data
-    payload.value.email = email
-    execute()
+  async function onSubmit(submitData: Record<'email', string>) {
+    const { email } = submitData
+    const { error } = await forgotPassword({ email })
+    const message = error.value?.message
+
+    locked.value = true
+
+    if (message) {
+      locked.value = false
+      showNotification(NotificationType.ERROR, message)
+      return
+    }
+
+    showNotification(NotificationType.CONFIRMATION)
+    router.replace({ name: LOGIN_VIEW })
   }
 
   const showNotification = (type: NotificationDisplayType, error?: string) => {
@@ -99,19 +94,9 @@ export const useForgotPassword = () => {
     })
   }
 
-  watch(isFinished, isFinished => {
-    if (!isFinished) return
-    if (error.value) {
-      showNotification(NotificationType.ERROR, error.value.message)
-      return
-    }
-    showNotification(NotificationType.CONFIRMATION)
-    router.replace({ name: LOGIN_VIEW })
-  })
-
   return {
     forms,
     onSubmit,
-    ...fetch
+    locked
   }
 }
