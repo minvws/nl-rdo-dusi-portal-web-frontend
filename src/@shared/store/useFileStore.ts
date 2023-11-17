@@ -83,14 +83,6 @@ export const useFileStore = defineStore('useFileStore', () => {
     target[name].splice(index, 1)
   }
 
-  const fakeCall = (file: File) => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        return resolve({ data: { value: { id: file.name } } })
-      }, 1000)
-    })
-  }
-
   async function saveFile(id: string, file: File, index: number, error?: Ref<string>) {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, id)
@@ -99,7 +91,7 @@ export const useFileStore = defineStore('useFileStore', () => {
       const arrayBuffer = await file.arrayBuffer()
       const fileData = new Uint8Array(arrayBuffer)
       const encryptedData = await encrypt(publicKey, fileData)
-      const { data } = await fakeCall(file) // await useFetchWithEncryption(url).post(encryptedData).json()
+      const { data } = await useFetchWithEncryption(url).post(encryptedData).json()
       if (data.value?.id) {
         return onFileUpload({ id, file, index, data: data.value })
       }
@@ -111,7 +103,6 @@ export const useFileStore = defineStore('useFileStore', () => {
       return undefined
     }
   }
-
 
   function onFileUpload({
     id,

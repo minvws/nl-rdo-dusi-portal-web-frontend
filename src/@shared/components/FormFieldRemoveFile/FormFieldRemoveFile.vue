@@ -54,7 +54,7 @@ const emit = defineEmits(['blur'])
 const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
 
 const file = computed(() => props.files?.[props.index])
-const hasRemoveButton = computed(() => hasFile.value || !!file.value)
+const hasRemoveButton = computed(() => hasFile.value || !!file.value || props.index > 0)
 
 function onRemoveFile() {
   removeFileByIdAndIndex(props.id, props.index)
@@ -70,7 +70,7 @@ watch(
     if (!error) return
     // when there is an error
     // remove the file
-    onRemoveFile()
+    removeFileByIdAndIndex(props.id, props.index)
   }
 )
 </script>

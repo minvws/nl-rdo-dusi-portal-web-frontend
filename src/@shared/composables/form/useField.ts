@@ -90,7 +90,7 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
   return (type as InputType) ?? InputType.TEXT
 }
 
-export const useFieldFileRemove = ({ id, index }: { id: string, index: number }) => {
+export const useFieldFileRemove = ({ id, index }: { id: string; index: number }) => {
   const { getFile, addOrRemoveFile, removeFileByIdAndIndex } = useFileStore()
   const file = computed(() => getFile(id, index))
   const hasFile = computed(() => !!file.value)
