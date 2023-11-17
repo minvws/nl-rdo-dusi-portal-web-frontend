@@ -7,6 +7,7 @@
 <script setup lang="ts">
 import { translate } from '@shared/i18n'
 </script>
+
 <style lang="scss" scoped>
 .form-field-add-file-button {
   color: var(--form-button-background-color);
