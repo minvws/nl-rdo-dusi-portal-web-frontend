@@ -73,7 +73,9 @@ const maxFiles = computed(() => props.control.schema.maxItems ?? 1)
 
 const numberOfFilesAdded = computed(() => files.value?.length ?? 0)
 
-const numberOfFiles = computed(() => Array.from(Array(Math.min(numberOfFilesAdded.value + 1, addFileCount.value)).keys()))
+const numberOfFiles = computed(() =>
+  Array.from(Array(Math.min(numberOfFilesAdded.value + 1, addFileCount.value)).keys())
+)
 
 const hasAddFileButton = computed(() => {
   return (
