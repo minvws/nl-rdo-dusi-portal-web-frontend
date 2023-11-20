@@ -64,7 +64,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
 import { translate } from '@shared/i18n'
 
-const emit = defineEmits(['select', 'update:modelValue'])
+defineEmits(['select', 'update:modelValue'])
 
 type Props = {
   id: string
