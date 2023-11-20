@@ -50,8 +50,9 @@
       "assign": "Toekennen",
       "label": "Zoek op naam",
       "noResults": "Er zijn geen resultaten gevonden voor \"{query}\".",
+      "noSelection": "Geen beoordelaar geselecteerd",
       "placeholder": "Naam beoordelaar",
-      "result": "De zaak wordt toegekend aan:"
+      "result": "De zaak wordt toegekend aan"
     },
     "transitionHistory": {
       "title": "Geschiedenis",

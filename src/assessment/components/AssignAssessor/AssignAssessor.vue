@@ -16,31 +16,43 @@
       <AppIcon name="search" />
     </div>
     <AppSuspense
+      class="assign-assessor__list"
       v-bind="{ data, error, isFetching }"
-      as="datalist"
+      as="ul"
     >
-      <option
+      <li
         v-for="({ id, name }, index) in data"
         :key="id"
-        :class="{
-          'is-selected': index === selectedIndex
-        }"
-        :value="id"
-        @click="selectResult(index)"
       >
-        {{ name }}
-      </option>
+        <AppButton
+          type="button"
+          class="button"
+          :class="{ 'is-selected': index === selectedIndex }"
+          @click="selectResult(index)"
+        >
+          {{ name }}
+        </AppButton>
+      </li>
       <template #fallback>
         <p class="de-emphasized">
           {{ translate('component.assignAssessor.noResults', { query: searchQuery }) }}
         </p>
       </template>
     </AppSuspense>
-    <div v-if="selectedResult">
-      <h4>{{ translate('component.assignAssessor.result') }}</h4>
-      <p>{{ selectedResult.name }}</p>
+    <div>
+      <p v-if="selectedResult">
+        {{ translate('component.assignAssessor.result') }}
+        <strong>{{ selectedResult.name }}</strong>
+      </p>
+      <p
+        v-else
+        class="de-emphasized"
+      >
+        {{ translate('component.assignAssessor.noSelection') }}
+      </p>
     </div>
     <AppButton
+      type="button"
       class="assign-assessor__button"
       @click="submit"
       :disabled="isDisabled"
@@ -79,16 +91,10 @@ const { onSubmitCaseAssessor } = useAssignCaseAssessor()
 
 const selectedResult = computed(() => data.value[selectedIndex.value])
 
-const isDisabled = computed(() =>
-  Boolean(
-    selectedResult.value &&
-      !Object.prototype.hasOwnProperty.call(selectedResult.value, 'id') &&
-      !Object.prototype.hasOwnProperty.call(selectedResult.value, 'name')
-  )
-)
+const isDisabled = computed(() => Boolean(!selectedResult.value))
 
 function selectResult(index: number) {
-  selectedIndex.value = index
+  selectedIndex.value = selectedIndex.value === index ? -1 : index
 }
 
 function submit() {
@@ -103,8 +109,8 @@ function submit() {
 <style lang="scss" scoped>
 .assign-assessor {
   display: flex;
-  flex-direction: column;
   gap: 1rem;
+  flex-direction: column;
   margin: 1rem 0 0;
 }
 
@@ -126,23 +132,56 @@ input:hover + .app-icon {
   display: none;
 }
 
-datalist {
+.assign-assessor__list {
   display: block;
   max-height: 175px;
+  padding: 0;
+  padding-bottom: 1rem;
   overflow-y: auto;
-}
+  border-bottom: 1px solid var(--grey-3);
+  list-style: none;
 
-option {
-  padding: 0.375rem 1rem;
-  cursor: pointer;
+  li {
+    padding: 0;
 
-  &.is-selected {
-    background-color: var(--application-base-tint-1-background-color);
-    font-weight: bold;
+    & + li {
+      border-top: 1px solid var(--grey-2);
+    }
   }
 
-  + option {
-    border-top: 1px solid var(--grey-2);
+  .button {
+    --button-base-background-color: transparent;
+    --button-base-border-color: transparent;
+    --button-base-border-width: 0;
+    --button-base-text-color: var(--ruby-red-text-color-dark);
+    --button-base-hover-background-color: var(--ruby-red-tint-2-background-color);
+    --button-base-hover-text-color: var(--ruby-red-text-color-dark);
+    --button-base-focus-background-color: transparent;
+    --button-base-focus-text-color: var(--ruby-red-text-color-dark);
+    --button-base-focus-border-color: transparent;
+    --button-base-focus-border-width: 0;
+    --button-base-active-background-color: transparent;
+    --button-base-active-text-color: var(--ruby-red-text-color-dark);
+    --button-base-active-border-color: transparent;
+    --button-base-active-border-width: 0;
+    --button-base-justify-content: flex-start;
+    --button-base-focus-outline-color: var(--ruby-red-text-color);
+    --button-base-focus-outline-offset: -2px;
+
+    width: 100%;
+
+    &.is-selected {
+      background-color: var(--ruby-red-selected-background-color);
+      color: var(--ruby-red-text-color);
+      font-weight: bold;
+    }
+  }
+
+  li:nth-child(even) .button {
+    --button-base-background-color: var(--application-base-tint-1-background-color);
+    --button-base-hover-background-color: var(--ruby-red-tint-2-background-color);
+    --button-base-focus-background-color: var(--application-base-tint-1-background-color);
+    --button-base-active-background-color: var(--application-base-tint-1-background-color);
   }
 }
 </style>
