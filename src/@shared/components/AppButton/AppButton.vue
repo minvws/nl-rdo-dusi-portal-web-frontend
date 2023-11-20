@@ -17,5 +17,5 @@ type Props = {
   text?: string
 }
 
-defineProps<Props>()
+withDefaults(defineProps<Props>(), { type: 'button' })
 </script>

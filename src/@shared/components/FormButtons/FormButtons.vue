@@ -2,7 +2,6 @@
   <div class="form-buttons">
     <AppButton
       v-if="hasPrevStep"
-      type="button"
       class="ghost"
       :disabled="readonly"
       @click="$emit('step', index - 1)"
@@ -11,7 +10,6 @@
     </AppButton>
     <AppButton
       v-if="hasSave"
-      type="button"
       class="ghost"
       :disabled="readonly"
       @click="$emit('save', index - 1)"
@@ -20,7 +18,6 @@
     </AppButton>
     <AppButton
       v-if="hasNextStep"
-      type="button"
       :class="{ disabled: isStepDisabled(index) }"
       :disabled="readonly"
       @click="isStepDisabled(index) ? $emit('validate') : $emit('step', index + 1)"

@@ -27,8 +27,8 @@
             >
               <AppButton
                 v-if="column.sortable"
-                @click="sortTableById(column.id)"
                 class="button"
+                @click="sortTableById(column.id)"
               >
                 {{ column.text }}
                 <AppIcon

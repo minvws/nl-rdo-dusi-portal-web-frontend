@@ -45,9 +45,10 @@
           :to="{ name: REVIEW_CASE, replace: true, params: { id } }"
         />
         <AppButton
-          @click="onSubmit"
           :class="{ disabled: isSubmitting }"
-          >{{ translate('pages.preview-case-submit.button.submit') }}
+          @click="onSubmit"
+        >
+          {{ translate('pages.preview-case-submit.button.submit') }}
         </AppButton>
       </div>
     </AppSuspense>
