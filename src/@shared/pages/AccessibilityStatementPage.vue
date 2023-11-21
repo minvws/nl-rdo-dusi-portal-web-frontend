@@ -3,10 +3,10 @@
     <div>
       <h1>Toegankelijkheidsverklaring Mijn DUS-I</h1>
       <img
-        src="https://www.toegankelijkheidsverklaring.nl/files/verklaring/label/ea0ebf014c92674fc082e6896219f620.11291.svg?1695366460"
+        src="/img/accessibility-label.svg"
         alt="Status toegankelijkheidslabel van Mijn DUS-I. Volg de link voor de volledige toegankelijkheidsverklaring."
         width="692"
-        height="251"
+        height="324"
       />
       <p>
         Lees de volledige verklaring op
