@@ -22,20 +22,22 @@ export const useFormSubmit = () => {
   const { encrypt } = useEncryption()
 
   const getRequest = (type: FormSubmitType) => {
-    const { draftId, formData } = forms
+    const { draftId } = forms
+    const formData = forms.getFormData()
+
     switch (type) {
       case FormSubmitTypes.SUBMIT:
       case FormSubmitTypes.DRAFT:
         return {
           method: 'PUT',
           url: useApiFormsSubmitUrl(draftId.value),
-          data: formData.value,
+          data: formData,
           submit: type === FormSubmitTypes.SUBMIT
         }
       case FormSubmitTypes.VALIDATION:
         return {
           method: 'PATCH',
-          data: formData.value,
+          data: formData,
           url: useApiFormsValidateUrl(draftId.value)
         }
     }

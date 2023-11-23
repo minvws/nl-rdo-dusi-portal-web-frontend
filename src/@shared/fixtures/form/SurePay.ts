@@ -8,6 +8,25 @@ export default async () => {
       type: 'string',
       iban: true,
       title: 'IBAN'
+    },
+    backAccountNumberExtraStep: {
+      type: 'string',
+      title: 'backAccountNumberExtraStep'
+    },
+    validationResult: {
+      type: 'object',
+      default: [],
+      items: {
+        type: 'object',
+        properties: {
+          type: {
+            type: 'string'
+          },
+          id: {
+            type: 'string'
+          }
+        }
+      }
     }
   }
 
@@ -41,6 +60,33 @@ export default async () => {
                       tip: 'Staat u onder bewind? Vermeld dan het IBAN van uw beheerrekening.',
                       validation: ['onValid']
                     }
+                  },
+                  {
+                    type: 'CustomControl',
+                    scope: '#/properties/backAccountNumberExtraStep',
+                    label: 'Extra step',
+                    options: {
+                      tip: 'IBAN validation-results has an error'
+                    },
+                    rule: {
+                      effect: 'SHOW',
+                      condition: {
+                        scope: '#/properties/validationResult',
+                        schema: {
+                          contains: {
+                            type: 'object',
+                            properties: {
+                              id: {
+                                enum: ['bankAccountNumber']
+                              },
+                              type: {
+                                enum: ['error']
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
                 ]
               }
@@ -57,7 +103,31 @@ export default async () => {
         uischema,
         dataschema: {
           required: ['bankAccountHolder', 'bankAccountNumber'],
-          properties
+          properties,
+          allOf: [
+            {
+              if: {
+                properties: {
+                  validationResult: {
+                    contains: {
+                      type: 'object',
+                      properties: {
+                        id: {
+                          enum: ['bankAccountNumber']
+                        },
+                        type: {
+                          enum: ['error']
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              then: {
+                required: ['backAccountNumberExtraStep']
+              }
+            }
+          ]
         },
         title: 'Start'
       }

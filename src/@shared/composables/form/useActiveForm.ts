@@ -3,7 +3,7 @@ import type { Form, FormData, FormValidationResult } from '@shared/types/form'
 import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 
-import { computed, inject } from 'vue'
+import { computed, inject, watch } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
@@ -11,6 +11,8 @@ import { getControlId, getLinkedControlId } from '@shared/utils/control'
 import { useFormStorage } from '@shared/store/useFormStorage'
 import { useClearForm } from '@shared/composables/form/useClearForm'
 import { transformFormValues } from '@shared/utils/form'
+
+const VALIDATION_RESULT_FIELD_NAME = 'validationResult'
 
 export const useActiveForm = () => {
   const formProps = inject('form') as {
@@ -168,6 +170,28 @@ export const useActiveForm = () => {
     formStorage.update(formId.value, result ?? { validationResult: undefined })
   }
 
+  function getFormData() {
+    const data = { ...formData.value }
+    // do not submit VALIDATION_RESULT_FIELD_NAME with request
+    delete data[VALIDATION_RESULT_FIELD_NAME]
+    return data
+  }
+
+  watch(validationResult, result => {
+    // when validation-result changes, add it to the data of the form
+    let target = activeForm.value.data.find(page => VALIDATION_RESULT_FIELD_NAME in page)
+    if (!target) {
+      // always add field when it is not found
+      target = activeForm.value.data[0]
+    }
+    // create an array with all validation results, include id of the field
+    const value = Object.entries(result ?? {})
+      .map(([id, items]) => items.map(item => ({ ...item, id })))
+      .reduce((cul, cur) => [...cul, ...cur], [])
+
+    Object.assign(target, { [VALIDATION_RESULT_FIELD_NAME]: value })
+  })
+
   return {
     activeForm,
     createDraft,
@@ -188,6 +212,7 @@ export const useActiveForm = () => {
     getAllProperties,
     getCurrentLinkedScopes,
     getCurrentScopes,
+    getFormData,
     getScopedElement,
     hideRequiredLabel,
     index,
