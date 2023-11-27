@@ -34,10 +34,10 @@ const items = computed(() => {
         const target = keys.pop()
         if (!target) continue
         let [key, { code, value }] = target
-        const data = JSON.stringify({ code, value })
+        const data = encodeURIComponent(JSON.stringify({ code, value }))
         message = message
           .split(`{${key}}`)
-          .join(`<button class="suggestion" data-${key}=${data}>${value}</button>`)
+          .join(`<button class="suggestion" data-${key}="${data}">${value}</button>`)
       }
     }
     return { ...item, message }
@@ -50,7 +50,7 @@ const onClick = (e: Event) => {
   e.stopPropagation()
   const { suggestion } = el.dataset
   if (!suggestion) return
-  emit('suggestion', JSON.parse(suggestion))
+  emit('suggestion', JSON.parse(decodeURIComponent(suggestion)))
 }
 </script>
 
