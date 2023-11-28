@@ -1,15 +1,16 @@
-export const AssessmentsDataType = {
-  BUTTON: 'button',
-  BUTTON_LINK: 'button-link',
+export const TableDataType = {
   BUTTON_GHOST_LINK: 'button-link-ghost',
-  EXTERNAL_LINK: 'external-link',
+  BUTTON_LINK: 'button-link',
+  BUTTON: 'button',
   DATE: 'date',
+  EXTERNAL_LINK: 'external-link',
+  ICON: 'icon',
+  LINK_LIST: 'link-list',
   LINK: 'link',
-  STRING: 'string',
-  ICON: 'icon'
+  STRING: 'string'
 } as const
 
-export type AssessmentsDataTypes = (typeof AssessmentsDataType)[keyof typeof AssessmentsDataType]
+export type TableDataTypes = (typeof TableDataType)[keyof typeof TableDataType]
 
 export type AssessmentsData = Record<string, Record<string, any>>[]
 

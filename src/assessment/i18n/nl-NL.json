@@ -127,6 +127,26 @@
       "internalNote": "Notitie",
       "updatedAt": "Datum en tijd"
     },
+    "ibanCheck": {
+      "title": "Dubbele IBAN-Controle",
+      "intro": "Deze controle toont een overzicht van IBANs die nogmaals voorkomen in de ingediende, niet afgekeurde, aanvragen.",
+      "includeIntro": "Aanvragen die <strong>meegenomen</strong> worden binnen deze controle zijn ingediende aanvragen die:",
+      "includedList": "<li>niet afgekeurd zijn, of</li><li>ter beoordeling staan, of</li><li>ter aanvulling staan, of</li><li>goedgekeurd zijn</li>",
+      "excludeIntro": "Aanvragen die <strong>uitgesloten</strong> zijn van deze controle zijn:",
+      "excludedList": "<li>Aanvragen in concept, en</li><li>Afgekeurde aanvragen</li>",
+      "formTitle": "Subsidies",
+      "label": "Selecteer een subsidie",
+      "placeholder": "Selecteer een optie",
+      "noSubsidies": "Er zijn geen subsidies beschikbaar",
+      "results": "Resultaten",
+      "noResults": "Er zijn geen dubbele IBANs aangetroffen",
+      "overview": "Terug naar overzicht",
+      "retry": "Controle opnieuw uitvoeren"
+    },
+    "ibanCheckColumn": {
+      "count": "Aantal duplicaten",
+      "applications": "Aanvragen (ID)"
+    },
     "passwordUpdate": {
       "currentPassword": "Huidig wachtwoord",
       "newPassword": "Nieuw wachtwoord",
@@ -162,6 +182,22 @@
     }
   },
   "pages": {
+    "checks-overview": {
+      "title": "Controles",
+      "intro": "Beschikbare controles overkoepelend over de data.",
+      "check1Title": "Dubbele IBAN-Controle",
+      "check1Intro": "Deze controle toont een overzicht van IBANs die nogmaals voorkomen in de ingediende, niet afgekeurde, aanvragen.",
+      "button": "Controle uitvoeren"
+    },
+    "checks-view": {
+      "title": "Controles"
+    },
+    "check-details": {
+      "title": "Check"
+    },
+    "iban-check": {
+      "title": "IBAN controle"
+    },
     "all-cases-overview": {
       "cases": "Zaak|Zaken",
       "noCases": "Er zijn geen zaken gevonden.",

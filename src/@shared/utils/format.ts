@@ -58,3 +58,10 @@ export const formatPayloadFromCamelCaseToSnakeCase = (payload: Record<string, st
     {} as Record<string, string>
   )
 }
+
+export const formatSubsidiesData = (data: any) => {
+  return data.map((item: any) => ({
+    id: item.id,
+    title: item.title
+  }))
+}

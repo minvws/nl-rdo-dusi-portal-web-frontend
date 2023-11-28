@@ -82,6 +82,17 @@
                     aria-hidden="true"
                   />
                 </RouterLink>
+                <template v-else-if="isLinkList(item[column.id])">
+                  <template
+                    v-for="(link, index) in item[column.id].list"
+                    :key="index"
+                  >
+                    <RouterLink :to="link.to">
+                      {{ link.text }}
+                    </RouterLink>
+                    <template v-if="index !== item[column.id].list.length - 1">, </template>
+                  </template>
+                </template>
                 <template v-else>
                   {{ item[column.id].text }}
                 </template>
@@ -122,6 +133,7 @@ import {
   isAppButton,
   isExternalLink,
   isIcon,
+  isLinkList,
   isRouterLink,
   getRouterLinkClasses
 } from '@shared/utils/app-table'

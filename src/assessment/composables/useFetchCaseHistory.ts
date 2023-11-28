@@ -5,7 +5,7 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 import { useApiCaseHistoryUrl } from '@assessment/composables/useApiUrl'
 
 import { formatDateWithTime } from '@shared/utils/date'
-import { AssessmentsDataType } from '@shared/types/table'
+import { TableDataType } from '@shared/types/table'
 import { hasItems } from '@shared/utils/app-table'
 import { translate } from '@shared/i18n'
 
@@ -27,21 +27,21 @@ const transform = (data: CaseHistory[]) => {
   return data.map(({ updatedAt, subsidyStage: { title }, assessorUser, internalNote }) => {
     return {
       updatedAt: {
-        type: AssessmentsDataType.STRING,
+        type: TableDataType.STRING,
         text: formatDateWithTime(updatedAt, 'nl-NL')
       },
       action: {
-        type: AssessmentsDataType.STRING,
+        type: TableDataType.STRING,
         text: title
       },
       internalNote:
         (internalNote && {
-          type: AssessmentsDataType.STRING,
+          type: TableDataType.STRING,
           text: internalNote
         }) ||
         {},
       assessor: {
-        type: AssessmentsDataType.STRING,
+        type: TableDataType.STRING,
         text: assessorUser?.name ?? '-'
       }
     }

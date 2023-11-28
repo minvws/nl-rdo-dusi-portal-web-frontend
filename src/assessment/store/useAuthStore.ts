@@ -18,7 +18,7 @@ import {
   useApiPasswordUpdateUrl,
   useApiTwoFactorChallengeUrl,
   useApiUserStatusUrl,
-  useCsrfCookieUrl
+  useApiCsrfCookieUrl
 } from '@assessment/composables/useApiUrl'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
@@ -124,7 +124,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   async function getCsrfCookie() {
     try {
-      const url = useCsrfCookieUrl()
+      const url = useApiCsrfCookieUrl()
       const options: RequestInit = {
         method: 'GET'
       }

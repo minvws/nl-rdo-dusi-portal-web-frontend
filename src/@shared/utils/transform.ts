@@ -19,7 +19,7 @@ import {
   reviewerActionToRouteText
 } from '@shared/utils/mappers'
 
-import { AssessmentsDataType } from '@shared/types/table'
+import { TableDataType } from '@shared/types/table'
 import { ReviewerAction } from '@shared/types/reviewer'
 
 /**
@@ -79,20 +79,20 @@ const createSet = (text: string, data: object) => ({
 
 const setSubsidy = (url: string, text: string) =>
   createSet('subsidy', {
-    type: AssessmentsDataType.EXTERNAL_LINK,
+    type: TableDataType.EXTERNAL_LINK,
     to: url,
     text
   })
 
 const setFile = (text: string) =>
   createSet('file', {
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text
   })
 
 const setArrangement = (text: string, url: string) =>
   createSet('arrangement', {
-    type: AssessmentsDataType.EXTERNAL_LINK,
+    type: TableDataType.EXTERNAL_LINK,
     to: url,
     text
   })
@@ -100,49 +100,49 @@ const setArrangement = (text: string, url: string) =>
 const setRequestStatus = (text: string) =>
   createSet('status', {
     icon: statusToIcon[text],
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text: requestStatusToTranslation[text]
   })
 
 const setCaseStatus = (text: string) =>
   createSet('status', {
     icon: statusToIcon[text],
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text: caseStatusToTranslation[text]
   })
 
 const setStageTitle = (text: string) =>
   createSet('stage-title', {
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text: text
   })
 const setDeadline = (date: string) =>
   createSet('deadline', {
-    type: AssessmentsDataType.DATE,
+    type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setUpdated = (date: string) =>
   createSet('updated', {
-    type: AssessmentsDataType.DATE,
+    type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setCreated = (date: string) =>
   createSet('created', {
-    type: AssessmentsDataType.DATE,
+    type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
 const setActionRequired = (status: string) =>
   createSet('actionRequired', {
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text: statusToRequiredAction[status]
   })
 
 const setRequestAction = (reference: string, status: string) =>
   createSet('action', {
-    type: AssessmentsDataType.BUTTON_LINK,
+    type: TableDataType.BUTTON_LINK,
     to: {
       name: requestStatusToRouteName[status],
       params: { reference }
@@ -157,13 +157,13 @@ const setReviewerAction = (id: string, actions?: ReviewerActionType[]) => {
   switch (type) {
     case ReviewerAction.ASSIGN:
       return createSet('action', {
-        type: AssessmentsDataType.BUTTON,
+        type: TableDataType.BUTTON,
         text: reviewerActionToRouteText[type],
         action: { type, params: { id } }
       })
     default:
       return createSet('action', {
-        type: AssessmentsDataType.BUTTON,
+        type: TableDataType.BUTTON,
         text: reviewerActionToRouteText[type],
         action: { type, params: { id } }
       })
@@ -174,7 +174,7 @@ const setCaseAction = (id: string, status: string, actions?: ReviewerActionType[
   const type = actions?.find(action => action === ReviewerAction.SHOW)
   if (!type) return createSet('case', {})
   return createSet('case', {
-    type: AssessmentsDataType.BUTTON_GHOST_LINK,
+    type: TableDataType.BUTTON_GHOST_LINK,
     to: {
       name: caseStatusToRouteName[status],
       params: { id }
@@ -190,7 +190,7 @@ const setReviewer = (status: string, id: string, assessor?: { name: string }) =>
 const setReviewerPerson = (assessor?: { name: string }) => {
   if (!assessor) return {}
   return {
-    type: AssessmentsDataType.STRING,
+    type: TableDataType.STRING,
     text: assessor.name
   }
 }

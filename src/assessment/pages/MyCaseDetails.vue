@@ -156,7 +156,7 @@ watch(
     content: '';
     display: block;
     position: absolute;
-    top: calc(100% + 5px);
+    top: calc(100% + 1px);
     left: 0;
     width: 100%;
     height: 1px;

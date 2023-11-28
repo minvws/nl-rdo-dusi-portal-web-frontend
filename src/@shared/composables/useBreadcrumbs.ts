@@ -21,7 +21,10 @@ export const useBreadcrumbs = () => {
       if (!name) return
       const linkName = name as string
       const label = translate(`pages.${linkName}.title`)
-      if (!label) return // do not show breadcrumb when page does not has a label
+
+      // do not show breadcrumb when page does not have a label
+      if (!label) return
+
       links.push({
         name: linkName,
         label: translate(`pages.${linkName}.title`)

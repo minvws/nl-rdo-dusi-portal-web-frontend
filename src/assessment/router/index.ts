@@ -1,30 +1,34 @@
 import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
+import CheckDetails from '@assessment/pages/CheckDetails.vue'
+import ChecksView from '@assessment/pages/ChecksView.vue'
 import ForgotPasswordView from '@assessment/pages/ForgotPasswordView.vue'
 import LoginView from '@assessment/pages/LoginView.vue'
-import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
-import ReviewCase from '@assessment/pages/ReviewCase.vue'
-import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
-import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
-import RefreshView from '@assessment/pages/RefreshView.vue'
-import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
+import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
+import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
+import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
+import RefreshView from '@assessment/pages/RefreshView.vue'
+import ReviewCase from '@assessment/pages/ReviewCase.vue'
+import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 
 import {
+  ALL_CASES_OVERVIEW,
+  CHECK_DETAILS,
+  CHECKS_OVERVIEW,
+  FORGOT_PASSWORD,
   HOME,
   LOGIN_VIEW,
-  ALL_CASES_OVERVIEW,
-  FORGOT_PASSWORD,
-  MY_CASE_DETAILS,
   MY_CASE_DETAILS_HISTORY,
   MY_CASE_DETAILS_REVIEWER,
+  MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
-  REVIEW_CASE,
-  PREVIEW_CASE_SUBMIT,
-  TWO_FACTOR_VIEW,
-  REFRESH,
   PASSWORD_UPDATE_VIEW,
-  PASSWORDS_RESET
+  PASSWORDS_RESET,
+  PREVIEW_CASE_SUBMIT,
+  REFRESH,
+  REVIEW_CASE,
+  TWO_FACTOR_VIEW
 } from '@assessment/router/names'
 
 import { sharedRoutes } from '@shared/router/routes'
@@ -85,6 +89,19 @@ const routes = [
     meta: {
       public: true
     }
+  },
+  {
+    path: '/controles',
+    name: CHECKS_OVERVIEW,
+    component: ChecksView,
+    children: [
+      {
+        path: '/controles/:name',
+        name: CHECK_DETAILS,
+        component: CheckDetails,
+        props: true
+      }
+    ]
   },
   {
     path: '/refresh',

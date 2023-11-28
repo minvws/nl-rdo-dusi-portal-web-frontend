@@ -1,58 +1,66 @@
-import type { AssessmentsDataTypes } from '@shared/types/table'
-import { AssessmentsDataType } from '@shared/types/table'
+import type { TableDataTypes } from '@shared/types/table'
+import { TableDataType } from '@shared/types/table'
 
-const isButtonLink = ({ type }: { type: AssessmentsDataTypes }) => {
+const isButtonLink = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.BUTTON_LINK:
-    case AssessmentsDataType.BUTTON_GHOST_LINK:
+    case TableDataType.BUTTON_LINK:
+    case TableDataType.BUTTON_GHOST_LINK:
       return true
   }
   return false
 }
 
-const isGhostButton = ({ type }: { type: AssessmentsDataTypes }) => {
+const isGhostButton = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.BUTTON_GHOST_LINK:
+    case TableDataType.BUTTON_GHOST_LINK:
       return true
   }
   return false
 }
 
-export const isExternalLink = ({ type }: { type: AssessmentsDataTypes }) => {
+export const isExternalLink = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.EXTERNAL_LINK:
+    case TableDataType.EXTERNAL_LINK:
       return true
   }
   return false
 }
 
-export const isRouterLink = ({ type }: { type: AssessmentsDataTypes }) => {
+export const isLinkList = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.LINK:
-    case AssessmentsDataType.BUTTON_LINK:
-    case AssessmentsDataType.BUTTON_GHOST_LINK:
+    case TableDataType.LINK_LIST:
       return true
   }
   return false
 }
 
-export const isAppButton = ({ type }: { type: AssessmentsDataTypes }) => {
+export const isRouterLink = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.BUTTON:
+    case TableDataType.LINK:
+    case TableDataType.BUTTON_LINK:
+    case TableDataType.BUTTON_GHOST_LINK:
       return true
   }
   return false
 }
 
-export const isIcon = ({ type }: { type: AssessmentsDataTypes }) => {
+export const isAppButton = ({ type }: { type: TableDataTypes }) => {
   switch (type) {
-    case AssessmentsDataType.ICON:
+    case TableDataType.BUTTON:
       return true
   }
   return false
 }
 
-export const getRouterLinkClasses = (item: { type: AssessmentsDataTypes }) => {
+export const isIcon = ({ type }: { type: TableDataTypes }) => {
+  switch (type) {
+    case TableDataType.ICON:
+      return true
+  }
+  return false
+}
+
+export const getRouterLinkClasses = (item: { type: TableDataTypes }) => {
   return {
     button: isButtonLink(item),
     ghost: isGhostButton(item)

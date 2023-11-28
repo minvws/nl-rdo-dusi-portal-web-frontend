@@ -10,27 +10,44 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { MY_CASES_OVERVIEW, ALL_CASES_OVERVIEW } from '@assessment/router/names'
+import { ALL_CASES_OVERVIEW, CHECKS_OVERVIEW, MY_CASES_OVERVIEW } from '@assessment/router/names'
+
+const DEFAULT_ROUTES = [
+  {
+    name: MY_CASES_OVERVIEW,
+    label: translate('app.name'),
+    icon: 'home'
+  },
+  {
+    name: ALL_CASES_OVERVIEW,
+    label: translate('pages.all-cases-overview.title')
+  }
+]
+
+const AUDITOR_ROUTES = [
+  {
+    name: CHECKS_OVERVIEW,
+    label: translate('pages.checks-overview.title')
+  }
+]
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
   const { isLoggedIn } = storeToRefs(authStore)
   const leftLinks: Link[] = []
 
-  const rightLinks: Ref<Link[]> = computed(() => {
-    if (!isLoggedIn.value) return []
+  const isInternalAuditor = computed(() => authStore.checkUserRights(['internalAuditor']))
 
-    return [
-      {
-        name: MY_CASES_OVERVIEW,
-        label: translate('app.name'),
-        icon: 'home'
-      },
-      {
-        name: ALL_CASES_OVERVIEW,
-        label: translate('pages.all-cases-overview.title')
-      }
-    ]
+  const rightLinks: Ref<Link[]> = computed(() => {
+    if (!isLoggedIn.value) {
+      return []
+    }
+
+    if (isInternalAuditor.value) {
+      return [...DEFAULT_ROUTES, ...AUDITOR_ROUTES]
+    }
+
+    return DEFAULT_ROUTES
   })
 
   return {

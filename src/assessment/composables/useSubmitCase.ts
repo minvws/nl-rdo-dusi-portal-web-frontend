@@ -7,7 +7,7 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useFormSubmitNotification } from '@shared/composables/form/useFormSubmitNotification'
-import { useSubmitCaseUrl } from '@assessment/composables/useApiUrl'
+import { useApiSubmitCaseUrl } from '@assessment/composables/useApiUrl'
 
 import { log } from '@shared/utils/logger'
 
@@ -28,7 +28,7 @@ export const useSubmitCase = () => {
     data: FormData
     type: FormSubmitType
   }) {
-    const url = useSubmitCaseUrl(id)
+    const url = useApiSubmitCaseUrl(id)
     const payload = {
       submit: type === FormSubmitTypes.SUBMIT,
       data
