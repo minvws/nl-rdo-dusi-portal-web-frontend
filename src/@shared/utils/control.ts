@@ -44,6 +44,8 @@ function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Contr
       return createAutoComplete('username')
     case InputType.PASSWORD:
       return createAutoComplete('current-password')
+    default:
+      return createAutoComplete('off')
   }
 }
 
