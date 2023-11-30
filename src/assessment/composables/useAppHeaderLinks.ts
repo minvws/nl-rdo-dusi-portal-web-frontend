@@ -10,7 +10,12 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 
-import { ALL_CASES_OVERVIEW, CHECKS_OVERVIEW, MY_CASES_OVERVIEW } from '@assessment/router/names'
+import {
+  ALL_CASES_OVERVIEW,
+  CHECKS_OVERVIEW,
+  MY_CASES_OVERVIEW,
+  REPORTS_OVERVIEW
+} from '@assessment/router/names'
 
 const DEFAULT_ROUTES = [
   {
@@ -30,6 +35,12 @@ const AUDITOR_ROUTES = [
     label: translate('pages.checks-overview.title')
   }
 ]
+const DATA_EXPORTER_ROUTES = [
+  {
+    name: REPORTS_OVERVIEW,
+    label: translate('pages.reports-overview.title')
+  }
+]
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
@@ -38,6 +49,8 @@ export const useAppHeaderLinks = () => {
 
   const isInternalAuditor = computed(() => authStore.checkUserRights(['internalAuditor']))
 
+  const isDataExporter = computed(() => authStore.checkUserRights(['dataExporter']))
+
   const rightLinks: Ref<Link[]> = computed(() => {
     if (!isLoggedIn.value) {
       return []
@@ -45,6 +58,10 @@ export const useAppHeaderLinks = () => {
 
     if (isInternalAuditor.value) {
       return [...DEFAULT_ROUTES, ...AUDITOR_ROUTES]
+    }
+
+    if (isDataExporter.value) {
+      return [...DEFAULT_ROUTES, ...DATA_EXPORTER_ROUTES]
     }
 
     return DEFAULT_ROUTES

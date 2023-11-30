@@ -105,3 +105,7 @@ export const useApiUserSubsidiesUrl = () => {
 export const useApiUserStatusUrl = () => {
   return `${baseUrl}/api/user`
 }
+
+export const useApiDataExportUrl = () => {
+  return useMockData ? `${mockUrl}/export/fdc.csv` : `${baseUrl}/api/export/applications`
+}

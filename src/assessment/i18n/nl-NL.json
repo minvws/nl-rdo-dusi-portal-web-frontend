@@ -54,6 +54,14 @@
       "placeholder": "Naam beoordelaar",
       "result": "De zaak wordt toegekend aan"
     },
+    "dataExport": {
+      "title": "FDC-rapport",
+      "intro": "Data export voor het Financieel Diensten Centrum.",
+      "filter": "Filter op beschikkingsdatum",
+      "from": "Van",
+      "to": "Tot en met",
+      "download": "FDC-rapport downloaden"
+    },
     "transitionHistory": {
       "title": "Geschiedenis",
       "stage": "{title} uitgevoerd door {assessor}"
@@ -179,6 +187,18 @@
     "assign-case-assessor-error": {
       "label": "Mislukt",
       "message": "Er is een fout opgetreden tijdens het toevoegen. Probeer het later nog eens."
+    },
+    "data-export-success": {
+      "label": "Gelukt",
+      "message": "Het FDC-rapport is succesvol gegenereerd."
+    },
+    "data-export-empty": {
+      "label": "Mislukt",
+      "message": "Er zijn geen resultaten gevonden voor de opgegeven periode."
+    },
+    "data-export-error": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden tijdens het downloaden. Probeer het later nog eens."
     }
   },
   "pages": {
@@ -197,6 +217,22 @@
     },
     "iban-check": {
       "title": "IBAN controle"
+    },
+    "reports-overview": {
+      "title": "Rapportages",
+      "intro": "Beschikbare rapportage types.",
+      "report1Title": "FDC-rapport",
+      "report1Intro": "Data export voor het Financieel Diensten Centrum.",
+      "button": "Rapport downloaden"
+    },
+    "reports-view": {
+      "title": "Rapportages"
+    },
+    "report-details": {
+      "title": "Rapport"
+    },
+    "fdc-data-export": {
+      "title": "FDC Data Export"
     },
     "all-cases-overview": {
       "cases": "Zaak|Zaken",

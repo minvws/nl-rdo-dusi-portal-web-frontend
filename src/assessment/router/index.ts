@@ -9,6 +9,8 @@ import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
 import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
 import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
+import ReportDetails from '@assessment/pages/ReportDetails.vue'
+import ReportsView from '@assessment/pages/ReportsView.vue'
 import ReviewCase from '@assessment/pages/ReviewCase.vue'
 import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
 
@@ -27,6 +29,8 @@ import {
   PASSWORDS_RESET,
   PREVIEW_CASE_SUBMIT,
   REFRESH,
+  REPORT_DETAILS,
+  REPORTS_OVERVIEW,
   REVIEW_CASE,
   TWO_FACTOR_VIEW
 } from '@assessment/router/names'
@@ -136,6 +140,19 @@ const routes = [
     meta: {
       public: true
     }
+  },
+  {
+    path: '/rapportages',
+    name: REPORTS_OVERVIEW,
+    component: ReportsView,
+    children: [
+      {
+        path: ':name',
+        name: REPORT_DETAILS,
+        component: ReportDetails,
+        props: true
+      }
+    ]
   },
   ...sharedRoutes
 ]
