@@ -56,11 +56,11 @@
     },
     "dataExport": {
       "title": "FDC-rapport",
-      "intro": "Data export voor het Financieel Diensten Centrum.",
-      "filter": "Filter op beschikkingsdatum",
+      "intro": "Data export voor het Financieel Diensten Centrum over het afgelopen jaar.\nSelecteer indien gewenst de periode voor het rapport.",
+      "filter": "Rapport instellingen",
       "from": "Van",
       "to": "Tot en met",
-      "download": "FDC-rapport downloaden"
+      "download": "FDC-rapport downloaden (.csv)"
     },
     "transitionHistory": {
       "title": "Geschiedenis",
