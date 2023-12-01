@@ -15,7 +15,7 @@ import { translate } from '@shared/i18n'
 import { MY_CASE_DETAILS } from '@assessment/router/names'
 
 type IbanCheckItem = {
-  application_references: {
+  applications: {
     id: string
     reference: string
   }[]
@@ -33,7 +33,7 @@ const COLUMNS = {
 }
 
 const transform = (data: IbanCheckItem[]) => {
-  return data.map(({ count, application_references }) => {
+  return data.map(({ count, applications }) => {
     return {
       count: {
         type: TableDataType.STRING,
@@ -41,7 +41,7 @@ const transform = (data: IbanCheckItem[]) => {
       },
       applications: {
         type: TableDataType.LINK_LIST,
-        list: application_references.map(({ id, reference }) => ({
+        list: applications.map(({ id, reference }) => ({
           type: TableDataType.BUTTON_LINK,
           to: {
             name: MY_CASE_DETAILS,
