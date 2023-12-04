@@ -1,35 +1,38 @@
 <template>
   <div>
-    <div
-      class="file-control"
-      :class="{ margin: !!index }"
+    <template
       v-for="index in numberOfFiles"
       :key="index"
     >
-      <FormTextControl
-        v-bind="{ ...props, disabled: disabled || !!isPending?.[index] }"
-        :data-index="index"
-        @change="onChange"
-        @focus="onFocus"
+      <div
+        class="file-control"
+        :class="{ margin: !!index }"
+      >
+        <FormTextControl
+          v-bind="{ ...props, disabled: disabled || !!isPending?.[index] }"
+          :data-index="index"
+          @change="onChange"
+          @focus="onFocus"
+        />
+        <FormFieldRemoveFile
+          v-bind="{
+            handleChange,
+            index: index,
+            id: control.id,
+            labelFor: id,
+            files,
+            error,
+            disabled,
+            isPending: !!isPending?.[index]
+          }"
+          @blur="onBlur"
+        />
+      </div>
+      <FormFieldAddFileButton
+        v-if="showAddFileButton(index)"
+        @click="onAddFileButton"
       />
-      <FormFieldRemoveFile
-        v-bind="{
-          handleChange,
-          index: index,
-          id: control.id,
-          labelFor: id,
-          files,
-          error,
-          disabled,
-          isPending: !!isPending?.[index]
-        }"
-        @blur="onBlur"
-      />
-    </div>
-    <FormFieldAddFileButton
-      v-if="hasAddFileButton"
-      @click="onAddFileButton"
-    />
+    </template>
   </div>
 </template>
 <script setup lang="ts">
@@ -73,15 +76,16 @@ const maxFiles = computed(() => props.control.schema.maxItems ?? 1)
 
 const numberOfFilesAdded = computed(() => files.value?.length ?? 0)
 
-const numberOfFiles = computed(() =>
-  Array.from(Array(Math.min(numberOfFilesAdded.value + 1, addFileCount.value)).keys())
-)
+const numberOfFiles = computed(() => {
+  const count = Math.max(numberOfFilesAdded.value, addFileCount.value)
+  const keys = Array(count).keys()
 
-const hasAddFileButton = computed(() => {
-  return (
-    numberOfFilesAdded.value === addFileCount.value && numberOfFilesAdded.value < maxFiles.value
-  )
+  return Array.from(keys)
 })
+
+function showAddFileButton(index: number) {
+  return index + 1 === numberOfFiles.value.length && index + 1 !== maxFiles.value
+}
 
 function onBlur(e: Event) {
   emit('blur', e)
@@ -91,13 +95,15 @@ function onChange(e: Event) {
   const target = e.target as HTMLInputElement
   const file = target?.files?.[0]
   const { maxFileSize } = props
+
+  // file exceeds maxFileSize
   if (file && maxFileSize && file.size > maxFileSize) {
-    // file exceeds maxFileSize
     e.preventDefault()
     const size = formatFileSize(maxFileSize)
     emit('error', translate('form.fields.error.maxFileSize', { maxFileSize: size }))
     return
   }
+
   emit('change', e)
 }
 
@@ -112,7 +118,11 @@ function onAddFileButton() {
 watch(files, (files, before) => {
   const to = files?.length || 0
   const from = before?.length || 0
-  if (to > from) return
+
+  if (to > from) {
+    return
+  }
+
   addFileCount.value = Math.max(addFileCount.value - 1, 1)
 })
 </script>
