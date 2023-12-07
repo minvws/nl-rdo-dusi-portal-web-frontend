@@ -14,7 +14,6 @@ disable Vetur)
 
 The project is built using [Vite](https://vitejs.dev/). It uses [Vue 3]
 (https://v3.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
-[Storybook](https://storybook.js.org/) is available for component development.
 
 With Vue 3 we use the [Composition API]
 (https://v3.vuejs.org/guide/composition-api-introduction.html).
@@ -36,10 +35,6 @@ The project is structured as follows:
 ├── .husky
 │   ├── _
 │   └── pre-commit
-├── .storybook
-│   ├── main.ts
-│   ├── preview-head.html
-│   └── preview.ts
 ├── mock
 │   ├── portal
 │   ├── assessment
@@ -128,7 +123,6 @@ After installing the dependencies, the following scripts are available:
 | Script        | Description |
 |---------------|------------ |
 | build-only           | Builds Vite |
-| build-storybook      | Production build of Storybook |
 | build:portal         | Production build of the 'portal' project |
 | build:assessment     | Production build of the 'assessment' project |
 | dev:portal           | Development build of the 'portal' project |
@@ -137,7 +131,6 @@ After installing the dependencies, the following scripts are available:
 | lint                 | Lints source code |
 | lint-fix             | Lints and auto-fixes source code |
 | prepare              | Installs Husky Git during install |
-| storybook            | Start Storybook |
 | test                 | Runs unit tests |
 | type-check           | Perform type checking |
 

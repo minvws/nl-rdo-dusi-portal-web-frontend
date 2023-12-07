@@ -26,5 +26,3 @@ coverage
 *.sln
 *.sw?
 tmp/
-
-storybook-static/
