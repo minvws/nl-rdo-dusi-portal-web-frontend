@@ -16,19 +16,22 @@ export const beforeEach = async (
   from: RouteLocationNormalized,
   next: NavigationGuardNext
 ) => {
+  const needsRedirect = REDIRECT.includes(to.name as string)
   const authStore = useAuthStore()
+  const { canVisitRoute, homeRoute, isLoggedIn, isPasswordExpired } = storeToRefs(authStore)
 
   if (to.name !== LOGIN_VIEW) {
     await authStore.getUserInfo()
   }
 
-  const { isLoggedIn, isPasswordExpired } = storeToRefs(authStore)
-
   if (to.meta.public) {
     return next()
   }
 
-  const needsRedirect = REDIRECT.includes(to.name as string)
+  if (isLoggedIn.value) {
+    authStore.verifyRouteForUserRole(to.name as string)
+    authStore.setHomeRoute()
+  }
 
   if (!isLoggedIn.value) {
     log(`page is non-public and user is not logged-in. go to'${LOGIN_VIEW}'`)
@@ -45,6 +48,11 @@ export const beforeEach = async (
   if (needsRedirect) {
     log(`user is logged-in. go to '${HOME}'`)
     return next({ name: HOME })
+  }
+
+  if (!canVisitRoute.value) {
+    log(`user is logged-in but cannot visit '${to.name as string}', check user roles.`)
+    return next({ name: homeRoute.value })
   }
 
   next()

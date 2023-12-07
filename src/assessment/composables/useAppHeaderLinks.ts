@@ -61,7 +61,7 @@ export const useAppHeaderLinks = () => {
     }
 
     if (isDataExporter.value) {
-      return [...DEFAULT_ROUTES, ...DATA_EXPORTER_ROUTES]
+      return DATA_EXPORTER_ROUTES
     }
 
     return DEFAULT_ROUTES

@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import type { TwoFactorResponse } from '@shared/types/api-response'
-import type { User } from '@shared/types/user'
-import type { UserRoleType } from '@shared/types/user'
+import type { User, UserRoleType } from '@shared/types/user'
+import { UserRoles } from '@shared/types/user'
 import { type NotificationDisplayType, NotificationType } from '@shared/types/notification'
 
 import { computed, ref, watch } from 'vue'
@@ -9,6 +9,9 @@ import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
 import { translate } from '@shared/i18n'
+
+import roleRoutes from '@assessment/router/role-routes'
+import { CHECKS_OVERVIEW, REPORTS_OVERVIEW } from '@assessment/router/names'
 
 import {
   useApiForgotPasswordUrl,
@@ -41,6 +44,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const user: Ref<User | null> = ref(null)
   const isLoggedIn: Ref<boolean> = ref(false)
   const needsTwoFactor: Ref<boolean> = ref(false)
+  const canVisitRoute: Ref<boolean> = ref(false)
+  const homeRoute: Ref<string> = ref(HOME)
 
   const userRoles = computed(() => user.value?.roles ?? [])
   const isPasswordExpired = computed(() => user.value?.passwordExpired)
@@ -266,6 +271,26 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
+  function verifyRouteForUserRole(routeName: string) {
+    userRoles.value.forEach(({ name }) => {
+      const routeIsValid = roleRoutes[name].includes(routeName)
+      canVisitRoute.value = routeIsValid
+    })
+  }
+
+  function setHomeRoute() {
+    const hasAuditorRole = userRoles.value.find(role => role.name === UserRoles.INTERNAL_AUDITOR)
+    const hasExporterRole = userRoles.value.find(role => role.name === UserRoles.DATA_EXPORTER)
+
+    if (hasAuditorRole) {
+      homeRoute.value = CHECKS_OVERVIEW
+    }
+
+    if (hasExporterRole) {
+      homeRoute.value = REPORTS_OVERVIEW
+    }
+  }
+
   on(SessionType.EXPIRING, () => {
     getUserInfo()
   })
@@ -277,16 +302,20 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
 
   return {
+    canVisitRoute,
+    checkUserRights,
+    homeRoute,
+    forgotPassword,
     getUserInfo,
     isLoggedIn,
     isPasswordExpired,
-    needsTwoFactor,
     logIn,
     logOut,
+    needsTwoFactor,
+    resetPassword,
+    setHomeRoute,
     twoFactorChallenge,
     updatePassword,
-    checkUserRights,
-    forgotPassword,
-    resetPassword
+    verifyRouteForUserRole
   }
 })
