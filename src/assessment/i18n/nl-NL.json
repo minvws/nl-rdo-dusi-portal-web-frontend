@@ -60,7 +60,10 @@
       "filter": "Rapport instellingen",
       "from": "Van",
       "to": "Tot en met",
-      "download": "FDC-rapport downloaden (.csv)"
+      "download": "FDC-rapport downloaden (.csv)",
+      "endDateInFuture": "De einddatum mag niet in de toekomst liggen.",
+      "startDateToEarly": "De startdatum mag niet voor 1 januari 2023 liggen.",
+      "startDateAfterEndDate": "De startdatum moet vóór de einddatum liggen."
     },
     "transitionHistory": {
       "title": "Geschiedenis",

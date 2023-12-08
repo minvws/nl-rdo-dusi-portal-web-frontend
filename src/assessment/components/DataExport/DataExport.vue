@@ -4,8 +4,13 @@
       <h1>{{ translate('component.dataExport.title') }}</h1>
       <p>{{ translate('component.dataExport.intro') }}</p>
     </div>
-    <div>
+    <div class="data-export__form">
       <form @submit.prevent.stop>
+        <FormNotification
+          v-if="showNotification"
+          display-as="warning"
+          :message="notificationMessage"
+        />
         <fieldset class="group">
           <legend class="group-label">{{ translate('component.dataExport.filter') }}</legend>
           <div class="horizontal-layout">
@@ -15,10 +20,12 @@
               <input
                 type="date"
                 id="from"
-                :min="firstDayOfCurrentYear"
+                :min="MIN_START_DATE"
                 :max="maxFromDate"
                 pattern="\d{4}-\d{2}-\d{2}"
-                v-model="chosenFromDate"
+                v-model="valueFromDate"
+                @focus="onFocus"
+                @blur="onBlur"
               />
             </div>
             <div class="horizontal-layout-item">
@@ -28,22 +35,25 @@
                 type="date"
                 id="up-to-and-including"
                 :min="minUpToDate"
-                :max="today"
+                :max="TODAY"
                 pattern="\d{4}-\d{2}-\d{2}"
-                v-model="chosenUpToDate"
+                v-model="valueUpToDate"
+                @focus="onFocus"
+                @blur="onBlur"
               />
             </div>
           </div>
         </fieldset>
       </form>
-      <AppButton
-        type="button"
-        class="button"
-        @click="onClickDownload"
-      >
-        {{ translate('component.dataExport.download') }}
-      </AppButton>
     </div>
+    <AppButton
+      type="button"
+      class="button"
+      :disabled="hasInvalidDates"
+      @click="onClickDownload"
+    >
+      {{ translate('component.dataExport.download') }}
+    </AppButton>
   </div>
 </template>
 
@@ -60,39 +70,97 @@ import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredent
 import { useApiDataExportUrl } from '@assessment/composables/useApiUrl'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
 import { translate } from '@shared/i18n'
 
-const day = 60 * 60 * 24 * 1000
-const today = new Date().toISOString().split('T')[0]
-const yesterday = new Date(Date.now() - day).toISOString().split('T')[0]
-const firstDayOfCurrentYear = new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0]
+// Fixed timestamp values
+const DAY = 60 * 60 * 24 * 1000
+const TODAY = new Date().toISOString().split('T')[0]
+const YESTERDAY = new Date(Date.now() - DAY)
+const MIN_START_DATE = new Date('2023-01-01').toISOString().split('T')[0]
 
 const notificationsStore = useNotificationsStore()
 
-const chosenFromDate: Ref<DateLike> = ref('')
-const chosenUpToDate: Ref<DateLike> = ref('')
+const isFocussed = ref(false)
+const valueFromDate: Ref<DateLike> = ref('')
+const valueUpToDate: Ref<DateLike> = ref('')
 
-const maxFromDate = computed(() => {
-  // if chosenUpToDate is set, return that - 1 day
-  // else return yesterday
-  return chosenUpToDate.value && chosenUpToDate.value < yesterday
-    ? new Date(new Date(chosenUpToDate.value).getTime() - day).toISOString().split('T')[0]
-    : yesterday
+// returns timestamp of chosen 'from' value
+const chosenFromDayTime = computed(() => new Date(valueFromDate.value as string).getTime())
+
+// returns timestamp of chosen 'up to' value
+const chosenUpToDayTime = computed(() => new Date(valueUpToDate.value as string).getTime())
+
+// returns timestamp of first day of current year
+const minFromDayTime = computed(() => new Date(MIN_START_DATE).getTime())
+
+// returns timestamp of yesterday
+const yesterdayTime = computed(() => new Date(YESTERDAY).getTime())
+
+// returns the max date that can be chosen in the 'from' field
+// if chosenUpToDayTime is set and is smaller than yesterdayTime, return chosenUpToDayDate
+// else return yesterdayDate
+const maxFromTime = computed(() => {
+  return chosenUpToDayTime.value && chosenUpToDayTime.value < yesterdayTime.value
+    ? chosenUpToDayTime.value - DAY
+    : yesterdayTime.value
 })
 
-const minUpToDate = computed(() => {
-  // if chosenFromDate is set, return that + 1 day
-  // else return the first day of the current year
-  return chosenFromDate.value
-    ? new Date(new Date(chosenFromDate.value).getTime() + day).toISOString().split('T')[0]
-    : firstDayOfCurrentYear
+// returns the min date that can be chosen in the 'up to' field
+// if chosenFromDayTime is set, use that, else use minFromDayDate
+const minUpToTime = computed(() => {
+  return chosenFromDayTime.value ? chosenFromDayTime.value + DAY : minFromDayTime.value
 })
+
+// returns the max date that can be chosen in the 'from' field
+const maxFromDate = computed(() => new Date(maxFromTime.value).toISOString().split('T')[0])
+
+// returns the min date that can be chosen in the 'up to' field
+const minUpToDate = computed(() => new Date(minUpToTime.value).toISOString().split('T')[0])
+
+const startDateToEarly = computed(() => chosenFromDayTime.value <= minFromDayTime.value)
+
+const startDateAfterEndDate = computed(() => chosenFromDayTime.value >= chosenUpToDayTime.value)
+
+const endDateInFuture = computed(() => chosenUpToDayTime.value >= new Date(Date.now()).getTime())
+
+const hasInvalidDates = computed(
+  () => startDateToEarly.value || startDateAfterEndDate.value || endDateInFuture.value
+)
+
+const showNotification = computed(
+  () => !isFocussed.value && hasInvalidDates.value && valueFromDate.value && valueUpToDate.value
+)
+
+const notificationMessage = computed(() => {
+  if (startDateToEarly.value) {
+    return translate('component.dataExport.startDateToEarly') ?? ''
+  }
+
+  if (startDateAfterEndDate.value) {
+    return translate('component.dataExport.startDateAfterEndDate') ?? ''
+  }
+
+  if (endDateInFuture.value) {
+    return translate('component.dataExport.endDateInFuture') ?? ''
+  }
+
+  return ''
+})
+
+function onBlur() {
+  isFocussed.value = false
+}
+
+function onFocus() {
+  isFocussed.value = true
+}
 
 async function onClickDownload() {
   const baseUrl = useApiDataExportUrl()
-  const dateFrom = chosenFromDate.value?.toString()
-  const dateTo = chosenUpToDate.value?.toString()
+  const dateFrom = valueFromDate.value?.toString()
+  const dateTo = valueUpToDate.value?.toString()
   const params = new URLSearchParams({
     ...(dateFrom && { date_from: dateFrom }),
     ...(dateTo && { date_to: dateTo })
@@ -153,5 +221,9 @@ async function onClickDownload() {
 <style lang="scss" scoped>
 .data-export {
   --form-base-padding-bottom: 2rem;
+}
+
+.data-export__form {
+  width: 100%;
 }
 </style>
