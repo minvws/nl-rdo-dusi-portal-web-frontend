@@ -18,12 +18,12 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
-
 import { useSEO } from '@shared/composables/useSeo'
 import { usePasswordLogin } from '@assessment/composables/usePasswordLogin'
 
 import FormView from '@shared/components/FormView/FormView.vue'
+
+import { translate } from '@shared/i18n'
 
 useSEO({ title: `${translate('pages.login.title')} | ${translate('app.prefix')}` })
 

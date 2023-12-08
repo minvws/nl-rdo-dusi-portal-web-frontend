@@ -39,7 +39,7 @@ export const useCustomControlInput = ({
   errors: Ref<{ instancePath: string; params: { missingProperty: string } }[]>
 }) => {
   const handleRemoteValidation = async (type: ControlEvent) => {
-    // trigger remove validation when type is in list of validations
+    // trigger remote validation when type is in list of validations
     if (!control.value.uischema.options?.validation?.includes(type)) return
     await onRemoteValidation(controlId)
     if (type !== 'onValid') return

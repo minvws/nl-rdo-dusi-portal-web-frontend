@@ -7,7 +7,13 @@ import { useAuthStore } from '@assessment/store/useAuthStore'
 import { log } from '@shared/utils/logger'
 import { setRouteCookie } from '@shared/utils/route-cookie'
 
-import { HOME, LOGIN_VIEW, NOT_FOUND, PASSWORD_UPDATE_VIEW } from '@assessment/router/names'
+import {
+  HOME,
+  LOGIN_VIEW,
+  NOT_FOUND,
+  PASSWORD_UPDATE_VIEW,
+  TWO_FACTOR_VIEW
+} from '@assessment/router/names'
 
 const REDIRECT = [NOT_FOUND, HOME]
 
@@ -19,9 +25,10 @@ export const beforeEach = async (
   const needsRedirect = REDIRECT.includes(to.name as string)
   const authStore = useAuthStore()
   const { canVisitRoute, homeRoute, isLoggedIn, isPasswordExpired } = storeToRefs(authStore)
+  await authStore.getUserInfo(to.name)
 
-  if (to.name !== LOGIN_VIEW) {
-    await authStore.getUserInfo()
+  if ((to.name === LOGIN_VIEW || to.name === TWO_FACTOR_VIEW) && isLoggedIn.value) {
+    return next({ name: homeRoute.value })
   }
 
   if (to.meta.public) {

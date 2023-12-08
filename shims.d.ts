@@ -5,6 +5,7 @@ declare global {
     config?: {
       api?: string
       formEncryptionPublicKey?: string
+      sessionDuration?: string | number
     }
   }
 }

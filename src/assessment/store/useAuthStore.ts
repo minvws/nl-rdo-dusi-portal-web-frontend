@@ -1,39 +1,50 @@
 import type { Ref } from 'vue'
+import type { RouteRecordName } from 'vue-router'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User, UserRoleType } from '@shared/types/user'
+import type { NotificationDisplayType } from '@shared/types/notification'
+import { NotificationType } from '@shared/types/notification'
+import { SessionType } from '@shared/types/session'
 import { UserRoles } from '@shared/types/user'
-import { type NotificationDisplayType, NotificationType } from '@shared/types/notification'
 
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { defineStore } from 'pinia'
 
+import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
+import { useDispatcher } from '@shared/store/useDispatcher'
+import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
+
+import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
+import { getSessionCookie } from '@shared/utils/session-cookie'
+import { log } from '@shared/utils/logger'
+
 import { translate } from '@shared/i18n'
 
+import {
+  CHECKS_OVERVIEW,
+  HOME,
+  LOGIN_VIEW,
+  REPORTS_OVERVIEW,
+  TWO_FACTOR_VIEW
+} from '@assessment/router/names'
+
 import roleRoutes from '@assessment/router/role-routes'
-import { CHECKS_OVERVIEW, REPORTS_OVERVIEW } from '@assessment/router/names'
 
 import {
+  useApiCsrfCookieUrl,
   useApiForgotPasswordUrl,
   useApiLoginUrl,
   useApiLogoutUrl,
   useApiPasswordResetUrl,
   useApiPasswordUpdateUrl,
   useApiTwoFactorChallengeUrl,
-  useApiUserStatusUrl,
-  useApiCsrfCookieUrl
+  useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
-import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
-import { useDispatcher } from '@shared/store/useDispatcher'
-import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { JSONRequestHeaders } from '@shared/composables/useFetchHeaders'
 
-import { log } from '@shared/utils/logger'
-
-import { HOME, LOGIN_VIEW, TWO_FACTOR_VIEW } from '@assessment/router/names'
-import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
-import { SessionType } from '@shared/types/session'
+type RouteName = RouteRecordName | null | undefined
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
@@ -41,11 +52,11 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const sessionLifetimeStore = useSessionLifetimeStore()
   const { on } = useDispatcher()
 
-  const user: Ref<User | null> = ref(null)
-  const isLoggedIn: Ref<boolean> = ref(false)
-  const needsTwoFactor: Ref<boolean> = ref(false)
   const canVisitRoute: Ref<boolean> = ref(false)
   const homeRoute: Ref<string> = ref(HOME)
+  const isLoggedIn: Ref<boolean> = ref(false)
+  const needsTwoFactor: Ref<boolean> = ref(false)
+  const user: Ref<User | null> = ref(null)
 
   const userRoles = computed(() => user.value?.roles ?? [])
   const isPasswordExpired = computed(() => user.value?.passwordExpired)
@@ -54,7 +65,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     return userRoles.value.some(role => roleTypes.includes(role.name))
   }
 
-  async function getUserInfo() {
+  async function getUserInfo(routeName?: RouteName) {
+    const session = getSessionCookie()
+
+    if (routeName === 'login-view' && !session) {
+      return
+    }
+
     try {
       const url = useApiUserStatusUrl()
       const options: RequestInit = {
@@ -304,9 +321,9 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   return {
     canVisitRoute,
     checkUserRights,
-    homeRoute,
     forgotPassword,
     getUserInfo,
+    homeRoute,
     isLoggedIn,
     isPasswordExpired,
     logIn,
