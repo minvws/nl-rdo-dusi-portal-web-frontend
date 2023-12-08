@@ -1,6 +1,6 @@
 {
   "name": "nl-rdo-dusi-portal-web-frontend",
-  "version": "1.9.15",
+  "version": "1.9.16",
   "private": true,
   "scripts": {
     "build-only:portal": "VITE_PROJECT=portal vite build",
