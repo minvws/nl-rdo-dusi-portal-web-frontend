@@ -20,7 +20,7 @@
       v-if="hasNextStep"
       :class="{ disabled: isStepDisabled(index) }"
       :disabled="readonly"
-      @click="isStepDisabled(index) ? $emit('validate') : $emit('step', index + 1)"
+      @click="isStepDisabled(index) ? $emit('validate') : checkForValidation()"
     >
       {{ nextLabel }}
     </AppButton>
@@ -40,12 +40,19 @@
 import type { FormError, FormTitle, FormButtonLabels } from '@shared/types/form'
 
 import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
+
+import { useValidationStore } from '@shared/store/useValidationStore'
+import { useActiveForm } from '@shared/composables/form/useActiveForm'
+import { useForms } from '@shared/composables/form/useForms'
 import { useFormSteps } from '@shared/composables/form/useFormSteps'
-import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-defineEmits(['validate', 'step', 'save', 'submit'])
+import { translate } from '@shared/i18n'
+import { watch } from 'vue'
+
+const emit = defineEmits(['validate', 'step', 'save', 'submit'])
 
 type Props = {
   forms: FormTitle[]
@@ -59,7 +66,13 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled } = useFormSteps(props)
+const { index: formIndex } = useActiveForm()
+const { onRemoteValidation } = useForms()
+const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled, stepHasInputFields } =
+  useFormSteps(props)
+const validationStore = useValidationStore()
+
+const { canContinueAfterValidation } = storeToRefs(validationStore)
 
 const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
 
@@ -72,6 +85,25 @@ const nextLabel = computed(() =>
 const saveLabel = computed(() => props.buttonLabels?.save || translate('form.button.save'))
 
 const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
+
+// trigger validation before going to next step
+function checkForValidation() {
+  if (!stepHasInputFields.value) {
+    emit('step', props.index + 1)
+    return
+  }
+
+  if (!canContinueAfterValidation.value) {
+    onRemoteValidation()
+  } else {
+    emit('step', props.index + 1)
+  }
+}
+
+watch(formIndex, (newIndex, oldIndex) => {
+  const isGoingBack = newIndex < oldIndex
+  canContinueAfterValidation.value = isGoingBack
+})
 </script>
 
 <style lang="scss" scoped>

@@ -37,7 +37,6 @@ export const useActiveForm = () => {
   const createDraft = computed(() => !!formProps.createDraft)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
   const validationId = computed(() => activeForm.value?.validationId)
-
   const validationResult = computed(() => activeForm.value?.validationResult)
 
   // get all remote-validations of type = 'error'

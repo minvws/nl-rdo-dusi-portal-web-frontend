@@ -1,7 +1,9 @@
 import type { FormSubmitType } from '@shared/types/form'
 
 import { useRouter } from 'vue-router'
+import { storeToRefs } from 'pinia'
 
+import { useValidationStore } from '@shared/store/useValidationStore'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 import { useEncryption } from '@shared/composables/useEncryption'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
@@ -17,9 +19,11 @@ const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VIT
 export const useFormSubmit = () => {
   const forms = useActiveForm()
   const notification = useFormSubmitNotification()
-
+  const validationStore = useValidationStore()
   const router = useRouter()
   const { encrypt } = useEncryption()
+
+  const { canContinueAfterValidation } = storeToRefs(validationStore)
 
   const getRequest = (type: FormSubmitType) => {
     const { draftId } = forms
@@ -40,8 +44,10 @@ export const useFormSubmit = () => {
           data: formData,
           url: useApiFormsValidateUrl(draftId.value)
         }
+      default: {
+        throw new Error(`FormSubmitType ${type} is unknown`)
+      }
     }
-    throw new Error(`FormSubmitType ${type} is unknown`)
   }
 
   async function onSubmit(type: FormSubmitType) {
@@ -55,20 +61,28 @@ export const useFormSubmit = () => {
       },
       body: encryptedBody
     }
+
     forms.setSubmitting(true)
+
     try {
       const { statusCode, data, error } = await useFetchWithEncryption(url, options).json()
       const validationResult = error?.value?.validationResult ?? data?.value?.validationResult
       forms.setValidationResult({ validationResult })
 
       if (statusCode.value === 200) {
+        if (type === FormSubmitTypes.VALIDATION) {
+          canContinueAfterValidation.value = true
+        }
         return { data: data.value }
       }
+
       if (statusCode.value === 422) {
         if (type === FormSubmitTypes.VALIDATION) {
-          return { error: undefined }
+          canContinueAfterValidation.value = false
+          return { data: error }
         }
       }
+
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)

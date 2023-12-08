@@ -77,3 +77,18 @@ export const transformFormValues = (values?: FormData) => {
     }
   }, {})
 }
+
+export const hasCustomControl = (element: { type: string; elements?: [] }) => {
+  const { type, elements } = element
+  if (type === 'CustomControl') {
+    return true
+  } else if (elements && Array.isArray(elements)) {
+    for (const element of elements) {
+      if (hasCustomControl(element)) {
+        return true
+      }
+    }
+  }
+
+  return false
+}
