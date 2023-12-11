@@ -25,7 +25,6 @@ export const sharedRoutes = [
     path: '/:catchAll(.*)',
     name: NOT_FOUND,
     component: NotFoundPage,
-    props: true,
     meta: {
       public: true
     }
