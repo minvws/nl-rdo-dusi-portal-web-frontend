@@ -174,19 +174,20 @@ async function onClickDownload() {
   }
 
   try {
-    const { data, isFetching } = await useFetchWithCredentials(url, options)
+    const { data, response, isFetching } = await useFetchWithCredentials(url, options)
+    const statusIsOk = response.value?.status === 200
 
-    if (!data.value) {
+    if (!statusIsOk) {
       notificationsStore.add({
-        id: 'data-export-empty',
+        id: 'data-export-error',
         displayAs: NotificationType.ERROR,
-        label: translate('notification.data-export-empty.label') ?? '',
-        message: translate('notification.data-export-empty.message') ?? '',
+        label: translate('notification.data-export-error.label') ?? '',
+        message: translate('notification.data-export-error.message') ?? '',
         pageChangeCount: 1
       })
     }
 
-    if (!isFetching.value && data.value) {
+    if (!isFetching.value && statusIsOk) {
       notificationsStore.add({
         id: 'data-export-success',
         displayAs: NotificationType.CONFIRMATION,

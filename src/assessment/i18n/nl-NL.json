@@ -195,10 +195,6 @@
       "label": "Gelukt",
       "message": "Het FDC-rapport is succesvol gegenereerd."
     },
-    "data-export-empty": {
-      "label": "Mislukt",
-      "message": "Er zijn geen resultaten gevonden voor de opgegeven periode."
-    },
     "data-export-error": {
       "label": "Mislukt",
       "message": "Er is een fout opgetreden tijdens het downloaden. Probeer het later nog eens."
