@@ -41,6 +41,7 @@ import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
+import { log } from '@shared/utils/logger'
 
 type Type = 'external-link' | 'string' | 'date' | 'button-link' | 'link'
 type Text = { text: string }
@@ -86,6 +87,8 @@ const getComponent = (params: { type: Type } & any) => {
     case 'date':
     case 'string':
       return toAppHtml(params as AppHtmlContent)
+    default:
+      log('error', `Unknown type: ${params.type}`)
   }
 }
 

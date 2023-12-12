@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
+import { InputType } from '@shared/types/input'
 
 import { defineComponent } from 'vue'
 import { rendererProps } from '@jsonforms/vue'
@@ -30,8 +31,8 @@ import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupContro
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
-import { InputType } from '@shared/types/input'
-import { getInputId } from '@/@shared/utils/control'
+
+import { getInputId } from '@shared/utils/control'
 
 export default defineComponent({
   components: {

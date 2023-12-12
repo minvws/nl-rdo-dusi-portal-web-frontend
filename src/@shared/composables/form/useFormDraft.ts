@@ -21,8 +21,9 @@ export const useFormDraft = (formId: Ref<string>) => {
     switch (code) {
       case 'application_already_exists':
         return NotificationType.EXPLANATION
+      default:
+        return NotificationType.ERROR
     }
-    return NotificationType.ERROR
   }
 
   async function createFormDraft() {

@@ -6,6 +6,7 @@ import { computed } from 'vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'
+import { log } from '@shared/utils/logger'
 
 import { useFileStore } from '@shared/store/useFileStore'
 import { getValue } from '@shared/composables/form/useCustomControlInput'
@@ -79,16 +80,24 @@ const fieldTypes = Object.values(InputType)
 export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaElement) => {
   const extend = schema as JsonSchema & Record<InputType, boolean> & { format?: InputType }
   const key = fieldTypes.find(key => extend[key])
-  if (key) return key
+
+  if (key) {
+    return key
+  }
+
   const { format, type } = { ...options, ...extend }
+
   switch (type) {
     case 'boolean':
       return InputType.CHECKBOX
+    default:
+      log('useFieldType not supported', type)
   }
 
   if (format && fieldTypes.includes(format)) {
     return format
   }
+
   return (type as InputType) ?? InputType.TEXT
 }
 
@@ -158,6 +167,8 @@ export const useField = ({
         },
         tag: 'FormRadioControl'
       }
+    default:
+      break
   }
   return {
     props: { ...input, control },

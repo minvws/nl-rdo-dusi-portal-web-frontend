@@ -11,8 +11,9 @@ const isNumberInput = (control: Control) => {
   switch (control.schema.type as InputType) {
     case InputType.INTEGER:
       return true
+    default:
+      return false
   }
-  return false
 }
 
 export default {

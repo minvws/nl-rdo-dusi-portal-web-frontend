@@ -3,6 +3,7 @@ import type { FieldProp } from '@shared/types/field'
 import { useForms } from '@shared/composables/form/useForms'
 import { InputType } from '@shared/types/input'
 import { toNestedObject } from '@shared/utils/object'
+import { log } from '@shared/utils/logger'
 
 const truncateMaxLength = (value = '', { maxLength }: FieldProp) => {
   if (!maxLength) return value
@@ -32,6 +33,9 @@ const getDummyData = (props: FieldProp) => {
       return new Date().toISOString().split('T')[0]
     case InputType.EMAIL:
       return 'e@mail.com'
+    default:
+      log('unknown format', format)
+      break
   }
   switch (type) {
     case 'boolean':
@@ -43,7 +47,8 @@ const getDummyData = (props: FieldProp) => {
     case 'number':
       return Math.PI
     default:
-      return `unknown type ${type}`
+      log('unknown type', type)
+      break
   }
 }
 

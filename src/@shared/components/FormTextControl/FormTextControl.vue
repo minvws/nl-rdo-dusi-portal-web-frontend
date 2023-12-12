@@ -36,9 +36,10 @@ const { el, onResize } = useTextAreaAutoSize(props.type)
 const component = computed(() => {
   switch (props.type) {
     case InputType.TEXTAREA:
-      return InputType.TEXTAREA
+      return 'textarea'
+    default:
+      return 'input'
   }
-  return 'input'
 })
 
 const onInput = (event: Event) => {
