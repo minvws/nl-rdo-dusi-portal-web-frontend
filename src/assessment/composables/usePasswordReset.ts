@@ -27,8 +27,8 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
   const email: string = queryParams.email ? (queryParams.email as string) : ''
   const token: string = queryParams.token ? (queryParams.token as string) : ''
 
-  const showNotification = (type: NotificationDisplayType, error?: string) => {
-    const props = error ? { error } : undefined
+  const showNotification = (type: NotificationDisplayType, message?: string) => {
+    const props = message ? { message } : undefined
     const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
 
     notificationsStore.add({
@@ -97,24 +97,26 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
     }
   ])
 
-  async function onSubmit(data: Record<string, string>) {
+  async function onSubmit(payloadData: Record<string, string>) {
     locked.value = true
     notificationsStore.removeById(NOTIFICATION_ID)
 
-    const { password, password_confirmation } = formatPayloadFromCamelCaseToSnakeCase(data)
+    const { password, password_confirmation } = formatPayloadFromCamelCaseToSnakeCase(payloadData)
 
-    const { error } = await resetPassword({
+    const { data, error } = await resetPassword({
       email,
       token,
       password,
       password_confirmation
     })
+    const message = data.value.message ?? ''
+
     if (error.value) {
       locked.value = false
-      showNotification(NotificationType.ERROR, error.value)
+      showNotification(NotificationType.ERROR, message)
       return
     }
-    showNotification(NotificationType.CONFIRMATION)
+    showNotification(NotificationType.CONFIRMATION, message)
     router.replace({ name: LOGIN_VIEW })
   }
 

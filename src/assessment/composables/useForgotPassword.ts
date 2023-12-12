@@ -65,23 +65,23 @@ export const useForgotPassword = () => {
 
   async function onSubmit(submitData: Record<'email', string>) {
     const { email } = submitData
-    const { error } = await forgotPassword({ email })
-    const message = error.value?.message
+    const { data, error } = await forgotPassword({ email })
+    const message = data.value.message ?? ''
 
     locked.value = true
 
-    if (message) {
+    if (error.value) {
       locked.value = false
       showNotification(NotificationType.ERROR, message)
       return
     }
 
-    showNotification(NotificationType.CONFIRMATION)
+    showNotification(NotificationType.CONFIRMATION, message)
     router.replace({ name: LOGIN_VIEW })
   }
 
-  const showNotification = (type: NotificationDisplayType, error?: string) => {
-    const props = error ? { error } : undefined
+  const showNotification = (type: NotificationDisplayType, message?: string) => {
+    const props = message ? { message } : undefined
     const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
     const pageChangeCount = type === NotificationType.CONFIRMATION ? 2 : 1
 

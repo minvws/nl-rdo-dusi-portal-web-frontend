@@ -10,11 +10,11 @@
     },
     "password-reset-failed": {
       "label": "Mislukt",
-      "message": "Er is een onbekende fout opgetreden. {error}"
+      "message": "Er is een fout opgetreden. {message}"
     },
     "password-reset-success": {
       "label": "Bevestiging",
-      "message": "Wachtwoord is gewijzigd."
+      "message": "{message}"
     },
     "2fa-invalid-code": {
       "label": "Code ongeldig",
@@ -26,11 +26,11 @@
     },
     "forgot-password-failed": {
       "label": "Mislukt",
-      "message": "Er is een onbekende fout opgetreden. {error}"
+      "message": "Er is een fout opgetreden. {message}"
     },
     "forgot-password-success": {
       "label": "Bevestiging",
-      "message": "Verzoek tot wachtwoord wijzigen succesvol verstuurd."
+      "message": "{message}"
     },
     "login-invalid-credentials": {
       "label": "Inloggen mislukt",

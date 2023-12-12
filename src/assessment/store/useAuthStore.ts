@@ -230,9 +230,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
     const url = useApiForgotPasswordUrl()
     const options = { ...JSONRequestHeaders }
-    const useFetchOptions = { onFetchError: fetchErrorMessage }
 
-    return useFetchWithCredentials(url, options, useFetchOptions).post(payload).json()
+    return useFetchWithCredentials(url, options).post(payload).json()
   }
 
   async function resetPassword(payload: {
@@ -245,16 +244,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
     const url = useApiPasswordResetUrl()
     const options = { ...JSONRequestHeaders }
-    const useFetchOptions = { onFetchError: fetchErrorMessage }
 
-    return useFetchWithCredentials(url, options, useFetchOptions).post(payload).json()
-  }
-
-  function fetchErrorMessage(ctx: { data: any; response: Response | null; error: any }) {
-    if (ctx.data && ctx.data.message) {
-      ctx.error = new Error(ctx.data.message)
-    }
-    return ctx
+    return useFetchWithCredentials(url, options).post(payload).json()
   }
 
   function onLoginChange(isLoggedIn: boolean) {
