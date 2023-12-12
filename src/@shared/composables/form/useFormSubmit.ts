@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import type { FormSubmitType } from '@shared/types/form'
 
 import { useRouter } from 'vue-router'
@@ -50,7 +51,9 @@ export const useFormSubmit = () => {
     }
   }
 
-  async function onSubmit(type: FormSubmitType) {
+  async function onSubmit(
+    type: FormSubmitType
+  ): Promise<{ data?: any; error?: any; statusCode?: Ref<null | number> }> {
     const { method, url, ...body } = getRequest(type)
     const encryptedBody = await encrypt(publicKey, JSON.stringify(body))
     const options: RequestInit = {
@@ -70,23 +73,19 @@ export const useFormSubmit = () => {
       forms.setValidationResult({ validationResult })
 
       if (statusCode.value === 200) {
-        if (type === FormSubmitTypes.VALIDATION) {
-          canContinueAfterValidation.value = true
-        }
-        return { data: data.value }
+        return { data, statusCode }
       }
 
       if (statusCode.value === 422) {
         if (type === FormSubmitTypes.VALIDATION) {
-          canContinueAfterValidation.value = false
-          return { data: error }
+          return { data: error, statusCode }
         }
       }
 
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
-      return { error: error as Error }
+      return { error }
     } finally {
       forms.setSubmitting(false)
     }
@@ -116,16 +115,42 @@ export const useFormSubmit = () => {
   }
 
   async function onSubmitValidation(id?: string): Promise<void> {
-    if (id) forms.setIdIsValidating(id)
-    forms.setValidatingIsPending(true)
     const type = FormSubmitTypes.VALIDATION
+
+    if (id) {
+      forms.setIdIsValidating(id)
+    }
+
+    forms.setValidatingIsPending(true)
+
+    await onSubmit(type).finally(() => forms.setValidatingIsPending(false))
+  }
+
+  async function onSubmitValidationOrContinue(): Promise<void> {
+    const type = FormSubmitTypes.VALIDATION
+    const { activeForm } = forms
+
+    forms.setValidatingIsPending(true)
+
     await onSubmit(type)
-    forms.setValidatingIsPending(false)
+      .then(({ statusCode }) => {
+        if (statusCode?.value === 200) {
+          canContinueAfterValidation.value = true
+          activeForm.value.index = forms.index.value + 1
+        } else {
+          canContinueAfterValidation.value = false
+        }
+      })
+      .finally(() => {
+        forms.setValidatingIsPending(false)
+        canContinueAfterValidation.value = false
+      })
   }
 
   return {
     onSubmitForm,
     onSubmitDraft,
-    onSubmitValidation
+    onSubmitValidation,
+    onSubmitValidationOrContinue
   }
 }

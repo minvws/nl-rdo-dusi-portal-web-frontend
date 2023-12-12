@@ -22,8 +22,9 @@ export const useActiveForm = () => {
   }
 
   const formStorage = useFormStorage()
-  const index = computed(() => activeForm.value?.index ?? -1)
+
   const activeForm = computed(() => formStorage.get(formId.value))
+  const createDraft = computed(() => !!formProps.createDraft)
   const data = computed(() => formsData.value?.[index.value] ?? {})
   const draftId = computed(() => activeForm.value?.draftId)
   const draftIsPending = computed(() => activeForm.value?.draftIsPending)
@@ -34,7 +35,7 @@ export const useActiveForm = () => {
   const formKey = computed(() => `form-${formId.value}-${index.value}`)
   const forms = computed(() => activeForm.value?.forms)
   const formsData = computed(() => activeForm.value?.data)
-  const createDraft = computed(() => !!formProps.createDraft)
+  const index = computed(() => activeForm.value?.index ?? -1)
   const isValidationPending = computed(() => activeForm.value?.isValidationPending)
   const validationId = computed(() => activeForm.value?.validationId)
   const validationResult = computed(() => activeForm.value?.validationResult)
@@ -95,6 +96,7 @@ export const useActiveForm = () => {
   function setDraftIsPending(isPending: boolean) {
     formStorage.update(formId.value, { draftIsPending: isPending })
   }
+
   function setValidatingIsPending(isPending: boolean) {
     formStorage.update(formId.value, { isValidationPending: isPending })
     if (!isPending) setIdIsValidating()

@@ -18,30 +18,24 @@ type Props = {
 }
 
 export const useFormSteps = (props: Props) => {
-  const { forms } = useActiveForm()
+  const { forms, activeForm } = useActiveForm()
   const validationStore = useValidationStore()
   const { canContinueAfterValidation } = storeToRefs(validationStore)
 
   const hasSteps = computed(() => steps.value > 1)
-
   const hasForms = computed(() => !!steps.value)
-
   const hasPrevStep = computed(() => hasForms.value && props.index > 0)
-
   const hasNextStep = computed(() => hasForms.value && props.index < props.forms.length - 1)
-
   const hasSubmit = computed(() => props.index === props.forms.length - 1)
-
   const hasSave = computed(() =>
     !props.hasSaveButton ? false : hasPrevStep.value || hasSubmit.value
   )
-
   const isCurrentStepValid = computed(() => !props.formsErrors[props.index]?.length)
-
   const steps = computed(() => props.forms.length)
-
   const stepHasInputFields = computed(() => {
-    const schema = forms.value[props.index].uischema as UISchemaElement & { elements: [] }
+    const schema = forms.value[activeForm.value.index].uischema as UISchemaElement & {
+      elements: []
+    }
     return schema.elements.map(element => hasCustomControl(element)).some(value => value)
   })
 
