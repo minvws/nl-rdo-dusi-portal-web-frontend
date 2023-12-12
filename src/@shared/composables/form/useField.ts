@@ -33,11 +33,13 @@ export const useFieldChange = ({ control, error }: Field & { error: Ref<string> 
         addOrRemoveFile(control.value.id, target, error)
         return control.value.data
       }
-      if (value === '' ?? value === undefined) {
+
+      if (value === '' || value === undefined) {
         // we need to set the value to undefined when the value
         // is empty to trigger validation
         return undefined
       }
+
       return getValue('onChange', control.value, value)
     }
   }
