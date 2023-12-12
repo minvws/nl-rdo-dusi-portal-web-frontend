@@ -1,19 +1,24 @@
 <template>
   <span
     class="app-icon icon"
-    :class="[`icon-${name}`]"
-    role="presentation"
-    :aria-hidden="ariaHidden"
+    :class="className"
+    :aria-hidden="isHidden"
   >
     <slot />
   </span>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 type Props = {
   name: string
   ariaHidden?: boolean | 'true'
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const className = computed(() => `icon-${props.name}`)
+
+const isHidden = computed(() => (props.ariaHidden ? 'true' : undefined))
 </script>
