@@ -17,6 +17,9 @@
         :disabled="disabled || isPending"
         @click="onRemoveFile"
       >
+        <span class="visually-hidden">
+          {{ translate('component.formFieldRemoveFile.remove') }}
+        </span>
         <AppIcon name="close" />
       </AppButton>
     </div>
@@ -35,6 +38,8 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 
 import { getControlId } from '@shared/utils/control'
+
+import { translate } from '@shared/i18n'
 
 type Props = {
   handleChange?: (_path: string, _value: any) => void

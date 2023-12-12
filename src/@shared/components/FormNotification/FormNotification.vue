@@ -16,7 +16,7 @@
         class="button"
         @click="onDismiss(id)"
       >
-        <span class="visually-hidden">Sluiten</span>
+        <span class="visually-hidden">{{ translate('component.formNotification.close') }}</span>
         <AppIcon name="close" />
       </AppButton>
     </div>

@@ -69,7 +69,11 @@
       "title": "Filters",
       "submit": "Filter"
     },
+    "formFieldRemoveFile": {
+      "remove": "Verwijder bestand"
+    },
     "formNotification": {
+      "close": "Sluit melding",
       "error": "Fout",
       "explanation": "Toelichting",
       "confirmation": "Gelukt",
