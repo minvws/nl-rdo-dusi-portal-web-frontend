@@ -29,7 +29,10 @@
       </template>
     </FormRowElement>
 
-    <FormRowElement v-bind="{ contentClass }">
+    <FormRowElement
+      v-bind="{ contentClass }"
+      :is-group="isGroup"
+    >
       <template
         #left
         v-if="label"
@@ -43,14 +46,14 @@
             label
           }"
         />
-        <div
+        <legend
           v-else
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
           :id="labelId"
         >
           {{ label }}
-        </div>
+        </legend>
       </template>
       <template #right>
         <slot />

@@ -1,5 +1,6 @@
 <template>
-  <div
+  <component
+    :is="isGroup ? 'fieldset' : 'div'"
     class="form-row-field"
     :class="{
       center: !isNotCentered,
@@ -13,7 +14,7 @@
       <slot name="right" />
       <slot name="description" />
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -25,6 +26,7 @@ import { Comment, computed, useSlots } from 'vue'
 type Props = {
   hasLeft?: boolean
   contentClass?: string
+  isGroup?: boolean
 }
 const props = defineProps<Props>()
 
@@ -39,8 +41,9 @@ const isNotCentered = computed(() => {
     case InputType.FILE:
     case undefined:
       return true
+    default:
+      return false
   }
-  return false
 })
 
 // logic based on: https://mokkapps.de/vue-tips/check-if-slot-is-empty/
@@ -63,6 +66,7 @@ function asArray(arg: VNodeChild) {
 .form-row-field {
   display: flex;
   flex-direction: column;
+  gap: var(--form-group-gap);
 
   @include mobile {
     gap: 0.2rem;

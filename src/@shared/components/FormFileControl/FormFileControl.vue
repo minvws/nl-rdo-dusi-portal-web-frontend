@@ -9,7 +9,11 @@
         :class="{ margin: !!index }"
       >
         <FormTextControl
-          v-bind="{ ...props, disabled: disabled || !!isPending?.[index] }"
+          v-bind="{
+            ...textControlProps,
+            id: `${id}-${index}`,
+            disabled: disabled || !!isPending?.[index]
+          }"
           :data-index="index"
           @change="onChange"
           @focus="onFocus"
@@ -19,7 +23,7 @@
             handleChange,
             index: index,
             id: control.id,
-            labelFor: id,
+            labelFor: `${id}-${index}`,
             files,
             error,
             disabled,
@@ -71,6 +75,14 @@ const addFileCount = ref(1)
 const files = computed(() => props.control.data as FileType[])
 
 const props = defineProps<Props>()
+
+const textControlProps = computed(() => ({
+  type: props.type,
+  control: props.control,
+  value: props.value,
+  placeholder: props.placeholder,
+  autofocus: props.autofocus
+}))
 
 const maxFiles = computed(() => props.control.schema.maxItems ?? 1)
 
