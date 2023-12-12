@@ -27,7 +27,7 @@
     "@jsonforms/vue-vanilla": "^3.1.0",
     "@minvws/nl-rdo-rijksoverheid-ui-theme": "^0.0.17",
     "@types/js-cookie": "^3.0.5",
-    "@vueuse/core": "^10.5.0",
+    "@vueuse/core": "^10.7.0",
     "@vueuse/head": "^2.0.0",
     "ajv": "^8.12.0",
     "dotenv": "^16.3.1",
