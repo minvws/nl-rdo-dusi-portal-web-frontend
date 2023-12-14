@@ -1,6 +1,6 @@
 {
   "name": "nl-rdo-dusi-portal-web-frontend",
-  "version": "1.9.19",
+  "version": "1.9.20",
   "type": "module",
   "private": true,
   "scripts": {
