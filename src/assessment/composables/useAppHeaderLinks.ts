@@ -1,5 +1,6 @@
-import type { Ref } from 'vue'
+import type { ComputedRef } from 'vue'
 import type { Link } from '@shared/types/link'
+import { UserRoles } from '@shared/types/user'
 
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -17,7 +18,7 @@ import {
   REPORTS_OVERVIEW
 } from '@assessment/router/names'
 
-const DEFAULT_ROUTES = [
+const DEFAULT_ROUTES: Link[] = [
   {
     name: MY_CASES_OVERVIEW,
     label: translate('app.name'),
@@ -29,13 +30,14 @@ const DEFAULT_ROUTES = [
   }
 ]
 
-const AUDITOR_ROUTES = [
+const AUDITOR_ROUTES: Link[] = [
   {
     name: CHECKS_OVERVIEW,
     label: translate('pages.checks-overview.title')
   }
 ]
-const DATA_EXPORTER_ROUTES = [
+
+const DATA_EXPORTER_ROUTES: Link[] = [
   {
     name: REPORTS_OVERVIEW,
     label: translate('pages.reports-overview.title')
@@ -47,24 +49,47 @@ export const useAppHeaderLinks = () => {
   const { isLoggedIn } = storeToRefs(authStore)
   const leftLinks: Link[] = []
 
-  const isInternalAuditor = computed(() => authStore.checkUserRights(['internalAuditor']))
+  const isUserAdmin: ComputedRef<boolean> = computed(() =>
+    authStore.checkUserRights([UserRoles.USER_ADMIN])
+  )
 
-  const isDataExporter = computed(() => authStore.checkUserRights(['dataExporter']))
+  const isImplementationCoordinator: ComputedRef<boolean> = computed(() =>
+    authStore.checkUserRights([UserRoles.IMPLEMENTATION_COORDINATOR])
+  )
 
-  const rightLinks: Ref<Link[]> = computed(() => {
-    if (!isLoggedIn.value) {
-      return []
+  const isAssessor: ComputedRef<boolean> = computed(() =>
+    authStore.checkUserRights([UserRoles.ASSESSOR])
+  )
+
+  const isInternalAuditor: ComputedRef<boolean> = computed(() =>
+    authStore.checkUserRights([UserRoles.INTERNAL_AUDITOR])
+  )
+
+  const isDataExporter: ComputedRef<boolean> = computed(() =>
+    authStore.checkUserRights([UserRoles.DATA_EXPORTER])
+  )
+
+  const rightLinks: ComputedRef<Link[]> = computed(() => {
+    const routes: Link[] = []
+
+    if (!isLoggedIn.value || isUserAdmin.value) {
+      return routes
+    }
+
+    if (isImplementationCoordinator.value || isAssessor.value) {
+      routes.push(...DEFAULT_ROUTES)
     }
 
     if (isInternalAuditor.value) {
-      return [...DEFAULT_ROUTES, ...AUDITOR_ROUTES]
+      routes.push(...DEFAULT_ROUTES)
+      routes.push(...AUDITOR_ROUTES)
     }
 
     if (isDataExporter.value) {
-      return DATA_EXPORTER_ROUTES
+      routes.push(...DATA_EXPORTER_ROUTES)
     }
 
-    return DEFAULT_ROUTES
+    return routes
   })
 
   return {
