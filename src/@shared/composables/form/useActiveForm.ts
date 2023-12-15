@@ -179,6 +179,7 @@ export const useActiveForm = () => {
   }
 
   watch(validationResult, result => {
+    if (!activeForm.value) return
     // when validation-result changes, add it to the data of the form
     let target = activeForm.value.data.find(page => VALIDATION_RESULT_FIELD_NAME in page)
     if (!target) {
