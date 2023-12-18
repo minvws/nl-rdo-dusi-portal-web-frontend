@@ -1,4 +1,3 @@
-/* eslint-disable */
 export enum InputType {
   BUTTON = 'button',
   CHECKBOX_GROUP = 'checkbox-group',

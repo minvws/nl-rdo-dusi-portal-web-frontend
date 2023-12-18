@@ -53,7 +53,6 @@ The project is structured as follows:
 ├── .editorconfig
 ├── .env
 ├── .env.example
-├── .eslintrc.cjs
 ├── .gitignore
 ├── .lintstagedrc.js
 ├── .nvmrc

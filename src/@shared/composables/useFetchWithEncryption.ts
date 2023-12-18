@@ -11,8 +11,8 @@ import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 
 import sodium from 'libsodium-wrappers'
 
-const PUBLIC_KEY_HEADER = import.meta.env.VITE_PUBLIC_KEY_HEADER
-const ENCRYPTED_HEADER = import.meta.env.VITE_ENCRYPTED_HEADER
+const PUBLIC_KEY_HEADER: string = import.meta.env.VITE_PUBLIC_KEY_HEADER
+const ENCRYPTED_HEADER: string = import.meta.env.VITE_ENCRYPTED_HEADER
 
 const useCredentials = !import.meta.env.PROD
 
@@ -73,7 +73,7 @@ export const useFetchWithEncryption = <T>(
 
     options.headers = {
       ...options.headers,
-      ...{ [`${PUBLIC_KEY_HEADER}`]: publicKey }
+      [PUBLIC_KEY_HEADER]: publicKey
     }
 
     return {

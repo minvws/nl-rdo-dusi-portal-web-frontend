@@ -46,7 +46,11 @@ export const useQueryFetch = (
   })
 
   const fetchOptions = { ...fetchConfig }
-  const useFetchOptions = { ...{ refetch: true, immediate: true }, ...useFetchConfig }
+  const useFetchOptions = {
+    refetch: true,
+    immediate: true,
+    ...useFetchConfig
+  }
 
   const { data, error, isFetching } = useCustomFetch(
     type,
