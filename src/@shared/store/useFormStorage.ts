@@ -19,7 +19,7 @@ export type StoredForm = {
 }
 
 export const useFormStorage = defineStore('useFormStorage', () => {
-  const storage: Ref<Record<string, StoredForm>> = ref({})
+  const storage = ref<Record<string, StoredForm>>({})
 
   function set(data: StoredForm) {
     storage.value[data.id] = data

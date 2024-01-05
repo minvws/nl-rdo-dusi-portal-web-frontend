@@ -1,4 +1,5 @@
-import type { Ref } from 'vue'
+import type { Column } from '@shared/types/table'
+
 import { ref } from 'vue'
 
 import { computed, watch } from 'vue'
@@ -55,8 +56,9 @@ const transform = (data: IbanCheckItem[]) => {
 }
 
 export const useFetchIbanCheck = () => {
-  const selectedId: Ref<string> = ref('')
-  const url: Ref<string> = computed(() => useApiIbanCheckUrl(selectedId.value))
+  const selectedId = ref<string>('')
+
+  const url = computed<string>(() => useApiIbanCheckUrl(selectedId.value))
 
   const {
     data: subsidies,
@@ -72,7 +74,7 @@ export const useFetchIbanCheck = () => {
 
   const data = computed(() => (json.value ? transform(json.value.data) : []))
 
-  const columns = computed(() =>
+  const columns = computed<Column[]>(() =>
     Object.entries(COLUMNS)
       .map(([id, { sortable }]) => ({
         id,

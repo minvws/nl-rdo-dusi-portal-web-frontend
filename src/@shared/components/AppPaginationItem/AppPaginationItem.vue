@@ -18,7 +18,6 @@ import { computed } from 'vue'
 import { translate } from '@shared/i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-
 const emit = defineEmits(['page-change'])
 
 type Props = {
@@ -31,13 +30,17 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const isAriaCurrent = computed(() => (props.currentPage === props.pageIndex ? 'true' : undefined))
+const isAriaCurrent = computed<string | undefined>(() =>
+  props.currentPage === props.pageIndex ? 'true' : undefined
+)
 
-const isDisabled = computed(() => props.currentPage === props.pageIndex)
+const isDisabled = computed<boolean>(() => props.currentPage === props.pageIndex)
 
-const showEndEllipsis = computed(() => props.ellipsisPosition === 'end' && props.currentPage > 3)
+const showEndEllipsis = computed<boolean>(
+  () => props.ellipsisPosition === 'end' && props.currentPage > 3
+)
 
-const showStartEllipsis = computed(
+const showStartEllipsis = computed<boolean>(
   () => props.ellipsisPosition === 'start' && props.currentPage < props.pageIndex - 2
 )
 

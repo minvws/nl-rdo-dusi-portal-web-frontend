@@ -29,7 +29,7 @@ export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 
 export type FormData = Record<string, FormValue>
 
-export type FormError = Pick<JsonFormsCore, 'errors'> | any //  & { params?: { missingProperty: string, keyword: string }, message?: string }
+export type FormError = Pick<JsonFormsCore, 'errors'> | any
 
 export type FormResponse = any // @TODO
 

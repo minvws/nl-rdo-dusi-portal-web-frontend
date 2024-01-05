@@ -1,3 +1,5 @@
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
+
 type Assessor = {
   id: string
   name: string
@@ -7,6 +9,12 @@ export type Stage = {
   id: string
   title: string
   stage: number
+}
+
+export type History = {
+  title: string
+  forms: { dataschema: JsonSchema; uischema: UISchemaElement }[]
+  noButtons: boolean
 }
 
 export type HistoryTransitionStage = {

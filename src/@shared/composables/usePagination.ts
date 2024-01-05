@@ -1,10 +1,17 @@
 import type { Ref } from 'vue'
+import type { LocationAsRelativeRaw } from 'vue-router'
 
 import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
+export type PaginationItem = {
+  date: string
+  title: string
+  to: LocationAsRelativeRaw
+}
+
 type Pagination = {
-  items: Ref<[]>
+  items: Ref<PaginationItem[]>
   isFetching: Ref<boolean>
   page?: Ref<string | undefined>
   pageSize?: number
@@ -17,22 +24,22 @@ type Pagination = {
 export const usePagination = ({ isFetching, page, items, routes, pageSize = 5 }: Pagination) => {
   const router = useRouter()
 
-  const currentPage = computed(() => {
+  const currentPage = computed<number>(() => {
     const isOverView = router.currentRoute.value.name === routes.overview
     const value = isOverView ? 0 : page?.value ? parseInt(page.value) : 0
     return Math.max(value, 1)
   })
 
-  const slicedItems = computed(() => {
+  const slicedItems = computed<PaginationItem[]>(() => {
     const page = currentPage.value
     const from = (page - 1) * pageSize
     const to = page * pageSize
     return items.value.slice(from, to)
   })
 
-  const total = computed(() => items.value?.length ?? 0)
+  const total = computed<number>(() => items.value?.length ?? 0)
 
-  const pages = computed(() => Math.ceil(total.value / pageSize))
+  const pages = computed<number>(() => Math.ceil(total.value / pageSize))
 
   function onPageChange(page: number) {
     page > 1

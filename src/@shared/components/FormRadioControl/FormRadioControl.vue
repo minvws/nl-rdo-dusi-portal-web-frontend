@@ -23,6 +23,7 @@
 <script setup lang="ts">
 import type { Control } from '@shared/types/field'
 import type { InputType } from '@shared/types/input'
+
 import { computed } from 'vue'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
@@ -37,7 +38,20 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const items = computed(() => {
+const items = computed<
+  | {
+      id: string
+      title: string
+      attrs: {
+        name: string
+        type: InputType
+        value: string
+        checked: boolean
+        disabled: boolean
+      }
+    }[]
+  | undefined
+>(() => {
   const values = props.control.schema as {
     enum?: string[]
     oneOf?: { title: string; const: string }[]

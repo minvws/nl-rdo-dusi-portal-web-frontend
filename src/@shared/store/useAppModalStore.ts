@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Modal } from '@shared/types/modal'
 
 import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
@@ -7,13 +6,13 @@ import { defineStore } from 'pinia'
 import { usePreventBodyScroll } from '@shared/composables/usePreventBodyScroll'
 
 export const useAppModalStore = defineStore('useAppModalStore', () => {
-  const el: Ref<HTMLDialogElement | HTMLDivElement | null> = ref(null)
-  const content: Ref<Modal | undefined> = ref(undefined)
-  const persistent: Ref<boolean> = ref(true)
+  const el = ref<HTMLDialogElement | HTMLDivElement | null>(null)
+  const content = ref<Modal | undefined>(undefined)
+  const persistent = ref<boolean>(true)
 
-  const hasModal = computed(() => !!content.value)
+  const hasModal = computed<boolean>(() => !!content.value)
 
-  const component = computed(() =>
+  const component = computed<'dialog' | 'div'>(() =>
     typeof window !== 'undefined' &&
     typeof window['HTMLDialogElement'] !== 'undefined' &&
     typeof window['HTMLDialogElement'].prototype.show === 'function'

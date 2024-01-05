@@ -18,7 +18,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const text = computed(() => {
+const text = computed<string | undefined>(() => {
   const type = props.required ? 'required' : 'optional'
   return translate(`form.fields.error.${type}`, {
     field: props.label ?? translate('form.fields.error.field') ?? ''

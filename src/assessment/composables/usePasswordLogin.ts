@@ -1,14 +1,16 @@
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import { passWordPlaceholder, emailPlaceholder } from '@shared/fixtures/form/data/placeholder'
 
-import { translate } from '@shared/i18n'
-
 import { computed } from 'vue'
+
+import { translate } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
 export const usePasswordLogin = () => {
-  const authStore = useAuthStore()
-  const forms = computed(() => [
+  const { logIn } = useAuthStore()
+
+  const forms = computed<{ dataschema: JsonSchema; uischema: UISchemaElement }[]>(() => [
     {
       dataschema: {
         properties: {
@@ -76,7 +78,7 @@ export const usePasswordLogin = () => {
 
   function onSubmit(data: Record<string, string>) {
     const { email, password } = data
-    authStore.logIn({ email, password })
+    logIn({ email, password })
   }
 
   return {

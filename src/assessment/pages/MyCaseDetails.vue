@@ -8,7 +8,7 @@
       as="div"
       class="tabs filter-tabs"
       v-bind="{ defaultIndex }"
-      @change="$event => (selectedIndex = $event)"
+      @change="onTabChange"
     >
       <TabList as="ul">
         <Tab
@@ -62,7 +62,8 @@
 
 <script setup lang="ts">
 import type { Ref } from 'vue'
-import { computed, ref, watch } from 'vue'
+
+import { onBeforeMount, ref, watch } from 'vue'
 import { translate } from '@shared/i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
@@ -97,14 +98,19 @@ const tabs = [
   { component: CaseReviewers, name: MY_CASE_DETAILS_REVIEWER }
 ]
 
-const defaultIndex = computed(() =>
-  Math.max(
-    0,
-    tabs.findIndex(({ name }) => router.currentRoute.value.name === name)
-  )
-)
+const selectedIndex = ref<number>(0)
+const defaultIndex = ref<number>(0)
 
-const selectedIndex: Ref<number> = ref(defaultIndex.value)
+onBeforeMount(() => {
+  const tabIndex = tabs.findIndex(({ name }) => router.currentRoute.value.name === name)
+
+  defaultIndex.value = Math.max(0, tabIndex)
+  selectedIndex.value = defaultIndex.value
+})
+
+function onTabChange(index: number) {
+  selectedIndex.value = index
+}
 
 watch(
   selectedIndex,

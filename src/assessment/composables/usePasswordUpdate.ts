@@ -1,21 +1,32 @@
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import { passWordPlaceholder as placeholder } from '@shared/fixtures/form/data/placeholder'
 
-import { translate } from '@shared/i18n'
-
 import { computed } from 'vue'
+
+import { translate } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
 export const usePasswordUpdate = () => {
   const { updatePassword, isPasswordExpired } = useAuthStore()
 
-  const required = computed(() => {
-    return [!isPasswordExpired && 'currentPassword', 'password', 'passwordConfirmation'].filter(
-      required => !!required
-    ) as string[]
-  })
+  const required = computed<string[]>(
+    () =>
+      [!isPasswordExpired && 'currentPassword', 'password', 'passwordConfirmation'].filter(
+        required => !!required
+      ) as string[]
+  )
 
-  const elements = computed(() => {
+  const elements = computed<
+    {
+      type: string
+      scope: string
+      label: string | undefined
+      options: {
+        placeholder: string
+      }
+    }[]
+  >(() => {
     const elements = [
       {
         type: 'CustomControl',
@@ -34,7 +45,8 @@ export const usePasswordUpdate = () => {
         }
       }
     ]
-    if (!isPasswordExpired)
+
+    if (!isPasswordExpired) {
       elements.unshift({
         type: 'CustomControl',
         scope: '#/properties/currentPassword',
@@ -43,10 +55,12 @@ export const usePasswordUpdate = () => {
           placeholder
         }
       })
+    }
+
     return elements
   })
 
-  const forms = computed(() => [
+  const forms = computed<{ dataschema: JsonSchema; uischema: UISchemaElement }[]>(() => [
     {
       dataschema: {
         properties: {

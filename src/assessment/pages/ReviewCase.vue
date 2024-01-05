@@ -97,7 +97,7 @@ useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.pref
 
 const { onSubmitDraft, locked } = useSubmitCase()
 
-const formViewOptions = computed(() => ({
+const formViewOptions = computed<Record<string, boolean | undefined>>(() => ({
   hideDebug: true,
   noStyle: true,
   noButtons: true,
@@ -106,7 +106,7 @@ const formViewOptions = computed(() => ({
   hideRequiredLabel: true
 }))
 
-const formEditOptions = computed(() => ({
+const formEditOptions = computed<Record<string, boolean | undefined>>(() => ({
   hideDebug: true,
   noStyle: true,
   locked: locked.value,

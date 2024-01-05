@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Form, FormData, FormResult } from '@shared/types/form'
 
 import { computed, ref, watch } from 'vue'
@@ -10,11 +9,11 @@ export const useFetchForm = (
   { id, values }: { id: string; values?: FormData },
   readonly?: boolean
 ) => {
-  const title: Ref<string> = ref('')
-  const forms: Ref<Form[]> = ref([])
-  const formData: Ref<FormData | undefined> = ref(undefined)
+  const title = ref<string>('')
+  const forms = ref<Form[]>([])
+  const formData = ref<FormData | undefined>(undefined)
 
-  const url = computed(() => useApiFormsUrl(id))
+  const url = computed<string>(() => useApiFormsUrl(id))
 
   const { data, ...fetch } = useFetchWithEncryption<FormResult>(url).json()
 

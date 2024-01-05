@@ -7,6 +7,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Component, ComputedRef } from 'vue'
+
 import { computed } from 'vue'
 
 import { useSEO } from '@shared/composables/useSeo'
@@ -25,7 +27,7 @@ const props = defineProps<Props>()
 
 useSEO({ title: `${translate(`pages.${props.name}.title`)} | ${translate('app.prefix')}` })
 
-const component = computed(() => {
+const component = computed<Component | null>(() => {
   switch (props.name) {
     case FDC_DATA_EXPORT:
       return DataExport

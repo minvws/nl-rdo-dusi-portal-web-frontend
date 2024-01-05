@@ -12,8 +12,8 @@ import {
 import { transformForm } from '@shared/utils/form'
 
 export const useFetchPersonalDetails = ({ editable }: Record<string, boolean>) => {
-  const forms: Ref<Form[]> = ref([])
-  const values: Ref<FormData | undefined> = ref(undefined)
+  const forms = ref<Form[]>([])
+  const values = ref<FormData | undefined>(undefined)
 
   const url = editable ? useApiRequestEditPersonalDetailsUrl() : useApiRequestPersonalDetailsUrl()
 

@@ -13,12 +13,13 @@ import { computed } from 'vue'
 
 type Props = {
   name: string
-  ariaHidden?: boolean | 'true'
+  ariaHidden?: boolean
 }
 
 const props = defineProps<Props>()
 
-const className = computed(() => `icon-${props.name}`)
-
-const isHidden = computed(() => (props.ariaHidden ? 'true' : undefined))
+const className = computed<string>(() => `icon-${props.name}`)
+const isHidden = computed<boolean | undefined>(() =>
+  props.ariaHidden ? props.ariaHidden : undefined
+)
 </script>

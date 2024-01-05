@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { LocationQuery } from 'vue-router'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
@@ -23,7 +23,7 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
   const notificationsStore = useNotificationsStore()
   const { resetPassword } = useAuthStore()
 
-  const locked: Ref<boolean> = ref(false)
+  const locked = ref<boolean>(false)
   const email: string = queryParams.email ? (queryParams.email as string) : ''
   const token: string = queryParams.token ? (queryParams.token as string) : ''
 
@@ -40,7 +40,7 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
     })
   }
 
-  const forms = computed(() => [
+  const forms = computed<{ dataschema: JsonSchema; uischema: UISchemaElement }[]>(() => [
     {
       dataschema: {
         properties: {

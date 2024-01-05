@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Link } from '@shared/types/link'
 
 import { computed } from 'vue'
@@ -20,7 +19,7 @@ export const useAppHeaderLinks = () => {
 
   const leftLinks: Link[] = []
 
-  const rightLinks: Ref<Link[]> = computed(() => {
+  const rightLinks = computed<Link[]>(() => {
     const { applicationCount, messageCount } = actions.value
     if (!isLoggedIn.value) return []
     return [

@@ -21,7 +21,7 @@ export const useQueryFetch = (
 ) => {
   const query: Ref<Record<string, string | string[]> | undefined> = ref(undefined)
 
-  const url = computed(() => {
+  const url = computed<string>(() => {
     const payload = { ...query?.value, ...params?.value }
     const entries = Object.entries(payload).filter(([, value]) => !!value)
 

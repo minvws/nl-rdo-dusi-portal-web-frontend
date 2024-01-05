@@ -13,5 +13,5 @@ import { MY_CASES_OVERVIEW } from '@assessment/router/names'
 
 const route = useRoute()
 
-const isOverviewRoute = computed(() => [MY_CASES_OVERVIEW].includes(route.name as string))
+const isOverviewRoute = computed<boolean>(() => [MY_CASES_OVERVIEW].includes(route.name as string))
 </script>

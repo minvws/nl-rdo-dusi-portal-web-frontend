@@ -29,7 +29,21 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const input = computed(() => ({
+const input = computed<{
+  step: number | undefined
+  type: InputType
+  id: string
+  control: Control
+  value: number | undefined
+  placeholder: string | undefined
+  disabled: boolean
+  autofocus: boolean
+  autocomplete: string
+  min: string | number | undefined
+  max: string | number | undefined
+  minlength: number | undefined
+  maxlength: number | undefined
+}>(() => ({
   ...getInputAttrs(props),
   ...props,
   step: InputType.INTEGER ? 1 : undefined,

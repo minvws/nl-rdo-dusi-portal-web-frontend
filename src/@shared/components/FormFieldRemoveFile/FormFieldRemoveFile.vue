@@ -58,8 +58,8 @@ const emit = defineEmits(['blur'])
 
 const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
 
-const file = computed(() => props.files?.[props.index])
-const hasRemoveButton = computed(() => hasFile.value || !!file.value || props.index > 0)
+const file = computed<FileType | undefined>(() => props.files?.[props.index])
+const hasRemoveButton = computed<boolean>(() => hasFile.value || !!file.value || props.index > 0)
 
 function onRemoveFile() {
   removeFileByIdAndIndex(props.id, props.index)

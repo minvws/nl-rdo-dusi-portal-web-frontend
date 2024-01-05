@@ -17,7 +17,7 @@ export const useSubmitCase = () => {
   const router = useRouter()
   const notification = useFormSubmitNotification()
 
-  const locked: Ref<boolean> = ref(false)
+  const locked = ref<boolean>(false)
 
   async function onSubmit({
     id,

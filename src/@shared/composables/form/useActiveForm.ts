@@ -1,7 +1,9 @@
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
-import type { Form, FormData, FormValidationResult } from '@shared/types/form'
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
+import type { Form, FormData, FormError, FormValidationResult } from '@shared/types/form'
 import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
+import type { StoredForm } from '@shared/store/useFormStorage'
 
 import { computed, inject, watch } from 'vue'
 
@@ -23,25 +25,31 @@ export const useActiveForm = () => {
 
   const formStorage = useFormStorage()
 
-  const activeForm = computed(() => formStorage.get(formId.value))
-  const createDraft = computed(() => !!formProps.createDraft)
-  const data = computed(() => formsData.value?.[index.value] ?? {})
-  const draftId = computed(() => activeForm.value?.draftId)
-  const draftIsPending = computed(() => activeForm.value?.draftIsPending)
-  const errors = computed(() => activeForm.value?.errors[index.value])
-  const form = computed(() => activeForm.value?.forms[index.value])
-  const formData = computed(() => formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {}))
-  const formId = computed(() => formProps?.id)
-  const formKey = computed(() => `form-${formId.value}-${index.value}`)
-  const forms = computed(() => activeForm.value?.forms)
-  const formsData = computed(() => activeForm.value?.data)
-  const index = computed(() => activeForm.value?.index ?? -1)
-  const isValidationPending = computed(() => activeForm.value?.isValidationPending)
-  const validationId = computed(() => activeForm.value?.validationId)
-  const validationResult = computed(() => activeForm.value?.validationResult)
+  const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
+  const createDraft = computed<boolean>(() => !!formProps.createDraft)
+  const data = computed<FormData>(() => formsData.value?.[index.value] ?? {})
+  const draftId = computed<string | undefined>(() => activeForm.value?.draftId)
+  const draftIsPending = computed<boolean | undefined>(() => activeForm.value?.draftIsPending)
+  const errors = computed<FormError[]>(() => activeForm.value?.errors[index.value])
+  const form = computed<Form>(() => activeForm.value?.forms[index.value])
+  const formData = computed<FormData>(() =>
+    formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {})
+  )
+  const formId = computed<string>(() => formProps?.id)
+  const formKey = computed<string>(() => `form-${formId.value}-${index.value}`)
+  const forms = computed<Form[]>(() => activeForm.value?.forms)
+  const formsData = computed<FormData[]>(() => activeForm.value?.data)
+  const index = computed<number>(() => activeForm.value?.index ?? -1)
+  const isValidationPending = computed<boolean | undefined>(
+    () => activeForm.value?.isValidationPending
+  )
+  const validationId = computed<string | undefined>(() => activeForm.value?.validationId)
+  const validationResult = computed<FormValidationResult | undefined>(
+    () => activeForm.value?.validationResult
+  )
 
   // get all remote-validations of type = 'error'
-  const validationResultErrors = computed(() =>
+  const validationResultErrors = computed<(string | undefined)[]>(() =>
     Object.entries(activeForm.value?.validationResult ?? {})
       .map(([key, value]) => {
         const hasError = value.find(({ type }) => type === 'error')
@@ -51,7 +59,7 @@ export const useActiveForm = () => {
   )
 
   // set remote-validations for each page
-  const formsValidationErrors = computed(
+  const formsValidationErrors = computed<({ instancePath: string }[] | undefined)[]>(
     () =>
       activeForm.value?.forms?.map(form => {
         const properties = Object.keys(form.dataschema?.properties ?? {})
@@ -62,22 +70,23 @@ export const useActiveForm = () => {
       })
   )
 
-  const formsErrors = computed(() => {
+  const formsErrors = computed<FormError[]>(() => {
     // combine local validation errors with remote-validation errors
-    const combined = activeForm.value?.forms?.map((form, index) => {
+    return activeForm.value?.forms?.map((form: Form, index) => {
       return [
         ...(formsValidationErrors.value[index] || []),
         ...(activeForm.value?.errors[index] || [])
       ]
     })
-    return combined
   })
 
-  const readonly = computed(() => (validationId.value ? false : !!activeForm.value?.isSubmitting))
-  const schema = computed(() => form.value?.dataschema)
-  const uischema = computed(() => form.value?.uischema)
-  const isReadOnly = computed(() => form.value?.uiType === FormUiTypes.VIEW)
-  const hideRequiredLabel = computed(() => formProps?.hideRequiredLabel === true)
+  const readonly = computed<boolean>(() =>
+    validationId.value ? false : !!activeForm.value?.isSubmitting
+  )
+  const schema = computed<JsonSchema>(() => form.value?.dataschema)
+  const uischema = computed<UISchemaElement>(() => form.value?.uischema)
+  const isReadOnly = computed<boolean>(() => form.value?.uiType === FormUiTypes.VIEW)
+  const hideRequiredLabel = computed<boolean>(() => formProps?.hideRequiredLabel === true)
 
   const clearForm = useClearForm(formId)
 

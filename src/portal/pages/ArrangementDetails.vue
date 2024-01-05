@@ -25,6 +25,8 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
+
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { translate } from '@shared/i18n'
@@ -41,17 +43,17 @@ useSEO({
   )}`
 })
 
-const requestLocalFormPostCovidRoute = computed(() => ({
+const requestLocalFormPostCovidRoute = computed<RouteLocationRaw>(() => ({
   name: ARRANGEMENT_FORM_LOCAL,
   params: { id: route.params.id, name: 'post-covid' }
 }))
 
-const requestLocalFormBTVRoute = computed(() => ({
+const requestLocalFormBTVRoute = computed<RouteLocationRaw>(() => ({
   name: ARRANGEMENT_FORM_LOCAL,
   params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
 }))
 
-const requestRemoteFormRoute = computed(() => ({
+const requestRemoteFormRoute = computed<RouteLocationRaw>(() => ({
   name: ARRANGEMENT_FORM_REMOTE,
   params: { id: route.params.id }
 }))

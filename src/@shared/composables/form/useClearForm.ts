@@ -11,7 +11,7 @@ export const useClearForm = (id: ComputedRef<string>) => {
   const filesStore = useFileStore()
   const formStorage = useFormStorage()
 
-  const activeForm = computed(() => ({ id: id.value }))
+  const activeForm = computed<{ id: string }>(() => ({ id: id.value }))
 
   const { clearTouchedFields } = useTouchedFields({ activeForm })
   const { clearTouchedForms } = useTouchedForms({ activeForm })

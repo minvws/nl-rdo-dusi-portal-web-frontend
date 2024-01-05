@@ -23,7 +23,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const sessionLifetimeStore = useSessionLifetimeStore()
   const { on } = useDispatcher()
 
-  const isLoggedIn: Ref<boolean> = ref(false)
+  const isLoggedIn = ref<boolean>(false)
 
   async function logIn(extendSession = false) {
     try {

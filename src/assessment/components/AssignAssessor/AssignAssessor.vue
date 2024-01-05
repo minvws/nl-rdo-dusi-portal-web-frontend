@@ -63,8 +63,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
-
 import { computed, ref } from 'vue'
 
 import { useFetchAssessors } from '@assessment/composables/useFetchAssessors'
@@ -84,14 +82,14 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const selectedIndex: Ref<number> = ref(-1)
+const selectedIndex = ref<number>(-1)
 
 const { data, error, isFetching, searchQuery } = useFetchAssessors(props.id)
 const { onSubmitCaseAssessor } = useAssignCaseAssessor()
 
 const selectedResult = computed(() => data.value[selectedIndex.value])
 
-const isDisabled = computed(() => Boolean(!selectedResult.value))
+const isDisabled = computed<boolean>(() => Boolean(!selectedResult.value))
 
 function selectResult(index: number) {
   selectedIndex.value = selectedIndex.value === index ? -1 : index

@@ -78,17 +78,19 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const nextPageDisabled = computed(() => props.currentPage === totalPages.value)
+const nextPageDisabled = computed<boolean>(() => props.currentPage === totalPages.value)
 
-const previousPageDisabled = computed(() => props.currentPage === 1)
+const previousPageDisabled = computed<boolean>(() => props.currentPage === 1)
 
-const totalPages = computed(() => Math.ceil(props.itemsTotal / props.pageSize))
+const totalPages = computed<number>(() => Math.ceil(props.itemsTotal / props.pageSize))
 
-const condensedLayout = computed(() => totalPages.value >= CONDENSED_LAYOUT_THRESHOLD)
+const condensedLayout = computed<boolean>(() => totalPages.value >= CONDENSED_LAYOUT_THRESHOLD)
 
-const groupSize = computed(() => (condensedLayout.value ? MAX_GROUP_SIZE : totalPages.value))
+const groupSize = computed<number>(() =>
+  condensedLayout.value ? MAX_GROUP_SIZE : totalPages.value
+)
 
-const currentPageGroup = computed(() => {
+const currentPageGroup = computed<number[]>(() => {
   if (totalPages.value <= groupSize.value) {
     return Array.from({ length: totalPages.value }, (_, i) => i + 1)
   } else if (props.currentPage <= 3) {
@@ -100,9 +102,9 @@ const currentPageGroup = computed(() => {
   }
 })
 
-const showFirstGroup = computed(() => props.currentPage >= 1)
+const showFirstGroup = computed<boolean>(() => props.currentPage >= 1)
 
-const showLastGroup = computed(() => props.currentPage <= totalPages.value)
+const showLastGroup = computed<boolean>(() => props.currentPage <= totalPages.value)
 
 function goToNextPage() {
   if (props.currentPage < totalPages.value) {

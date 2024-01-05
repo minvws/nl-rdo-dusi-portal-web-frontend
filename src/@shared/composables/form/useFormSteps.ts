@@ -22,17 +22,19 @@ export const useFormSteps = (props: Props) => {
   const validationStore = useValidationStore()
   const { canContinueAfterValidation } = storeToRefs(validationStore)
 
-  const hasSteps = computed(() => steps.value > 1)
-  const hasForms = computed(() => !!steps.value)
-  const hasPrevStep = computed(() => hasForms.value && props.index > 0)
-  const hasNextStep = computed(() => hasForms.value && props.index < props.forms.length - 1)
-  const hasSubmit = computed(() => props.index === props.forms.length - 1)
-  const hasSave = computed(() =>
+  const hasSteps = computed<boolean>(() => steps.value > 1)
+  const hasForms = computed<boolean>(() => !!steps.value)
+  const hasPrevStep = computed<boolean>(() => hasForms.value && props.index > 0)
+  const hasNextStep = computed<boolean>(
+    () => hasForms.value && props.index < props.forms.length - 1
+  )
+  const hasSubmit = computed<boolean>(() => props.index === props.forms.length - 1)
+  const hasSave = computed<boolean>(() =>
     !props.hasSaveButton ? false : hasPrevStep.value || hasSubmit.value
   )
-  const isCurrentStepValid = computed(() => !props.formsErrors[props.index]?.length)
-  const steps = computed(() => props.forms.length)
-  const stepHasInputFields = computed(() => {
+  const isCurrentStepValid = computed<boolean>(() => !props.formsErrors[props.index]?.length)
+  const steps = computed<number>(() => props.forms.length)
+  const stepHasInputFields = computed<boolean>(() => {
     const schema = forms.value[activeForm.value.index].uischema as UISchemaElement & {
       elements: []
     }

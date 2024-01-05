@@ -23,7 +23,7 @@ export const useCustomControl = (props: any) => {
     errors
   } = useForms()
 
-  const error: Ref<string> = ref('')
+  const error = ref<string>('')
 
   const controlId = getControlId(props.uischema.scope)
   const type = useFieldType(props.schema, props.uischema)

@@ -17,16 +17,21 @@
 
 <script setup lang="ts">
 import type { FormValidationEntry } from '@shared/types/form'
+
 import { computed } from 'vue'
+
+const emit = defineEmits(['suggestion'])
 
 type Props = {
   validations: FormValidationEntry[]
   id?: string
 }
-const emit = defineEmits(['suggestion'])
+
 const props = defineProps<Props>()
 
-const items = computed(() => {
+const items = computed<
+  { message: string; type: 'error' | 'warning' | 'explanation' | 'confirmation' }[]
+>(() => {
   return props.validations.map(({ message, params, ...item }) => {
     if (params) {
       const keys = Object.entries(params)

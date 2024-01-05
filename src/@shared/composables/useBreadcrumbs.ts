@@ -8,9 +8,9 @@ import { translate } from '@shared/i18n'
 export const useBreadcrumbs = () => {
   const route = useRoute()
 
-  const hasBreadCrumbs = computed(() => route.path !== '/')
+  const hasBreadCrumbs = computed<boolean>(() => route.path !== '/')
 
-  const breadcrumbs = computed(() => {
+  const breadcrumbs = computed<Link[]>(() => {
     if (!hasBreadCrumbs.value) {
       return []
     }

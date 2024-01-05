@@ -32,7 +32,7 @@ const props = defineProps<Props>()
 
 const slots = useSlots()
 
-const isNotCentered = computed(() => {
+const isNotCentered = computed<boolean>(() => {
   switch (props.contentClass) {
     case InputType.RADIO:
     case InputType.CHECKBOX:
@@ -47,7 +47,7 @@ const isNotCentered = computed(() => {
 })
 
 // logic based on: https://mokkapps.de/vue-tips/check-if-slot-is-empty/
-const hasSlotLeft = computed(() => props.hasLeft || !isSlotEmpty(slots?.left))
+const hasSlotLeft = computed<boolean>(() => props.hasLeft || !isSlotEmpty(slots?.left))
 
 function isSlotEmpty(slot: Slot<any> | undefined, props = {}) {
   return isNodeEmpty(slot?.(props))

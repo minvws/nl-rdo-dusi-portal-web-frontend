@@ -33,7 +33,7 @@ const props = defineProps<Props>()
 
 const { el, onResize } = useTextAreaAutoSize(props.type)
 
-const component = computed(() => {
+const component = computed<'input' | 'textarea'>(() => {
   switch (props.type) {
     case InputType.TEXTAREA:
       return 'textarea'
@@ -42,11 +42,16 @@ const component = computed(() => {
   }
 })
 
-const onInput = (event: Event) => {
-  onResize()
-  emit('input', event)
-}
-const input = computed(() => {
+const input = computed<{
+  id: string
+  value: string | undefined
+  placeholder: string | undefined
+  disabled: boolean
+  autofocus: boolean
+  autocomplete: string
+  minlength: number | undefined
+  maxlength: number | undefined
+}>(() => {
   const { id, value, placeholder, disabled, autofocus } = props
   return {
     id,
@@ -57,6 +62,11 @@ const input = computed(() => {
     ...getInputAttrs(props)
   }
 })
+
+function onInput(event: Event) {
+  onResize()
+  emit('input', event)
+}
 </script>
 
 <style lang="scss" scoped>

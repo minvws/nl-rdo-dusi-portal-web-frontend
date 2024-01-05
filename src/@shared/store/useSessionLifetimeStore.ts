@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Session } from '@shared/types/session'
 
 import { computed, ref, watch } from 'vue'
@@ -24,18 +23,18 @@ export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', ()
   const { dispatch } = useDispatcher()
   const { openModal, closeModal } = useAppModalStore()
 
-  const init: Ref<boolean> = ref(false)
-  const duration: Ref<number | undefined> = ref(undefined)
-  const elapsedTime: Ref<number> = ref(0)
-  const lastTime: Ref<number> = ref(0)
+  const init = ref<boolean>(false)
+  const duration = ref<number>(0)
+  const elapsedTime = ref<number>(0)
+  const lastTime = ref<number>(0)
 
   let interval: NodeJS.Timeout | undefined = undefined
 
-  const timeLeft = computed(() => (duration.value ? duration.value - elapsedTime.value : 0))
+  const timeLeft = computed<number>(() => (duration.value ? duration.value - elapsedTime.value : 0))
 
-  const aboutToExpire = computed(() => (duration.value ?? 0) * EXTEND_SESSION_FRACTION)
+  const aboutToExpire = computed<number>(() => (duration.value ?? 0) * EXTEND_SESSION_FRACTION)
 
-  const session: Ref<Session> = computed(() => {
+  const session = computed<Session>(() => {
     if (!timeLeft.value || !duration.value) {
       return SessionType.INVALID
     } else if (timeLeft.value < 0) {
@@ -69,7 +68,9 @@ export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', ()
   }
 
   function setSessionLifetime(miliseconds?: number) {
-    duration.value = miliseconds
+    if (miliseconds) {
+      duration.value = miliseconds
+    }
     elapsedTime.value = 0
   }
 

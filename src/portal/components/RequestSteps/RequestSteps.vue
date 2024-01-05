@@ -2,7 +2,7 @@
   <AppAccordion>
     <AppAccordionItem
       id="step-1"
-      is-open
+      initially-open
       is-highlighted
     >
       <template #title>
@@ -109,9 +109,9 @@ const props = defineProps<Props>()
 
 const { locale } = useI18n()
 
-const referenceCode = computed(() => props?.reference?.split('-')?.[0])
+const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 
-const submitDate = computed(() => formatDate(props.submittedAt, locale.value))
+const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
 
-const respondDate = computed(() => formatDate(props.deadlineForResponseAt, locale.value))
+const respondDate = computed<string>(() => formatDate(props.deadlineForResponseAt, locale.value))
 </script>

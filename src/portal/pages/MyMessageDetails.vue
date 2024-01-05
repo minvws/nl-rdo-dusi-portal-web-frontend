@@ -51,7 +51,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const fileURL: Ref<string> = ref('')
+const fileURL = ref<string>('')
 
 useSEO({
   title: `${translate('pages.my-message-details.title')} | ${translate('app.prefix')}`

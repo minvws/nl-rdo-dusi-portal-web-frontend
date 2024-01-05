@@ -1,4 +1,8 @@
-import type { HistoryTransitionStage, HistoryTransition } from '@shared/types/history-transition'
+import type {
+  HistoryTransitionStage,
+  HistoryTransition,
+  History
+} from '@shared/types/history-transition'
 
 import { computed } from 'vue'
 
@@ -46,18 +50,15 @@ export const useFetchTransitionHistory = (id: string) => {
     )
   })
 
-  const transitionHistory = computed(() => {
+  const transitionHistory = computed<History | undefined>(() => {
     if (!data.value?.length) return undefined
-    const elements = data.value.map(item => {
-      return {
-        type: 'FormTransitionHistory',
-        options: {
-          item
-        }
-      }
-    })
+    const elements = data.value.map(item => ({
+      type: 'FormTransitionHistory',
+      options: { item }
+    }))
+
     return {
-      title: translate('component.transitionHistory.title'),
+      title: translate('component.transitionHistory.title') ?? '',
       forms: [
         {
           dataschema: {},
@@ -73,6 +74,7 @@ export const useFetchTransitionHistory = (id: string) => {
       noButtons: true
     }
   })
+
   return {
     transitionHistory,
     ...fetch

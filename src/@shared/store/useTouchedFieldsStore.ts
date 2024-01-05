@@ -4,7 +4,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useTouchedFieldsStore = defineStore('useTouchedFieldsStore', () => {
-  const touched: Ref<Record<string, Record<string, boolean>>> = ref({})
+  const touched = ref<Record<string, Record<string, boolean>>>({})
 
   return {
     touched

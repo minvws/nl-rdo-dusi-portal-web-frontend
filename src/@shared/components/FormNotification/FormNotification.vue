@@ -47,13 +47,17 @@ const props = defineProps<Props>()
 
 const notificationsStore = useNotificationsStore()
 
-const translatedType = computed(() => translate(`component.formNotification.${props.displayAs}`))
+const translatedType = computed<string | undefined>(() =>
+  translate(`component.formNotification.${props.displayAs}`)
+)
 
-const message = computed(() =>
+const message = computed<string | undefined>(() =>
   typeof props.message === 'object' ? props.message?.message : props.message
 )
 
-const html = computed(() => `<span>${props.label ?? translatedType.value}:</span> ${message.value}`)
+const html = computed<string>(
+  () => `<span>${props.label ?? translatedType.value}:</span> ${message.value}`
+)
 
 function onDismiss(id: string) {
   notificationsStore.removeById(id)

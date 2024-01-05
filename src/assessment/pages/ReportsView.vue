@@ -13,5 +13,5 @@ import { REPORTS_OVERVIEW } from '@assessment/router/names'
 
 const route = useRoute()
 
-const isOverviewRoute = computed(() => route.name === REPORTS_OVERVIEW)
+const isOverviewRoute = computed<boolean>(() => route.name === REPORTS_OVERVIEW)
 </script>

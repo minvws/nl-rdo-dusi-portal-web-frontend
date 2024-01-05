@@ -115,7 +115,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { Column } from '@shared/types/table'
 import type { CaseAction } from '@assessment/composables/useCaseAction'
 
@@ -147,9 +146,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const currentPage: Ref<number> = ref(1)
-const sortId: Ref<string> = ref('')
-const sortDirection: Ref<'ascending' | 'descending'> = ref('ascending')
+const currentPage = ref<number>(1)
+const sortId = ref<string>('')
+const sortDirection = ref<'ascending' | 'descending'>('ascending')
 
 const caseAction = useCaseAction()
 
@@ -161,7 +160,7 @@ watch(
   }
 )
 
-const totalItems = computed(() => props.data.length ?? 0)
+const totalItems = computed<number>(() => props.data.length ?? 0)
 
 const paginatedData = computed(() => {
   const itemsPerPage = props.itemsPerPage ?? 0

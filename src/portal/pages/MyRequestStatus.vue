@@ -53,7 +53,7 @@ useSEO({
 
 const { data, error, isFetching } = useFetchRequestStatus(props.reference)
 
-const step = computed(() => {
+const step = computed<number>(() => {
   const mapStatusToStep: Record<string, number> = {
     [RequestStatus.APPROVED]: 3,
     [RequestStatus.DRAFT]: 1,
@@ -64,7 +64,7 @@ const step = computed(() => {
   return data.value?.status ? mapStatusToStep[data.value.status] : 1
 })
 
-const status = computed(() => {
+const status = computed<string>(() => {
   const mapStatusToTranslation: Record<string, string> = {
     [RequestStatus.APPROVED]: 'Goedgekeurd',
     [RequestStatus.DRAFT]: 'Nog niet ingediend',

@@ -31,13 +31,13 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const loadingMessage = computed(
+const loadingMessage = computed<string | false | undefined>(
   () =>
     (props.isFetching && translate('form.message.loading')) ||
     (props.isSubmitting && translate('form.message.submitting'))
 )
 
-const errorMessage = computed(() => {
+const errorMessage = computed<string | undefined>(() => {
   const { error } = props
   if (!error) return undefined
   return translate('form.message.loadingError', { error })

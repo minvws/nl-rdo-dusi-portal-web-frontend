@@ -36,7 +36,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { ComputedRef } from 'vue'
 import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'
@@ -54,7 +53,7 @@ type Props = {
 }
 const props = defineProps<Props>()
 
-const labels: ComputedRef<Record<string, string>> = computed(() =>
+const labels = computed<Record<string, string>>(() =>
   props.headings.reduce((cul, { id, text }) => ({ ...cul, [id]: text }), {})
 )
 

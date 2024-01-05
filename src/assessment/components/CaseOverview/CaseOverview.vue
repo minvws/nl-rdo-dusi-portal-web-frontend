@@ -30,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
 import { computed } from 'vue'
 
 import { translate } from '@shared/i18n'
@@ -53,7 +54,7 @@ const formViewOptions = {
 
 const { data, error, isFetching, caseDetail, caseStage, caseStageId } = useFetchCase(props.id)
 
-const startReviewRoute = computed(() => ({
+const startReviewRoute = computed<RouteLocationRaw>(() => ({
   name: 'review-case',
   params: { id: props.id }
 }))

@@ -1,8 +1,8 @@
+import type { Ref } from 'vue'
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 import type { ControlEvent } from '@shared/types/control'
 
-import type { Ref } from 'vue'
 import { computed, nextTick } from 'vue'
 import { getControlId, getInputId } from '@shared/utils/control'
 
@@ -52,7 +52,7 @@ export const useCustomControlInput = ({
     handleRemoteValidation(type)
   }
 
-  const isValid = computed(() => {
+  const isValid = computed<boolean>(() => {
     return !errors.value?.find(({ instancePath, params }) => {
       if (!instancePath) {
         return params?.missingProperty === controlId

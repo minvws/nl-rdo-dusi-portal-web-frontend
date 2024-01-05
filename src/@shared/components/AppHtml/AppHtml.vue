@@ -21,7 +21,7 @@ const props = defineProps<Props>()
 
 const router = useRouter()
 
-const tag = computed(() => props.as ?? 'div')
+const tag = computed<string>(() => props.as ?? 'div')
 
 function onClick(e: Event) {
   // open links with router if it is a local link and target !== _blank

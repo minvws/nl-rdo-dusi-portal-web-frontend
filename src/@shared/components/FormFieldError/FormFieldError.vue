@@ -23,5 +23,5 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const splitErrors = computed(() => props.errors.split('\n'))
+const splitErrors = computed<string[]>(() => props.errors.split('\n'))
 </script>

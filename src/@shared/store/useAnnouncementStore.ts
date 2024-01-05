@@ -4,8 +4,8 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useAnnouncementStore = defineStore('useAnnouncementStore', () => {
-  const message: Ref<string> = ref('')
-  const politeness: Ref<'polite' | 'assertive'> = ref('polite')
+  const message = ref<string>('')
+  const politeness = ref<'polite' | 'assertive'>('polite')
 
   function announce(text: string, level?: 'polite' | 'assertive') {
     message.value = text

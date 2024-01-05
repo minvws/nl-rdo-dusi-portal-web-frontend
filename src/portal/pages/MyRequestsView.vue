@@ -15,5 +15,5 @@ import { MY_REQUESTS_OVERVIEW } from '@portal/router/names'
 
 const route = useRoute()
 
-const isOverviewRoute = computed(() => route.name === MY_REQUESTS_OVERVIEW)
+const isOverviewRoute = computed<boolean>(() => route.name === MY_REQUESTS_OVERVIEW)
 </script>

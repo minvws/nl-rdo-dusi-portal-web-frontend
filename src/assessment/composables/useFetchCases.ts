@@ -33,7 +33,7 @@ export const useFetchCases = (props: { type: CaseType }) => {
     execute
   } = useFetchFilters()
 
-  const params: Ref<Record<string, string> | undefined> = ref(undefined)
+  const params = ref<Record<string, string> | undefined>(undefined)
 
   const { data: json, ...fetch } = useQueryFetch(
     'with-credentials',

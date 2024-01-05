@@ -1,3 +1,4 @@
+import type { Column } from '@shared/types/table'
 import type { CaseHistory } from '@shared/types/case-history'
 
 import { computed } from 'vue'
@@ -55,7 +56,7 @@ export const useFetchCaseHistory = (id: string) => {
 
   const data = computed(() => (json.value ? transform(json.value.data) : []))
 
-  const columns = computed(() =>
+  const columns = computed<Column[]>(() =>
     Object.entries(COLUMNS)
       .map(([id, { sortable }]) => ({
         id,

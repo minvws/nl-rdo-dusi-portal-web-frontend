@@ -1,3 +1,5 @@
+import type { Column } from '@shared/types/table'
+
 import { computed, watch } from 'vue'
 
 import { translate } from '@shared/i18n'
@@ -32,7 +34,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
 
   const transition = computed(() => (json.value ? json.value?.data?.transition : undefined))
 
-  const columns = computed(() => [
+  const columns = computed<Column[]>(() => [
     { id: 'title' },
     ...types.map(id => ({
       id,

@@ -19,8 +19,8 @@ export const useFileStore = defineStore('useFileStore', () => {
   const form = useForms()
   const { encrypt } = useEncryption()
 
-  const files: Ref<Record<string, Record<string, File[]>>> = ref({})
-  const pending: Ref<Record<string, Record<string, boolean[]>>> = ref({})
+  const files = ref<Record<string, Record<string, File[]>>>({})
+  const pending = ref<Record<string, Record<string, boolean[]>>>({})
 
   async function addFile(name: string, file: File, index: number, error?: Ref<string>) {
     const { id } = form.activeForm.value

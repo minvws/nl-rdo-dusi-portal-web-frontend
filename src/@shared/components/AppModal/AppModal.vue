@@ -75,7 +75,7 @@ const modalStore = useAppModalStore()
 
 const title = ref<HTMLHeadingElement>()
 
-const modalTypeClass = computed(() => {
+const modalTypeClass = computed<string>(() => {
   const type = modalStore?.content?.type ?? ModalType.DEFAULT
   return type !== ModalType.DEFAULT ? type : ''
 })

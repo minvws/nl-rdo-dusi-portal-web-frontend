@@ -11,7 +11,7 @@ export const useFetchFilterOptions = (type: FormOptions) => {
   const { data, error, ...fetch } = useCustomFetch('with-encryption', url, undefined, {
     immediate: true
   }).json()
-  const forms: Ref<Form[] | undefined> = ref(undefined)
+  const forms = ref<Form[] | undefined>(undefined)
 
   watch(
     data,

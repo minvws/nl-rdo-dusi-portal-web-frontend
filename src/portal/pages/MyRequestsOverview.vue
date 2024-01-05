@@ -24,6 +24,8 @@
 </template>
 
 <script setup lang="ts">
+import type { Column } from '@shared/types/table'
+
 import { computed } from 'vue'
 
 import { translate } from '@shared/i18n'
@@ -51,7 +53,7 @@ useSEO({
 
 const { data, error, isFetching } = useFetchRequests()
 
-const headings = computed(() =>
+const headings = computed<Column[]>(() =>
   columns.map(item => ({
     ...item,
     text: translate(`pages.my-requests-overview.table.${item.id}`)

@@ -1,8 +1,9 @@
-import type { Ref } from 'vue'
+import type { NotificationDisplayType } from '@shared/types/notification'
 import type { RouteRecordName } from 'vue-router'
 import type { TwoFactorResponse } from '@shared/types/api-response'
 import type { User, UserRoleType } from '@shared/types/user'
-import type { NotificationDisplayType } from '@shared/types/notification'
+import type { UserRole } from '@shared/types/user'
+
 import { NotificationType } from '@shared/types/notification'
 import { SessionType } from '@shared/types/session'
 import { UserRoles } from '@shared/types/user'
@@ -52,14 +53,14 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const sessionLifetimeStore = useSessionLifetimeStore()
   const { on } = useDispatcher()
 
-  const canVisitRoute: Ref<boolean> = ref(false)
-  const homeRoute: Ref<string> = ref(HOME)
-  const isLoggedIn: Ref<boolean> = ref(false)
-  const needsTwoFactor: Ref<boolean> = ref(false)
-  const user: Ref<User | null> = ref(null)
+  const canVisitRoute = ref<boolean>(false)
+  const homeRoute = ref<string>(HOME)
+  const isLoggedIn = ref<boolean>(false)
+  const needsTwoFactor = ref<boolean>(false)
+  const user = ref<User | null>(null)
 
-  const userRoles = computed(() => user.value?.roles ?? [])
-  const isPasswordExpired = computed(() => user.value?.passwordExpired)
+  const userRoles = computed<UserRole[]>(() => user.value?.roles ?? [])
+  const isPasswordExpired = computed<boolean>(() => Boolean(user.value?.passwordExpired))
 
   function checkUserRights(roleTypes: UserRoleType[]) {
     return userRoles.value.some(role => roleTypes.includes(role.name))

@@ -70,13 +70,19 @@ type Props = {
   isPending?: boolean[]
 }
 
-const addFileCount = ref(1)
-
-const files = computed(() => props.control.data as FileType[])
-
 const props = defineProps<Props>()
 
-const textControlProps = computed(() => ({
+const addFileCount = ref(1)
+
+const files = computed<FileType[]>(() => props.control.data as FileType[])
+
+const textControlProps = computed<{
+  type: InputType
+  control: Control
+  value: string | undefined
+  placeholder: string | undefined
+  autofocus: boolean
+}>(() => ({
   type: props.type,
   control: props.control,
   value: props.value,
@@ -84,11 +90,11 @@ const textControlProps = computed(() => ({
   autofocus: props.autofocus
 }))
 
-const maxFiles = computed(() => props.control.schema.maxItems ?? 1)
+const maxFiles = computed<number>(() => props.control.schema.maxItems ?? 1)
 
-const numberOfFilesAdded = computed(() => files.value?.length ?? 0)
+const numberOfFilesAdded = computed<number>(() => files.value?.length ?? 0)
 
-const numberOfFiles = computed(() => {
+const numberOfFiles = computed<number[]>(() => {
   const count = Math.max(numberOfFilesAdded.value, addFileCount.value)
   const keys = Array(count).keys()
 

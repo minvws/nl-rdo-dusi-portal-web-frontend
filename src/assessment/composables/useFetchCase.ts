@@ -16,7 +16,7 @@ export const useFetchCase = (id: string) => {
   const { transitionHistory, isFetching: isFetchingTransitionHistory } =
     useFetchTransitionHistory(id)
 
-  const data = computed(() => json.value?.data as ApplicationDetails)
+  const data = computed<ApplicationDetails>(() => json.value?.data)
 
   const caseDetail = computed(() => transform(data.value?.application))
 

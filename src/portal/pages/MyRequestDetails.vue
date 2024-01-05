@@ -42,7 +42,7 @@ useSEO({
 
 const { data, error, isFetching, values } = useFetchRequestDetails(props.reference)
 
-const title = computed(() => {
+const title = computed<string | undefined>(() => {
   const title = data.value?.subsidy?.title
   return title ? translate('pages.my-request-details.heading', { title }) : undefined
 })

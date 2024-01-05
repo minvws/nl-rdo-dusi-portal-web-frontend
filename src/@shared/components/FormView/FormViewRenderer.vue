@@ -95,9 +95,9 @@ if (props.createDraft) createFormDraft()
 
 emit('init', form.formData.value)
 
-const isDebug = computed(() => (props.hideDebug ? false : !import.meta.env.PROD))
+const isDebug = computed<boolean>(() => (props.hideDebug ? false : !import.meta.env.PROD))
 
-const isFirstStep = computed(() => index.value === 0 && props.forms.length > 1)
+const isFirstStep = computed<boolean>(() => index.value === 0 && props.forms.length > 1)
 
 function onChange({ data, errors }: JsonFormsChangeEvent) {
   form.events.change({ data, errors })

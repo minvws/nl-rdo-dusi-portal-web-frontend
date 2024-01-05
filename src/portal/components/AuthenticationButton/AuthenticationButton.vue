@@ -21,8 +21,8 @@ function onButtonClick() {
   isLoggedIn.value ? authStore.logOut() : authStore.onAuthenticate()
 }
 
-const buttonLabel = computed(() => {
+const buttonLabel = computed<string>(() => {
   const id = isLoggedIn.value ? 'logout' : 'login'
-  return translate(`component.header.${id}`)
+  return translate(`component.header.${id}`) ?? ''
 })
 </script>

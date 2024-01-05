@@ -66,17 +66,25 @@ const { onSubmitValidationOrContinue } = useFormSubmit()
 const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled, stepHasInputFields } =
   useFormSteps(props)
 
-const previousLabel = computed(() => props.buttonLabels?.previous || translate('form.button.prev'))
+const previousLabel = computed<string | undefined>(
+  () => props.buttonLabels?.previous || translate('form.button.prev')
+)
 
-const startLabel = computed(() => props.buttonLabels?.start || translate('form.button.start'))
+const startLabel = computed<string | undefined>(
+  () => props.buttonLabels?.start || translate('form.button.start')
+)
 
-const nextLabel = computed(() =>
+const nextLabel = computed<string | undefined>(() =>
   props.index === 0 ? startLabel.value : props.buttonLabels?.next || translate('form.button.next')
 )
 
-const saveLabel = computed(() => props.buttonLabels?.save || translate('form.button.save'))
+const saveLabel = computed<string | undefined>(
+  () => props.buttonLabels?.save || translate('form.button.save')
+)
 
-const submitLabel = computed(() => props.buttonLabels?.submit || translate('form.button.submit'))
+const submitLabel = computed<string | undefined>(
+  () => props.buttonLabels?.submit || translate('form.button.submit')
+)
 
 async function checkForValidation() {
   stepHasInputFields.value ? await onSubmitValidationOrContinue() : emit('step', props.index + 1)

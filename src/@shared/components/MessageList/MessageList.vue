@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import type { LocationAsRelativeRaw } from 'vue-router'
+import type { PaginationItem } from '@shared/composables/usePagination'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -34,19 +34,23 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { formatDate } from '@shared/utils/date'
 
-type Props = {
-  items: {
-    date: string
-    title: string
-    to: LocationAsRelativeRaw
-  }[]
+type ListItem = PaginationItem & {
+  formattedDate: string
 }
+
+type Props = {
+  items: PaginationItem[]
+}
+
 const props = defineProps<Props>()
 
 const { locale } = useI18n()
 
-const list = computed(() =>
-  props.items.map(item => ({ ...item, formattedDate: formatDate(item.date, locale.value) }))
+const list = computed<ListItem[]>(() =>
+  props.items.map((item: PaginationItem) => ({
+    ...item,
+    formattedDate: formatDate(item.date, locale.value)
+  }))
 )
 </script>
 

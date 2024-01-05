@@ -11,5 +11,5 @@ import MyDetailsOverview from '@portal/pages/MyDetailsOverview.vue'
 
 const route = useRoute()
 
-const isDetailsRoute = computed(() => route.name === 'my-details-overview')
+const isDetailsRoute = computed<boolean>(() => route.name === 'my-details-overview')
 </script>

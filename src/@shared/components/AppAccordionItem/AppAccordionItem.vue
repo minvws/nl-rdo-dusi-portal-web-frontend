@@ -14,18 +14,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 type Props = {
   id: string
-  isOpen?: boolean
+  initiallyOpen?: boolean
   isHighlighted?: boolean
 }
 
 const props = defineProps<Props>()
 
-const accordionId = computed(() => `accordion-${props.id}`)
-const ariaExpanded = computed(() => (props.isOpen ? 'true' : 'false'))
+onBeforeMount(() => (ariaExpanded.value = props.initiallyOpen ?? false))
+
+const ariaExpanded = ref<boolean>(false)
+
+const accordionId = computed<string>(() => `accordion-${props.id}`)
 </script>
 
 <style lang="scss" scoped>

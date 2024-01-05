@@ -7,9 +7,10 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiAssessorPoolUrl } from '@assessment/composables/useApiUrl'
 
 export const useFetchAssessors = (id: string) => {
-  const searchQuery: Ref<string> = ref('')
   const url = useApiAssessorPoolUrl(id)
-  const params: Ref<Record<string, string>> = ref({})
+
+  const searchQuery = ref<string>('')
+  const params = ref<Record<string, string>>({})
 
   const updateParams = useDebounceFn(query => {
     params.value = { search: query }

@@ -11,7 +11,7 @@ export const useFileLink = (props: FileLink & { file: FileType }) => {
     immediate: false
   }).blob()
 
-  const fileUrl = computed(() => {
+  const fileUrl = computed<string | undefined>(() => {
     if (!data.value || error.value) return undefined
     const {
       file: { mimeType: type }

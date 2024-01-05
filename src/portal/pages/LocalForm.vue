@@ -48,8 +48,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const form: Ref<{ title?: string; data: Form[]; values?: FormData } | undefined> = ref(undefined)
-const error: Ref<string | undefined> = ref(undefined)
+const form = ref<{ title?: string; data: Form[]; values?: FormData } | undefined>(undefined)
+const error = ref<string | undefined>(undefined)
 
 async function load() {
   const name = props.name ?? 'post-covid'

@@ -1,4 +1,3 @@
-import type { ComputedRef } from 'vue'
 import type { Link } from '@shared/types/link'
 import { UserRoles } from '@shared/types/user'
 
@@ -49,27 +48,23 @@ export const useAppHeaderLinks = () => {
   const { isLoggedIn } = storeToRefs(authStore)
   const leftLinks: Link[] = []
 
-  const isUserAdmin: ComputedRef<boolean> = computed(() =>
-    authStore.checkUserRights([UserRoles.USER_ADMIN])
-  )
+  const isUserAdmin = computed<boolean>(() => authStore.checkUserRights([UserRoles.USER_ADMIN]))
 
-  const isImplementationCoordinator: ComputedRef<boolean> = computed(() =>
+  const isImplementationCoordinator = computed<boolean>(() =>
     authStore.checkUserRights([UserRoles.IMPLEMENTATION_COORDINATOR])
   )
 
-  const isAssessor: ComputedRef<boolean> = computed(() =>
-    authStore.checkUserRights([UserRoles.ASSESSOR])
-  )
+  const isAssessor = computed<boolean>(() => authStore.checkUserRights([UserRoles.ASSESSOR]))
 
-  const isInternalAuditor: ComputedRef<boolean> = computed(() =>
+  const isInternalAuditor = computed<boolean>(() =>
     authStore.checkUserRights([UserRoles.INTERNAL_AUDITOR])
   )
 
-  const isDataExporter: ComputedRef<boolean> = computed(() =>
+  const isDataExporter = computed<boolean>(() =>
     authStore.checkUserRights([UserRoles.DATA_EXPORTER])
   )
 
-  const rightLinks: ComputedRef<Link[]> = computed(() => {
+  const rightLinks = computed<Link[]>(() => {
     const routes: Link[] = []
 
     if (!isLoggedIn.value || isUserAdmin.value) {

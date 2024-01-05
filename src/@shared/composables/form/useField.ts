@@ -1,6 +1,6 @@
+import type { Ref } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { Control, Field } from '@shared/types/field'
-import type { Ref } from 'vue'
 
 import { computed } from 'vue'
 
@@ -103,9 +103,10 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
 
 export const useFieldFileRemove = ({ id, index }: { id: string; index: number }) => {
   const { getFile, addOrRemoveFile, removeFileByIdAndIndex } = useFileStore()
-  const file = computed(() => getFile(id, index))
-  const hasFile = computed(() => !!file.value)
-  const label = computed(() => formatFile(file.value?.name))
+
+  const file = computed<File>(() => getFile(id, index))
+  const hasFile = computed<boolean>(() => !!file.value)
+  const label = computed<string | undefined>(() => formatFile(file.value?.name))
 
   return {
     hasFile,

@@ -13,5 +13,5 @@ import { ARRANGEMENT_DETAILS } from '@portal/router/names'
 
 const route = useRoute()
 
-const isDetailsRoute = computed(() => route.name === ARRANGEMENT_DETAILS)
+const isDetailsRoute = computed<boolean>(() => route.name === ARRANGEMENT_DETAILS)
 </script>

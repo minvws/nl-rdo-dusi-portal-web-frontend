@@ -51,7 +51,7 @@ const props = defineProps<Props>()
 const { isStepDisabled, isTouched } = useFormSteps(props)
 const isLarge = useMediaQuery('(min-width: 800px)')
 
-const stepsWithTitle = computed(
+const stepsWithTitle = computed<[string, number][]>(
   () =>
     props.forms.map(({ title }, index) => [title, index]).filter(([title]) => !!title) as [
       string,
@@ -59,7 +59,7 @@ const stepsWithTitle = computed(
     ][]
 )
 
-const steps = computed(() => {
+const steps = computed<[string, number][]>(() => {
   const titles = stepsWithTitle.value
   const stepHasTitle = titles.some(([, i]) => i === props.index)
   return stepHasTitle ? titles : []

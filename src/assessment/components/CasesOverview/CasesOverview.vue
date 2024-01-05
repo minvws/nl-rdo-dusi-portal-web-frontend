@@ -113,9 +113,9 @@ const {
   query
 } = useFetchCases(props)
 
-const numberOfCases = computed(() => data.value.length ?? 0)
+const numberOfCases = computed<number>(() => data.value.length ?? 0)
 
-const activeFilterCount = computed(() => {
+const activeFilterCount = computed<number>(() => {
   return Object.values(query.value ?? {}).filter(item => {
     if (!item) return item
     if (Array.isArray(item)) {
@@ -125,7 +125,7 @@ const activeFilterCount = computed(() => {
   }).length
 })
 
-const headings = computed(() => {
+const headings = computed<Column[]>(() => {
   const items = [
     { id: 'case', sortable: false },
     { id: 'file', sortable: true },

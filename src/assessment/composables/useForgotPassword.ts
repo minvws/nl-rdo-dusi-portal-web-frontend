@@ -1,4 +1,4 @@
-import type { Ref } from 'vue'
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
 import { ref, computed } from 'vue'
@@ -14,17 +14,16 @@ import { emailPlaceholder as placeholder } from '@shared/fixtures/form/data/plac
 
 import { LOGIN_VIEW } from '@assessment/router/names'
 
-export const useForgotPassword = () => {
-  const NOTIFICATION_ID = 'forget-password'
+const NOTIFICATION_ID = 'forget-password'
 
+export const useForgotPassword = () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
-
-  const locked: Ref<boolean> = ref(false)
-
   const { forgotPassword } = useAuthStore()
 
-  const forms = computed(() => [
+  const locked = ref<boolean>(false)
+
+  const forms = computed<{ dataschema: JsonSchema; uischema: UISchemaElement }[]>(() => [
     {
       dataschema: {
         properties: {

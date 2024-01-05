@@ -58,7 +58,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { DateLike } from '@vueuse/core'
 import { NotificationType } from '@shared/types/notification'
 
@@ -83,25 +82,25 @@ const MIN_START_DATE = new Date('2023-01-01').toISOString().split('T')[0]
 const notificationsStore = useNotificationsStore()
 
 const isFocussed = ref(false)
-const valueFromDate: Ref<DateLike> = ref('')
-const valueUpToDate: Ref<DateLike> = ref('')
+const valueFromDate = ref<DateLike>('')
+const valueUpToDate = ref<DateLike>('')
 
 // returns timestamp of chosen 'from' value
-const chosenFromDayTime = computed(() => new Date(valueFromDate.value as string).getTime())
+const chosenFromDayTime = computed<number>(() => new Date(valueFromDate.value as string).getTime())
 
 // returns timestamp of chosen 'up to' value
-const chosenUpToDayTime = computed(() => new Date(valueUpToDate.value as string).getTime())
+const chosenUpToDayTime = computed<number>(() => new Date(valueUpToDate.value as string).getTime())
 
 // returns timestamp of first day of current year
-const minFromDayTime = computed(() => new Date(MIN_START_DATE).getTime())
+const minFromDayTime = computed<number>(() => new Date(MIN_START_DATE).getTime())
 
 // returns timestamp of yesterday
-const yesterdayTime = computed(() => new Date(YESTERDAY).getTime())
+const yesterdayTime = computed<number>(() => new Date(YESTERDAY).getTime())
 
 // returns the max date that can be chosen in the 'from' field
 // if chosenUpToDayTime is set and is smaller than yesterdayTime, return chosenUpToDayDate
 // else return yesterdayDate
-const maxFromTime = computed(() => {
+const maxFromTime = computed<number>(() => {
   return chosenUpToDayTime.value && chosenUpToDayTime.value < yesterdayTime.value
     ? chosenUpToDayTime.value - DAY
     : yesterdayTime.value
@@ -109,31 +108,35 @@ const maxFromTime = computed(() => {
 
 // returns the min date that can be chosen in the 'up to' field
 // if chosenFromDayTime is set, use that, else use minFromDayDate
-const minUpToTime = computed(() => {
+const minUpToTime = computed<number>(() => {
   return chosenFromDayTime.value ? chosenFromDayTime.value + DAY : minFromDayTime.value
 })
 
 // returns the max date that can be chosen in the 'from' field
-const maxFromDate = computed(() => new Date(maxFromTime.value).toISOString().split('T')[0])
+const maxFromDate = computed<string>(() => new Date(maxFromTime.value).toISOString().split('T')[0])
 
 // returns the min date that can be chosen in the 'up to' field
-const minUpToDate = computed(() => new Date(minUpToTime.value).toISOString().split('T')[0])
+const minUpToDate = computed<string>(() => new Date(minUpToTime.value).toISOString().split('T')[0])
 
-const startDateToEarly = computed(() => chosenFromDayTime.value <= minFromDayTime.value)
+const startDateToEarly = computed<boolean>(() => chosenFromDayTime.value <= minFromDayTime.value)
 
-const startDateAfterEndDate = computed(() => chosenFromDayTime.value >= chosenUpToDayTime.value)
+const startDateAfterEndDate = computed<boolean>(
+  () => chosenFromDayTime.value >= chosenUpToDayTime.value
+)
 
-const endDateInFuture = computed(() => chosenUpToDayTime.value >= new Date(Date.now()).getTime())
+const endDateInFuture = computed<boolean>(
+  () => chosenUpToDayTime.value >= new Date(Date.now()).getTime()
+)
 
-const hasInvalidDates = computed(
+const hasInvalidDates = computed<boolean>(
   () => startDateToEarly.value || startDateAfterEndDate.value || endDateInFuture.value
 )
 
-const showNotification = computed(
-  () => !isFocussed.value && hasInvalidDates.value && valueFromDate.value && valueUpToDate.value
+const showNotification = computed<boolean>(() =>
+  Boolean(!isFocussed.value && hasInvalidDates.value && valueFromDate.value && valueUpToDate.value)
 )
 
-const notificationMessage = computed(() => {
+const notificationMessage = computed<string>(() => {
   if (startDateToEarly.value) {
     return translate('component.dataExport.startDateToEarly') ?? ''
   }

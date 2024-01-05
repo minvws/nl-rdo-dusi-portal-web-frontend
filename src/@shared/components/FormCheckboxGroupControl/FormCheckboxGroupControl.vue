@@ -19,10 +19,13 @@
     </div>
   </div>
 </template>
+
 <script setup lang="ts">
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
+
 import { computed } from 'vue'
+
 import { getControlId } from '@shared/utils/control'
 
 defineEmits(['change', 'focus', 'blur'])
@@ -38,9 +41,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const values = computed(() => props.value ?? [])
+const values = computed<string[]>(() => props.value ?? [])
 
-const items = computed(() => {
+const items = computed<{ title: string; value: string }[] | undefined>(() => {
   const items = props.control.schema.items as {
     type: string
     enum?: string[]
