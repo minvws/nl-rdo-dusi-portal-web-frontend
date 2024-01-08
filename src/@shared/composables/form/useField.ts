@@ -6,7 +6,6 @@ import { computed } from 'vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFile } from '@shared/utils/format'
-import { log } from '@shared/utils/logger'
 
 import { useFileStore } from '@shared/store/useFileStore'
 import { getValue } from '@shared/composables/form/useCustomControlInput'
@@ -87,11 +86,8 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
 
   const { format, type } = { ...options, ...extend }
 
-  switch (type) {
-    case 'boolean':
-      return InputType.CHECKBOX
-    default:
-      log('useFieldType not supported', type)
+  if (type === 'boolean') {
+    return InputType.CHECKBOX
   }
 
   if (format && fieldTypes.includes(format)) {
