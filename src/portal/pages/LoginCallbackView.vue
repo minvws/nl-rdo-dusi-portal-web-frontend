@@ -62,6 +62,7 @@ function getError() {
 
 onBeforeMount(async () => {
   const authError = getError()
+  const cookieRoute = getRouteFromCookie()
 
   if (authError) {
     const { code } = authError
@@ -75,8 +76,7 @@ onBeforeMount(async () => {
   } else {
     await authStore.logIn()
   }
-
-  const route = !authError && authStore.isLoggedIn ? getRouteFromCookie() : undefined
+  const route = !authError && authStore.isLoggedIn ? cookieRoute : undefined
   router.replace(route ?? { name: HOME })
 })
 </script>
