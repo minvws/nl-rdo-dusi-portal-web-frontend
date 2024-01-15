@@ -13,11 +13,8 @@
           :html="caption"
         />
         <AppTable
-          v-bind="{
-            columns,
-            data,
-            itemsPerPage: 0
-          }"
+          :columns="columns"
+          :data="data"
         />
       </template>
       <template v-if="html">

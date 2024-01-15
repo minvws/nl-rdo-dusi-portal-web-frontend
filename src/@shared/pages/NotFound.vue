@@ -15,7 +15,7 @@
         >
           <AppIcon
             name="chevron-light-left"
-            aria-hidden="true"
+            :aria-hidden="true"
           />
           {{ translate('pages.not-found.back') }}
         </button>

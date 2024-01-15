@@ -19,7 +19,7 @@
               <AppIcon
                 v-if="icon"
                 :name="icon"
-                aria-hidden="true"
+                :aria-hidden="true"
               />
               {{ label }}
             </NavLink>
@@ -32,7 +32,7 @@
               <AppIcon
                 v-if="icon"
                 :name="icon"
-                aria-hidden="true"
+                :aria-hidden="true"
               />
               {{ label }}
               <MessageCounter

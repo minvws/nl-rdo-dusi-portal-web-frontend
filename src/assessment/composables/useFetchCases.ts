@@ -1,4 +1,6 @@
 import type { CaseType } from '@shared/types/cases'
+import type { AssessmentsData } from '@shared/types/assessment'
+import type { PaginationMetaData } from '@shared/types/pagination'
 
 import { Case } from '@shared/types/cases'
 
@@ -7,7 +9,7 @@ import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCasesUrl, useApiPersonalCasesUrl } from '@assessment/composables/useApiUrl'
 
-import { transformCasesData } from '@shared/utils/transform'
+import { transformCasesData, transformPaginationMetaData } from '@shared/utils/transform'
 
 const getUrl = ({ type }: { type: CaseType }) => {
   switch (type) {
@@ -25,10 +27,15 @@ export const useFetchCases = (props: { type: CaseType }) => {
 
   const { data: json, ...fetch } = useQueryFetch('with-credentials', { url }, { immediate: false })
 
-  const data = computed(() => (json.value ? transformCasesData(json.value) : []))
+  const data = computed<AssessmentsData>(() => (json.value ? transformCasesData(json.value) : []))
+
+  const paginationMeta = computed<PaginationMetaData | undefined>(() =>
+    json.value ? transformPaginationMetaData(json.value) : undefined
+  )
 
   return {
     ...fetch,
-    data
+    data,
+    paginationMeta
   }
 }

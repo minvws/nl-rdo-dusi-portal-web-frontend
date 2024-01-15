@@ -60,10 +60,9 @@
       v-bind="{ data, error, isFetching }"
     >
       <h4>{{ translate('component.ibanCheck.results') }}</h4>
-      <AppTable
+      <IbanCheckTable
+        v-if="data.length > 0"
         :data="data"
-        :columns="columns"
-        :items-per-page="10"
       />
       <template #fallback>
         <div class="no-results">
@@ -79,7 +78,7 @@
       >
         <AppIcon
           name="chevron-left"
-          aria-hidden="true"
+          :aria-hidden="true"
         />
         {{ translate('component.ibanCheck.overview') }}
       </RouterLink>
@@ -100,14 +99,13 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import AppTable from '@shared/components/AppTable/AppTable.vue'
+import IbanCheckTable from '@assessment/components/IbanCheckTable/IbanCheckTable.vue'
 
 import { CHECKS_OVERVIEW } from '@assessment/router/names'
 
 import { translate } from '@shared/i18n'
 
 const {
-  columns,
   data,
   error,
   isFetching,

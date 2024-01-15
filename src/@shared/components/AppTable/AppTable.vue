@@ -23,17 +23,17 @@
               scope="col"
               :class="{ sortable: column.sortable }"
               :abbr="column.text"
-              :aria-sort="sortId === column.id ? sortDirection : 'none'"
+              :aria-sort="setAriaSort(column.id)"
             >
               <AppButton
                 v-if="column.sortable"
                 class="button"
-                @click="sortTableById(column.id)"
+                @click="onClickSort(column.id)"
               >
                 {{ column.text }}
                 <AppIcon
-                  :name="sortId === column.id ? sortDirection : 'sort'"
-                  :ariaHidden="true"
+                  :name="setIconName(column.id)"
+                  :aria-hidden="true"
                 />
               </AppButton>
               <template v-else>
@@ -44,7 +44,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="item in tableData"
+            v-for="item in data"
             :key="item.id"
           >
             <template
@@ -102,29 +102,20 @@
         </tbody>
       </table>
     </div>
-
-    <AppPagination
-      v-if="itemsPerPage"
-      :items-total="totalItems"
-      :page-size="itemsPerPage"
-      :current-page="currentPage"
-      @page-change="onPageChange"
-      with-buttons
-    />
   </div>
 </template>
 
 <script setup lang="ts">
 import type { Column } from '@shared/types/table'
+import type { SortDirection, SortItem } from '@shared/types/sort'
 import type { CaseAction } from '@assessment/composables/useCaseAction'
 
-import { ref, computed, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useCaseAction } from '@assessment/composables/useCaseAction'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
-import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
 
 import { translate } from '@shared/i18n'
 
@@ -137,80 +128,53 @@ import {
   getRouterLinkClasses
 } from '@shared/utils/app-table'
 
+const emit = defineEmits(['sorting-change'])
+
 type Props = {
   caption?: string
   columns: Column[]
   data: any[]
-  itemsPerPage?: number
+  sortingId?: string
+  sortingDirection?: SortDirection
 }
 
-const props = defineProps<Props>()
-
-const currentPage = ref<number>(1)
-const sortId = ref<string>('')
-const sortDirection = ref<'ascending' | 'descending'>('ascending')
+const props = withDefaults(defineProps<Props>(), {
+  caption: '',
+  sortingId: '',
+  sortingDirection: 'ascending'
+})
 
 const caseAction = useCaseAction()
 
-// Reset page when incoming data changes
-watch(
-  () => props.data,
-  () => {
-    currentPage.value = 1
-  }
-)
+const sortingDirection = ref(props.sortingDirection)
+const sortingId = ref(props.sortingId)
 
-const totalItems = computed<number>(() => props.data.length ?? 0)
+const hasSortableColumns = computed<boolean>(() => props.columns.some(column => column.sortable))
 
-const paginatedData = computed(() => {
-  const itemsPerPage = props.itemsPerPage ?? 0
-  const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
-  return sortedData.value.slice(start, end)
-})
-
-const hasSortableColumns = computed(() => props.columns.some(column => column.sortable))
-
-const sortedData = computed(() => {
-  const clonedData = [...props.data]
-
-  if (sortId.value) {
-    clonedData.sort((a: any, b: any) => {
-      const aValue = a[sortId.value].text
-      const bValue = b[sortId.value].text
-
-      if (aValue === bValue) {
-        return 0
-      }
-
-      const asc = sortDirection.value === 'ascending'
-
-      return asc ? (aValue < bValue ? -1 : 1) : aValue > bValue ? -1 : 1
-    })
+function onClickSort(id: string) {
+  if (id === sortingId.value) {
+    sortingDirection.value = sortingDirection.value === 'ascending' ? 'descending' : 'ascending'
+  } else {
+    sortingDirection.value = 'ascending'
   }
 
-  return clonedData
-})
+  sortingId.value = id
 
-const tableData = computed(() => (props.itemsPerPage ? paginatedData.value : sortedData.value))
+  const sorting: SortItem = { id, direction: sortingDirection.value }
+  emit('sorting-change', sorting)
+}
 
 function onButtonClick(action: CaseAction) {
   const { type, params } = action
   caseAction.executeAction(type, params)
 }
 
-function onPageChange(page: number) {
-  currentPage.value = page
+function setAriaSort(id: string) {
+  return props.sortingId === id && props.sortingDirection ? props.sortingDirection : 'none'
 }
 
-function sortTableById(id: any) {
-  if (id === sortId.value) {
-    sortDirection.value = sortDirection.value === 'ascending' ? 'descending' : 'ascending'
-  } else {
-    sortDirection.value = 'ascending'
-  }
-
-  sortId.value = id
+function setIconName(id: string) {
+  return props.sortingId === id && props.sortingDirection ? props.sortingDirection : 'sort'
 }
 </script>
 

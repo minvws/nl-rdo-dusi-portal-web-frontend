@@ -12,18 +12,6 @@ export const TableDataType = {
 
 export type TableDataTypes = (typeof TableDataType)[keyof typeof TableDataType]
 
-export type AssessmentsData = Record<string, Record<string, any>>[]
-
-export type RequestData = Record<string, Record<string, any>>[]
-
-export type RawAssessmentData = {
-  data: Record<string, any>[]
-}
-
-export type RawRequestData = {
-  items: Record<string, any>[]
-}
-
 export type Column = {
   id: string
   text?: string

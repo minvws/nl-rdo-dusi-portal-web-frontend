@@ -10,10 +10,10 @@
       <FilterOptions
         auto-close
         :type="type"
-        v-model="query"
+        v-model="filterValues"
         :disabled="isFetching"
       >
-        <span :class="{ transparent: !query || isFetching }">
+        <span :class="{ transparent: !filterValues || isFetching }">
           <strong>{{ numberOfCases }}</strong>
           <span class="count">&nbsp;{{ t('cases', {}, numberOfCases) }}&nbsp;</span>
           <small
@@ -39,10 +39,14 @@
         loaderIsCentered: false
       }"
     >
-      <AppTable
+      <CasesTable
+        v-if="data.length && paginationMeta"
         :data="data"
-        :columns="headings"
-        :items-per-page="10"
+        :pagination="paginationMeta"
+        :sorting-id="sorting.id"
+        :sorting-direction="sorting.direction"
+        @page-change="onPageChange"
+        @sorting-change="onSortingChange"
       />
       <template #fallback>
         <p>{{ t('noCases') }}</p>
@@ -52,8 +56,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Column } from '@shared/types/table'
 import type { CaseType } from '@shared/types/cases'
+import type { SortItem } from '@shared/types/sort'
 
 import { computed } from 'vue'
 import { translate } from '@shared/i18n'
@@ -64,10 +68,8 @@ import { useFetchCases } from '@assessment/composables/useFetchCases'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIntro from '@shared/components/AppIntro/AppIntro.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import AppTable from '@shared/components/AppTable/AppTable.vue'
+import CasesTable from '@assessment/components/CasesTable/CasesTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
-
-import { hasItems } from '@shared/utils/app-table'
 
 type Props = {
   type: CaseType
@@ -80,12 +82,29 @@ const t = (key: string, values?: Record<string, string | number>, count?: number
 
 useSEO({ title: `${t('title')} | ${translate('app.prefix')}` })
 
-const { data, error, isFetching, query } = useFetchCases(props)
+const { data, paginationMeta, error, isFetching, query } = useFetchCases(props)
 
-const numberOfCases = computed<number>(() => data.value.length ?? 0)
+const numberOfCases = computed<number>(() => paginationMeta.value?.total ?? 0)
+
+const filterValues = computed<Record<string, string | string[]> | undefined>({
+  get: () => query.value,
+  set: value => {
+    query.value = { ...value, page: '1' }
+  }
+})
+
+const sorting = computed<SortItem>(() => {
+  const sort = (query.value?.sort as string) ?? ''
+
+  const direction = sort.startsWith('-') ? 'descending' : 'ascending'
+  const id = sort.replace(/^-/, '')
+
+  return { id, direction }
+})
 
 const activeFilterCount = computed<number>(() => {
-  return Object.values(query.value ?? {}).filter(item => {
+  return Object.entries(query.value ?? {}).filter(([key, item]) => {
+    if (key === 'page') return false
     if (!item) return item
     if (Array.isArray(item)) {
       return item.length
@@ -94,25 +113,14 @@ const activeFilterCount = computed<number>(() => {
   }).length
 })
 
-const headings = computed<Column[]>(() => {
-  const items = [
-    { id: 'case', sortable: false },
-    { id: 'file', sortable: true },
-    { id: 'arrangement', sortable: true },
-    { id: 'stage-title', sortable: true },
-    { id: 'status', sortable: true },
-    { id: 'deadline', sortable: true },
-    { id: 'updated', sortable: true },
-    { id: 'reviewer', sortable: true },
-    { id: 'action', sortable: true }
-  ].filter(({ id }) => !!hasItems(data.value, id)) as Column[]
+function onPageChange(newPage: number) {
+  query.value = { ...query.value, page: newPage.toString() }
+}
 
-  return items.map(({ id, ...item }) => ({
-    ...item,
-    id,
-    text: translate(`component.caseColum.${id}`)
-  }))
-})
+function onSortingChange({ id, direction }: SortItem) {
+  const sort = direction === 'ascending' ? id : `-${id}`
+  query.value = { ...query.value, page: '1', sort: sort }
+}
 </script>
 
 <style lang="scss" scoped>

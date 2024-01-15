@@ -1,12 +1,9 @@
 <template>
   <AppSuspense v-bind="{ data, error, isFetching }">
-    <div class="case-history">
-      <AppTable
-        :data="data"
-        :columns="columns"
-        :items-per-page="10"
-      />
-    </div>
+    <CaseHistoryTable
+      v-if="data.length > 0"
+      :data="data"
+    />
   </AppSuspense>
 </template>
 
@@ -14,7 +11,7 @@
 import { useFetchCaseHistory } from '@assessment/composables/useFetchCaseHistory'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-import AppTable from '@shared/components/AppTable/AppTable.vue'
+import CaseHistoryTable from '@assessment/components/CaseHistoryTable/CaseHistoryTable.vue'
 
 type Props = {
   id: string
@@ -22,5 +19,5 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { columns, data, error, isFetching } = useFetchCaseHistory(props.id)
+const { data, error, isFetching } = useFetchCaseHistory(props.id)
 </script>

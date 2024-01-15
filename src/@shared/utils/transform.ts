@@ -1,10 +1,9 @@
+import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
+import type { IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
 import type { ReviewerActionType } from '@shared/types/reviewer'
-import type {
-  RawAssessmentData,
-  AssessmentsData,
-  RawRequestData,
-  RequestData
-} from '@shared/types/table'
+import type { AssessmentsData, RawAssessmentData } from '@shared/types/assessment'
+import type { RequestData, RawRequestData } from '@shared/types/request'
+import type { RawPaginationMetaData, PaginationMetaData } from '@shared/types/pagination'
 
 import { formatDate } from '@shared/utils/date'
 import {
@@ -22,6 +21,8 @@ import {
 import { TableDataType } from '@shared/types/table'
 import { ReviewerAction } from '@shared/types/reviewer'
 
+import { MY_CASE_DETAILS } from '@assessment/router/names'
+
 /**
  * Transforms the 'all requests' data from the API to a format that we can use.
  *
@@ -33,7 +34,7 @@ export function transformRequestsData(data: RawRequestData): RequestData {
     ...setSubsidy(subsidy.pageUrl, subsidy.title),
     ...setFile(reference),
     ...setRequestStatus(status),
-    ...setDeadline(deadlineForResponseAt),
+    ...setFinalReviewDeadline(deadlineForResponseAt),
     ...setCreated(submittedAt),
     ...setActionRequired(status),
     ...setRequestAction(reference, status)
@@ -64,13 +65,66 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
       ...setArrangement(subsidy, subsidy_page_url),
       ...setStageTitle(subsidy_stage_title),
       ...setCaseStatus(status),
-      ...setDeadline(final_review_deadline),
-      ...setUpdated(updated_at),
+      ...setFinalReviewDeadline(final_review_deadline),
+      ...setUpdatedAt(updated_at),
       ...setCaseAction(id, status, actions),
       ...setReviewer(status, id, assessor),
       ...setReviewerAction(id, actions)
     })
   )
+}
+
+/**
+ * Transforms 'case history' data from the API to a format that we can use.
+ *
+ * @param data
+ * @returns data
+ */
+export function transformCaseHistoryData(data: RawCaseHistory): CaseHistory {
+  return data.map(
+    ({ updatedAt, subsidyStage, assessorUser, internalNote }) =>
+      ({
+        ...setUpdatedAt(updatedAt),
+        ...setHistoryAction(subsidyStage.title),
+        ...setAssessor(assessorUser?.name),
+        ...setInternalNote(internalNote)
+      }) as CaseHistoryItem
+  )
+}
+
+/**
+ * Transforms 'iban check' data from the API to a format that we can use.
+ *
+ * @param data
+ * @returns data
+ */
+export function transformIbanData(data: RawIbanCheck): IbanCheckItem[] {
+  return data.map(
+    ({ count, applications }) =>
+      ({
+        ...setCount(count),
+        ...setApplications(applications)
+      }) as IbanCheckItem
+  )
+}
+
+/**
+ * Transforms pagination 'meta' data from the API to a format that we can use.
+ *
+ * @param data
+ * @returns data
+ */
+export function transformPaginationMetaData(data: RawPaginationMetaData): PaginationMetaData {
+  const { current_page, from, last_page, per_page, to, total } = data.meta
+
+  return {
+    currentPage: current_page,
+    from,
+    lastPage: last_page,
+    perPage: per_page,
+    to,
+    total
+  }
 }
 
 const createSet = (text: string, data: object) => ({
@@ -116,14 +170,15 @@ const setStageTitle = (text: string) =>
     type: TableDataType.STRING,
     text: text
   })
-const setDeadline = (date: string) =>
-  createSet('deadline', {
+
+const setFinalReviewDeadline = (date: string) =>
+  createSet('final_review_deadline', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
 
-const setUpdated = (date: string) =>
-  createSet('updated', {
+const setUpdatedAt = (date: string) =>
+  createSet('updated_at', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
@@ -138,6 +193,43 @@ const setActionRequired = (status: string) =>
   createSet('actionRequired', {
     type: TableDataType.STRING,
     text: statusToRequiredAction[status]
+  })
+
+const setInternalNote = (note?: string) =>
+  createSet('internalNote', {
+    type: TableDataType.STRING,
+    text: note ?? '-'
+  })
+
+const setHistoryAction = (title: string) =>
+  createSet('action', {
+    type: TableDataType.STRING,
+    text: title
+  })
+
+const setAssessor = (name?: string) =>
+  createSet('assessor', {
+    type: TableDataType.STRING,
+    text: name ?? '-'
+  })
+
+const setCount = (count: string) =>
+  createSet('count', {
+    type: TableDataType.STRING,
+    text: count
+  })
+
+const setApplications = (applications: { id: string; reference: string }[]) =>
+  createSet('applications', {
+    type: TableDataType.LINK_LIST,
+    list: applications.map(({ id, reference }) => ({
+      type: TableDataType.BUTTON_LINK,
+      to: {
+        name: MY_CASE_DETAILS,
+        params: { id }
+      },
+      text: reference
+    }))
   })
 
 const setRequestAction = (reference: string, status: string) =>

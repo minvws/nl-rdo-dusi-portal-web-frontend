@@ -115,22 +115,22 @@
       "new": "Nieuw",
       "inProgress": "In behandeling"
     },
-    "caseColum": {
+    "caseColumn": {
       "action": "Actie",
       "arrangement": "Regeling",
       "case": "Zaak",
-      "deadline": "Deadline",
+      "final_review_deadline": "Deadline",
       "file": "Dossier",
       "reviewer": "Beoordelaar",
-      "stage-title": "Fase",
+      "stage_title": "Fase",
       "status": "Status",
-      "updated": "Laatste update"
+      "updated_at": "Laatste update"
     },
     "caseHistoryColumn": {
       "action": "Actie",
       "assessor": "Uitgevoerd door",
       "internalNote": "Notitie",
-      "updatedAt": "Datum en tijd"
+      "updated_at": "Datum en tijd"
     },
     "ibanCheck": {
       "title": "Dubbele IBAN-Controle",

@@ -8,11 +8,12 @@ export const useFormConditionalRequiredError = (id: string) => {
   const { translate } = useI18n()
   const { errors, schema, getScopedElement } = useForms()
 
-  const error = computed<FormError>(() =>
-    errors.value?.find(
-      ({ params, keyword }: { params?: { missingProperty: string }; keyword?: string }) =>
-        params?.missingProperty === id && keyword === 'required'
-    )
+  const error = computed<FormError>(
+    () =>
+      errors.value?.find(
+        ({ params, keyword }: { params?: { missingProperty: string }; keyword?: string }) =>
+          params?.missingProperty === id && keyword === 'required'
+      )
   )
 
   const props = {
