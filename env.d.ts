@@ -5,7 +5,6 @@ interface ImportMetaEnv {
   readonly VITE_APP_TITLE: string
   readonly VITE_ASSESSMENT_API_BASE_URL: string
   readonly VITE_BASE_URL: string
-  readonly VITE_DISABLE_FILTER_TABS: boolean
   readonly VITE_DISABLE_LOGIN_REDIRECT_HOME: boolean
   readonly VITE_ENCRYPTED_HEADER: string
   readonly VITE_FORM_PUBLIC_KEY: string

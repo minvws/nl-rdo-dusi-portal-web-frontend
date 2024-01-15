@@ -38,10 +38,6 @@ export const useApiCaseTransitionPreviewSubmitUrl = (id: string) => {
   return `${baseUrl}/api/applications/${id}/submit`
 }
 
-export const useApiCasesFilterCountUrl = () => {
-  return useMockData ? `${mockUrl}/filters.json` : `${baseUrl}/api/ui/applications/count`
-}
-
 export const useApiCsrfCookieUrl = () => {
   return `${baseUrl}/sanctum/csrf-cookie`
 }

@@ -1,13 +1,11 @@
-import type { Ref } from 'vue'
 import type { CaseType } from '@shared/types/cases'
 
 import { Case } from '@shared/types/cases'
 
-import { computed, ref, watch } from 'vue'
+import { computed } from 'vue'
 
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiCasesUrl, useApiPersonalCasesUrl } from '@assessment/composables/useApiUrl'
-import { useFetchFilters } from '@assessment/composables/useFetchFilters'
 
 import { transformCasesData } from '@shared/utils/transform'
 
@@ -25,46 +23,12 @@ const getUrl = ({ type }: { type: CaseType }) => {
 export const useFetchCases = (props: { type: CaseType }) => {
   const url = getUrl(props)
 
-  const {
-    data: filters,
-    error: filtersError,
-    isFetching: isFetchingFilters,
-    isFinished: isFinishedFilters,
-    execute
-  } = useFetchFilters()
-
-  const params = ref<Record<string, string> | undefined>(undefined)
-
-  const { data: json, ...fetch } = useQueryFetch(
-    'with-credentials',
-    { url, params },
-    { immediate: false }
-  )
+  const { data: json, ...fetch } = useQueryFetch('with-credentials', { url }, { immediate: false })
 
   const data = computed(() => (json.value ? transformCasesData(json.value) : []))
 
-  const onFilterReady = watch(data, () => {
-    onFilterReady()
-    execute()
-  })
-
-  watch(filters, filters => {
-    const filter = filters?.[0]
-    if (!filter) {
-      delete params.value?.id
-      return
-    }
-    const { id } = filter
-    params.value = { id }
-  })
-
   return {
     ...fetch,
-    data,
-    filters,
-    filtersError,
-    isFetchingFilters,
-    isFinishedFilters,
-    params
+    data
   }
 }

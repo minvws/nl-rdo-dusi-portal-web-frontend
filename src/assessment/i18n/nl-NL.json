@@ -69,12 +69,6 @@
       "title": "Geschiedenis",
       "stage": "{title} uitgevoerd door {assessor}"
     },
-    "filterTabs": {
-      "priority": "Hoge prioriteit",
-      "taken": "Opgepakt",
-      "assigned": "Alle Zaken",
-      "assigned_to_me": "Aan mij toegekend"
-    },
     "caseDetails": {
       "section": {
         "meta": "Metagegevens",

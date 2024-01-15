@@ -1,5 +1,3 @@
-import type { FiltersDataInput, FilterItem } from '@shared/types/filters'
-
 import { translate } from '@shared/i18n'
 
 import { MY_MESSAGE_DETAILS } from '@portal/router/names'
@@ -16,23 +14,6 @@ export const formatFileSize = (bytes: number, decimals = 2) => {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-}
-
-/**
- * Formats data from the API for the filters component.
- *
- * @param {FiltersDataInput} data - The data to format.
- * @returns {FilterItem[]} - The formatted data.
- */
-export function formatFiltersData({ data }: FiltersDataInput): FilterItem[] | undefined {
-  if (!data) return undefined
-  return Object.entries(data).map(([name, count]) => {
-    return {
-      text: translate(`component.filterTabs.${name.toLowerCase()}`),
-      id: name.toLowerCase(),
-      count
-    }
-  })
 }
 
 export function formatMessagesData(data: any) {
