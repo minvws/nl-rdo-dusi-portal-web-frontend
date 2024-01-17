@@ -64,6 +64,10 @@ export const useAppHeaderLinks = () => {
     authStore.checkUserRights([UserRoles.DATA_EXPORTER])
   )
 
+  const isLegalSpecialist = computed<boolean>(() =>
+    authStore.checkUserRights([UserRoles.LEGALS_PECIALIST])
+  )
+
   const rightLinks = computed<Link[]>(() => {
     const routes: Link[] = []
 
@@ -71,7 +75,7 @@ export const useAppHeaderLinks = () => {
       return routes
     }
 
-    if (isImplementationCoordinator.value || isAssessor.value) {
+    if (isImplementationCoordinator.value || isAssessor.value || isLegalSpecialist.value) {
       routes.push(...DEFAULT_ROUTES)
     }
 

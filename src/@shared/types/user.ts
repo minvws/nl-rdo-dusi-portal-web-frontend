@@ -2,19 +2,21 @@
  * User role types
  *
  * Order:
- * 1. Gebruikersbeheerder
- * 2. Uitvoeringscoordinator
- * 3. Beoordelaar
+ * 1. Beoordelaar
+ * 2. Data exporteur
+ * 3. Uitvoeringscoordinator
  * 4. Interne Controleur
- * 5. Data exporteur
+ * 5. Juridisch specialist
+ * 6. Gebruikersbeheerder
  */
 
 export const UserRoles = {
-  USER_ADMIN: 'userAdmin',
-  IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
   ASSESSOR: 'assessor',
+  DATA_EXPORTER: 'dataExporter',
+  IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
   INTERNAL_AUDITOR: 'internalAuditor',
-  DATA_EXPORTER: 'dataExporter'
+  LEGALS_PECIALIST: 'legalSpecialist',
+  USER_ADMIN: 'userAdmin'
 } as const
 
 export type UserRoleType = (typeof UserRoles)[keyof typeof UserRoles]
