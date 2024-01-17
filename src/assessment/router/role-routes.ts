@@ -52,7 +52,6 @@ const roleRoutes = {
   [UserRoles.IMPLEMENTATION_COORDINATOR]: [...SHARED_ROUTES, ...CASES_ROUTES],
   [UserRoles.INTERNAL_AUDITOR]: [...SHARED_ROUTES, ...CASES_ROUTES, ...CHECKS_ROUTES],
   [UserRoles.LEGALS_PECIALIST]: [...SHARED_ROUTES, ...CASES_ROUTES],
-  [UserRoles.USER_ADMIN]: [...SHARED_ROUTES]
 }
 
 export default roleRoutes

@@ -48,8 +48,6 @@ export const useAppHeaderLinks = () => {
   const { isLoggedIn } = storeToRefs(authStore)
   const leftLinks: Link[] = []
 
-  const isUserAdmin = computed<boolean>(() => authStore.checkUserRights([UserRoles.USER_ADMIN]))
-
   const isImplementationCoordinator = computed<boolean>(() =>
     authStore.checkUserRights([UserRoles.IMPLEMENTATION_COORDINATOR])
   )
@@ -71,7 +69,7 @@ export const useAppHeaderLinks = () => {
   const rightLinks = computed<Link[]>(() => {
     const routes: Link[] = []
 
-    if (!isLoggedIn.value || isUserAdmin.value) {
+    if (!isLoggedIn.value) {
       return routes
     }
 

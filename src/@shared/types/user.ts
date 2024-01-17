@@ -7,7 +7,6 @@
  * 3. Uitvoeringscoordinator
  * 4. Interne Controleur
  * 5. Juridisch specialist
- * 6. Gebruikersbeheerder
  */
 
 export const UserRoles = {
@@ -15,8 +14,7 @@ export const UserRoles = {
   DATA_EXPORTER: 'dataExporter',
   IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
   INTERNAL_AUDITOR: 'internalAuditor',
-  LEGALS_PECIALIST: 'legalSpecialist',
-  USER_ADMIN: 'userAdmin'
+  LEGALS_PECIALIST: 'legalSpecialist'
 } as const
 
 export type UserRoleType = (typeof UserRoles)[keyof typeof UserRoles]
