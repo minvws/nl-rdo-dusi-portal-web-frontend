@@ -41,6 +41,6 @@ const props = defineProps<Props>()
 const { data, error, isFetching } = useFetchCaseReviewer(props.id)
 
 function onRemove() {
-  console.log('@TODO: remove reviewer from case')
+  /* ... */
 }
 </script>

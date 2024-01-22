@@ -1,5 +1,5 @@
 import type { UISchemaElement } from '@jsonforms/core'
-import type { FormTitle, FormError } from '@shared/types/form'
+import type { FormTitle, FormErrors } from '@shared/types/form'
 
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -12,7 +12,7 @@ import { hasCustomControl } from '@shared/utils/form'
 type Props = {
   forms: FormTitle[]
   index: number
-  formsErrors: FormError[]
+  formsErrors: FormErrors
   touched?: number[]
   hasSaveButton?: boolean
 }
@@ -32,7 +32,10 @@ export const useFormSteps = (props: Props) => {
   const hasSave = computed<boolean>(() =>
     !props.hasSaveButton ? false : hasPrevStep.value || hasSubmit.value
   )
-  const isCurrentStepValid = computed<boolean>(() => !props.formsErrors[props.index]?.length)
+  const isCurrentStepValid = computed<boolean>(() => {
+    const errors = props.formsErrors[props.index]
+    return !errors || (Array.isArray(errors) && errors.length === 0)
+  })
   const steps = computed<number>(() => props.forms.length)
   const stepHasInputFields = computed<boolean>(() => {
     const schema = forms.value[activeForm.value.index].uischema as UISchemaElement & {
@@ -40,15 +43,16 @@ export const useFormSteps = (props: Props) => {
     }
     return schema.elements.map(element => hasCustomControl(element)).some(value => value)
   })
-
-  function hasErrors() {
+  const hasErrors = computed<number[]>(() => {
     return props.formsErrors
-      ?.map((errors, index) => (!errors?.length ? undefined : index))
+      ?.map((errors, index) => (Array.isArray(errors) && errors.length ? index : undefined))
       .filter((value: number | undefined) => value !== undefined) as number[]
-  }
+  })
 
   function isStepDisabled(index: number) {
-    return !canContinueAfterValidation.value && !!hasErrors()?.some((step: number) => step <= index)
+    return (
+      !canContinueAfterValidation.value && !!hasErrors.value?.some((step: number) => step <= index)
+    )
   }
 
   function isTouched(index: number) {

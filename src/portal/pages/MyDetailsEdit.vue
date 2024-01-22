@@ -36,7 +36,7 @@ useSEO({
 const { data, values, error, isFetching } = useFetchPersonalDetails({ editable: true })
 
 function onSubmit() {
-  console.log('@TODO: save edited details')
+  /* ... */
 }
 </script>
 

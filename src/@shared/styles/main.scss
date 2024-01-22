@@ -1,6 +1,6 @@
 @import '@minvws/nl-rdo-rijksoverheid-ui-theme/css/main.css';
 
-// @TODO: remove when these are added to the theme itself.
+// Remove these when styles are added to the ui-theme itself.
 @import '@minvws/manon/card.scss';
 @import '@minvws/manon/tag.scss';
 @import '@minvws/manon/tag-colors-soft.scss';
@@ -68,13 +68,4 @@ $ro-img-path: '~@minvws/nl-rdo-rijksoverheid-ui-theme/img';
 
 .exact-active {
   @extend .active !optional;
-}
-
-/* Experimental fix, see https://github.com/minvws/nl-rdo-manon/pull/380 */
-.visually-hidden,
-.sr-only {
-  width: 1px;
-  height: 1px;
-  max-width: initial;
-  max-height: initial;
 }

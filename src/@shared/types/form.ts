@@ -1,4 +1,5 @@
 import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
+import type { ErrorObject } from 'ajv'
 
 export type FormTitle = { title?: string }
 export type FormMetaData = Record<string, any>
@@ -29,9 +30,8 @@ export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 
 export type FormData = Record<string, FormValue>
 
-export type FormError = Pick<JsonFormsCore, 'errors'> | any
-
-export type FormResponse = any // @TODO
+export type FormError = (ErrorObject & { instancePath?: string }) | undefined
+export type FormErrors = FormError[]
 
 export const FormSubmitTypes = {
   SUBMIT: 'submit',
@@ -59,7 +59,7 @@ export type FormViewProps = {
   hideDebug?: boolean
   buttonLabels?: FormButtonLabels
   hasSaveButton?: boolean
-  noStyle?: boolean // @TODO: remove when we have a better solution for styling the form.
+  noStyle?: boolean
   noButtons?: boolean
   hideRequiredLabel?: boolean
   persistent?: boolean

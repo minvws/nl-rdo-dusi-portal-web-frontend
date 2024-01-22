@@ -48,11 +48,3 @@ function onClick() {
   emit('page-change', props.pageIndex)
 }
 </script>
-
-<style lang="scss" scoped>
-/* @TODO: temporary fix to prevent the layout to break */
-.visually-hidden {
-  max-width: 1px;
-  max-height: 1px;
-}
-</style>

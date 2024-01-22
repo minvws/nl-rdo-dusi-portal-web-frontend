@@ -1,11 +1,17 @@
 import type { JsonFormsChangeEvent } from '@jsonforms/vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-import type { Form, FormData, FormError, FormValidationResult } from '@shared/types/form'
+import type {
+  Form,
+  FormData,
+  FormErrors,
+  FormValidationResult,
+  FormError
+} from '@shared/types/form'
 import { FormUiTypes } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 import type { StoredForm } from '@shared/store/useFormStorage'
 
-import { computed, inject, watch } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { getControlId, getLinkedControlId } from '@shared/utils/control'
@@ -25,12 +31,20 @@ export const useActiveForm = () => {
 
   const formStorage = useFormStorage()
 
+  const activeFormErrors = ref<FormErrors>([])
+
+  onMounted(() => (activeFormErrors.value = activeForm.value.errors))
+
   const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
   const createDraft = computed<boolean>(() => !!formProps.createDraft)
   const data = computed<FormData>(() => formsData.value?.[index.value] ?? {})
   const draftId = computed<string | undefined>(() => activeForm.value?.draftId)
   const draftIsPending = computed<boolean | undefined>(() => activeForm.value?.draftIsPending)
-  const errors = computed<FormError[]>(() => activeForm.value?.errors[index.value])
+  const errors = computed<FormErrors>(() => {
+    const errors = activeFormErrors.value[index.value] || []
+    return new Array(errors).flat()
+  })
+
   const form = computed<Form>(() => activeForm.value?.forms[index.value])
   const formData = computed<FormData>(() =>
     formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {})
@@ -59,26 +73,30 @@ export const useActiveForm = () => {
   )
 
   // set remote-validations for each page
-  const formsValidationErrors = computed<({ instancePath: string }[] | undefined)[]>(
-    () =>
-      activeForm.value?.forms?.map(form => {
-        const properties = Object.keys(form.dataschema?.properties ?? {})
-        const instancePath = properties.find(instancePath =>
-          validationResultErrors.value.includes(instancePath)
-        )
-        return instancePath ? [{ instancePath }] : undefined
-      })
+  const formsValidationErrors = computed<({ instancePath: string }[] | undefined)[]>(() =>
+    activeForm.value?.forms?.map(form => {
+      const properties = Object.keys(form.dataschema?.properties ?? {})
+      const instancePath = properties.find(instancePath =>
+        validationResultErrors.value.includes(instancePath)
+      )
+      return instancePath ? [{ instancePath }] : undefined
+    })
   )
 
-  const formsErrors = computed<FormError[]>(() => {
-    // combine local validation errors with remote-validation errors
-    return activeForm.value?.forms?.map((form: Form, index) => {
-      return [
-        ...(formsValidationErrors.value[index] || []),
-        ...(activeForm.value?.errors[index] || [])
-      ]
-    })
-  })
+  // combine local validation errors with remote-validation errors
+  const formsErrors = computed<FormErrors>(
+    () =>
+      activeForm.value?.forms
+        ?.map((_form: Form, index) => {
+          const validationErrors = formsValidationErrors.value[index] || []
+          const formErrors = activeForm.value?.errors[index] || []
+          const formErrorsArray = new Array(formErrors).flat() || []
+
+          return new Array(...formErrorsArray, ...validationErrors)
+        })
+        .filter(value => value.length > 0)
+        .flat(2) as FormErrors
+  )
 
   const readonly = computed<boolean>(() =>
     validationId.value ? false : !!activeForm.value?.isSubmitting
@@ -169,7 +187,7 @@ export const useActiveForm = () => {
   function onChange({ data, errors }: JsonFormsChangeEvent) {
     if (!activeForm.value) return
     activeForm.value.data[index.value] = data
-    activeForm.value.errors[index.value] = errors
+    activeForm.value.errors[index.value] = errors as FormError
   }
 
   function setSubmitting(isSubmitting: boolean) {

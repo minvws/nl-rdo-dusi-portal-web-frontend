@@ -1,4 +1,4 @@
-import type { FormError, FormData } from '@shared/types/form'
+import type { FormErrors, FormData } from '@shared/types/form'
 import { watch, type ComputedRef, ref } from 'vue'
 
 export const useRemoteValidation = (
@@ -7,7 +7,7 @@ export const useRemoteValidation = (
     createDraft,
     isValidationPending
   }: {
-    errors: ComputedRef<FormError[]>
+    errors: ComputedRef<FormErrors>
     createDraft: ComputedRef<boolean>
     data: ComputedRef<FormData>
     isValidationPending: ComputedRef<boolean | undefined>

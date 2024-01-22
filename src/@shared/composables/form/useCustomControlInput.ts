@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { Control } from '@shared/types/field'
-import type { FormValue } from '@shared/types/form'
+import type { FormValue, FormError, FormErrors } from '@shared/types/form'
 import type { ControlEvent } from '@shared/types/control'
 
 import { computed, nextTick } from 'vue'
@@ -36,7 +36,7 @@ export const useCustomControlInput = ({
   handleChange: (_path: string, _value: FormValue) => void
   onRemoteValidation: (_id?: string) => Promise<void>
   controlId: string
-  errors: Ref<{ instancePath: string; params: { missingProperty: string } }[]>
+  errors: Ref<FormErrors>
 }) => {
   const handleRemoteValidation = async (type: ControlEvent) => {
     // trigger remote validation when type is in list of validations
@@ -53,7 +53,8 @@ export const useCustomControlInput = ({
   }
 
   const isValid = computed<boolean>(() => {
-    return !errors.value?.find(({ instancePath, params }) => {
+    return !errors.value?.find((error: FormError) => {
+      const { instancePath, params } = error as FormError & { instancePath: string }
       if (!instancePath) {
         return params?.missingProperty === controlId
       }

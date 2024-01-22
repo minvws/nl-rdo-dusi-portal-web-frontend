@@ -73,7 +73,7 @@ useSEO({
   title: `${translate('pages.my-messages-overview.title')} | ${translate('app.prefix')}`
 })
 
-const isFilterDisabled = true // @TODO: for MVP the filter is disabled
+const isFilterDisabled = import.meta.env.VITE_MESSAGES_FILTER_ENABLED === 'false'
 const { data, error, query, isFetching } = useFetchMessages(isFilterDisabled)
 
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({

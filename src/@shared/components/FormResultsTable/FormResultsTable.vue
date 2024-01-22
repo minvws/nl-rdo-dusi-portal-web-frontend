@@ -115,7 +115,10 @@ export default defineComponent({
       const regex = /\{([a-zA-Z]+)\}/g
       const result = Array.from(template.matchAll(regex))
 
-      let hasValue = false // Will become true if there is any data for this template. If there is no date, return undefined, so empty values will not be shown in the table
+      // Will become true if there is any data for this template.
+      // If there is no date, return undefined, so empty values
+      // will not be shown in the table
+      let hasValue = false
 
       while (result.length) {
         const match = result.shift()
@@ -124,19 +127,24 @@ export default defineComponent({
         matches.push(field)
 
         const target = formData[field]
-        if (Array.isArray(target)) {
-          // @TODO: for now we assume when there value is an array
-          // it are files
+        const isArray = Array.isArray(target)
+
+        if (isArray) {
           return {
             field,
             files: target as FileType[],
             matches
           }
         }
-        if (!hasValue && formData[field] !== undefined) hasValue = true
+
+        if (!hasValue && formData[field] !== undefined) {
+          hasValue = true
+        }
+
         text = text.replace(`{${field}}`, `${formData[field] ?? ''}`)
       }
-      return !hasValue ? undefined : { matches, text }
+
+      return hasValue ? { matches, text } : undefined
     }
   },
   setup(props) {

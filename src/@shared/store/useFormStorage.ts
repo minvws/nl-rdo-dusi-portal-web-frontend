@@ -1,5 +1,4 @@
-import type { Ref } from 'vue'
-import type { Form, FormData, FormError, FormValidationResult } from '@shared/types/form'
+import type { Form, FormData, FormErrors, FormValidationResult } from '@shared/types/form'
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
@@ -12,7 +11,7 @@ export type StoredForm = {
   id: string
   index: number
   data: FormData[]
-  errors: FormError[]
+  errors: FormErrors
   isSubmitting?: boolean
   isValidationPending?: boolean
   validationId?: string

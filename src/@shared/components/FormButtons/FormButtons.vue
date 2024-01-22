@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormError, FormTitle, FormButtonLabels } from '@shared/types/form'
+import type { FormErrors, FormTitle, FormButtonLabels } from '@shared/types/form'
 
 import { computed } from 'vue'
 
@@ -52,7 +52,7 @@ const emit = defineEmits(['validate', 'step', 'save', 'submit'])
 
 type Props = {
   forms: FormTitle[]
-  formsErrors: FormError[]
+  formsErrors: FormErrors
   index: number
   readonly: boolean
   touched?: number[]

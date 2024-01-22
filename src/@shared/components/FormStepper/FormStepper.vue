@@ -28,7 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import type { FormTitle, FormError, FormValidationResult } from '@shared/types/form'
+import type { FormTitle, FormErrors, FormValidationResult } from '@shared/types/form'
 
 import { computed } from 'vue'
 import { useMediaQuery } from '@vueuse/core'
@@ -39,7 +39,7 @@ const emit = defineEmits(['step'])
 
 type Props = {
   forms: FormTitle[]
-  formsErrors: FormError[]
+  formsErrors: FormErrors
   index: number
   readonly: boolean
   touched?: number[]
@@ -90,7 +90,11 @@ function isLast(index: number) {
 
 function isValid(index: number) {
   const { touched, formsErrors } = props
-  return touched?.includes(index) && !formsErrors[index]?.length
+  const errors = formsErrors[index]
+  const hasErrorsArray = Array.isArray(errors) && errors.length
+  const hasErrorsObject = typeof errors === 'object' && Object.keys(errors).length
+
+  return touched?.includes(index) && !hasErrorsArray && !hasErrorsObject
 }
 
 function onButtonClick(index: number) {

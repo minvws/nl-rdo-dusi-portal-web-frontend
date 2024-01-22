@@ -1,4 +1,4 @@
-import type { FormError } from '@shared/types/form'
+import type { FormError, FormErrors } from '@shared/types/form'
 
 import { computed } from 'vue'
 import { useI18n } from '@shared/composables/useI18n'
@@ -8,12 +8,10 @@ export const useFormConditionalRequiredError = (id: string) => {
   const { translate } = useI18n()
   const { errors, schema, getScopedElement } = useForms()
 
-  const error = computed<FormError>(
-    () =>
-      errors.value?.find(
-        ({ params, keyword }: { params?: { missingProperty: string }; keyword?: string }) =>
-          params?.missingProperty === id && keyword === 'required'
-      )
+  const error = computed<FormError>(() =>
+    errors.value.find(
+      (error: FormError) => error?.params?.missingProperty === id && error?.keyword === 'required'
+    )
   )
 
   const props = {
@@ -23,9 +21,8 @@ export const useFormConditionalRequiredError = (id: string) => {
   }
 
   return computed(() => {
-    const hasError = error.value
-    return hasError
-      ? translate?.('error.required-conditional', hasError?.message, props)
+    return error.value?.message
+      ? translate?.('error.required-conditional', error.value.message, props)
       : undefined
   })
 }

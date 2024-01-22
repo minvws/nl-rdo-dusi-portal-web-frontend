@@ -1,5 +1,9 @@
 <template>
-  <FormLoader v-bind="{ id, values, edit: true }" />
+  <FormLoader
+    :id="id"
+    :values="values"
+    :edit="true"
+  />
 </template>
 
 <script setup lang="ts">
@@ -9,7 +13,7 @@ import FormLoader from '@shared/components/FormLoader/FormLoader.vue'
 
 type Props = {
   id: string
-  values?: FormData // @TODO
+  values?: FormData
 }
 
 defineProps<Props>()
