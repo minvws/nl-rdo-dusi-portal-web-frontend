@@ -45,8 +45,12 @@ export default defineComponent({
     padding-bottom: 0.5em;
   }
 
-  &:deep(.warning) {
+  &:deep(.error),
+  &:deep(.warning),
+  &:deep(.confirmation),
+  &:deep(.explanation) {
     margin-bottom: 0.5em;
+    padding: 1rem;
   }
 }
 </style>
