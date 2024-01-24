@@ -36,7 +36,7 @@ export const useCustomControlInput = ({
   handleChange: (_path: string, _value: FormValue) => void
   onRemoteValidation: (_id?: string) => Promise<void>
   controlId: string
-  errors: Ref<FormErrors>
+  errors: Ref<FormError[]>
 }) => {
   const handleRemoteValidation = async (type: ControlEvent) => {
     // trigger remote validation when type is in list of validations

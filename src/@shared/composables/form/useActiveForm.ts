@@ -40,9 +40,9 @@ export const useActiveForm = () => {
   const data = computed<FormData>(() => formsData.value?.[index.value] ?? {})
   const draftId = computed<string | undefined>(() => activeForm.value?.draftId)
   const draftIsPending = computed<boolean | undefined>(() => activeForm.value?.draftIsPending)
-  const errors = computed<FormErrors>(() => {
+  const errors = computed<FormError[]>(() => {
     const errors = activeFormErrors.value[index.value] || []
-    return new Array(errors).flat()
+    return errors as FormError[]
   })
 
   const form = computed<Form>(() => activeForm.value?.forms[index.value])
@@ -84,18 +84,12 @@ export const useActiveForm = () => {
   )
 
   // combine local validation errors with remote-validation errors
-  const formsErrors = computed<FormErrors>(
-    () =>
-      activeForm.value?.forms
-        ?.map((_form: Form, index) => {
-          const validationErrors = formsValidationErrors.value[index] || []
-          const formErrors = activeForm.value?.errors[index] || []
-          const formErrorsArray = new Array(formErrors).flat() || []
-
-          return new Array(...formErrorsArray, ...validationErrors)
-        })
-        .filter(value => value.length > 0)
-        .flat(2) as FormErrors
+  const formsErrors = computed<FormErrors>(() =>
+    activeForm.value?.forms?.map((_form: Form, index) => {
+      const validationErrors = formsValidationErrors.value[index] || []
+      const formErrors = new Array(activeForm.value?.errors[index] || []).flat()
+      return [...validationErrors, ...formErrors] as FormError[]
+    })
   )
 
   const readonly = computed<boolean>(() =>
@@ -187,7 +181,7 @@ export const useActiveForm = () => {
   function onChange({ data, errors }: JsonFormsChangeEvent) {
     if (!activeForm.value) return
     activeForm.value.data[index.value] = data
-    activeForm.value.errors[index.value] = errors as FormError
+    activeForm.value.errors[index.value] = errors as FormError[]
   }
 
   function setSubmitting(isSubmitting: boolean) {

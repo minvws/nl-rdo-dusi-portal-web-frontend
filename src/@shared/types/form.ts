@@ -31,7 +31,7 @@ export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 export type FormData = Record<string, FormValue>
 
 export type FormError = (ErrorObject & { instancePath?: string }) | undefined
-export type FormErrors = FormError[]
+export type FormErrors = FormError[][]
 
 export const FormSubmitTypes = {
   SUBMIT: 'submit',
