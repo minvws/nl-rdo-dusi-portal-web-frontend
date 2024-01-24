@@ -33,7 +33,9 @@ export const useActiveForm = () => {
 
   const activeFormErrors = ref<FormErrors>([])
 
-  onMounted(() => (activeFormErrors.value = activeForm.value.errors))
+  onMounted(
+    () => (activeFormErrors.value = activeForm.value?.errors ? activeForm.value.errors : [])
+  )
 
   const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
   const createDraft = computed<boolean>(() => !!formProps.createDraft)
@@ -84,13 +86,15 @@ export const useActiveForm = () => {
   )
 
   // combine local validation errors with remote-validation errors
-  const formsErrors = computed<FormErrors>(() =>
-    activeForm.value?.forms?.map((_form: Form, index) => {
+  const formsErrors = computed<FormErrors>(() => {
+    if (!activeForm.value?.forms) return []
+
+    return activeForm.value?.forms?.map((_form: Form, index) => {
       const validationErrors = formsValidationErrors.value[index] || []
       const formErrors = new Array(activeForm.value?.errors[index] || []).flat()
       return [...validationErrors, ...formErrors] as FormError[]
     })
-  )
+  })
 
   const readonly = computed<boolean>(() =>
     validationId.value ? false : !!activeForm.value?.isSubmitting
