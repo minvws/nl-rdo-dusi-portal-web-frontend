@@ -41,7 +41,7 @@ const columns = [
   { id: 'subsidy', sortable: false },
   { id: 'file', sortable: false },
   { id: 'created', sortable: false },
-  { id: 'deadline', sortable: false },
+  { id: 'final_review_deadline', sortable: false },
   { id: 'status', sortable: false },
   { id: 'actionRequired', sortable: false },
   { id: 'action', sortable: false }
