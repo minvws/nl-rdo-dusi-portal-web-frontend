@@ -166,7 +166,7 @@ const setCaseStatus = (text: string) =>
   })
 
 const setStageTitle = (text: string) =>
-  createSet('stage-title', {
+  createSet('stage_title', {
     type: TableDataType.STRING,
     text: text
   })
