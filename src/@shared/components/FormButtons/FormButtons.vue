@@ -40,13 +40,12 @@
 import type { FormErrors, FormTitle, FormButtonLabels } from '@shared/types/form'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 import { useFormSteps } from '@shared/composables/form/useFormSteps'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-
-import { translate } from '@shared/i18n'
 
 const emit = defineEmits(['validate', 'step', 'save', 'submit'])
 
@@ -62,28 +61,29 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const { onSubmitValidationOrContinue } = useFormSubmit()
 const { hasPrevStep, hasNextStep, hasSave, hasSubmit, isStepDisabled, stepHasInputFields } =
   useFormSteps(props)
 
 const previousLabel = computed<string | undefined>(
-  () => props.buttonLabels?.previous || translate('form.button.prev')
+  () => props.buttonLabels?.previous || t('form.button.prev')
 )
 
 const startLabel = computed<string | undefined>(
-  () => props.buttonLabels?.start || translate('form.button.start')
+  () => props.buttonLabels?.start || t('form.button.start')
 )
 
 const nextLabel = computed<string | undefined>(() =>
-  props.index === 0 ? startLabel.value : props.buttonLabels?.next || translate('form.button.next')
+  props.index === 0 ? startLabel.value : props.buttonLabels?.next || t('form.button.next')
 )
 
 const saveLabel = computed<string | undefined>(
-  () => props.buttonLabels?.save || translate('form.button.save')
+  () => props.buttonLabels?.save || t('form.button.save')
 )
 
 const submitLabel = computed<string | undefined>(
-  () => props.buttonLabels?.submit || translate('form.button.submit')
+  () => props.buttonLabels?.submit || t('form.button.submit')
 )
 
 async function checkForValidation() {

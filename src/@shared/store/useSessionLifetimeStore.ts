@@ -3,7 +3,7 @@ import type { Session } from '@shared/types/session'
 import { computed, ref, watch } from 'vue'
 import { defineStore } from 'pinia'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useAppModalStore } from '@shared/store/useAppModalStore'
 import { ModalType } from '@shared/types/modal'
@@ -49,15 +49,15 @@ export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', ()
   function getModalButtons(session: Session) {
     return [
       {
-        label: translate(`authentication.modal.${session}.buttonLabel`) ?? '',
+        label: t(`authentication.modal.${session}.buttonLabel`),
         action: () => dispatch(session)
       }
     ]
   }
 
   function getModal(session: Session) {
-    const title = translate(`authentication.modal.${session}.title`) ?? ''
-    const message = translate(`authentication.modal.${session}.message`) ?? ''
+    const title = t(`authentication.modal.${session}.title`)
+    const message = t(`authentication.modal.${session}.message`)
 
     return {
       type: ModalType.WARNING,

@@ -1,14 +1,14 @@
 <template>
   <span class="case-status">
-    <strong>{{ translate('component.caseStatus.status') }}: </strong>
+    <strong>{{ t('component.caseStatus.status') }}: </strong>
     <span class="tag tags-color-1">
-      {{ translate(`component.caseStatus.${type}`) }}
+      {{ t(`component.caseStatus.${type}`) }}
     </span>
   </span>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 type StatusTypes = 'new' | 'inProgress' | 'approved' | 'rejected'
 
@@ -17,6 +17,8 @@ type Props = {
 }
 
 defineProps<Props>()
+
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>

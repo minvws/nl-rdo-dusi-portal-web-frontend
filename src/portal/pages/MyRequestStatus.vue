@@ -5,14 +5,14 @@
       v-bind="{
         title: data.subsidy.title,
         intro: data.subsidy.description,
-        body: translate('pages.my-request-status.intro', { link: data.subsidy.pageUrl })
+        body: t('pages.my-request-status.intro', { link: data.subsidy.pageUrl })
       }"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <h3>{{ translate('pages.my-request-status.status') }}</h3>
+      <h3>{{ t('pages.my-request-status.status') }}</h3>
       <AppHtml
         as="p"
-        :html="translate('pages.my-request-status.statusDescription', { status, step })"
+        :html="t('pages.my-request-status.statusDescription', { status, step })"
       />
       <div class="steps">
         <RequestSteps
@@ -29,7 +29,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
 import { useSEO } from '@shared/composables/useSeo'
@@ -47,11 +47,12 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({
-  title: `${translate('pages.my-request-status.title')} | ${translate('app.prefix')}`
-})
-
+const { t } = useI18n()
 const { data, error, isFetching } = useFetchRequestStatus(props.reference)
+
+useSEO({
+  title: `${t('pages.my-request-status.title')} | ${t('app.prefix')}`
+})
 
 const step = computed<number>(() => {
   const mapStatusToStep: Record<string, number> = {

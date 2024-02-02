@@ -16,7 +16,7 @@
         class="button"
         @click="onDismiss(id)"
       >
-        <span class="visually-hidden">{{ translate('component.formNotification.close') }}</span>
+        <span class="visually-hidden">{{ t('component.formNotification.close') }}</span>
         <AppIcon name="close" />
       </AppButton>
     </div>
@@ -27,10 +27,9 @@
 import type { Notification } from '@shared/types/notification'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-
-import { translate } from '@shared/i18n'
 
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -45,10 +44,11 @@ type Props = Notification & {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const notificationsStore = useNotificationsStore()
 
 const translatedType = computed<string | undefined>(() =>
-  translate(`component.formNotification.${props.displayAs}`)
+  t(`component.formNotification.${props.displayAs}`)
 )
 
 const message = computed<string | undefined>(() =>

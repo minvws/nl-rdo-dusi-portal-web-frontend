@@ -10,7 +10,7 @@
       <template v-if="columns">
         <AppHtml
           as="h5"
-          :html="caption"
+          :html="t('pages.preview-case-submit.caption')"
         />
         <AppTable
           :columns="columns"
@@ -20,7 +20,7 @@
       <template v-if="html">
         <AppHtml
           as="h5"
-          :html="message"
+          :html="t('pages.preview-case-submit.message')"
         />
         <div class="letter">
           <AppHtml
@@ -38,14 +38,14 @@
         <RouterLink
           class="ghost button"
           :class="{ disabled: isSubmitting }"
-          :text="translate('pages.preview-case-submit.button.edit')"
+          :text="t('pages.preview-case-submit.button.edit')"
           :to="{ name: REVIEW_CASE, replace: true, params: { id } }"
         />
         <AppButton
           :class="{ disabled: isSubmitting }"
           @click="onSubmit"
         >
-          {{ translate('pages.preview-case-submit.button.submit') }}
+          {{ t('pages.preview-case-submit.button.submit') }}
         </AppButton>
       </div>
     </AppSuspense>
@@ -53,7 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
@@ -72,13 +72,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({ title: `${translate('pages.preview-case-submit.title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const { data, columns, html, error, isFetching, isSubmitting, submitError, onSubmit } =
   useApiCaseTransitionPreview(props.id)
 
-const caption = translate('pages.preview-case-submit.caption')
-const message = translate('pages.preview-case-submit.message')
+useSEO({ title: `${t('pages.preview-case-submit.title')} | ${t('app.prefix')}` })
 </script>
 
 <style lang="scss" scoped>

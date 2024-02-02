@@ -7,13 +7,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
+const { t } = useI18n()
 const authStore = useAuthStore()
 const { isLoggedIn } = storeToRefs(authStore)
 
@@ -23,6 +23,6 @@ function onButtonClick() {
 
 const buttonLabel = computed<string>(() => {
   const id = isLoggedIn.value ? 'logout' : 'login'
-  return translate(`component.header.${id}`) ?? ''
+  return t(`component.header.${id}`)
 })
 </script>

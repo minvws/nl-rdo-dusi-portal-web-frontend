@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.two-factor.title') }}</h1>
+      <h1>{{ t('pages.two-factor.title') }}</h1>
     </div>
     <div>
       <FormView
@@ -9,7 +9,7 @@
           id: 'two-factor',
           forms: twoFactorForm,
           hideDebug: true,
-          buttonLabels: { submit: translate('component.twoFactor.submit') }
+          buttonLabels: { submit: t('component.twoFactor.submit') }
         }"
         @submit="onSubmit"
       />
@@ -20,9 +20,8 @@
 <script setup lang="ts">
 import { onBeforeMount } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
-
-import { translate } from '@shared/i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { useAuthStore } from '@assessment/store/useAuthStore'
@@ -31,12 +30,13 @@ import FormView from '@shared/components/FormView/FormView.vue'
 
 import { LOGIN_VIEW, HOME } from '@assessment/router/names'
 
-useSEO({ title: `${translate('pages.two-factor.title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const authStore = useAuthStore()
 const router = useRouter()
 
 const { isLoggedIn, needsTwoFactor } = storeToRefs(authStore)
+
+useSEO({ title: `${t('pages.two-factor.title')} | ${t('app.prefix')}` })
 
 const twoFactorForm = [
   {
@@ -62,11 +62,11 @@ const twoFactorForm = [
                 {
                   type: 'CustomControl',
                   scope: '#/properties/code',
-                  label: translate('component.twoFactor.label'),
+                  label: t('component.twoFactor.label'),
                   options: {
                     autofocus: true,
-                    placeholder: translate('component.twoFactor.placeholder'),
-                    tip: translate('component.twoFactor.tip')
+                    placeholder: t('component.twoFactor.placeholder'),
+                    tip: t('component.twoFactor.tip')
                   }
                 }
               ]

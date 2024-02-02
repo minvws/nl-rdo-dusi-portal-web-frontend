@@ -14,13 +14,13 @@
 import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useTable } from '@shared/composables/useTable'
 
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
 import { hasItems } from '@shared/utils/app-table'
-import { translate } from '@shared/i18n'
 
 type Props = {
   data: any[]
@@ -28,6 +28,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const { sortedData, sortingDirection, sortingId, onSortingChange } = useTable({
   data: props.data,
   itemsPerPage: 10
@@ -44,7 +45,7 @@ const headings = computed<Column[]>(() => {
   return items.map(({ id, ...item }) => ({
     ...item,
     id,
-    text: translate(`component.caseHistoryColumn.${id}`)
+    text: t(`component.caseHistoryColumn.${id}`)
   }))
 })
 </script>

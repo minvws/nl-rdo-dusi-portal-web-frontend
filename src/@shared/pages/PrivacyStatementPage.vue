@@ -151,13 +151,15 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { externalUrls } from '@shared/external-links'
 
+const { t } = useI18n()
+
 useSEO({
-  title: `${translate('pages.privacy.title')} | ${translate('app.prefix')}`
+  title: `${t('pages.privacy.title')} | ${t('app.prefix')}`
 })
 </script>
 

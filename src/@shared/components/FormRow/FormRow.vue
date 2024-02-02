@@ -91,6 +91,7 @@
 import type { Options } from '@jsonforms/vue-vanilla'
 
 import { defineComponent, nextTick } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -104,14 +105,16 @@ import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue
 
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
-import { translate } from '@shared/i18n'
 import type { FormValidationEntry, FormValue } from '@shared/types/form'
 
 export default defineComponent({
   extends: ControlWrapper,
   setup() {
+    const { t } = useI18n()
+
     return {
-      labelId: uuidv4()
+      labelId: uuidv4(),
+      t
     }
   },
   props: {
@@ -153,13 +156,13 @@ export default defineComponent({
     tip() {
       const { appliedOptions = {} } = this
       const { tip }: Options & { tip?: string } = appliedOptions
-      if (tip) return translate(tip) ?? tip
+      if (tip) return this.t(tip) ?? tip
       return undefined
     },
     fieldDescription() {
       const { appliedOptions = {} } = this
       const { description }: Options & { description?: string } = appliedOptions
-      if (description) return translate(description) ?? description
+      if (description) return this.t(description) ?? description
       return undefined
     },
     rowProps() {

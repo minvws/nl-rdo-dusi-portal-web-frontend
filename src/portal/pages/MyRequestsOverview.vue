@@ -2,13 +2,13 @@
   <section>
     <AppIntro
       v-bind="{
-        title: translate('pages.my-requests-overview.title'),
-        intro: translate('pages.my-requests-overview.intro')
+        title: t('pages.my-requests-overview.title'),
+        intro: t('pages.my-requests-overview.intro')
       }"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <template #title>
-        <h2>{{ translate('pages.my-requests-overview.myRequests') }}</h2>
+        <h2>{{ t('pages.my-requests-overview.myRequests') }}</h2>
       </template>
       <RequestCards
         v-bind="{
@@ -17,7 +17,7 @@
         }"
       />
       <template #fallback>
-        <p>{{ translate('pages.my-requests-overview.noRequests') }}</p>
+        <p>{{ t('pages.my-requests-overview.noRequests') }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -27,8 +27,7 @@
 import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'
-
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { useFetchRequests } from '@portal/composables/useFetchRequests'
@@ -47,16 +46,17 @@ const columns = [
   { id: 'action', sortable: false }
 ]
 
-useSEO({
-  title: `${translate('pages.my-requests-overview.title')} | ${translate('app.prefix')}`
-})
-
+const { t } = useI18n()
 const { data, error, isFetching } = useFetchRequests()
+
+useSEO({
+  title: `${t('pages.my-requests-overview.title')} | ${t('app.prefix')}`
+})
 
 const headings = computed<Column[]>(() =>
   columns.map(item => ({
     ...item,
-    text: translate(`pages.my-requests-overview.table.${item.id}`)
+    text: t(`pages.my-requests-overview.table.${item.id}`)
   }))
 )
 </script>

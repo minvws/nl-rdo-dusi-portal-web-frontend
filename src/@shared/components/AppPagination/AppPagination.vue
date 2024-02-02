@@ -3,7 +3,7 @@
     <nav
       v-if="totalPages > 1"
       class="pagination"
-      :aria-label="translate('component.app-pagination.pagination')"
+      :aria-label="t('component.app-pagination.pagination')"
     >
       <AppButton
         v-if="withButtons"
@@ -11,8 +11,8 @@
         :disabled="previousPageDisabled"
         @click.prevent="goToPreviousPage"
       >
-        {{ translate('component.pagination.prev') }}
-        <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+        {{ t('component.pagination.prev') }}
+        <span class="visually-hidden">{{ t('component.pagination.page') }}</span>
       </AppButton>
 
       <ul>
@@ -50,8 +50,8 @@
         :disabled="nextPageDisabled"
         @click.prevent="goToNextPage"
       >
-        {{ translate('component.pagination.next') }}
-        <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+        {{ t('component.pagination.next') }}
+        <span class="visually-hidden">{{ t('component.pagination.page') }}</span>
       </AppButton>
     </nav>
   </div>
@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppPaginationItem from '@shared/components/AppPaginationItem/AppPaginationItem.vue'
@@ -77,6 +77,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const { t } = useI18n()
 
 const nextPageDisabled = computed<boolean>(() => props.currentPage === totalPages.value)
 

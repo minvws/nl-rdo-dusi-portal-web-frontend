@@ -12,7 +12,7 @@
             class="visually-hidden"
           >
             <span v-if="caption">,</span>
-            {{ translate('component.table.sortableColumnsHint') }}
+            {{ t('component.table.sortableColumnsHint') }}
           </span>
         </caption>
         <thead>
@@ -117,7 +117,7 @@ import { useCaseAction } from '@assessment/composables/useCaseAction'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import {
   isAppButton,
@@ -144,6 +144,7 @@ const props = withDefaults(defineProps<Props>(), {
   sortingDirection: 'ascending'
 })
 
+const { t } = useI18n()
 const caseAction = useCaseAction()
 
 const sortingDirection = ref(props.sortingDirection)

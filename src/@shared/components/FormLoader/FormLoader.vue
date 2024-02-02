@@ -22,9 +22,10 @@
 import type { FormData } from '@shared/types/form'
 
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchForm } from '@shared/composables/form/useFetchForm'
+
 import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'
 import FormSection from '@shared/components/FormSection/FormSection.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
@@ -37,10 +38,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const { title, forms, isFetching, error, values } = useFetchForm(props)
 
 // when editing the form, change the label of the start-button to next-button
 const buttonLabels = computed<{ start: string | undefined } | undefined>(() =>
-  props.edit ? { start: translate('form.button.next') } : undefined
+  props.edit ? { start: t('form.button.next') } : undefined
 )
 </script>

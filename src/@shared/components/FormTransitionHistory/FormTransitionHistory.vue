@@ -16,7 +16,7 @@
         >
           <p v-if="assessor">
             <small class="assessor">{{
-              translate('component.transitionHistory.stage', { title, assessor })
+              t('component.transitionHistory.stage', { title, assessor })
             }}</small>
           </p>
           <p class="internal-note">{{ item.internalNote }}</p>
@@ -40,12 +40,12 @@ import type { ControlElement } from '@jsonforms/core'
 import type { HistoryTransitionItem } from '@shared/types/history-transition'
 
 import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
 import { useFetchMessageDownload } from '@assessment/composables/useFetchMessageDownload'
 
-import { translate } from '@shared/i18n'
 import { openExternalLink } from '@shared/utils/link'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -60,12 +60,16 @@ export default defineComponent({
     ...rendererProps<ControlElement>()
   },
   setup(props) {
+    const jsonFormsControl = useJsonFormsControl(props)
+    const vanillaControl = useVanillaControl(jsonFormsControl)
+    const { t } = useI18n()
+
     return {
-      ...useVanillaControl(useJsonFormsControl(props))
+      ...vanillaControl,
+      t
     }
   },
   methods: {
-    translate,
     async onDownload(id: string) {
       const { data, error, isFetching } = await useFetchMessageDownload(id)
 

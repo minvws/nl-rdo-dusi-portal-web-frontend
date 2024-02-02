@@ -33,11 +33,10 @@
 import type { Layout } from '@jsonforms/core'
 
 import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
 import { v4 as uuidv4 } from 'uuid'
-
-import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
@@ -52,9 +51,14 @@ export default defineComponent({
     ...rendererProps<Layout>()
   },
   setup(props) {
+    const jsonFormsLayout = useJsonFormsLayout(props)
+    const vanillaLayout = useVanillaLayout(jsonFormsLayout)
+    const { t } = useI18n()
+
     return {
-      ...useVanillaLayout(useJsonFormsLayout(props)),
-      labelId: uuidv4()
+      ...vanillaLayout,
+      labelId: uuidv4(),
+      t
     }
   },
   computed: {
@@ -100,7 +104,7 @@ export default defineComponent({
       return `size-${size}`
     },
     message() {
-      return translate(`${this.appliedOptions.tip}`) || ''
+      return this.appliedOptions.tip ? this.t(`${this.appliedOptions.tip}`) : ''
     },
     label() {
       return this.layout.label

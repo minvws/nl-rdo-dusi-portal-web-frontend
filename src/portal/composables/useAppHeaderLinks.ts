@@ -3,7 +3,7 @@ import type { Link } from '@shared/types/link'
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
 import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
@@ -25,12 +25,12 @@ export const useAppHeaderLinks = () => {
     return [
       {
         name: MY_REQUESTS_OVERVIEW,
-        label: translate('pages.my-requests-overview.title'),
+        label: t('pages.my-requests-overview.title'),
         ...(applicationCount && { badge: applicationCount })
       },
       {
         name: MY_MESSAGES_OVERVIEW,
-        label: translate('pages.my-messages-overview.title'),
+        label: t('pages.my-messages-overview.title'),
         ...(messageCount && { badge: messageCount })
       }
     ]

@@ -2,7 +2,7 @@ import type { Column } from '@shared/types/table'
 
 import { computed, watch } from 'vue'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import {
@@ -38,28 +38,28 @@ export const useApiCaseTransitionPreview = (id: string) => {
     { id: 'title' },
     ...types.map(id => ({
       id,
-      text: translate(`pages.preview-case-submit.column.${id}`)
+      text: t(`pages.preview-case-submit.column.${id}`)
     }))
   ])
 
   const data = computed(() => [
     {
       title: {
-        text: translate('pages.preview-case-submit.column.status')
+        text: t('pages.preview-case-submit.column.status')
       },
       ...types.reduce((cul, type) => {
         const status = transition.value?.[type]?.application?.status
         const value = {
           type: 'string',
           icon: statusToIcon[status],
-          text: translate(`requestStatus.status.${status}`)
+          text: t(`requestStatus.status.${status}`)
         }
         return { ...cul, [type]: value }
       }, {})
     },
     {
       title: {
-        text: translate('pages.preview-case-submit.column.phase')
+        text: t('pages.preview-case-submit.column.phase')
       },
       ...types.reduce((cul, type) => {
         const text = transition.value?.[type]?.subsidyStage?.title

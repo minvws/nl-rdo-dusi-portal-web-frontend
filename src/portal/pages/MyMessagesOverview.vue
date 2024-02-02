@@ -1,10 +1,10 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.my-messages-overview.title') }}</h1>
+      <h1>{{ t('pages.my-messages-overview.title') }}</h1>
       <AppHtml
         as="p"
-        :html="translate('pages.my-messages-overview.intro')"
+        :html="t('pages.my-messages-overview.intro')"
       />
     </div>
     <div>
@@ -15,13 +15,13 @@
       >
         <p v-if="query">
           <span>{{ total }}</span>
-          {{ translate('component.messagesOverview.messages', { total }, total) }}
+          {{ t('component.messagesOverview.messages', { total }, total) }}
         </p>
         <AppButton
-          :data-hide-filters-label="translate('component.messagesOverview.hideFilters')"
+          :data-hide-filters-label="t('component.messagesOverview.hideFilters')"
           aria-expanded="false"
         >
-          {{ translate('component.messagesOverview.showFilters') }}
+          {{ t('component.messagesOverview.showFilters') }}
         </AppButton>
       </FilterOptions>
     </div>
@@ -36,7 +36,7 @@
       />
       <template #fallback>
         <p v-if="query || isFilterDisabled">
-          {{ translate('pages.my-messages-overview.noMessages') }}
+          {{ t('pages.my-messages-overview.noMessages') }}
         </p>
       </template>
     </AppSuspense>
@@ -47,8 +47,7 @@
 import type { ComputedRef } from 'vue'
 
 import { toRefs } from 'vue'
-
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchMessages } from '@portal/composables/useFetchMessages'
 import { usePagination } from '@shared/composables/usePagination'
@@ -69,13 +68,10 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({
-  title: `${translate('pages.my-messages-overview.title')} | ${translate('app.prefix')}`
-})
-
 const isFilterDisabled = import.meta.env.VITE_MESSAGES_FILTER_ENABLED === 'false'
-const { data, error, query, isFetching } = useFetchMessages(isFilterDisabled)
 
+const { t } = useI18n()
+const { data, error, query, isFetching } = useFetchMessages(isFilterDisabled)
 const { currentPage, pageSize, slicedItems, total, onPageChange } = usePagination({
   ...toRefs(props),
   items: data as ComputedRef,
@@ -84,5 +80,9 @@ const { currentPage, pageSize, slicedItems, total, onPageChange } = usePaginatio
     overview: MY_MESSAGES_OVERVIEW,
     pagination: MY_MESSAGES_PAGE
   }
+})
+
+useSEO({
+  title: `${t('pages.my-messages-overview.title')} | ${t('app.prefix')}`
 })
 </script>

@@ -1,8 +1,8 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.my-details-edit.title') }}</h1>
-      <p>{{ translate('pages.my-details-edit.intro') }}</p>
+      <h1>{{ t('pages.my-details-edit.title') }}</h1>
+      <p>{{ t('pages.my-details-edit.intro') }}</p>
     </div>
     <AppSuspense v-bind="{ data, error, isFetching }">
       <FormView
@@ -11,7 +11,7 @@
           forms: data,
           values,
           hideDebug: true,
-          buttonLabels: { submit: translate('pages.my-details-edit.save') }
+          buttonLabels: { submit: t('pages.my-details-edit.save') }
         }"
         @submit="onSubmit"
       />
@@ -20,20 +20,20 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
-
 import { useFetchPersonalDetails } from '@portal/composables/useFetchPersonalDetails'
 
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
-useSEO({
-  title: `${translate('pages.my-details-edit.title')} | ${translate('app.prefix')}`
-})
-
+const { t } = useI18n()
 const { data, values, error, isFetching } = useFetchPersonalDetails({ editable: true })
+
+useSEO({
+  title: `${t('pages.my-details-edit.title')} | ${t('app.prefix')}`
+})
 
 function onSubmit() {
   /* ... */

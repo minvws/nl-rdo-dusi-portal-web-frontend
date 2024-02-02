@@ -1,18 +1,21 @@
 import type { Ref } from 'vue'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+
 import { NotificationType } from '@shared/types/notification'
 
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
-import { translate } from '@shared/i18n'
-import { useRouter } from 'vue-router'
+
 import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 
 export const useFormDraft = (formId: Ref<string>) => {
+  const { t } = useI18n()
   const { setDraft, setDraftIsPending, draftIsPending, draftId } = useActiveForm()
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
@@ -47,8 +50,8 @@ export const useFormDraft = (formId: Ref<string>) => {
     if (error?.code) {
       notificationsStore.add({
         message:
-          translate(`form.message.${error.code}`) ||
-          translate('form.message.loadingError', { error: error.message }) ||
+          t(`form.message.${error.code}`) ||
+          t('form.message.loadingError', { error: error.message }) ||
           '',
         displayAs: getDisplayType(error.code),
         id: 'form-draft-error',

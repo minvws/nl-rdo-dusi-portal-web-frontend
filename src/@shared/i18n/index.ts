@@ -1,70 +1,135 @@
-import { externalLinks } from '@shared/external-links'
+import type { VueMessageType } from 'vue-i18n'
+import type { LocaleMessage } from '@intlify/core-base'
+
 import { createI18n } from 'vue-i18n'
 import merge from 'lodash.merge'
 
-let t: (_key: string, _props?: Record<string, string>, _count?: number) => string
+import { externalLinks } from '@shared/external-links'
 
-function getLocaleFromPath(path: string) {
-  return path?.split('/').pop()?.split('.')[0] || ''
+type FileContent = Record<string, Record<string, unknown>[]>
+
+type TranslationFileEntry = {
+  locale: string
+  content: FileContent
 }
 
-function getProjectFromPath(path: string) {
-  return path?.split('/').splice(2, 1)?.[0]
+type RawTranslationEntry = Record<string, FileContent[]>
+type TranslationEntry = { [x: string]: LocaleMessage<VueMessageType> }
+
+let translate: (_key: string, _props?: Record<string, string>, _count?: number) => string
+const files: Record<string, () => Promise<unknown>> = import.meta.glob('@/**/i18n/*.json')
+
+/**
+ * Get the content of all translation files
+ *
+ * @returns {Promise<TranslationFileEntry[]>}
+ */
+async function getFilesContent(): Promise<TranslationFileEntry[]> {
+  const entries: [string, () => Promise<unknown>][] = Object.entries(files)
+  const contentByFile = []
+
+  for (const entry of entries) {
+    const [path, file] = entry
+    const locale: string = path?.split('/').pop()?.split('.')[0] || ''
+    const currentProject: string = path?.split('/').splice(2, 1)?.[0] || ''
+    const projects: string[] = [import.meta.env.VITE_PROJECT, '@shared']
+
+    if (!projects.includes(currentProject)) {
+      continue
+    }
+
+    const content = (await file()) as FileContent
+
+    contentByFile.push({ locale, content })
+  }
+
+  return Promise.all(contentByFile)
 }
 
-function getI18nFiles() {
-  return import.meta.glob('@/**/i18n/*.json')
-}
-
-async function getTranslationsFromFiles() {
-  const files = getI18nFiles()
-  const translations = await Promise.all(
-    Object.entries(files).map(async ([path, file]) => {
-      const locale = getLocaleFromPath(path)
-      const project = getProjectFromPath(path)
-      if (![import.meta.env.VITE_PROJECT, '@shared'].includes(project)) {
-        return undefined
+/**
+ * Combine translations by locale
+ *
+ * @param {TranslationFileEntry[]} array
+ * @returns {RawTranslationEntry}
+ */
+function combineTranslationsByLocale(array: TranslationFileEntry[]): RawTranslationEntry {
+  const combined: RawTranslationEntry = array.reduce(
+    (acc: RawTranslationEntry, entry: TranslationFileEntry) => {
+      if (!entry) {
+        return acc
       }
-      const content = await file()
-      return {
-        locale,
-        content
-      }
-    })
-  )
-  const combined = translations.reduce(
-    (cul, entry) => {
-      if (!entry) return cul
+
       const { locale, content } = entry
-      if (!cul[locale]) cul[locale] = []
-      cul[locale] = [...cul[locale], content]
-      return cul
+
+      if (acc[locale] === undefined) {
+        acc[locale] = []
+      }
+
+      acc[locale] = [...acc[locale], content]
+
+      return acc
     },
-    {} as Record<string, any>
+    {}
   )
+
   return combined
 }
 
-async function createLocalizedMessages() {
-  const translations = await getTranslationsFromFiles()
-  return Object.entries(translations).reduce(
-    (cul, [locale, translations]) => {
-      return { ...cul, [locale]: merge(null, ...translations) }
+/**
+ * Transform translations by locale
+ *
+ * @param {TranslationFileEntry[]} translations
+ * @returns {TranslationEntry}
+ */
+function transformTranslationsByLocale(translations: TranslationFileEntry[]): TranslationEntry {
+  const combinedTranslations = combineTranslationsByLocale(translations)
+  const transformed: TranslationEntry = Object.entries(combinedTranslations).reduce(
+    (acc: TranslationEntry, entry: [string, FileContent[]]) => {
+      const [locale, translations] = entry
+      return { ...acc, [locale]: merge(null, ...translations) }
     },
-    {} as Record<string, any>
+    {}
   )
+
+  return transformed
 }
 
-export const translate = (key: string, props?: Record<string, string | number>, count?: number) => {
-  // only translate when key does not match result
-  // otherwise the key is not translated
-  const value = t(key, { ...externalLinks, ...props }, count)
-  if (value === key) return undefined
+/**
+ * Get all messages
+ *
+ * @returns {Promise<TranslationEntry>}
+ */
+async function getMessages(): Promise<TranslationEntry> {
+  const contentByFile = await getFilesContent()
+
+  return transformTranslationsByLocale(contentByFile)
+}
+
+/**
+ * Translate a key
+ *
+ * @param {string} key
+ * @param {Record<string, string | number>} props
+ * @param {number} count
+ * @returns {string | undefined}
+ */
+export function t(
+  key: string,
+  props?: Record<string, string | number>,
+  count?: number
+): string | undefined {
+  // only translate when key does not match result, otherwise the key is not translated
+  const value = translate(key, { ...externalLinks, ...props }, count)
+
+  if (value === key) {
+    return undefined
+  }
+
   return value
 }
 
 export const i18n = async () => {
-  const messages = await createLocalizedMessages()
+  const messages = await getMessages()
   const i18n = createI18n({
     legacy: false,
     messages,
@@ -75,6 +140,6 @@ export const i18n = async () => {
     missingWarn: false // hide i18n missing translations
   })
   // @ts-ignore:next-line
-  t = i18n.global.t
+  translate = i18n.global.t
   return i18n
 }

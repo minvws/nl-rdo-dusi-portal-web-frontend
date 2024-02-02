@@ -4,7 +4,7 @@ import type { NotificationDisplayType } from '@shared/types/notification'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { useAuthStore } from '@assessment/store/useAuthStore'
@@ -29,7 +29,7 @@ export const useForgotPassword = () => {
         properties: {
           email: {
             type: 'string',
-            title: translate('component.passwordLogin.email.title'),
+            title: t('component.passwordLogin.email.title'),
             format: 'email'
           }
         },
@@ -48,7 +48,7 @@ export const useForgotPassword = () => {
                   {
                     type: 'CustomControl',
                     scope: '#/properties/email',
-                    label: translate('component.passwordLogin.email.label'),
+                    label: t('component.passwordLogin.email.label'),
                     options: {
                       placeholder
                     }
@@ -87,8 +87,8 @@ export const useForgotPassword = () => {
     notificationsStore.add({
       id: NOTIFICATION_ID,
       displayAs: type,
-      label: translate(`authentication.forgot-password-${id}.label`, props) ?? '',
-      message: translate(`authentication.forgot-password-${id}.message`, props) ?? '',
+      label: t(`authentication.forgot-password-${id}.label`, props) ?? '',
+      message: t(`authentication.forgot-password-${id}.message`, props) ?? '',
       pageChangeCount
     })
   }

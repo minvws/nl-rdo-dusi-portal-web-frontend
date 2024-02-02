@@ -4,7 +4,7 @@ import { UserRoles } from '@shared/types/user'
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
@@ -20,26 +20,26 @@ import {
 const DEFAULT_ROUTES: Link[] = [
   {
     name: MY_CASES_OVERVIEW,
-    label: translate('app.name'),
+    label: t('app.name'),
     icon: 'home'
   },
   {
     name: ALL_CASES_OVERVIEW,
-    label: translate('pages.all-cases-overview.title')
+    label: t('pages.all-cases-overview.title')
   }
 ]
 
 const AUDITOR_ROUTES: Link[] = [
   {
     name: CHECKS_OVERVIEW,
-    label: translate('pages.checks-overview.title')
+    label: t('pages.checks-overview.title')
   }
 ]
 
 const DATA_EXPORTER_ROUTES: Link[] = [
   {
     name: REPORTS_OVERVIEW,
-    label: translate('pages.reports-overview.title')
+    label: t('pages.reports-overview.title')
   }
 ]
 

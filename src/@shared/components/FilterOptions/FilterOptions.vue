@@ -10,11 +10,11 @@
       v-bind="{
         id: type,
         forms,
-        buttonLabels: { submit: translate('component.filterOptions.submit') },
+        buttonLabels: { submit: t('component.filterOptions.submit') },
         hideDebug: true,
         hideRequiredLabel: true,
         persistent: true,
-        ariaLabel: translate('component.filterOptions.title')
+        ariaLabel: t('component.filterOptions.title')
       }"
       @init="onSubmit"
       @submit="onSubmit"
@@ -33,8 +33,8 @@ import type { FormOptions } from '@shared/types/form-options'
 import type { FormData } from '@shared/types/form'
 
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-import { translate } from '@shared/i18n'
 import { useFetchFilterOptions } from '@shared/composables/useFetchFilterOptions'
 
 import FormView from '@shared/components/FormView/FormView.vue'
@@ -49,10 +49,14 @@ type Props = {
   disabled?: boolean
   modelValue?: FormData
 }
+
 const props = defineProps<Props>()
+
 const emit = defineEmits(['update:modelValue', 'close'])
 
 const el: Ref = ref()
+
+const { t } = useI18n()
 const { forms, error } = useFetchFilterOptions(props.type)
 
 function onSubmit(data: FormData) {

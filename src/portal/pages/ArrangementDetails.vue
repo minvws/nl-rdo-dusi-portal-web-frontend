@@ -29,18 +29,17 @@ import type { RouteLocationRaw } from 'vue-router'
 
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
 import { ARRANGEMENT_FORM_LOCAL, ARRANGEMENT_FORM_REMOTE } from '@portal/router/names'
 
+const { t } = useI18n()
 const route = useRoute()
 
 useSEO({
-  title: `${route.params.id} - ${translate('pages.arrangement-details.title')} | ${translate(
-    'app.prefix'
-  )}`
+  title: `${route.params.id} - ${t('pages.arrangement-details.title')} | ${t('app.prefix')}`
 })
 
 const requestLocalFormPostCovidRoute = computed<RouteLocationRaw>(() => ({

@@ -1,7 +1,7 @@
 <template>
   <nav
     class="breadcrumb-bar"
-    :aria-label="translate('component.breadcrumbBar.ariaLabel')"
+    :aria-label="t('component.breadcrumbBar.ariaLabel')"
   >
     <div>
       <ol>
@@ -27,7 +27,8 @@
 <script setup lang="ts">
 import type { Link } from '@shared/types/link'
 
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 type Props = {
   links: Link[]

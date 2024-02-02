@@ -1,7 +1,7 @@
 <template>
   <section>
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <h1>{{ translate('pages.my-message-details.title') }}: {{ data.subject }}</h1>
+      <h1>{{ t('pages.my-message-details.title') }}: {{ data.subject }}</h1>
       <AppHtml
         v-if="data.body"
         :html="data.body"
@@ -14,14 +14,14 @@
           @click="onDownload"
         >
           <AppIcon name="download" />
-          {{ translate('pages.my-message-details.download') }}
+          {{ t('pages.my-message-details.download') }}
         </AppButton>
         <AppButton
           class="ghost"
           @click="onPrint"
         >
           <AppIcon name="document" />
-          {{ translate('pages.my-message-details.print') }}
+          {{ t('pages.my-message-details.print') }}
         </AppButton>
       </div>
     </div>
@@ -29,10 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Ref } from 'vue'
-
 import { onBeforeUnmount, ref } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchMessageDetails } from '@portal/composables/useFetchMessageDetails'
 import { useFetchMessageDownload } from '@portal/composables/useFetchMessageDownload'
@@ -53,11 +51,12 @@ const props = defineProps<Props>()
 
 const fileURL = ref<string>('')
 
-useSEO({
-  title: `${translate('pages.my-message-details.title')} | ${translate('app.prefix')}`
-})
-
+const { t } = useI18n()
 const { data, error, isFetching } = useFetchMessageDetails(props.id)
+
+useSEO({
+  title: `${t('pages.my-message-details.title')} | ${t('app.prefix')}`
+})
 
 async function onDownload() {
   const { data, error, isFetching } = await useFetchMessageDownload(props.id)

@@ -10,12 +10,11 @@
 import type { Component, ComputedRef } from 'vue'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
 import DataExport from '@assessment/components/DataExport/DataExport.vue'
-
-import { translate } from '@shared/i18n'
 
 import { FDC_DATA_EXPORT } from '@assessment/router/names'
 
@@ -25,7 +24,9 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({ title: `${translate(`pages.${props.name}.title`)} | ${translate('app.prefix')}` })
+const { t } = useI18n()
+
+useSEO({ title: `${t(`pages.${props.name}.title`)} | ${t('app.prefix')}` })
 
 const component = computed<Component | null>(() => {
   switch (props.name) {

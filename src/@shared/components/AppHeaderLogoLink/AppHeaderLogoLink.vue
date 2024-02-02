@@ -2,28 +2,30 @@
   <RouterLink
     to="/"
     class="app-header-logo-link"
-    :aria-label="translate('component.header.homeLink.aria-label')"
+    :aria-label="t('component.header.homeLink.aria-label')"
   >
     <img
       class="logo-desktop"
       :src="logo.desktop"
-      :alt="translate('component.header.homeLink.alt')"
+      :alt="t('component.header.homeLink.alt')"
       width="314"
       height="125"
     />
     <img
       class="logo-mobile"
       :src="logo.mobile"
-      :alt="translate('component.header.homeLink.alt')"
+      :alt="t('component.header.homeLink.alt')"
       width="40"
       height="70"
     />
-    <span class="visually-hidden">{{ translate('component.header.homeLink.label') }}</span>
+    <span class="visually-hidden">{{ t('component.header.homeLink.label') }}</span>
   </RouterLink>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const logo = {
   desktop: '/img/vws_dusi_logo.svg',

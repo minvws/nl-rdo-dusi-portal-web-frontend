@@ -1,7 +1,8 @@
-import { createAjv } from '@jsonforms/core'
 import type Ajv from 'ajv'
 
-import { translate } from '@shared/i18n'
+import { createAjv } from '@jsonforms/core'
+
+import { t } from '@shared/i18n'
 
 import { isValidIban } from '@shared/custom-input/iban-input'
 import { isValidPostalCode } from '@shared/custom-input/postal-code-input'
@@ -34,7 +35,7 @@ export const useAjv = (): Ajv => {
     keyword: 'updatePassword',
     validate: isValidPassword,
     error: {
-      message: () => translate('form.fields.error.password-update') ?? ''
+      message: () => t('form.fields.error.password-update') ?? ''
     }
   })
 

@@ -6,14 +6,14 @@
       is-highlighted
     >
       <template #title>
-        <strong>{{ translate('component.requestSteps.step', { step: 1 }) }} </strong>
-        {{ translate('component.requestSteps.request') }}
+        <strong>{{ t('component.requestSteps.step', { step: 1 }) }} </strong>
+        {{ t('component.requestSteps.request') }}
       </template>
       <template #content>
-        <p>{{ translate('component.requestSteps.submitDate', { date: submitDate }) }}</p>
-        <p>{{ translate('component.requestSteps.additionalInfo') }}</p>
+        <p>{{ t('component.requestSteps.submitDate', { date: submitDate }) }}</p>
+        <p>{{ t('component.requestSteps.additionalInfo') }}</p>
         <p>
-          <strong>{{ translate('component.requestSteps.info') }}</strong>
+          <strong>{{ t('component.requestSteps.info') }}</strong>
         </p>
         <RouterLink
           class="ghost"
@@ -23,14 +23,14 @@
           }"
         >
           <AppIcon name="pdf-file" />
-          {{ translate('component.requestSteps.request') }}
+          {{ t('component.requestSteps.request') }}
         </RouterLink>
         <p>
-          <strong>{{ translate('component.requestSteps.customerSatisfaction') }}</strong>
+          <strong>{{ t('component.requestSteps.customerSatisfaction') }}</strong>
         </p>
         <AppHtml
           as="p"
-          :html="translate('component.requestSteps.customerSatisfactionLink', { referenceCode })"
+          :html="t('component.requestSteps.customerSatisfactionLink', { referenceCode })"
         />
       </template>
     </AppAccordionItem>
@@ -39,20 +39,20 @@
       is-open
     >
       <template #title>
-        <strong>{{ translate('component.requestSteps.step', { step: 2 }) }} </strong>
-        {{ translate('component.requestSteps.order') }}
+        <strong>{{ t('component.requestSteps.step', { step: 2 }) }} </strong>
+        {{ t('component.requestSteps.order') }}
       </template>
       <template #content>
-        <p>{{ translate('component.requestSteps.decision') }}</p>
+        <p>{{ t('component.requestSteps.decision') }}</p>
         <p>
-          {{ translate('component.requestSteps.finalDecision', { date: respondDate }) }}
+          {{ t('component.requestSteps.finalDecision', { date: respondDate }) }}
         </p>
         <AppHtml
           as="p"
-          :html="translate('component.requestSteps.notice')"
+          :html="t('component.requestSteps.notice')"
         />
         <p>
-          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+          <strong>{{ t('component.requestSteps.noAction') }}</strong>
         </p>
       </template>
     </AppAccordionItem>
@@ -61,23 +61,23 @@
       is-open
     >
       <template #title>
-        <strong>{{ translate('component.requestSteps.step', { step: 3 }) }} </strong>
-        {{ translate('component.requestSteps.payout') }}
+        <strong>{{ t('component.requestSteps.step', { step: 3 }) }} </strong>
+        {{ t('component.requestSteps.payout') }}
       </template>
       <template #content>
-        <p>{{ translate('component.requestSteps.payoutDecision') }}</p>
+        <p>{{ t('component.requestSteps.payoutDecision') }}</p>
         <p>
-          <strong>{{ translate('component.requestSteps.approval') }}</strong>
+          <strong>{{ t('component.requestSteps.approval') }}</strong>
         </p>
         <p>
-          {{ translate('component.requestSteps.subsidyApplication') }}
+          {{ t('component.requestSteps.subsidyApplication') }}
         </p>
         <p>
-          <strong>{{ translate('component.requestSteps.rejection') }}</strong>
+          <strong>{{ t('component.requestSteps.rejection') }}</strong>
         </p>
-        <p>{{ translate('component.requestSteps.onRejection') }}</p>
+        <p>{{ t('component.requestSteps.onRejection') }}</p>
         <p>
-          <strong>{{ translate('component.requestSteps.noAction') }}</strong>
+          <strong>{{ t('component.requestSteps.noAction') }}</strong>
         </p>
       </template>
     </AppAccordionItem>
@@ -93,8 +93,6 @@ import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionIt
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
-import { translate } from '@shared/i18n'
-
 import { MY_REQUEST_DETAILS } from '@portal/router/names'
 
 import { formatDate } from '@shared/utils/date'
@@ -107,7 +105,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 

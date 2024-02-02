@@ -10,14 +10,16 @@
 
 <script lang="ts" setup>
 import type { Ref } from 'vue'
+
 import { ref } from 'vue'
 import { useRouter, START_LOCATION } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
-import { translate } from '@shared/i18n'
 import { useAnnouncementStore } from '@shared/store/useAnnouncementStore'
 
 import { LOGIN_CALLBACK_VIEW } from '@portal/router/names'
 
+const { t } = useI18n()
 const router = useRouter()
 const announcementStore = useAnnouncementStore()
 
@@ -60,13 +62,13 @@ function focusMain() {
 }
 
 function announcePageTitle() {
-  const title = trimTitle(document.title || translate('announcement.page') || '')
-  const message = `${title} ${translate('announcement.loaded')}`
+  const title = trimTitle(document.title || t('announcement.page'))
+  const message = `${title} ${t('announcement.loaded')}`
   announcementStore.announce(message, 'assertive')
 }
 
 function trimTitle(title: string) {
-  return (title || '').replace(' | ' + translate('app.prefix'), '')
+  return (title || '').replace(' | ' + t('app.prefix'), '')
 }
 </script>
 

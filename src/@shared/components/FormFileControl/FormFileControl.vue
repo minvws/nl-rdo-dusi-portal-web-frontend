@@ -44,13 +44,13 @@ import type { Control } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
 import { ref, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFieldRemoveFile.vue'
 import FormFieldAddFileButton from '@shared/components/FormFieldAddFileButton/FormFieldAddFileButton.vue'
 
 import { InputType } from '@shared/types/input'
-import { translate } from '@shared/i18n'
 import { formatFileSize } from '@shared/utils/format'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
@@ -71,6 +71,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const { t } = useI18n()
 
 const addFileCount = ref(1)
 
@@ -118,7 +120,7 @@ function onChange(e: Event) {
   if (file && maxFileSize && file.size > maxFileSize) {
     e.preventDefault()
     const size = formatFileSize(maxFileSize)
-    emit('error', translate('form.fields.error.maxFileSize', { maxFileSize: size }))
+    emit('error', t('form.fields.error.maxFileSize', { maxFileSize: size }))
     return
   }
 

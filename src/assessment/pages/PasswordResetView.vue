@@ -1,14 +1,14 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.update-password.title') }}</h1>
+      <h1>{{ t('pages.update-password.title') }}</h1>
     </div>
     <div>
       <p>
-        {{ translate('pages.update-password.intro') }}
+        {{ t('pages.update-password.intro') }}
       </p>
       <p>
-        {{ translate('pages.update-password.requirements') }}
+        {{ t('pages.update-password.requirements') }}
       </p>
     </div>
     <div>
@@ -18,7 +18,7 @@
           forms,
           hideDebug: true,
           locked,
-          buttonLabels: { submit: translate('pages.update-password.submit') }
+          buttonLabels: { submit: t('pages.update-password.submit') }
         }"
         @submit="onSubmit"
       />
@@ -26,19 +26,19 @@
   </section>
 </template>
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { usePasswordReset } from '@assessment/composables/usePasswordReset'
-import { useRoute } from 'vue-router'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-useSEO({ title: `${translate('pages.password-reset.title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const route = useRoute()
-
 const { forms, onSubmit, locked } = usePasswordReset(route.query)
+
+useSEO({ title: `${t('pages.password-reset.title')} | ${t('app.prefix')}` })
 </script>
 
 <style lang="scss" scoped>

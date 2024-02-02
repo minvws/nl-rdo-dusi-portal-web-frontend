@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchRequestStatus } from '@portal/composables/useFetchRequestStatus'
 import { useSEO } from '@shared/composables/useSeo'
@@ -24,8 +24,10 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const { data, error, isFetching, values } = useFetchRequestStatus(props.reference)
+
 useSEO({
-  title: `${translate('pages.my-request-edit.title')} | ${translate('app.prefix')}`
+  title: `${t('pages.my-request-edit.title')} | ${t('app.prefix')}`
 })
 </script>

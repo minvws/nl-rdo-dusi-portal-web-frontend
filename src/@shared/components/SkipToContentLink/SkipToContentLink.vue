@@ -3,10 +3,12 @@
     href="#main-content"
     class="button skip-to-content"
   >
-    {{ translate('app.skip-to-content') }}
+    {{ t('app.skip-to-content') }}
   </a>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>

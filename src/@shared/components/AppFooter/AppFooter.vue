@@ -5,7 +5,7 @@
         <nav>
           <div class="column-2">
             <div>
-              <h1>{{ translate('component.footer.serviceTitle') }}</h1>
+              <h1>{{ t('component.footer.serviceTitle') }}</h1>
               <ul>
                 <li
                   v-for="(link, index) in serviceLinks"
@@ -16,16 +16,16 @@
               </ul>
             </div>
             <div>
-              <h1>{{ translate('component.footer.aboutTitle') }}</h1>
+              <h1>{{ t('component.footer.aboutTitle') }}</h1>
               <ul>
                 <li>
                   <RouterLink :to="{ name: ACCESSIBILITY_STATEMENT }">
-                    {{ translate('component.footer.accessibility') }}
+                    {{ t('component.footer.accessibility') }}
                   </RouterLink>
                 </li>
                 <li>
                   <RouterLink :to="{ name: PRIVACY_STATEMENT }">
-                    {{ translate('component.footer.privacy') }}
+                    {{ t('component.footer.privacy') }}
                   </RouterLink>
                 </li>
                 <li
@@ -41,14 +41,15 @@
       </div>
 
       <div class="meta">
-        <p>{{ translate('component.footer.version', { version }) }}</p>
+        <p>{{ t('component.footer.version', { version }) }}</p>
       </div>
     </div>
   </footer>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
+
 import { ACCESSIBILITY_STATEMENT, PRIVACY_STATEMENT } from '@shared/router/names'
 
 import { version } from '@/../package.json'
@@ -60,6 +61,8 @@ type FooterLink = {
   rel: string
 }
 
+const { t } = useI18n()
+
 function getExternalLinks(keys: string[]) {
   return keys.map(key => {
     const { rel: attr, ...link } = externalUrls[key]
@@ -70,7 +73,7 @@ function getExternalLinks(keys: string[]) {
       .join(' ')
 
     return {
-      text: translate(`component.footer.${key}`),
+      text: t(`component.footer.${key}`),
       ...link,
       rel
     }

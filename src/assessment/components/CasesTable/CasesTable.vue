@@ -24,14 +24,14 @@ import type { SortDirection, SortItem } from '@shared/types/sort'
 import type { PaginationMetaData } from '@shared/types/pagination'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
-import { translate } from '@shared/i18n'
 import { hasItems } from '@shared/utils/app-table'
 
-const emit = defineEmits(['asdf', 'page-change', 'sorting-change'])
+const emit = defineEmits(['page-change', 'sorting-change'])
 
 type Props = {
   pagination: PaginationMetaData
@@ -41,6 +41,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const { t } = useI18n()
 
 const headings = computed<Column[]>(() => {
   const items = [
@@ -58,7 +60,7 @@ const headings = computed<Column[]>(() => {
   return items.map(({ id, ...item }) => ({
     ...item,
     id,
-    text: translate(`component.caseColumn.${id}`)
+    text: t(`component.caseColumn.${id}`)
   }))
 })
 

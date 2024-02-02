@@ -2,7 +2,7 @@ import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { LocationQuery } from 'vue-router'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { computed, ref } from 'vue'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
@@ -34,8 +34,8 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
     notificationsStore.add({
       id: NOTIFICATION_ID,
       displayAs: type,
-      label: translate(`authentication.password-reset-${id}.label`, props) ?? '',
-      message: translate(`authentication.password-reset-${id}.message`, props) ?? '',
+      label: t(`authentication.password-reset-${id}.label`, props) ?? '',
+      message: t(`authentication.password-reset-${id}.message`, props) ?? '',
       pageChangeCount: type === NotificationType.CONFIRMATION ? 2 : 1
     })
   }
@@ -46,13 +46,13 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
         properties: {
           password: {
             type: 'string',
-            title: translate('component.passwordUpdate.newPassword'),
+            title: t('component.passwordUpdate.newPassword'),
             updatePassword: true,
             format: 'password'
           },
           passwordConfirmation: {
             type: 'string',
-            title: translate('component.passwordUpdate.passwordConfirmation'),
+            title: t('component.passwordUpdate.passwordConfirmation'),
             format: 'password',
             updatePassword: true,
             const: {
@@ -75,7 +75,7 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
                   {
                     type: 'CustomControl',
                     scope: '#/properties/password',
-                    label: translate('component.passwordUpdate.newPassword'),
+                    label: t('component.passwordUpdate.newPassword'),
                     options: {
                       placeholder
                     }
@@ -83,7 +83,7 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
                   {
                     type: 'CustomControl',
                     scope: '#/properties/passwordConfirmation',
-                    label: translate('component.passwordUpdate.passwordConfirmation'),
+                    label: t('component.passwordUpdate.passwordConfirmation'),
                     options: {
                       placeholder
                     }

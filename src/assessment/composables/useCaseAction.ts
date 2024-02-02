@@ -15,7 +15,7 @@ import AssignAssessor from '@assessment/components/AssignAssessor/AssignAssessor
 
 import { REVIEW_CASE, REFRESH, HOME } from '@assessment/router/names'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 export type CaseAction = {
   type: ReviewerActionType
@@ -54,8 +54,8 @@ export const useCaseAction = () => {
   }
 
   function createModal(id: string) {
-    const title = translate('modal.assignAssessor.title')
-    const message = translate('modal.assignAssessor.message')
+    const title = t('modal.assignAssessor.title')
+    const message = t('modal.assignAssessor.message')
 
     setPersistence(false)
 

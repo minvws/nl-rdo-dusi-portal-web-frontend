@@ -6,7 +6,7 @@
       :aria-current="isAriaCurrent"
       @click.prevent="onClick"
     >
-      <span class="visually-hidden">{{ translate('component.pagination.page') }}</span>
+      <span class="visually-hidden">{{ t('component.pagination.page') }}</span>
       {{ label }}
     </AppButton>
   </li>
@@ -15,9 +15,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+
 const emit = defineEmits(['page-change'])
 
 type Props = {
@@ -29,6 +30,8 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+const { t } = useI18n()
 
 const isAriaCurrent = computed<string | undefined>(() =>
   props.currentPage === props.pageIndex ? 'true' : undefined

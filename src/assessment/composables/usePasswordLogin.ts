@@ -3,7 +3,7 @@ import { passWordPlaceholder, emailPlaceholder } from '@shared/fixtures/form/dat
 
 import { computed } from 'vue'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
@@ -16,12 +16,12 @@ export const usePasswordLogin = () => {
         properties: {
           email: {
             type: 'string',
-            title: translate('component.passwordLogin.email.title'),
+            title: t('component.passwordLogin.email.title'),
             format: 'email'
           },
           password: {
             type: 'string',
-            title: translate('component.passwordLogin.password'),
+            title: t('component.passwordLogin.password'),
             format: 'password'
           }
         },
@@ -40,7 +40,7 @@ export const usePasswordLogin = () => {
                   {
                     type: 'CustomControl',
                     scope: '#/properties/email',
-                    label: translate('component.passwordLogin.email.label'),
+                    label: t('component.passwordLogin.email.label'),
                     options: {
                       placeholder: emailPlaceholder
                     }
@@ -48,7 +48,7 @@ export const usePasswordLogin = () => {
                   {
                     type: 'CustomControl',
                     scope: '#/properties/password',
-                    label: translate('component.passwordLogin.password'),
+                    label: t('component.passwordLogin.password'),
                     options: {
                       placeholder: passWordPlaceholder
                     }
@@ -60,7 +60,7 @@ export const usePasswordLogin = () => {
                       {
                         type: 'FormHtml',
                         options: {
-                          html: `<a href='/wachtwoord-vergeten'>${translate(
+                          html: `<a href='/wachtwoord-vergeten'>${t(
                             'component.passwordLogin.forgotPassword'
                           )}</a>`
                         }

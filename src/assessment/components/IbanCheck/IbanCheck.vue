@@ -1,42 +1,42 @@
 <template>
   <div class="iban-check">
     <div>
-      <h1>{{ translate('component.ibanCheck.title') }}</h1>
-      <p>{{ translate('component.ibanCheck.intro') }}</p>
+      <h1>{{ t('component.ibanCheck.title') }}</h1>
+      <p>{{ t('component.ibanCheck.intro') }}</p>
     </div>
     <div class="included">
       <AppHtml
         as="p"
-        :html="translate('component.ibanCheck.includeIntro')"
+        :html="t('component.ibanCheck.includeIntro')"
       />
       <AppHtml
         as="ul"
-        :html="translate('component.ibanCheck.includedList')"
+        :html="t('component.ibanCheck.includedList')"
       />
     </div>
     <div class="excluded">
       <AppHtml
         as="p"
-        :html="translate('component.ibanCheck.excludeIntro')"
+        :html="t('component.ibanCheck.excludeIntro')"
       />
       <AppHtml
         as="ul"
-        :html="translate('component.ibanCheck.excludedList')"
+        :html="t('component.ibanCheck.excludedList')"
       />
     </div>
     <AppSuspense
       v-bind="{ data: subsidies, error: subsidiesError, isFetching: isFetchingSubsidies }"
     >
-      <h3>{{ translate('component.ibanCheck.formTitle') }}</h3>
+      <h3>{{ t('component.ibanCheck.formTitle') }}</h3>
       <form @submit.prevent.stop>
-        <label for="available-subsidies">{{ translate('component.ibanCheck.label') }}</label>
+        <label for="available-subsidies">{{ t('component.ibanCheck.label') }}</label>
         <select
           id="available-subsidies"
           v-model="selectedId"
         >
           <option
             value=""
-            :label="translate('component.ibanCheck.placeholder')"
+            :label="t('component.ibanCheck.placeholder')"
             disabled
           />
           <option
@@ -50,7 +50,7 @@
       </form>
       <template #fallback>
         <div class="no-results">
-          <p>{{ translate('component.ibanCheck.noSubsidies') }}</p>
+          <p>{{ t('component.ibanCheck.noSubsidies') }}</p>
         </div>
       </template>
     </AppSuspense>
@@ -59,14 +59,14 @@
       class="iban-check-results-table"
       v-bind="{ data, error, isFetching }"
     >
-      <h4>{{ translate('component.ibanCheck.results') }}</h4>
+      <h4>{{ t('component.ibanCheck.results') }}</h4>
       <IbanCheckTable
         v-if="data.length > 0"
         :data="data"
       />
       <template #fallback>
         <div class="no-results">
-          <p>{{ translate('component.ibanCheck.noResults') }}</p>
+          <p>{{ t('component.ibanCheck.noResults') }}</p>
         </div>
       </template>
     </AppSuspense>
@@ -80,19 +80,21 @@
           name="chevron-left"
           :aria-hidden="true"
         />
-        {{ translate('component.ibanCheck.overview') }}
+        {{ t('component.ibanCheck.overview') }}
       </RouterLink>
       <AppButton
         :disabled="isFetching || !selectedId"
         @click="onClickRetry"
       >
-        {{ translate('component.ibanCheck.retry') }}
+        {{ t('component.ibanCheck.retry') }}
       </AppButton>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 import { useFetchIbanCheck } from '@assessment/composables/useFetchIbanCheck'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -103,8 +105,7 @@ import IbanCheckTable from '@assessment/components/IbanCheckTable/IbanCheckTable
 
 import { CHECKS_OVERVIEW } from '@assessment/router/names'
 
-import { translate } from '@shared/i18n'
-
+const { t } = useI18n()
 const {
   data,
   error,

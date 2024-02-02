@@ -32,9 +32,12 @@
 
 <script setup lang="ts">
 import type { DescriptionListItem } from '@shared/types/details'
+
 import { useI18n } from 'vue-i18n'
-import { formatDate } from '@shared/utils/date'
+
 import AppFileLink from '@shared/components/AppFileLink/AppFileLink.vue'
+
+import { formatDate } from '@shared/utils/date'
 
 type Props = {
   items: DescriptionListItem[]
@@ -42,7 +45,7 @@ type Props = {
 
 defineProps<Props>()
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 </script>
 
 <style lang="scss" scoped>

@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 type Props = {
   required: boolean | undefined
@@ -18,11 +18,13 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
+
 const text = computed<string | undefined>(() => {
   const type = props.required ? 'required' : 'optional'
-  return translate(`form.fields.error.${type}`, {
-    field: props.label ?? translate('form.fields.error.field') ?? ''
-  })
+  const field = props.label ?? t('form.fields.error.field')
+
+  return t(`form.fields.error.${type}`, { field })
 })
 </script>
 

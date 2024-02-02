@@ -8,7 +8,7 @@
       <FormNotification
         v-else
         displayAs="explanation"
-        :message="`${translate('component.formResultsTable.noData')}`"
+        :message="t('component.formResultsTable.noData')"
       />
     </FormRow>
   </div>
@@ -24,11 +24,11 @@ import {
 import type { FileType, FormData } from '@shared/types/form'
 
 import { defineComponent } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
 import { useForms } from '@shared/composables/form/useForms'
-import { translate } from '@shared/i18n'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
@@ -151,11 +151,12 @@ export default defineComponent({
     const { formData } = useForms()
     const jsonFormsControl = useJsonFormsControl(props)
     const vanillaControl = useVanillaControl(jsonFormsControl)
+    const { t } = useI18n()
 
     return {
       ...vanillaControl,
       formData,
-      translate
+      t
     }
   }
 })

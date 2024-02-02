@@ -1,15 +1,15 @@
 import type { HeadObject, UseHeadInput } from '@vueuse/head'
 
 import { useHead } from '@vueuse/head'
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 export function useSEO(customHead: HeadObject) {
   const defaultHead = {
-    title: translate('app.prefix'),
+    title: t('app.prefix'),
     meta: [
       {
         name: 'description',
-        content: translate('app.description')
+        content: t('app.description')
       }
     ]
   }

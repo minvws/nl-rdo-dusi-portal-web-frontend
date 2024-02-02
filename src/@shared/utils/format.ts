@@ -1,10 +1,10 @@
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { MY_MESSAGE_DETAILS } from '@portal/router/names'
 
 export const formatFile = (path = '') => {
   const file = path.split('\\')
-  return file[file.length - 1] || translate('form.component.fileInput.chooseFile')
+  return file[file.length - 1] || t('form.component.fileInput.chooseFile')
 }
 
 export const formatFileSize = (bytes: number, decimals = 2) => {

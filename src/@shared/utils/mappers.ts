@@ -1,4 +1,4 @@
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { RequestStatus as Status } from '@shared/types/request'
 
@@ -9,7 +9,7 @@ import { REVIEW_CASE } from '@assessment/router/names'
 function transformRequestStatus(id: string) {
   return Object.values(Status).reduce(
     (cul, key) => {
-      const value = translate(`requestStatus.${id}.${key}`) ?? ''
+      const value = t(`requestStatus.${id}.${key}`) ?? ''
       return { ...cul, [key]: value }
     },
     {} as Record<string, string>
@@ -19,7 +19,7 @@ function transformRequestStatus(id: string) {
 function transfromReviewerActions() {
   return Object.values(ReviewerAction).reduce(
     (cul, key) => {
-      const value = translate(`reviewerAction.${key}`) ?? ''
+      const value = t(`reviewerAction.${key}`) ?? ''
       return { ...cul, [key]: value }
     },
     {} as Record<string, string>

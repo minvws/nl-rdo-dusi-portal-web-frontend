@@ -71,8 +71,7 @@ import type { FormData } from '@shared/types/form'
 
 import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
-
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchCase } from '@assessment/composables/useFetchCase'
 import { useSubmitCase } from '@assessment/composables/useSubmitCase'
@@ -91,11 +90,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const router = useRouter()
-
-useSEO({ title: `${translate('pages.review-case.title')} | ${translate('app.prefix')}` })
-
 const { onSubmitDraft, locked } = useSubmitCase()
+
+useSEO({ title: `${t('pages.review-case.title')} | ${t('app.prefix')}` })
 
 const formViewOptions = computed<Record<string, boolean | undefined>>(() => ({
   hideDebug: true,
@@ -145,9 +144,7 @@ watch(
   reference => {
     if (!reference) return
 
-    const title = `${reference} - ${translate('pages.review-case.title')} | ${translate(
-      'app.prefix'
-    )}`
+    const title = `${reference} - ${t('pages.review-case.title')} | ${t('app.prefix')}`
 
     window.document.title = title
   },

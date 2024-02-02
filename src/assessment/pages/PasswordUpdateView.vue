@@ -1,14 +1,14 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.update-password.title') }}</h1>
+      <h1>{{ t('pages.update-password.title') }}</h1>
     </div>
     <div>
       <p>
-        {{ translate('pages.update-password.intro') }}
+        {{ t('pages.update-password.intro') }}
       </p>
       <p>
-        {{ translate('pages.update-password.requirements') }}
+        {{ t('pages.update-password.requirements') }}
       </p>
     </div>
     <div>
@@ -17,7 +17,7 @@
           id: 'password-update',
           forms,
           hideDebug: true,
-          buttonLabels: { submit: translate('pages.update-password.submit') }
+          buttonLabels: { submit: t('pages.update-password.submit') }
         }"
         @submit="onSubmit"
       />
@@ -26,16 +26,17 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { usePasswordUpdate } from '@assessment/composables/usePasswordUpdate'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-useSEO({ title: `${translate('pages.update-password.title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const { forms, onSubmit } = usePasswordUpdate()
+
+useSEO({ title: `${t('pages.update-password.title')} | ${t('app.prefix')}` })
 </script>
 
 <style lang="scss" scoped>

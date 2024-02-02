@@ -3,7 +3,7 @@ import { passWordPlaceholder as placeholder } from '@shared/fixtures/form/data/p
 
 import { computed } from 'vue'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
@@ -31,7 +31,7 @@ export const usePasswordUpdate = () => {
       {
         type: 'CustomControl',
         scope: '#/properties/password',
-        label: translate('component.passwordUpdate.newPassword'),
+        label: t('component.passwordUpdate.newPassword'),
         options: {
           placeholder
         }
@@ -39,7 +39,7 @@ export const usePasswordUpdate = () => {
       {
         type: 'CustomControl',
         scope: '#/properties/passwordConfirmation',
-        label: translate('component.passwordUpdate.passwordConfirmation'),
+        label: t('component.passwordUpdate.passwordConfirmation'),
         options: {
           placeholder
         }
@@ -50,7 +50,7 @@ export const usePasswordUpdate = () => {
       elements.unshift({
         type: 'CustomControl',
         scope: '#/properties/currentPassword',
-        label: translate('component.passwordUpdate.currentPassword'),
+        label: t('component.passwordUpdate.currentPassword'),
         options: {
           placeholder
         }
@@ -66,18 +66,18 @@ export const usePasswordUpdate = () => {
         properties: {
           currentPassword: {
             type: 'string',
-            title: translate('component.passwordUpdate.currentPassword'),
+            title: t('component.passwordUpdate.currentPassword'),
             format: 'password'
           },
           password: {
             type: 'string',
-            title: translate('component.passwordUpdate.newPassword'),
+            title: t('component.passwordUpdate.newPassword'),
             updatePassword: true,
             format: 'password'
           },
           passwordConfirmation: {
             type: 'string',
-            title: translate('component.passwordUpdate.passwordConfirmation'),
+            title: t('component.passwordUpdate.passwordConfirmation'),
             format: 'password',
             updatePassword: true,
             const: {

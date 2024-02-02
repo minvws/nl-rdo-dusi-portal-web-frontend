@@ -22,6 +22,7 @@
 import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useTable } from '@shared/composables/useTable'
 
@@ -29,7 +30,6 @@ import AppPagination from '@shared/components/AppPagination/AppPagination.vue'
 import AppTable from '@shared/components/AppTable/AppTable.vue'
 
 import { hasItems } from '@shared/utils/app-table'
-import { translate } from '@shared/i18n'
 
 type Props = {
   data: any[]
@@ -39,6 +39,7 @@ const props = defineProps<Props>()
 
 const itemsPerPage = 10
 
+const { t } = useI18n()
 const { currentPage, paginatedData, sortingDirection, sortingId, onPageChange, onSortingChange } =
   useTable({
     data: props.data,
@@ -54,7 +55,7 @@ const headings = computed<Column[]>(() => {
   return items.map(({ id, ...item }) => ({
     ...item,
     id,
-    text: translate(`component.ibanCheckColumn.${id}`)
+    text: t(`component.ibanCheckColumn.${id}`)
   }))
 })
 </script>

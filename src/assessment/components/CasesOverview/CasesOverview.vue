@@ -2,8 +2,8 @@
   <section>
     <AppIntro
       v-bind="{
-        title: t('title'),
-        body: t('subtitle')
+        title: t(`pages.${type}-overview.title`),
+        body: t(`pages.${type}-overview.subtitle`)
       }"
     />
     <div class="filter-options-container">
@@ -15,19 +15,27 @@
       >
         <span :class="{ transparent: !filterValues || isFetching }">
           <strong>{{ numberOfCases }}</strong>
-          <span class="count">&nbsp;{{ t('cases', {}, numberOfCases) }}&nbsp;</span>
+          <span class="count"
+            >&nbsp;{{ t(`pages.${type}-overview.cases`, {}, numberOfCases) }}&nbsp;</span
+          >
           <small
             v-if="activeFilterCount"
             class="message"
           >
-            {{ t('activeFilters', { count: activeFilterCount }, activeFilterCount) }}
+            {{
+              t(
+                `pages.${type}-overview.activeFilters`,
+                { count: activeFilterCount },
+                activeFilterCount
+              )
+            }}
           </small>
         </span>
         <AppButton
-          :data-hide-filters-label="t('hideFilters')"
+          :data-hide-filters-label="t(`pages.${type}-overview.hideFilters`)"
           aria-expanded="false"
         >
-          {{ t('showFilters') }}
+          {{ t(`pages.${type}-overview.showFilters`) }}
         </AppButton>
       </FilterOptions>
     </div>
@@ -49,7 +57,7 @@
         @sorting-change="onSortingChange"
       />
       <template #fallback>
-        <p>{{ t('noCases') }}</p>
+        <p>{{ t(`pages.${type}-overview.noCases`) }}</p>
       </template>
     </AppSuspense>
   </section>
@@ -60,7 +68,7 @@ import type { CaseType } from '@shared/types/cases'
 import type { SortItem } from '@shared/types/sort'
 
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 import { useFetchCases } from '@assessment/composables/useFetchCases'
@@ -77,12 +85,10 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const t = (key: string, values?: Record<string, string | number>, count?: number) =>
-  translate(`pages.${props.type}-overview.${key}`, values, count)
-
-useSEO({ title: `${t('title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const { data, paginationMeta, error, isFetching, query } = useFetchCases(props)
+
+useSEO({ title: `${t(`pages.${props.type}-overview.title`)} | ${t('app.prefix')}` })
 
 const numberOfCases = computed<number>(() => paginationMeta.value?.total ?? 0)
 

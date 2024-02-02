@@ -1,11 +1,13 @@
 <template>
   <button class="form-field-add-file-button">
-    {{ translate('form.component.fileInput.addFile') }}
+    {{ t('form.component.fileInput.addFile') }}
   </button>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 </script>
 
 <style lang="scss" scoped>

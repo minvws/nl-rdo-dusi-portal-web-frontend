@@ -24,7 +24,7 @@
             class="modal-content"
             :class="modalTypeClass"
             role="group"
-            :aria-label="translate(`component.modal.aria-label.${modalStore.content.type}`)"
+            :aria-label="t(`component.modal.aria-label.${modalStore.content.type}`)"
             @click.stop
           >
             <div class="modal-content__icon">
@@ -64,13 +64,13 @@
 import { ModalType } from '@shared/types/modal'
 
 import { computed, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useAppModalStore } from '@shared/store/useAppModalStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
-import { translate } from '@shared/i18n'
-
+const { t } = useI18n()
 const modalStore = useAppModalStore()
 
 const title = ref<HTMLHeadingElement>()

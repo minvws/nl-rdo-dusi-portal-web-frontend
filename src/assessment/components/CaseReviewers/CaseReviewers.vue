@@ -2,10 +2,10 @@
   <AppSuspense v-bind="{ data, error, isFetching }">
     <div class="case-reviewers">
       <p>
-        {{ translate('component.caseReviewers.intro') }}
+        {{ t('component.caseReviewers.intro') }}
       </p>
       <p>
-        {{ translate('component.caseReviewers.handledBy') }}
+        {{ t('component.caseReviewers.handledBy') }}
       </p>
       <p>
         <strong>{{ data.name }}</strong>
@@ -15,17 +15,17 @@
         class="ghost"
         @click="onRemove"
       >
-        {{ translate('component.caseReviewers.removeReviewer') }}
+        {{ t('component.caseReviewers.removeReviewer') }}
       </AppButton>
     </div>
     <template #fallback>
-      {{ translate('component.caseReviewers.noReviewers') }}
+      {{ t('component.caseReviewers.noReviewers') }}
     </template>
   </AppSuspense>
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchCaseReviewer } from '@assessment/composables/useFetchCaseReviewer'
 
@@ -38,6 +38,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const { data, error, isFetching } = useFetchCaseReviewer(props.id)
 
 function onRemove() {

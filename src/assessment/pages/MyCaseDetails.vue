@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="status">
-      <h1>{{ translate('pages.my-case-details.title') }}</h1>
+      <h1>{{ t('pages.my-case-details.title') }}</h1>
       <CaseStatus type="new" />
     </div>
     <TabGroup
@@ -19,7 +19,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-case-details.overview') }}
+            {{ t('pages.my-case-details.overview') }}
           </AppButton>
         </Tab>
         <Tab
@@ -30,7 +30,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-case-details.history') }}
+            {{ t('pages.my-case-details.history') }}
           </AppButton>
         </Tab>
         <Tab
@@ -41,7 +41,7 @@
             class="button"
             :class="{ selected }"
           >
-            {{ translate('pages.my-case-details.reviewer') }}
+            {{ t('pages.my-case-details.reviewer') }}
           </AppButton>
         </Tab>
       </TabList>
@@ -61,13 +61,11 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
-
 import { onBeforeMount, ref, watch } from 'vue'
-import { translate } from '@shared/i18n'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
-import { useRouter } from 'vue-router'
 
 import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -82,15 +80,16 @@ import {
   MY_CASE_DETAILS_REVIEWER
 } from '@assessment/router/names'
 
-useSEO({ title: `${translate('pages.my-case-details.title')} | ${translate('app.prefix')}` })
-
 type Props = {
   id: string
 }
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const router = useRouter()
+
+useSEO({ title: `${t('pages.my-case-details.title')} | ${t('app.prefix')}` })
 
 const tabs = [
   { component: CaseOverview, name: MY_CASE_DETAILS },

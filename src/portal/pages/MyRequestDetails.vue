@@ -7,7 +7,7 @@
       }"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
-      <h2>{{ translate('pages.my-request-details.meta') }}</h2>
+      <h2>{{ t('pages.my-request-details.meta') }}</h2>
       <DescriptionList :items="metaData" />
       <RequestDetailsForm
         :id="data.form.id"
@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchRequestDetails } from '@portal/composables/useFetchRequestDetails'
 import { useSEO } from '@shared/composables/useSeo'
@@ -36,15 +36,16 @@ type Props = {
 
 const props = defineProps<Props>()
 
-useSEO({
-  title: `${translate('pages.my-request-details.title')} | ${translate('app.prefix')}`
-})
-
+const { t } = useI18n()
 const { data, error, isFetching, values } = useFetchRequestDetails(props.reference)
+
+useSEO({
+  title: `${t('pages.my-request-details.title')} | ${t('app.prefix')}`
+})
 
 const title = computed<string | undefined>(() => {
   const title = data.value?.subsidy?.title
-  return title ? translate('pages.my-request-details.heading', { title }) : undefined
+  return title ? t('pages.my-request-details.heading', { title }) : undefined
 })
 
 const metaData = computed(() => {
@@ -52,21 +53,21 @@ const metaData = computed(() => {
   return [
     {
       ...(reference && {
-        term: translate('pages.my-request-details.reference'),
+        term: t('pages.my-request-details.reference'),
         type: 'string',
         text: reference
       })
     },
     {
       ...(submittedAt && {
-        term: translate('pages.my-request-details.submittedAt'),
+        term: t('pages.my-request-details.submittedAt'),
         type: 'date',
         text: submittedAt
       })
     },
     {
       ...(deadlineForResponseAt && {
-        term: translate('pages.my-request-details.deadline'),
+        term: t('pages.my-request-details.deadline'),
         type: 'date',
         text: deadlineForResponseAt
       })

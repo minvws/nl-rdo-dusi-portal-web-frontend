@@ -18,7 +18,7 @@
         @click="onRemoveFile"
       >
         <span class="visually-hidden">
-          {{ translate('component.formFieldRemoveFile.remove') }}
+          {{ t('component.formFieldRemoveFile.remove') }}
         </span>
         <AppIcon name="close" />
       </AppButton>
@@ -30,6 +30,7 @@
 import type { FileType } from '@shared/types/form'
 
 import { computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
 
@@ -38,8 +39,6 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 
 import { getControlId } from '@shared/utils/control'
-
-import { translate } from '@shared/i18n'
 
 type Props = {
   handleChange?: (_path: string, _value: any) => void
@@ -56,6 +55,7 @@ const props = defineProps<Props>()
 
 const emit = defineEmits(['blur'])
 
+const { t } = useI18n()
 const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
 
 const file = computed<FileType | undefined>(() => props.files?.[props.index])

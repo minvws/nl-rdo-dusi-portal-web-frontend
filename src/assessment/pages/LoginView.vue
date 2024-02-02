@@ -1,7 +1,7 @@
 <template>
   <section>
     <div>
-      <h1>{{ translate('pages.login.title') }}</h1>
+      <h1>{{ t('pages.login.title') }}</h1>
     </div>
     <div>
       <FormView
@@ -9,7 +9,7 @@
           id: 'login',
           forms,
           hideDebug: true,
-          buttonLabels: { submit: translate('pages.login.submit') }
+          buttonLabels: { submit: t('pages.login.submit') }
         }"
         @submit="onSubmit"
       />
@@ -18,16 +18,17 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n'
+
 import { useSEO } from '@shared/composables/useSeo'
 import { usePasswordLogin } from '@assessment/composables/usePasswordLogin'
 
 import FormView from '@shared/components/FormView/FormView.vue'
 
-import { translate } from '@shared/i18n'
-
-useSEO({ title: `${translate('pages.login.title')} | ${translate('app.prefix')}` })
-
+const { t } = useI18n()
 const { forms, onSubmit } = usePasswordLogin()
+
+useSEO({ title: `${t('pages.login.title')} | ${t('app.prefix')}` })
 </script>
 
 <style lang="scss" scoped>

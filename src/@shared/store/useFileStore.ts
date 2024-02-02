@@ -8,7 +8,7 @@ import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
 import { useEncryption } from '@shared/composables/useEncryption'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
 import type { FileType } from '../types/form'
@@ -99,7 +99,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     } catch (errorResponse) {
       log(errorResponse)
       if (!errorResponse || !error) return
-      error.value = translate('form.fields.error.upload') ?? ''
+      error.value = t('form.fields.error.upload') ?? ''
       return undefined
     }
   }

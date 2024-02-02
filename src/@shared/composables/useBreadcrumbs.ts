@@ -3,7 +3,7 @@ import type { Link } from '@shared/types/link'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 export const useBreadcrumbs = () => {
   const route = useRoute()
@@ -20,20 +20,20 @@ export const useBreadcrumbs = () => {
     route.matched.forEach(({ name }) => {
       if (!name) return
       const linkName = name as string
-      const label = translate(`pages.${linkName}.title`)
+      const label = t(`pages.${linkName}.title`)
 
       // do not show breadcrumb when page does not have a label
       if (!label) return
 
       links.push({
         name: linkName,
-        label: translate(`pages.${linkName}.title`)
+        label: t(`pages.${linkName}.title`)
       })
     })
 
     links.unshift({
       name: '',
-      label: translate('app.name')
+      label: t('app.name')
     })
 
     if (links.length <= 1) return []

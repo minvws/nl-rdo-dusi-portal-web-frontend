@@ -10,10 +10,11 @@ import { useApiAssignCaseAssessorUrl } from '@assessment/composables/useApiUrl'
 
 import { REFRESH, HOME } from '@assessment/router/names'
 
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 import { log } from '@shared/utils/logger'
 
 export const useAssignCaseAssessor = () => {
+  const { t } = useI18n()
   const router = useRouter()
   const { closeModal } = useAppModalStore()
   const notificationsStore = useNotificationsStore()
@@ -36,8 +37,8 @@ export const useAssignCaseAssessor = () => {
         notificationsStore.add({
           id: 'assign-case-assessor-success',
           displayAs: NotificationType.CONFIRMATION,
-          label: translate('notification.assign-case-assessor-success.label') ?? '',
-          message: translate('notification.assign-case-assessor-success.message') ?? '',
+          label: t('notification.assign-case-assessor-success.label') ?? '',
+          message: t('notification.assign-case-assessor-success.message') ?? '',
           pageChangeCount: 2
         })
       }
@@ -49,8 +50,8 @@ export const useAssignCaseAssessor = () => {
       notificationsStore.add({
         id: 'assign-case-assessor-error',
         displayAs: NotificationType.ERROR,
-        label: translate('notification.assign-case-assessor-error.label') ?? '',
-        message: translate('notification.assign-case-assessor-error.message') ?? '',
+        label: t('notification.assign-case-assessor-error.label') ?? '',
+        message: t('notification.assign-case-assessor-error.message') ?? '',
         pageChangeCount: 1
       })
 

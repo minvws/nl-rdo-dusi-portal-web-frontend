@@ -22,7 +22,7 @@ import { formatPayloadFromCamelCaseToSnakeCase } from '@shared/utils/format'
 import { getSessionCookie } from '@shared/utils/session-cookie'
 import { log } from '@shared/utils/logger'
 
-import { translate } from '@shared/i18n'
+import { t } from '@shared/i18n'
 
 import {
   CHECKS_OVERVIEW,
@@ -264,8 +264,8 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     notificationsStore.add({
       id: 'login-message',
       displayAs: type,
-      label: translate(`authentication.${id}.label`, props) ?? '',
-      message: translate(`authentication.${id}.message`, props) ?? '',
+      label: t(`authentication.${id}.label`, props) ?? '',
+      message: t(`authentication.${id}.message`, props) ?? '',
       pageChangeCount: type === NotificationType.CONFIRMATION ? 2 : 1
     })
   }

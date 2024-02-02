@@ -1,8 +1,8 @@
 <template>
   <div class="data-export">
     <div>
-      <h1>{{ translate('component.dataExport.title') }}</h1>
-      <p>{{ translate('component.dataExport.intro') }}</p>
+      <h1>{{ t('component.dataExport.title') }}</h1>
+      <p>{{ t('component.dataExport.intro') }}</p>
     </div>
     <div class="data-export__form">
       <form @submit.prevent.stop>
@@ -12,10 +12,10 @@
           :message="notificationMessage"
         />
         <fieldset class="group">
-          <legend class="group-label">{{ translate('component.dataExport.filter') }}</legend>
+          <legend class="group-label">{{ t('component.dataExport.filter') }}</legend>
           <div class="horizontal-layout">
             <div class="horizontal-layout-item">
-              <label for="from">{{ translate('component.dataExport.from') }}</label>
+              <label for="from">{{ t('component.dataExport.from') }}</label>
               <!-- The 'pattern' attribute is added because some browsers fallback to type='text'. Otherwise it will just be ignored. -->
               <input
                 type="date"
@@ -29,7 +29,7 @@
               />
             </div>
             <div class="horizontal-layout-item">
-              <label for="up-to-and-including">{{ translate('component.dataExport.to') }}</label>
+              <label for="up-to-and-including">{{ t('component.dataExport.to') }}</label>
               <!-- The 'pattern' attribute is added because some browsers fallback to type='text'. Otherwise it will just be ignored. -->
               <input
                 type="date"
@@ -52,7 +52,7 @@
       :disabled="hasInvalidDates"
       @click="onClickDownload"
     >
-      {{ translate('component.dataExport.download') }}
+      {{ t('component.dataExport.download') }}
     </AppButton>
   </div>
 </template>
@@ -62,6 +62,7 @@ import type { DateLike } from '@vueuse/core'
 import { NotificationType } from '@shared/types/notification'
 
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
@@ -71,14 +72,13 @@ import { useApiDataExportUrl } from '@assessment/composables/useApiUrl'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-import { translate } from '@shared/i18n'
-
 // Fixed timestamp values
 const DAY = 60 * 60 * 24 * 1000
 const TODAY = new Date().toISOString().split('T')[0]
 const YESTERDAY = new Date(Date.now() - DAY)
 const MIN_START_DATE = new Date('2023-01-01').toISOString().split('T')[0]
 
+const { t } = useI18n()
 const notificationsStore = useNotificationsStore()
 
 const isFocussed = ref(false)
@@ -138,15 +138,15 @@ const showNotification = computed<boolean>(() =>
 
 const notificationMessage = computed<string>(() => {
   if (startDateToEarly.value) {
-    return translate('component.dataExport.startDateToEarly') ?? ''
+    return t('component.dataExport.startDateToEarly')
   }
 
   if (startDateAfterEndDate.value) {
-    return translate('component.dataExport.startDateAfterEndDate') ?? ''
+    return t('component.dataExport.startDateAfterEndDate')
   }
 
   if (endDateInFuture.value) {
-    return translate('component.dataExport.endDateInFuture') ?? ''
+    return t('component.dataExport.endDateInFuture')
   }
 
   return ''
@@ -184,8 +184,8 @@ async function onClickDownload() {
       notificationsStore.add({
         id: 'data-export-error',
         displayAs: NotificationType.ERROR,
-        label: translate('notification.data-export-error.label') ?? '',
-        message: translate('notification.data-export-error.message') ?? '',
+        label: t('notification.data-export-error.label'),
+        message: t('notification.data-export-error.message'),
         pageChangeCount: 1
       })
     }
@@ -194,8 +194,8 @@ async function onClickDownload() {
       notificationsStore.add({
         id: 'data-export-success',
         displayAs: NotificationType.CONFIRMATION,
-        label: translate('notification.data-export-success.label') ?? '',
-        message: translate('notification.data-export-success.message') ?? '',
+        label: t('notification.data-export-success.label'),
+        message: t('notification.data-export-success.message'),
         pageChangeCount: 1
       })
 
@@ -214,8 +214,8 @@ async function onClickDownload() {
     notificationsStore.add({
       id: 'data-export-error',
       displayAs: NotificationType.ERROR,
-      label: translate('notification.data-export-error.label') ?? '',
-      message: translate('notification.data-export-error.message') ?? '',
+      label: t('notification.data-export-error.label'),
+      message: t('notification.data-export-error.message'),
       pageChangeCount: 1
     })
   }

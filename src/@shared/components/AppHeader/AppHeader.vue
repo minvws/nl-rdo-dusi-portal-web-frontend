@@ -5,7 +5,7 @@
       data-open-label="Menu"
       data-close-label="Sluit menu"
       data-media="(min-width: 50rem)"
-      :aria-label="translate('component.header.nav.aria-label')"
+      :aria-label="t('component.header.nav.aria-label')"
       class="collapsible"
       v-collapsible
     >
@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { translate } from '@shared/i18n'
+import { useI18n } from 'vue-i18n'
 
 import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
@@ -71,6 +71,7 @@ import NavLink from '@shared/components/NavLink/NavLink.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
 
+const { t } = useI18n()
 const { breadcrumbs } = useBreadcrumbs()
 const { leftLinks, rightLinks, AuthComponent } = await useAppHeaderLinks()
 </script>

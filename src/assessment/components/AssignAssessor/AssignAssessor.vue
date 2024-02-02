@@ -4,14 +4,14 @@
       <label
         for="autocomplete"
         class="visually-hidden"
-        >{{ translate('component.assignAssessor.label') }}</label
+        >{{ t('component.assignAssessor.label') }}</label
       >
       <input
         type="search"
         autocomplete="off"
         id="autocomplete"
         v-model="searchQuery"
-        :placeholder="translate('component.assignAssessor.placeholder')"
+        :placeholder="t('component.assignAssessor.placeholder')"
       />
       <AppIcon name="search" />
     </div>
@@ -35,20 +35,20 @@
       </li>
       <template #fallback>
         <p class="de-emphasized">
-          {{ translate('component.assignAssessor.noResults', { query: searchQuery }) }}
+          {{ t('component.assignAssessor.noResults', { query: searchQuery }) }}
         </p>
       </template>
     </AppSuspense>
     <div>
       <p v-if="selectedResult">
-        {{ translate('component.assignAssessor.result') }}
+        {{ t('component.assignAssessor.result') }}
         <strong>{{ selectedResult.name }}</strong>
       </p>
       <p
         v-else
         class="de-emphasized"
       >
-        {{ translate('component.assignAssessor.noSelection') }}
+        {{ t('component.assignAssessor.noSelection') }}
       </p>
     </div>
     <AppButton
@@ -57,13 +57,14 @@
       @click="submit"
       :disabled="isDisabled"
     >
-      {{ translate('component.assignAssessor.assign') }}
+      {{ t('component.assignAssessor.assign') }}
     </AppButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 import { useFetchAssessors } from '@assessment/composables/useFetchAssessors'
 import { useAssignCaseAssessor } from '@assessment/composables/useAssignCaseAssessor'
@@ -71,8 +72,6 @@ import { useAssignCaseAssessor } from '@assessment/composables/useAssignCaseAsse
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
-
-import { translate } from '@shared/i18n'
 
 defineEmits(['select', 'update:modelValue'])
 
@@ -84,6 +83,7 @@ const props = defineProps<Props>()
 
 const selectedIndex = ref<number>(-1)
 
+const { t } = useI18n()
 const { data, error, isFetching, searchQuery } = useFetchAssessors(props.id)
 const { onSubmitCaseAssessor } = useAssignCaseAssessor()
 

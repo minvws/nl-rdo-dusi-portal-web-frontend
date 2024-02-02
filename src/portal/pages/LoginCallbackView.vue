@@ -8,6 +8,7 @@ import type { AuthErrorType } from '@shared/types/auth'
 
 import { onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
@@ -16,10 +17,9 @@ import { getRouteFromCookie } from '@shared/utils/route-cookie'
 
 import { HOME } from '@shared/router/names'
 
-import { translate } from '@shared/i18n'
-
 import { AuthError, AuthMinimumLoaQuery } from '@shared/types/auth'
 
+const { t } = useI18n()
 const authStore = useAuthStore()
 const notificationsStore = useNotificationsStore()
 const route = useRoute()
@@ -43,7 +43,7 @@ function getErrorParams(error: AuthErrorType, query: LocationQuery) {
     if (!value) return cul
     return {
       ...cul,
-      [key]: translate(`authentication.loa.types.${value}`)
+      [key]: t(`authentication.loa.types.${value}`)
     }
   }, {})
 }
@@ -69,8 +69,8 @@ onBeforeMount(async () => {
     notificationsStore.add({
       id: 'login-error',
       displayAs: 'error',
-      label: translate(`authentication.${code}.label`, authError) ?? '',
-      message: translate(`authentication.${code}.message`, authError) ?? ''
+      label: t(`authentication.${code}.label`, authError),
+      message: t(`authentication.${code}.message`, authError)
     })
     await authStore.logOut()
   } else {
