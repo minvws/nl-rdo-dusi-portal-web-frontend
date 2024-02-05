@@ -9,6 +9,7 @@ import { t } from '@shared/i18n'
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
+import ProfileButton from '@assessment/components/ProfileButton/ProfileButton.vue'
 
 import {
   ALL_CASES_OVERVIEW,
@@ -92,6 +93,7 @@ export const useAppHeaderLinks = () => {
   return {
     leftLinks,
     rightLinks,
-    AuthComponent: AuthenticationButton
+    AuthComponent: AuthenticationButton,
+    UserComponent: ProfileButton
   }
 }

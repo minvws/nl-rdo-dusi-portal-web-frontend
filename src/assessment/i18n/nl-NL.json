@@ -297,6 +297,26 @@
       "intro": "Vul uw nieuwe wachtwoord in en herhaal ter controle uw nieuwe wachtwoord.",
       "requirements": "Wachtwoord moet minimaal 12 tekens bevatten waarvan minimaal 1 hoofdletter, 1 kleineletter, 1 cijfer en 1 speciaalteken.",
       "submit": "Verzenden"
+    },
+    "profile": {
+      "title": "Accountgegevens",
+      "intro": "Het overzicht van uw accountgegevens",
+      "information": "Persoonlijke informatie",
+      "roles": "Rollen",
+      "role": "Rol",
+      "actions": "Acties",
+      "name": "Naam",
+      "email": "E-mailadres",
+      "organisation": "Organisatie",
+      "updatePassword": "Account wachtwoord wijzigen",
+      "roleTypes": {
+        "userAdmin": "Gebruikersbeheerder",
+        "assessor": "Beoordelaar",
+        "implementationCoordinator": "Uitvoeringscoördinator",
+        "internalAuditor": "Interne controleur",
+        "dataExporter": "Data exporteur",
+        "legalSpecialist": "Juridisch medewerker"
+      }
     }
   },
   "reviewerAction": {

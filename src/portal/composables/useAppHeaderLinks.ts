@@ -39,6 +39,7 @@ export const useAppHeaderLinks = () => {
   return {
     leftLinks,
     rightLinks,
-    AuthComponent: AuthenticationButton
+    AuthComponent: AuthenticationButton,
+    UserComponent: null
   }
 }

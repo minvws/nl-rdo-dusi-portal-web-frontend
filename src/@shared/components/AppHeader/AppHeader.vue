@@ -42,7 +42,10 @@
             </NavLink>
           </li>
         </ul>
-        <ul v-if="AuthComponent">
+        <ul v-if="AuthComponent || UserComponent">
+          <li>
+            <component :is="UserComponent" />
+          </li>
           <li>
             <component :is="AuthComponent" />
           </li>
@@ -73,7 +76,7 @@ import vCollapsible from '@shared/directives/collapsible'
 
 const { t } = useI18n()
 const { breadcrumbs } = useBreadcrumbs()
-const { leftLinks, rightLinks, AuthComponent } = await useAppHeaderLinks()
+const { leftLinks, rightLinks, AuthComponent, UserComponent } = await useAppHeaderLinks()
 </script>
 
 <style lang="scss" scoped>

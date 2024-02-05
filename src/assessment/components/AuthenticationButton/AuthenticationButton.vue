@@ -1,12 +1,14 @@
 <template>
   <AppButton
     v-if="isLoggedIn"
+    class="authentication-button"
     @click="logOut"
   >
     {{ t('component.header.logout') }}
   </AppButton>
   <RouterLink
     v-else
+    class="authentication-button"
     :to="{ name: LOGIN_VIEW }"
   >
     {{ t('component.header.login') }}
@@ -31,3 +33,24 @@ function logOut() {
   authStore.logOut()
 }
 </script>
+
+<style lang="scss" scoped>
+.authentication-button {
+  --header-navigation-button-justify-content: flex-start;
+  --header-navigation-collapsible-collapsing-element-list-item-button-width: 100%;
+  --header-navigation-collapsible-collapsing-element-list-item-button-padding-left: var(
+    --header-navigation-collapsible-list-item-link-padding-left
+  );
+  --header-navigation-collapsible-collapsing-element-list-item-button-padding-right: var(
+    --header-navigation-collapsible-list-item-link-padding-right
+  );
+  --header-navigation-button-min-height: 48px;
+
+  @include desktop {
+    --header-navigation-button-min-height: 64px;
+    --header-navigation-button-padding-right: 0.5rem;
+    --header-navigation-button-padding-left: 0.5rem;
+    --header-navigation-collapsible-collapsing-element-list-item-button-border-width: 0;
+  }
+}
+</style>

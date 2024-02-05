@@ -8,6 +8,7 @@ import MyCasesView from '@assessment/pages/MyCasesView.vue'
 import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
 import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
 import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
+import ProfileView from '@assessment/pages/ProfileView.vue'
 import RefreshView from '@assessment/pages/RefreshView.vue'
 import ReportDetails from '@assessment/pages/ReportDetails.vue'
 import ReportsView from '@assessment/pages/ReportsView.vue'
@@ -26,8 +27,9 @@ import {
   MY_CASE_DETAILS,
   MY_CASES_OVERVIEW,
   PASSWORD_UPDATE_VIEW,
-  PASSWORDS_RESET,
+  PASSWORD_RESET_VIEW,
   PREVIEW_CASE_SUBMIT,
+  PROFILE_VIEW,
   REFRESH,
   REPORT_DETAILS,
   REPORTS_OVERVIEW,
@@ -121,6 +123,11 @@ const routes = [
     }
   },
   {
+    path: '/profiel',
+    name: PROFILE_VIEW,
+    component: ProfileView
+  },
+  {
     path: '/wachtwoord-wijzigen',
     name: PASSWORD_UPDATE_VIEW,
     component: PasswordUpdateView
@@ -135,7 +142,7 @@ const routes = [
   },
   {
     path: '/wachtwoord-reset',
-    name: PASSWORDS_RESET,
+    name: PASSWORD_RESET_VIEW,
     component: PasswordResetView,
     meta: {
       public: true

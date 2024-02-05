@@ -87,6 +87,7 @@
       },
       "login": "Inloggen",
       "logout": "Uitloggen",
+      "loggedInAs": "Ingelogd als",
       "nav": {
         "aria-label": "Hoofdnavigatie"
       }

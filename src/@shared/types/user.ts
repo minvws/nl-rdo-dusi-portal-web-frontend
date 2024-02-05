@@ -22,7 +22,7 @@ export type UserRoleType = (typeof UserRoles)[keyof typeof UserRoles]
 export type UserRole = {
   name: UserRoleType
   subsidy: {
-    id: string,
+    id: string
     title: string
   }
   viewAllStages: boolean
