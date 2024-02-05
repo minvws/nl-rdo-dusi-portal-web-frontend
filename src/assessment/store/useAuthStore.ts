@@ -325,6 +325,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     setHomeRoute,
     twoFactorChallenge,
     updatePassword,
+    user,
     verifyRouteForUserRole
   }
 })
