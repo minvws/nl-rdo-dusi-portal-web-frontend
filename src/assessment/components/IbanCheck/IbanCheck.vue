@@ -32,6 +32,7 @@
         <label for="available-subsidies">{{ t('component.ibanCheck.label') }}</label>
         <select
           id="available-subsidies"
+          aria-controls="iban-check-info"
           v-model="selectedId"
         >
           <option
@@ -48,6 +49,18 @@
           </option>
         </select>
       </form>
+      <div
+        id="iban-check-info"
+        class="visually-hidden"
+        role="region"
+        aria-live="polite"
+        aria-atomic="true"
+      >
+        <p v-if="selectedSubsidy">
+          {{ t('component.ibanCheck.ariaResults', { subsidy: selectedSubsidy.title }) }}
+        </p>
+        <p v-else>{{ t('component.ibanCheck.ariaNoResults') }}</p>
+      </div>
       <template #fallback>
         <div class="no-results">
           <p>{{ t('component.ibanCheck.noSubsidies') }}</p>
@@ -93,6 +106,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useFetchIbanCheck } from '@assessment/composables/useFetchIbanCheck'
@@ -116,6 +130,10 @@ const {
   isFetchingSubsidies,
   execute
 } = useFetchIbanCheck()
+
+const selectedSubsidy = computed<Record<string, string> | undefined>(() =>
+  subsidies.value.find((subsidy: Record<string, string>) => subsidy.id === selectedId.value)
+)
 
 function onClickRetry() {
   execute()
