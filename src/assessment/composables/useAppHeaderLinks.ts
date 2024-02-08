@@ -1,15 +1,18 @@
 import type { Link } from '@shared/types/link'
+import type { UserRoleType } from '@shared/types/user'
+
 import { UserRoles } from '@shared/types/user'
 
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-
-import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
 import AuthenticationButton from '@assessment/components/AuthenticationButton/AuthenticationButton.vue'
 import ProfileButton from '@assessment/components/ProfileButton/ProfileButton.vue'
+
+import { t } from '@shared/i18n'
+import { log } from '@shared/utils/logger'
 
 import {
   ALL_CASES_OVERVIEW,
@@ -46,49 +49,50 @@ const DATA_EXPORTER_ROUTES: Link[] = [
 
 export const useAppHeaderLinks = () => {
   const authStore = useAuthStore()
-  const { isLoggedIn } = storeToRefs(authStore)
-  const leftLinks: Link[] = []
 
-  const isImplementationCoordinator = computed<boolean>(() =>
-    authStore.checkUserRights([UserRoles.IMPLEMENTATION_COORDINATOR])
-  )
+  const { isLoggedIn, user } = storeToRefs(authStore)
 
-  const isAssessor = computed<boolean>(() => authStore.checkUserRights([UserRoles.ASSESSOR]))
-
-  const isInternalAuditor = computed<boolean>(() =>
-    authStore.checkUserRights([UserRoles.INTERNAL_AUDITOR])
-  )
-
-  const isDataExporter = computed<boolean>(() =>
-    authStore.checkUserRights([UserRoles.DATA_EXPORTER])
-  )
-
-  const isLegalSpecialist = computed<boolean>(() =>
-    authStore.checkUserRights([UserRoles.LEGALS_PECIALIST])
-  )
+  const leftLinks = ref<Link[]>([])
 
   const rightLinks = computed<Link[]>(() => {
+    const routes = matchRoutesByRole()
+    return [...new Set(routes)]
+  })
+
+  function matchRoutesByRole(): Link[] {
     const routes: Link[] = []
 
-    if (!isLoggedIn.value) {
+    if (!isLoggedIn.value || !user.value) {
       return routes
     }
 
-    if (isImplementationCoordinator.value || isAssessor.value || isLegalSpecialist.value) {
-      routes.push(...DEFAULT_ROUTES)
-    }
+    for (const role of user.value.roles) {
+      const name: UserRoleType = role.name
 
-    if (isInternalAuditor.value) {
-      routes.push(...DEFAULT_ROUTES)
-      routes.push(...AUDITOR_ROUTES)
-    }
-
-    if (isDataExporter.value) {
-      routes.push(...DATA_EXPORTER_ROUTES)
+      switch (name) {
+        case UserRoles.IMPLEMENTATION_COORDINATOR:
+        case UserRoles.ASSESSOR:
+        case UserRoles.LEGALS_PECIALIST: {
+          routes.push(...DEFAULT_ROUTES)
+          break
+        }
+        case UserRoles.INTERNAL_AUDITOR: {
+          routes.push(...DEFAULT_ROUTES)
+          routes.push(...AUDITOR_ROUTES)
+          break
+        }
+        case UserRoles.DATA_EXPORTER: {
+          routes.push(...DATA_EXPORTER_ROUTES)
+          break
+        }
+        default: {
+          log(`Unknown role: ${name}`)
+        }
+      }
     }
 
     return routes
-  })
+  }
 
   return {
     leftLinks,

@@ -1,7 +1,7 @@
 import type { NotificationDisplayType } from '@shared/types/notification'
 import type { RouteRecordName } from 'vue-router'
 import type { TwoFactorResponse } from '@shared/types/api-response'
-import type { User, UserRoleType } from '@shared/types/user'
+import type { User } from '@shared/types/user'
 import type { UserRole } from '@shared/types/user'
 
 import { NotificationType } from '@shared/types/notification'
@@ -61,10 +61,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   const userRoles = computed<UserRole[]>(() => user.value?.roles ?? [])
   const isPasswordExpired = computed<boolean>(() => Boolean(user.value?.passwordExpired))
-
-  function checkUserRights(roleTypes: UserRoleType[]) {
-    return userRoles.value.some(role => roleTypes.includes(role.name))
-  }
 
   async function getUserInfo(routeName?: RouteName) {
     const session = getSessionCookie()
@@ -312,7 +308,6 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   return {
     canVisitRoute,
-    checkUserRights,
     forgotPassword,
     getUserInfo,
     homeRoute,
