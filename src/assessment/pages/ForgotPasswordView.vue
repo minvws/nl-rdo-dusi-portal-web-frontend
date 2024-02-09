@@ -1,20 +1,16 @@
 <template>
   <section>
     <AppIntro
-      v-bind="{
-        title: t('pages.forgot-password.title'),
-        body: t('pages.forgot-password.body')
-      }"
+      :title="t('pages.forgot-password.title')"
+      :body="t('pages.forgot-password.body')"
     />
     <div>
       <FormView
-        v-bind="{
-          id: 'forgot-password',
-          locked,
-          forms,
-          hideDebug: true,
-          buttonLabels: { submit: t('pages.update-password.submit') }
-        }"
+        id="forgot-password"
+        :locked="locked"
+        :forms="forms"
+        hide-debug
+        :button-labels="{ submit: t('pages.update-password.submit') }"
         @submit="onSubmit"
       />
     </div>

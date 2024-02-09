@@ -1,4 +1,4 @@
-import type { FormError, FormErrors } from '@shared/types/form'
+import type { FormError } from '@shared/types/form'
 
 import { computed } from 'vue'
 import { useI18n } from '@shared/composables/useI18n'
@@ -20,9 +20,13 @@ export const useFormConditionalRequiredError = (id: string) => {
     error
   }
 
-  return computed(() => {
-    return error.value?.message
+  const conditionalError = computed<string | undefined>(() =>
+    error.value?.message
       ? translate?.('error.required-conditional', error.value.message, props)
       : undefined
-  })
+  )
+
+  return {
+    conditionalError
+  }
 }

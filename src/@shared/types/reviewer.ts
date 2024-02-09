@@ -1,8 +1,8 @@
-export const ReviewerAction = {
+export const ReviewerActionType = {
   ASSIGN: 'assign',
   CLAIM: 'claim',
-  SHOW: 'show',
-  RELEASE: 'release'
+  RELEASE: 'release',
+  SHOW: 'show'
 } as const
 
-export type ReviewerActionType = (typeof ReviewerAction)[keyof typeof ReviewerAction]
+export type ReviewerAction = (typeof ReviewerActionType)[keyof typeof ReviewerActionType]

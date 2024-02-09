@@ -1,23 +1,29 @@
-import { Project } from '@shared/types/project'
+import { ProjectType } from '@shared/types/project'
 
-export const routerLoader = () => {
+export function routerLoader(): Promise<any> {
   switch (import.meta.env.VITE_PROJECT) {
-    case Project.ASSESSMENT:
+    case ProjectType.ASSESSMENT: {
       return import('@assessment/router')
-    case Project.PORTAL:
+    }
+    case ProjectType.PORTAL: {
       return import('@portal/router')
-    default:
+    }
+    default: {
       throw new Error(`unknown project: "${import.meta.env.VITE_PROJECT}"`)
+    }
   }
 }
 
-export const appHeaderLinksLoader = () => {
+export function appHeaderLinksLoader(): Promise<any> {
   switch (import.meta.env.VITE_PROJECT) {
-    case Project.ASSESSMENT:
+    case ProjectType.ASSESSMENT: {
       return import('@assessment/composables/useAppHeaderLinks')
-    case Project.PORTAL:
+    }
+    case ProjectType.PORTAL: {
       return import('@portal/composables/useAppHeaderLinks')
-    default:
+    }
+    default: {
       throw new Error(`unknown project: "${import.meta.env.VITE_PROJECT}"`)
+    }
   }
 }

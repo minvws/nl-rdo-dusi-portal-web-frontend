@@ -37,8 +37,8 @@ type Error = { message?: string; code?: string }
 
 type Props = {
   as?: string
-  data?: [] | object | null
-  error: Error | string | null
+  data?: [] | object | undefined
+  error: Error | string | undefined
   isFetching: boolean
   loaderIsCentered?: boolean
   showLoader?: boolean
@@ -61,5 +61,5 @@ const hasData = computed<boolean>(
     (Array.isArray(props.data) ? props.data.length > 0 : Object.keys(props.data).length > 0)
 )
 
-const is = computed<string>(() => (props.as ? props.as : 'div'))
+const is = computed<string>(() => props.as || 'div')
 </script>

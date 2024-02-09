@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import type { LocationQuery } from 'vue-router'
-import type { AuthErrorType } from '@shared/types/auth'
+import type { AuthError } from '@shared/types/auth'
 
 import { onBeforeMount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
@@ -17,7 +17,7 @@ import { getRouteFromCookie } from '@shared/utils/route-cookie'
 
 import { HOME } from '@shared/router/names'
 
-import { AuthError, AuthMinimumLoaQuery } from '@shared/types/auth'
+import { AuthErrorType, AuthLoaQueryType } from '@shared/types/auth'
 
 const { t } = useI18n()
 const authStore = useAuthStore()
@@ -25,34 +25,46 @@ const notificationsStore = useNotificationsStore()
 const route = useRoute()
 const router = useRouter()
 
-function getErrorCode(error: AuthErrorType) {
+function getErrorCode(error: AuthError): AuthError {
   switch (error) {
-    case AuthError.LOGIN_CANCELLED:
-    case AuthError.LOGIN_FAILED:
-    case AuthError.MINIMUM_LOA:
+    case AuthErrorType.LOGIN_CANCELLED:
+    case AuthErrorType.LOGIN_FAILED:
+    case AuthErrorType.MINIMUM_LOA: {
       return error
-    default:
-      return AuthError.UNKNOWN
+    }
+    default: {
+      return AuthErrorType.UNKNOWN
+    }
   }
 }
 
-function getErrorParams(error: AuthErrorType, query: LocationQuery) {
-  if (error !== AuthError.MINIMUM_LOA) return {}
-  return Object.values(AuthMinimumLoaQuery).reduce((cul, key) => {
+function getErrorParams(error: AuthError, query: LocationQuery): Record<string, string> {
+  if (error !== AuthErrorType.MINIMUM_LOA) {
+    return {}
+  }
+
+  let acc: Record<string, any> = {}
+
+  for (const key of Object.values(AuthLoaQueryType)) {
     const value = query[key]
-    if (!value) return cul
-    return {
-      ...cul,
-      [key]: t(`authentication.loa.types.${value}`)
+    if (value) {
+      acc[key] = t(`authentication.loa.types.${value}`)
     }
-  }, {})
+  }
+
+  return acc
 }
 
-function getError() {
-  const error = route.query?.error as AuthErrorType
-  if (!error) return undefined
+function getError(): undefined | Record<string, string> {
+  const error = route.query?.error as AuthError
+
+  if (!error) {
+    return undefined
+  }
+
   const code = getErrorCode(error)
   const params = getErrorParams(code, route.query)
+
   return {
     code,
     error,
@@ -60,7 +72,7 @@ function getError() {
   }
 }
 
-onBeforeMount(async () => {
+async function handleAuthentication(): Promise<void> {
   const authError = getError()
   const cookieRoute = getRouteFromCookie()
 
@@ -76,7 +88,11 @@ onBeforeMount(async () => {
   } else {
     await authStore.logIn()
   }
+
   const route = !authError && authStore.isLoggedIn ? cookieRoute : undefined
+
   router.replace(route ?? { name: HOME })
-})
+}
+
+onBeforeMount(() => handleAuthentication())
 </script>

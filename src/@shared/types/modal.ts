@@ -1,15 +1,15 @@
 import type { Component, Raw } from 'vue'
 
-export const ModalType = {
-  DEFAULT: 'notification',
-  ERROR: 'error',
-  WARNING: 'warning',
-  EXPLANATION: 'explanation',
-  SUCCESS: 'confirmation'
-} as const
+export enum ModalType {
+  DEFAULT = 'notification',
+  ERROR = 'error',
+  WARNING = 'warning',
+  EXPLANATION = 'explanation',
+  SUCCESS = 'confirmation'
+}
 
 export type Modal = {
-  type: (typeof ModalType)[keyof typeof ModalType]
+  type: ModalType
   title: string | undefined
   message: string | undefined
   component?: {

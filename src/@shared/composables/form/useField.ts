@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { Control, Field } from '@shared/types/field'
+import type { FormValue } from '@shared/types/form'
 
 import { computed } from 'vue'
 
@@ -12,51 +13,57 @@ import { getValue } from '@shared/composables/form/useCustomControlInput'
 
 function getFieldProp(control: Control) {
   switch (control.schema.type) {
-    case 'boolean':
+    case 'boolean': {
       return 'checked'
-    default:
+    }
+    default: {
       return 'value'
-  }
-}
-
-export const useFieldChange = ({ control, error }: Field & { error: Ref<string> }) => {
-  const { addOrRemoveFile } = useFileStore()
-
-  return {
-    addOrRemoveFile,
-    onHandleChange: (target: HTMLInputElement) => {
-      const prop = getFieldProp(control.value)
-      const value = target[prop]
-
-      if (control.value.schema.file) {
-        // when file, add or remove from fileStore
-        addOrRemoveFile(control.value.id, target, error)
-        return control.value.data
-      }
-
-      if (value === '' || value === undefined) {
-        // we need to set the value to undefined when the value
-        // is empty to trigger validation
-        return undefined
-      }
-
-      return getValue('onChange', control.value, value)
     }
   }
 }
 
-export const useFieldValue = ({
-  control,
-  appliedOptions = {}
-}: {
+type FieldChangeProps = Field & { error: Ref<string> }
+
+export const useFieldChange = ({ control, error }: FieldChangeProps) => {
+  const { addOrRemoveFile } = useFileStore()
+
+  function onHandleChange(target: HTMLInputElement): FormValue | undefined {
+    const prop = getFieldProp(control.value)
+    const value = target[prop]
+
+    if (control.value.schema.file) {
+      // when file, add or remove from fileStore
+      addOrRemoveFile(control.value.id, target, error)
+      return control.value.data
+    }
+
+    if (value === '' || value === undefined) {
+      // we need to set the value to undefined when the value
+      // is empty to trigger validation
+      return undefined
+    }
+
+    return getValue('onChange', control.value, value)
+  }
+
+  return {
+    addOrRemoveFile,
+    onHandleChange
+  }
+}
+
+type FieldValueProps = {
   control: Control
-  appliedOptions: Record<string, string>
-}) => {
+  appliedOptions?: Record<string, string>
+}
+
+export const useFieldValue = ({ control, appliedOptions = {} }: FieldValueProps) => {
   const {
     data,
     schema: { file, type }
   } = control
   const prop = getFieldProp(control)
+
   if (file) {
     // file input
     const { accept, maxFileSize } = appliedOptions
@@ -66,19 +73,26 @@ export const useFieldValue = ({
       maxFileSize
     }
   }
+
   switch (type) {
-    case 'boolean':
-      return { [prop]: !!data }
-    default:
-      return { [prop]: data }
+    case 'boolean': {
+      return {
+        [prop]: !!data
+      }
+    }
+    default: {
+      return {
+        [prop]: data
+      }
+    }
   }
 }
 
-const fieldTypes = Object.values(InputType)
-
-export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaElement) => {
+export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement) => {
+  const { options } = uischema
+  const fieldTypes = Object.values(InputType)
   const extend = schema as JsonSchema & Record<InputType, boolean> & { format?: InputType }
-  const key = fieldTypes.find(key => extend[key])
+  const key = fieldTypes.find((key) => extend[key])
 
   if (key) {
     return key
@@ -97,7 +111,12 @@ export const useFieldType = (schema: JsonSchema, { options = {} }: UISchemaEleme
   return (type as InputType) ?? InputType.TEXT
 }
 
-export const useFieldFileRemove = ({ id, index }: { id: string; index: number }) => {
+type FieldFileRemoveProps = {
+  id: string
+  index: number
+}
+
+export const useFieldFileRemove = ({ id, index }: FieldFileRemoveProps) => {
   const { getFile, addOrRemoveFile, removeFileByIdAndIndex } = useFileStore()
 
   const file = computed<File>(() => getFile(id, index))
@@ -112,60 +131,71 @@ export const useFieldFileRemove = ({ id, index }: { id: string; index: number })
   }
 }
 
-export const useField = ({
-  input,
-  control,
-  error,
-  handleChange
-}: {
+type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
   error: string
   handleChange?: (_path: string, _value: any) => void
-}) => {
+}
+
+export const useField = ({ input, control, error, handleChange }: FieldProps) => {
   const fileStore = useFileStore()
 
   switch (input.type) {
     case InputType.NUMBER:
-    case InputType.INTEGER:
+    case InputType.INTEGER: {
       return {
         tag: 'FormNumberControl',
-        props: { ...input, control }
+        props: {
+          ...input,
+          control: control
+        }
       }
-    case InputType.CHECKBOX_GROUP:
+    }
+    case InputType.CHECKBOX_GROUP: {
       return {
         tag: 'FormCheckboxGroupControl',
-        props: { ...input, control, handleChange }
+        props: {
+          ...input,
+          control: control,
+          handleChange: handleChange
+        }
       }
-    case InputType.SELECT:
+    }
+    case InputType.SELECT: {
       return {
         tag: 'FormSelectControl',
-        props: { ...input, options: control.options }
+        props: {
+          ...input,
+          options: control.options
+        }
       }
-    case InputType.FILE:
-      // when a input of type file restores, it will throw an error:
-      // 'This input element accepts a filename, which may only be programmatically set to the empty string'
+    }
+    case InputType.FILE: {
       return {
         props: {
           ...input,
           value: undefined,
-          control,
-          error,
+          control: control,
+          error: error,
           isPending: fileStore.isUploadPending(control.id),
-          handleChange
+          handleChange: handleChange
         },
         tag: 'FormFileControl'
       }
-    case InputType.RADIO:
+    }
+    case InputType.RADIO: {
       return {
         props: {
           ...input,
-          control
+          control: control
         },
         tag: 'FormRadioControl'
       }
-    default:
+    }
+    default: {
       break
+    }
   }
   return {
     props: { ...input, control },

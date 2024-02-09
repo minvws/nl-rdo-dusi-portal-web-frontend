@@ -7,7 +7,7 @@ import type {
   FormValidationResult,
   FormError
 } from '@shared/types/form'
-import { FormUiTypes } from '@shared/types/form'
+import { FormUiType } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 import type { StoredForm } from '@shared/store/useFormStorage'
 
@@ -33,33 +33,43 @@ export const useActiveForm = () => {
 
   const activeFormErrors = ref<FormErrors>([])
 
-  onMounted(
-    () => (activeFormErrors.value = activeForm.value?.errors ? activeForm.value.errors : [])
-  )
+  onMounted(() => (activeFormErrors.value = activeForm.value?.errors ?? []))
 
   const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
+
   const createDraft = computed<boolean>(() => !!formProps.createDraft)
+
   const data = computed<FormData>(() => formsData.value?.[index.value] ?? {})
+
   const draftId = computed<string | undefined>(() => activeForm.value?.draftId)
+
   const draftIsPending = computed<boolean | undefined>(() => activeForm.value?.draftIsPending)
+
   const errors = computed<FormError[]>(() => {
     const errors = activeFormErrors.value[index.value] || []
     return errors as FormError[]
   })
 
   const form = computed<Form>(() => activeForm.value?.forms[index.value])
-  const formData = computed<FormData>(() =>
-    formsData.value.reduce((acc, val) => ({ ...acc, ...val }), {})
-  )
+
+  const formData = computed<FormData>(() => Object.assign({}, ...formsData.value))
+
   const formId = computed<string>(() => formProps?.id)
+
   const formKey = computed<string>(() => `form-${formId.value}-${index.value}`)
+
   const forms = computed<Form[]>(() => activeForm.value?.forms)
+
   const formsData = computed<FormData[]>(() => activeForm.value?.data)
+
   const index = computed<number>(() => activeForm.value?.index ?? -1)
+
   const isValidationPending = computed<boolean | undefined>(
     () => activeForm.value?.isValidationPending
   )
+
   const validationId = computed<string | undefined>(() => activeForm.value?.validationId)
+
   const validationResult = computed<FormValidationResult | undefined>(
     () => activeForm.value?.validationResult
   )
@@ -71,14 +81,14 @@ export const useActiveForm = () => {
         const hasError = value.find(({ type }) => type === 'error')
         return hasError ? key : undefined
       })
-      .filter(key => !!key)
+      .filter((key) => !!key)
   )
 
   // set remote-validations for each page
   const formsValidationErrors = computed<({ instancePath: string }[] | undefined)[]>(() =>
-    activeForm.value?.forms?.map(form => {
+    activeForm.value?.forms?.map((form) => {
       const properties = Object.keys(form.dataschema?.properties ?? {})
-      const instancePath = properties.find(instancePath =>
+      const instancePath = properties.find((instancePath) =>
         validationResultErrors.value.includes(instancePath)
       )
       return instancePath ? [{ instancePath }] : undefined
@@ -91,7 +101,8 @@ export const useActiveForm = () => {
 
     return activeForm.value?.forms?.map((_form: Form, index) => {
       const validationErrors = formsValidationErrors.value[index] || []
-      const formErrors = new Array(activeForm.value?.errors[index] || []).flat()
+      const formErrors = [...(activeForm.value?.errors[index] || [])].flat()
+
       return [...validationErrors, ...formErrors] as FormError[]
     })
   })
@@ -99,12 +110,16 @@ export const useActiveForm = () => {
   const readonly = computed<boolean>(() =>
     validationId.value ? false : !!activeForm.value?.isSubmitting
   )
+
   const schema = computed<JsonSchema>(() => form.value?.dataschema)
+
   const uischema = computed<UISchemaElement>(() => form.value?.uischema)
-  const isReadOnly = computed<boolean>(() => form.value?.uiType === FormUiTypes.VIEW)
+
+  const isReadOnly = computed<boolean>(() => form.value?.uiType === FormUiType.VIEW)
+
   const hideRequiredLabel = computed<boolean>(() => formProps?.hideRequiredLabel === true)
 
-  const clearForm = useClearForm(formId)
+  const { clear } = useClearForm(formId)
 
   function setForms({ forms, values }: { forms: Form[]; values?: FormData }) {
     const restoredForm = formStorage.get(formId.value) ?? { data: [], index: 0 }
@@ -132,24 +147,51 @@ export const useActiveForm = () => {
   }
 
   function setFormDataFromValues(values?: FormData) {
-    if (!values) return
-    const data = forms.value?.map(({ dataschema: { properties = {} } }) => {
-      return Object.keys(properties).reduce((cul, key) => {
-        if (key in values) cul[key] = values[key]
-        return cul
-      }, {} as FormData)
-    })
-    activeForm.value.data = data
+    if (!values) {
+      return
+    }
+
+    const formsValue = forms.value
+    const newData: FormData[] = []
+
+    if (formsValue) {
+      for (const {
+        dataschema: { properties = {} }
+      } of formsValue) {
+        const formDataEntry: FormData = {}
+
+        for (const key in properties) {
+          if (key in values) {
+            formDataEntry[key] = values[key]
+          }
+        }
+
+        newData.push(formDataEntry)
+      }
+    }
+
+    activeForm.value.data = newData
   }
 
   function getAllProperties() {
-    return forms.value?.reduce(
-      (cul, { dataschema: { properties } }) => {
+    const formsValue = forms.value
+    let acc: Record<string, FieldProp> = {}
+
+    if (formsValue) {
+      for (const {
+        dataschema: { properties }
+      } of formsValue) {
         const values = properties as Record<string, FieldProp>
-        return { ...cul, ...values }
-      },
-      {} as Record<string, FieldProp>
-    )
+
+        for (const key in values) {
+          if (Object.prototype.hasOwnProperty.call(values, key)) {
+            acc[key] = values[key]
+          }
+        }
+      }
+    }
+
+    return acc
   }
 
   function getScopesFromElements() {
@@ -203,18 +245,28 @@ export const useActiveForm = () => {
     return data
   }
 
-  watch(validationResult, result => {
-    if (!activeForm.value) return
+  watch(validationResult, (result) => {
+    if (!activeForm.value) {
+      return
+    }
+
     // when validation-result changes, add it to the data of the form
-    let target = activeForm.value.data.find(page => VALIDATION_RESULT_FIELD_NAME in page)
+    let target = activeForm.value.data.find((page) => VALIDATION_RESULT_FIELD_NAME in page)
+
     if (!target) {
       // always add field when it is not found
       target = activeForm.value.data[0]
     }
+
     // create an array with all validation results, include id of the field
-    const value = Object.entries(result ?? {})
-      .map(([id, items]) => items.map(item => ({ ...item, id })))
-      .reduce((cul, cur) => [...cul, ...cur], [])
+    const value: Record<string, any> = {}
+    const resultEntries = Object.entries(result ?? {})
+
+    for (const [id, items] of resultEntries) {
+      for (const item of items) {
+        value[id] = Object.assign({}, item, { id })
+      }
+    }
 
     Object.assign(target, { [VALIDATION_RESULT_FIELD_NAME]: value })
   })
@@ -225,7 +277,7 @@ export const useActiveForm = () => {
     data,
     draftId,
     draftIsPending,
-    clearForm,
+    clearForm: clear,
     errors,
     events: {
       change: onChange

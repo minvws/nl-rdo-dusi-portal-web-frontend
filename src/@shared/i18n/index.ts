@@ -53,24 +53,23 @@ async function getFilesContent(): Promise<TranslationFileEntry[]> {
  * @returns {RawTranslationEntry}
  */
 function combineTranslationsByLocale(array: TranslationFileEntry[]): RawTranslationEntry {
-  const combined: RawTranslationEntry = array.reduce(
-    (acc: RawTranslationEntry, entry: TranslationFileEntry) => {
-      if (!entry) {
-        return acc
-      }
+  let combined: RawTranslationEntry = {}
 
-      const { locale, content } = entry
+  for (let i = 0; i < array.length; i++) {
+    const entry = array[i]
 
-      if (acc[locale] === undefined) {
-        acc[locale] = []
-      }
+    if (!entry) {
+      continue
+    }
 
-      acc[locale] = [...acc[locale], content]
+    const { locale, content } = entry
 
-      return acc
-    },
-    {}
-  )
+    if (combined[locale] === undefined) {
+      combined[locale] = []
+    }
+
+    combined[locale].push(content)
+  }
 
   return combined
 }
@@ -83,13 +82,15 @@ function combineTranslationsByLocale(array: TranslationFileEntry[]): RawTranslat
  */
 function transformTranslationsByLocale(translations: TranslationFileEntry[]): TranslationEntry {
   const combinedTranslations = combineTranslationsByLocale(translations)
-  const transformed: TranslationEntry = Object.entries(combinedTranslations).reduce(
-    (acc: TranslationEntry, entry: [string, FileContent[]]) => {
-      const [locale, translations] = entry
-      return { ...acc, [locale]: merge(null, ...translations) }
-    },
-    {}
-  )
+  let transformed: TranslationEntry = {}
+
+  const entries = Object.entries(combinedTranslations)
+
+  for (let i = 0; i < entries.length; i++) {
+    const entry = entries[i]
+    const [locale, translations] = entry
+    transformed[locale] = merge(null, ...translations)
+  }
 
   return transformed
 }

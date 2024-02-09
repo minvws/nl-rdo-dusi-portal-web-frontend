@@ -1,9 +1,9 @@
 <template>
   <div>
     <div
-      :class="type"
       v-for="({ type, message }, index) in items"
       :key="`validation-${index}`"
+      :class="type"
       class="form-field-validation-result"
     >
       <span />
@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import type { FormValidationEntry } from '@shared/types/form'
+import type { NotificationDisplayType } from '@shared/types/notification'
 
 import { computed } from 'vue'
 
@@ -29,13 +30,11 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const items = computed<
-  { message: string; type: 'error' | 'warning' | 'explanation' | 'confirmation' }[]
->(() => {
+const items = computed<{ message: string; type: NotificationDisplayType }[]>(() => {
   return props.validations.map(({ message, params, ...item }) => {
     if (params) {
       const keys = Object.entries(params)
-      while (keys.length) {
+      while (keys.length > 0) {
         const target = keys.pop()
         if (!target) continue
         let [key, { code, value }] = target
@@ -49,13 +48,20 @@ const items = computed<
   })
 })
 
-const onClick = (e: Event) => {
-  const el = e.target as HTMLElement
-  if (el.nodeName !== 'BUTTON') return
-  e.stopPropagation()
-  const { suggestion } = el.dataset
-  if (!suggestion) return
-  emit('suggestion', JSON.parse(decodeURIComponent(suggestion)))
+function onClick(event: MouseEvent): void {
+  if (!(event.target instanceof HTMLElement)) {
+    return
+  }
+
+  const { suggestion } = event.target.dataset
+
+  if (event.target.nodeName !== 'BUTTON' || !suggestion) {
+    return
+  }
+
+  const parsedSuggestion = JSON.parse(decodeURIComponent(suggestion))
+  event.stopPropagation()
+  emit('suggestion', parsedSuggestion)
 }
 </script>
 

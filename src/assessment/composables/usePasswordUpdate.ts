@@ -13,7 +13,7 @@ export const usePasswordUpdate = () => {
   const required = computed<string[]>(
     () =>
       [!isPasswordExpired && 'currentPassword', 'password', 'passwordConfirmation'].filter(
-        required => !!required
+        (required) => !!required
       ) as string[]
   )
 

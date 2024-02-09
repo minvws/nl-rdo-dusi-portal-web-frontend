@@ -1,6 +1,6 @@
 import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
 import type { IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
-import type { ReviewerActionType } from '@shared/types/reviewer'
+import type { ReviewerAction } from '@shared/types/reviewer'
 import type { AssessmentsData, RawAssessmentData } from '@shared/types/assessment'
 import type { RequestData, RawRequestData } from '@shared/types/request'
 import type { RawPaginationMetaData, PaginationMetaData } from '@shared/types/pagination'
@@ -19,7 +19,7 @@ import {
 } from '@shared/utils/mappers'
 
 import { TableDataType } from '@shared/types/table'
-import { ReviewerAction } from '@shared/types/reviewer'
+import { ReviewerActionType } from '@shared/types/reviewer'
 
 import { MY_CASE_DETAILS } from '@assessment/router/names'
 
@@ -68,7 +68,7 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
       ...setFinalReviewDeadline(final_review_deadline),
       ...setUpdatedAt(updated_at),
       ...setCaseAction(id, status, actions),
-      ...setReviewer(status, id, assessor),
+      ...setReviewer(assessor),
       ...setReviewerAction(id, actions)
     })
   )
@@ -127,100 +127,114 @@ export function transformPaginationMetaData(data: RawPaginationMetaData): Pagina
   }
 }
 
-const createSet = (text: string, data: object) => ({
-  [text]: data
-})
+function createSet(text: string, data: object) {
+  return { [text]: data }
+}
 
-const setSubsidy = (url: string, text: string) =>
-  createSet('subsidy', {
+function setSubsidy(url: string, text: string) {
+  return createSet('subsidy', {
     type: TableDataType.EXTERNAL_LINK,
     to: url,
     text
   })
+}
 
-const setFile = (text: string) =>
-  createSet('file', {
+function setFile(text: string) {
+  return createSet('file', {
     type: TableDataType.STRING,
     text
   })
+}
 
-const setArrangement = (text: string, url: string) =>
-  createSet('arrangement', {
+function setArrangement(text: string, url: string) {
+  return createSet('arrangement', {
     type: TableDataType.EXTERNAL_LINK,
     to: url,
     text
   })
+}
 
-const setRequestStatus = (text: string) =>
-  createSet('status', {
+function setRequestStatus(text: string) {
+  return createSet('status', {
     icon: statusToIcon[text],
     type: TableDataType.STRING,
     text: requestStatusToTranslation[text]
   })
+}
 
-const setCaseStatus = (text: string) =>
-  createSet('status', {
+function setCaseStatus(text: string) {
+  return createSet('status', {
     icon: statusToIcon[text],
     type: TableDataType.STRING,
     text: caseStatusToTranslation[text]
   })
+}
 
-const setStageTitle = (text: string) =>
-  createSet('stage_title', {
+function setStageTitle(text: string) {
+  return createSet('stage_title', {
     type: TableDataType.STRING,
     text: text
   })
+}
 
-const setFinalReviewDeadline = (date: string) =>
-  createSet('final_review_deadline', {
+function setFinalReviewDeadline(date: string) {
+  return createSet('final_review_deadline', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
+}
 
-const setUpdatedAt = (date: string) =>
-  createSet('updated_at', {
+function setUpdatedAt(date: string) {
+  return createSet('updated_at', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
+}
 
-const setCreated = (date: string) =>
-  createSet('created', {
+function setCreated(date: string) {
+  return createSet('created', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
   })
+}
 
-const setActionRequired = (status: string) =>
-  createSet('actionRequired', {
+function setActionRequired(status: string) {
+  return createSet('actionRequired', {
     type: TableDataType.STRING,
     text: statusToRequiredAction[status]
   })
+}
 
-const setInternalNote = (note?: string) =>
-  createSet('internalNote', {
+function setInternalNote(note?: string) {
+  return createSet('internalNote', {
     type: TableDataType.STRING,
     text: note ?? '-'
   })
+}
 
-const setHistoryAction = (title: string) =>
-  createSet('action', {
+function setHistoryAction(title: string) {
+  return createSet('action', {
     type: TableDataType.STRING,
     text: title
   })
+}
 
-const setAssessor = (name?: string) =>
-  createSet('assessor', {
+function setAssessor(name?: string) {
+  return createSet('assessor', {
     type: TableDataType.STRING,
     text: name ?? '-'
   })
+}
 
-const setCount = (count: string) =>
-  createSet('count', {
+function setCount(count: string) {
+  return createSet('count', {
     type: TableDataType.STRING,
     text: count
   })
+}
 
-const setApplications = (applications: { id: string; reference: string }[]) =>
-  createSet('applications', {
+function setApplications(applications: { id: string; reference: string }[]) {
+  return createSet('applications', {
     type: TableDataType.LINK_LIST,
     list: applications.map(({ id, reference }) => ({
       type: TableDataType.BUTTON_LINK,
@@ -231,9 +245,10 @@ const setApplications = (applications: { id: string; reference: string }[]) =>
       text: reference
     }))
   })
+}
 
-const setRequestAction = (reference: string, status: string) =>
-  createSet('action', {
+function setRequestAction(reference: string, status: string) {
+  return createSet('action', {
     type: TableDataType.BUTTON_LINK,
     to: {
       name: requestStatusToRouteName[status],
@@ -241,30 +256,48 @@ const setRequestAction = (reference: string, status: string) =>
     },
     text: statusToRouteText[status]
   })
+}
 
-const setReviewerAction = (id: string, actions?: ReviewerActionType[]) => {
-  const type = actions?.find(action => action !== ReviewerAction.SHOW)
-  if (!type) return createSet('action', {})
+function setReviewerAction(id: string, actions?: ReviewerAction[]) {
+  const type = actions?.find((action) => action !== ReviewerActionType.SHOW)
+  if (!type) {
+    return createSet('action', {})
+  }
 
   switch (type) {
-    case ReviewerAction.ASSIGN:
+    case ReviewerActionType.ASSIGN: {
       return createSet('action', {
         type: TableDataType.BUTTON,
         text: reviewerActionToRouteText[type],
-        action: { type, params: { id } }
+        action: {
+          type: type,
+          params: {
+            id: id
+          }
+        }
       })
-    default:
+    }
+    default: {
       return createSet('action', {
         type: TableDataType.BUTTON,
         text: reviewerActionToRouteText[type],
-        action: { type, params: { id } }
+        action: {
+          type: type,
+          params: {
+            id: id
+          }
+        }
       })
+    }
   }
 }
 
-const setCaseAction = (id: string, status: string, actions?: ReviewerActionType[]) => {
-  const type = actions?.find(action => action === ReviewerAction.SHOW)
-  if (!type) return createSet('case', {})
+function setCaseAction(id: string, status: string, actions?: ReviewerAction[]) {
+  const type = actions?.find((action) => action === ReviewerActionType.SHOW)
+  if (!type) {
+    return createSet('case', {})
+  }
+
   return createSet('case', {
     type: TableDataType.BUTTON_GHOST_LINK,
     to: {
@@ -275,12 +308,15 @@ const setCaseAction = (id: string, status: string, actions?: ReviewerActionType[
   })
 }
 
-const setReviewer = (status: string, id: string, assessor?: { name: string }) => {
+function setReviewer(assessor?: { name: string }) {
   return createSet('reviewer', setReviewerPerson(assessor))
 }
 
-const setReviewerPerson = (assessor?: { name: string }) => {
-  if (!assessor) return {}
+function setReviewerPerson(assessor?: { name: string }) {
+  if (!assessor) {
+    return {}
+  }
+
   return {
     type: TableDataType.STRING,
     text: assessor.name

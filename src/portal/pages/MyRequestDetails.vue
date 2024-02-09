@@ -2,9 +2,7 @@
   <section>
     <AppIntro
       v-if="title"
-      v-bind="{
-        title
-      }"
+      :title="title"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <h2>{{ t('pages.my-request-details.meta') }}</h2>

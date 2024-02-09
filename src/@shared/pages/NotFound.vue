@@ -1,11 +1,9 @@
 <template>
   <section>
     <AppIntro
-      v-bind="{
-        title: t('pages.not-found.title'),
-        intro: t('pages.not-found.subtitle'),
-        body: t('pages.not-found.intro')
-      }"
+      :title="t('pages.not-found.title')"
+      :intro="t('pages.not-found.subtitle')"
+      :body="t('pages.not-found.intro')"
     />
     <div>
       <div class="horizontal-view">
@@ -15,7 +13,7 @@
         >
           <AppIcon
             name="chevron-light-left"
-            :aria-hidden="true"
+            aria-hidden
           />
           {{ t('pages.not-found.back') }}
         </button>

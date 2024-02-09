@@ -10,7 +10,7 @@ export const TableDataType = {
   STRING: 'string'
 } as const
 
-export type TableDataTypes = (typeof TableDataType)[keyof typeof TableDataType]
+export type TableData = (typeof TableDataType)[keyof typeof TableDataType]
 
 export type Column = {
   id: string

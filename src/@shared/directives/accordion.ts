@@ -8,11 +8,11 @@ const vAccordion: Directive = {
     init = true
     // temporary fix for using accordion script in vue
     // remove when accordion script is updated
-    const script = document.createElement('script')
+    const script = document.createElement('script') as HTMLScriptElement
     script.type = 'text/javascript'
     script.src = '/assets/js/accordion.min.js'
     script.async = true
-    document.head.appendChild(script)
+    document.head.append(script)
   }
 }
 

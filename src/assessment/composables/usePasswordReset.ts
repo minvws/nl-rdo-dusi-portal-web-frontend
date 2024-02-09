@@ -27,19 +27,6 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
   const email: string = queryParams.email ? (queryParams.email as string) : ''
   const token: string = queryParams.token ? (queryParams.token as string) : ''
 
-  const showNotification = (type: NotificationDisplayType, message?: string) => {
-    const props = message ? { message } : undefined
-    const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
-
-    notificationsStore.add({
-      id: NOTIFICATION_ID,
-      displayAs: type,
-      label: t(`authentication.password-reset-${id}.label`, props) ?? '',
-      message: t(`authentication.password-reset-${id}.message`, props) ?? '',
-      pageChangeCount: type === NotificationType.CONFIRMATION ? 2 : 1
-    })
-  }
-
   const forms = computed<{ dataschema: JsonSchema; uischema: UISchemaElement }[]>(() => [
     {
       dataschema: {
@@ -118,6 +105,19 @@ export const usePasswordReset = (queryParams: LocationQuery) => {
     }
     showNotification(NotificationType.CONFIRMATION, message)
     router.replace({ name: LOGIN_VIEW })
+  }
+
+  function showNotification(type: NotificationDisplayType, message?: string): void {
+    const props = message ? { message } : undefined
+    const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
+
+    notificationsStore.add({
+      id: NOTIFICATION_ID,
+      displayAs: type,
+      label: t(`authentication.password-reset-${id}.label`, props) ?? '',
+      message: t(`authentication.password-reset-${id}.message`, props) ?? '',
+      pageChangeCount: type === NotificationType.CONFIRMATION ? 2 : 1
+    })
   }
 
   return {

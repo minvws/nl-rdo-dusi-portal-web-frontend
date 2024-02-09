@@ -3,16 +3,18 @@ import type { Control } from '@shared/types/field'
 import { InputType } from '@shared/types/input'
 
 const formatInteger = (value: string | number) => {
-  const integer = parseFloat(`${value}`)
-  return !Number.isNaN(integer) ? integer : value
+  const integer = Number.parseFloat(`${value}`)
+  return Number.isNaN(integer) ? value : integer
 }
 
 const isNumberInput = (control: Control) => {
   switch (control.schema.type as InputType) {
-    case InputType.INTEGER:
+    case InputType.INTEGER: {
       return true
-    default:
+    }
+    default: {
       return false
+    }
   }
 }
 

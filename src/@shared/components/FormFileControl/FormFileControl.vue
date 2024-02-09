@@ -9,26 +9,22 @@
         :class="{ margin: !!index }"
       >
         <FormTextControl
-          v-bind="{
-            ...textControlProps,
-            id: `${id}-${index}`,
-            disabled: disabled || !!isPending?.[index]
-          }"
+          v-bind="{ ...textControlProps }"
+          :id="`${id}-${index}`"
+          :disabled="disabled || !!isPending?.[index]"
           :data-index="index"
           @change="onChange"
           @focus="onFocus"
         />
         <FormFieldRemoveFile
-          v-bind="{
-            handleChange,
-            index: index,
-            id: control.id,
-            labelFor: `${id}-${index}`,
-            files,
-            error,
-            disabled,
-            isPending: !!isPending?.[index]
-          }"
+          :disabled="disabled"
+          :error="error"
+          :files="files"
+          :handle-change="handleChange"
+          :id="control.id"
+          :index="index"
+          :is-pending="!!isPending?.[index]"
+          :label-for="`${id}-${index}`"
           @blur="onBlur"
         />
       </div>
@@ -74,7 +70,7 @@ const props = defineProps<Props>()
 
 const { t } = useI18n()
 
-const addFileCount = ref(1)
+const addFileCount = ref<number>(1)
 
 const files = computed<FileType[]>(() => props.control.data as FileType[])
 
@@ -98,40 +94,43 @@ const numberOfFilesAdded = computed<number>(() => files.value?.length ?? 0)
 
 const numberOfFiles = computed<number[]>(() => {
   const count = Math.max(numberOfFilesAdded.value, addFileCount.value)
-  const keys = Array(count).keys()
+  const keys = Array.from({ length: count }).keys()
 
-  return Array.from(keys)
+  return [...keys]
 })
 
 function showAddFileButton(index: number) {
   return index + 1 === numberOfFiles.value.length && index + 1 !== maxFiles.value
 }
 
-function onBlur(e: Event) {
-  emit('blur', e)
+function onBlur(event: InputEvent): void {
+  emit('blur', event)
 }
 
-function onChange(e: Event) {
-  const target = e.target as HTMLInputElement
-  const file = target?.files?.[0]
+function onChange(event: InputEvent): void {
+  if (!(event.target instanceof HTMLInputElement)) {
+    return
+  }
+
+  const file = event.target?.files?.[0]
   const { maxFileSize } = props
 
   // file exceeds maxFileSize
   if (file && maxFileSize && file.size > maxFileSize) {
-    e.preventDefault()
+    event.preventDefault()
     const size = formatFileSize(maxFileSize)
     emit('error', t('form.fields.error.maxFileSize', { maxFileSize: size }))
     return
   }
 
-  emit('change', e)
+  emit('change', event)
 }
 
-function onFocus(e: Event) {
-  emit('focus', e)
+function onFocus(event: InputEvent): void {
+  emit('focus', event)
 }
 
-function onAddFileButton() {
+function onAddFileButton(): void {
   addFileCount.value++
 }
 

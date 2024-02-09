@@ -1,10 +1,15 @@
 export function flattenDeep(items: any[], key: string): any[] {
-  return items.reduce((target, item) => {
+  const result: any[] = []
+
+  for (const item of items) {
     if (Array.isArray(item[key])) {
-      return [...target, item, ...flattenDeep(item[key], key)]
+      result.push(item, ...flattenDeep(item[key], key))
+    } else {
+      result.push(item)
     }
-    return [...target, item]
-  }, [])
+  }
+
+  return result
 }
 
 export function getDeepProps(target: any[], key: string, prop: string): any[] {

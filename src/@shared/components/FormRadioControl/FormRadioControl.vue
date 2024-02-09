@@ -64,7 +64,7 @@ const items = computed<
 
   const items =
     values?.oneOf?.map(({ title, const: value }) => ({ title, value })) ||
-    values?.enum?.map(title => ({ title, value: title }))
+    values?.enum?.map((title) => ({ title, value: title }))
 
   return items?.map(({ title, value }, index) => ({
     id: `${props.id}-${index + 1}`,

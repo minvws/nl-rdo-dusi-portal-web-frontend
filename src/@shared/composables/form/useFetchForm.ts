@@ -17,7 +17,7 @@ export const useFetchForm = (
 
   const { data, ...fetch } = useFetchWithEncryption<FormResult>(url).json()
 
-  watch(data, data => {
+  watch(data, (data) => {
     if (!data) {
       title.value = ''
       forms.value = []

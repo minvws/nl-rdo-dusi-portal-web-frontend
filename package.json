@@ -9,11 +9,12 @@
     "build:portal": "run-p type-check build-only:portal",
     "build:assessment": "run-p type-check build-only:assessment",
     "dev:portal": "VITE_PROJECT=portal vite",
+    "preview": "VITE_PROJECT=portal vite preview --port 5173",
     "dev:assessment": "VITE_PROJECT=assessment vite",
     "format": "prettier --write src '!src/public/**/*.{js,css}'",
-    "lint": "oxlint --ignore-path .eslintignore",
-    "lint-fix": "oxlint --fix --ignore-path .eslintignore",
-    "prepare": "husky install",
+    "lint": "oxlint -c ./eslintrc.json --ignore-path .eslintignore -D all",
+    "lint-fix": "oxlint -c ./eslintrc.json --fix --ignore-path .eslintignore -D all",
+    "prepare": "husky",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
   },
   "lint-staged": {

@@ -64,7 +64,7 @@ const profileData = computed<DescriptionListItem[]>(() => [
 
 const roles = computed<DescriptionListItem[]>(
   () =>
-    user.value?.roles.map(role => ({
+    user.value?.roles.map((role) => ({
       term: role.subsidy?.title ?? 'Rol',
       type: 'string',
       text: t(`pages.profile.roleTypes.${role.name}`)

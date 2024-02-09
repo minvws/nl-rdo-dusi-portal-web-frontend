@@ -1,6 +1,6 @@
-import type { ReviewerActionType } from '@shared/types/reviewer'
+import type { ReviewerAction } from '@shared/types/reviewer'
 import { ModalType } from '@shared/types/modal'
-import { ReviewerAction } from '@shared/types/reviewer'
+import { ReviewerActionType } from '@shared/types/reviewer'
 
 import { markRaw } from 'vue'
 import { useRouter } from 'vue-router'
@@ -18,7 +18,7 @@ import { REVIEW_CASE, REFRESH, HOME } from '@assessment/router/names'
 import { t } from '@shared/i18n'
 
 export type CaseAction = {
-  type: ReviewerActionType
+  type: ReviewerAction
   params: Record<string, string>
 }
 
@@ -43,7 +43,7 @@ export const useCaseAction = () => {
       } else router.push({ name: REVIEW_CASE, params: { id } })
     })
 
-    onFetchError(error => {
+    onFetchError((error) => {
       notificationsStore.add({
         message: error,
         displayAs: 'error',
@@ -70,19 +70,23 @@ export const useCaseAction = () => {
     }
   }
 
-  function executeAction(type: ReviewerActionType, params: Record<string, string>) {
+  function executeAction(type: ReviewerAction, params: Record<string, string>) {
     switch (type) {
-      case ReviewerAction.ASSIGN:
+      case ReviewerActionType.ASSIGN: {
         openModal(createModal(params.id))
         break
-      case ReviewerAction.CLAIM:
+      }
+      case ReviewerActionType.CLAIM: {
         updateReviewer(false, params.id)
         break
-      case ReviewerAction.RELEASE:
+      }
+      case ReviewerActionType.RELEASE: {
         updateReviewer(true, params.id)
         break
-      default:
+      }
+      default: {
         throw new Error(`unknown type: ${type}`)
+      }
     }
   }
 

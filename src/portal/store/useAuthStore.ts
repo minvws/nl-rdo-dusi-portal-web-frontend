@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { AuthResponse } from '@shared/types/api-response'
 import { SessionType } from '@shared/types/session'
 
@@ -87,7 +86,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     openExternalLink(useApiLoginUrl())
   }
 
-  watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
+  watch(isLoggedIn, (isLoggedIn) => onLoginChange(isLoggedIn))
 
   on(SessionType.EXPIRING, () => {
     logIn(true)

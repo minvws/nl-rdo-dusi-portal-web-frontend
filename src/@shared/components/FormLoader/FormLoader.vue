@@ -2,18 +2,17 @@
   <FormSection>
     <FormLoaderMessage
       v-if="isFetching || error"
-      v-bind="{ isFetching, error }"
+      :is-fetching="isFetching"
+      :error="error"
     />
     <FormView
       v-else-if="forms"
-      v-bind="{
-        id,
-        forms,
-        values,
-        title,
-        buttonLabels,
-        createDraft: true
-      }"
+      :id="id"
+      :forms="forms"
+      :values="values"
+      :title="title"
+      :button-labels="buttonLabels"
+      create-draft
     />
   </FormSection>
 </template>

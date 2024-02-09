@@ -8,7 +8,7 @@ import { NotificationType } from '@shared/types/notification'
 
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { HOME } from '@shared/router/names'
@@ -22,10 +22,12 @@ export const useFormDraft = (formId: Ref<string>) => {
 
   function getDisplayType(code: string): NotificationDisplayType {
     switch (code) {
-      case 'application_already_exists':
+      case 'application_already_exists': {
         return NotificationType.EXPLANATION
-      default:
+      }
+      default: {
         return NotificationType.ERROR
+      }
     }
   }
 
@@ -36,16 +38,16 @@ export const useFormDraft = (formId: Ref<string>) => {
     }
     const id = formId.value
     const url = useApiDraftFormUrl(id)
-
     const options: RequestInit = {
       method: 'POST'
     }
+
     setDraftIsPending(true)
 
     const {
       data: { value: data },
       error: { value: error }
-    } = await useFetchWithEncryption(url, options).json()
+    } = await useCustomFetch('with-encryption', url, options).json()
 
     if (error?.code) {
       notificationsStore.add({

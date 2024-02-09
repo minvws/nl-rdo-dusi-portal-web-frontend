@@ -5,7 +5,7 @@ type RawCaseHistoryItem = {
     title: string
     stage: number
   }
-  assessorUser: { id: string; name: string } | null
+  assessorUser: { id: string; name: string } | undefined
   createdAt: string
   updatedAt: string
   submittedAt: string

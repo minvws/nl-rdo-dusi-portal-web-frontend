@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Notification } from '@shared/types/notification'
 
 import { ref, nextTick } from 'vue'
@@ -21,15 +20,20 @@ export const useNotificationsStore = defineStore('useNotificationsStore', () => 
         ({ id: notificationId }) => id === notificationId
       )
 
-      startIndex !== -1 ? notifications.value.splice(startIndex, 1) : (isDeleting.value = false)
+      if (startIndex === -1) {
+        isDeleting.value = false
+      } else {
+        notifications.value.splice(startIndex, 1)
+      }
     }
   }
 
   function removeOnPageChange() {
-    notifications.value.forEach(notification => {
-      if (notification?.pageChangeCount === undefined) return
+    for (let i = 0; i < notifications.value.length; i++) {
+      const notification = notifications.value[i]
+      if (notification?.pageChangeCount === undefined) continue
       notification.pageChangeCount--
-    })
+    }
 
     isDeleting.value = true
 
@@ -38,7 +42,11 @@ export const useNotificationsStore = defineStore('useNotificationsStore', () => 
         ({ pageChangeCount }) => pageChangeCount !== undefined && pageChangeCount <= 0
       )
 
-      startIndex !== -1 ? notifications.value.splice(startIndex, 1) : (isDeleting.value = false)
+      if (startIndex === -1) {
+        isDeleting.value = false
+      } else {
+        notifications.value.splice(startIndex, 1)
+      }
     }
   }
 

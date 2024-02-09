@@ -1,7 +1,7 @@
 import { computed, watch } from 'vue'
 import { useAuthStore } from '@portal/store/useAuthStore'
 import { useApiActionsCountUrl } from '@portal/composables/useApiUrl'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { storeToRefs } from 'pinia'
 
 export const useFetchActionsCount = () => {
@@ -12,9 +12,9 @@ export const useFetchActionsCount = () => {
     data: json,
     execute,
     ...fetch
-  } = useFetchWithEncryption(url, undefined, { immediate: false }).json()
+  } = useCustomFetch('with-encryption', url, undefined, { immediate: false }).json()
 
-  const data = computed(() => (json.value ? json.value : {}))
+  const data = computed(() => json.value || {})
 
   watch(
     isLoggedIn,

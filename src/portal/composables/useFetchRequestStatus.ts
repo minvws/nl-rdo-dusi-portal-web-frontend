@@ -1,13 +1,13 @@
 import { computed } from 'vue'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 
 import { useApiRequestDetailsUrl } from '@portal/composables/useApiUrl'
 
 export const useFetchRequestStatus = (reference: string) => {
   const url = useApiRequestDetailsUrl(reference)
-  const { data: json, ...fetch } = useFetchWithEncryption(url).json()
+  const { data: json, ...fetch } = useCustomFetch('with-encryption', url).json()
 
-  const data = computed(() => (json.value ? json.value : {}))
+  const data = computed(() => json.value || {})
   const values = computed(() => data.value?.data)
 
   return {

@@ -7,7 +7,7 @@
       />
       <FormNotification
         v-else
-        displayAs="explanation"
+        display-as="explanation"
         :message="t('component.formResultsTable.noData')"
       />
     </FormRow>
@@ -52,8 +52,8 @@ export default defineComponent({
     },
     items(): DescriptionListItem[] {
       return this.fields
-        .map(field => this.formatListItem(field))
-        .filter(field => !!field) as DescriptionListItem[]
+        .map((field) => this.formatListItem(field))
+        .filter((field) => !!field) as DescriptionListItem[]
     },
     wrapperProps() {
       const { styles, appliedOptions, control } = this
@@ -113,14 +113,14 @@ export default defineComponent({
       let matches: string[] = []
       let text: string = template
       const regex = /\{([a-zA-Z]+)\}/g
-      const result = Array.from(template.matchAll(regex))
+      const result = [...template.matchAll(regex)]
 
       // Will become true if there is any data for this template.
       // If there is no date, return undefined, so empty values
       // will not be shown in the table
       let hasValue = false
 
-      while (result.length) {
+      while (result.length > 0) {
         const match = result.shift()
         if (!match) break
         const field = match[1]

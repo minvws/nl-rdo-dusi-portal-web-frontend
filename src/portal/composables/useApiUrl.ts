@@ -1,8 +1,8 @@
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
-import { Project } from '@shared/types/project'
+import { ProjectType } from '@shared/types/project'
 
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
-const mockUrl = `${useMockUrl()}/${Project.PORTAL}`
+const mockUrl = `${useMockUrl()}/${ProjectType.PORTAL}`
 
 export const useApiActionsCountUrl = () => {
   return useMockData ? `${mockUrl}/actions-count.json` : `${baseUrl}/api/actionables/counts`

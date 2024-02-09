@@ -1,11 +1,13 @@
 <template>
   <div class="notification-sticky">
     <div
-      v-for="(notification, index) in notifications"
+      v-for="({ displayAs, label, message }, index) in notifications"
       :key="index"
     >
       <FormNotification
-        v-bind="notification"
+        :display-as="displayAs"
+        :label="label"
+        :message="message"
         dismissable
         announce
       />

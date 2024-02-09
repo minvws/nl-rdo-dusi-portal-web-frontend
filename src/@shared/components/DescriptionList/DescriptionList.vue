@@ -23,7 +23,9 @@
         <AppFileLink
           v-for="(file, index) in files"
           :key="`${field}-${index}`"
-          v-bind="{ field, file, formId }"
+          :field="field"
+          :file="file"
+          :form-id="formId"
         />
       </dd>
     </div>

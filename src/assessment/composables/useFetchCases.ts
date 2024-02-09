@@ -1,8 +1,8 @@
-import type { CaseType } from '@shared/types/cases'
+import type { Case } from '@shared/types/cases'
 import type { AssessmentsData } from '@shared/types/assessment'
 import type { PaginationMetaData } from '@shared/types/pagination'
 
-import { Case } from '@shared/types/cases'
+import { CaseType } from '@shared/types/cases'
 
 import { computed } from 'vue'
 
@@ -11,18 +11,21 @@ import { useApiCasesUrl, useApiPersonalCasesUrl } from '@assessment/composables/
 
 import { transformCasesData, transformPaginationMetaData } from '@shared/utils/transform'
 
-const getUrl = ({ type }: { type: CaseType }) => {
+function getUrl({ type }: { type: Case }): string {
   switch (type) {
-    case Case.ALL_CASES:
+    case CaseType.ALL_CASES: {
       return useApiCasesUrl()
-    case Case.MY_CASES:
+    }
+    case CaseType.MY_CASES: {
       return useApiPersonalCasesUrl()
-    default:
+    }
+    default: {
       throw new Error(`type "${type}" is not supported`)
+    }
   }
 }
 
-export const useFetchCases = (props: { type: CaseType }) => {
+export const useFetchCases = (props: { type: Case }) => {
   const url = getUrl(props)
 
   const { data: json, ...fetch } = useQueryFetch('with-credentials', { url }, { immediate: false })

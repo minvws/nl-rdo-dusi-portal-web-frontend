@@ -64,12 +64,12 @@ type FooterLink = {
 const { t } = useI18n()
 
 function getExternalLinks(keys: string[]) {
-  return keys.map(key => {
+  return keys.map((key) => {
     const { rel: attr, ...link } = externalUrls[key]
     // we remove the Rel.EXTERNAL in the footer-links, because this causes styling issues atm
     const rel = attr
       .split(' ')
-      .filter(rel => rel !== Rel.EXTERNAL)
+      .filter((rel) => rel !== Rel.EXTERNAL)
       .join(' ')
 
     return {

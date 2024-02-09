@@ -1,13 +1,13 @@
 import { computed } from 'vue'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useApiRequestDetailsUrl } from '@portal/composables/useApiUrl'
 import { transformFormValues } from '@shared/utils/form'
 
 export const useFetchRequestDetails = (reference: string) => {
   const url = useApiRequestDetailsUrl(reference)
-  const { data: json, ...fetch } = useFetchWithEncryption(url).json()
+  const { data: json, ...fetch } = useCustomFetch('with-encryption', url, undefined).json()
 
-  const data = computed(() => (json.value ? json.value : {}))
+  const data = computed(() => json.value || {})
   const values = computed(() => transformFormValues(data.value?.data))
 
   return {

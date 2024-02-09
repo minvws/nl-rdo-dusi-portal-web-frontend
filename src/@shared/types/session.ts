@@ -1,8 +1,8 @@
 export const SessionType = {
-  VALID: 'valid',
-  EXPIRING: 'expiring',
   EXPIRED: 'expired',
-  INVALID: 'invalid'
+  EXPIRING: 'expiring',
+  INVALID: 'invalid',
+  VALID: 'valid'
 } as const
 
 export type Session = (typeof SessionType)[keyof typeof SessionType]

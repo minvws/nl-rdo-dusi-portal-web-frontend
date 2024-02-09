@@ -1,8 +1,9 @@
 import type {
-  MaybeRefOrGetter,
-  UseFetchOptions,
+  AfterFetchContext,
   BeforeFetchContext,
-  AfterFetchContext
+  MaybeRefOrGetter,
+  OnFetchErrorContext,
+  UseFetchOptions
 } from '@vueuse/core'
 
 import { useFetch } from '@vueuse/core'
@@ -17,17 +18,21 @@ const ENCRYPTED_HEADER: string = import.meta.env.VITE_ENCRYPTED_HEADER
 const useCredentials = !import.meta.env.PROD
 
 type DecryptResponse = {
-  ctx: AfterFetchContext
+  ctx: {
+    data: any
+    response: Response | undefined
+    error?: any
+  }
   keyPair: sodium.KeyPair | undefined
 }
 
 async function decryptResponse({ ctx, keyPair }: DecryptResponse) {
   const { decrypt } = useEncryption()
   const { data, response } = ctx
-  const { headers } = response
+  const headers = response?.headers
 
-  const isEncrypted = headers.get(ENCRYPTED_HEADER) === 'true'
-  const isJson = headers.get('Content-Type') === 'application/json'
+  const isEncrypted = headers?.get(ENCRYPTED_HEADER) === 'true'
+  const isJson = headers?.get('content-type')?.includes('application/json')
 
   const notTypedArray = !(data instanceof Uint8Array)
   const notBlob = !(data instanceof Blob)
@@ -82,18 +87,27 @@ export const useFetchWithEncryption = <T>(
   }
 
   async function afterFetch(ctx: AfterFetchContext) {
-    const data = await decryptResponse({ ctx, keyPair })
-    if (data) ctx.data = data
+    const decryptedResponse = await decryptResponse({ ctx, keyPair })
+
+    if (decryptedResponse) {
+      ctx.data = decryptedResponse
+    }
+
     sessionLifetimeStore.extendSession()
+
     return ctx
   }
 
-  async function onFetchError(ctx: any) {
-    const error = await decryptResponse({ ctx, keyPair })
-    if (error) {
+  async function onFetchError(ctx: OnFetchErrorContext & { response: Response | null }) {
+    const { data, error, response } = ctx
+    const context = { data, error, response: response || undefined }
+    const decryptedResponse = await decryptResponse({ ctx: context, keyPair })
+
+    if (decryptedResponse) {
       ctx.data = undefined
-      ctx.error = error
+      ctx.error = decryptedResponse
     }
+
     return ctx
   }
 

@@ -2,11 +2,9 @@
   <section>
     <AppIntro
       v-if="data.subsidy"
-      v-bind="{
-        title: data.subsidy.title,
-        intro: data.subsidy.description,
-        body: t('pages.my-request-status.intro', { link: data.subsidy.pageUrl })
-      }"
+      :title="data.subsidy.title"
+      :intro="data.subsidy.description"
+      :body="t('pages.my-request-status.intro', { link: data.subsidy.pageUrl })"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <h3>{{ t('pages.my-request-status.status') }}</h3>
@@ -16,11 +14,9 @@
       />
       <div class="steps">
         <RequestSteps
-          v-bind="{
-            reference: data.reference,
-            submittedAt: data.submittedAt,
-            deadlineForResponseAt: data.deadlineForResponseAt
-          }"
+          :reference="data.reference"
+          :submitted-at="data.submittedAt"
+          :deadline-for-response-at="data.deadlineForResponseAt"
         />
       </div>
     </AppSuspense>

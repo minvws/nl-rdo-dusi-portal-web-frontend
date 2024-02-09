@@ -2,7 +2,7 @@ export const Rel = {
   NO_OPENER: 'noopener',
   NO_REFERRER: 'noreferrer',
   EXTERNAL: 'external'
-} as const
+}
 
 export const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
 
@@ -29,24 +29,22 @@ export const urls = {
   vulnerability: 'https://www.dus-i.nl/kwetsbaarheid-melden'
 } as const
 
-export const externalUrls = Object.entries(urls).reduce(
-  (cul, [key, href]) => {
-    return {
-      [key]: {
-        href,
-        rel: external
-      },
-      ...cul
-    }
-  },
-  {} as Record<string, { href: string; rel: string }>
-)
+export const externalUrls: Record<string, { href: string; rel: string }> = {}
 
 // parse the data in a format so it can be used in i18n
-export const externalLinks = Object.entries(externalUrls).reduce((cul, [name, values]) => {
-  const link = Object.entries(values).reduce((cul, [key, value]: [string, string]) => {
+export const externalLinks = {}
+
+for (const [key, href] of Object.entries(urls)) {
+  externalUrls[key] = { href, rel: external }
+}
+
+for (const [name, values] of Object.entries(externalUrls)) {
+  const link: Record<string, string> = {}
+
+  for (const [key, value] of Object.entries(values)) {
     const prop = `${name}${key.charAt(0).toUpperCase()}${key.slice(1)}`
-    return { ...cul, [prop]: value }
-  }, {})
-  return { ...cul, ...link }
-}, {})
+    link[prop] = value
+  }
+
+  Object.assign(externalLinks, link)
+}

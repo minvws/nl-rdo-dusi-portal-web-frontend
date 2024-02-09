@@ -33,7 +33,7 @@
                 {{ column.text }}
                 <AppIcon
                   :name="setIconName(column.id)"
-                  :aria-hidden="true"
+                  aria-hidden
                 />
               </AppButton>
               <template v-else>
@@ -79,7 +79,7 @@
                 >
                   <AppIcon
                     :name="item[column.id].text"
-                    aria-hidden="true"
+                    aria-hidden
                   />
                 </RouterLink>
                 <template v-else-if="isLinkList(item[column.id])">
@@ -147,10 +147,10 @@ const props = withDefaults(defineProps<Props>(), {
 const { t } = useI18n()
 const caseAction = useCaseAction()
 
-const sortingDirection = ref(props.sortingDirection)
-const sortingId = ref(props.sortingId)
+const sortingDirection = ref<SortDirection>(props.sortingDirection)
+const sortingId = ref<string>(props.sortingId)
 
-const hasSortableColumns = computed<boolean>(() => props.columns.some(column => column.sortable))
+const hasSortableColumns = computed<boolean>(() => props.columns.some((column) => column.sortable))
 
 function onClickSort(id: string) {
   if (id === sortingId.value) {

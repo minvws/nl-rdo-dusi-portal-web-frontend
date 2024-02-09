@@ -1,20 +1,16 @@
 <template>
   <section>
     <AppIntro
-      v-bind="{
-        title: t('pages.my-requests-overview.title'),
-        intro: t('pages.my-requests-overview.intro')
-      }"
+      :title="t('pages.my-requests-overview.title')"
+      :intro="t('pages.my-requests-overview.intro')"
     />
     <AppSuspense v-bind="{ data, error, isFetching }">
       <template #title>
         <h2>{{ t('pages.my-requests-overview.myRequests') }}</h2>
       </template>
       <RequestCards
-        v-bind="{
-          headings,
-          data
-        }"
+        :headings="headings"
+        :data="data"
       />
       <template #fallback>
         <p>{{ t('pages.my-requests-overview.noRequests') }}</p>
@@ -54,7 +50,7 @@ useSEO({
 })
 
 const headings = computed<Column[]>(() =>
-  columns.map(item => ({
+  columns.map((item) => ({
     ...item,
     text: t(`pages.my-requests-overview.table.${item.id}`)
   }))

@@ -1,7 +1,7 @@
 import type { Link } from '@shared/types/link'
-import type { UserRoleType } from '@shared/types/user'
+import type { UserRoleName } from '@shared/types/user'
 
-import { UserRoles } from '@shared/types/user'
+import { UserRoleNameType } from '@shared/types/user'
 
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
@@ -67,21 +67,21 @@ export const useAppHeaderLinks = () => {
     }
 
     for (const role of user.value.roles) {
-      const name: UserRoleType = role.name
+      const name: UserRoleName = role.name
 
       switch (name) {
-        case UserRoles.IMPLEMENTATION_COORDINATOR:
-        case UserRoles.ASSESSOR:
-        case UserRoles.LEGALS_PECIALIST: {
+        case UserRoleNameType.IMPLEMENTATION_COORDINATOR:
+        case UserRoleNameType.ASSESSOR:
+        case UserRoleNameType.LEGALS_PECIALIST: {
           routes.push(...DEFAULT_ROUTES)
           break
         }
-        case UserRoles.INTERNAL_AUDITOR: {
+        case UserRoleNameType.INTERNAL_AUDITOR: {
           routes.push(...DEFAULT_ROUTES)
           routes.push(...AUDITOR_ROUTES)
           break
         }
-        case UserRoles.DATA_EXPORTER: {
+        case UserRoleNameType.DATA_EXPORTER: {
           routes.push(...DATA_EXPORTER_ROUTES)
           break
         }

@@ -10,19 +10,22 @@ export const useTextAreaAutoSize = (type: InputType) => {
 
   onUnmounted(() => configureListeners('remove'))
 
-  const configureListeners = (type: 'add' | 'remove') => {
+  function configureListeners(type: 'add' | 'remove'): void {
     window[`${type}EventListener`]('resize', onResize)
   }
 
-  const onResize = () => {
-    if (!el.value || type !== InputType.TEXTAREA) return
+  function onResize(): void {
+    if (!el.value || type !== InputType.TEXTAREA) {
+      return
+    }
+
     el.value.style.height = 'auto'
-    const style = getComputedStyle(el.value)
-    const { paddingTop, paddingBottom } = style
-    const minHeight = parseInt(paddingTop) + parseInt(paddingBottom)
+    const { paddingTop, paddingBottom } = getComputedStyle(el.value)
+    const minHeight = Number.parseInt(paddingTop, 10) + Number.parseInt(paddingBottom, 10)
     const height = Math.max(minHeight, el.value.scrollHeight)
     el.value.style.height = `${height}px`
   }
+
   return {
     el,
     onResize

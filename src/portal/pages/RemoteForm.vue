@@ -1,5 +1,5 @@
 <template>
-  <FormLoader v-bind="{ id }" />
+  <FormLoader :id="id" />
 </template>
 
 <script setup lang="ts">

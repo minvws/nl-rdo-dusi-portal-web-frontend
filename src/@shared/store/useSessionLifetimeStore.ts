@@ -94,7 +94,7 @@ export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', ()
     return getSessionCookie()
   }
 
-  watch(duration, duration => {
+  watch(duration, (duration) => {
     stopInterval()
     if (!duration) return
 
@@ -110,14 +110,16 @@ export const useSessionLifetimeStore = defineStore('useSessionLifetimeStore', ()
 
   watch(
     session,
-    session => {
+    (session) => {
       switch (session) {
         case SessionType.EXPIRING:
-        case SessionType.EXPIRED:
+        case SessionType.EXPIRED: {
           openModal(getModal(session))
           break
-        default:
+        }
+        default: {
           closeModal()
+        }
       }
     },
     { immediate: true }

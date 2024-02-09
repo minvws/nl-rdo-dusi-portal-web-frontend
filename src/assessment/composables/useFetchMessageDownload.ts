@@ -7,7 +7,7 @@ export const useFetchMessageDownload = (id: string) => {
   const url = useApiMessageDownloadUrl(id, 'pdf')
   const { data: json, ...fetch } = useFetchWithCredentials(url).blob()
 
-  const data = computed(() => (json.value ? json.value : []))
+  const data = computed(() => json.value || [])
 
   return {
     data,

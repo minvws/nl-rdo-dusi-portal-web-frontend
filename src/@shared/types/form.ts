@@ -4,18 +4,18 @@ import type { ErrorObject } from 'ajv'
 export type FormTitle = { title?: string }
 export type FormMetaData = Record<string, any>
 
-export const FormUiTypes = {
+export const FormUiType = {
   INPUT: 'INPUT',
   VIEW: 'VIEW'
-}
+} as const
 
-export type FormUiType = (typeof FormUiTypes)[keyof typeof FormUiTypes]
+export type FormUi = (typeof FormUiType)[keyof typeof FormUiType]
 
 export type Form = {
   dataschema: JsonSchema & { anyOf?: any }
   uischema: UISchemaElement
   metadata?: FormMetaData
-  uiType?: FormUiType
+  uiType?: FormUi
 } & FormTitle
 
 export type FileType = {
@@ -33,13 +33,13 @@ export type FormData = Record<string, FormValue>
 export type FormError = (ErrorObject & { instancePath?: string }) | undefined
 export type FormErrors = FormError[][]
 
-export const FormSubmitTypes = {
+export const FormSubmitType = {
   SUBMIT: 'submit',
   DRAFT: 'draft',
   VALIDATION: 'validation'
-}
+} as const
 
-export type FormSubmitType = (typeof FormSubmitTypes)[keyof typeof FormSubmitTypes]
+export type FormSubmit = (typeof FormSubmitType)[keyof typeof FormSubmitType]
 
 export type FormButtonLabels = {
   start?: string

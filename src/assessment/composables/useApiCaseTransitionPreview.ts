@@ -36,41 +36,44 @@ export const useApiCaseTransitionPreview = (id: string) => {
 
   const columns = computed<Column[]>(() => [
     { id: 'title' },
-    ...types.map(id => ({
+    ...types.map((id) => ({
       id,
       text: t(`pages.preview-case-submit.column.${id}`)
     }))
   ])
 
-  const data = computed(() => [
-    {
-      title: {
-        text: t('pages.preview-case-submit.column.status')
-      },
-      ...types.reduce((cul, type) => {
-        const status = transition.value?.[type]?.application?.status
-        const value = {
-          type: 'string',
-          icon: statusToIcon[status],
-          text: t(`requestStatus.status.${status}`)
+  const data = computed(() => {
+    const result: Record<string, any>[] = [
+      {
+        title: {
+          text: t('pages.preview-case-submit.column.status')
         }
-        return { ...cul, [type]: value }
-      }, {})
-    },
-    {
-      title: {
-        text: t('pages.preview-case-submit.column.phase')
       },
-      ...types.reduce((cul, type) => {
-        const text = transition.value?.[type]?.subsidyStage?.title
-        const value = {
-          type: 'string',
-          text
+      {
+        title: {
+          text: t('pages.preview-case-submit.column.phase')
         }
-        return { ...cul, [type]: value }
-      }, {})
+      }
+    ]
+
+    for (const type of types) {
+      const status = transition.value?.[type]?.application?.status
+      const text = transition.value?.[type]?.subsidyStage?.title
+
+      result[0][type] = {
+        type: 'string',
+        icon: statusToIcon[status],
+        text: t(`requestStatus.status.${status}`)
+      }
+
+      result[1][type] = {
+        type: 'string',
+        text
+      }
     }
-  ])
+
+    return result
+  })
 
   const html = computed(() => transition.value?.message?.html)
 
@@ -78,7 +81,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
     execute()
   }
 
-  watch(submitData, submitData => {
+  watch(submitData, (submitData) => {
     if (!submitData) return
     router.go(-1)
   })

@@ -28,12 +28,14 @@ const { t } = useI18n()
 
 useSEO({ title: `${t(`pages.${props.name}.title`)} | ${t('app.prefix')}` })
 
-const component = computed<Component | null>(() => {
+const component = computed<Component | undefined>(() => {
   switch (props.name) {
-    case FDC_DATA_EXPORT:
+    case FDC_DATA_EXPORT: {
       return DataExport
-    default:
-      return null
+    }
+    default: {
+      return undefined
+    }
   }
 })
 </script>

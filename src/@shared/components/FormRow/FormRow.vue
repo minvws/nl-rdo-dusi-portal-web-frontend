@@ -6,7 +6,7 @@
   >
     <FormRowElement
       v-if="tip"
-      :has-left="true"
+      has-left
     >
       <template #right>
         <FormNotification
@@ -22,7 +22,7 @@
 
     <FormRowElement
       v-if="!hideRequiredLabel && !required && label"
-      :has-left="true"
+      has-left
     >
       <template #right>
         <FormRequiredLabel v-bind="{ required, label }" />
@@ -67,7 +67,7 @@
     </FormRowElement>
     <FormRowElement
       v-if="errors"
-      :has-left="true"
+      has-left
     >
       <template #right>
         <FormFieldError v-bind="{ errors, id: `${id}-error` }" />
@@ -75,7 +75,7 @@
     </FormRowElement>
     <FormRowElement
       v-else-if="validationResult"
-      :has-left="true"
+      has-left
     >
       <template #right>
         <FormFieldValidationResult

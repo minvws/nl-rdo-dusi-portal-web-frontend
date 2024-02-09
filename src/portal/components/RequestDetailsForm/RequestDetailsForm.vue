@@ -2,13 +2,11 @@
   <AppSuspense v-bind="{ data: forms, error, isFetching }">
     <div class="form-section">
       <FormView
-        v-bind="{
-          id: reference,
-          forms,
-          values,
-          noStyle: true,
-          noButtons: true
-        }"
+        :id="reference"
+        :forms="forms"
+        :values="values"
+        no-buttons
+        no-style
       />
     </div>
   </AppSuspense>

@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { Form } from '@shared/types/form'
 import type { FormOptions } from '@shared/types/form-options'
 

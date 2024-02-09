@@ -5,12 +5,10 @@
     </div>
     <div>
       <FormView
-        v-bind="{
-          id: 'login',
-          forms,
-          hideDebug: true,
-          buttonLabels: { submit: t('pages.login.submit') }
-        }"
+        id="login"
+        :forms="forms"
+        hide-debug
+        :button-labels="{ submit: t('pages.login.submit') }"
         @submit="onSubmit"
       />
     </div>

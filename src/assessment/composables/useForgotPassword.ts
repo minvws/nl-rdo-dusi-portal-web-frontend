@@ -79,7 +79,7 @@ export const useForgotPassword = () => {
     router.replace({ name: LOGIN_VIEW })
   }
 
-  const showNotification = (type: NotificationDisplayType, message?: string) => {
+  function showNotification(type: NotificationDisplayType, message?: string): void {
     const props = message ? { message } : undefined
     const id = type === NotificationType.CONFIRMATION ? 'success' : 'failed'
     const pageChangeCount = type === NotificationType.CONFIRMATION ? 2 : 1

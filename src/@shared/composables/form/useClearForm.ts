@@ -23,5 +23,7 @@ export const useClearForm = (id: ComputedRef<string>) => {
     formStorage.clear(id.value)
   }
 
-  return clear
+  return {
+    clear
+  }
 }

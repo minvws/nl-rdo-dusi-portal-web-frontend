@@ -97,7 +97,8 @@
         "error": "fout",
         "warning": "waarschuwing",
         "explanation": "uitleg",
-        "confirmation": "succesvol"
+        "confirmation": "succesvol",
+        "notification": "melding"
       }
     },
     "pagination": {

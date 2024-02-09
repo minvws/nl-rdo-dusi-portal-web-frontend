@@ -15,19 +15,23 @@
           <template #title>{{ caseDetail?.title }}</template>
           <template #content>
             <FormView
-              v-bind="{
-                id: 'review-application-metadata',
-                ...caseDetail,
-                ...formViewOptions
-              }"
+              v-bind="{ ...caseDetail }"
+              hide-debug
+              hide-required-label
+              id="review-application-metadata"
+              :locked="locked"
+              no-buttons
+              no-style
             />
             <FormView
               v-if="caseStage"
-              v-bind="{
-                id: `${props.id}/stages/${caseStageId}`,
-                ...caseStage,
-                ...formViewOptions
-              }"
+              v-bind="{ ...caseStage }"
+              hide-debug
+              hide-required-label
+              :id="`${props.id}/stages/${caseStageId}`"
+              :locked="locked"
+              no-buttons
+              no-style
             />
           </template>
         </AppAccordionItem>
@@ -40,12 +44,13 @@
             <template #title>{{ stage.title }}</template>
             <template #content>
               <FormView
+                v-bind="{ ...stage }"
+                hide-debug
+                hide-required-label
                 :id="`review-stage-item-${index}}`"
-                v-bind="{
-                  ...formViewOptions,
-                  ...stage,
-                  title: undefined
-                }"
+                :locked="locked"
+                no-buttons
+                no-style
               />
             </template>
           </AppAccordionItem>
@@ -53,12 +58,13 @@
       </AppAccordion>
       <FormView
         v-if="lastCase"
+        v-bind="{ ...lastCase }"
+        has-save-button
+        hide-debug
+        hide-required-label
         :id="`review-stage-item-`"
-        v-bind="{
-          ...formEditOptions,
-          ...lastCase,
-          title: undefined
-        }"
+        :locked="locked"
+        no-style
         @submit="onSubmit"
         @save="onSave"
       />
@@ -69,7 +75,7 @@
 <script setup lang="ts">
 import type { FormData } from '@shared/types/form'
 
-import { computed, watch } from 'vue'
+import { watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -94,26 +100,6 @@ const { t } = useI18n()
 const router = useRouter()
 const { onSubmitDraft, locked } = useSubmitCase()
 
-useSEO({ title: `${t('pages.review-case.title')} | ${t('app.prefix')}` })
-
-const formViewOptions = computed<Record<string, boolean | undefined>>(() => ({
-  hideDebug: true,
-  noStyle: true,
-  noButtons: true,
-  locked: locked.value,
-  title: undefined,
-  hideRequiredLabel: true
-}))
-
-const formEditOptions = computed<Record<string, boolean | undefined>>(() => ({
-  hideDebug: true,
-  noStyle: true,
-  locked: locked.value,
-  hasSaveButton: true,
-  title: undefined,
-  hideRequiredLabel: true
-}))
-
 const {
   data: caseData,
   error: caseError,
@@ -127,21 +113,22 @@ const {
   otherCases,
   lastCase
 } = useFetchCase(props.id as string)
+useSEO({ title: `${t('pages.review-case.title')} | ${t('app.prefix')}` })
 
-async function onSubmit(data: FormData) {
+async function onSubmit(data: FormData): Promise<void> {
   const { id } = props
   await onSubmitDraft({ id, data })
   router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
 }
 
-function onSave(data: FormData) {
+function onSave(data: FormData): void {
   const { id } = props
   onSubmitDraft({ id, data })
 }
 
 watch(
   caseReference,
-  reference => {
+  (reference) => {
     if (!reference) return
 
     const title = `${reference} - ${t('pages.review-case.title')} | ${t('app.prefix')}`

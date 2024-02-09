@@ -7,7 +7,7 @@
     <RouterLink :to="{ name: PROFILE_VIEW }">
       <AppIcon
         name="user"
-        :aria-hidden="true"
+        aria-hidden
       />
       {{ user.name }}
     </RouterLink>

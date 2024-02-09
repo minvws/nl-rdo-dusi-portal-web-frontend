@@ -1,8 +1,8 @@
 export const NotificationType = {
+  CONFIRMATION: 'confirmation',
   ERROR: 'error',
-  WARNING: 'warning',
   EXPLANATION: 'explanation',
-  CONFIRMATION: 'confirmation'
+  WARNING: 'warning'
 } as const
 
 export type NotificationDisplayType = (typeof NotificationType)[keyof typeof NotificationType]

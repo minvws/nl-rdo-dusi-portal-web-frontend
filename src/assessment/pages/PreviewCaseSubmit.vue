@@ -25,7 +25,7 @@
         <div class="letter">
           <AppHtml
             class="html"
-            v-bind="{ html }"
+            :html="html"
           />
         </div>
       </template>

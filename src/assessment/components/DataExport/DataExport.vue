@@ -81,7 +81,7 @@ const MIN_START_DATE = new Date('2023-01-01').toISOString().split('T')[0]
 const { t } = useI18n()
 const notificationsStore = useNotificationsStore()
 
-const isFocussed = ref(false)
+const isFocussed = ref<boolean>(false)
 const valueFromDate = ref<DateLike>('')
 const valueUpToDate = ref<DateLike>('')
 
@@ -168,7 +168,7 @@ async function onClickDownload() {
     ...(dateFrom && { date_from: dateFrom }),
     ...(dateTo && { date_to: dateTo })
   })
-  const url = `${baseUrl}${params.size ? `?${params}` : ''}`
+  const url = `${baseUrl}${params.size > 0 ? `?${params}` : ''}`
   const options = {
     method: 'GET',
     headers: {
@@ -200,17 +200,17 @@ async function onClickDownload() {
       })
 
       const file = new Blob([data.value as BlobPart], { type: 'text/csv;charset=utf-8;' })
-      const link = document.createElement('a')
+      const link: HTMLAnchorElement = document.createElement('a')
       link.hidden = true
       link.href = URL.createObjectURL(file)
       link.download = `${dateFrom ? `${dateFrom}_` : ''}${dateTo ? `${dateTo}-` : ''}FDC-export.csv`
       link.target = '_blank'
       link.rel = 'noopener noreferrer'
-      document.body.appendChild(link)
+      document.body.append(link)
       link.click()
-      document.body.removeChild(link)
+      link.remove()
     }
-  } catch (error) {
+  } catch {
     notificationsStore.add({
       id: 'data-export-error',
       displayAs: NotificationType.ERROR,

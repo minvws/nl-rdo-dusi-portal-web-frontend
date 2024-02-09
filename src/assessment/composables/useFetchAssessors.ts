@@ -1,5 +1,3 @@
-import type { Ref } from 'vue'
-
 import { computed, ref, watch } from 'vue'
 import { useDebounceFn } from '@vueuse/core'
 
@@ -12,7 +10,7 @@ export const useFetchAssessors = (id: string) => {
   const searchQuery = ref<string>('')
   const params = ref<Record<string, string>>({})
 
-  const updateParams = useDebounceFn(query => {
+  const updateParams = useDebounceFn((query) => {
     params.value = { search: query }
   }, 500)
 
@@ -20,7 +18,7 @@ export const useFetchAssessors = (id: string) => {
 
   const data = computed(() => (json.value ? json.value.data : {}))
 
-  watch(searchQuery, query => updateParams(query))
+  watch(searchQuery, (query) => updateParams(query))
 
   return {
     data,

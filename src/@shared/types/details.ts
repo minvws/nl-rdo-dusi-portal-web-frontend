@@ -12,10 +12,10 @@ export type DetailsDataInputSection = {
 }
 
 export const DescriptionListDetailsFieldType = {
-  FILE: 'file',
   DATE: 'date',
-  URL: 'url',
-  STRING: 'string'
+  FILE: 'file',
+  STRING: 'string',
+  URL: 'url'
 } as const
 
 export type DescriptionListDetailsType =

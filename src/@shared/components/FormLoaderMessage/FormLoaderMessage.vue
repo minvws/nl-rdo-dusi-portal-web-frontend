@@ -9,7 +9,7 @@
     </template>
     <FormNotification
       v-else-if="errorMessage"
-      displayAs="error"
+      display-as="error"
       :message="errorMessage"
     />
   </div>

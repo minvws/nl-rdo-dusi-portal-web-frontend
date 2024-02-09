@@ -7,19 +7,19 @@
     }"
   >
     <FormView
-      v-bind="{
-        id: 'my-details-application',
-        ...formViewOptions,
-        ...caseDetail
-      }"
+      v-bind="{ ...caseDetail }"
+      id="my-details-application"
+      hide-debug
+      no-style
+      no-buttons
     />
     <FormView
       v-if="caseStage"
-      v-bind="{
-        id: `${props.id}/stages/${caseStageId}`,
-        ...formViewOptions,
-        ...caseStage
-      }"
+      v-bind="{ ...caseStage }"
+      :id="`${props.id}/stages/${caseStageId}`"
+      hide-debug
+      no-style
+      no-buttons
     />
     <RouterLink
       class="button"
@@ -45,12 +45,6 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
-const formViewOptions = {
-  hideDebug: true,
-  noStyle: true,
-  noButtons: true
-}
 
 const { t } = useI18n()
 const { data, error, isFetching, caseDetail, caseStage, caseStageId } = useFetchCase(props.id)

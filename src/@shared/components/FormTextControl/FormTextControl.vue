@@ -35,10 +35,12 @@ const { el, onResize } = useTextAreaAutoSize(props.type)
 
 const component = computed<'input' | 'textarea'>(() => {
   switch (props.type) {
-    case InputType.TEXTAREA:
+    case InputType.TEXTAREA: {
       return 'textarea'
-    default:
+    }
+    default: {
       return 'input'
+    }
   }
 })
 
@@ -63,7 +65,7 @@ const input = computed<{
   }
 })
 
-function onInput(event: Event) {
+function onInput(event: InputEvent): void {
   onResize()
   emit('input', event)
 }

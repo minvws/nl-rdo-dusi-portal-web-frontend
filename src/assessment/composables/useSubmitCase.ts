@@ -1,7 +1,6 @@
-import type { Ref } from 'vue'
-import type { FormData, FormSubmitType } from '@shared/types/form'
+import type { FormData, FormSubmit } from '@shared/types/form'
 
-import { FormSubmitTypes } from '@shared/types/form'
+import { FormSubmitType } from '@shared/types/form'
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -19,18 +18,10 @@ export const useSubmitCase = () => {
 
   const locked = ref<boolean>(false)
 
-  async function onSubmit({
-    id,
-    data,
-    type
-  }: {
-    id: string
-    data: FormData
-    type: FormSubmitType
-  }) {
+  async function onSubmit({ id, data, type }: { id: string; data: FormData; type: FormSubmit }) {
     const url = useApiSubmitCaseUrl(id)
     const payload = {
-      submit: type === FormSubmitTypes.SUBMIT,
+      submit: type === FormSubmitType.SUBMIT,
       data
     }
 
@@ -48,7 +39,7 @@ export const useSubmitCase = () => {
     }
   }
 
-  function showNotification({ type, error }: { type: FormSubmitType; error?: Error }) {
+  function showNotification({ type, error }: { type: FormSubmit; error?: Error }) {
     if (error) {
       notification.showError({ type, error })
     } else {
@@ -57,16 +48,16 @@ export const useSubmitCase = () => {
   }
 
   async function onSubmitForm({ id, data }: { id: string; data: FormData }) {
-    const type = FormSubmitTypes.SUBMIT
-    const error = await onSubmit({ id, data, type: FormSubmitTypes.SUBMIT })
+    const type = FormSubmitType.SUBMIT
+    const error = await onSubmit({ id, data, type: FormSubmitType.SUBMIT })
     showNotification({ type, error })
     if (error) return
     return router.replace({ name: MY_CASES_OVERVIEW })
   }
 
   async function onSubmitDraft({ id, data }: { id: string; data: FormData }) {
-    const type = FormSubmitTypes.DRAFT
-    const error = await onSubmit({ id, data, type: FormSubmitTypes.DRAFT })
+    const type = FormSubmitType.DRAFT
+    const error = await onSubmit({ id, data, type: FormSubmitType.DRAFT })
     showNotification({ type, error })
   }
 

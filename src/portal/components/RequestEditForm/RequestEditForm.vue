@@ -2,7 +2,7 @@
   <FormLoader
     :id="id"
     :values="values"
-    :edit="true"
+    edit
   />
 </template>
 

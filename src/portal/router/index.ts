@@ -112,6 +112,6 @@ const routes = [
     ]
   },
   ...sharedRoutes
-].filter(route => !!route)
+].filter((route) => !!route)
 
 export default { routes, beforeEach, afterEach }

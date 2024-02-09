@@ -19,7 +19,5 @@ type Props = {
 const props = defineProps<Props>()
 
 const className = computed<string>(() => `icon-${props.name}`)
-const isHidden = computed<boolean | undefined>(() =>
-  props.ariaHidden ? props.ariaHidden : undefined
-)
+const isHidden = computed<boolean | undefined>(() => props.ariaHidden || undefined)
 </script>

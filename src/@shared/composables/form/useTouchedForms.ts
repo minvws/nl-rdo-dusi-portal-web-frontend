@@ -15,15 +15,14 @@ export const useTouchedForms = ({
   const touchedFormsStore = useTouchedFormsStore()
   const { touched } = storeToRefs(touchedFormsStore)
 
-  const touchedForms = computed<number[] | undefined>(() => {
-    const id = activeForm.value?.id
-    if (!id) return undefined
-    return touched.value[id]
-  })
+  const touchedForms = computed<number[] | undefined>(() =>
+    activeForm.value?.id ? touched.value[activeForm.value.id] : undefined
+  )
 
   function clearTouchedForms(id?: string) {
-    if (!id) return
-    delete touched.value[id]
+    if (id) {
+      delete touched.value[id]
+    }
   }
 
   if (formKey) {

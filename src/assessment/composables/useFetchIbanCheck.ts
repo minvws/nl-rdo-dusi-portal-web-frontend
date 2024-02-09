@@ -25,7 +25,7 @@ export const useFetchIbanCheck = () => {
 
   const data = computed(() => (json.value ? transformIbanData(json.value.data) : []))
 
-  watch(selectedId, id => {
+  watch(selectedId, (id) => {
     selectedId.value = id
     execute()
   })

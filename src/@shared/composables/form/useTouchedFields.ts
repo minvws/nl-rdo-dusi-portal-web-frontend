@@ -9,18 +9,18 @@ export const useTouchedFields = ({ activeForm }: { activeForm: ComputedRef<{ id:
   const touchedFieldsStore = useTouchedFieldsStore()
   const { touched } = storeToRefs(touchedFieldsStore)
 
-  const getTouchedField = (id: string, formId: string) => {
+  function getTouchedField(id: string, formId: string): boolean {
     return !!touched.value?.[formId]?.[id]
   }
 
-  const setTouchedField = (id: string, formId: string, value: boolean) => {
-    if (!touched.value[formId]) touched.value[formId] = {}
-    touched.value[formId][id] = value
+  function setTouchedField(id: string, formId: string, value: boolean): void {
+    touched.value[formId] ? (touched.value[formId][id] = value) : (touched.value[formId] = {})
   }
 
-  const clearTouchedFields = (id?: string) => {
-    if (!id) return
-    delete touched.value?.[id]
+  function clearTouchedFields(id?: string): void {
+    if (id) {
+      delete touched.value?.[id]
+    }
   }
 
   return {

@@ -1,7 +1,9 @@
-export const toNestedObject = (obj: Record<string, any>): Record<string, any> => {
-  return Object.keys(obj).reduce((cul: Record<string, any>, key: string) => {
+export function toNestedObject(obj: Record<string, unknown>): Record<string, any> {
+  const result: Record<string, any> = {}
+
+  for (const key of Object.keys(obj)) {
     const keys = key.split('.')
-    let nested = cul
+    let nested = result
 
     for (let i = 0; i < keys.length; i++) {
       const current = keys[i]
@@ -15,17 +17,18 @@ export const toNestedObject = (obj: Record<string, any>): Record<string, any> =>
       }
       nested = nested[current]
     }
-    return cul
-  }, {})
+  }
+
+  return result
 }
 
-export const getValueFormKey = (obj: any, key: string): any => {
+export function getValueFromKey(obj: any, key: string): string | undefined {
   if (!obj) return undefined
   if (key in obj) return obj[key]
 
   for (const prop in obj) {
     if (typeof obj[prop] === 'object') {
-      const result = getValueFormKey(obj[prop], key)
+      const result = getValueFromKey(obj[prop], key)
       if (result !== undefined) {
         return result
       }

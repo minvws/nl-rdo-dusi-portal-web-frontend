@@ -14,9 +14,9 @@ export const useForms = () => {
   const { onRemoteValidation } = useRemoteValidation(forms, onSubmitValidation)
 
   function onValidate() {
-    forms.getCurrentScopes().forEach((id: string) => {
+    for (const id of forms.getCurrentScopes()) {
       setTouchedField(id, forms.activeForm.value.id, true)
-    })
+    }
   }
 
   return {

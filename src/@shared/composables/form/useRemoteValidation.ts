@@ -1,23 +1,26 @@
-import type { FormError, FormData } from '@shared/types/form'
-import { watch, type ComputedRef, ref } from 'vue'
+import type { ComputedRef } from 'vue'
+import type { FormData } from '@shared/types/form'
+
+import { watch, ref } from 'vue'
+
+type Props = {
+  data: ComputedRef<FormData>
+  createDraft: ComputedRef<boolean>
+  isValidationPending: ComputedRef<boolean | undefined>
+}
 
 export const useRemoteValidation = (
-  {
-    data,
-    createDraft,
-    isValidationPending
-  }: {
-    errors: ComputedRef<FormError[]>
-    createDraft: ComputedRef<boolean>
-    data: ComputedRef<FormData>
-    isValidationPending: ComputedRef<boolean | undefined>
-  },
+  props: Props,
   onSubmitValidation: (_id?: string) => Promise<void>
 ) => {
-  const isDataChanged = ref(false)
+  const { data, createDraft, isValidationPending } = props
+  const isDataChanged = ref<boolean>(false)
 
-  const onValidationChange = async (id?: string) => {
-    if (!createDraft.value || isValidationPending.value || !isDataChanged.value) return
+  async function onRemoteValidation(id?: string) {
+    if (!createDraft.value || isValidationPending.value || !isDataChanged.value) {
+      return
+    }
+
     isDataChanged.value = false
     await onSubmitValidation(id)
   }
@@ -33,6 +36,6 @@ export const useRemoteValidation = (
   )
 
   return {
-    onRemoteValidation: onValidationChange
+    onRemoteValidation
   }
 }

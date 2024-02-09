@@ -9,7 +9,7 @@
  * 5. Juridisch specialist
  */
 
-export const UserRoles = {
+export const UserRoleNameType = {
   ASSESSOR: 'assessor',
   DATA_EXPORTER: 'dataExporter',
   IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
@@ -17,10 +17,10 @@ export const UserRoles = {
   LEGALS_PECIALIST: 'legalSpecialist'
 } as const
 
-export type UserRoleType = (typeof UserRoles)[keyof typeof UserRoles]
+export type UserRoleName = (typeof UserRoleNameType)[keyof typeof UserRoleNameType]
 
 export type UserRole = {
-  name: UserRoleType
+  name: UserRoleName
   subsidy: {
     id: string
     title: string

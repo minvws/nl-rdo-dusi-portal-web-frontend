@@ -26,7 +26,7 @@ export const usePagination = ({ isFetching, page, items, routes, pageSize = 5 }:
 
   const currentPage = computed<number>(() => {
     const isOverView = router.currentRoute.value.name === routes.overview
-    const value = isOverView ? 0 : page?.value ? parseInt(page.value) : 0
+    const value = isOverView ? 0 : page?.value ? Number.parseInt(page.value, 10) : 0
     return Math.max(value, 1)
   })
 
@@ -47,7 +47,7 @@ export const usePagination = ({ isFetching, page, items, routes, pageSize = 5 }:
       : router.push({ name: routes.overview })
   }
 
-  watch(isFetching, isFetching => {
+  watch(isFetching, (isFetching) => {
     if (isFetching) return
     if (currentPage.value <= pages.value) return
     // when a page is greater then total pages, go to fist page

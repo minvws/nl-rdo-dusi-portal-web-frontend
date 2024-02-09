@@ -1,10 +1,8 @@
 <template>
   <section>
     <AppIntro
-      v-bind="{
-        title: t(`pages.${type}-overview.title`),
-        body: t(`pages.${type}-overview.subtitle`)
-      }"
+      :title="t(`pages.${type}-overview.title`)"
+      :body="t(`pages.${type}-overview.subtitle`)"
     />
     <div class="filter-options-container">
       <FilterOptions
@@ -64,7 +62,7 @@
 </template>
 
 <script setup lang="ts">
-import type { CaseType } from '@shared/types/cases'
+import type { Case } from '@shared/types/cases'
 import type { SortItem } from '@shared/types/sort'
 
 import { computed } from 'vue'
@@ -80,7 +78,7 @@ import CasesTable from '@assessment/components/CasesTable/CasesTable.vue'
 import FilterOptions from '@shared/components/FilterOptions/FilterOptions.vue'
 
 type Props = {
-  type: CaseType
+  type: Case
 }
 
 const props = defineProps<Props>()
@@ -94,7 +92,7 @@ const numberOfCases = computed<number>(() => paginationMeta.value?.total ?? 0)
 
 const filterValues = computed<Record<string, string | string[]> | undefined>({
   get: () => query.value,
-  set: value => {
+  set: (value) => {
     query.value = { ...value, page: '1' }
   }
 })

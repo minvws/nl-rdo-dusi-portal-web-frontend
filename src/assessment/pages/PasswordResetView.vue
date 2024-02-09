@@ -13,13 +13,11 @@
     </div>
     <div>
       <FormView
-        v-bind="{
-          id: 'password-reset',
-          forms,
-          hideDebug: true,
-          locked,
-          buttonLabels: { submit: t('pages.update-password.submit') }
-        }"
+        id="password-reset"
+        :forms="forms"
+        hide-debug
+        :locked="locked"
+        :button-labels="{ submit: t('pages.update-password.submit') }"
         @submit="onSubmit"
       />
     </div>

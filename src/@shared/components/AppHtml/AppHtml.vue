@@ -23,18 +23,22 @@ const router = useRouter()
 
 const tag = computed<string>(() => props.as ?? 'div')
 
-function onClick(e: Event) {
+function onClick(event: MouseEvent): void {
+  if (!(event.target instanceof HTMLElement)) {
+    return
+  }
+
   // open links with router if it is a local link and target !== _blank
-  const el = e.target as HTMLElement
+  if (event.target.nodeName !== 'A') {
+    return
+  }
 
-  if (el.nodeName !== 'A') return
-
-  const href = el.getAttribute('href')
-  const target = el.getAttribute('target')
+  const href = event.target.getAttribute('href')
+  const target = event.target.getAttribute('target')
 
   if (target !== '_blank' && href?.startsWith('/')) {
-    e.preventDefault()
-    router.push(href.substring(1))
+    event.preventDefault()
+    router.push(href.slice(1))
   }
 }
 </script>

@@ -53,7 +53,7 @@ export const useFetchTransitionHistory = (id: string) => {
 
   const transitionHistory = computed<History | undefined>(() => {
     if (!data.value?.length) return undefined
-    const elements = data.value.map(item => ({
+    const elements = data.value.map((item) => ({
       type: 'FormTransitionHistory',
       options: { item }
     }))

@@ -7,14 +7,12 @@
     </div>
     <AppSuspense v-bind="{ data: details, error, isFetching }">
       <FormView
-        v-bind="{
-          id: 'my-details',
-          forms: details,
-          values,
-          hideDebug: true,
-          noStyle: true,
-          noButtons: true
-        }"
+        :forms="details"
+        hide-debug
+        id="my-details"
+        no-buttons
+        no-style
+        :values="values"
       />
       <RouterLink
         class="button"

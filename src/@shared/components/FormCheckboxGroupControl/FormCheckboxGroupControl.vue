@@ -52,14 +52,18 @@ const items = computed<{ title: string; value: string }[] | undefined>(() => {
 
   return (
     items?.oneOf?.map(({ title, const: value }) => ({ title, value })) ??
-    items?.enum?.map(title => ({ title, value: title }))
+    items?.enum?.map((title) => ({ title, value: title }))
   )
 })
 
-function onChange(e: Event) {
-  e.stopPropagation()
-  const target = e.target as HTMLInputElement
-  const { value, checked } = target
+function onChange(event: Event): void {
+  event.stopPropagation()
+
+  if (!(event.target instanceof HTMLInputElement)) {
+    return
+  }
+
+  const { value, checked } = event.target
   const data = [...values.value]
 
   while (data.includes(value)) {
@@ -67,7 +71,9 @@ function onChange(e: Event) {
     data.splice(index, 1)
   }
 
-  if (checked) data.push(value)
+  if (checked) {
+    data.push(value)
+  }
 
   props.handleChange(getControlId(props.control.id), data)
 }

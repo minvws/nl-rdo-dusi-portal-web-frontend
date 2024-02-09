@@ -53,46 +53,64 @@ type Props = {
 }
 const props = defineProps<Props>()
 
-const labels = computed<Record<string, string>>(() =>
-  props.headings.reduce((cul, { id, text }) => ({ ...cul, [id]: text }), {})
-)
+const labels = computed<Record<string, string>>(() => {
+  const result: Record<string, string> = {}
 
-const toExternalLink = ({ to, text }: ExternalLink) => ({
-  component: 'a',
-  href: to,
-  text
+  for (const { id, text } of props.headings) {
+    if (text) {
+      result[id] = text
+    }
+  }
+
+  return result
 })
 
-const toButtonLink = ({ type, ...params }: any) => ({
-  component: 'RouterLink',
-  className: ['button', type].join(' '),
-  ...params
-})
+function toExternalLink({ to, text }: ExternalLink) {
+  return {
+    component: 'a',
+    href: to,
+    text
+  }
+}
 
-const toAppHtml = ({ text, icon }: AppHtmlContent) => ({
-  component: AppHtml,
-  html: `<b>${text}</b>`,
-  icon,
-  as: 'div'
-})
+function toButtonLink({ type, ...params }: any) {
+  return {
+    component: 'RouterLink',
+    className: ['button', type].join(' '),
+    ...params
+  }
+}
 
-const getComponent = (params: { type: Type } & any) => {
+function toAppHtml({ text, icon }: AppHtmlContent) {
+  return {
+    component: AppHtml,
+    html: `<b>${text}</b>`,
+    icon,
+    as: 'div'
+  }
+}
+
+function getComponent(params: { type: Type } & any) {
   switch (params.type) {
-    case 'external-link':
+    case 'external-link': {
       return toExternalLink(params as ExternalLink)
+    }
     case 'link':
-    case 'button-link':
+    case 'button-link': {
       return toButtonLink(params as ExternalLink)
+    }
     case 'date':
-    case 'string':
+    case 'string': {
       return toAppHtml(params as AppHtmlContent)
-    default:
+    }
+    default: {
       log('error', `Unknown type: ${params.type}`)
+    }
   }
 }
 
 const items = computed(() =>
-  props.data.map(row =>
+  props.data.map((row) =>
     Object.entries(row)
       .map(([id, item]: [string, any]) => {
         const component = getComponent(item)
@@ -102,7 +120,7 @@ const items = computed(() =>
           label: id === 'action' ? undefined : labels.value[id]
         }
       })
-      .filter(item => !!item)
+      .filter((item) => !!item)
   )
 )
 </script>

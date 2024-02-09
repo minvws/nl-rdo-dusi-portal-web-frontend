@@ -6,13 +6,11 @@
     </div>
     <AppSuspense v-bind="{ data, error, isFetching }">
       <FormView
-        v-bind="{
-          id: 'my-details-edit',
-          forms: data,
-          values,
-          hideDebug: true,
-          buttonLabels: { submit: t('pages.my-details-edit.save') }
-        }"
+        id="my-details-edit"
+        :forms="data"
+        :values="values"
+        hide-debug
+        :button-labels="{ submit: t('pages.my-details-edit.save') }"
         @submit="onSubmit"
       />
     </AppSuspense>

@@ -54,8 +54,8 @@
     <AppButton
       type="button"
       class="assign-assessor__button"
-      @click="submit"
       :disabled="isDisabled"
+      @click="submit"
     >
       {{ t('component.assignAssessor.assign') }}
     </AppButton>

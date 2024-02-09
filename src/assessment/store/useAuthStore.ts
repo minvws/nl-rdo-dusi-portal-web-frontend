@@ -1,12 +1,11 @@
 import type { NotificationDisplayType } from '@shared/types/notification'
 import type { RouteRecordName } from 'vue-router'
 import type { TwoFactorResponse } from '@shared/types/api-response'
-import type { User } from '@shared/types/user'
-import type { UserRole } from '@shared/types/user'
+import type { User, UserRole, UserRoleName } from '@shared/types/user'
 
 import { NotificationType } from '@shared/types/notification'
 import { SessionType } from '@shared/types/session'
-import { UserRoles } from '@shared/types/user'
+import { UserRoleNameType } from '@shared/types/user'
 
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
@@ -45,8 +44,6 @@ import {
   useApiUserStatusUrl
 } from '@assessment/composables/useApiUrl'
 
-type RouteName = RouteRecordName | null | undefined
-
 export const useAuthStore = defineStore('useAuthStore', () => {
   const router = useRouter()
   const notificationsStore = useNotificationsStore()
@@ -57,12 +54,12 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const homeRoute = ref<string>(HOME)
   const isLoggedIn = ref<boolean>(false)
   const needsTwoFactor = ref<boolean>(false)
-  const user = ref<User | null>(null)
+  const user = ref<User | undefined>(undefined)
 
   const userRoles = computed<UserRole[]>(() => user.value?.roles ?? [])
   const isPasswordExpired = computed<boolean>(() => Boolean(user.value?.passwordExpired))
 
-  async function getUserInfo(routeName?: RouteName) {
+  async function getUserInfo(routeName?: RouteRecordName | undefined) {
     const session = getSessionCookie()
 
     if (routeName === 'login-view' && !session) {
@@ -77,14 +74,14 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       }
       const { data, response } = await useFetchWithCredentials(url, options).json()
 
-      if (!response.value?.ok) {
-        user.value = null
-        isLoggedIn.value = false
-        sessionLifetimeStore.removeSession()
-      } else {
+      if (response.value?.ok) {
         user.value = data.value.data
         isLoggedIn.value = true
         sessionLifetimeStore.extendSession()
+      } else {
+        user.value = undefined
+        isLoggedIn.value = false
+        sessionLifetimeStore.removeSession()
       }
     } catch (error) {
       log('Error getting user info', error)
@@ -101,7 +98,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const { response } = await useFetchWithCredentials(url, options).json()
 
       if (response.value?.ok) {
-        user.value = null
+        user.value = undefined
         isLoggedIn.value = false
       }
     } catch (error) {
@@ -123,12 +120,15 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
       if (!response.value?.ok) {
         switch (response.value?.status) {
-          case 422:
+          case 422: {
             return setNotification('login-invalid-credentials', NotificationType.ERROR)
-          case 429:
+          }
+          case 429: {
             return setNotification('login-too-many-attempts', NotificationType.ERROR)
-          default:
+          }
+          default: {
             return setNotification('login-failed', NotificationType.ERROR)
+          }
         }
       }
 
@@ -150,10 +150,12 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       const { response } = await useFetchWithCredentials(url, options)
       if (!response.value?.ok) {
         switch (response.value?.status) {
-          case 429:
+          case 429: {
             return setNotification('too-many-attempts', NotificationType.ERROR)
-          default:
+          }
+          default: {
             return setNotification('failed', NotificationType.ERROR)
+          }
         }
       }
     } catch (error) {
@@ -173,10 +175,12 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
       if (!response.value?.ok) {
         switch (response.value?.status) {
-          case 422:
+          case 422: {
             return setNotification('2fa-invalid-code', NotificationType.ERROR)
-          default:
+          }
+          default: {
             return setNotification('2fa-failed', NotificationType.ERROR)
+          }
         }
       }
 
@@ -207,18 +211,18 @@ export const useAuthStore = defineStore('useAuthStore', () => {
       if (!response.value?.ok) {
         try {
           throw new Error(json.value.message)
-        } catch (e) {
-          const error = e as Error
-          throw new Error(error.message ?? response.value?.statusText)
+        } catch (error) {
+          const { message } = error as Error
+          throw new Error(message ?? response.value?.statusText)
         }
       }
 
       setNotification('password-update-success', NotificationType.CONFIRMATION)
       router.push({ name: HOME })
-    } catch (e) {
-      const error = e as Error
+    } catch (error) {
+      const { message } = error as Error
       log('Error trying to update password', error)
-      setNotification('password-update-failed', NotificationType.ERROR, { error: error?.message })
+      setNotification('password-update-failed', NotificationType.ERROR, { error: message })
     }
   }
 
@@ -277,15 +281,19 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   }
 
   function verifyRouteForUserRole(routeName: string) {
-    userRoles.value.forEach(({ name }) => {
+    for (const { name } of userRoles.value) {
       const routeIsValid = roleRoutes[name].includes(routeName)
       canVisitRoute.value = routeIsValid
-    })
+    }
   }
 
   function setHomeRoute() {
-    const hasAuditorRole = userRoles.value.find(role => role.name === UserRoles.INTERNAL_AUDITOR)
-    const hasExporterRole = userRoles.value.find(role => role.name === UserRoles.DATA_EXPORTER)
+    const hasAuditorRole = userRoles.value.find(
+      (role) => role.name === UserRoleNameType.INTERNAL_AUDITOR
+    )
+    const hasExporterRole = userRoles.value.find(
+      (role) => role.name === UserRoleNameType.DATA_EXPORTER
+    )
 
     if (hasAuditorRole) {
       homeRoute.value = CHECKS_OVERVIEW
@@ -304,7 +312,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     onLoginChange(false)
   })
 
-  watch(isLoggedIn, isLoggedIn => onLoginChange(isLoggedIn))
+  watch(isLoggedIn, (isLoggedIn) => onLoginChange(isLoggedIn))
 
   return {
     canVisitRoute,

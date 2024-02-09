@@ -23,29 +23,38 @@ export const useFormSteps = (props: Props) => {
   const { canContinueAfterValidation } = storeToRefs(validationStore)
 
   const hasSteps = computed<boolean>(() => steps.value > 1)
+
   const hasForms = computed<boolean>(() => !!steps.value)
+
   const hasPrevStep = computed<boolean>(() => hasForms.value && props.index > 0)
+
   const hasNextStep = computed<boolean>(
     () => hasForms.value && props.index < props.forms.length - 1
   )
+
   const hasSubmit = computed<boolean>(() => props.index === props.forms.length - 1)
+
   const hasSave = computed<boolean>(() =>
-    !props.hasSaveButton ? false : hasPrevStep.value || hasSubmit.value
+    props.hasSaveButton ? hasPrevStep.value || hasSubmit.value : false
   )
+
   const isCurrentStepValid = computed<boolean>(() => {
     const errors = props.formsErrors[props.index]
     return !errors || (Array.isArray(errors) && errors.length === 0)
   })
+
   const steps = computed<number>(() => props.forms.length)
+
   const stepHasInputFields = computed<boolean>(() => {
     const schema = forms.value[activeForm.value.index].uischema as UISchemaElement & {
       elements: []
     }
-    return schema.elements.map(element => hasCustomControl(element)).some(value => value)
+    return schema.elements.map((element) => hasCustomControl(element)).some(Boolean)
   })
+
   const hasErrors = computed<number[]>(() => {
     return props.formsErrors
-      ?.map((errors, index) => (Array.isArray(errors) && errors.length ? index : undefined))
+      ?.map((errors, index) => (Array.isArray(errors) && errors.length > 0 ? index : undefined))
       .filter((value: number | undefined) => value !== undefined) as number[]
   })
 

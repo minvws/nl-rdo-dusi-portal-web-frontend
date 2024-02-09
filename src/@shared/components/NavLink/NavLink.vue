@@ -6,9 +6,9 @@
   >
     <a
       :href="href"
-      @click="navigate"
       :aria-current="isActive ? (isExactActive ? 'page' : 'true') : undefined"
       :class="{ active: isActive, 'exact-active': isExactActive }"
+      @click="navigate"
     >
       <slot />
     </a>

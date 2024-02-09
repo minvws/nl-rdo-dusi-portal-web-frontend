@@ -1,8 +1,7 @@
-import type { Ref } from 'vue'
 import type { Form, FormData } from '@shared/types/form'
 
 import { computed, ref, watch } from 'vue'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 
 import {
   useApiRequestEditPersonalDetailsUrl,
@@ -17,11 +16,13 @@ export const useFetchPersonalDetails = ({ editable }: Record<string, boolean>) =
 
   const url = editable ? useApiRequestEditPersonalDetailsUrl() : useApiRequestPersonalDetailsUrl()
 
-  const { data: json, ...fetch } = useFetchWithEncryption(url).json()
+  const { data: json, ...fetch } = useCustomFetch('with-encryption', url, undefined, {
+    immediate: false
+  }).json()
 
-  const data = computed(() => (json.value?.data ? json.value.data : []))
+  const data = computed(() => json.value?.data ?? [])
 
-  watch(data, data => {
+  watch(data, (data) => {
     if (!data) {
       return
     }

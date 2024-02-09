@@ -8,9 +8,9 @@
   >
     <component
       v-if="label"
+      :is="labelComponent"
       class="form-group-label"
       :class="labelClass"
-      :is="labelComponent"
       :id="labelId"
     >
       {{ label }}
@@ -18,7 +18,7 @@
     <div class="form-group-renderer">
       <FormNotification
         v-if="message"
-        displayAs="explanation"
+        display-as="explanation"
         :message="message"
       />
       <GroupRenderer

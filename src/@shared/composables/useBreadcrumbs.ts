@@ -17,19 +17,19 @@ export const useBreadcrumbs = () => {
 
     const links: Link[] = []
     // Add route links
-    route.matched.forEach(({ name }) => {
-      if (!name) return
+    for (const { name } of route.matched) {
+      if (!name) continue
       const linkName = name as string
       const label = t(`pages.${linkName}.title`)
 
       // do not show breadcrumb when page does not have a label
-      if (!label) return
+      if (!label) continue
 
       links.push({
         name: linkName,
         label: t(`pages.${linkName}.title`)
       })
-    })
+    }
 
     links.unshift({
       name: '',

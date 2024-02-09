@@ -1,16 +1,16 @@
 import type { FieldProp } from '@shared/types/field'
+import type { FormData, FormValue } from '@shared/types/form'
 
 import { useForms } from '@shared/composables/form/useForms'
 import { InputType } from '@shared/types/input'
 import { toNestedObject } from '@shared/utils/object'
 import { log } from '@shared/utils/logger'
 
-const truncateMaxLength = (value = '', { maxLength }: FieldProp) => {
-  if (!maxLength) return value
-  return value.substring(0, maxLength)
+function truncateMaxLength(value = '', { maxLength }: FieldProp) {
+  return maxLength ? value.slice(0, maxLength) : value
 }
 
-const getDummyData = (props: FieldProp) => {
+function getDummyData(props: FieldProp): FormValue | number | undefined {
   const { type, format, iban, file, tel, postalCode, title, enum: enums } = props
   if (enums) {
     return enums[0]
@@ -19,7 +19,7 @@ const getDummyData = (props: FieldProp) => {
     return '+31(0) 611111111'
   }
   if (iban) {
-    return 'NL91ABNA0417164300'
+    return 'NL62ABNA9999841479'
   }
   if (postalCode) {
     return '1111 AA'
@@ -29,40 +29,49 @@ const getDummyData = (props: FieldProp) => {
     return undefined
   }
   switch (format) {
-    case InputType.DATE:
+    case InputType.DATE: {
       return new Date().toISOString().split('T')[0]
-    case InputType.EMAIL:
+    }
+    case InputType.EMAIL: {
       return 'e@mail.com'
-    default:
+    }
+    default: {
       log('unknown format', format)
       break
+    }
   }
   switch (type) {
-    case 'boolean':
+    case 'boolean': {
       return true
-    case 'string':
+    }
+    case 'string': {
       return truncateMaxLength(title, props)
-    case 'integer':
+    }
+    case 'integer': {
       return 4
-    case 'number':
+    }
+    case 'number': {
       return Math.PI
-    default:
+    }
+    default: {
       log('unknown type', type)
       break
+    }
   }
 }
 
 export const useFormDummyData = () => {
   const form = useForms()
 
-  const setDummyData = () => {
+  function setDummyData() {
     // get all scopes on the current form and set a value
     const scopes = form.getCurrentLinkedScopes()
-    const fields = scopes.map((key: string[]) => {
+    const data: FormData = {}
+    const fields: { key: string; props: FieldProp }[] = scopes.map((key: string[]) => {
       let props: any = form.schema.value
       const path = [...key]
 
-      while (key.length) {
+      while (key.length > 0) {
         const currentKey = key.shift()
         if (currentKey && props?.properties) {
           props = props.properties[currentKey]
@@ -74,22 +83,21 @@ export const useFormDummyData = () => {
       return { key: path.join('.'), props }
     })
 
-    const data = fields.reduce(
-      (cul: FormData, { key, props }: { key: string; props: FieldProp }) => {
-        if (props.default) {
-          // do not overwrite default data
-          return cul
-        }
-        return {
-          ...cul,
-          [key]: getDummyData(props)
-        }
-      },
-      {} as FormData
-    )
-    form.setFormData(toNestedObject(data))
+    for (const { key, props } of fields) {
+      if (props.default) {
+        // do not overwrite default data
+        continue
+      }
+
+      data[key] = getDummyData(props) as FormValue
+    }
+
+    const nestedObjectData = toNestedObject(data)
+
+    form.setFormData(nestedObjectData)
     form.onValidate()
   }
+
   return {
     setDummyData
   }

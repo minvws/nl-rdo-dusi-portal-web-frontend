@@ -1,8 +1,13 @@
-export const toggleAriaExpanded = (button?: HTMLElement, isExpanded?: boolean) => {
-  if (!button) return
-  if (!button.hasAttribute('aria-expanded')) return
+export function toggleAriaExpanded(button?: HTMLElement, isExpanded?: boolean): boolean | void {
+  if (!button || !button.hasAttribute('aria-expanded')) {
+    return
+  }
+
   const needsToggle = button.getAttribute('aria-expanded') === (isExpanded ? 'true' : 'false')
-  if (!needsToggle) return
-  button.click()
+
+  if (needsToggle) {
+    button.click()
+  }
+
   return true
 }

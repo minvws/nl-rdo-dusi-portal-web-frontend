@@ -1,15 +1,15 @@
 import type { FileLink } from '@shared/types/link'
 import type { FormOptions } from '@shared/types/form-options'
 
-import { Project } from '@shared/types/project'
+import { ProjectType } from '@shared/types/project'
 import { useMockUrl, useMockData } from '@shared/composables/useMock'
 
 function getBaseUrl() {
   if (window?.config?.api) {
     return window.config.api
-  } else if (import.meta.env.VITE_PROJECT === Project.PORTAL) {
+  } else if (import.meta.env.VITE_PROJECT === ProjectType.PORTAL) {
     return import.meta.env.VITE_PORTAL_API_BASE_URL
-  } else if (import.meta.env.VITE_PROJECT === Project.ASSESSMENT) {
+  } else if (import.meta.env.VITE_PROJECT === ProjectType.ASSESSMENT) {
     return import.meta.env.VITE_ASSESSMENT_API_BASE_URL
   } else {
     throw new Error('no base url is set')

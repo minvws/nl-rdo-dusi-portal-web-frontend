@@ -1,4 +1,4 @@
-import type { NavigationGuardNext, RouteLocationNormalized } from 'vue-router'
+import type { NavigationGuardNext, RouteLocationNormalized, RouteRecordName } from 'vue-router'
 
 import { storeToRefs } from 'pinia'
 
@@ -25,7 +25,7 @@ export const beforeEach = async (
   const needsRedirect = REDIRECT.includes(to.name as string)
   const authStore = useAuthStore()
   const { canVisitRoute, homeRoute, isLoggedIn, isPasswordExpired } = storeToRefs(authStore)
-  await authStore.getUserInfo(to.name)
+  await authStore.getUserInfo(to.name as RouteRecordName)
 
   if ((to.name === LOGIN_VIEW || to.name === TWO_FACTOR_VIEW) && isLoggedIn.value) {
     return next({ name: homeRoute.value })

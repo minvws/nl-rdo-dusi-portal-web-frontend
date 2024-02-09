@@ -7,15 +7,13 @@
   >
     <div ref="el"><slot /></div>
     <FormView
-      v-bind="{
-        id: type,
-        forms,
-        buttonLabels: { submit: t('component.filterOptions.submit') },
-        hideDebug: true,
-        hideRequiredLabel: true,
-        persistent: true,
-        ariaLabel: t('component.filterOptions.title')
-      }"
+      :aria-label="t('component.filterOptions.title')"
+      :button-labels="{ submit: t('component.filterOptions.submit') }"
+      :forms="forms"
+      hide-debug
+      hide-required-label
+      :id="type"
+      persistent
       @init="onSubmit"
       @submit="onSubmit"
     />
@@ -28,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { FormOptions } from '@shared/types/form-options'
 import type { FormData } from '@shared/types/form'
 
@@ -54,10 +51,10 @@ const props = defineProps<Props>()
 
 const emit = defineEmits(['update:modelValue', 'close'])
 
-const el: Ref = ref()
-
 const { t } = useI18n()
 const { forms, error } = useFetchFilterOptions(props.type)
+
+const el = ref()
 
 function onSubmit(data: FormData) {
   emit('update:modelValue', data)

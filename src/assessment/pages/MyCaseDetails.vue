@@ -113,7 +113,7 @@ function onTabChange(index: number) {
 
 watch(
   selectedIndex,
-  selectedIndex => {
+  (selectedIndex) => {
     const { name } = tabs[selectedIndex]
     router.replace({ name, params: props })
   },

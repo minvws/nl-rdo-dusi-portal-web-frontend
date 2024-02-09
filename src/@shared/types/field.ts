@@ -3,7 +3,6 @@ import type { JsonSchema } from '@jsonforms/core'
 import type { FormValue } from '@shared/types/form'
 
 import { InputType } from '@shared/types/input'
-import type { ControlEvent } from './control'
 
 type FieldOptions = {
   iban?: boolean
@@ -14,6 +13,7 @@ type FieldOptions = {
   formatMaximum?: string
   updatePassword?: boolean
 }
+
 export type FieldProp = {
   type: string
   format?: InputType
@@ -23,6 +23,8 @@ export type FieldProp = {
   minLength?: number
   maxLength?: number
 } & FieldOptions
+
+export type ControlEvent = 'onFocus' | 'onBlur' | 'onInput' | 'onChange' | 'onValid'
 
 export type Control = {
   id: string

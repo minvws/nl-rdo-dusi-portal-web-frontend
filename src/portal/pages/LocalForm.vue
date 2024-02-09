@@ -7,23 +7,20 @@
     />
     <FormLoaderMessage
       v-else-if="!form"
-      v-bind="{ isFetching: true }"
+      is-fetching
     />
     <FormView
       v-else
-      v-bind="{
-        id,
-        createDraft: true,
-        forms: form.data,
-        values: form.values,
-        title: form.title
-      }"
+      :id="id"
+      create-draft
+      :forms="form.data"
+      :values="form.values"
+      :title="form.title"
     />
   </FormSection>
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { Form, FormData } from '@shared/types/form'
 
 import { ref } from 'vue'
@@ -33,13 +30,14 @@ import FormView from '@shared/components/FormView/FormView.vue'
 import FormLoaderMessage from '@shared/components/FormLoaderMessage/FormLoaderMessage.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-const forms = Object.entries(import.meta.glob('@shared/fixtures/form/*.ts')).reduce(
-  (cul, [key, value]) => {
-    const name = key.split('/').splice(-1)[0].split('.')[0]
-    return { [name]: value, ...cul }
-  },
-  {} as Record<string, () => any>
-)
+const forms: Record<string, () => any> = {}
+
+const formFiles = import.meta.glob('@shared/fixtures/form/*.ts')
+
+for (const [key, value] of Object.entries(formFiles)) {
+  const name = key.split('/').splice(-1)[0].split('.')[0]
+  forms[name] = value
+}
 
 type Props = {
   name?: string
@@ -57,7 +55,7 @@ async function load() {
   try {
     const { default: localForm } = await forms[name]()
     form.value = await localForm()
-  } catch (e) {
+  } catch {
     error.value = `form "${name}" cannot be loaded`
   }
 }

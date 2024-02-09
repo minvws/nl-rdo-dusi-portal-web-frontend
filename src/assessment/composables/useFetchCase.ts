@@ -23,7 +23,7 @@ export const useFetchCase = (id: string) => {
   const caseStages = computed(() => {
     const stages = data.value?.applicationStages
     if (!stages) return undefined
-    return stages.map(stage => transform(stage))
+    return stages.map((stage) => transform(stage))
   })
 
   const caseStage = computed(() => caseStages?.value?.[0])

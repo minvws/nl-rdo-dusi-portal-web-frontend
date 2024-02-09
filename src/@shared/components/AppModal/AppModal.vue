@@ -4,11 +4,11 @@
     appear
   >
     <component
-      v-if="modalStore.content"
+      v-if="content"
       :ref="modalStore.setElement"
-      :is="modalStore.component"
+      :is="component"
       class="modal"
-      @click="modalStore.onClickOutside"
+      @click.prevent="onClickOutside"
     >
       <Transition
         name="content"
@@ -17,14 +17,14 @@
       >
         <div
           class="modal-wrapper"
-          :key="`${modalStore.content.title}-${modalStore.content.message}`"
+          :key="key"
           @keyup.space="pressFirstButton"
         >
           <div
             class="modal-content"
             :class="modalTypeClass"
             role="group"
-            :aria-label="t(`component.modal.aria-label.${modalStore.content.type}`)"
+            :aria-label="ariaLabel"
             @click.stop
           >
             <div class="modal-content__icon">
@@ -35,17 +35,17 @@
                 ref="title"
                 tabindex="-1"
               >
-                {{ modalStore.content.title }}
+                {{ content.title }}
               </h2>
-              <p>{{ modalStore.content.message }}</p>
+              <p>{{ content.message }}</p>
               <component
-                v-if="modalStore.content.component"
-                :is="modalStore.content.component.name"
-                v-bind="modalStore.content.component.props"
+                v-if="content.component"
+                :is="content.component.name"
+                v-bind="content.component.props"
               />
               <div class="buttons">
                 <AppButton
-                  v-for="({ label, action }, index) in modalStore.content.buttons"
+                  v-for="({ label, action }, index) in content.buttons"
                   :key="index"
                   @click="action"
                 >
@@ -69,24 +69,34 @@ import { useI18n } from 'vue-i18n'
 import { useAppModalStore } from '@shared/store/useAppModalStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
+import { storeToRefs } from 'pinia'
 
 const { t } = useI18n()
 const modalStore = useAppModalStore()
+const { content, component } = storeToRefs(modalStore)
 
 const title = ref<HTMLHeadingElement>()
 
+const key = computed<string>(() => `${content.value?.title}-${content.value?.message}`)
+
+const ariaLabel = computed<string>(() => t(`component.modal.aria-label.${content.value?.type}`))
+
 const modalTypeClass = computed<string>(() => {
-  const type = modalStore?.content?.type ?? ModalType.DEFAULT
-  return type !== ModalType.DEFAULT ? type : ''
+  const type = content.value?.type ?? ModalType.DEFAULT
+  return type === ModalType.DEFAULT ? '' : type
 })
 
-function pressFirstButton() {
-  modalStore?.content?.buttons?.[0]?.action()
+function onClickOutside(): void {
+  modalStore.onClickOutside()
 }
 
-watch(title, (current, previous) => {
-  if (current && !previous) {
-    current.focus()
+function pressFirstButton(): void {
+  content.value?.buttons?.[0]?.action()
+}
+
+watch(title, (newTitle, oldTitle) => {
+  if (newTitle && !oldTitle) {
+    newTitle.focus()
   }
 })
 </script>

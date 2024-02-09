@@ -50,28 +50,24 @@ const input = computed<{
   type: InputType.NUMBER
 }))
 
-function onKeyDown(e: KeyboardEvent) {
+function onKeyDown(event: KeyboardEvent): void {
   // Fix: Chrome and Firefox behave differently with input type = 'number'
   // only allow numbers for `integers`
   // only allow numbers and decimals for `numbers`
 
-  const { key, metaKey } = e
+  const { key, metaKey } = event
   if (!key || key.length > 1 || metaKey) {
     // ignore non input values
     return
   }
 
-  const isNumber = !Number.isNaN(parseInt(key))
+  const isNumber = !Number.isNaN(Number.parseInt(key, 10))
   const isDecimal = ['.'].includes(key)
 
-  if (props.type === InputType.INTEGER) {
-    if (!isNumber) {
-      e.preventDefault()
-    }
-  } else if (props.type == InputType.NUMBER) {
-    if (!isNumber && !isDecimal) {
-      e.preventDefault()
-    }
+  if (props.type === InputType.INTEGER && !isNumber) {
+    event.preventDefault()
+  } else if (props.type === InputType.NUMBER && !isNumber && !isDecimal) {
+    event.preventDefault()
   }
 }
 </script>

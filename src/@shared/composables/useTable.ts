@@ -2,12 +2,12 @@ import type { SortDirection, SortItem } from '@shared/types/sort'
 
 import { computed, ref } from 'vue'
 
-type TableProps = {
+type Props = {
   data: any[]
   itemsPerPage?: number
 }
 
-export const useTable = ({ data, itemsPerPage }: TableProps) => {
+export const useTable = ({ data, itemsPerPage }: Props) => {
   const sortingId = ref<string>('')
   const sortingDirection = ref<SortDirection>('ascending')
   const currentPage = ref<number>(1)
@@ -35,7 +35,11 @@ export const useTable = ({ data, itemsPerPage }: TableProps) => {
 
         const asc = sortingDirection.value === 'ascending'
 
-        return asc ? (aValue < bValue ? -1 : 1) : aValue > bValue ? -1 : 1
+        if (asc) {
+          return aValue < bValue ? -1 : 1
+        } else {
+          return aValue > bValue ? -1 : 1
+        }
       })
     }
 

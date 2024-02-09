@@ -5,7 +5,7 @@ import { defineStore } from 'pinia'
 
 import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
-import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useEncryption } from '@shared/composables/useEncryption'
 
 import { t } from '@shared/i18n'
@@ -22,9 +22,15 @@ export const useFileStore = defineStore('useFileStore', () => {
   const files = ref<Record<string, Record<string, File[]>>>({})
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
 
-  async function addFile(name: string, file: File, index: number, error?: Ref<string>) {
+  async function addFile(
+    name: string,
+    file: File,
+    index: number,
+    error?: Ref<string>
+  ): Promise<void> {
     const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
+    let pendingState = pending.value[id] || {}
     const target = currentFiles[name] ?? []
 
     if (target[index]) removeFile(name, index)
@@ -34,90 +40,113 @@ export const useFileStore = defineStore('useFileStore', () => {
       ...currentFiles,
       [name]: target
     }
-
     files.value[id] = updatedFiles
 
-    const filesPending = [...(pending.value[id]?.[name] || [])]
-    if (!pending.value[id]) pending.value[id] = {}
+    const filesPending = [...(pendingState?.[name] || [])]
+
+    if (!pendingState) {
+      pendingState = {}
+    }
+
     filesPending[index] = true
-    Object.assign(pending.value[id], { [name]: filesPending })
+    Object.assign(pendingState, { [name]: filesPending })
+
     await saveFile(name, file, index, error)
-    pending.value[id][name][index] = false
+
+    pendingState[name][index] = false
   }
 
-  function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>) {
+  function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>): void {
     const file = target?.files?.[0]
-    const index = parseInt(target?.dataset.index || '0')
+    const index = Number.parseInt(target?.dataset.index || '0', 10)
+
     if (file) {
       const name = getControlId(id)
       addFile(name, file, index, error)
-    } else removeFileByIdAndIndex(id, index)
+    } else {
+      removeFileByIdAndIndex(id, index)
+    }
   }
 
-  function removeFileByIdAndIndex(id: string, index: number) {
+  function removeFileByIdAndIndex(id: string, index: number): void {
     const name = getControlId(id)
     removeFile(name, index)
   }
 
-  function clearFiles(id: string) {
+  function clearFiles(id: string): void {
     delete files.value[id]
     delete pending.value[id]
   }
 
-  function getFile(id: string, index: number) {
+  function getFile(id: string, index: number): File {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
     return files.value[formId]?.[name]?.[index]
   }
 
-  function isUploadPending(id: string) {
+  function isUploadPending(id: string): boolean[] {
     const { id: formId } = form.activeForm.value
     const name = getControlId(id)
     return pending.value[formId]?.[name]
   }
 
-  function removeFile(name: string, index = 0) {
+  function removeFile(name: string, index = 0): void {
     const { id } = form.activeForm.value
     const target = files.value?.[id]
     if (!target?.[name]) return
     target[name].splice(index, 1)
   }
 
-  async function saveFile(id: string, file: File, index: number, error?: Ref<string>) {
+  async function saveFile(
+    fieldName: string,
+    file: File,
+    index: number,
+    errorRef?: Ref<string>
+  ): Promise<void> {
     const { draftId } = form
-    const url = useApiFileUrl(draftId.value, id)
+    const url = useApiFileUrl(draftId.value, fieldName)
 
     try {
       const arrayBuffer = await file.arrayBuffer()
       const fileData = new Uint8Array(arrayBuffer)
       const encryptedData = await encrypt(publicKey, fileData)
-      const { data } = await useFetchWithEncryption(url).post(encryptedData).json()
-      if (data.value?.id) {
-        return onFileUpload({ id, file, index, data: data.value })
+      const options: RequestInit = {
+        method: 'POST',
+        body: encryptedData
       }
-      throw new Error(data?.value?.message)
-    } catch (errorResponse) {
-      log(errorResponse)
-      if (!errorResponse || !error) return
-      error.value = t('form.fields.error.upload') ?? ''
-      return undefined
+      const { data } = await useCustomFetch('with-encryption', url, options).json()
+      const { id, message } = data.value
+
+      if (id) {
+        return onFileUpload({ fieldName, file, index, data: data.value })
+      }
+
+      if (message) {
+        throw new Error(message)
+      }
+    } catch (error) {
+      if (errorRef) {
+        errorRef.value = t('form.fields.error.upload') ?? ''
+      }
+
+      log(error)
     }
   }
 
   function onFileUpload({
-    id,
+    fieldName,
     file,
     index,
     data
   }: {
-    id: string
+    fieldName: string
     file: File
     index: number
     data: { id: string }
-  }) {
+  }): void {
     const { index: formIndex, activeForm } = form
     const currentFormData = activeForm.value.data[formIndex.value] || {}
-    const target = (currentFormData[id] as FileType[]) || []
+    const target = (currentFormData[fieldName] as FileType[]) || []
 
     const { type: mimeType, name } = file
 
@@ -128,7 +157,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
     const updatedFormData = {
       ...currentFormData,
-      [id]: target
+      [fieldName]: target
     }
     activeForm.value.data[formIndex.value] = updatedFormData
   }
@@ -136,11 +165,11 @@ export const useFileStore = defineStore('useFileStore', () => {
   return {
     addFile,
     addOrRemoveFile,
-    removeFileByIdAndIndex,
     clearFiles,
     files,
-    pending,
     getFile,
-    isUploadPending
+    isUploadPending,
+    pending,
+    removeFileByIdAndIndex
   }
 })

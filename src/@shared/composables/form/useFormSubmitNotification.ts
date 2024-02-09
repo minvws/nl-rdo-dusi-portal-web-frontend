@@ -1,5 +1,5 @@
-import type { FormSubmitType } from '@shared/types/form'
-import { FormSubmitTypes } from '@shared/types/form'
+import type { FormSubmit } from '@shared/types/form'
+import { FormSubmitType } from '@shared/types/form'
 
 import { useI18n } from 'vue-i18n'
 
@@ -46,12 +46,12 @@ export const useFormSubmitNotification = () => {
     })
   }
 
-  function showError({ type, error }: { type: FormSubmitType; error?: Error }) {
-    type === FormSubmitTypes.SUBMIT ? setSubmitError(error) : setSaveError(error)
+  function showError({ type, error }: { type: FormSubmit; error?: Error }) {
+    type === FormSubmitType.SUBMIT ? setSubmitError(error) : setSaveError(error)
   }
 
-  function showSuccess(type: FormSubmitType) {
-    type === FormSubmitTypes.SUBMIT ? setSubmitSuccess() : setSaveSuccess()
+  function showSuccess(type: FormSubmit) {
+    type === FormSubmitType.SUBMIT ? setSubmitSuccess() : setSaveSuccess()
   }
 
   return {

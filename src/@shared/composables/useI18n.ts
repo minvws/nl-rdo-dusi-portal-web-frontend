@@ -6,7 +6,7 @@ import { useForms } from '@shared/composables/form/useForms'
 function getProps(form: any, context: any) {
   // pass field of field to i18n
   const errorContext = context?.error
-  const property = errorContext?.params?.missingProperty ?? errorContext?.instancePath?.substring(1)
+  const property = errorContext?.params?.missingProperty ?? errorContext?.instancePath?.slice(1)
 
   const title =
     errorContext?.parentSchema?.properties?.[property]?.title ??
@@ -17,6 +17,7 @@ function getProps(form: any, context: any) {
   const field = title ?? property
   const isBoolean = errorContext?.parentSchema?.properties?.[property]?.type === 'boolean'
   const schema = context?.schema ?? form.schema?.value.properties[property]
+
   return { ...schema, field, isBoolean }
 }
 

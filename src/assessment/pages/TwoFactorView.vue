@@ -5,12 +5,10 @@
     </div>
     <div>
       <FormView
-        v-bind="{
-          id: 'two-factor',
-          forms: twoFactorForm,
-          hideDebug: true,
-          buttonLabels: { submit: t('component.twoFactor.submit') }
-        }"
+        id="two-factor"
+        :forms="twoFactorForm"
+        hide-debug
+        :button-labels="{ submit: t('component.twoFactor.submit') }"
         @submit="onSubmit"
       />
     </div>

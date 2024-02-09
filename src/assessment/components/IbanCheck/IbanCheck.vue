@@ -91,7 +91,7 @@
       >
         <AppIcon
           name="chevron-left"
-          :aria-hidden="true"
+          aria-hidden
         />
         {{ t('component.ibanCheck.overview') }}
       </RouterLink>

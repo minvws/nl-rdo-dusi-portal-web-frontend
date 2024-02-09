@@ -4,16 +4,18 @@ import { InputType } from '@shared/types/input'
 
 const formatNumber = (value: string) => {
   if (value === undefined || value === '') return ''
-  const number = parseFloat(`${value}`.replace(',', '.'))
-  return !Number.isNaN(number) ? number : value
+  const number = Number.parseFloat(`${value}`.replace(',', '.'))
+  return Number.isNaN(number) ? value : number
 }
 
 const isNumberInput = (control: Control) => {
   switch (control.schema.type as InputType) {
-    case InputType.NUMBER:
+    case InputType.NUMBER: {
       return true
-    default:
+    }
+    default: {
       return false
+    }
   }
 }
 

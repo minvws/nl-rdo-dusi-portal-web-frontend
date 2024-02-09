@@ -91,8 +91,8 @@ function isLast(index: number) {
 function isValid(index: number) {
   const { touched, formsErrors } = props
   const errors = formsErrors[index]
-  const hasErrorsArray = Array.isArray(errors) && errors.length
-  const hasErrorsObject = typeof errors === 'object' && Object.keys(errors).length
+  const hasErrorsArray = Array.isArray(errors) && errors.length > 0
+  const hasErrorsObject = typeof errors === 'object' && Object.keys(errors).length > 0
 
   return touched?.includes(index) && !hasErrorsArray && !hasErrorsObject
 }

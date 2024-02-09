@@ -3,27 +3,29 @@ import { t } from '@shared/i18n'
 import { RequestStatus as Status } from '@shared/types/request'
 
 import { MY_REQUEST_STATUS, MY_REQUEST_EDIT } from '@portal/router/names'
-import { ReviewerAction } from '@shared/types/reviewer'
+import { ReviewerActionType } from '@shared/types/reviewer'
 import { REVIEW_CASE } from '@assessment/router/names'
 
 function transformRequestStatus(id: string) {
-  return Object.values(Status).reduce(
-    (cul, key) => {
-      const value = t(`requestStatus.${id}.${key}`) ?? ''
-      return { ...cul, [key]: value }
-    },
-    {} as Record<string, string>
-  )
+  let acc: Record<string, string> = {}
+
+  for (const key of Object.values(Status)) {
+    const value = t(`requestStatus.${id}.${key}`) ?? ''
+    acc[key] = value
+  }
+
+  return acc
 }
 
 function transfromReviewerActions() {
-  return Object.values(ReviewerAction).reduce(
-    (cul, key) => {
-      const value = t(`reviewerAction.${key}`) ?? ''
-      return { ...cul, [key]: value }
-    },
-    {} as Record<string, string>
-  )
+  let acc: Record<string, string> = {}
+
+  for (const key of Object.values(ReviewerActionType)) {
+    const value = t(`reviewerAction.${key}`) ?? ''
+    acc[key] = value
+  }
+
+  return acc
 }
 
 export const statusToIcon: Record<string, string> = {

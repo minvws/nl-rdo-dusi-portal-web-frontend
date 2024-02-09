@@ -6,7 +6,7 @@ import { defineStore } from 'pinia'
 import { usePreventBodyScroll } from '@shared/composables/usePreventBodyScroll'
 
 export const useAppModalStore = defineStore('useAppModalStore', () => {
-  const el = ref<HTMLDialogElement | HTMLDivElement | null>(null)
+  const el = ref<HTMLDialogElement | HTMLDivElement | undefined>(undefined)
   const content = ref<Modal | undefined>(undefined)
   const persistent = ref<boolean>(true)
 
@@ -14,22 +14,20 @@ export const useAppModalStore = defineStore('useAppModalStore', () => {
 
   const component = computed<'dialog' | 'div'>(() =>
     typeof window !== 'undefined' &&
-    typeof window['HTMLDialogElement'] !== 'undefined' &&
+    window['HTMLDialogElement'] !== undefined &&
     typeof window['HTMLDialogElement'].prototype.show === 'function'
       ? 'dialog'
       : 'div'
   )
 
-  function getModal() {
-    const dialog = el.value
-    if (!dialog) return
-    if (dialog.tagName === 'DIALOG') {
-      return dialog as HTMLDialogElement
-    }
-    return undefined
+  function getModal(): HTMLDialogElement | undefined {
+    const element = el.value
+    const isDialogElement = element?.tagName === 'DIALOG' && element instanceof HTMLDialogElement
+
+    return isDialogElement ? element : undefined
   }
 
-  function closeModal() {
+  function closeModal(): void {
     const dialog = getModal()
     content.value = undefined
     setTimeout(() => {
@@ -38,15 +36,15 @@ export const useAppModalStore = defineStore('useAppModalStore', () => {
     }, 200)
   }
 
-  function openModal(modal: Modal) {
+  function openModal(modal: Modal): void {
     content.value = modal
   }
 
-  function setElement(element: HTMLDialogElement | HTMLDivElement | null) {
+  function setElement(element: HTMLDialogElement | HTMLDivElement | undefined): void {
     el.value = element
   }
 
-  function setPersistence(persist: boolean) {
+  function setPersistence(persist: boolean): void {
     persistent.value = persist
   }
 
@@ -60,13 +58,13 @@ export const useAppModalStore = defineStore('useAppModalStore', () => {
     { immediate: true }
   )
 
-  function onKeyDown(e: KeyboardEvent) {
-    if (e.key !== 'Escape' || !hasModal.value) {
+  function onKeyDown(event: KeyboardEvent): void {
+    if (event.key !== 'Escape' || !hasModal.value) {
       return
     }
 
-    e.preventDefault()
-    e.stopImmediatePropagation()
+    event.preventDefault()
+    event.stopImmediatePropagation()
 
     if (persistent.value) {
       return
@@ -75,7 +73,7 @@ export const useAppModalStore = defineStore('useAppModalStore', () => {
     closeModal()
   }
 
-  function onClickOutside() {
+  function onClickOutside(): void {
     if (persistent.value) {
       return
     }

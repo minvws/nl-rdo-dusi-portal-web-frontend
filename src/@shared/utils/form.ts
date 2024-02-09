@@ -1,29 +1,38 @@
-import type { Form, FormData, FormMetaData } from '@shared/types/form'
+import type { FormValue, Form, FormData, FormMetaData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
 import type { UISchemaElement } from '@jsonforms/core'
 
 import { isLabeled, isLayout } from '@jsonforms/core'
 
-import { getValueFormKey } from '@shared/utils/object'
+import { getValueFromKey } from '@shared/utils/object'
 import { getDeepProps } from '@shared/utils/array'
 
 import { getControlId } from './control'
 
-const getScopesFromUISchema = (uischema: UISchemaElement) => {
+function getScopesFromUISchema(uischema: UISchemaElement): string[] {
   const key = 'elements'
   const elements = (uischema as any)?.[key] ?? []
-  return getDeepProps(elements, key, 'scope').map(scope => getControlId(scope))
+  return getDeepProps(elements, key, 'scope').map((scope) => getControlId(scope))
 }
 
-const filterPropertiesForUiSchema = ({ properties }: JsonSchema, uischema: UISchemaElement) => {
+function filterPropertiesForUiSchema(
+  baseSchema: JsonSchema,
+  uischema: UISchemaElement
+): JsonSchema['properties'] {
+  const properties = baseSchema.properties ?? {}
   const scopes = getScopesFromUISchema(uischema)
-  return Object.entries(properties as any).reduce((cul, [key, value]) => {
-    if (scopes.includes(key)) return { ...cul, [key]: value }
-    return cul
-  }, {})
+  const result: JsonSchema['properties'] = {}
+
+  for (const [key, value] of Object.entries(properties)) {
+    if (scopes.includes(key)) {
+      result[key] = value
+    }
+  }
+
+  return result
 }
 
-export const transformForm = (form: Form): Form[] => {
+export function transformForm(form: Form): Form[] {
   const baseSchema: JsonSchema = form.dataschema
   if (form.uischema.type !== 'CustomPageNavigationControl') {
     // assume single page form
@@ -56,29 +65,31 @@ export const transformForm = (form: Form): Form[] => {
   return forms
 }
 
-export const getFormTitle = ({ metadata }: { metadata?: FormMetaData }) => {
-  return getValueFormKey(metadata, 'title')
+export function getFormTitle({ metadata }: { metadata?: FormMetaData }): string {
+  return getValueFromKey(metadata, 'title') ?? ''
 }
 
-export const transformFormValues = (values?: FormData) => {
-  if (!values) return undefined
-  return Object.entries(values).reduce((cul, [key, value]) => {
-    if (value === null) return cul
+export function transformFormValues(values?: FormData): FormData | undefined {
+  if (!values) {
+    return undefined
+  }
+
+  const transformedValues: FormData = {}
+
+  for (const [key, value] of Object.entries(values)) {
+    if (value === null) continue
+
     if (typeof value === 'object' && 'items' in value) {
-      const { items } = value
-      return {
-        ...cul,
-        [key]: items
-      }
+      transformedValues[key] = value.items as FormValue
+    } else {
+      transformedValues[key] = value
     }
-    return {
-      ...cul,
-      [key]: value
-    }
-  }, {})
+  }
+
+  return transformedValues
 }
 
-export const hasCustomControl = (element: { type: string; elements?: [] }) => {
+export function hasCustomControl(element: { type: string; elements?: [] }): boolean {
   const { type, elements } = element
   if (type === 'CustomControl') {
     return true

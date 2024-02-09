@@ -1,5 +1,3 @@
-import type { Ref } from 'vue'
-
 import { ref, computed } from 'vue'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
@@ -13,6 +11,15 @@ import { useFormConditionalRequiredError } from '@shared/composables/form/useFor
 import { useFormConditionalIsRequired } from '@shared/composables/form/useFormConditionalIsRequired'
 
 export const useCustomControl = (props: any) => {
+  const error = ref<string>('')
+
+  const controlId = getControlId(props.uischema.scope)
+  const type = useFieldType(props.schema, props.uischema)
+  const { isConditionalRequired } = useFormConditionalIsRequired(controlId)
+  const { conditionalError } = useFormConditionalRequiredError(controlId)
+  const $props =
+    type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
+  const { onHandleChange } = useFieldChange({ error, ...($props as any) })
   const {
     useTouchedField,
     isReadOnly,
@@ -23,29 +30,24 @@ export const useCustomControl = (props: any) => {
     errors
   } = useForms()
 
-  const error = ref<string>('')
-
-  const controlId = getControlId(props.uischema.scope)
-  const type = useFieldType(props.schema, props.uischema)
-  const $props =
-    type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
-  const { onHandleChange } = useFieldChange({ error, ...($props as any) })
-
   const component = {
-    error,
-    ...useVanillaControl($props, onHandleChange),
-    ...useTouchedField(controlId),
-    conditionalError: useFormConditionalRequiredError(controlId),
-    isConditionalRequired: useFormConditionalIsRequired(controlId),
-    validationResult,
+    conditionalError,
     controlId,
+    error,
     errors,
-    onRemoteValidation
+    isConditionalRequired,
+    onRemoteValidation,
+    validationResult,
+    ...useTouchedField(controlId),
+    ...useVanillaControl($props, onHandleChange)
   }
+
+  const isValidating = computed<boolean>(() => validationId.value === controlId)
+
   return {
-    isReadOnly,
-    isValidating: computed(() => validationId.value === controlId),
     hideRequiredLabel,
+    isReadOnly,
+    isValidating,
     ...component,
     ...useCustomControlInput(component)
   }

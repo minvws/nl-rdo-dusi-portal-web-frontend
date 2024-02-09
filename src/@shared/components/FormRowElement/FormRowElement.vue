@@ -39,10 +39,12 @@ const isNotCentered = computed<boolean>(() => {
     case InputType.CHECKBOX_GROUP:
     case InputType.TEXTAREA:
     case InputType.FILE:
-    case undefined:
+    case undefined: {
       return true
-    default:
+    }
+    default: {
       return false
+    }
   }
 })
 
@@ -58,7 +60,7 @@ function isNodeEmpty(node: VNodeChild) {
 }
 
 function asArray(arg: VNodeChild) {
-  return Array.isArray(arg) ? arg : arg !== null ? [arg] : []
+  return Array.isArray(arg) ? arg : arg === null ? [] : [arg]
 }
 </script>
 

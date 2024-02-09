@@ -8,13 +8,15 @@
       />
       <label
         v-else
-        v-bind="{ for: labelFor, class: { padding: !hasRemoveButton } }"
-        :innerText="file?.name || label"
-      />
+        :for="labelFor"
+        :class="{ padding: !hasRemoveButton }"
+      >
+        {{ fileLabel }}
+      </label>
       <AppButton
         v-if="hasRemoveButton"
         class="button"
-        :disabled="disabled || isPending"
+        :disabled="isDisabled"
         @click="onRemoveFile"
       >
         <span class="visually-hidden">
@@ -59,9 +61,14 @@ const { t } = useI18n()
 const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
 
 const file = computed<FileType | undefined>(() => props.files?.[props.index])
+
+const fileLabel = computed<string | undefined>(() => file.value?.name || label.value)
+
 const hasRemoveButton = computed<boolean>(() => hasFile.value || !!file.value || props.index > 0)
 
-function onRemoveFile() {
+const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
+
+function onRemoveFile(): void {
   removeFileByIdAndIndex(props.id, props.index)
   const files = [...(props.files || [])]
   files.splice(props.index, 1)
@@ -71,7 +78,7 @@ function onRemoveFile() {
 
 watch(
   () => props.error,
-  error => {
+  (error) => {
     if (!error) return
     // when there is an error
     // remove the file

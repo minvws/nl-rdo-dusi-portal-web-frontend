@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import type { Ref } from 'vue'
 import type { FileType } from '@shared/types/form'
 
 import { ref, watch } from 'vue'
@@ -49,7 +48,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const download: Ref = ref()
+const download = ref()
 
 const { error, isFetching, fileUrl, execute } = useFileLink({
   reference: props.formId,
@@ -58,7 +57,7 @@ const { error, isFetching, fileUrl, execute } = useFileLink({
   file: props.file
 })
 
-watch(download, download => download?.click())
+watch(download, (download) => download?.click())
 
 function onCreateDownloadLink() {
   execute()
