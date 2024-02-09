@@ -31,25 +31,25 @@ function transfromReviewerActions() {
 export const statusToIcon: Record<string, string> = {
   [Status.APPROVED]: 'confirmation',
   [Status.DRAFT]: 'warning',
+  [Status.PENDING]: '',
   [Status.REJECTED]: 'error',
   [Status.REQUEST_CHANGES]: 'warning',
-  [Status.SUBMITTED]: ''
 }
 
 export const caseStatusToRouteName: Record<string, string> = {
   [Status.APPROVED]: REVIEW_CASE,
   [Status.DRAFT]: REVIEW_CASE,
+  [Status.PENDING]: REVIEW_CASE,
   [Status.REJECTED]: REVIEW_CASE,
   [Status.REQUEST_CHANGES]: REVIEW_CASE,
-  [Status.SUBMITTED]: REVIEW_CASE
 }
 
 export const requestStatusToRouteName: Record<string, string> = {
   [Status.APPROVED]: MY_REQUEST_STATUS,
   [Status.DRAFT]: MY_REQUEST_EDIT,
+  [Status.PENDING]: MY_REQUEST_STATUS,
   [Status.REJECTED]: MY_REQUEST_STATUS,
-  [Status.REQUEST_CHANGES]: MY_REQUEST_EDIT,
-  [Status.SUBMITTED]: MY_REQUEST_STATUS
+  [Status.REQUEST_CHANGES]: MY_REQUEST_EDIT
 }
 
 export const statusToRequiredAction: Record<string, string> = transformRequestStatus('action')

@@ -333,7 +333,7 @@
       "draft": "Nog niet ingediend",
       "rejected": "Afgekeurd",
       "requestForChanges": "Aanvulling nodig",
-      "submitted": "Nieuw",
+      "pending": "Nieuw",
       "ToDo": "Nieuw"
     },
     "action": {
@@ -341,16 +341,17 @@
       "draft": "Ja",
       "rejected": "Nee",
       "requestForChanges": "Ja",
-      "submitted": "Nee",
+      "pending": "Nee",
       "ToDo": "Ja"
     },
     "cases": {
       "approved": "Open zaak",
       "draft": "Open zaak",
       "in_progress": "Open zaak",
+      "pending": "Open zaak",
       "rejected": "Open zaak",
       "requestForChanges": "Open zaak",
-      "submitted": "Open zaak",
+      "pending": "Open zaak",
       "ToDo": "Open zaak"
     },
     "route": {
@@ -359,7 +360,7 @@
       "in_progress": "Open zaak",
       "rejected": "Bekijk aanvraag",
       "requestForChanges": "Open aanvraag",
-      "submitted": "Bekijk aanvraag",
+      "pending": "Bekijk aanvraag",
       "ToDo": "Open zaak"
     }
   }

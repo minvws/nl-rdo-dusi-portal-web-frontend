@@ -5,7 +5,7 @@
           "internalNote": "Hier interne toelichting.\n\nMet wat enters bla bla bla",
           "createdAt": "2023-10-17T15:05:45.000000Z",
           "previousApplicationStatus": "draft",
-          "newApplicationStatus": "submitted",
+          "newApplicationStatus": "pending",
           "subsidyStageTransition": {
               "id": "7ac879d1-63cb-478d-8745-737313f1643e",
               "description": "Aanvraag ingediend"
@@ -34,7 +34,7 @@
           "id": "0582f73e-0adc-4617-82f6-55bac9536e5e",
           "internalNote": null,
           "createdAt": "2023-10-17T17:39:00.000000Z",
-          "previousApplicationStatus": "submitted",
+          "previousApplicationStatus": "pending",
           "newApplicationStatus": "requestForChanges",
           "subsidyStageTransition": {
               "id": "870bc38a-0d50-40a9-b49e-d56db5ead6b7",
@@ -69,7 +69,7 @@
           "internalNote": "Hier aanvulling interne notitie.\n\nMet wat enters bla bla bla",
           "createdAt": "2023-10-17T17:40:00.000000Z",
           "previousApplicationStatus": "requestForChanges",
-          "newApplicationStatus": "submitted",
+          "newApplicationStatus": "pending",
           "subsidyStageTransition": {
               "id": "7ac879d1-63cb-478d-8745-737313f1643e",
               "description": "Aanvraag ingediend"
@@ -98,8 +98,8 @@
           "id": "194e2723-e5c4-43be-9074-399b68a425a7",
           "internalNote": null,
           "createdAt": "2023-10-17T17:40:52.000000Z",
-          "previousApplicationStatus": "submitted",
-          "newApplicationStatus": "submitted",
+          "previousApplicationStatus": "pending",
+          "newApplicationStatus": "pending",
           "subsidyStageTransition": {
               "id": "dd630ec0-50d1-45f5-b014-415e6359389e",
               "description": "Eerste beoordeling voltooid"

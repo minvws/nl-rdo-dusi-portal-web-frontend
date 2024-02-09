@@ -6,7 +6,7 @@
                   "id": "9a39a84d-799b-4044-b163-0c81b5717f6b",
                   "reference": "PCZM23-49719450",
                   "finalReviewDeadline": "2024-01-22T23:59:59.000000Z",
-                  "status": "submitted"
+                  "status": "pending"
               },
               "subsidyVersion": {
                   "id": "513011cd-789b-4628-ba5c-2fee231f8959",
@@ -63,7 +63,7 @@
           },
           "data": {
               "reference": "PCZM23-49719450",
-              "status": "Submitted",
+              "status": "pending",
               "submittedAt": "2023-09-26",
               "finalReviewDeadline": "2024-01-22"
           }
