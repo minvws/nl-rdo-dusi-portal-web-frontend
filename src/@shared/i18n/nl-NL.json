@@ -143,7 +143,7 @@
         "required": "{field} is verplicht",
         "tel": "Dit is geen geldig telefoonnummer",
         "upload": "Er is iets mis gegaan met uploaden van het bestand",
-        "password-update": "Een wachtwoord moet minimaal 12 tekens lang zijn en ten minste één hoofdletter, één cijfer en één speciaal teken bevatten"
+        "password-update": "Wachtwoord moet minimaal 12 tekens bevatten waarvan minimaal 1 hoofdletter, 1 kleine letter, 1 cijfer en 1 speciaal teken"
       },
       "passwordConfirmation": {
         "error": {
