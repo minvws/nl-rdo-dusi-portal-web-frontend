@@ -48,6 +48,7 @@
   "component": {
     "assignAssessor": {
       "assign": "Toekennen",
+      "cancel": "Annuleren",
       "label": "Zoek op naam",
       "noResults": "Er zijn geen resultaten gevonden voor \"{query}\".",
       "noSelection": "Geen beoordelaar geselecteerd",
@@ -174,8 +175,7 @@
   "modal": {
     "assignAssessor": {
       "title": "Zaak toekennen",
-      "message": "Selecteer een beoordelaar om de zaak aan toe te wijzen. Gebruik het zoekveld om te zoeken op naam.",
-      "assign": "Toekennen"
+      "message": "Selecteer een beoordelaar om de zaak aan toe te wijzen. Gebruik het zoekveld om te zoeken op naam."
     }
   },
   "notification": {

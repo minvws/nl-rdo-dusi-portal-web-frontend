@@ -143,15 +143,14 @@ watch(title, (newTitle, oldTitle) => {
   position: absolute;
   top: 50%;
   left: 50%;
-  gap: 0.5em;
+  row-gap: 0.5em;
+  column-gap: 0.5em;
   flex-direction: row;
   max-width: 600px;
   transform: translate(-50%, -50%);
 }
 
 .modal-content:not(.notification, .error, .warning, .confirmation, .explanation, .system) {
-  display: flex;
-  max-width: 600px;
   width: 100%;
   background-color: var(--application-base-background-color);
   color: var(--notification-explanation-text-color);
@@ -162,12 +161,7 @@ watch(title, (newTitle, oldTitle) => {
   padding-right: var(--notification-block-element-padding-right);
   padding-bottom: var(--notification-block-element-padding-bottom);
   padding-left: var(--notification-block-element-padding-left);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  gap: 0.5em;
-  flex-direction: row;
-  transform: translate(-50%, -50%);
+  column-gap: 0;
 }
 
 // transitions

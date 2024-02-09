@@ -3,43 +3,71 @@
     <div class="assign-assessor__input">
       <label
         for="autocomplete"
+        id="assign-assessor-label"
         class="visually-hidden"
-        >{{ t('component.assignAssessor.label') }}</label
       >
-      <input
-        type="search"
-        autocomplete="off"
-        id="autocomplete"
-        v-model="searchQuery"
-        :placeholder="t('component.assignAssessor.placeholder')"
-      />
-      <AppIcon name="search" />
+        {{ t('component.assignAssessor.label') }}
+      </label>
+      <div class="combobox">
+        <input
+          ref="input"
+          type="search"
+          autocomplete="off"
+          id="autocomplete"
+          role="combobox"
+          aria-autocomplete="list"
+          aria-controls="ex1-grid"
+          :placeholder="t('component.assignAssessor.placeholder')"
+          v-model="searchQuery"
+          @keydown.tab="onInputTab"
+        />
+        <AppIcon name="search" />
+      </div>
     </div>
-    <AppSuspense
-      class="assign-assessor__list"
-      v-bind="{ data, error, isFetching }"
-      as="ul"
+    <div
+      class="grid-popup"
+      role="listbox"
     >
-      <li
-        v-for="({ id, name }, index) in data"
-        :key="id"
+      <AppSuspense
+        class="assign-assessor__list"
+        v-bind="{ data, error, isFetching }"
+        as="div"
+        aria-labelledby="assign-assessor-label"
+        role="grid"
       >
-        <AppButton
-          type="button"
-          class="button"
-          :class="{ 'is-selected': index === selectedIndex }"
-          @click="selectResult(index)"
+        <div
+          v-for="({ id, name }, index) in data"
+          :key="id"
+          ref="list"
+          class="assign-assessor__list-item"
+          :class="{
+            'assign-assessor__list-item--is-selected': selectedIndex === index,
+            'assign-assessor__list-item--highlighted': highlightedIndex === index
+          }"
+          role="option"
+          tabindex="0"
+          :aria-selected="selectedIndex === index"
+          @keydown.arrow-down.prevent="onHighlightNext"
+          @keydown.arrow-up.prevent="onHighlightPrevious"
+          @keydown.enter.prevent="onSelectAssessor(index)"
+          @keydown.tab.prevent.stop="onListTab"
+          @keydown.shift.tab.prevent.stop="onListShiftTab"
+          @click="onSelectAssessor(index)"
         >
-          {{ name }}
-        </AppButton>
-      </li>
-      <template #fallback>
-        <p class="de-emphasized">
-          {{ t('component.assignAssessor.noResults', { query: searchQuery }) }}
-        </p>
-      </template>
-    </AppSuspense>
-    <div>
+          <div role="gridcell">{{ name }}</div>
+        </div>
+        <template #fallback>
+          <p class="de-emphasized">
+            {{ t('component.assignAssessor.noResults', { query: searchQuery }) }}
+          </p>
+        </template>
+      </AppSuspense>
+    </div>
+    <div
+      role="region"
+      aria-live="polite"
+      aria-atomic="true"
+    >
       <p v-if="selectedResult">
         {{ t('component.assignAssessor.result') }}
         <strong>{{ selectedResult.name }}</strong>
@@ -51,14 +79,24 @@
         {{ t('component.assignAssessor.noSelection') }}
       </p>
     </div>
-    <AppButton
-      type="button"
-      class="assign-assessor__button"
-      :disabled="isDisabled"
-      @click="submit"
-    >
-      {{ t('component.assignAssessor.assign') }}
-    </AppButton>
+    <div class="assign-assessor__actions">
+      <button
+        ref="cancelButton"
+        type="button"
+        class="ghost"
+        @click="onCancel"
+      >
+        {{ t('component.assignAssessor.cancel') }}
+      </button>
+      <button
+        ref="submitButton"
+        type="button"
+        :disabled="isDisabled"
+        @click="onSubmit"
+      >
+        {{ t('component.assignAssessor.assign') }}
+      </button>
+    </div>
   </div>
 </template>
 
@@ -68,8 +106,8 @@ import { useI18n } from 'vue-i18n'
 
 import { useFetchAssessors } from '@assessment/composables/useFetchAssessors'
 import { useAssignCaseAssessor } from '@assessment/composables/useAssignCaseAssessor'
+import { useAppModalStore } from '@shared/store/useAppModalStore'
 
-import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
@@ -82,25 +120,79 @@ type Props = {
 const props = defineProps<Props>()
 
 const selectedIndex = ref<number>(-1)
+const highlightedIndex = ref<number>(-1)
+const input = ref<HTMLInputElement | null>(null)
+const list = ref<HTMLDivElement[]>([])
+const cancelButton = ref<HTMLButtonElement | null>(null)
 
 const { t } = useI18n()
 const { data, error, isFetching, searchQuery } = useFetchAssessors(props.id)
 const { onSubmitCaseAssessor } = useAssignCaseAssessor()
+const { closeModal } = useAppModalStore()
 
-const selectedResult = computed(() => data.value[selectedIndex.value])
+const selectedResult = computed<Record<string, string>>(() => data.value[selectedIndex.value])
 
-const isDisabled = computed<boolean>(() => Boolean(!selectedResult.value))
+const isDisabled = computed<boolean>(() => !selectedResult.value)
 
-function selectResult(index: number) {
-  selectedIndex.value = selectedIndex.value === index ? -1 : index
+function onSelectAssessor(index: number): void {
+  if (index === selectedIndex.value) {
+    selectedIndex.value = -1
+  } else {
+    selectedIndex.value = index
+  }
 }
 
-function submit() {
-  if (!selectedResult.value) {
-    return
-  }
+function onCancel(): void {
+  selectedIndex.value = -1
+  closeModal()
+}
 
-  onSubmitCaseAssessor(props.id, selectedResult.value?.id)
+function onSubmit(): void {
+  if (selectedResult.value) {
+    onSubmitCaseAssessor(props.id, selectedResult.value.id)
+  }
+}
+
+function onHighlightNext(): void {
+  if (highlightedIndex.value < data.value.length - 1) {
+    highlightedIndex.value = highlightedIndex.value + 1
+
+    if (list.value) {
+      list.value[highlightedIndex.value].focus()
+    }
+  }
+}
+
+function onHighlightPrevious(): void {
+  if (highlightedIndex.value > 0) {
+    highlightedIndex.value = highlightedIndex.value - 1
+
+    if (list.value) {
+      list.value[highlightedIndex.value].focus()
+    }
+  }
+}
+
+function onListTab(): void {
+  highlightedIndex.value = -1
+
+  if (cancelButton.value) {
+    cancelButton.value.focus()
+  }
+}
+
+function onListShiftTab(): void {
+  highlightedIndex.value = -1
+
+  if (input.value) {
+    input.value.focus()
+  }
+}
+
+function onInputTab(): void {
+  if (highlightedIndex.value === -1) {
+    highlightedIndex.value = 0
+  }
 }
 </script>
 
@@ -138,48 +230,50 @@ input:hover + .app-icon {
   overflow-y: auto;
   border-bottom: 1px solid var(--grey-3);
   list-style: none;
+}
 
-  li {
-    padding: 0;
+.assign-assessor__list-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 0.75em;
+  cursor: pointer;
 
-    & + li {
-      border-top: 1px solid var(--grey-2);
-    }
+  &:focus {
+    outline: 2px dotted #000;
+    outline-offset: -2px;
   }
 
-  .button {
-    --button-base-background-color: transparent;
-    --button-base-border-color: transparent;
-    --button-base-border-width: 0;
-    --button-base-text-color: var(--ruby-red-text-color-dark);
-    --button-base-hover-background-color: var(--ruby-red-tint-2-background-color);
-    --button-base-hover-text-color: var(--ruby-red-text-color-dark);
-    --button-base-focus-background-color: transparent;
-    --button-base-focus-text-color: var(--ruby-red-text-color-dark);
-    --button-base-focus-border-color: transparent;
-    --button-base-focus-border-width: 0;
-    --button-base-active-background-color: transparent;
-    --button-base-active-text-color: var(--ruby-red-text-color-dark);
-    --button-base-active-border-color: transparent;
-    --button-base-active-border-width: 0;
-    --button-base-justify-content: flex-start;
-    --button-base-focus-outline-color: var(--ruby-red-text-color);
-    --button-base-focus-outline-offset: -2px;
+  &:nth-child(even) {
+    background-color: var(--application-base-tint-1-background-color);
 
-    width: 100%;
+    &.assign-assessor__list-item--highlighted {
+      background-color: var(--ruby-red-tint-2-background-color);
+    }
 
-    &.is-selected {
+    &.assign-assessor__list-item--is-selected {
       background-color: var(--ruby-red-selected-background-color);
       color: var(--ruby-red-text-color);
       font-weight: bold;
     }
   }
 
-  li:nth-child(even) .button {
-    --button-base-background-color: var(--application-base-tint-1-background-color);
-    --button-base-hover-background-color: var(--ruby-red-tint-2-background-color);
-    --button-base-focus-background-color: var(--application-base-tint-1-background-color);
-    --button-base-active-background-color: var(--application-base-tint-1-background-color);
+  & + .assign-assessor__list-item {
+    border-top: 1px solid var(--grey-2);
   }
+}
+
+.assign-assessor__list-item--highlighted {
+  background-color: var(--ruby-red-tint-2-background-color);
+}
+
+.assign-assessor__list-item--is-selected {
+  background-color: var(--ruby-red-selected-background-color);
+  color: var(--ruby-red-text-color);
+  font-weight: bold;
+}
+
+.assign-assessor__actions {
+  display: flex;
+  justify-content: space-between;
 }
 </style>
