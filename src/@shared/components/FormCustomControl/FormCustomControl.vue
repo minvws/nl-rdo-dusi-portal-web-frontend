@@ -4,8 +4,8 @@
       :is="field.tag"
       v-bind="field.props"
       @error="onError"
-      @input="onInput"
-      @change="onBeforeChange"
+      @input="onInputFromPaste"
+      @change="onInputChange"
       @focus="onFocus"
       @blur="onBlur"
       :aria-describedby="`${control.id}-explanation ${control.id}-error`"
@@ -117,6 +117,13 @@ export default defineComponent({
     },
     field() {
       return useField(this)
+    }
+  },
+  methods: {
+    onInputFromPaste(event: InputEvent) {
+      if (event.inputType === 'insertFromPaste') {
+        this.onInputChange(event)
+      }
     }
   }
 })
