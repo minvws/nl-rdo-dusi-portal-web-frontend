@@ -135,7 +135,7 @@
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
         "minLength": "{field} bestaat uit minimaal {minLength} karakters",
-        "minItems": "{field} moet minimaal {minItems} items bevatten",
+        "minItems": "{field} moet minimaal één item bevatten|{field} moet minimaal {minItems} items bevatten",
         "optional": "{field} is optioneel",
         "postalCode": "Dit is geen geldige postcode",
         "required-boolean": "Dit veld is verplicht",
@@ -161,7 +161,7 @@
       "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "submitting": "Formulier is bezig met verzenden",
       "success": "Formulier is succesvol verzonden",
-      "failed": "Er is iets mis gegaan met het verzenden van het formulier. { error }",
+      "failed": "Er is iets mis gegaan met het verzenden van het formulier. {error}",
       "save-success": "Formulier is opgeslagen",
       "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
       "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag"
