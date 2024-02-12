@@ -27,7 +27,7 @@ function onClick(): void {
   margin: 0;
   padding: 0;
   border: none;
-  background-color: none;
+  background-color: transparent;
   color: var(--form-button-background-color);
   text-decoration: underline;
 }
