@@ -30,7 +30,7 @@
       </div>
       <FormFieldAddFileButton
         v-if="showAddFileButton(index)"
-        @click="onAddFileButton"
+        @add-file="onAddFileInput"
       />
     </template>
   </div>
@@ -130,7 +130,7 @@ function onFocus(event: InputEvent): void {
   emit('focus', event)
 }
 
-function onAddFileButton(): void {
+function onAddFileInput(): void {
   addFileCount.value++
 }
 
