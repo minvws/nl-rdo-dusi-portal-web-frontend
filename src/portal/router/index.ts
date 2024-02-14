@@ -1,13 +1,13 @@
-import ArrangementView from '@portal/pages/ArrangementView.vue'
-import LocalForm from '@portal/pages/LocalForm.vue'
-import LoginCallbackView from '@portal/pages/LoginCallbackView.vue'
-import MyMessageDetails from '@portal/pages/MyMessageDetails.vue'
-import MyMessagesView from '@portal/pages/MyMessagesView.vue'
-import MyRequestStatus from '@portal/pages/MyRequestStatus.vue'
-import MyRequestDetails from '@portal/pages/MyRequestDetails.vue'
-import MyRequestEdit from '@portal/pages/MyRequestEdit.vue'
-import MyRequestsView from '@portal/pages/MyRequestsView.vue'
-import RemoteForm from '@portal/pages/RemoteForm.vue'
+const ArrangementView = () => import('@portal/pages/ArrangementView.vue')
+const LocalForm = () => import('@portal/pages/LocalForm.vue')
+const LoginCallbackView = () => import('@portal/pages/LoginCallbackView.vue')
+const MyMessageDetails = () => import('@portal/pages/MyMessageDetails.vue')
+const MyMessagesView = () => import('@portal/pages/MyMessagesView.vue')
+const MyRequestStatus = () => import('@portal/pages/MyRequestStatus.vue')
+const MyRequestDetails = () => import('@portal/pages/MyRequestDetails.vue')
+const MyRequestEdit = () => import('@portal/pages/MyRequestEdit.vue')
+const MyRequestsView = () => import('@portal/pages/MyRequestsView.vue')
+const RemoteForm = () => import('@portal/pages/RemoteForm.vue')
 
 import { sharedRoutes } from '@shared/router/routes'
 import { beforeEach, afterEach } from '@portal/router/router-guards'

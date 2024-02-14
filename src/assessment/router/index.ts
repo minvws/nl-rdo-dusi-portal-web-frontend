@@ -1,19 +1,19 @@
-import AllCasesOverview from '@assessment/pages/AllCasesOverview.vue'
-import CheckDetails from '@assessment/pages/CheckDetails.vue'
-import ChecksView from '@assessment/pages/ChecksView.vue'
-import ForgotPasswordView from '@assessment/pages/ForgotPasswordView.vue'
-import LoginView from '@assessment/pages/LoginView.vue'
-import MyCaseDetails from '@assessment/pages/MyCaseDetails.vue'
-import MyCasesView from '@assessment/pages/MyCasesView.vue'
-import PasswordResetView from '@assessment/pages/PasswordResetView.vue'
-import PasswordUpdateView from '@assessment/pages/PasswordUpdateView.vue'
-import PreviewCaseSubmit from '@assessment/pages/PreviewCaseSubmit.vue'
-import ProfileView from '@assessment/pages/ProfileView.vue'
-import RefreshView from '@assessment/pages/RefreshView.vue'
-import ReportDetails from '@assessment/pages/ReportDetails.vue'
-import ReportsView from '@assessment/pages/ReportsView.vue'
-import ReviewCase from '@assessment/pages/ReviewCase.vue'
-import TwoFactorView from '@assessment/pages/TwoFactorView.vue'
+const AllCasesOverview = () => import('@assessment/pages/AllCasesOverview.vue')
+const CheckDetails = () => import('@assessment/pages/CheckDetails.vue')
+const ChecksView = () => import('@assessment/pages/ChecksView.vue')
+const ForgotPasswordView = () => import('@assessment/pages/ForgotPasswordView.vue')
+const LoginView = () => import('@assessment/pages/LoginView.vue')
+const MyCaseDetails = () => import('@assessment/pages/MyCaseDetails.vue')
+const MyCasesView = () => import('@assessment/pages/MyCasesView.vue')
+const PasswordResetView = () => import('@assessment/pages/PasswordResetView.vue')
+const PasswordUpdateView = () => import('@assessment/pages/PasswordUpdateView.vue')
+const PreviewCaseSubmit = () => import('@assessment/pages/PreviewCaseSubmit.vue')
+const ProfileView = () => import('@assessment/pages/ProfileView.vue')
+const RefreshView = () => import('@assessment/pages/RefreshView.vue')
+const ReportDetails = () => import('@assessment/pages/ReportDetails.vue')
+const ReportsView = () => import('@assessment/pages/ReportsView.vue')
+const ReviewCase = () => import('@assessment/pages/ReviewCase.vue')
+const TwoFactorView = () => import('@assessment/pages/TwoFactorView.vue')
 
 import {
   ALL_CASES_OVERVIEW,

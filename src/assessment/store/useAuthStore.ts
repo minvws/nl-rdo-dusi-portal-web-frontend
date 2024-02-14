@@ -1,7 +1,7 @@
 import type { NotificationDisplayType } from '@shared/types/notification'
 import type { RouteRecordName } from 'vue-router'
 import type { TwoFactorResponse } from '@shared/types/api-response'
-import type { User, UserRole, UserRoleName } from '@shared/types/user'
+import type { User, UserRole } from '@shared/types/user'
 
 import { NotificationType } from '@shared/types/notification'
 import { SessionType } from '@shared/types/session'

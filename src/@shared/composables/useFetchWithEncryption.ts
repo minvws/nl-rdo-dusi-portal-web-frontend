@@ -10,7 +10,7 @@ import { useFetch } from '@vueuse/core'
 import { useEncryption } from '@shared/composables/useEncryption'
 import { useSessionLifetimeStore } from '@shared/store/useSessionLifetimeStore'
 
-import sodium from 'libsodium-wrappers'
+import type { KeyPair } from 'libsodium-wrappers'
 
 const PUBLIC_KEY_HEADER: string = import.meta.env.VITE_PUBLIC_KEY_HEADER
 const ENCRYPTED_HEADER: string = import.meta.env.VITE_ENCRYPTED_HEADER
@@ -23,7 +23,7 @@ type DecryptResponse = {
     response: Response | undefined
     error?: any
   }
-  keyPair: sodium.KeyPair | undefined
+  keyPair: KeyPair | undefined
 }
 
 async function decryptResponse({ ctx, keyPair }: DecryptResponse) {
@@ -69,7 +69,7 @@ export const useFetchWithEncryption = <T>(
     : {}
   const defaultUseFetchOptions: UseFetchOptions = { immediate: true, updateDataOnError: true }
 
-  let keyPair: sodium.KeyPair | undefined
+  let keyPair: KeyPair | undefined
 
   // Reference: https://vueuse.org/core/useFetch/#intercepting-a-request
   async function beforeFetch({ options }: BeforeFetchContext) {

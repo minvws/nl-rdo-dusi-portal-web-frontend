@@ -33,7 +33,7 @@ export const statusToIcon: Record<string, string> = {
   [Status.DRAFT]: 'warning',
   [Status.PENDING]: '',
   [Status.REJECTED]: 'error',
-  [Status.REQUEST_CHANGES]: 'warning',
+  [Status.REQUEST_CHANGES]: 'warning'
 }
 
 export const caseStatusToRouteName: Record<string, string> = {
@@ -41,7 +41,7 @@ export const caseStatusToRouteName: Record<string, string> = {
   [Status.DRAFT]: REVIEW_CASE,
   [Status.PENDING]: REVIEW_CASE,
   [Status.REJECTED]: REVIEW_CASE,
-  [Status.REQUEST_CHANGES]: REVIEW_CASE,
+  [Status.REQUEST_CHANGES]: REVIEW_CASE
 }
 
 export const requestStatusToRouteName: Record<string, string> = {
