@@ -255,20 +255,10 @@ export const useActiveForm = () => {
 
     if (!target) {
       // always add field when it is not found
-      target = activeForm.value.data[0]
+      target = activeForm.value.data[index.value]
     }
 
-    // create an array with all validation results, include id of the field
-    const value: Record<string, any> = {}
-    const resultEntries = Object.entries(result ?? {})
-
-    for (const [id, items] of resultEntries) {
-      for (const item of items) {
-        value[id] = Object.assign({}, item, { id })
-      }
-    }
-
-    Object.assign(target, { [VALIDATION_RESULT_FIELD_NAME]: value })
+    Object.assign(target, { [VALIDATION_RESULT_FIELD_NAME]: result })
   })
 
   return {
