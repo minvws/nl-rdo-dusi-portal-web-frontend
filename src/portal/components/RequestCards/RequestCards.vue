@@ -144,11 +144,11 @@ const items = computed(() =>
   }
 
   .error {
-    color: var(--notification-error-intense-default, #d52a1e);
+    color: var(--notification-error-color-intense, #d52a1e);
   }
 
   .confirmation {
-    color: var(--notification-success-intense-default, #348834);
+    color: var(--notification-success-color-intense, #348834);
   }
 }
 

@@ -235,13 +235,27 @@ th .button:only-child {
 .error,
 .confirmation,
 .warning {
+  display: flex;
+  justify-content: center;
   background-color: transparent;
+
+  span {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+  }
+
+  span::before {
+    top: 0;
+    margin-left: 0;
+  }
 }
+
 .error {
-  color: red;
+  color: var(--notification-error-color-intense, #d52a1e);
 }
 
 .confirmation {
-  color: green;
+  color: var(--notification-success-color-intense, #348834);
 }
 </style>
