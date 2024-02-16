@@ -1,3 +1,4 @@
+import type { UserRoleRoutes } from '@shared/types/user'
 import { UserRoleNameType } from '@shared/types/user'
 import {
   ALL_CASES_OVERVIEW,
@@ -48,12 +49,13 @@ const CHECKS_ROUTES = [CHECK_DETAILS, CHECKS_OVERVIEW, IBAN_CHECK]
 
 const REPORTS_ROUTES = [FDC_DATA_EXPORT, REPORT_DETAILS, REPORTS_OVERVIEW]
 
-const roleRoutes = {
+const roleRoutes: UserRoleRoutes = {
   [UserRoleNameType.ASSESSOR]: [...SHARED_ROUTES, ...CASES_ROUTES],
   [UserRoleNameType.DATA_EXPORTER]: [...SHARED_ROUTES, ...REPORTS_ROUTES],
   [UserRoleNameType.IMPLEMENTATION_COORDINATOR]: [...SHARED_ROUTES, ...CASES_ROUTES],
   [UserRoleNameType.INTERNAL_AUDITOR]: [...SHARED_ROUTES, ...CASES_ROUTES, ...CHECKS_ROUTES],
-  [UserRoleNameType.LEGALS_PECIALIST]: [...SHARED_ROUTES, ...CASES_ROUTES]
+  [UserRoleNameType.LEGALS_PECIALIST]: [...SHARED_ROUTES, ...CASES_ROUTES],
+  [UserRoleNameType.USER_ADMIN]: []
 }
 
 export default roleRoutes

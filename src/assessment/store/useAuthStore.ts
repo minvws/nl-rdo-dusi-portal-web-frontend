@@ -282,8 +282,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   function verifyRouteForUserRole(routeName: string) {
     for (const { name } of userRoles.value) {
-      const routeIsValid = roleRoutes[name].includes(routeName)
-      canVisitRoute.value = routeIsValid
+      const routes = roleRoutes[name]
+      const routeIsValid = routes.length > 0 && routes.includes(routeName)
+
+      if (routeIsValid) {
+        canVisitRoute.value = routeIsValid
+        return
+      }
     }
   }
 

@@ -14,7 +14,8 @@ export const UserRoleNameType = {
   DATA_EXPORTER: 'dataExporter',
   IMPLEMENTATION_COORDINATOR: 'implementationCoordinator',
   INTERNAL_AUDITOR: 'internalAuditor',
-  LEGALS_PECIALIST: 'legalSpecialist'
+  LEGALS_PECIALIST: 'legalSpecialist',
+  USER_ADMIN: 'userAdmin'
 } as const
 
 export type UserRoleName = (typeof UserRoleNameType)[keyof typeof UserRoleNameType]
@@ -37,3 +38,5 @@ export type User = {
   roles: UserRole[]
   passwordExpired: boolean
 }
+
+export type UserRoleRoutes = Record<string, string[]>
