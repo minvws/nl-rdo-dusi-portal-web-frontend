@@ -115,7 +115,7 @@
         "subsidy": "Regeling",
         "file": "Dossiernummer",
         "created": "Datum indiening",
-        "final_review_deadline": "Reactietermijn",
+        "final_review_deadline": "Uiterste behandeldatum",
         "status": "Status",
         "actionRequired": "Actie benodigd",
         "action": "Acties"
