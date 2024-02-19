@@ -1,7 +1,5 @@
 import { t } from '@shared/i18n'
 
-import { MY_MESSAGE_DETAILS } from '@portal/router/names'
-
 export function formatFile(path = ''): string | undefined {
   const file = path.split('\\')
   return file[file.length - 1] || t('form.component.fileInput.chooseFile')
@@ -14,17 +12,6 @@ export function formatFileSize(bytes: number, decimals = 2): string {
   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
   const i = Math.floor(Math.log(bytes) / Math.log(k))
   return `${Number.parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
-}
-
-export function formatMessagesData(data: any) {
-  return data.items.map((item: any) => ({
-    date: item.sentAt,
-    to: {
-      name: MY_MESSAGE_DETAILS,
-      params: { id: item.id }
-    },
-    title: item.subject
-  }))
 }
 
 export function fromCamelCaseToSnakeCase(target: string): string {

@@ -1,16 +1,10 @@
 import type { Ref } from 'vue'
-import type { LocationAsRelativeRaw } from 'vue-router'
+import type { PaginationItem } from '@shared/types/pagination'
 
 import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 
-export type PaginationItem = {
-  date: string
-  title: string
-  to: LocationAsRelativeRaw
-}
-
-type Pagination = {
+export type Pagination = {
   items: Ref<PaginationItem[]>
   isFetching: Ref<boolean>
   page?: Ref<string | undefined>

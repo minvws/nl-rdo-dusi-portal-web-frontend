@@ -1,3 +1,5 @@
+export type PaginationItem = Record<string, unknown>
+
 export type PaginationMetaData = {
   currentPage: number
   from: number

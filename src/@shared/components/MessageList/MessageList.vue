@@ -1,19 +1,28 @@
 <template>
   <div class="message-list">
     <div
+      v-for="({ date, formattedDate, to, title, unread }, index) in list"
+      :key="index"
       class="message-list-item"
-      v-for="({ date, formattedDate, to, title }, index) in list"
-      :key="`list-item-${index}`"
+      :class="{ 'message-list-item--unread': unread }"
+      :aria-label="setAriaLabel(unread)"
     >
       <RouterLink
         class="message-list-content"
         :to="to"
+        :title="formatTitle(title, unread)"
       >
         <time :datetime="date">
           {{ formattedDate }}
         </time>
-        <div>
+        <div class="message-list-content__title">
           {{ title }}
+        </div>
+        <div
+          v-if="unread"
+          class="message-list-content__label"
+        >
+          <span>Nieuw</span>
         </div>
         <AppIcon
           class="icon"
@@ -25,7 +34,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PaginationItem } from '@shared/composables/usePagination'
+import type { MessagesItem } from '@shared/types/messages'
+import type { PaginationItem } from '@shared/types/pagination'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -33,10 +43,6 @@ import { useI18n } from 'vue-i18n'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { formatDate } from '@shared/utils/date'
-
-type ListItem = PaginationItem & {
-  formattedDate: string
-}
 
 type Props = {
   items: PaginationItem[]
@@ -46,12 +52,23 @@ const props = defineProps<Props>()
 
 const { locale } = useI18n()
 
-const list = computed<ListItem[]>(() =>
-  props.items.map((item: PaginationItem) => ({
-    ...item,
-    formattedDate: formatDate(item.date, locale.value)
-  }))
+const list = computed<MessagesItem[]>(() =>
+  props.items.map(
+    (item) =>
+      ({
+        ...item,
+        formattedDate: formatDate(item.date as string, locale.value)
+      }) as MessagesItem
+  )
 )
+
+function setAriaLabel(unread: boolean): string {
+  return unread ? 'Nieuw bericht' : 'Bericht'
+}
+
+function formatTitle(title: string, unread: boolean): string {
+  return `Bekijk ${unread ? 'nieuw' : ' '} bericht: ${title}`
+}
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +87,7 @@ const list = computed<ListItem[]>(() =>
   cursor: pointer;
 
   &:hover {
-    background: var(--grey-1);
+    background-color: var(--grey-1);
 
     &:after {
       content: '';
@@ -83,9 +100,17 @@ const list = computed<ListItem[]>(() =>
   }
 
   .icon {
-    margin-left: auto;
     color: var(--branding-color-1-background-color);
     font-size: 1em;
+  }
+}
+
+.message-list-item--unread {
+  font-weight: bold;
+  background-color: var(--ruby-red-tint-2-background-color);
+
+  &:hover {
+    background-color: var(--ruby-red-tint-1-background-color);
   }
 }
 
@@ -93,15 +118,27 @@ const list = computed<ListItem[]>(() =>
   display: flex;
   flex-direction: row;
   align-items: center;
+  column-gap: 1rem;
   width: 100%;
   max-width: 100%;
   padding: 0.666em 1em;
   text-decoration: none;
 
   time {
-    width: 10em;
+    width: 9em;
     color: var(--grey-6);
     font-size: 0.8em;
   }
+}
+
+.message-list-content__title {
+  margin-right: auto;
+}
+
+.message-list-content__label {
+  padding: 0 10px;
+  border: 2px solid var(--branding-color-1-background-color);
+  border-radius: 17px;
+  font-size: 0.8em;
 }
 </style>

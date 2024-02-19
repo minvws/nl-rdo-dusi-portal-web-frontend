@@ -1,9 +1,12 @@
-import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
-import type { IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
-import type { ReviewerAction } from '@shared/types/reviewer'
 import type { AssessmentsData, RawAssessmentData } from '@shared/types/assessment'
-import type { RequestData, RawRequestData } from '@shared/types/request'
+import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
+import type { IbanCheck, IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
+import type { MessagesData, RawMessagesData, RawMessagesItem } from '@shared/types/messages'
 import type { RawPaginationMetaData, PaginationMetaData } from '@shared/types/pagination'
+import type { RequestData, RawRequestData } from '@shared/types/request'
+import type { ReviewerAction } from '@shared/types/reviewer'
+
+import { MY_MESSAGE_DETAILS } from '@portal/router/names'
 
 import { formatDate } from '@shared/utils/date'
 import {
@@ -26,8 +29,8 @@ import { MY_CASE_DETAILS } from '@assessment/router/names'
 /**
  * Transforms the 'all requests' data from the API to a format that we can use.
  *
- * @param data
- * @returns data
+ * @param {RawRequestData} data
+ * @returns {RequestData} data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
   return data.items.map(({ deadlineForResponseAt, reference, status, subsidy, submittedAt }) => ({
@@ -44,8 +47,8 @@ export function transformRequestsData(data: RawRequestData): RequestData {
 /**
  * Transforms 'cases' data from the API to a format that we can use.
  *
- * @param data
- * @returns data
+ * @param {RawAssessmentData} data
+ * @returns {AssessmentsData} data
  */
 export function transformCasesData(data: RawAssessmentData): AssessmentsData {
   return data.data?.map(
@@ -77,8 +80,8 @@ export function transformCasesData(data: RawAssessmentData): AssessmentsData {
 /**
  * Transforms 'case history' data from the API to a format that we can use.
  *
- * @param data
- * @returns data
+ * @param {RawCaseHistory} data
+ * @returns {CaseHistory} data
  */
 export function transformCaseHistoryData(data: RawCaseHistory): CaseHistory {
   return data.map(
@@ -95,10 +98,10 @@ export function transformCaseHistoryData(data: RawCaseHistory): CaseHistory {
 /**
  * Transforms 'iban check' data from the API to a format that we can use.
  *
- * @param data
- * @returns data
+ * @param {RawIbanCheck} data
+ * @returns {IbanCheck} data
  */
-export function transformIbanData(data: RawIbanCheck): IbanCheckItem[] {
+export function transformIbanData(data: RawIbanCheck): IbanCheck {
   return data.map(
     ({ count, applications }) =>
       ({
@@ -111,8 +114,8 @@ export function transformIbanData(data: RawIbanCheck): IbanCheckItem[] {
 /**
  * Transforms pagination 'meta' data from the API to a format that we can use.
  *
- * @param data
- * @returns data
+ * @param {RawPaginationMetaData} data
+ * @returns {PaginationMetaData} data
  */
 export function transformPaginationMetaData(data: RawPaginationMetaData): PaginationMetaData {
   const { current_page, from, last_page, per_page, to, total } = data.meta
@@ -125,6 +128,24 @@ export function transformPaginationMetaData(data: RawPaginationMetaData): Pagina
     to,
     total
   }
+}
+
+/**
+ * Transforms messages data from the API to a format that we can use.
+ *
+ * @param {RawMessagesData} data
+ * @returns {MessagesData} data
+ */
+export function transformMessagesData(data: { items: RawMessagesData }): MessagesData {
+  return data.items.map((item: RawMessagesItem) => ({
+    date: item.sentAt,
+    to: {
+      name: MY_MESSAGE_DETAILS,
+      params: { id: item.id }
+    },
+    title: item.subject,
+    unread: item.isNew
+  }))
 }
 
 function createSet(text: string, data: object) {
