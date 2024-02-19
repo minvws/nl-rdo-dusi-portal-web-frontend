@@ -11,4 +11,5 @@ export type Notification = {
   message: string | { message?: string }
   displayAs: NotificationDisplayType
   label?: string
+  dismissable?: boolean
 }

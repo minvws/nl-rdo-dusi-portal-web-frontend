@@ -26,7 +26,8 @@ export const useFormSubmitNotification = () => {
       message: t('form.message.success'),
       displayAs: 'confirmation',
       id: NOTIFICATION_SUBMIT_ID,
-      pageChangeCount: 2
+      pageChangeCount: 2,
+      dismissable: true
     })
   }
 
@@ -42,7 +43,8 @@ export const useFormSubmitNotification = () => {
     notificationsStore.add({
       message: t('form.message.save-success') ?? '',
       displayAs: 'confirmation',
-      id: NOTIFICATION_SAVE_ID
+      id: NOTIFICATION_SAVE_ID,
+      dismissable: true
     })
   }
 
@@ -51,7 +53,13 @@ export const useFormSubmitNotification = () => {
   }
 
   function showSuccess(type: FormSubmit) {
-    type === FormSubmitType.SUBMIT ? setSubmitSuccess() : setSaveSuccess()
+    if (type === FormSubmitType.SUBMIT) {
+      notificationsStore.removeById(NOTIFICATION_SAVE_ID)
+      setSubmitSuccess()
+    } else {
+      notificationsStore.removeById(NOTIFICATION_SUBMIT_ID)
+      setSaveSuccess()
+    }
   }
 
   return {

@@ -1,14 +1,15 @@
 <template>
   <div class="notification-sticky">
     <div
-      v-for="({ displayAs, label, message }, index) in notifications"
+      v-for="({ dismissable, displayAs, label, message, id }, index) in notifications"
       :key="index"
     >
       <FormNotification
         :display-as="displayAs"
         :label="label"
         :message="message"
-        dismissable
+        :id="id"
+        :dismissable="dismissable"
         announce
       />
     </div>
