@@ -28,7 +28,7 @@
               v-bind="{ ...caseStage }"
               hide-debug
               hide-required-label
-              :id="`${props.id}/stages/${caseStageId}`"
+              :id="caseStageFormId"
               :locked="locked"
               no-buttons
               no-style
@@ -62,7 +62,7 @@
         has-save-button
         hide-debug
         hide-required-label
-        :id="`review-stage-item-`"
+        :id="lastCaseFormId"
         :locked="locked"
         no-style
         @submit="onSubmit"
@@ -75,7 +75,7 @@
 <script setup lang="ts">
 import type { FormData } from '@shared/types/form'
 
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
@@ -125,6 +125,14 @@ function onSave(data: FormData): void {
   const { id } = props
   onSubmitDraft({ id, data })
 }
+
+const caseStageFormId = computed<string>(() => `${props.id}/stages/${caseStageId.value}`)
+
+const lastCaseFormId = computed<string>(() =>
+  JSON.stringify(lastCase.value) === JSON.stringify(caseStage.value)
+    ? caseStageFormId.value
+    : `review-stage-form`
+)
 
 watch(
   caseReference,
