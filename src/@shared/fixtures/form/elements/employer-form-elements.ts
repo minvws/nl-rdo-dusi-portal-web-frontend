@@ -7,30 +7,55 @@ import {
 export const required = [
   'employmentContract',
   'employmentFunction',
-  'employer',
-  'judicialInstitution'
+  'employerKind',
+  'hasBeenWorkingAtJudicialInstitution'
 ]
 
 export const allOf = [
   {
     if: {
-      properties: { employer: { const: 'Andere organisatie' } }
+      anyOf: [
+        {
+          properties: {
+            employmentFunction: {
+              const: 'Anders'
+            }
+          },
+          required: ['employmentFunction']
+        },
+        {
+          properties: {
+            employerKind: {
+              const: 'Andere organisatie'
+            }
+          },
+          required: ['employerKind']
+        }
+      ]
     },
     then: {
-      required: ['medicalStatement']
+      required: ['otherEmployerDeclarationFile']
     }
   },
   {
     if: {
-      properties: { judicialInstitution: { const: 'Ja' } }
+      properties: {
+        hasBeenWorkingAtJudicialInstitution: {
+          const: 'Ja'
+        }
+      }
     },
     then: {
-      required: ['bigNumber']
+      required: ['BIGNumberJudicialInstitution']
     }
   },
   {
     if: {
-      properties: { employmentFunction: { const: 'Anders' } }
+      properties: {
+        employmentFunction: {
+          const: 'Anders'
+        }
+      }
     },
     then: {
       required: ['otherEmploymentFunction']
@@ -39,120 +64,167 @@ export const allOf = [
 ]
 
 export const properties = {
+  BIGNumberJudicialInstitution: {
+    maxLength: 11,
+    title: 'BIG-nummer',
+    type: 'string'
+  },
   employmentContract: {
-    title: 'Arbeidsovereenkomst',
-    ...fileUploadProperties
+    ...fileUploadProperties,
+    title: 'Bewijs dienstverband'
   },
   employmentFunction: {
-    type: 'string',
     enum: allEmploymentFunctions,
-    title: 'Functie'
+    title: 'Functie',
+    type: 'string'
+  },
+  hasBeenWorkingAtJudicialInstitution: {
+    enum: ['Ja', 'Nee'],
+    title: 'Bent u werkzaam geweest bij een justitiële inrichting?',
+    type: 'string'
+  },
+  otherEmployerDeclarationFile: {
+    ...fileUploadProperties,
+    title: 'Verklaring zorgaanbieder'
   },
   otherEmploymentFunction: {
-    type: 'string',
-    title: 'Functie'
+    maxLength: 300,
+    title: 'Andere functie',
+    type: 'string'
   },
-  employer: {
-    type: 'string',
+  employerKind: {
     enum: ['Zorgaanbieder', 'Andere organisatie'],
-    title: 'Werkgever'
-  },
-  medicalStatement: {
-    title: 'Zorgaanbiedersverklaring',
-    ...fileUploadProperties
-  },
-  judicialInstitution: {
-    type: 'string',
-    enum: ['Ja', 'Nee'],
-    title: 'Justiele instelling'
-  },
-  bigNumber: {
-    type: 'string',
-    title: 'BIG-nummer',
-    minLength: 11,
-    maxLength: 11
+    title: 'Werkgever',
+    type: 'string'
   }
 }
 
 export const elements = [
   {
-    type: 'Group',
     label: 'Werkgever',
+    type: 'Group',
     elements: [
       {
         type: 'VerticalLayout',
         elements: [
           {
-            type: 'CustomControl',
-            scope: '#/properties/employmentContract',
-            label: 'Arbeidsovereenkomst',
+            label: 'Bewijs van uw dienstverband',
             options: {
               ...fileUploadOptions
-            }
+            },
+            scope: '#/properties/employmentContract',
+            type: 'CustomControl'
           },
           {
-            type: 'CustomControl',
-            scope: '#/properties/employmentFunction',
             label: 'Functie',
             options: {
               format: 'select',
-              placeholder: 'Selecteer uw functie'
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/otherEmploymentFunction',
-            label: 'Andere functie',
-            rule: {
-              effect: 'SHOW',
-              condition: {
-                scope: '#/properties/employmentFunction',
-                schema: { const: 'Anders' }
-              }
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/employer',
-            label: 'Werkgever',
-            options: {
-              format: 'radio'
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/medicalStatement',
-            label: 'Zorgaanbiedersverklaring',
-            rule: {
-              effect: 'SHOW',
-              condition: {
-                scope: '#/properties/employer',
-                schema: { const: 'Andere organisatie' }
-              }
+              placeholder: '-- Selecteer een functie --'
             },
-            options: {
-              ...fileUploadOptions
-            }
+            scope: '#/properties/employmentFunction',
+            type: 'CustomControl'
           },
           {
-            type: 'CustomControl',
-            scope: '#/properties/judicialInstitution',
-            label: 'Bent u werkzaam geweest bij een justitiële inrichting?',
+            label: 'Andere functie',
             options: {
-              format: 'radio'
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/bigNumber',
-            label: 'BIG-nummer',
+              placeholder: ''
+            },
             rule: {
-              effect: 'SHOW',
               condition: {
-                scope: '#/properties/judicialInstitution',
-                schema: { const: 'Ja' }
+                schema: {
+                  const: 'Anders'
+                },
+                scope: '#/properties/employmentFunction'
+              },
+              effect: 'SHOW'
+            },
+            scope: '#/properties/otherEmploymentFunction',
+            type: 'CustomControl'
+          },
+          {
+            type: 'VerticalLayout',
+            elements: [
+              {
+                options: {
+                  format: 'radio'
+                },
+                scope: '#/properties/employerKind',
+                label: 'Werkgever',
+                type: 'CustomControl'
               }
-            }
+            ]
+          },
+          {
+            type: 'VerticalLayout',
+            elements: [
+              {
+                label: 'Verklaring zorgaanbieder',
+                options: {
+                  ...fileUploadOptions
+                },
+                rule: {
+                  condition: {
+                    schema: {
+                      anyOf: [
+                        {
+                          properties: {
+                            employmentFunction: {
+                              const: 'Anders'
+                            }
+                          },
+                          required: ['employmentFunction']
+                        },
+                        {
+                          properties: {
+                            employerKind: {
+                              const: 'Andere organisatie'
+                            }
+                          },
+                          required: ['employerKind']
+                        }
+                      ]
+                    },
+                    scope: '#'
+                  },
+                  effect: 'SHOW'
+                },
+                scope: '#/properties/otherEmployerDeclarationFile',
+                type: 'CustomControl'
+              }
+            ]
+          },
+          {
+            type: 'VerticalLayout',
+            elements: [
+              {
+                label: 'Heeft u gewerkt in een justitiële inrichting?',
+                options: {
+                  format: 'radio'
+                },
+                scope: '#/properties/hasBeenWorkingAtJudicialInstitution',
+                type: 'CustomControl'
+              }
+            ]
+          },
+          {
+            type: 'VerticalLayout',
+            elements: [
+              {
+                label: 'BIG-nummer',
+                options: [],
+                rule: {
+                  condition: {
+                    schema: {
+                      const: 'Ja'
+                    },
+                    scope: '#/properties/hasBeenWorkingAtJudicialInstitution'
+                  },
+                  effect: 'SHOW'
+                },
+                scope: '#/properties/BIGNumberJudicialInstitution',
+                type: 'CustomControl'
+              }
+            ]
           }
         ]
       }

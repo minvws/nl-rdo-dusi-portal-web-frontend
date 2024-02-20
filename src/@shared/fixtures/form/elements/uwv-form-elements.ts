@@ -1,30 +1,35 @@
 import {
-  fileUploadProperties,
-  fileUploadOptions
+  fileUploadOptions,
+  fileUploadProperties
 } from '@shared/fixtures/form/elements/file-upload-element'
-
-export const required = ['uwv']
-
-export const properties = {
-  uwv: {
-    title: 'Gewaarmerkt verzekeringsbericht',
-    ...fileUploadProperties
-  }
-}
 
 export const elements = [
   {
-    type: 'Group',
     label: 'UWV',
+    type: 'Group',
     elements: [
       {
-        type: 'CustomControl',
-        scope: '#/properties/uwv',
-        label: 'Gewaarmerkt verzekeringsbericht',
-        options: {
-          ...fileUploadOptions
-        }
+        elements: [
+          {
+            label: 'Gewaarmerkt verzekeringsbericht',
+            options: {
+              ...fileUploadOptions
+            },
+            scope: '#/properties/certifiedEmploymentDocument',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
       }
     ]
   }
 ]
+
+export const properties = {
+  certifiedEmploymentDocument: {
+    ...fileUploadProperties,
+    title: 'Gewaarmerkt verzekeringsbericht'
+  }
+}
+
+export const required = ['certifiedEmploymentDocument']

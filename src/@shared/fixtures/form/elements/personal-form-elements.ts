@@ -1,10 +1,249 @@
-import { placeholder } from '@shared/fixtures/form/data/placeholder'
 import allCountries from '@shared/fixtures/form/data/all-countries'
+import { placeholder } from '@shared/fixtures/form/data/placeholder'
+
+export const elements = [
+  {
+    label: 'Adres',
+    type: 'Group',
+    elements: [
+      {
+        elements: [
+          {
+            label: 'Huisnummer',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/houseNumber',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Huisnummer toevoeging',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/houseNumberSuffix',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Land',
+            options: {
+              default: 'Nederland',
+              format: 'select',
+              placeholder: 'Selecteer een land'
+            },
+            scope: '#/properties/country',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Plaatsnaam',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/city',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Postcode',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/postalCode',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Straatnaam',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/street',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      }
+    ]
+  },
+  {
+    label: 'Bank',
+    type: 'Group',
+    elements: [
+      {
+        elements: [
+          {
+            label: 'IBAN',
+            options: {
+              placeholder,
+              tip: 'Staat u onder bewind? Vermeld dan het IBAN van uw beheerrekening.',
+              validation: ['onValid']
+            },
+            scope: '#/properties/bankAccountNumber',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Naam rekeninghouder',
+            options: {
+              placeholder,
+              validation: ['onBlur']
+            },
+            scope: '#/properties/bankAccountHolder',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      }
+    ]
+  },
+  {
+    label: 'Contact',
+    type: 'Group',
+    elements: [
+      {
+        elements: [
+          {
+            label: 'E-mailadres',
+            options: {
+              maxLength: 300,
+              placeholder,
+              tip: 'U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door.',
+              validation: ['onBlur']
+            },
+            scope: '#/properties/email',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Telefoonnummer',
+            options: {
+              maxLength: 20,
+              placeholder
+            },
+            scope: '#/properties/phoneNumber',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      }
+    ]
+  },
+  {
+    label: 'Persoonlijke informatie',
+    type: 'Group',
+    elements: [
+      {
+        elements: [
+          {
+            label: 'Achternaam',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/lastName',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Geboortedatum',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/dateOfBirth',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Tussenvoegsel',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/infix',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Voornaam',
+            options: {
+              placeholder
+            },
+            scope: '#/properties/firstName',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      }
+    ]
+  }
+]
+
+export const properties = {
+  bankAccountHolder: {
+    maxLength: 50,
+    title: 'Naam rekeninghouder',
+    type: 'string'
+  },
+  bankAccountNumber: {
+    iban: true,
+    title: 'IBAN',
+    type: 'string'
+  },
+  city: {
+    maxLength: 100,
+    title: 'Plaatsnaam',
+    type: 'string'
+  },
+  country: {
+    default: 'Nederland',
+    enum: allCountries,
+    title: 'Land',
+    type: 'string'
+  },
+  dateOfBirth: {
+    format: 'date',
+    title: 'Geboortedatum',
+    type: 'string'
+  },
+  email: {
+    format: 'email',
+    maxLength: 300,
+    title: 'E-mailadres',
+    type: 'string'
+  },
+  firstName: {
+    title: 'Voornaam',
+    type: 'string'
+  },
+  houseNumber: {
+    minimum: 0,
+    title: 'Huisnummer',
+    type: 'integer'
+  },
+  houseNumberSuffix: {
+    maxLength: 10,
+    title: 'Huisnummer toevoeging',
+    type: 'string'
+  },
+  infix: {
+    title: 'Tussenvoegsel',
+    type: 'string'
+  },
+  lastName: {
+    title: 'Achternaam',
+    type: 'string'
+  },
+  phoneNumber: {
+    maxLength: 20,
+    tel: true,
+    title: 'Telefoonnummer',
+    type: 'string'
+  },
+  postalCode: {
+    title: 'Postcode',
+    type: 'string'
+  },
+  street: {
+    title: 'Straatnaam',
+    type: 'string'
+  }
+}
 
 export const required = [
   'firstName',
   'lastName',
-  'streetName',
+  'street',
   'houseNumber',
   'postalCode',
   'city',
@@ -14,235 +253,4 @@ export const required = [
   'dateOfBirth',
   'bankAccountHolder',
   'bankAccountNumber'
-]
-
-export const properties = {
-  firstName: {
-    type: 'string',
-    title: 'Voornaam'
-  },
-  nameInfix: {
-    type: 'string',
-    title: 'Tussenvoegsel'
-  },
-  lastName: {
-    type: 'string',
-    title: 'Achternaam'
-  },
-  dateOfBirth: {
-    type: 'string',
-    format: 'date',
-    title: 'Geboortedatum'
-  },
-  streetName: {
-    type: 'string',
-    title: 'Straatnaam'
-  },
-  houseNumber: {
-    type: 'integer',
-    title: 'Huisnummer',
-    minimum: 1
-  },
-  houseNumberSuffix: {
-    type: 'string',
-    title: 'Huisnummer toevoeging'
-  },
-  postalCode: {
-    type: 'string',
-    title: 'Postcode',
-    postalCode: true,
-    maxLength: 7
-  },
-  city: {
-    type: 'string',
-    title: 'Plaatsnaam'
-  },
-  country: {
-    type: 'string',
-    enum: allCountries,
-    title: 'Land',
-    default: 'Nederland'
-  },
-  phoneNumber: {
-    type: 'string',
-    tel: true,
-    title: 'Telefoonnummer',
-    maxLength: 16
-  },
-  email: {
-    type: 'string',
-    format: 'email',
-    title: 'E-mailadres'
-  },
-  bankAccountHolder: {
-    type: 'string',
-    title: 'Naam rekeninghouder'
-  },
-  bankAccountNumber: {
-    type: 'string',
-    iban: true,
-    title: 'IBAN'
-  }
-}
-
-export const elements = [
-  {
-    type: 'Group',
-    label: 'Persoonlijke informatie',
-    elements: [
-      {
-        type: 'VerticalLayout',
-        elements: [
-          {
-            type: 'CustomControl',
-            scope: '#/properties/firstName',
-            label: 'Voornaam',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/nameInfix',
-            label: 'Tussenvoegsel',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/lastName',
-            label: 'Achternaam',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/dateOfBirth',
-            label: 'Geboortedatum',
-            options: {
-              placeholder
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    type: 'Group',
-    label: 'Adres',
-    elements: [
-      {
-        type: 'VerticalLayout',
-        elements: [
-          {
-            type: 'CustomControl',
-            scope: '#/properties/streetName',
-            label: 'Straatnaam',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/houseNumber',
-            label: 'Huisnummer',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/houseNumberSuffix',
-            label: 'Huisnummer toevoeging',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/postalCode',
-            label: 'Postcode',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/city',
-            label: 'Plaatsnaam',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/country',
-            label: 'Land',
-            options: {
-              format: 'select',
-              placeholder: 'Selecteer een land'
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    type: 'Group',
-    label: 'Contact',
-    elements: [
-      {
-        type: 'VerticalLayout',
-        elements: [
-          {
-            type: 'CustomControl',
-            scope: '#/properties/phoneNumber',
-            label: 'Telefoonnummer',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/email',
-            label: 'E-mailadres',
-            options: {
-              placeholder,
-              tip: 'U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door.'
-            }
-          }
-        ]
-      }
-    ]
-  },
-  {
-    type: 'Group',
-    label: 'Bank',
-    elements: [
-      {
-        type: 'VerticalLayout',
-        elements: [
-          {
-            type: 'CustomControl',
-            scope: '#/properties/bankAccountHolder',
-            label: 'Naam rekeninghouder',
-            options: {
-              placeholder
-            }
-          },
-          {
-            type: 'CustomControl',
-            scope: '#/properties/bankAccountNumber',
-            label: 'IBAN',
-            options: {
-              placeholder,
-              tip: 'Staat u onder bewind? Vermeld dan het IBAN van uw beheerrekening.'
-            }
-          }
-        ]
-      }
-    ]
-  }
 ]

@@ -1,28 +1,31 @@
+export const fileUploadMaxSize = 20971520
+
 export const fileUploadProperties = {
-  type: 'array',
-  minItems: 2,
-  maxItems: 2,
+  file: true,
   items: {
-    type: 'object',
     properties: {
       id: {
         type: 'string'
       },
-      name: {
+      mimeType: {
         type: 'string'
       },
-      mimeType: {
+      name: {
         type: 'string'
       }
     },
-    required: ['id']
+    required: ['id'],
+    type: 'object'
   },
-  file: true
+  maxItems: 20,
+  minItems: 1,
+  type: 'array'
 }
 
-export const fileUploadMaxSize = 20971520
 export const fileUploadOptions = {
-  accept: 'image/*,.pdf',
-  maxFileSize: fileUploadMaxSize,
-  tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
+  accept: 'image/jpeg,image/png,.pdf',
+  maxFileSize: 20971520,
+  maxItems: 20,
+  minItems: 1,
+  tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png. Maximale bestandsgrootte: 20 MB.'
 }

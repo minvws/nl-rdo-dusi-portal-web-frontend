@@ -1,53 +1,47 @@
 import {
-  properties as personalInformationProperties,
-  elements as personalInformationElements,
-  required as personalInformationRequired
-} from '@shared/fixtures/form/elements/personal-form-elements'
-
-import {
-  properties as uploadExplanationProperties,
-  elements as uploadExplanationElements,
-  required as uploadExplanationRequired
-} from '@shared/fixtures/form/elements/upload-explanation-form-elements'
-
-import {
-  properties as uwvProperties,
-  elements as uwvElements,
-  required as uwvRequired
-} from '@shared/fixtures/form/elements/uwv-form-elements'
-
-import {
-  properties as wiaProperties,
-  elements as wiaElements,
-  required as wiaRequired,
-  allOf as wiaAllOf
-} from '@shared/fixtures/form/elements/wia-form-elements'
-
-import {
-  properties as employerProperties,
   elements as employerElements,
+  properties as employerProperties,
   required as employerRequired,
   allOf as employerAllOf
 } from '@shared/fixtures/form/elements/employer-form-elements'
 
 import {
-  properties as medicalProperties,
   elements as medicalElements,
+  properties as medicalProperties,
   required as medicalRequired,
   allOf as medicalAllOf
 } from '@shared/fixtures/form/elements/medical-form-elements'
 
 import {
-  properties as submitExplanationProperties,
-  elements as submitExplanationElements,
-  required as submitExplanationRequired
-} from '@shared/fixtures/form/elements/submit-explanation-form-elements'
+  elements as personalInformationElements,
+  properties as personalInformationProperties,
+  required as personalInformationRequired
+} from '@shared/fixtures/form/elements/personal-form-elements'
 
 import {
-  properties as truthStatementProperties,
+  elements as resultsElements,
+  properties as resultsProperties,
+  required as resultsRequired
+} from '@shared/fixtures/form/elements/results-form-elements'
+
+import {
   elements as truthStatementElements,
+  properties as truthStatementProperties,
   required as truthStatementRequired
 } from '@shared/fixtures/form/elements/truth-statement-form-elements'
+
+import {
+  elements as uwvElements,
+  properties as uwvProperties,
+  required as uwvRequired
+} from '@shared/fixtures/form/elements/uwv-form-elements'
+
+import {
+  elements as wiaElements,
+  properties as wiaProperties,
+  required as wiaRequired,
+  allOf as wiaAllOf
+} from '@shared/fixtures/form/elements/wia-form-elements'
 
 export default async () => {
   const postCovidIntro = await Object.values(
@@ -57,130 +51,77 @@ export default async () => {
   )[0]()
 
   const introductionSchema = {
-    type: 'FormGroupControl',
-    options: { section: true },
     elements: [
       {
-        type: 'Group',
-        elements: [
-          {
-            type: 'FormNotification',
-            options: {
-              displayAs: 'warning',
-              message:
-                'Deze subsidie kan niet worden aangevraagd voor de behandelmethode autologe vettransplantatie (AFT), ook wel bekend als lipofilling. Deze behandeling is (bij de constructie of reconstructie van een volledige borst) niet bewezen effectief.'
-            }
-          }
-        ]
-      },
-      {
-        type: 'FormHtml',
         options: {
           html: postCovidIntro
-        }
+        },
+        type: 'FormHtml'
       }
-    ]
+    ],
+    options: { section: true },
+    type: 'FormGroupControl'
   }
 
   const personalInformationSchema = {
-    type: 'FormGroupControl',
+    elements: personalInformationElements,
     options: { section: true },
-    elements: personalInformationElements
+    type: 'FormGroupControl'
   }
 
   const documentSchema = {
-    type: 'FormGroupControl',
+    elements: [...uwvElements, ...wiaElements, ...employerElements, ...medicalElements],
     options: { section: true },
-    elements: [
-      ...uploadExplanationElements,
-      ...uwvElements,
-      ...wiaElements,
-      ...employerElements,
-      ...medicalElements
-    ]
+    type: 'FormGroupControl'
   }
 
   const reviewSchema = {
-    type: 'FormGroupControl',
+    elements: [...resultsElements, ...truthStatementElements],
     options: { section: true },
-    elements: [
-      ...submitExplanationElements,
-      {
-        type: 'Group',
-        label: 'Controleren',
-        elements: [
-          {
-            type: 'FormResultsTable',
-            label: 'Uw gegevens',
-            options: {
-              fields: {
-                Naam: '{firstName} {nameInfix} {lastName}',
-                Adres: '{streetName} {houseNumber}{houseNumberSuffix}<br/>{postalCode} {city}',
-                Geboortedatum: '{dateOfBirth}',
-                Telefoon: '{phoneNumber}',
-                'E-mailadres': '{email}'
-              }
-            }
-          }
-        ]
-      },
-      ...truthStatementElements
-    ]
+    type: 'FormGroupControl'
   }
 
   return {
-    title: 'Aanvraagformulier subsidieregeling postcovid',
     data: [
       {
-        uischema: introductionSchema,
-        dataschema: {}
+        dataschema: {},
+        title: 'Start',
+        uischema: introductionSchema
       },
       {
-        title: 'Persoonsgegevens toevoegen',
-        uischema: personalInformationSchema,
         dataschema: {
           properties: personalInformationProperties,
           required: personalInformationRequired
-        }
+        },
+        title: 'Persoonsgegevens toevoegen',
+        uischema: personalInformationSchema
       },
       {
-        title: 'Documenten toevoegen',
-        uischema: documentSchema,
         dataschema: {
+          allOf: [...wiaAllOf, ...employerAllOf, ...medicalAllOf],
           properties: {
-            ...uploadExplanationProperties,
             ...uwvProperties,
             ...wiaProperties,
             ...employerProperties,
             ...medicalProperties
           },
-          required: [
-            ...uploadExplanationRequired,
-            ...uwvRequired,
-            ...wiaRequired,
-            ...employerRequired,
-            ...medicalRequired
-          ],
-          allOf: [...wiaAllOf, ...employerAllOf, ...medicalAllOf]
-        }
+          required: [...uwvRequired, ...wiaRequired, ...employerRequired, ...medicalRequired]
+        },
+        title: 'Documenten toevoegen',
+        uischema: documentSchema
       },
       {
-        title: 'Controleren en ondertekenen',
-        uischema: reviewSchema,
         dataschema: {
           properties: {
-            ...submitExplanationProperties,
+            ...resultsProperties,
             ...truthStatementProperties
           },
-          required: [...submitExplanationRequired, ...truthStatementRequired]
-        }
+          required: [...resultsRequired, ...truthStatementRequired]
+        },
+        title: 'Controleren en ondertekenen',
+        uischema: reviewSchema
       }
-    ]
-    /*
-      example of setting initial values
-      values: {
-        firstName: 'Foo bar'
-      }
-    */
+    ],
+    title: 'Aanvraagformulier subsidieregeling postcovid'
   }
 }

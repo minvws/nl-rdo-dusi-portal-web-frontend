@@ -1,78 +1,94 @@
 import {
-  fileUploadProperties,
-  fileUploadOptions
+  fileUploadOptions,
+  fileUploadProperties
 } from '@shared/fixtures/form/elements/file-upload-element'
-
-export const required = ['medicalAssessment', 'longtermCovid']
-
-export const properties = {
-  medicalAssessment: {
-    title: 'Sociaal-medische beoordeling',
-    ...fileUploadProperties
-  },
-  longtermCovid: {
-    type: 'string',
-    enum: ['Ja', 'Nee'],
-    title: 'Langdurige post-COVID klachten'
-  },
-  doctorsStatement: {
-    title: 'Verklaring arts',
-    ...fileUploadProperties
-  }
-}
 
 export const allOf = [
   {
     if: {
-      properties: { longtermCovid: { const: 'Nee' } }
+      properties: {
+        hasPostCovidDiagnose: {
+          const: 'Nee'
+        }
+      }
     },
     then: {
-      required: ['doctorsStatement']
+      required: ['doctorsCertificate']
     }
   }
 ]
 
 export const elements = [
   {
-    type: 'Group',
     label: 'Medisch',
+    type: 'Group',
     elements: [
       {
-        type: 'VerticalLayout',
         elements: [
           {
-            type: 'CustomControl',
-            scope: '#/properties/medicalAssessment',
-            label: 'Sociaal-medische beoordeling',
+            label: 'Medisch onderzoeksverslag (medische rapportage)',
             options: {
               ...fileUploadOptions
-            }
-          },
+            },
+            scope: '#/properties/socialMedicalAssessment',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      },
+      {
+        elements: [
           {
-            type: 'CustomControl',
-            scope: '#/properties/longtermCovid',
-            label: 'Heeft u langdurige post-COVID klachten?',
+            label: 'Bevat uw medisch onderzoeksverslag de diagnose langdurige post-COVID?',
             options: {
               format: 'radio'
-            }
-          },
+            },
+            scope: '#/properties/hasPostCovidDiagnose',
+            type: 'CustomControl'
+          }
+        ],
+        type: 'VerticalLayout'
+      },
+      {
+        elements: [
           {
-            type: 'CustomControl',
-            scope: '#/properties/doctorsStatement',
             label: 'Verklaring arts',
             options: {
               ...fileUploadOptions
             },
             rule: {
-              effect: 'SHOW',
               condition: {
-                scope: '#/properties/longtermCovid',
-                schema: { const: 'Nee' }
-              }
-            }
+                schema: {
+                  const: 'Nee'
+                },
+                scope: '#/properties/hasPostCovidDiagnose'
+              },
+              effect: 'SHOW'
+            },
+            scope: '#/properties/doctorsCertificate',
+            type: 'CustomControl'
           }
-        ]
+        ],
+        type: 'VerticalLayout'
       }
     ]
   }
 ]
+
+export const properties = {
+  doctorsCertificate: {
+    ...fileUploadProperties,
+    title: 'Verklaring arts'
+  },
+  hasPostCovidDiagnose: {
+    enum: ['Ja', 'Nee'],
+    title: 'Heeft langdurige post-COVID klachten',
+    type: 'string'
+  },
+  socialMedicalAssessment: {
+    ...fileUploadProperties,
+    title: 'Medisch onderzoeksverslag'
+  }
+}
+
+export const required = ['socialMedicalAssessment', 'hasPostCovidDiagnose']

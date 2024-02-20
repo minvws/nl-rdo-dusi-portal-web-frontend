@@ -1,61 +1,84 @@
-export const required = ['wia']
 import {
-  fileUploadProperties,
-  fileUploadOptions
+  fileUploadOptions,
+  fileUploadProperties
 } from '@shared/fixtures/form/elements/file-upload-element'
-
-export const properties = {
-  wia: {
-    type: 'string',
-    title: 'WIA',
-    enum: ['Ja', 'Nee']
-  },
-  wiaJudgement: {
-    title: 'WIA-Beslissing',
-    ...fileUploadProperties
-  }
-}
 
 export const allOf = [
   {
     if: {
-      properties: { wia: { const: 'Nee' } }
+      properties: {
+        isWiaDecisionPostponed: {
+          const: 'Ja'
+        }
+      }
     },
     then: {
-      required: ['wiaJudgement']
+      required: ['wiaDecisionPostponedLetter']
     }
   }
 ]
 
 export const elements = [
   {
-    type: 'Group',
     label: 'WIA',
+    type: 'Group',
     elements: [
       {
-        type: 'CustomControl',
-        scope: '#/properties/wia',
-        label:
-          'Is uw WIA-beslissing uitgesteld vanwege een (vrijwillige of verplichte) loondoorbetaling?',
-        options: {
-          format: 'radio'
-        }
-      },
-      {
-        type: 'CustomControl',
-        scope: '#/properties/wiaJudgement',
-        label: 'WIA-Beslissing',
-        rule: {
-          effect: 'SHOW',
-          condition: {
-            scope: '#/properties/wia',
-            schema: { const: 'Nee' }
+        elements: [
+          {
+            label: 'WIA-Beslissing',
+            options: {
+              ...fileUploadOptions
+            },
+            scope: '#/properties/wiaDecisionDocument',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Is uw WIA-beslissing uitgesteld vanwege een (vrijwillige of verplichte) loondoorbetaling?',
+            options: {
+              format: 'radio'
+            },
+            scope: '#/properties/isWiaDecisionPostponed',
+            type: 'CustomControl'
+          },
+          {
+            label: 'Toekenningsbrief',
+            options: {
+              ...fileUploadOptions
+            },
+            rule: {
+              condition: {
+                schema: {
+                  const: 'Ja'
+                },
+                scope: '#/properties/isWiaDecisionPostponed'
+              },
+              effect: 'SHOW'
+            },
+            scope: '#/properties/wiaDecisionPostponedLetter',
+            type: 'CustomControl'
           }
-        },
-        options: {
-          ...fileUploadOptions
-        }
+        ],
+        type: 'VerticalLayout'
       }
     ]
   }
 ]
+
+export const properties = {
+  isWiaDecisionPostponed: {
+    enum: ['Ja', 'Nee'],
+    title: 'Is WIA beslissing uitgesteld?',
+    type: 'string'
+  },
+  wiaDecisionDocument: {
+    title: 'WIA-Beslissing',
+    ...fileUploadProperties
+  },
+  wiaDecisionPostponedLetter: {
+    title: 'Toekenningsbrief',
+    ...fileUploadProperties
+  }
+}
+
+export const required = ['wiaDecisionDocument', 'isWiaDecisionPostponed']
