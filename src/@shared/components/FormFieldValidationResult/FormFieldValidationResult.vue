@@ -69,6 +69,7 @@ function onClick(event: MouseEvent): void {
 .form-field-validation-result {
   display: flex;
   flex-direction: row;
+  align-items: flex-start;
 
   span {
     width: auto;
