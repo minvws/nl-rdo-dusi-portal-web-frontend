@@ -138,9 +138,27 @@ const items = computed(() =>
   padding-bottom: 0.5rem;
   border: 1px solid var(--grey-2);
 
-  .has-icon,
   .html {
     display: inline-block;
+  }
+
+  .has-icon {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0;
+    gap: 0;
+
+    span {
+      display: flex;
+      align-items: center;
+      padding-left: 0;
+    }
+
+    span::before {
+      top: -2px;
+      margin-left: 0;
+    }
   }
 
   .error {
@@ -157,9 +175,12 @@ const items = computed(() =>
 }
 
 .card-row {
-  display: block;
+  display: flex;
+  flex-direction: row;
   width: 100%;
   border-bottom: 1px solid var(--grey-2);
+  padding: 0.5rem 0 0.7rem;
+  gap: 1rem;
 
   &:last-child {
     border: none;
@@ -172,7 +193,6 @@ const items = computed(() =>
   display: inline-flex;
   width: var(--width);
   height: 100%;
-  padding: 0.7rem 0;
 
   @include desktop {
     --width: 236px;
@@ -184,7 +204,6 @@ const items = computed(() =>
 
   display: inline-flex;
   width: 100%;
-  padding: 0.7rem 0;
   border: none;
   background-color: transparent;
 
