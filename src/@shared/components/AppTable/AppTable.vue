@@ -236,7 +236,7 @@ th .button:only-child {
 .confirmation,
 .warning {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   background-color: transparent;
 
   span {
