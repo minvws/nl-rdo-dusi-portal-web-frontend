@@ -23,7 +23,7 @@ export const urls = {
   documents: 'https://www.dus-i.nl/documenten',
   grant: 'https://www.dus-i.nl/subsidies',
   grantProcess: 'https://www.dus-i.nl/subsidieproces',
-  law: 'https://www.dus-i.nl/wet-open-overheid',
+  law: 'https://www.dus-i.nl/informatie-opvragen-bij-dus-i',
   privacy:
     'https://autoriteitpersoonsgegevens.nl/nl/contact-met-de-autoriteit-persoonsgegevens/informatie-en-meldpunt-privacy',
   vulnerability: 'https://www.dus-i.nl/kwetsbaarheid-melden'
