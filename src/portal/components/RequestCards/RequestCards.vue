@@ -69,6 +69,7 @@ function toExternalLink({ to, text }: ExternalLink) {
   return {
     component: 'a',
     href: to,
+    target: '_blank',
     text
   }
 }

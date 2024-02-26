@@ -137,7 +137,7 @@
       "editLabel": "Aanvraag bewerken",
       "cancelLabel": "Aanvraag intrekken",
       "noAction": "U hoeft op dit moment niets te doen.",
-      "intro": "Voor meer informatie bekijk de <a href=\"{link}\">informatiepagina</a>.",
+      "intro": "Voor meer informatie bekijk de <a href=\"{link}\" target=\"_blank\">informatiepagina</a>.",
       "statusDescription": "Uw aanvraag bevindt zich in stap {step}. De huidige status van uw aanvraag staat op <strong>{status}</strong>. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij van u verwachten."
     },
     "my-message-details": {
