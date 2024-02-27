@@ -65,6 +65,28 @@ function onDismiss(id: string) {
 </script>
 
 <style lang="scss" scoped>
+.form-notification.error,
+.form-notification.warning,
+.form-notification.explanation,
+.form-notification.confirmation {
+  .html {
+    display: flex;
+    justify-content: center;
+  }
+
+  :deep(span) {
+    display: flex;
+    align-items: center;
+    padding-left: 0;
+    margin-right: 4px;
+  }
+
+  :deep(span::before) {
+    top: 0;
+    margin-left: 0;
+  }
+}
+
 .dismissable div {
   display: flex;
   box-sizing: border-box;
