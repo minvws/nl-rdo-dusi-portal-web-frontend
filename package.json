@@ -38,7 +38,7 @@
     "libsodium-wrappers": "^0.7.13",
     "lodash.merge": "^4.6.2",
     "pinia": "^2.1.7",
-    "sass": "^1.71.0",
+    "sass": "^1.71.1",
     "uuid": "^9.0.1",
     "vue": "~3.3.4",
     "vue-i18n": "^9.9.0",
