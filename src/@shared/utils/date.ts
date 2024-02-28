@@ -5,8 +5,8 @@ const DEFAULT_OPTIONS = {
 } as Intl.DateTimeFormatOptions
 
 const DEFAULT_TIME_OPTIONS = {
-  day: 'numeric',
-  month: 'numeric',
+  day: '2-digit',
+  month: '2-digit',
   year: 'numeric'
 } as Intl.DateTimeFormatOptions
 
