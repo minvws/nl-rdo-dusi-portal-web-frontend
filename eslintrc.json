@@ -2,7 +2,9 @@
   "root": true,
   "rules": {
     "eslint/no-console": "off",
+    "eslint/no-explicit-any": "off",
     "eslint/no-undef": "off",
+    "import/no-unresolved": "off",
     "typescript-eslint/no-explicit-any": "off",
     "unicorn/filename-case": "off",
     "unicorn/no-nested-ternary": "off",
