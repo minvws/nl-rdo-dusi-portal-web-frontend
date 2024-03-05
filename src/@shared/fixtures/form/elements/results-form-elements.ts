@@ -7,11 +7,11 @@ export const elements = [
         label: 'Uw gegevens',
         options: {
           fields: {
-            'Adres': '{street} {houseNumber}{houseNumberSuffix} {postalCode} {city}',
+            Adres: '{street} {houseNumber}{houseNumberSuffix} {postalCode} {city}',
             'E-mailadres': '{email}',
-            'Geboortedatum': '{dateOfBirth}',
-            'Naam': '{firstName} {infix} {lastName}',
-            'Telefoon': '{phoneNumber}'
+            Geboortedatum: '{dateOfBirth}',
+            Naam: '{firstName} {infix} {lastName}',
+            Telefoon: '{phoneNumber}'
           }
         },
         type: 'FormResultsTable'

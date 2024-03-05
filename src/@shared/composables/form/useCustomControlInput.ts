@@ -1,9 +1,12 @@
 import type { Ref } from 'vue'
 import type { Control } from '@shared/types/field'
 import type { FormValue, FormError } from '@shared/types/form'
-import type { ControlEvent } from '@shared/types/field'
+import type { ValidationError, ControlEvent } from '@shared/types/field'
 
 import { computed, nextTick } from 'vue'
+
+import { useA11yStore } from '@shared/store/useA11yStore'
+
 import { getControlId, getInputId } from '@shared/utils/control'
 
 // auto import from custom-input
@@ -24,7 +27,7 @@ export function getValue(type: ControlEvent, control: Control, value: FormValue)
 type Props = {
   control: Ref<Control>
   controlId: string
-  error: Ref<string>
+  error: Ref<ValidationError | null>
   errors: Ref<FormError[]>
   handleChange: (_path: string, _value: FormValue) => void
   isFocused: Ref<boolean>
@@ -44,6 +47,8 @@ export const useCustomControlInput = ({
   onRemoteValidation,
   setTouchedField
 }: Props) => {
+  const a11yStore = useA11yStore()
+
   const isValid = computed<boolean>(
     () =>
       !errors.value?.some((error: FormError) => {
@@ -88,8 +93,9 @@ export const useCustomControlInput = ({
     handleRemoteValidation(type)
   }
 
-  function onError(message?: string): void {
-    error.value = message ?? ''
+  function onError({ id, message }: { id: string; message: string }): void {
+    a11yStore.addId(id)
+    error.value = { id, message }
   }
 
   function onFocus(): void {
@@ -103,8 +109,12 @@ export const useCustomControlInput = ({
     updateValue('onBlur')
   }
 
-  function onInputChange(event: InputEvent): void {
-    error.value = ''
+  function onInputChange(event: Event): void {
+    const { id } = event.target as HTMLInputElement
+
+    a11yStore.removeId(id)
+    error.value = null
+
     onChange(event)
     updateValue('onInput')
     nextTick(() => {
@@ -115,7 +125,7 @@ export const useCustomControlInput = ({
   }
 
   function onBeforeChange(event: Event): void {
-    error.value = ''
+    error.value = null
     onChange(event)
   }
 

@@ -4,7 +4,7 @@ import { useFetchSubsidies } from '@assessment/composables/useFetchSubsidies'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useApiIbanCheckUrl } from '@assessment/composables/useApiUrl'
 
-import { transformIbanData } from '@/@shared/utils/transform'
+import { transformIbanData } from '@shared/utils/transform'
 
 export const useFetchIbanCheck = () => {
   const selectedId = ref<string>('')

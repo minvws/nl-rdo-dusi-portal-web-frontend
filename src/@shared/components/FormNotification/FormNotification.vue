@@ -8,8 +8,8 @@
       <AppHtml
         as="p"
         :html="html"
-        :aria-live="props.announce ? 'assertive' : undefined"
-        :aria-atomic="props.announce ? 'true' : undefined"
+        :aria-live="ariaLive"
+        :aria-atomic="ariaAtomic"
       />
       <AppButton
         v-if="dismissable && id"
@@ -46,6 +46,10 @@ const props = defineProps<Props>()
 
 const { t } = useI18n()
 const notificationsStore = useNotificationsStore()
+
+const ariaLive = computed<string | undefined>(() => (props.announce ? 'assertive' : undefined))
+
+const ariaAtomic = computed<string | undefined>(() => (props.announce ? 'true' : undefined))
 
 const translatedType = computed<string | undefined>(() =>
   t(`component.formNotification.${props.displayAs}`)

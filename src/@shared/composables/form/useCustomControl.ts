@@ -1,3 +1,5 @@
+import type { ValidationError } from '@shared/types/field'
+
 import { ref, computed } from 'vue'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
@@ -11,7 +13,7 @@ import { useFormConditionalRequiredError } from '@shared/composables/form/useFor
 import { useFormConditionalIsRequired } from '@shared/composables/form/useFormConditionalIsRequired'
 
 export const useCustomControl = (props: any) => {
-  const error = ref<string>('')
+  const error = ref<ValidationError | null>(null)
 
   const controlId = getControlId(props.uischema.scope)
   const type = useFieldType(props.schema, props.uischema)

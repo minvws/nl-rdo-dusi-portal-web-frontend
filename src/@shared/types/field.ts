@@ -35,3 +35,8 @@ export type Control = {
 }
 
 export type Field = { control: ComputedRef<Control> }
+
+export type ValidationError = {
+  message: string
+  id: string
+}

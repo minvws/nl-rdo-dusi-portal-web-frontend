@@ -34,7 +34,7 @@ import { useI18n } from 'vue-i18n'
 import { useSEO } from '@shared/composables/useSeo'
 import { useAuthStore } from '@assessment/store/useAuthStore'
 
-import DescriptionList from '@/@shared/components/DescriptionList/DescriptionList.vue'
+import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
 
 import { PASSWORD_UPDATE_VIEW } from '@assessment/router/names'
 

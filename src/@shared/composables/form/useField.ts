@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-import type { Control, Field } from '@shared/types/field'
+import type { ValidationError, Control, Field } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
 import { computed } from 'vue'
@@ -22,7 +22,7 @@ function getFieldProp(control: Control) {
   }
 }
 
-type FieldChangeProps = Field & { error: Ref<string> }
+type FieldChangeProps = Field & { error: Ref<ValidationError | null> }
 
 export const useFieldChange = ({ control, error }: FieldChangeProps) => {
   const { addOrRemoveFile } = useFileStore()
@@ -134,7 +134,7 @@ export const useFieldFileRemove = ({ id, index }: FieldFileRemoveProps) => {
 type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
-  error: string
+  error: ValidationError | null
   handleChange?: (_path: string, _value: any) => void
 }
 

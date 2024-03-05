@@ -34,7 +34,8 @@ export const elements = [
             type: 'CustomControl'
           },
           {
-            label: 'Is uw WIA-beslissing uitgesteld vanwege een (vrijwillige of verplichte) loondoorbetaling?',
+            label:
+              'Is uw WIA-beslissing uitgesteld vanwege een (vrijwillige of verplichte) loondoorbetaling?',
             options: {
               format: 'radio'
             },

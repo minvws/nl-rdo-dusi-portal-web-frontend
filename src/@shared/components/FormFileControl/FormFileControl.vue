@@ -9,10 +9,12 @@
         :class="{ margin: !!index }"
       >
         <FormTextControl
-          v-bind="{ ...textControlProps }"
-          :id="`${id}-${index}`"
+          v-bind="textControlProps"
+          :id="getIndexedId(index)"
           :disabled="disabled || !!isPending?.[index]"
           :data-index="index"
+          :aria-describedby="ariaDescribedby(index)"
+          :aria-invalid="isAriaInvalid(index)"
           @change="onChange"
           @focus="onFocus"
         />
@@ -24,7 +26,7 @@
           :id="control.id"
           :index="index"
           :is-pending="!!isPending?.[index]"
-          :label-for="`${id}-${index}`"
+          :label-for="getIndexedId(index)"
           @blur="onBlur"
         />
       </div>
@@ -35,12 +37,15 @@
     </template>
   </div>
 </template>
+
 <script setup lang="ts">
-import type { Control } from '@shared/types/field'
+import type { ValidationError, Control } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
 import { ref, computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import { useA11yStore } from '@shared/store/useA11yStore'
 
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFieldRemoveFile.vue'
@@ -62,13 +67,15 @@ type Props = {
   placeholder?: string
   type: InputType
   value?: string
-  error: string
+  error: ValidationError | null
+  errors: string
   isPending?: boolean[]
 }
 
 const props = defineProps<Props>()
 
 const { t } = useI18n()
+const a11yStore = useA11yStore()
 
 const addFileCount = ref<number>(1)
 
@@ -99,6 +106,26 @@ const numberOfFiles = computed<number[]>(() => {
   return [...keys]
 })
 
+function getIndexedId(index: number): string {
+  return a11yStore.getA11yInputId(props.control.id, index)
+}
+
+function ariaDescribedby(index: number): string {
+  const errorId = a11yStore.getA11yErrorId(props.control.id, index)
+  const explanationId = a11yStore.getA11yExplanationId(props.control.id)
+  const validationId = a11yStore.getA11yValidationId(props.control.id, index)
+
+  const error = isAriaInvalid(index) ? errorId : null
+  const validation = !isAriaInvalid(index) ? validationId : null
+
+  return [explanationId, error, validation].filter(Boolean).join(' ').trim()
+}
+
+function isAriaInvalid(index: number): string | undefined {
+  const id = getIndexedId(index)
+  return props.error?.id === id ? 'true' : undefined
+}
+
 function showAddFileButton(index: number) {
   return index + 1 === numberOfFiles.value.length && index + 1 !== maxFiles.value
 }
@@ -119,7 +146,12 @@ function onChange(event: InputEvent): void {
   if (file && maxFileSize && file.size > maxFileSize) {
     event.preventDefault()
     const size = formatFileSize(maxFileSize)
-    emit('error', t('form.fields.error.maxFileSize', { maxFileSize: size }))
+
+    emit('error', {
+      message: t('form.fields.error.maxFileSize', { maxFileSize: size }),
+      id: event.target.id
+    })
+
     return
   }
 
@@ -149,12 +181,18 @@ watch(files, (files, before) => {
 <style lang="scss" scoped>
 .file-control {
   position: relative;
+
   &.margin {
     margin-top: 0.5em;
   }
 
   input[type='file'] {
     color: transparent;
+  }
+
+  input[aria-invalid='true'] {
+    background-color: var(--notification-error-background-color);
+    border-color: var(--notification-error-border-color);
   }
 }
 </style>

@@ -3,30 +3,38 @@
     :is="component"
     ref="el"
     v-bind="input"
+    :aria-describedby="isDescribedBy"
+    :aria-invalid="isInvalid"
     @input="onInput"
     @change="emit('change', $event)"
     @focus="$emit('focus', $event)"
     @blur="$emit('blur', $event)"
   />
 </template>
+
 <script setup lang="ts">
 import type { Control } from '@shared/types/field'
-
 import { InputType } from '@shared/types/input'
+
 import { computed } from 'vue'
-import { getInputAttrs } from '@shared/utils/control'
+
 import { useTextAreaAutoSize } from '@shared/composables/useTextAreaAutoSize'
+
+import { getInputAttrs } from '@shared/utils/control'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
-  id: string
-  type: InputType
-  control: Control
-  value?: string
-  placeholder?: string
-  disabled?: boolean
+  ariaDescribedby?: string
+  ariaInvalid?: string
   autofocus?: boolean
+  control: Control
+  disabled?: boolean
+  errors?: string
+  id: string
+  placeholder?: string
+  type: InputType
+  value?: string
 }
 
 const props = defineProps<Props>()
@@ -43,6 +51,10 @@ const component = computed<'input' | 'textarea'>(() => {
     }
   }
 })
+
+const isDescribedBy = computed<string | undefined>(() => props.ariaDescribedby ?? undefined)
+
+const isInvalid = computed<'true' | undefined>(() => (props.ariaInvalid ? 'true' : undefined))
 
 const input = computed<{
   id: string

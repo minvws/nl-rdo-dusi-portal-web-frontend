@@ -1,6 +1,6 @@
 <template>
   <select
-    v-bind="{ id, value, disabled, autofocus, placeholder }"
+    v-bind="input"
     @input="$emit('input', $event)"
     @change="$emit('change', $event)"
     @focus="$emit('focus', $event)"
@@ -22,11 +22,16 @@
 <script setup lang="ts">
 import { InputType } from '@shared/types/input'
 
+import { computed } from 'vue'
+
 defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
+  ariaDescribedby?: string
+  ariaInvalid?: string
   autofocus?: boolean
   disabled?: boolean
+  errors?: string
   id: string
   options: { value: string; label: string }[]
   placeholder?: string
@@ -34,5 +39,28 @@ type Props = {
   value?: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
+
+const isDescribedBy = computed<string | undefined>(() => props.ariaDescribedby ?? undefined)
+
+const isInvalid = computed<'true' | undefined>(() => (props.ariaInvalid ? 'true' : undefined))
+
+const input = computed<{
+  id: string
+  value: string | undefined
+  placeholder: string | undefined
+  disabled: boolean
+  autofocus: boolean
+}>(() => {
+  const { id, value, placeholder, disabled, autofocus } = props
+  return {
+    id,
+    value,
+    placeholder,
+    disabled,
+    autofocus,
+    ariaDescribedby: isDescribedBy.value,
+    ariaInvalid: isInvalid.value
+  }
+})
 </script>

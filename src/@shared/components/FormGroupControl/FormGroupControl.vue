@@ -36,7 +36,7 @@ import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { rendererProps, useJsonFormsLayout } from '@jsonforms/vue'
 import { GroupRenderer, useVanillaLayout } from '@jsonforms/vue-vanilla'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuid } from 'uuid'
 
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
@@ -57,7 +57,7 @@ export default defineComponent({
 
     return {
       ...vanillaLayout,
-      labelId: uuidv4(),
+      labelId: uuid(),
       t
     }
   },

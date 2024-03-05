@@ -2,7 +2,11 @@
   <div
     v-if="visible"
     class="form-row"
-    v-bind="rowProps"
+    :class="className"
+    :id="id"
+    :role="role"
+    :aria-labelledby="ariaLabelledBy"
+    v-bind="errorAttribute"
   >
     <FormRowElement
       v-if="tip"
@@ -11,11 +15,9 @@
       <template #right>
         <FormNotification
           v-if="tip"
-          v-bind="{
-            displayAs: 'explanation',
-            message: tip,
-            htmlId: `${id}-explanation`
-          }"
+          display-as="explanation"
+          :message="tip"
+          :html-id="htmlId"
         />
       </template>
     </FormRowElement>
@@ -25,26 +27,27 @@
       has-left
     >
       <template #right>
-        <FormRequiredLabel v-bind="{ required, label }" />
+        <FormRequiredLabel
+          :required="required"
+          :label="label"
+        />
       </template>
     </FormRowElement>
 
     <FormRowElement
-      v-bind="{ contentClass }"
+      :content-class="contentClass"
       :is-group="isGroup"
     >
       <template
-        #left
         v-if="label"
+        #left
       >
         <FormFieldLabel
           v-if="!isGroup"
           class="form-row-field-label"
           :class="{ margin: required && !hideRequiredLabel }"
-          :for="`${id}-input`"
-          v-bind="{
-            label
-          }"
+          :for="inputId"
+          :label="label"
         />
         <legend
           v-else
@@ -62,7 +65,10 @@
         v-if="fieldDescription"
         #description
       >
-        <FormFieldDescription v-bind="{ description: fieldDescription, labelFor: `${id}-input` }" />
+        <FormFieldDescription
+          :description="fieldDescription"
+          :label-for="id"
+        />
       </template>
     </FormRowElement>
     <FormRowElement
@@ -70,7 +76,11 @@
       has-left
     >
       <template #right>
-        <FormFieldError v-bind="{ errors, id: `${id}-error` }" />
+        <FormFieldError
+          :input-count="inputCount"
+          :errors="errors"
+          :id="fieldErrorId"
+        />
       </template>
     </FormRowElement>
     <FormRowElement
@@ -80,6 +90,7 @@
       <template #right>
         <FormFieldValidationResult
           :validations="validationResult"
+          :id="`${id}-validation-result`"
           @suggestion="onSuggestion"
         />
       </template>
@@ -89,11 +100,15 @@
 
 <script lang="ts">
 import type { Options } from '@jsonforms/vue-vanilla'
+import type { FormValidationEntry, FormValue } from '@shared/types/form'
+import type { ValidationError } from '@shared/types/field'
 
 import { defineComponent, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuid } from 'uuid'
+
+import { useA11yStore } from '@shared/store/useA11yStore'
 
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
@@ -105,43 +120,26 @@ import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue
 
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
 
-import type { FormValidationEntry, FormValue } from '@shared/types/form'
-
 export default defineComponent({
   extends: ControlWrapper,
   setup() {
     const { t } = useI18n()
+    const a11yStore = useA11yStore()
 
     return {
-      labelId: uuidv4(),
+      a11yStore,
+      labelId: uuid(),
       t
     }
   },
   props: {
-    contentClass: {
-      type: String,
-      required: false
-    },
-    hideRequiredLabel: {
-      type: Boolean,
-      required: false
-    },
-    isGroup: {
-      type: Boolean,
-      required: false
-    },
-    validationResult: {
-      type: Array<FormValidationEntry>,
-      required: false
-    },
-    handleChange: {
-      type: Function,
-      required: false
-    },
-    onRemoteValidation: {
-      type: Function,
-      required: false
-    }
+    inputCount: Number,
+    contentClass: String,
+    hideRequiredLabel: Boolean,
+    isGroup: Boolean,
+    validationResult: Array<FormValidationEntry>,
+    handleChange: Function,
+    onRemoteValidation: Function
   },
   components: {
     FormFieldDescription,
@@ -153,28 +151,63 @@ export default defineComponent({
     FormRowElement
   },
   computed: {
-    tip() {
+    ariaLabelledBy() {
+      return this.isGroup ? this.labelId : undefined
+    },
+    className() {
       const { appliedOptions = {} } = this
-      const { tip }: Options & { tip?: string } = appliedOptions
-      if (tip) return this.t(tip) ?? tip
-      return undefined
+      const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
+
+      return [type ?? 'row', { inline }]
+    },
+    errorAttribute() {
+      const { errors, validationResult } = this
+
+      return {
+        [ERROR_ATTRIBUTE]: !!errors?.length || !!validationResult?.length || undefined
+      }
+    },
+    errorId() {
+      const index = this.a11yStore.formIds.findIndex((string) => string.includes(this.id))
+      const id = this.a11yStore.formIds[index]
+      const splitId = id.split('-').slice(0, -1).join('-')
+
+      return this.a11yStore.getA11yErrorId(splitId)
+    },
+    fieldErrorId() {
+      const parent = this.$parent as Record<string, unknown> | null
+      const { error } = parent as { error: ValidationError }
+
+      if (this.validationResult) {
+        return this.validationId
+      } else if (error?.id) {
+        return this.errorId
+      } else {
+        return undefined
+      }
     },
     fieldDescription() {
       const { appliedOptions = {} } = this
       const { description }: Options & { description?: string } = appliedOptions
-      if (description) return this.t(description) ?? description
-      return undefined
+
+      return description ? this.t(description) ?? description : undefined
     },
-    rowProps() {
-      const { id, errors, isGroup, labelId, validationResult, appliedOptions = {} } = this
-      const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
-      return {
-        id,
-        role: isGroup ? 'group' : undefined,
-        'aria-labelledby': isGroup ? labelId : undefined,
-        class: [type ?? 'row', { inline }],
-        [ERROR_ATTRIBUTE]: !!errors?.length || !!validationResult?.length || undefined
-      }
+    htmlId() {
+      return this.a11yStore.getA11yExplanationId(this.id)
+    },
+    inputId() {
+      return this.a11yStore.getA11yInputId(this.id)
+    },
+    role() {
+      return this.isGroup ? 'group' : undefined
+    },
+    tip() {
+      const { appliedOptions = {} } = this
+      const { tip }: Options & { tip?: string } = appliedOptions
+      return tip ? this.t(tip) ?? tip : undefined
+    },
+    validationId() {
+      return this.a11yStore.getA11yValidationId(this.id)
     }
   },
   methods: {

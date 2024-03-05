@@ -29,6 +29,7 @@
 </template>
 
 <script setup lang="ts">
+import type { ValidationError } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
 import { computed, watch } from 'vue'
@@ -47,7 +48,7 @@ type Props = {
   id: string
   index: number
   labelFor: string
-  error: string
+  error: ValidationError | null
   disabled?: boolean
   files?: FileType[]
   isPending: boolean

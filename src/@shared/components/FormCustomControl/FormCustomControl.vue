@@ -8,8 +8,9 @@
       @change="onInputChange"
       @focus="onFocus"
       @blur="onBlur"
-      :aria-describedby="`${control.id}-explanation ${control.id}-error`"
-      :aria-invalid="wrapperProps.errors ? 'true' : undefined"
+      :errors="controlErrors"
+      :aria-describedby="ariaDescribedby"
+      :aria-invalid="ariaInvalid"
     />
   </FormRow>
 </template>
@@ -21,6 +22,7 @@ import { InputType } from '@shared/types/input'
 import { defineComponent } from 'vue'
 import { rendererProps } from '@jsonforms/vue'
 
+import { useA11yStore } from '@shared/store/useA11yStore'
 import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'
 import { useCustomControl } from '@shared/composables/form/useCustomControl'
 
@@ -48,9 +50,35 @@ export default defineComponent({
     ...rendererProps<ControlElement>()
   },
   setup(props) {
-    return useCustomControl(props)
+    const a11yStore = useA11yStore()
+
+    return {
+      ...useCustomControl(props),
+      a11yStore
+    }
   },
   computed: {
+    errorId() {
+      return this.a11yStore.getA11yErrorId(this.control.id)
+    },
+    explanationId() {
+      return this.a11yStore.getA11yExplanationId(this.control.id)
+    },
+    validationId() {
+      return this.a11yStore.getA11yValidationId(this.control.id)
+    },
+    ariaDescribedby() {
+      const error = this.ariaInvalid ? this.errorId : ''
+      const validation = !this.ariaInvalid && this.validationResult ? this.validationId : ''
+
+      return [this.explanationId, error, validation].filter(Boolean).join(' ').trim()
+    },
+    ariaInvalid() {
+      return this.wrapperProps.errors ? 'true' : undefined
+    },
+    controlErrors() {
+      return this.control.errors ?? undefined
+    },
     input() {
       const {
         isValidating,
@@ -60,6 +88,7 @@ export default defineComponent({
       const { enabled, schema, uischema } = control
       const type = useFieldType(schema, uischema)
       const value = useFieldValue(this)
+
       return {
         id: getInputId(control),
         class: `input ${type}-input`,
@@ -100,7 +129,7 @@ export default defineComponent({
         appliedOptions,
         data,
         description: isFocused ? description : undefined,
-        errors: error || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
+        errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
         isGroup,
         id,
         isFocused,

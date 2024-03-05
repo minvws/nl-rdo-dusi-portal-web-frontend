@@ -1,4 +1,6 @@
 import type { Ref } from 'vue'
+import type { ValidationError } from '@shared/types/field'
+import type { FileType } from '@shared/types/form'
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
@@ -11,7 +13,6 @@ import { useEncryption } from '@shared/composables/useEncryption'
 import { t } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
-import type { FileType } from '../types/form'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
@@ -26,23 +27,24 @@ export const useFileStore = defineStore('useFileStore', () => {
     name: string,
     file: File,
     index: number,
-    error?: Ref<string>
+    error?: Ref<ValidationError | null>
   ): Promise<void> {
     const { id } = form.activeForm.value
     const currentFiles = files.value[id] || {}
     let pendingState = pending.value[id] || {}
     const target = currentFiles[name] ?? []
-
-    if (target[index]) removeFile(name, index)
-
-    target[index] = file
+    const filesPending = [...(pendingState?.[name] || [])]
     const updatedFiles = {
       ...currentFiles,
       [name]: target
     }
-    files.value[id] = updatedFiles
 
-    const filesPending = [...(pendingState?.[name] || [])]
+    if (target[index]) {
+      removeFile(name, index)
+    }
+
+    target[index] = file
+    files.value[id] = updatedFiles
 
     if (!pendingState) {
       pendingState = {}
@@ -56,7 +58,11 @@ export const useFileStore = defineStore('useFileStore', () => {
     pendingState[name][index] = false
   }
 
-  function addOrRemoveFile(id: string, target?: HTMLInputElement, error?: Ref<string>): void {
+  function addOrRemoveFile(
+    id: string,
+    target?: HTMLInputElement,
+    error?: Ref<ValidationError | null>
+  ): void {
     const file = target?.files?.[0]
     const index = Number.parseInt(target?.dataset.index || '0', 10)
 
@@ -101,7 +107,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     fieldName: string,
     file: File,
     index: number,
-    errorRef?: Ref<string>
+    errorRef?: Ref<ValidationError | null>
   ): Promise<void> {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, fieldName)
@@ -126,7 +132,10 @@ export const useFileStore = defineStore('useFileStore', () => {
       }
     } catch (error) {
       if (errorRef) {
-        errorRef.value = t('form.fields.error.upload') ?? ''
+        errorRef.value = {
+          message: t('form.fields.error.upload') ?? '',
+          id: fieldName
+        }
       }
 
       log(error)

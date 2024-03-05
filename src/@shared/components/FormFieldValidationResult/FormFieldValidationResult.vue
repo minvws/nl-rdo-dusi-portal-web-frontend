@@ -3,6 +3,7 @@
     <div
       v-for="({ type, message }, index) in items"
       :key="`validation-${index}`"
+      :id="id"
       :class="type"
       class="form-field-validation-result"
     >
