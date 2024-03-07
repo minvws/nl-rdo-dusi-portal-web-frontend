@@ -5,7 +5,9 @@
     "eslint/no-explicit-any": "off",
     "eslint/no-undef": "off",
     "import/no-unresolved": "off",
-    "typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/prefer-ts-expect-error": "off",
     "unicorn/filename-case": "off",
     "unicorn/no-nested-ternary": "off",
     "unicorn/no-null": "off"
