@@ -24,7 +24,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
 
   const isLoggedIn = ref<boolean>(false)
 
-  async function logIn(extendSession = false) {
+  async function logIn(extendSession = false): Promise<void> {
     try {
       const url = useApiUserStatusUrl()
       const { data } = await useFetchWithCredentials(url, { method: 'GET' }).json()
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
-  async function logOut() {
+  async function logOut(): Promise<void> {
     try {
       const url = useApiLogoutUrl()
       const { data } = await useFetchWithCredentials(url, { method: 'POST' }).json()
@@ -48,13 +48,13 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
-  function setLoginStatus({ logged_in }: AuthResponse) {
+  function setLoginStatus({ logged_in }: AuthResponse): boolean {
     const before = isLoggedIn.value
     isLoggedIn.value = logged_in
     return before !== isLoggedIn.value
   }
 
-  function sessionRestore() {
+  function sessionRestore(): void | Promise<void> {
     const restore = sessionLifetimeStore.restoreSession()
 
     if (restore) {
@@ -62,7 +62,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     }
   }
 
-  function onLoginChange(isLoggedIn: boolean) {
+  function onLoginChange(isLoggedIn: boolean): void {
     // update session-cookie when isLoggedIn changes
     if (isLoggedIn) {
       sessionLifetimeStore.extendSession()
@@ -82,19 +82,15 @@ export const useAuthStore = defineStore('useAuthStore', () => {
     router.push({ name: HOME })
   }
 
-  function onAuthenticate() {
+  function onAuthenticate(): void {
     openExternalLink(useApiLoginUrl())
   }
 
   watch(isLoggedIn, (isLoggedIn) => onLoginChange(isLoggedIn))
 
-  on(SessionType.EXPIRING, () => {
-    logIn(true)
-  })
+  on(SessionType.EXPIRING, () => logIn(true))
 
-  on(SessionType.EXPIRED, () => {
-    onAuthenticate()
-  })
+  on(SessionType.EXPIRED, () => onAuthenticate())
 
   return {
     sessionRestore,

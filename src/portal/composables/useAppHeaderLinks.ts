@@ -6,34 +6,35 @@ import { storeToRefs } from 'pinia'
 import { t } from '@shared/i18n'
 
 import { useAuthStore } from '@portal/store/useAuthStore'
-import { useFetchActionsCount } from '@portal/composables/useFetchActionsCount'
+import { useActionsStore } from '@portal/store/useActionsStore'
 
 import AuthenticationButton from '@portal/components/AuthenticationButton/AuthenticationButton.vue'
 
 import { MY_REQUESTS_OVERVIEW, MY_MESSAGES_OVERVIEW } from '@portal/router/names'
 
 export const useAppHeaderLinks = () => {
+  const actionsStore = useActionsStore()
   const authStore = useAuthStore()
+  const { applicationCount, messageCount } = storeToRefs(actionsStore)
   const { isLoggedIn } = storeToRefs(authStore)
-  const { data: actions } = useFetchActionsCount()
 
   const leftLinks: Link[] = []
 
   const rightLinks = computed<Link[]>(() => {
-    const { applicationCount, messageCount } = actions.value
-    if (!isLoggedIn.value) return []
-    return [
-      {
-        name: MY_REQUESTS_OVERVIEW,
-        label: t('pages.my-requests-overview.title'),
-        ...(applicationCount && { badge: applicationCount })
-      },
-      {
-        name: MY_MESSAGES_OVERVIEW,
-        label: t('pages.my-messages-overview.title'),
-        ...(messageCount && { badge: messageCount })
-      }
-    ]
+    return isLoggedIn.value
+      ? [
+          {
+            name: MY_REQUESTS_OVERVIEW,
+            label: t('pages.my-requests-overview.title'),
+            ...(applicationCount.value && { badge: applicationCount.value })
+          },
+          {
+            name: MY_MESSAGES_OVERVIEW,
+            label: t('pages.my-messages-overview.title'),
+            ...(messageCount.value && { badge: messageCount.value })
+          }
+        ]
+      : []
   })
 
   return {

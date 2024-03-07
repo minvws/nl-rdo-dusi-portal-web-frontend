@@ -46,10 +46,11 @@ import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
 import { useFetchMessageDownload } from '@assessment/composables/useFetchMessageDownload'
 
-import { openExternalLink } from '@shared/utils/link'
-
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
+
+import { openExternalLink } from '@shared/utils/link'
+import { log } from '@shared/utils/logger'
 
 export default defineComponent({
   data: () => ({
@@ -74,7 +75,7 @@ export default defineComponent({
       const { data, error, isFetching } = await useFetchMessageDownload(id)
 
       if (error.value) {
-        console.error(error.value)
+        log(error.value)
         return
       }
 

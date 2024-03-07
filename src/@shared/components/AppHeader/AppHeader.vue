@@ -35,7 +35,7 @@
                 aria-hidden
               />
               {{ label }}
-              <MessageCounter
+              <NotificationCounter
                 v-if="badge"
                 :value="badge"
               />
@@ -61,7 +61,12 @@
 </template>
 
 <script setup lang="ts">
+import { watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useI18n } from 'vue-i18n'
+
+import { useActionsStore } from '@portal/store/useActionsStore'
+import { useAuthStore } from '@portal/store/useAuthStore'
 
 import { useAppHeaderLinks } from '@shared/composables/useAppHeaderLinks'
 import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
@@ -69,7 +74,7 @@ import { useBreadcrumbs } from '@shared/composables/useBreadcrumbs'
 import AppHeaderLogoLink from '@shared/components/AppHeaderLogoLink/AppHeaderLogoLink.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import BreadcrumbBar from '@shared/components/BreadcrumbBar/BreadcrumbBar.vue'
-import MessageCounter from '@shared/components/MessageCounter/MessageCounter.vue'
+import NotificationCounter from '@shared/components/NotificationCounter/NotificationCounter.vue'
 import NavLink from '@shared/components/NavLink/NavLink.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
@@ -77,6 +82,17 @@ import vCollapsible from '@shared/directives/collapsible'
 const { t } = useI18n()
 const { breadcrumbs } = useBreadcrumbs()
 const { leftLinks, rightLinks, AuthComponent, UserComponent } = await useAppHeaderLinks()
+const actionsStore = useActionsStore()
+const authStore = useAuthStore()
+const { isLoggedIn } = storeToRefs(authStore)
+
+watch(isLoggedIn, (isLoggedIn) => {
+  if (!isLoggedIn) {
+    return
+  }
+
+  actionsStore.getActionsCount()
+})
 </script>
 
 <style lang="scss" scoped>

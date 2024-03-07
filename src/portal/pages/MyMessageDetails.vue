@@ -29,8 +29,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeUnmount, ref } from 'vue'
+import { onBeforeUnmount, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+import { useActionsStore } from '@portal/store/useActionsStore'
 
 import { useFetchMessageDetails } from '@portal/composables/useFetchMessageDetails'
 import { useFetchMessageDownload } from '@portal/composables/useFetchMessageDownload'
@@ -42,6 +44,7 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
 import { openExternalLink } from '@shared/utils/link'
+import { log } from '@shared/utils/logger'
 
 type Props = {
   id: string
@@ -52,7 +55,8 @@ const props = defineProps<Props>()
 const fileURL = ref<string>('')
 
 const { t } = useI18n()
-const { data, error, isFetching } = useFetchMessageDetails(props.id)
+const actionStore = useActionsStore()
+const { data, error, isFetching, isFinished } = useFetchMessageDetails(props.id)
 
 useSEO({
   title: `${t('pages.my-message-details.title')} | ${t('app.prefix')}`
@@ -62,7 +66,7 @@ async function onDownload() {
   const { data, error, isFetching } = await useFetchMessageDownload(props.id)
 
   if (error.value) {
-    console.error(error.value)
+    log(error.value)
     return
   }
 
@@ -78,6 +82,12 @@ function onPrint() {
 }
 
 onBeforeUnmount(() => URL.revokeObjectURL(fileURL.value))
+
+watch(isFinished, (isFinished) => {
+  if (isFinished) {
+    actionStore.getActionsCount()
+  }
+})
 </script>
 
 <style lang="scss" scoped>

@@ -1,28 +1,31 @@
 import type { FormSubmit } from '@shared/types/form'
+import { FormSubmitType } from '@shared/types/form'
 
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
 import { useValidationStore } from '@shared/store/useValidationStore'
+import { useActionsStore } from '@portal/store/useActionsStore'
+
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useEncryption } from '@shared/composables/useEncryption'
-import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useApiFormsSubmitUrl, useApiFormsValidateUrl } from '@shared/composables/useApiUrl'
+import { useCustomFetch } from '@shared/composables/useCustomFetch'
+import { useEncryption } from '@shared/composables/useEncryption'
+import { useFormSubmitNotification } from '@shared/composables/form/useFormSubmitNotification'
 
 import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
-import { FormSubmitType } from '@shared/types/form'
-import { useFormSubmitNotification } from './useFormSubmitNotification'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
   const notification = useFormSubmitNotification()
-  const validationStore = useValidationStore()
   const router = useRouter()
   const { encrypt } = useEncryption()
 
+  const actionStore = useActionsStore()
+  const validationStore = useValidationStore()
   const { canContinueAfterValidation } = storeToRefs(validationStore)
 
   function getRequest(type: FormSubmit) {
@@ -94,27 +97,33 @@ export const useFormSubmit = () => {
     }
   }
 
-  function showNotification({ type, error }: { type: FormSubmit; error?: Error }) {
-    if (error) {
-      notification.showError({ type, error })
-    } else {
-      notification.showSuccess(type)
-    }
+  function showNotification({ type, error }: { type: FormSubmit; error?: Error }): void {
+    error ? notification.showError({ type, error }) : notification.showSuccess(type)
   }
 
-  async function onSubmitForm() {
+  async function onSubmitForm(): Promise<void> {
     const type = FormSubmitType.SUBMIT
     const { error } = await onSubmit(type)
+
     showNotification({ type, error })
-    if (error) return
-    router.replace({ name: HOME })
+
+    if (error) {
+      return
+    }
+
+    actionStore.getActionsCount()
     forms.clearForm()
+
+    router.replace({ name: HOME })
   }
 
-  async function onSubmitDraft() {
+  async function onSubmitDraft(): Promise<void> {
     const type = FormSubmitType.DRAFT
     const { error } = await onSubmit(type)
+
     showNotification({ type, error })
+
+    actionStore.getActionsCount()
   }
 
   async function onSubmitValidation(id?: string): Promise<void> {
