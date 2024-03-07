@@ -30,7 +30,7 @@ export type Control = {
   id: string
   data: FormValue
   schema: JsonSchema & FieldOptions
-  uischema: { options?: { validation?: ControlEvent[] } }
+  uischema: { options?: Record<string, unknown> & { validation?: ControlEvent[] } }
   options?: { label: string; value: string }[]
 }
 

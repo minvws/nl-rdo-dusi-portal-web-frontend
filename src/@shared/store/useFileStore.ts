@@ -9,6 +9,7 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useEncryption } from '@shared/composables/useEncryption'
+import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { t } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
@@ -18,20 +19,44 @@ const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VIT
 
 export const useFileStore = defineStore('useFileStore', () => {
   const form = useForms()
+  const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()
 
   const files = ref<Record<string, Record<string, File[]>>>({})
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
 
-  async function addFile(
-    name: string,
-    file: File,
-    index: number,
+  type AddFileProps = {
+    file: File
+    id: string
+    index: number
+    name: string
     error?: Ref<ValidationError | null>
-  ): Promise<void> {
-    const { id } = form.activeForm.value
-    const currentFiles = files.value[id] || {}
-    let pendingState = pending.value[id] || {}
+  }
+
+  type AddOrRemoveFileProps = {
+    id: string
+    error?: Ref<ValidationError | null>
+    target?: HTMLInputElement
+  }
+
+  type SaveFileProps = {
+    errorRef?: Ref<ValidationError | null>
+    fieldName: string
+    file: File
+    index: number
+  }
+
+  type FileUploadProps = {
+    data: { id: string }
+    fieldName: string
+    file: File
+    index: number
+  }
+
+  async function addFile({ file, id, index, name, error }: AddFileProps): Promise<void> {
+    const formId = form.activeForm.value.id
+    const currentFiles = files.value[formId] || {}
+    let pendingState = pending.value[formId] || {}
     const target = currentFiles[name] ?? []
     const filesPending = [...(pendingState?.[name] || [])]
     const updatedFiles = {
@@ -53,22 +78,21 @@ export const useFileStore = defineStore('useFileStore', () => {
     filesPending[index] = true
     Object.assign(pendingState, { [name]: filesPending })
 
-    await saveFile(name, file, index, error)
+    await saveFile({ fieldName: name, file, index, errorRef: error }).finally(() => {
+      const name = getControlId(id)
+      onSubmitValidation(name)
+    })
 
     pendingState[name][index] = false
   }
 
-  function addOrRemoveFile(
-    id: string,
-    target?: HTMLInputElement,
-    error?: Ref<ValidationError | null>
-  ): void {
+  function addOrRemoveFile({ id, error, target }: AddOrRemoveFileProps): void {
     const file = target?.files?.[0]
     const index = Number.parseInt(target?.dataset.index || '0', 10)
 
     if (file) {
       const name = getControlId(id)
-      addFile(name, file, index, error)
+      addFile({ error, file, id, index, name })
     } else {
       removeFileByIdAndIndex(id, index)
     }
@@ -103,12 +127,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     target[name].splice(index, 1)
   }
 
-  async function saveFile(
-    fieldName: string,
-    file: File,
-    index: number,
-    errorRef?: Ref<ValidationError | null>
-  ): Promise<void> {
+  async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
     const { draftId } = form
     const url = useApiFileUrl(draftId.value, fieldName)
 
@@ -142,17 +161,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
   }
 
-  function onFileUpload({
-    fieldName,
-    file,
-    index,
-    data
-  }: {
-    fieldName: string
-    file: File
-    index: number
-    data: { id: string }
-  }): void {
+  function onFileUpload({ data, fieldName, file, index }: FileUploadProps): void {
     const { index: formIndex, activeForm } = form
     const currentFormData = activeForm.value.data[formIndex.value] || {}
     const target = (currentFormData[fieldName] as FileType[]) || []
@@ -164,10 +173,12 @@ export const useFileStore = defineStore('useFileStore', () => {
       mimeType,
       name
     }
+
     const updatedFormData = {
       ...currentFormData,
       [fieldName]: target
     }
+
     activeForm.value.data[formIndex.value] = updatedFormData
   }
 

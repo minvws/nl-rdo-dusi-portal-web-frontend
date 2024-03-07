@@ -29,7 +29,11 @@ export const useRemoteValidation = (
     data,
     (current, previous) => {
       const changed = JSON.stringify(current) !== JSON.stringify(previous)
-      if (!changed) return
+
+      if (!changed) {
+        return
+      }
+
       isDataChanged.value = true
     },
     { deep: true }

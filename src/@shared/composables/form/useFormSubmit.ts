@@ -126,7 +126,9 @@ export const useFormSubmit = () => {
 
     forms.setValidatingIsPending(true)
 
-    await onSubmit(type).finally(() => forms.setValidatingIsPending(false))
+    await onSubmit(type).finally(() => {
+      forms.setValidatingIsPending(false)
+    })
   }
 
   async function onSubmitValidationOrContinue(): Promise<void> {

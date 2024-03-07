@@ -39,8 +39,7 @@ export default async () => {
             scope: '#/properties/file',
             label: 'file',
             options: {
-              ...fileUploadOptions,
-              tip: 'Toegestane bestandstypen: pdf, jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.'
+              ...fileUploadOptions
             }
           }
         ]

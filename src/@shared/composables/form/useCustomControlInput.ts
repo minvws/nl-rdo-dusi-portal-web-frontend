@@ -64,7 +64,10 @@ export const useCustomControlInput = ({
 
   async function handleRemoteValidation(type: ControlEvent) {
     // trigger remote validation when type is in list of validations
-    if (!control.value.uischema.options?.validation?.includes(type)) {
+    const noValidation = !control.value.uischema.options?.validation?.includes(type)
+    const isFileInput = Boolean(control.value.uischema.options?.maxFileSize)
+
+    if (noValidation || isFileInput) {
       return
     }
 

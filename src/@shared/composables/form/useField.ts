@@ -33,7 +33,8 @@ export const useFieldChange = ({ control, error }: FieldChangeProps) => {
 
     if (control.value.schema.file) {
       // when file, add or remove from fileStore
-      addOrRemoveFile(control.value.id, target, error)
+      const { id } = control.value
+      addOrRemoveFile({ id, target, error })
       return control.value.data
     }
 

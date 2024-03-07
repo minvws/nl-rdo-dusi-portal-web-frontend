@@ -116,7 +116,7 @@ function ariaDescribedby(index: number): string {
   const validationId = a11yStore.getA11yValidationId(props.control.id, index)
 
   const error = isAriaInvalid(index) ? errorId : null
-  const validation = !isAriaInvalid(index) ? validationId : null
+  const validation = isAriaInvalid(index) ? null : validationId
 
   return [explanationId, error, validation].filter(Boolean).join(' ').trim()
 }
