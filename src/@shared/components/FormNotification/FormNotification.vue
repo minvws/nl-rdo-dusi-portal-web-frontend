@@ -75,7 +75,7 @@ function onDismiss(id: string) {
 .form-notification.confirmation {
   .html {
     display: flex;
-    justify-content: center;
+    justify-content: flex-left;
   }
 
   :deep(span) {
