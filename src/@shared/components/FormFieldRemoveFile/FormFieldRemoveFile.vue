@@ -41,8 +41,6 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 
-import { getControlId } from '@shared/utils/control'
-
 type Props = {
   handleChange?: (_path: string, _value: any) => void
   id: string
@@ -71,9 +69,6 @@ const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 
 function onRemoveFile(): void {
   removeFileByIdAndIndex(props.id, props.index)
-  const files = [...(props.files || [])]
-  files.splice(props.index, 1)
-  props.handleChange?.(getControlId(props.id), files)
   emit('blur')
 }
 

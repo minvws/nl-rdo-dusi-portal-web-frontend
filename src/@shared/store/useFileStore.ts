@@ -123,8 +123,12 @@ export const useFileStore = defineStore('useFileStore', () => {
   function removeFile(name: string, index = 0): void {
     const { id } = form.activeForm.value
     const target = files.value?.[id]
-    if (!target?.[name]) return
-    target[name].splice(index, 1)
+    if (target?.[name]) {
+      target[name].splice(index, 1)
+    }
+
+    onFileRemoved({ fieldName: name, index })
+    onSubmitValidation(name)
   }
 
   async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
@@ -143,7 +147,7 @@ export const useFileStore = defineStore('useFileStore', () => {
       const { id, message } = data.value
 
       if (id) {
-        return onFileUpload({ fieldName, file, index, data: data.value })
+        return onFileUploaded({ fieldName, file, index, data: data.value })
       }
 
       if (message) {
@@ -161,7 +165,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
   }
 
-  function onFileUpload({ data, fieldName, file, index }: FileUploadProps): void {
+  function onFileUploaded({ data, fieldName, file, index }: FileUploadProps): void {
     const { index: formIndex, activeForm } = form
     const currentFormData = activeForm.value.data[formIndex.value] || {}
     const target = (currentFormData[fieldName] as FileType[]) || []
@@ -173,6 +177,21 @@ export const useFileStore = defineStore('useFileStore', () => {
       mimeType,
       name
     }
+
+    const updatedFormData = {
+      ...currentFormData,
+      [fieldName]: target
+    }
+
+    activeForm.value.data[formIndex.value] = updatedFormData
+  }
+
+  function onFileRemoved({ fieldName, index }: { fieldName: string; index: number }): void {
+    const { index: formIndex, activeForm } = form
+    const currentFormData = activeForm.value.data[formIndex.value] || {}
+    const target = (currentFormData[fieldName] as FileType[]) || []
+
+    target.splice(index, 1)
 
     const updatedFormData = {
       ...currentFormData,
