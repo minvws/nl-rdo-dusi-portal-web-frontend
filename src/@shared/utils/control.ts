@@ -2,6 +2,43 @@ import type { Control } from '@shared/types/field'
 
 import { InputType } from '@shared/types/input'
 
+function getInputStep(
+  { schema: { format } }: Control,
+  step: string | undefined
+): string | undefined {
+  if (format === InputType.INTEGER) {
+    return undefined
+  }
+
+  return step?.toString()
+}
+
+function getInputType(type: InputType) {
+  if (Object.values(InputType).includes(type)) {
+    return type
+  }
+
+  return InputType.TEXT
+}
+
+function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Control) {
+  if (updatePassword) {
+    return 'new-password'
+  }
+
+  switch (format) {
+    case InputType.EMAIL: {
+      return 'username'
+    }
+    case InputType.PASSWORD: {
+      return 'current-password'
+    }
+    default: {
+      return 'off'
+    }
+  }
+}
+
 export function getControlId(id: string) {
   const parts = id.split('/')
   const lastPart = parts.pop()
@@ -18,59 +55,33 @@ export function getLinkedControlId(id: string) {
   parsed.shift()
   return parsed
 }
-function getInputType(type: InputType) {
-  if (Object.values(InputType).includes(type)) {
-    return type
-  }
-  return InputType.TEXT
-}
-
-function createAutoComplete(autocomplete: string) {
-  return {
-    autocomplete
-  }
-}
 
 export function getInputId(control: Control) {
   const { id } = control
   return `${id}-input`
 }
 
-function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Control) {
-  if (updatePassword) return createAutoComplete('new-password')
-
-  switch (format) {
-    case InputType.EMAIL: {
-      return createAutoComplete('username')
-    }
-    case InputType.PASSWORD: {
-      return createAutoComplete('current-password')
-    }
-    default: {
-      return createAutoComplete('off')
-    }
-  }
-}
-
 export function getInputAttrs(props: { type: InputType; control: Control }) {
   const { type, control } = props
   const {
     schema: {
-      minimum,
-      maximum,
-      minLength: minlength,
-      maxLength: maxlength,
+      formatMaximum,
       formatMinimum,
-      formatMaximum
+      maximum,
+      maxLength: maxlength,
+      minimum,
+      minLength: minlength,
+      step
     }
   } = control
 
   return {
-    min: minimum ?? formatMinimum,
+    autocomplete: getInputAutoCompleteAttrs(control),
     max: maximum ?? formatMaximum,
-    minlength,
     maxlength,
-    ...getInputAutoCompleteAttrs(control),
+    min: minimum ?? formatMinimum,
+    minlength,
+    step: getInputStep(control, step),
     type: getInputType(type)
   }
 }

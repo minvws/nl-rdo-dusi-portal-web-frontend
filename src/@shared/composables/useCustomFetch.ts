@@ -1,4 +1,6 @@
 import type { MaybeRefOrGetter } from 'vue'
+import type { CustomFetch } from '@shared/types/fetch'
+import { CustomFetchType } from '@/@shared/types/fetch'
 
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'
@@ -9,14 +11,14 @@ export type UseFetchConfig = {
 }
 
 export const useCustomFetch = (
-  type: 'with-credentials' | 'with-encryption' = 'with-credentials',
+  type: CustomFetch = CustomFetchType.CREDENTIALS,
   url: MaybeRefOrGetter<string>,
   useFetchOptions?: RequestInit,
   fetchOptions?: UseFetchConfig
 ) => {
-  if (type === 'with-encryption') {
-    return useFetchWithEncryption(url, useFetchOptions, fetchOptions)
-  } else {
+  if (type === CustomFetchType.CREDENTIALS) {
     return useFetchWithCredentials(url, useFetchOptions, fetchOptions)
+  } else {
+    return useFetchWithEncryption(url, useFetchOptions, fetchOptions)
   }
 }

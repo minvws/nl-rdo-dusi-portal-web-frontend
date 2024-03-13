@@ -26,10 +26,10 @@ import { useA11yStore } from '@shared/store/useA11yStore'
 import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'
 import { useCustomControl } from '@shared/composables/form/useCustomControl'
 
+import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupControl/FormCheckboxGroupControl.vue'
 import FormFileControl from '@shared/components/FormFileControl/FormFileControl.vue'
 import FormNumberControl from '@shared/components/FormNumberControl/FormNumberControl.vue'
 import FormRadioControl from '@shared/components/FormRadioControl/FormRadioControl.vue'
-import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupControl/FormCheckboxGroupControl.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
 import FormSelectControl from '@shared/components/FormSelectControl/FormSelectControl.vue'
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
@@ -38,10 +38,10 @@ import { getInputId } from '@shared/utils/control'
 
 export default defineComponent({
   components: {
+    FormCheckboxGroupControl,
     FormFileControl,
     FormNumberControl,
     FormRadioControl,
-    FormCheckboxGroupControl,
     FormRow,
     FormSelectControl,
     FormTextControl
@@ -101,20 +101,21 @@ export default defineComponent({
     },
     wrapperProps() {
       const {
-        styles,
-        isFocused,
         appliedOptions,
-        control,
-        isTouched,
-        error,
         conditionalError,
-        isConditionalRequired,
-        isReadOnly,
-        hideRequiredLabel,
-        validationResult,
+        control,
+        controlId,
+        error,
         handleChange,
+        hideRequiredLabel,
+        isConditionalRequired,
+        isFocused,
+        isReadOnly,
+        isTouched,
+        onRemoteAction,
         onRemoteValidation,
-        controlId
+        styles,
+        validationResult
       } = this
 
       const { data, description, errors, id, label, required, visible, schema, uischema } = control
@@ -127,21 +128,22 @@ export default defineComponent({
 
       return {
         appliedOptions,
+        contentClass: type,
         data,
         description: isFocused ? description : undefined,
         errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
-        isGroup,
+        handleChange,
+        hideRequiredLabel: hideRequiredLabel || isReadOnly,
         id,
         isFocused,
+        isGroup,
         label,
+        onRemoteAction,
+        onRemoteValidation,
         required: required || isConditionalRequired,
         styles,
-        visible,
-        contentClass: type,
-        hideRequiredLabel: hideRequiredLabel || isReadOnly,
         validationResult: validationResult?.[controlId],
-        handleChange,
-        onRemoteValidation
+        visible
       }
     },
     field() {

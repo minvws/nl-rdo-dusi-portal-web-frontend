@@ -35,6 +35,12 @@ function getDummyData(props: FieldProp): FormValue | number | undefined {
     case InputType.EMAIL: {
       return 'e@mail.com'
     }
+    case InputType.NUMBER: {
+      return Math.PI
+    }
+    case InputType.INTEGER: {
+      return 42
+    }
     default: {
       log('unknown format', format)
       break

@@ -1,5 +1,10 @@
+import type { ApplicationForm } from '@shared/types/cases'
+import type { CustomFetch } from '@shared/types/fetch'
 import type { FormSubmit } from '@shared/types/form'
+import type { Ref } from 'vue'
+import { CustomFetchType } from '@/@shared/types/fetch'
 import { FormSubmitType } from '@shared/types/form'
+import { ProjectType } from '@shared/types/project'
 
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
@@ -17,11 +22,47 @@ import { HOME } from '@shared/router/names'
 import { log } from '@shared/utils/logger'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
+const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
+
+type SetFetchFormResultsType = {
+  type: FormSubmit
+  data?: Ref
+  error?: Ref
+}
+
+type SubmitValueType = {
+  type: FormSubmit
+  statusCode: Ref<number | null>
+  data?: Ref
+  error?: Ref
+}
+
+type SubmitValueReturnType = {
+  data: Ref<any> | undefined
+  statusCode: Ref<number | null>
+}
+
+type ShowNotificationType = {
+  type: FormSubmit
+  error?: Error
+}
+
+type SubmitType = {
+  submitType: FormSubmit
+  fetchType: CustomFetch
+}
+
+type SubmitReturnType = Promise<{
+  data?: any
+  error?: Error
+  statusCode?: any
+}>
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
   const notification = useFormSubmitNotification()
   const router = useRouter()
+  const { currentRoute } = router
   const { encrypt } = useEncryption()
 
   const actionStore = useActionsStore()
@@ -49,63 +90,119 @@ export const useFormSubmit = () => {
           url: useApiFormsValidateUrl(draftId.value)
         }
       }
+      case FormSubmitType.ACTION: {
+        const id = getId()
+        return {
+          data: formData,
+          method: 'PATCH',
+          url: useApiFormsValidateUrl(id)
+        }
+      }
       default: {
         throw new Error(`FormSubmit ${type} is unknown`)
       }
     }
   }
 
-  async function onSubmit(
-    type: FormSubmit
-  ): Promise<{ data?: any; error?: any; statusCode?: any }> {
-    const { method, url, ...body } = getRequest(type)
-    const encryptedBody = await encrypt(publicKey, JSON.stringify(body))
+  async function onSubmit({ submitType, fetchType }: SubmitType): SubmitReturnType {
+    const { method, url, ...body } = getRequest(submitType)
+    const requestBody = await getRequestBody({ fetchType, body })
     const options: RequestInit = {
-      method,
+      body: requestBody,
       headers: {
         Accept: 'text/plain',
         'Content-Type': 'application/json'
       },
-      body: encryptedBody
+      method
     }
 
     forms.setSubmitting(true)
 
     try {
-      const { statusCode, data, error } = await useCustomFetch(
-        'with-encryption',
-        url,
-        options
-      ).json()
-      const validationResult = error?.value?.validationResult ?? data?.value?.validationResult
-      forms.setValidationResult({ validationResult })
+      const fetch = await useCustomFetch(fetchType, url, options).json()
+      const { data, error, statusCode } = fetch
+      const errorMessage = error?.value?.message ?? data.value?.message
 
-      if (statusCode.value === 200) {
-        return { data, statusCode }
+      setFetchFormResults({ type: submitType, data, error })
+
+      if (errorMessage) {
+        throw new Error(errorMessage)
       }
 
-      if (statusCode.value === 422 && type === FormSubmitType.VALIDATION) {
-        return { data: error, statusCode }
-      }
-
-      throw new Error(error?.value?.message ?? data.value?.message)
+      return returnBySubmitType({ type: submitType, statusCode, data, error })
     } catch (error) {
       log(error)
-      return { error }
+      return { error: error as Error }
     } finally {
       forms.setSubmitting(false)
     }
   }
 
-  function showNotification({ type, error }: { type: FormSubmit; error?: Error }): void {
+  function getId(): string | undefined {
+    return isPortal ? forms.draftId.value : currentRoute.value.params.id.toString()
+  }
+
+  async function getRequestBody({ fetchType, body }: { fetchType: CustomFetch; body: any }) {
+    const string = JSON.stringify(body)
+
+    return fetchType === CustomFetchType.ENCRYPTION ? encrypt(publicKey, string) : string
+  }
+
+  function showNotification({ type, error }: ShowNotificationType): void {
     error ? notification.showError({ type, error }) : notification.showSuccess(type)
   }
 
-  async function onSubmitForm(): Promise<void> {
-    const type = FormSubmitType.SUBMIT
-    const { error } = await onSubmit(type)
+  function setFetchFormResults({ type, data, error }: SetFetchFormResultsType): void {
+    const isActionType = type === FormSubmitType.ACTION
 
-    showNotification({ type, error })
+    if (isPortal && isActionType) {
+      const values = data?.value.data
+      forms.setActionResult({ values })
+    }
+
+    if (!isPortal && isActionType) {
+      const stages = data?.value.data.applicationStages
+      const values = stages.find(
+        (stage: ApplicationForm) => stage.metadata.applicationStage.isCurrent
+      )
+
+      if (values.data) {
+        forms.setActionResult({ values: values.data })
+      }
+    }
+
+    const validationResult = error?.value?.validationResult ?? data?.value?.validationResult
+    forms.setValidationResult({ validationResult })
+  }
+
+  function returnBySubmitType({
+    type,
+    statusCode,
+    data,
+    error
+  }: SubmitValueType): SubmitValueReturnType {
+    const isValidationError = statusCode.value === 422 && type === FormSubmitType.VALIDATION
+
+    if (isValidationError) {
+      return { data: error, statusCode }
+    }
+
+    return { data, statusCode }
+  }
+
+  async function onSubmitAction(): Promise<void> {
+    const submitType = FormSubmitType.ACTION
+    const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS
+
+    await onSubmit({ submitType, fetchType })
+  }
+
+  async function onSubmitForm(): Promise<void> {
+    const submitType = FormSubmitType.SUBMIT
+    const fetchType = CustomFetchType.ENCRYPTION
+    const { error } = await onSubmit({ submitType, fetchType })
+
+    showNotification({ type: submitType, error })
 
     if (error) {
       return
@@ -118,16 +215,18 @@ export const useFormSubmit = () => {
   }
 
   async function onSubmitDraft(): Promise<void> {
-    const type = FormSubmitType.DRAFT
-    const { error } = await onSubmit(type)
+    const submitType = FormSubmitType.DRAFT
+    const fetchType = CustomFetchType.ENCRYPTION
+    const { error } = await onSubmit({ submitType, fetchType })
 
-    showNotification({ type, error })
+    showNotification({ type: submitType, error })
 
     actionStore.getActionsCount()
   }
 
   async function onSubmitValidation(id?: string): Promise<void> {
-    const type = FormSubmitType.VALIDATION
+    const submitType = FormSubmitType.VALIDATION
+    const fetchType = CustomFetchType.ENCRYPTION
 
     if (id) {
       forms.setIdIsValidating(id)
@@ -135,18 +234,17 @@ export const useFormSubmit = () => {
 
     forms.setValidatingIsPending(true)
 
-    await onSubmit(type).finally(() => {
-      forms.setValidatingIsPending(false)
-    })
+    await onSubmit({ submitType, fetchType }).finally(() => forms.setValidatingIsPending(false))
   }
 
   async function onSubmitValidationOrContinue(): Promise<void> {
-    const type = FormSubmitType.VALIDATION
+    const submitType = FormSubmitType.VALIDATION
+    const fetchType = CustomFetchType.ENCRYPTION
     const { activeForm } = forms
 
     forms.setValidatingIsPending(true)
 
-    await onSubmit(type)
+    await onSubmit({ submitType, fetchType })
       .then(({ statusCode }) => {
         if (statusCode?.value === 200) {
           canContinueAfterValidation.value = true
@@ -162,8 +260,9 @@ export const useFormSubmit = () => {
   }
 
   return {
-    onSubmitForm,
+    onSubmitAction,
     onSubmitDraft,
+    onSubmitForm,
     onSubmitValidation,
     onSubmitValidationOrContinue
   }

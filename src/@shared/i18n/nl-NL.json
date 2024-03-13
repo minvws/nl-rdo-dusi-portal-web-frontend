@@ -157,14 +157,15 @@
       }
     },
     "message": {
-      "loading": "Formulier is aan het laden",
-      "loadingError": "Er is iets mis gegaan met het laden van het formulier: {error}",
-      "submitting": "Formulier is bezig met verzenden",
-      "success": "Formulier is succesvol verzonden",
+      "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
       "failed": "Er is iets mis gegaan met het verzenden van het formulier. {error}",
-      "save-success": "Formulier is opgeslagen",
+      "loading": "Formulier is aan het laden",
+      "loading_error": "Er is iets mis gegaan met het laden van het formulier: {error}",
       "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
-      "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag"
+      "save-success": "Formulier is opgeslagen",
+      "submitting": "Formulier is bezig met verzenden",
+      "subsidy_not_found": "Er is iets mis gegaan het ophalen van de regeling.",
+      "success": "Formulier is succesvol verzonden"
     }
   },
   "pages": {

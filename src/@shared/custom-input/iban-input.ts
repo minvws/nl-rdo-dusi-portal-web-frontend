@@ -7,6 +7,7 @@ export const isValidIban = (schema: JsonSchema, value: string) => {
   const { valid } = iban().validate({ value })
   return valid
 }
+
 export default {
   test(control: Control) {
     return control.schema.iban

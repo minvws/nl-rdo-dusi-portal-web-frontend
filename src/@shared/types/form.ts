@@ -36,7 +36,8 @@ export type FormErrors = FormError[][]
 export const FormSubmitType = {
   SUBMIT: 'submit',
   DRAFT: 'draft',
-  VALIDATION: 'validation'
+  VALIDATION: 'validation',
+  ACTION: 'action'
 } as const
 
 export type FormSubmit = (typeof FormSubmitType)[keyof typeof FormSubmitType]

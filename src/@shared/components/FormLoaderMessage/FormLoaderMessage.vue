@@ -42,6 +42,6 @@ const loadingMessage = computed<string | false | undefined>(
 const errorMessage = computed<string | undefined>(() => {
   const { error } = props
   if (!error) return undefined
-  return t('form.message.loadingError', { error })
+  return t('form.message.loading_error', { error })
 })
 </script>

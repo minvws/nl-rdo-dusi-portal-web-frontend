@@ -32,6 +32,7 @@ type Props = {
   handleChange: (_path: string, _value: FormValue) => void
   isFocused: Ref<boolean>
   onChange: (_event: Event) => void
+  onRemoteAction: () => Promise<void>
   onRemoteValidation: (_id?: string) => Promise<void>
   setTouchedField: (_touched: boolean) => void
 }
@@ -45,6 +46,7 @@ export const useCustomControlInput = ({
   isFocused,
   onChange,
   onRemoteValidation,
+  onRemoteAction,
   setTouchedField
 }: Props) => {
   const a11yStore = useA11yStore()
@@ -62,7 +64,7 @@ export const useCustomControlInput = ({
       })
   )
 
-  async function handleRemoteValidation(type: ControlEvent) {
+  async function handleRemoteValidation(type: ControlEvent): Promise<void> {
     // trigger remote validation when type is in list of validations
     const noValidation = !control.value.uischema.options?.validation?.includes(type)
     const isFileInput = Boolean(control.value.uischema.options?.maxFileSize)
@@ -77,10 +79,33 @@ export const useCustomControlInput = ({
       return
     }
 
-    // input is validating and disabled, restore focus on element after validation
-    const inputId = getInputId(control.value)
+    // Input is validating and disabled,
+    // restore focus on element after remote validation.
+    restoreFocus(control.value)
+  }
+
+  async function handleRemoteAction(type: ControlEvent): Promise<void> {
+    const noAction = !control.value.uischema.options?.remoteAction?.includes(type)
+
+    if (noAction) {
+      return
+    }
+
+    await onRemoteAction()
+
+    if (type !== 'onValid') {
+      return
+    }
+
+    // Input is validating and disabled,
+    // restore focus on element after remote action.
+    restoreFocus(control.value)
+  }
+
+  function restoreFocus(control: Control): void {
+    const inputId = getInputId(control)
     // we need to use the attribute selector here because the id can start with special characters (e.g. #)
-    const element = document.querySelector(`[id="${inputId}]`)
+    const element = document.querySelector(`[id="${inputId}"]`)
     const validInputElement = element && element instanceof HTMLInputElement && !element.disabled
 
     if (validInputElement) {
@@ -93,6 +118,7 @@ export const useCustomControlInput = ({
     const controlId = getControlId(control.value.id)
 
     handleChange(controlId, value)
+    handleRemoteAction(type)
     handleRemoteValidation(type)
   }
 

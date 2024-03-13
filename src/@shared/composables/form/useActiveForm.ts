@@ -3,9 +3,9 @@ import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type {
   Form,
   FormData,
+  FormError,
   FormErrors,
-  FormValidationResult,
-  FormError
+  FormValidationResult
 } from '@shared/types/form'
 import { FormUiType } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
@@ -13,11 +13,12 @@ import type { StoredForm } from '@shared/store/useFormStorage'
 
 import { computed, inject, onMounted, ref, watch } from 'vue'
 
-import { getDeepProps, flattenDeep } from '@shared/utils/array'
-import { getControlId, getLinkedControlId } from '@shared/utils/control'
-
 import { useFormStorage } from '@shared/store/useFormStorage'
+
 import { useClearForm } from '@shared/composables/form/useClearForm'
+
+import { getControlId, getLinkedControlId } from '@shared/utils/control'
+import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { transformFormValues } from '@shared/utils/form'
 
 const VALIDATION_RESULT_FIELD_NAME = 'validationResult'
@@ -238,6 +239,14 @@ export const useActiveForm = () => {
     formStorage.update(formId.value, result ?? { validationResult: undefined })
   }
 
+  function setActionResult({ values }: { values: FormData }) {
+    if (!values) {
+      return
+    }
+
+    setFormDataFromValues(transformFormValues(values))
+  }
+
   function getFormData() {
     const data = { ...formData.value }
     // do not submit VALIDATION_RESULT_FIELD_NAME with request
@@ -263,11 +272,11 @@ export const useActiveForm = () => {
 
   return {
     activeForm,
+    clearForm: clear,
     createDraft,
     data,
     draftId,
     draftIsPending,
-    clearForm: clear,
     errors,
     events: {
       change: onChange
@@ -289,6 +298,7 @@ export const useActiveForm = () => {
     isValidationPending,
     readonly,
     schema,
+    setActionResult,
     setDraft,
     setDraftIsPending,
     setFormData,

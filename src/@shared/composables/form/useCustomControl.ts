@@ -1,16 +1,17 @@
 import type { ValidationError } from '@shared/types/field'
+import { InputType } from '@shared/types/input'
 
 import { ref, computed } from 'vue'
 import { useJsonFormsControl, useJsonFormsEnumControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
-import { useForms } from '@shared/composables/form/useForms'
-import { InputType } from '@shared/types/input'
-import { getControlId } from '@shared/utils/control'
-import { useFieldChange, useFieldType } from '@shared/composables/form/useField'
 import { useCustomControlInput } from '@shared/composables/form/useCustomControlInput'
-import { useFormConditionalRequiredError } from '@shared/composables/form/useFormConditionalRequiredError'
+import { useFieldChange, useFieldType } from '@shared/composables/form/useField'
 import { useFormConditionalIsRequired } from '@shared/composables/form/useFormConditionalIsRequired'
+import { useFormConditionalRequiredError } from '@shared/composables/form/useFormConditionalRequiredError'
+import { useForms } from '@shared/composables/form/useForms'
+
+import { getControlId } from '@shared/utils/control'
 
 export const useCustomControl = (props: any) => {
   const error = ref<ValidationError | null>(null)
@@ -23,13 +24,14 @@ export const useCustomControl = (props: any) => {
     type === InputType.SELECT ? useJsonFormsEnumControl(props) : useJsonFormsControl(props)
   const { onHandleChange } = useFieldChange({ error, ...($props as any) })
   const {
-    useTouchedField,
-    isReadOnly,
+    errors,
     hideRequiredLabel,
-    validationResult,
+    isReadOnly,
+    onRemoteAction,
     onRemoteValidation,
+    useTouchedField,
     validationId,
-    errors
+    validationResult
   } = useForms()
 
   const component = {
@@ -38,6 +40,7 @@ export const useCustomControl = (props: any) => {
     error,
     errors,
     isConditionalRequired,
+    onRemoteAction,
     onRemoteValidation,
     validationResult,
     ...useTouchedField(controlId),

@@ -53,7 +53,7 @@ export const useFormDraft = (formId: Ref<string>) => {
       notificationsStore.add({
         message:
           t(`form.message.${error.code}`) ||
-          t('form.message.loadingError', { error: error.message }) ||
+          t('form.message.loading_error', { error: error.message }) ||
           '',
         displayAs: getDisplayType(error.code),
         id: 'form-draft-error',

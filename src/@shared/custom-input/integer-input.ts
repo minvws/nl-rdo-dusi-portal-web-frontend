@@ -1,13 +1,19 @@
 import type { Control } from '@shared/types/field'
-
 import { InputType } from '@shared/types/input'
 
+import { isInteger, toInteger } from '@shared/utils/number'
+
 const formatInteger = (value: string | number) => {
-  const integer = Number.parseFloat(`${value}`)
-  return Number.isNaN(integer) ? value : integer
+  if (value === undefined || value === '') {
+    return ''
+  }
+
+  const number = toInteger(value)
+
+  return isInteger(number) ? number : value
 }
 
-const isNumberInput = (control: Control) => {
+const isIntegerInput = (control: Control) => {
   switch (control.schema.type as InputType) {
     case InputType.INTEGER: {
       return true
@@ -20,7 +26,7 @@ const isNumberInput = (control: Control) => {
 
 export default {
   test(control: Control) {
-    return isNumberInput(control)
+    return isIntegerInput(control)
   },
   onChange(value: string) {
     return formatInteger(value)

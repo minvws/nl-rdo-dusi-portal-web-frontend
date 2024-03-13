@@ -12,6 +12,7 @@ type FieldOptions = {
   formatMinimum?: string
   formatMaximum?: string
   updatePassword?: boolean
+  step?: string
 }
 
 export type FieldProp = {
@@ -30,7 +31,12 @@ export type Control = {
   id: string
   data: FormValue
   schema: JsonSchema & FieldOptions
-  uischema: { options?: Record<string, unknown> & { validation?: ControlEvent[] } }
+  uischema: {
+    options?: Record<string, unknown> & {
+      validation?: ControlEvent[]
+      remoteAction?: ControlEvent[]
+    }
+  }
   options?: { label: string; value: string }[]
 }
 
