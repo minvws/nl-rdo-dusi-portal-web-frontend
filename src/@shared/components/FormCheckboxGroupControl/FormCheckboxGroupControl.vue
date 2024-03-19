@@ -8,14 +8,14 @@
       <input
         type="checkbox"
         :value="value"
-        :id="`${id}-${index}`"
+        :id="getIndexedId(index)"
         :disabled="disabled"
         :checked="values.includes(value)"
         @input="onChange"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"
       />
-      <label :for="`${id}-${index}`">{{ title }}</label>
+      <label :for="getIndexedId(index)">{{ title }}</label>
     </div>
   </div>
 </template>
@@ -25,6 +25,8 @@ import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
 import { computed } from 'vue'
+
+import { useA11yStore } from '@shared/store/useA11yStore'
 
 import { getControlId } from '@shared/utils/control'
 
@@ -41,6 +43,8 @@ type Props = {
 
 const props = defineProps<Props>()
 
+const a11yStore = useA11yStore()
+
 const values = computed<string[]>(() => props.value ?? [])
 
 const items = computed<{ title: string; value: string }[] | undefined>(() => {
@@ -55,6 +59,10 @@ const items = computed<{ title: string; value: string }[] | undefined>(() => {
     items?.enum?.map((title) => ({ title, value: title }))
   )
 })
+
+function getIndexedId(index: number): string {
+  return a11yStore.getA11yInputId(props.control.id, index)
+}
 
 function onChange(event: Event): void {
   event.stopPropagation()

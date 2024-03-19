@@ -67,7 +67,7 @@
       >
         <FormFieldDescription
           :description="fieldDescription"
-          :label-for="id"
+          :label-for="inputId"
         />
       </template>
     </FormRowElement>

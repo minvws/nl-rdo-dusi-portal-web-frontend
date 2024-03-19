@@ -2,18 +2,21 @@
   <div class="radio-control">
     <div class="radio-control-inner">
       <div
-        v-for="item in items"
-        :key="item.id"
+        v-for="(item, index) in items"
+        :key="index"
       >
         <input
-          :id="item.id"
-          v-bind="item.attrs"
+          :id="getIndexedId(index)"
+          v-bind="{ ...item.attrs }"
+          :disabled="disabled"
+          :name="id"
+          :type="type"
           @input="$emit('input', $event)"
           @change="$emit('change', $event)"
           @focus="$emit('focus', $event)"
           @blur="$emit('blur', $event)"
         />
-        <label :for="item.id">
+        <label :for="getIndexedId(index)">
           {{ item.title }}
         </label>
       </div>
@@ -26,6 +29,8 @@ import type { InputType } from '@shared/types/input'
 
 import { computed } from 'vue'
 
+import { useA11yStore } from '@shared/store/useA11yStore'
+
 defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
@@ -36,48 +41,37 @@ type Props = {
   disabled?: boolean
 }
 
+type ItemProps = {
+  title: string
+  attrs: {
+    value: string
+    checked: boolean
+  }
+}
+
 const props = defineProps<Props>()
 
-const items = computed<
-  | {
-      id: string
-      title: string
-      attrs: {
-        name: string
-        type: InputType
-        value: string
-        checked: boolean
-        disabled: boolean
-      }
-    }[]
-  | undefined
->(() => {
-  const values = props.control.schema as {
-    enum?: string[]
-    oneOf?: { title: string; const: string }[]
-  }
-  const {
-    type,
-    disabled,
-    control: { data }
-  } = props
+const a11yStore = useA11yStore()
+
+const items = computed<ItemProps[] | undefined>(() => {
+  const values = props.control.schema
 
   const items =
     values?.oneOf?.map(({ title, const: value }) => ({ title, value })) ||
     values?.enum?.map((title) => ({ title, value: title }))
 
-  return items?.map(({ title, value }, index) => ({
-    id: `${props.id}-${index + 1}`,
+  return items?.map(({ title, value }) => ({
     title,
     attrs: {
-      name: props.id,
-      type,
-      value,
-      checked: value === data,
-      disabled
+      checked: value === props.control.data,
+      value
     }
   }))
 })
+
+function getIndexedId(index: number): string {
+  return a11yStore.getA11yInputId(props.control.id, index)
+}
 </script>
 
 <style lang="scss" scoped>
