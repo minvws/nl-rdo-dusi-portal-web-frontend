@@ -45,6 +45,12 @@
       }
     }
   },
+  "files": {
+    "upload_failed": {
+      "label": "Uploaden mislukt",
+      "message": "Er is iets mis gegaan met het uploaden van het bestand."
+    }
+  },
   "component": {
     "breadcrumbBar": {
       "ariaLabel": "Kruimelpad"

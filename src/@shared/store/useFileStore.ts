@@ -1,14 +1,18 @@
 import type { Ref } from 'vue'
 import type { ValidationError } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
+import { NotificationType } from '@shared/types/notification'
 
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import { useI18n } from 'vue-i18n'
 
-import { useForms } from '@shared/composables/form/useForms'
+import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useEncryption } from '@shared/composables/useEncryption'
+import { useForms } from '@shared/composables/form/useForms'
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { t } from '@shared/i18n'
@@ -18,9 +22,11 @@ import { getControlId } from '@shared/utils/control'
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 
 export const useFileStore = defineStore('useFileStore', () => {
+  const { t } = useI18n()
   const form = useForms()
   const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()
+  const notificationsStore = useNotificationsStore()
 
   const files = ref<Record<string, Record<string, File[]>>>({})
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
@@ -143,15 +149,25 @@ export const useFileStore = defineStore('useFileStore', () => {
         method: 'POST',
         body: encryptedData
       }
-      const { data } = await useCustomFetch('with-encryption', url, options).json()
-      const { id, message } = data.value
+      const { data, statusCode } = await useCustomFetch('with-encryption', url, options).json()
 
-      if (id) {
+      if (data.value?.id) {
         return onFileUploaded({ fieldName, file, index, data: data.value })
       }
 
-      if (message) {
-        throw new Error(message)
+      if (data.value?.message) {
+        throw new Error(data.value.message)
+      }
+
+      if (statusCode.value === 400) {
+        notificationsStore.add({
+          id: 'file-upload-failed',
+          displayAs: NotificationType.ERROR,
+          label: t('files.upload_failed.label') ?? '',
+          message: t('files.upload_failed.message') ?? '',
+          pageChangeCount: 1,
+          dismissable: true
+        })
       }
     } catch (error) {
       if (errorRef) {
