@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@commitlint/cli": "^19.0.3",
-    "@commitlint/config-conventional": "^19.0.3",
+    "@commitlint/config-conventional": "^19.1.0",
     "@form-validation/validator-iban": "^2.4.0",
     "@headlessui/vue": "^1.7.19",
     "@jsonforms/core": "^3.2.1",
