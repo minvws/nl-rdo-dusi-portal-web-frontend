@@ -157,6 +157,7 @@
   },
   "requestStatus": {
     "status": {
+      "allocated": "In behandeling",
       "approved": "Goedgekeurd",
       "draft": "Nog niet ingediend",
       "rejected": "Afgekeurd",
@@ -165,6 +166,7 @@
       "ToDo": "Nieuw"
     },
     "action": {
+      "allocated": "Nee",
       "approved": "Nee",
       "draft": "Ja",
       "rejected": "Nee",
@@ -173,6 +175,7 @@
       "ToDo": "Ja"
     },
     "cases": {
+      "allocated": "Open zaak",
       "approved": "Open zaak",
       "draft": "Open zaak",
       "in_progress": "Open zaak",
@@ -182,6 +185,7 @@
       "ToDo": "Open zaak"
     },
     "route": {
+      "allocated": "Bekijk aanvraag",
       "approved": "Bekijk aanvraag",
       "draft": "Open aanvraag",
       "in_progress": "Open zaak",

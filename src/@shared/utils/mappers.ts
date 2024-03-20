@@ -29,6 +29,7 @@ function transfromReviewerActions() {
 }
 
 export const statusToIcon: Record<string, string> = {
+  [Status.ALLOCATED]: '',
   [Status.APPROVED]: 'confirmation',
   [Status.DRAFT]: 'warning',
   [Status.PENDING]: '',
@@ -37,6 +38,7 @@ export const statusToIcon: Record<string, string> = {
 }
 
 export const caseStatusToRouteName: Record<string, string> = {
+  [Status.ALLOCATED]: REVIEW_CASE,
   [Status.APPROVED]: REVIEW_CASE,
   [Status.DRAFT]: REVIEW_CASE,
   [Status.PENDING]: REVIEW_CASE,
@@ -45,6 +47,7 @@ export const caseStatusToRouteName: Record<string, string> = {
 }
 
 export const requestStatusToRouteName: Record<string, string> = {
+  [Status.ALLOCATED]: MY_REQUEST_STATUS,
   [Status.APPROVED]: MY_REQUEST_STATUS,
   [Status.DRAFT]: MY_REQUEST_EDIT,
   [Status.PENDING]: MY_REQUEST_STATUS,

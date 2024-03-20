@@ -322,6 +322,7 @@
     }
   },
   "reviewerAction": {
+    "allocated": "Toegewezen",
     "assign": "Toekennen",
     "show": "Open zaak",
     "claim": "Pak op",
@@ -329,6 +330,7 @@
   },
   "requestStatus": {
     "status": {
+      "allocated": "Toegewezen",
       "approved": "Goedgekeurd",
       "draft": "Nog niet ingediend",
       "rejected": "Afgekeurd",
@@ -337,6 +339,7 @@
       "ToDo": "Nieuw"
     },
     "action": {
+      "allocated": "Nee",
       "approved": "Nee",
       "draft": "Ja",
       "rejected": "Nee",
@@ -345,16 +348,17 @@
       "ToDo": "Ja"
     },
     "cases": {
+      "allocated": "Open zaak",
       "approved": "Open zaak",
       "draft": "Open zaak",
       "in_progress": "Open zaak",
-      "pending": "Open zaak",
       "rejected": "Open zaak",
       "requestForChanges": "Open zaak",
       "pending": "Open zaak",
       "ToDo": "Open zaak"
     },
     "route": {
+      "allocated": "Bekijk aanvraag",
       "approved": "Bekijk aanvraag",
       "draft": "Open aanvraag",
       "in_progress": "Open zaak",
