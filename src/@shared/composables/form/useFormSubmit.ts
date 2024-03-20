@@ -208,9 +208,11 @@ export const useFormSubmit = () => {
       return
     }
 
-    actionStore.getActionsCount()
-    forms.clearForm()
+    if (isPortal) {
+      actionStore.getActionsCount()
+    }
 
+    forms.clearForm()
     router.replace({ name: HOME })
   }
 
@@ -219,9 +221,11 @@ export const useFormSubmit = () => {
     const fetchType = CustomFetchType.ENCRYPTION
     const { error } = await onSubmit({ submitType, fetchType })
 
-    showNotification({ type: submitType, error })
+    if (isPortal) {
+      actionStore.getActionsCount()
+    }
 
-    actionStore.getActionsCount()
+    showNotification({ type: submitType, error })
   }
 
   async function onSubmitValidation(id?: string): Promise<void> {
