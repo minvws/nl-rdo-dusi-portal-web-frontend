@@ -36,7 +36,7 @@ const { notifications } = storeToRefs(notificationsStore)
 
 .notification-sticky {
   position: sticky;
-  z-index: 1;
+  z-index: 2;
   top: 0;
 }
 </style>
