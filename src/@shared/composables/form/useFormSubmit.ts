@@ -221,10 +221,6 @@ export const useFormSubmit = () => {
     const fetchType = CustomFetchType.ENCRYPTION
     const { error } = await onSubmit({ submitType, fetchType })
 
-    if (isPortal) {
-      actionStore.getActionsCount()
-    }
-
     showNotification({ type: submitType, error })
   }
 
