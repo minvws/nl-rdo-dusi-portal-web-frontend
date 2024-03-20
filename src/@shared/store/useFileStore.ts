@@ -15,7 +15,6 @@ import { useEncryption } from '@shared/composables/useEncryption'
 import { useForms } from '@shared/composables/form/useForms'
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
-import { t } from '@shared/i18n'
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
 
@@ -121,7 +120,12 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function isUploadPending(id: string): boolean[] {
-    const { id: formId } = form.activeForm.value
+    const formId = form.activeForm.value?.id
+
+    if (!formId) {
+      return []
+    }
+
     const name = getControlId(id)
     return pending.value[formId]?.[name]
   }

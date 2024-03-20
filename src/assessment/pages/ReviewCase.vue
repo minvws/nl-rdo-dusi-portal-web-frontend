@@ -28,7 +28,7 @@
               v-bind="{ ...caseStage }"
               hide-debug
               hide-required-label
-              :id="caseStageFormId"
+              :id="stageFormId"
               :locked="locked"
               no-buttons
               no-style
@@ -47,7 +47,7 @@
                 v-bind="{ ...stage }"
                 hide-debug
                 hide-required-label
-                :id="`review-stage-item-${index}}`"
+                :id="`review-stage-item-${index}`"
                 :locked="locked"
                 no-buttons
                 no-style
@@ -126,11 +126,11 @@ function onSave(data: FormData): void {
   onSubmitDraft({ id, data })
 }
 
-const caseStageFormId = computed<string>(() => `${props.id}/stages/${caseStageId.value}`)
+const stageFormId = computed<string>(() => props.id)
 
 const lastCaseFormId = computed<string>(() =>
   JSON.stringify(lastCase.value) === JSON.stringify(caseStage.value)
-    ? caseStageFormId.value
+    ? stageFormId.value
     : `review-stage-form`
 )
 

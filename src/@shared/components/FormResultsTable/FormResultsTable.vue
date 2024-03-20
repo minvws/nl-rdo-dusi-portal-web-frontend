@@ -16,12 +16,10 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
-import {
-  DescriptionListDetailsFieldType,
-  type DescriptionListDetailsType,
-  type DescriptionListItem
-} from '@shared/types/details'
+import type { DescriptionListDetailsType, DescriptionListItem } from '@shared/types/details'
 import type { FileType, FormData } from '@shared/types/form'
+import { DescriptionListDetailsFieldType } from '@shared/types/details'
+import { ProjectType } from '@shared/types/project'
 
 import { defineComponent } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -30,9 +28,11 @@ import { useVanillaControl } from '@jsonforms/vue-vanilla'
 
 import { useForms } from '@shared/composables/form/useForms'
 
+import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 import FormRow from '@shared/components/FormRow/FormRow.vue'
-import DescriptionList from '@shared/components/DescriptionList/DescriptionList.vue'
+
+const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export default defineComponent({
   components: { FormNotification, FormRow, DescriptionList },
@@ -40,10 +40,16 @@ export default defineComponent({
     ...rendererProps<ControlElement>()
   },
   data: () => {
-    const { getAllProperties, formId } = useForms()
+    const { getAllProperties, formId, activeForm, index } = useForms()
+    const form = activeForm.value?.forms[index.value]
+    const applicationId = form.metadata?.application?.id
+    const stageId = form.metadata?.applicationStage?.id
+
     return {
       getAllProperties,
-      formId
+      applicationId,
+      formId,
+      stageId
     }
   },
   computed: {
@@ -72,12 +78,14 @@ export default defineComponent({
   methods: {
     formatListItem(item: [string, string]): DescriptionListItem | undefined {
       const [term, template] = item
-
       const result = this.replaceTemplateWithData(template, this.formData)
 
-      if (!result) return undefined
+      if (!result) {
+        return undefined
+      }
 
       const { matches, text, field, files } = result
+      const formId = isPortal ? `${this.formId}` :`${this.applicationId}/stages/${this.stageId}`
 
       if (files) {
         return {
@@ -85,7 +93,7 @@ export default defineComponent({
           field,
           term,
           files,
-          formId: this.formId
+          formId,
         }
       }
 
