@@ -18,9 +18,14 @@ export type StoredForm = {
 }
 
 export const useFormStorage = defineStore('useFormStorage', () => {
+  const formIds = ref<string[]>([])
   const storage = ref<Record<string, StoredForm>>({})
 
   function set(data: StoredForm) {
+    if (!formIds.value.includes(data.id)) {
+      formIds.value.push(data.id)
+    }
+
     storage.value[data.id] = data
   }
 
@@ -37,14 +42,22 @@ export const useFormStorage = defineStore('useFormStorage', () => {
   function clear(id?: string) {
     if (id) {
       delete storage.value[id]
+      formIds.value = formIds.value.filter((formId) => formId !== id)
     }
   }
 
+  function clearAll() {
+    storage.value = {}
+    formIds.value = []
+  }
+
   return {
+    formIds,
     storage,
     get,
     set,
     clear,
+    clearAll,
     update
   }
 })

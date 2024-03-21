@@ -19,7 +19,7 @@ export const useClearForm = (id: ComputedRef<string>) => {
   function clear() {
     clearTouchedFields(id.value)
     clearTouchedForms(id.value)
-    filesStore.clearFiles(id.value)
+    filesStore.clear(id.value)
     formStorage.clear(id.value)
   }
 

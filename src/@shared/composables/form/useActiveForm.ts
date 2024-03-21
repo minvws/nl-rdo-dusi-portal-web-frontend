@@ -12,6 +12,7 @@ import type { FieldProp } from '@shared/types/field'
 import type { StoredForm } from '@shared/store/useFormStorage'
 
 import { computed, inject, onMounted, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useFormStorage } from '@shared/store/useFormStorage'
 
@@ -31,12 +32,37 @@ export const useActiveForm = () => {
   }
 
   const formStorage = useFormStorage()
+  const { formIds, storage } = storeToRefs(formStorage)
 
   const activeFormErrors = ref<FormErrors>([])
 
   onMounted(() => (activeFormErrors.value = activeForm.value?.errors ?? []))
 
   const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
+
+  const activeFormId = computed<string>(() => {
+    return formIds.value[formIds.value.length - 1]
+  })
+
+  const activeInputStage = computed<StoredForm | undefined>(() =>
+    Object.values(storage.value).find((form) =>
+      form.forms.some((f) => f.uiType === FormUiType.INPUT)
+    )
+  )
+
+  const activeInputStageForm = computed<Form | undefined>(() => {
+    if (!activeInputStage.value) {
+      return undefined
+    }
+
+    const form = activeInputStage.value.forms[index.value]
+
+    if (!form) {
+      return undefined
+    }
+
+    return form
+  })
 
   const createDraft = computed<boolean>(() => !!formProps.createDraft)
 
@@ -272,6 +298,8 @@ export const useActiveForm = () => {
 
   return {
     activeForm,
+    activeFormId,
+    activeInputStageForm,
     clearForm: clear,
     createDraft,
     data,

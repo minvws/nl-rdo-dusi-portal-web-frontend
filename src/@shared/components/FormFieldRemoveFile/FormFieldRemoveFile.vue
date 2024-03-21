@@ -36,7 +36,7 @@ import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
-import { formatFile } from "@shared/utils/format"
+import { formatFile } from '@shared/utils/format'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'

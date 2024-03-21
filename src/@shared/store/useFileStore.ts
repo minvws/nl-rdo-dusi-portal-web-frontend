@@ -1,12 +1,17 @@
 import type { Ref } from 'vue'
 import type { ValidationError } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
+import type { CustomFetch } from '@shared/types/fetch'
+import { ProjectType } from '@shared/types/project'
+import { CustomFetchType } from '@shared/types/fetch'
 import { NotificationType } from '@shared/types/notification'
 
 import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import { defineStore, storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
 
+import { useFormStorage } from '@shared/store/useFormStorage'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
@@ -19,13 +24,21 @@ import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
+const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export const useFileStore = defineStore('useFileStore', () => {
+  const notificationsStore = useNotificationsStore()
+  const formStore = useFormStorage()
   const { t } = useI18n()
   const form = useForms()
+  const router = useRouter()
   const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()
-  const notificationsStore = useNotificationsStore()
+
+  const { storage } = storeToRefs(formStore)
+
+  const { activeForm, activeFormId, activeInputStageForm, draftId } = form
+  const { currentRoute } = router
 
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
 
@@ -72,9 +85,11 @@ export const useFileStore = defineStore('useFileStore', () => {
     pendingState[name] = filesPending
 
     await saveFile({ fieldName: name, file, index, errorRef: error }).finally(() => {
-      const name = getControlId(id)
-      // TODO: Only do submit validation if really needed ...
-      onSubmitValidation(name)
+      if (isPortal) {
+        const name = getControlId(id)
+        // TODO: Only do submit validation if really needed ...
+        onSubmitValidation(name)
+      }
     })
 
     pendingState[name][index] = false
@@ -97,8 +112,12 @@ export const useFileStore = defineStore('useFileStore', () => {
     removeFile(name, index)
   }
 
-  function clearFiles(id: string): void {
+  function clear(id: string): void {
     delete pending.value[id]
+  }
+
+  function clearAll() {
+    pending.value = {}
   }
 
   function isUploadPending(id: string): boolean[] {
@@ -108,7 +127,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     const name = getControlId(id)
-    return pending.value[formId]?.[name]
+    return pending.value[activeFormId.value]?.[name]
   }
 
   function removeFile(name: string, index = 0): void {
@@ -117,25 +136,28 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
-    const { draftId } = form
-    const url = useApiFileUrl(draftId.value, fieldName)
+    const id = getId()
+    const url = useApiFileUrl(id, fieldName)
+    const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS
 
     try {
       const arrayBuffer = await file.arrayBuffer()
       const fileData = new Uint8Array(arrayBuffer)
-      const encryptedData = await encrypt(publicKey, fileData)
+      const requestBody = await getRequestBody({ fetchType, fileData })
       const options: RequestInit = {
         method: 'POST',
-        body: encryptedData
+        body: requestBody
       }
-      const { data, statusCode } = await useCustomFetch('with-encryption', url, options).json()
+      const { data, error, statusCode } = await useCustomFetch(fetchType, url, options).json()
+      const id = data.value?.id
+      const errorMessage = error?.value?.message ?? data.value?.message
 
-      if (data.value?.id) {
+      if (id) {
         return onFileUploaded({ fieldName, file, index, data: data.value })
       }
 
-      if (data.value?.message) {
-        throw new Error(data.value.message)
+      if (errorMessage) {
+        throw new Error(errorMessage)
       }
 
       if (statusCode.value === 400) {
@@ -161,8 +183,9 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function onFileUploaded({ data, fieldName, file, index }: FileUploadProps): void {
-    const { index: formIndex, activeForm } = form
-    const currentFormData = activeForm.value.data[formIndex.value] || {}
+    const { index: formIndex } = form
+    const activeForm = storage.value[activeFormId.value]
+    const currentFormData = activeForm.data[formIndex.value] || {}
     const target = (currentFormData[fieldName] as FileType[]) || []
 
     const { type: mimeType, name } = file
@@ -178,12 +201,13 @@ export const useFileStore = defineStore('useFileStore', () => {
       [fieldName]: target
     }
 
-    activeForm.value.data[formIndex.value] = updatedFormData
+    activeForm.data[formIndex.value] = updatedFormData
   }
 
   function onFileRemoved({ fieldName, index }: { fieldName: string; index: number }): void {
-    const { index: formIndex, activeForm } = form
-    const currentFormData = activeForm.value.data[formIndex.value] || {}
+    const { index: formIndex } = form
+    const activeForm = storage.value[activeFormId.value]
+    const currentFormData = activeForm.data[formIndex.value] || {}
     const target = (currentFormData[fieldName] as FileType[]) || []
 
     target.splice(index, 1)
@@ -193,13 +217,36 @@ export const useFileStore = defineStore('useFileStore', () => {
       [fieldName]: target
     }
 
-    activeForm.value.data[formIndex.value] = updatedFormData
+    activeForm.data[formIndex.value] = updatedFormData
+  }
+
+  function getId(): string | undefined {
+    if (isPortal) {
+      return draftId.value
+    }
+
+    const applicationId = activeInputStageForm.value?.metadata?.application?.id
+    const stageId = activeInputStageForm.value?.metadata?.applicationStage?.id
+
+    return `${applicationId}/stages/${stageId}`
+  }
+
+  async function getRequestBody({
+    fetchType,
+    fileData
+  }: {
+    fetchType: CustomFetch
+    fileData: Uint8Array
+  }) {
+    const string = JSON.stringify(fileData)
+    return fetchType === CustomFetchType.ENCRYPTION ? encrypt(publicKey, fileData) : string
   }
 
   return {
     addFile,
     addOrRemoveFile,
-    clearFiles,
+    clear,
+    clearAll,
     isUploadPending,
     pending,
     removeFileByIdAndIndex

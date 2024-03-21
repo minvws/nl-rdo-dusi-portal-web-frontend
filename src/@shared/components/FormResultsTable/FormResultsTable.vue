@@ -85,7 +85,7 @@ export default defineComponent({
       }
 
       const { matches, text, field, files } = result
-      const formId = isPortal ? `${this.formId}` :`${this.applicationId}/stages/${this.stageId}`
+      const formId = isPortal ? `${this.formId}` : `${this.applicationId}/stages/${this.stageId}`
 
       if (files) {
         return {
@@ -93,7 +93,7 @@ export default defineComponent({
           field,
           term,
           files,
-          formId,
+          formId
         }
       }
 

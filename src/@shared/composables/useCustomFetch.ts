@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from 'vue'
 import type { CustomFetch } from '@shared/types/fetch'
-import { CustomFetchType } from '@/@shared/types/fetch'
+import { CustomFetchType } from '@shared/types/fetch'
 
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useFetchWithEncryption } from '@shared/composables/useFetchWithEncryption'

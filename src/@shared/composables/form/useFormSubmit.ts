@@ -2,7 +2,7 @@ import type { ApplicationForm } from '@shared/types/cases'
 import type { CustomFetch } from '@shared/types/fetch'
 import type { FormSubmit } from '@shared/types/form'
 import type { Ref } from 'vue'
-import { CustomFetchType } from '@/@shared/types/fetch'
+import { CustomFetchType } from '@shared/types/fetch'
 import { FormSubmitType } from '@shared/types/form'
 import { ProjectType } from '@shared/types/project'
 
@@ -84,10 +84,11 @@ export const useFormSubmit = () => {
         }
       }
       case FormSubmitType.VALIDATION: {
+        const id = getId()
         return {
           method: 'PATCH',
           data: formData,
-          url: useApiFormsValidateUrl(draftId.value)
+          url: useApiFormsValidateUrl(id)
         }
       }
       case FormSubmitType.ACTION: {
