@@ -3,10 +3,7 @@ import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { ValidationError, Control, Field } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
-import { computed } from 'vue'
-
 import { InputType } from '@shared/types/input'
-import { formatFile } from '@shared/utils/format'
 
 import { useFileStore } from '@shared/store/useFileStore'
 import { getValue } from '@shared/composables/form/useCustomControlInput'
@@ -112,22 +109,10 @@ export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement) => {
   return (type as InputType) ?? InputType.TEXT
 }
 
-type FieldFileRemoveProps = {
-  id: string
-  index: number
-}
-
-export const useFieldFileRemove = ({ id, index }: FieldFileRemoveProps) => {
-  const { getFile, addOrRemoveFile, removeFileByIdAndIndex } = useFileStore()
-
-  const file = computed<File>(() => getFile(id, index))
-  const hasFile = computed<boolean>(() => !!file.value)
-  const label = computed<string | undefined>(() => formatFile(file.value?.name))
+export const useFieldFileRemove = () => {
+  const { removeFileByIdAndIndex } = useFileStore()
 
   return {
-    hasFile,
-    label,
-    addOrRemoveFile,
     removeFileByIdAndIndex
   }
 }

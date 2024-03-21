@@ -26,8 +26,6 @@
       <pre>{{ errors }}</pre>
       <h2>pending files:</h2>
       <pre>{{ pending }}</pre>
-      <h2>files:</h2>
-      <pre>{{ files }}</pre>
     </div>
   </div>
 </template>
@@ -44,7 +42,7 @@ const isVisible = ref<boolean>(false)
 const { setDummyData } = useFormDummyData()
 const fileStore = useFileStore()
 
-const { files, pending } = storeToRefs(fileStore)
+const { pending } = storeToRefs(fileStore)
 const { data, formsData, errors, validationResult } = useForms()
 </script>
 

@@ -42,7 +42,7 @@
 import type { ValidationError, Control } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
-import { ref, computed, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useA11yStore } from '@shared/store/useA11yStore'
@@ -77,7 +77,7 @@ const props = defineProps<Props>()
 const { t } = useI18n()
 const a11yStore = useA11yStore()
 
-const addFileCount = ref<number>(1)
+const addFileCount = ref<number>(0)
 
 const files = computed<FileType[]>(() => props.control.data as FileType[])
 
@@ -130,7 +130,14 @@ function showAddFileButton(index: number) {
   return index + 1 === numberOfFiles.value.length && index + 1 !== maxFiles.value
 }
 
+/**
+ * Lower the add file count when a file is removed
+ * This will remove the input field
+ *
+ * @param event
+ */
 function onBlur(event: InputEvent): void {
+  addFileCount.value = Math.max(addFileCount.value - 1, 1)
   emit('blur', event)
 }
 
@@ -166,16 +173,7 @@ function onAddFileInput(): void {
   addFileCount.value++
 }
 
-watch(files, (files, before) => {
-  const to = files?.length || 0
-  const from = before?.length || 0
-
-  if (to > from) {
-    return
-  }
-
-  addFileCount.value = Math.max(addFileCount.value - 1, 1)
-})
+onMounted(() => (addFileCount.value = numberOfFilesAdded.value || 1))
 </script>
 
 <style lang="scss" scoped>

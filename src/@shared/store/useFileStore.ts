@@ -27,7 +27,6 @@ export const useFileStore = defineStore('useFileStore', () => {
   const { encrypt } = useEncryption()
   const notificationsStore = useNotificationsStore()
 
-  const files = ref<Record<string, Record<string, File[]>>>({})
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
 
   type AddFileProps = {
@@ -60,31 +59,21 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   async function addFile({ file, id, index, name, error }: AddFileProps): Promise<void> {
     const formId = form.activeForm.value.id
-    const currentFiles = files.value[formId] || {}
-    let pendingState = pending.value[formId] || {}
-    const target = currentFiles[name] ?? []
+
+    // initialize pending state
+    if (pending.value[formId] === undefined) {
+      pending.value[formId] = {}
+    }
+
+    const pendingState = pending.value[formId]
     const filesPending = [...(pendingState?.[name] || [])]
-    const updatedFiles = {
-      ...currentFiles,
-      [name]: target
-    }
-
-    if (target[index]) {
-      removeFile(name, index)
-    }
-
-    target[index] = file
-    files.value[id] = updatedFiles
-
-    if (!pendingState) {
-      pendingState = {}
-    }
 
     filesPending[index] = true
-    Object.assign(pendingState, { [name]: filesPending })
+    pendingState[name] = filesPending
 
     await saveFile({ fieldName: name, file, index, errorRef: error }).finally(() => {
       const name = getControlId(id)
+      // TODO: Only do submit validation if really needed ...
       onSubmitValidation(name)
     })
 
@@ -109,19 +98,11 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function clearFiles(id: string): void {
-    delete files.value[id]
     delete pending.value[id]
-  }
-
-  function getFile(id: string, index: number): File {
-    const { id: formId } = form.activeForm.value
-    const name = getControlId(id)
-    return files.value[formId]?.[name]?.[index]
   }
 
   function isUploadPending(id: string): boolean[] {
     const formId = form.activeForm.value?.id
-
     if (!formId) {
       return []
     }
@@ -131,14 +112,8 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function removeFile(name: string, index = 0): void {
-    const { id } = form.activeForm.value
-    const target = files.value?.[id]
-    if (target?.[name]) {
-      target[name].splice(index, 1)
-    }
-
     onFileRemoved({ fieldName: name, index })
-    onSubmitValidation(name)
+    onSubmitValidation(name) // TODO: Only run validation if really needed ...
   }
 
   async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
@@ -225,8 +200,6 @@ export const useFileStore = defineStore('useFileStore', () => {
     addFile,
     addOrRemoveFile,
     clearFiles,
-    files,
-    getFile,
     isUploadPending,
     pending,
     removeFileByIdAndIndex

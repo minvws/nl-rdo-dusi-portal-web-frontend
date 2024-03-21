@@ -36,6 +36,7 @@ import { computed, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
+import { formatFile } from "@shared/utils/format"
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
@@ -57,13 +58,13 @@ const props = defineProps<Props>()
 const emit = defineEmits(['blur'])
 
 const { t } = useI18n()
-const { hasFile, label, removeFileByIdAndIndex } = useFieldFileRemove(props)
+const { removeFileByIdAndIndex } = useFieldFileRemove()
 
 const file = computed<FileType | undefined>(() => props.files?.[props.index])
 
-const fileLabel = computed<string | undefined>(() => file.value?.name || label.value)
+const fileLabel = computed<string | undefined>(() => formatFile(file.value?.name))
 
-const hasRemoveButton = computed<boolean>(() => hasFile.value || !!file.value || props.index > 0)
+const hasRemoveButton = computed<boolean>(() => !!file.value || props.index > 0)
 
 const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 
