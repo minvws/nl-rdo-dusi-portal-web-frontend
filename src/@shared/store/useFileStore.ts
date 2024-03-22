@@ -71,7 +71,7 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   async function addFile({ file, id, index, name, error }: AddFileProps): Promise<void> {
-    const formId = form.activeForm.value.id
+    const formId = activeFormId.value
 
     // initialize pending state
     if (pending.value[formId] === undefined) {
