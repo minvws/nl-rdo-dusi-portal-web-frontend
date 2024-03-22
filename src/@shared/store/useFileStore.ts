@@ -141,9 +141,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS
 
     try {
-      const arrayBuffer = await file.arrayBuffer()
-      const fileData = new Uint8Array(arrayBuffer)
-      const requestBody = await getRequestBody({ fetchType, fileData })
+      const requestBody = await getRequestBody({ fetchType, file })
       const options: RequestInit = {
         method: 'POST',
         body: requestBody
@@ -233,13 +231,22 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   async function getRequestBody({
     fetchType,
-    fileData
+    file
   }: {
     fetchType: CustomFetch
-    fileData: Uint8Array
+    file: File
   }) {
-    const string = JSON.stringify(fileData)
-    return fetchType === CustomFetchType.ENCRYPTION ? encrypt(publicKey, fileData) : string
+    if (fetchType === CustomFetchType.ENCRYPTION) {
+      const arrayBuffer = await file.arrayBuffer()
+      const fileData = new Uint8Array(arrayBuffer)
+
+      return encrypt(publicKey, fileData)
+    }
+
+    const data = new FormData()
+    data.append('file', file)
+
+    return data
   }
 
   return {
