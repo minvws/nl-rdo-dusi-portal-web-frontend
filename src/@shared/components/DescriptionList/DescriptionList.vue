@@ -55,6 +55,10 @@ dl > div {
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--grey-2);
 
+  &:last-child:first-child {
+    border-bottom: none;
+  }
+
   &:nth-child(odd) {
     background-color: transparent;
   }
