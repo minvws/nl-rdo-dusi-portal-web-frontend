@@ -132,7 +132,9 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   function removeFile(name: string, index = 0): void {
     onFileRemoved({ fieldName: name, index })
-    onSubmitValidation(name) // TODO: Only run validation if really needed ...
+    if (isPortal) {
+      onSubmitValidation(name) // TODO: Only run validation if really needed ...
+    }
   }
 
   async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
