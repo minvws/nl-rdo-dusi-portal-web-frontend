@@ -67,16 +67,6 @@
       <template #content>
         <p>{{ t('component.requestSteps.payoutDecision') }}</p>
         <p>
-          <strong>{{ t('component.requestSteps.approval') }}</strong>
-        </p>
-        <p>
-          {{ t('component.requestSteps.subsidyApplication') }}
-        </p>
-        <p>
-          <strong>{{ t('component.requestSteps.rejection') }}</strong>
-        </p>
-        <p>{{ t('component.requestSteps.onRejection') }}</p>
-        <p>
           <strong>{{ t('component.requestSteps.noAction') }}</strong>
         </p>
       </template>
