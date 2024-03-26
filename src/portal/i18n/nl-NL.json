@@ -62,6 +62,26 @@
     }
   },
   "pages": {
+    "arrangement-overview": {
+      "title": "Regeling",
+      "yourArrangements": "Uw aanvragen",
+      "arrangements": "aanvragen",
+      "introBody": "Het is mogelijk om deze subsidie meerdere malen aan te vragen. Maak uw keuze of u een nieuwe aanvraag wilt starten of uw eerdere aanvraag wilt afronden.",
+      "description": "Een overzicht van uw nog niet ingediende aanvragen. Voor al uw aanvragen zie:",
+      "noRequests": "Er zijn geen aanvragen gevonden",
+      "newRequest": "Nieuwe aanvraag starten",
+      "table": {
+        "caption": "Overzicht van uw aanvragen",
+        "subsidy": "Regeling",
+        "file": "Dossiernummer",
+        "created": "Datum indiening",
+        "updated_at": "Laatste update",
+        "final_review_deadline": "Uiterste behandeldatum",
+        "status": "Status",
+        "actionRequired": "Actie benodigd",
+        "action": "Acties"
+      }
+    },
     "arrangement-details": {
       "title": "Regeling"
     },
@@ -99,7 +119,11 @@
       "save": "Opslaan"
     },
     "my-request-edit": {
-      "title": "Bewerken"
+      "title": "Bewerken",
+      "request_locked": {
+        "label": "Aanvraag bewerken",
+        "message": "Deze aanvraag kan helaas niet meer worden bewerkt."
+      }
     },
     "my-requests-overview": {
       "title": "Mijn aanvragen",

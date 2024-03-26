@@ -8,7 +8,7 @@
   </main>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { Ref } from 'vue'
 
 import { ref } from 'vue'

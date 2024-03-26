@@ -1,5 +1,6 @@
 import type { AssessmentsData, RawAssessmentData } from '@shared/types/assessment'
 import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
+import type { ConceptData, RawConceptData } from '@shared/types/concept'
 import type { IbanCheck, IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
 import type { MessagesData, RawMessagesData, RawMessagesItem } from '@shared/types/messages'
 import type { RawPaginationMetaData, PaginationMetaData } from '@shared/types/pagination'
@@ -42,6 +43,32 @@ export function transformRequestsData(data: RawRequestData): RequestData {
     ...setActionRequired(status),
     ...setRequestAction(reference, status)
   }))
+}
+
+/**
+ * Transforms the 'all concepts' data from the API to a format that we can use.
+ *
+ * @param {RawConceptData} data
+ * @returns {ConceptData} data
+ */
+export function transformConceptsData(data: RawConceptData): ConceptData {
+  const concepts = data.concepts.map(
+    ({ createdAt, expiresAt, reference, status, subsidyCode, updatedAt }) => ({
+      ...setSubsidy(data.subsidy.pageUrl, subsidyCode),
+      ...setFile(reference),
+      ...setRequestStatus(status),
+      ...setFinalReviewDeadline(expiresAt),
+      ...setCreated(createdAt),
+      ...setUpdatedAt(updatedAt),
+      ...setActionRequired(status),
+      ...setRequestAction(reference, status)
+    })
+  )
+
+  return {
+    subsidy: data.subsidy,
+    concepts
+  }
 }
 
 /**

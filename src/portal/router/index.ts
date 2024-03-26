@@ -15,9 +15,9 @@ import { beforeEach, afterEach } from '@portal/router/router-guards'
 const LOCAL_FORMS_ENABLED = import.meta.env.VITE_PORTAL_LOCAL_FORMS === 'true'
 
 import {
-  ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
   ARRANGEMENT_FORM_REMOTE,
+  ARRANGEMENT_OVERVIEW,
   HOME,
   LOGIN_CALLBACK_VIEW,
   MY_MESSAGE_DETAILS,
@@ -44,7 +44,7 @@ const routes = [
   },
   LOCAL_FORMS_ENABLED && {
     path: '/regelingen/:id',
-    name: ARRANGEMENT_DETAILS,
+    name: ARRANGEMENT_OVERVIEW,
     component: ArrangementView,
     children: [
       {
@@ -62,10 +62,16 @@ const routes = [
     ]
   },
   !LOCAL_FORMS_ENABLED && {
-    path: '/regelingen/:id',
-    name: ARRANGEMENT_FORM_REMOTE,
-    component: RemoteForm,
-    props: true
+    path: '/regelingen',
+    redirect: { name: MY_REQUESTS_OVERVIEW },
+    children: [
+      {
+        path: ':id',
+        name: ARRANGEMENT_OVERVIEW,
+        props: true,
+        component: ArrangementView
+      }
+    ]
   },
   {
     path: '/mijn-aanvragen',

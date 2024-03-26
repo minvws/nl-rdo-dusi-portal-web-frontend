@@ -39,7 +39,7 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   const { storage } = storeToRefs(formStore)
 
-  const { activeForm, activeFormId, activeInputStageForm, draftId } = form
+  const { activeForm, activeFormId, activeInputStageForm, reference } = form
   const { currentRoute } = router
 
   const pending = ref<Record<string, Record<string, boolean[]>>>({})
@@ -226,7 +226,7 @@ export const useFileStore = defineStore('useFileStore', () => {
 
   function getId(): string | undefined {
     if (isPortal) {
-      return draftId.value
+      return reference.value
     }
 
     const applicationId = activeInputStageForm.value?.metadata?.application?.id

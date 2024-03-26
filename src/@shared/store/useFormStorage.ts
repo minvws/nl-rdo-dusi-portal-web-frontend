@@ -5,8 +5,7 @@ import { defineStore } from 'pinia'
 
 export type StoredForm = {
   forms: Form[]
-  draftId?: string
-  draftIsPending?: boolean
+  reference?: string
   validationResult?: FormValidationResult
   id: string
   index: number

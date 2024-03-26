@@ -70,7 +70,7 @@ export const useFormSubmit = () => {
   const { canContinueAfterValidation } = storeToRefs(validationStore)
 
   function getRequest(type: FormSubmit) {
-    const { draftId } = forms
+    const { reference } = forms
     const formData = forms.getFormData()
 
     switch (type) {
@@ -78,13 +78,13 @@ export const useFormSubmit = () => {
       case FormSubmitType.DRAFT: {
         return {
           method: 'PUT',
-          url: useApiFormsSubmitUrl(draftId.value),
+          url: useApiFormsSubmitUrl(reference.value),
           data: formData,
           submit: type === FormSubmitType.SUBMIT
         }
       }
       case FormSubmitType.VALIDATION: {
-        const id = getId()
+        const id = getValidationId()
         return {
           method: 'PATCH',
           data: formData,
@@ -92,7 +92,7 @@ export const useFormSubmit = () => {
         }
       }
       case FormSubmitType.ACTION: {
-        const id = getId()
+        const id = getActionId()
         return {
           data: formData,
           method: 'PATCH',
@@ -139,8 +139,14 @@ export const useFormSubmit = () => {
     }
   }
 
-  function getId(): string | undefined {
-    return isPortal ? forms.draftId.value : currentRoute.value.params.id.toString()
+  function getValidationId(): string | undefined {
+    const id = forms.reference.value || forms.formId.value
+    return isPortal ? id : currentRoute.value.params.id.toString()
+  }
+
+  function getActionId(): string | undefined {
+    const id = forms.reference.value || forms.formId.value
+    return isPortal ? id : currentRoute.value.params.id.toString()
   }
 
   async function getRequestBody({ fetchType, body }: { fetchType: CustomFetch; body: any }) {

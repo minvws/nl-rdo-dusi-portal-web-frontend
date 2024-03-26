@@ -170,6 +170,7 @@
       "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
       "save-success": "Formulier is opgeslagen",
       "submitting": "Formulier is bezig met verzenden",
+      "subsidy_does_not_allow_multiple_applications": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
       "subsidy_not_found": "Er is iets mis gegaan het ophalen van de regeling.",
       "success": "Formulier is succesvol verzonden"
     }

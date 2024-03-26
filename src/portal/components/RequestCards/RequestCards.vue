@@ -35,7 +35,8 @@
     </div>
   </div>
 </template>
-<script lang="ts" setup>
+
+<script setup lang="ts">
 import type { Column } from '@shared/types/table'
 
 import { computed } from 'vue'

@@ -24,7 +24,11 @@ export type FileType = {
   id: string
 }
 
-export type FormResult = { dataschema: JsonSchema; uischema: UISchemaElement } & FormTitle
+export type FormResult = {
+  dataschema: JsonSchema
+  uischema: UISchemaElement
+  metadata: FormMetaData
+} & FormTitle
 
 export type FormValue = string | boolean | string[] | boolean[] | FileType[]
 
@@ -52,10 +56,10 @@ export type FormButtonLabels = {
 
 export type FormViewProps = {
   forms: Form[]
+  reference?: string
   id: string
   title?: string
   values?: FormData
-  createDraft?: boolean
   locked?: boolean
   hideDebug?: boolean
   buttonLabels?: FormButtonLabels

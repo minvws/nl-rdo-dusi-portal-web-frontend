@@ -4,6 +4,10 @@ import { ProjectType } from '@shared/types/project'
 const baseUrl = window?.config?.api || import.meta.env.VITE_PORTAL_API_BASE_URL
 const mockUrl = `${useMockUrl()}/${ProjectType.PORTAL}`
 
+export const useApiArrangementUrl = (id: string) => {
+  return useMockData ? `${mockUrl}/subsidy/${id}.json` : `${baseUrl}/api/subsidies/${id}`
+}
+
 export const useApiActionsCountUrl = () => {
   return useMockData ? `${mockUrl}/actions-count.json` : `${baseUrl}/api/actionables/counts`
 }

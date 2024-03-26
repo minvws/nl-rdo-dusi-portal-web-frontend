@@ -112,7 +112,7 @@ const {
   caseTitle,
   otherCases,
   lastCase
-} = useFetchCase(props.id as string)
+} = useFetchCase(props.id)
 useSEO({ title: `${t('pages.review-case.title')} | ${t('app.prefix')}` })
 
 async function onSubmit(data: FormData): Promise<void> {

@@ -12,7 +12,6 @@
     <FormView
       v-else
       :id="id"
-      create-draft
       :forms="form.data"
       :values="form.values"
       :title="form.title"

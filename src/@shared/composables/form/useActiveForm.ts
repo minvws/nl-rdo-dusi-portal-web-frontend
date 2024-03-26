@@ -24,10 +24,15 @@ import { transformFormValues } from '@shared/utils/form'
 
 const VALIDATION_RESULT_FIELD_NAME = 'validationResult'
 
+type SetFormsProps = {
+  forms: Form[]
+  reference?: string
+  values?: FormData
+}
+
 export const useActiveForm = () => {
   const formProps = inject('form') as {
     id: string
-    createDraft?: boolean
     hideRequiredLabel?: boolean
   }
 
@@ -64,13 +69,9 @@ export const useActiveForm = () => {
     return form
   })
 
-  const createDraft = computed<boolean>(() => !!formProps.createDraft)
-
   const data = computed<FormData>(() => formsData.value?.[index.value] ?? {})
 
-  const draftId = computed<string | undefined>(() => activeForm.value?.draftId)
-
-  const draftIsPending = computed<boolean | undefined>(() => activeForm.value?.draftIsPending)
+  const reference = computed<string | undefined>(() => activeForm.value?.reference)
 
   const errors = computed<FormError[]>(() => {
     const errors = activeFormErrors.value[index.value] || []
@@ -148,20 +149,10 @@ export const useActiveForm = () => {
 
   const { clear } = useClearForm(formId)
 
-  function setForms({ forms, values }: { forms: Form[]; values?: FormData }) {
+  function setForms({ forms, reference, values }: SetFormsProps) {
     const restoredForm = formStorage.get(formId.value) ?? { data: [], index: 0 }
-    formStorage.set({ ...restoredForm, id: formId.value, forms, errors: [] })
+    formStorage.set({ ...restoredForm, id: formId.value, reference, forms, errors: [] })
     setFormDataFromValues(values)
-  }
-
-  function setDraft({ reference: draftId, data }: { reference: string; data?: FormData }) {
-    formStorage.update(formId.value, { draftId })
-    setFormDataFromValues(transformFormValues(data))
-    setDraftIsPending(false)
-  }
-
-  function setDraftIsPending(isPending: boolean) {
-    formStorage.update(formId.value, { draftIsPending: isPending })
   }
 
   function setValidatingIsPending(isPending: boolean) {
@@ -301,10 +292,7 @@ export const useActiveForm = () => {
     activeFormId,
     activeInputStageForm,
     clearForm: clear,
-    createDraft,
     data,
-    draftId,
-    draftIsPending,
     errors,
     events: {
       change: onChange
@@ -325,10 +313,9 @@ export const useActiveForm = () => {
     isReadOnly,
     isValidationPending,
     readonly,
+    reference,
     schema,
     setActionResult,
-    setDraft,
-    setDraftIsPending,
     setFormData,
     setForms,
     setFormStep,

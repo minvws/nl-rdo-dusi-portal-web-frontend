@@ -49,6 +49,7 @@ export const useApiFormsValidateUrl = (id?: string) => {
   return `${baseUrl}/api/applications/${id}/validate`
 }
 
-export const useApiFormsUrl = (id: string | number) => {
+export const useApiEditFormUrl = (id: string) => {
+  if (!id) throw new Error('id is not set for fetching existing editable form')
   return `${baseUrl}/api/forms/${id}`
 }

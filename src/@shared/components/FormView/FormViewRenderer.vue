@@ -38,7 +38,7 @@
       :touched="touchedForms"
       :readonly="readonly"
       :button-labels="buttonLabels"
-      :has-save-button="createDraft || hasSaveButton"
+      :has-save-button="hasSaveButton || isRemoteForm"
       @save="onSave"
       @submit="onSubmit"
       @step="onStep"
@@ -84,17 +84,16 @@ const {
   schema,
   touchedForms,
   uischema,
-  createFormDraft,
   setForms,
   isReadOnly,
   clearForm
 } = form
 
 setForms(props)
-if (props.createDraft) createFormDraft()
 
 emit('init', form.formData.value)
 
+const isRemoteForm = computed<boolean>(() => !!form.reference.value)
 const isDebug = computed<boolean>(() => (props.hideDebug ? false : !import.meta.env.PROD))
 
 const isFirstStep = computed<boolean>(() => index.value === 0 && props.forms.length > 1)
@@ -108,12 +107,12 @@ function onStep(index: number) {
 }
 
 function onSubmit() {
-  if (props.createDraft) form.onSubmitForm()
+  if (isRemoteForm.value) form.onSubmitForm()
   else emit('submit', form.formData.value)
 }
 
 function onSave() {
-  if (props.createDraft) form.onSubmitDraft()
+  if (isRemoteForm.value) form.onSubmitDraft()
   else emit('save', form.formData.value)
 }
 
@@ -123,7 +122,7 @@ function onValidate() {
 }
 
 onBeforeUnmount(() => {
-  if (props.createDraft || props.persistent) return
+  if (props.persistent) return
   clearForm()
 })
 </script>

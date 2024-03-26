@@ -13,13 +13,6 @@
         text="Aanvragen borst-prothesen-transvrouwen"
         :to="requestLocalFormBTVRoute"
       />
-
-      <h4>Remote form:</h4>
-      <RouterLink
-        class="button ghost"
-        text="Aanvragen"
-        :to="requestRemoteFormRoute"
-      />
     </div>
   </section>
 </template>
@@ -50,10 +43,5 @@ const requestLocalFormPostCovidRoute = computed<RouteLocationRaw>(() => ({
 const requestLocalFormBTVRoute = computed<RouteLocationRaw>(() => ({
   name: ARRANGEMENT_FORM_LOCAL,
   params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
-}))
-
-const requestRemoteFormRoute = computed<RouteLocationRaw>(() => ({
-  name: ARRANGEMENT_FORM_REMOTE,
-  params: { id: route.params.id }
 }))
 </script>

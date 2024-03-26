@@ -1,5 +1,4 @@
 import { useActiveForm } from '@shared/composables/form/useActiveForm'
-import { useFormDraft } from '@shared/composables/form/useFormDraft'
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 import { useRemoteAction } from '@shared/composables/form/useRemoteAction'
 import { useRemoteValidation } from '@shared/composables/form/useRemoteValidation'
@@ -9,7 +8,6 @@ import { useTouchedForms } from '@shared/composables/form/useTouchedForms'
 export const useForms = () => {
   const forms = useActiveForm()
   const { touchedForms } = useTouchedForms(forms)
-  const { createFormDraft } = useFormDraft(forms.formId)
   const { useTouchedField, setTouchedField } = useTouchedFields(forms)
   const { onSubmitForm, onSubmitDraft, onSubmitValidation, onSubmitAction } = useFormSubmit()
   const { onRemoteValidation } = useRemoteValidation(forms, onSubmitValidation)
@@ -22,7 +20,6 @@ export const useForms = () => {
   }
 
   return {
-    createFormDraft,
     onRemoteAction,
     onRemoteValidation,
     onSubmitDraft,

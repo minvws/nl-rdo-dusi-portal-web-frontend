@@ -6,13 +6,13 @@
       :error="error"
     />
     <FormView
-      v-else-if="forms"
-      :id="id"
+      v-else-if="forms && formId"
+      :reference="reference"
+      :id="formId"
       :forms="forms"
       :values="values"
       :title="title"
       :button-labels="buttonLabels"
-      create-draft
     />
   </FormSection>
 </template>
@@ -31,17 +31,19 @@ import FormView from '@shared/components/FormView/FormView.vue'
 
 type Props = {
   id: string
+  reference?: string
   values?: FormData
-  edit?: boolean
 }
 
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const { title, forms, isFetching, error, values } = useFetchForm(props)
+const { id: formId, title, forms, isFetching, error, values } = useFetchForm(props)
+
+const hasValues = computed(() => Object.keys(values.value ?? {}).length > 0)
 
 // when editing the form, change the label of the start-button to next-button
 const buttonLabels = computed<{ start: string | undefined } | undefined>(() =>
-  props.edit ? { start: t('form.button.next') } : undefined
+  hasValues.value ? { start: t('form.button.next') } : undefined
 )
 </script>
