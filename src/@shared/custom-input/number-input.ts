@@ -3,13 +3,12 @@ import { InputType } from '@shared/types/input'
 
 import { isFloat, toFloat } from '@shared/utils/number'
 
-const formatNumber = (value: string) => {
+const formatFloat = (value: string) => {
   if (value === undefined || value === '') {
     return ''
   }
 
-  const string = value.toString().replaceAll(',', '.')
-  const number = toFloat(string)
+  const number = toFloat(value)
 
   return isFloat(number) ? number : value
 }
@@ -30,6 +29,6 @@ export default {
     return isNumberInput(control)
   },
   onChange(value: string) {
-    return formatNumber(value)
+    return formatFloat(value)
   }
 }

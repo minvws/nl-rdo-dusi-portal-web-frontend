@@ -231,13 +231,7 @@ export const useFileStore = defineStore('useFileStore', () => {
     return `${applicationId}/stages/${stageId}`
   }
 
-  async function getRequestBody({
-    fetchType,
-    file
-  }: {
-    fetchType: CustomFetch
-    file: File
-  }) {
+  async function getRequestBody({ fetchType, file }: { fetchType: CustomFetch; file: File }) {
     if (fetchType === CustomFetchType.ENCRYPTION) {
       const arrayBuffer = await file.arrayBuffer()
       const fileData = new Uint8Array(arrayBuffer)

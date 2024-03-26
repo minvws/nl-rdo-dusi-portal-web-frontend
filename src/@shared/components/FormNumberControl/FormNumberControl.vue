@@ -28,7 +28,7 @@ type Props = {
   id: string
   placeholder?: string
   type: InputType.INTEGER | InputType.NUMBER
-  value?: number
+  value?: number | string
 }
 
 type Input = {
@@ -45,7 +45,7 @@ type Input = {
   placeholder: string | undefined
   step: string | undefined
   type: InputType.NUMBER
-  value: number | undefined
+  value: string | number | undefined
 }
 
 const props = defineProps<Props>()

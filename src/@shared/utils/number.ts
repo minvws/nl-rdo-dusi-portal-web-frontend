@@ -37,3 +37,14 @@ export function toInteger(value: string | number): number {
 export function toFloat(value: string | number): number {
   return Number.parseFloat(`${value}`)
 }
+
+/* Format a number */
+export function formatNumber(number: string | number): string {
+  let formattedNumber = number.toString().replaceAll(',', '.')
+
+  if (Number.isNaN(Number(formattedNumber))) {
+    throw new TypeError('Invalid number')
+  }
+
+  return formattedNumber.toString()
+}
