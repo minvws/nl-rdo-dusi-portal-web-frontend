@@ -28,6 +28,13 @@
               )
             }}
           </small>
+          <small
+            v-if="activeSorting"
+            class="message"
+            >,
+            {{ t(`pages.${type}-overview.sorting.label`) }}
+            '{{ t(`pages.${type}-overview.sorting.options.${activeSorting}`) }}'
+          </small>
         </span>
         <AppButton
           :data-hide-filters-label="t(`pages.${type}-overview.hideFilters`)"
@@ -108,7 +115,7 @@ const sorting = computed<SortItem>(() => {
 
 const activeFilterCount = computed<number>(() => {
   return Object.entries(query.value ?? {}).filter(([key, item]) => {
-    if (key === 'page') return false
+    if (key === 'page' || key === 'sort') return false
     if (!item) return item
     if (Array.isArray(item)) {
       return item.length
@@ -116,6 +123,8 @@ const activeFilterCount = computed<number>(() => {
     return !!item
   }).length
 })
+
+const activeSorting = computed<string>(() => (query.value?.sort as string) || '')
 
 function onPageChange(newPage: number) {
   query.value = { ...query.value, page: newPage.toString() }

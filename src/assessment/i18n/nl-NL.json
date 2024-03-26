@@ -236,7 +236,14 @@
       "hideFilters": "Verberg filteropties",
       "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder het tabblad \"Mijn Zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
       "title": "Alle Zaken",
-      "activeFilters": "op basis van {count} filter|op basis van {count} filters"
+      "activeFilters": "op basis van {count} filter|op basis van {count} filters",
+      "sorting": {
+        "label": "gesorteerd op",
+        "options": {
+          "final_review_deadline": "Deadline",
+          "updated_at": "Laatste update"
+        }
+      }
     },
     "forgot-password": {
       "title": "Wachtwoord vergeten",
@@ -267,7 +274,14 @@
       "hideFilters": "Verberg filters",
       "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of al beoordeeld heeft.",
       "title": "Mijn Zaken",
-      "activeFilters": "op basis van {count} filter|op basis van {count} filters"
+      "activeFilters": "op basis van {count} filter|op basis van {count} filters",
+      "sorting": {
+        "label": "gesorteerd op",
+        "options": {
+          "final_review_deadline": "Deadline",
+          "updated_at": "Laatste update"
+        }
+      }
     },
     "review-case": {
       "title": "Beoordeling",
