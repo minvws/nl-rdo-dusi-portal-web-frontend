@@ -65,6 +65,7 @@ const input = computed<{
   autocomplete: string
   minlength: number | undefined
   maxlength: number | undefined
+  rows?: number
 }>(() => {
   const { id, value, placeholder, disabled, autofocus } = props
   return {
@@ -73,6 +74,7 @@ const input = computed<{
     placeholder,
     disabled,
     autofocus,
+    rows: InputType.TEXTAREA ? 4 : undefined,
     ...getInputAttrs(props)
   }
 })
@@ -85,6 +87,6 @@ function onInput(event: InputEvent): void {
 
 <style lang="scss" scoped>
 textarea {
-  resize: none;
+  resize: vertical;
 }
 </style>
