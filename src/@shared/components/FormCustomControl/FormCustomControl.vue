@@ -107,6 +107,7 @@ export default defineComponent({
         controlId,
         error,
         handleChange,
+        resetError,
         hideRequiredLabel,
         isConditionalRequired,
         isFocused,
@@ -133,6 +134,7 @@ export default defineComponent({
         description: isFocused ? description : undefined,
         errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
         handleChange,
+        resetError,
         hideRequiredLabel: hideRequiredLabel || isReadOnly,
         id,
         isFocused,

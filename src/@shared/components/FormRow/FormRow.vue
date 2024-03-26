@@ -170,6 +170,10 @@ export default defineComponent({
     errorId() {
       const index = this.a11yStore.formIds.findIndex((string) => string.includes(this.id))
       const id = this.a11yStore.formIds[index]
+      if (id == undefined) {
+        return undefined
+      }
+
       const splitId = id.split('-').slice(0, -1).join('-')
 
       return this.a11yStore.getA11yErrorId(splitId)

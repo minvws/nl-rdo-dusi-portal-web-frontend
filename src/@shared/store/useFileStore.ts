@@ -22,11 +22,13 @@ import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
+import { useA11yStore } from "@shared/store/useA11yStore"
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export const useFileStore = defineStore('useFileStore', () => {
+  const a11yStore = useA11yStore()
   const notificationsStore = useNotificationsStore()
   const formStore = useFormStorage()
   const { t } = useI18n()
@@ -59,6 +61,7 @@ export const useFileStore = defineStore('useFileStore', () => {
   type SaveFileProps = {
     errorRef?: Ref<ValidationError | null>
     fieldName: string
+    fieldId: string
     file: File
     index: number
   }
@@ -71,6 +74,7 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   async function addFile({ file, id, index, name, error }: AddFileProps): Promise<void> {
+    const fieldId = a11yStore.getA11yInputId(id, index)
     const formId = activeFormId.value
 
     // initialize pending state
@@ -84,13 +88,18 @@ export const useFileStore = defineStore('useFileStore', () => {
     filesPending[index] = true
     pendingState[name] = filesPending
 
-    await saveFile({ fieldName: name, file, index, errorRef: error }).finally(() => {
-      if (isPortal) {
-        const name = getControlId(id)
-        // TODO: Only do submit validation if really needed ...
-        onSubmitValidation(name)
-      }
-    })
+    await saveFile({ fieldName: name, fieldId, file, index, errorRef: error })
+      .catch(() => {
+        // Removes the last successful file if there was one on that field
+        removeFileByIdAndIndex(id, index)
+      })
+      .finally(() => {
+        if (isPortal) {
+          const name = getControlId(id)
+          // TODO: Only do submit validation if really needed ...
+          onSubmitValidation(name)
+        }
+      })
 
     pendingState[name][index] = false
   }
@@ -137,9 +146,9 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
   }
 
-  async function saveFile({ errorRef, fieldName, file, index }: SaveFileProps): Promise<void> {
-    const id = getId()
-    const url = useApiFileUrl(id, fieldName)
+  async function saveFile({ errorRef, fieldName, fieldId, file, index }: SaveFileProps): Promise<void> {
+    const reference = getId()
+    const url = useApiFileUrl(reference, fieldName)
     const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS
 
     try {
@@ -156,29 +165,24 @@ export const useFileStore = defineStore('useFileStore', () => {
         return onFileUploaded({ fieldName, file, index, data: data.value })
       }
 
-      if (errorMessage) {
+      if (errorMessage && statusCode.value === 422) {
         throw new Error(errorMessage)
       }
 
-      if (statusCode.value === 400) {
-        notificationsStore.add({
-          id: 'file-upload-failed',
-          displayAs: NotificationType.ERROR,
-          label: t('files.upload_failed.label') ?? '',
-          message: t('files.upload_failed.message') ?? '',
-          pageChangeCount: 1,
-          dismissable: true
-        })
+      if (errorMessage) {
+        throw new Error(undefined)
       }
-    } catch (error) {
+    } catch (error: any) {
+      a11yStore.addId(fieldId)
       if (errorRef) {
         errorRef.value = {
-          message: t('form.fields.error.upload') ?? '',
-          id: fieldName
+          message: error?.message || t('form.fields.error.upload'),
+          id: fieldId
         }
       }
 
       log(error)
+      throw error
     }
   }
 

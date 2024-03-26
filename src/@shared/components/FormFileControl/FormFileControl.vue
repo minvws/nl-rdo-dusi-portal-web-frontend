@@ -20,14 +20,13 @@
         />
         <FormFieldRemoveFile
           :disabled="disabled"
-          :error="error"
           :files="files"
           :handle-change="handleChange"
           :id="control.id"
           :index="index"
           :is-pending="!!isPending?.[index]"
           :label-for="getIndexedId(index)"
-          @blur="onBlur"
+          @removedFile="onFileRemoved"
         />
       </div>
       <FormFieldAddFileButton
@@ -62,7 +61,8 @@ type Props = {
   autofocus?: boolean
   control: Control
   disabled?: boolean
-  handleChange: (_path: string, _value: any) => void
+  handleChange: (_path: string, _value: any) => void,
+  resetError: () => void
   id: string
   placeholder?: string
   type: InputType
@@ -133,12 +133,16 @@ function showAddFileButton(index: number) {
 /**
  * Lower the add file count when a file is removed
  * This will remove the input field
- *
- * @param event
  */
-function onBlur(event: InputEvent): void {
+function onFileRemoved(index: number): void {
+  const id = getIndexedId(index)
+  a11yStore.removeId(id)
+  if (isAriaInvalid(index)) {
+    props.resetError()
+  }
+
   addFileCount.value = Math.max(addFileCount.value - 1, 1)
-  emit('blur', event)
+  emit('blur')
 }
 
 function onChange(event: InputEvent): void {

@@ -29,10 +29,9 @@
 </template>
 
 <script setup lang="ts">
-import type { ValidationError } from '@shared/types/field'
 import type { FileType } from '@shared/types/form'
 
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 import { useFieldFileRemove } from '@shared/composables/form/useField'
@@ -47,7 +46,6 @@ type Props = {
   id: string
   index: number
   labelFor: string
-  error: ValidationError | null
   disabled?: boolean
   files?: FileType[]
   isPending: boolean
@@ -55,7 +53,7 @@ type Props = {
 
 const props = defineProps<Props>()
 
-const emit = defineEmits(['blur'])
+const emit = defineEmits(['removedFile'])
 
 const { t } = useI18n()
 const { removeFileByIdAndIndex } = useFieldFileRemove()
@@ -70,18 +68,8 @@ const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 
 function onRemoveFile(): void {
   removeFileByIdAndIndex(props.id, props.index)
-  emit('blur')
+  emit('removedFile', props.index)
 }
-
-watch(
-  () => props.error,
-  (error) => {
-    if (!error) return
-    // when there is an error
-    // remove the file
-    removeFileByIdAndIndex(props.id, props.index)
-  }
-)
 </script>
 <style lang="scss" scoped>
 .form-field-remove-file {

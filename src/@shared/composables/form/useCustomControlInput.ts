@@ -158,12 +158,17 @@ export const useCustomControlInput = ({
     onChange(event)
   }
 
+  function resetError(): void {
+    error.value = null
+  }
+
   return {
     error,
     onError,
     onFocus,
     onBlur,
     onInputChange,
-    onBeforeChange
+    onBeforeChange,
+    resetError
   }
 }

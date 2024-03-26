@@ -121,10 +121,11 @@ type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
   error: ValidationError | null
-  handleChange?: (_path: string, _value: any) => void
+  handleChange?: (_path: string, _value: any) => void,
+  resetError?: () => void
 }
 
-export const useField = ({ input, control, error, handleChange }: FieldProps) => {
+export const useField = ({ input, control, error, handleChange, resetError }: FieldProps) => {
   const fileStore = useFileStore()
 
   switch (input.type) {
@@ -165,7 +166,8 @@ export const useField = ({ input, control, error, handleChange }: FieldProps) =>
           control: control,
           error: error,
           isPending: fileStore.isUploadPending(control.id),
-          handleChange: handleChange
+          handleChange: handleChange,
+          resetError: resetError
         },
         tag: 'FormFileControl'
       }
