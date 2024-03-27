@@ -74,15 +74,18 @@ function onDismiss(id: string) {
 .form-notification.explanation,
 .form-notification.confirmation {
   .html {
+    --p-line-height: 1.6;
     display: flex;
-    justify-content: flex-left;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
 
   :deep(span) {
     display: flex;
     align-items: center;
     padding-left: 0;
-    margin-right: 4px;
+    margin-right: 8px;
+    flex: 0 0 auto;
   }
 
   :deep(span::before) {
