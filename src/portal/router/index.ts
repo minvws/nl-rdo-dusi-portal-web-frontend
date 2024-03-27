@@ -1,4 +1,5 @@
 const ArrangementView = () => import('@portal/pages/ArrangementView.vue')
+const ArrangementDetails = () => import('@portal/pages/ArrangementDetails.vue')
 const LocalForm = () => import('@portal/pages/LocalForm.vue')
 const LoginCallbackView = () => import('@portal/pages/LoginCallbackView.vue')
 const MyMessageDetails = () => import('@portal/pages/MyMessageDetails.vue')
@@ -7,7 +8,6 @@ const MyRequestStatus = () => import('@portal/pages/MyRequestStatus.vue')
 const MyRequestDetails = () => import('@portal/pages/MyRequestDetails.vue')
 const MyRequestEdit = () => import('@portal/pages/MyRequestEdit.vue')
 const MyRequestsView = () => import('@portal/pages/MyRequestsView.vue')
-const RemoteForm = () => import('@portal/pages/RemoteForm.vue')
 
 import { sharedRoutes } from '@shared/router/routes'
 import { beforeEach, afterEach } from '@portal/router/router-guards'
@@ -15,8 +15,8 @@ import { beforeEach, afterEach } from '@portal/router/router-guards'
 const LOCAL_FORMS_ENABLED = import.meta.env.VITE_PORTAL_LOCAL_FORMS === 'true'
 
 import {
+  ARRANGEMENT_DETAILS,
   ARRANGEMENT_FORM_LOCAL,
-  ARRANGEMENT_FORM_REMOTE,
   ARRANGEMENT_OVERVIEW,
   HOME,
   LOGIN_CALLBACK_VIEW,
@@ -43,15 +43,14 @@ const routes = [
     }
   },
   LOCAL_FORMS_ENABLED && {
-    path: '/regelingen/:id',
-    name: ARRANGEMENT_OVERVIEW,
-    component: ArrangementView,
+    path: '/regelingen',
+    redirect: { name: MY_REQUESTS_OVERVIEW },
     children: [
       {
-        path: 'aanvragen-remote',
-        name: ARRANGEMENT_FORM_REMOTE,
+        path: ':name',
+        name: ARRANGEMENT_DETAILS,
         props: true,
-        component: RemoteForm
+        component: ArrangementDetails
       },
       {
         path: ':name/aanvragen-local',

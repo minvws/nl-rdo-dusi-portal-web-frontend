@@ -10,7 +10,7 @@
       <AppButton
         type="button"
         class="button"
-        @click="createNewApplication"
+        @click="onClick"
         :disabled="isCreatingNewApplication"
       >
         {{ t('pages.arrangement-overview.newRequest') }}
@@ -51,10 +51,9 @@ import type { Column } from '@shared/types/table'
 import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
+import { useSEO } from '@shared/composables/useSeo'
 import { useFetchArrangement } from '@portal/composables/useFetchArrangement'
 import { useFormDraft } from '@shared/composables/form/useFormDraft'
-import { useSEO } from '@shared/composables/useSeo'
-import { log } from '@shared/utils/logger'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
@@ -63,6 +62,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestCards from '@portal/components/RequestCards/RequestCards.vue'
 
 import { MY_REQUESTS_OVERVIEW, MY_REQUEST_EDIT } from '@portal/router/names'
+import { log } from '@shared/utils/logger'
 
 type Props = {
   id: string
@@ -87,6 +87,8 @@ const { data, error, isFetching } = useFetchArrangement(props.id)
 const { createDraft } = useFormDraft()
 
 useSEO({ title: `${t('pages.arrangement-overview.title')} | ${t('app.prefix')}` })
+
+const isCreatingNewApplication = ref<boolean>(false)
 
 const headings = computed<Column[]>(() =>
   columns.map((item) => ({
@@ -124,9 +126,8 @@ const canCreateNewApplication = computed<boolean>(() => {
 })
 
 const subsidy = computed<Record<string, any> | undefined>(() => data.value?.subsidy)
-const isCreatingNewApplication = ref<boolean>(false)
 
-const createNewApplication = () => {
+function onClick(): void {
   if (subsidy.value === undefined) {
     log('cannot create new application, subsidy is undefined')
     return
@@ -139,9 +140,7 @@ const createNewApplication = () => {
       isCreatingNewApplication.value = false
       router.push({ name: MY_REQUEST_EDIT, params: { reference: draft.reference } })
     })
-    .catch(() => {
-      isCreatingNewApplication.value = false
-    })
+    .catch(() => (isCreatingNewApplication.value = false))
 }
 
 watch(

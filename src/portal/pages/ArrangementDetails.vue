@@ -1,17 +1,12 @@
 <template>
   <section>
     <div>
-      <h2>Regeling details for {{ route.params.id }}</h2>
-      <h4>Local forms:</h4>
+      <h2>Regeling: {{ route.params.name }}</h2>
+      <h4>Local form:</h4>
       <RouterLink
         class="button ghost"
-        text="Aanvragen post-covid"
-        :to="requestLocalFormPostCovidRoute"
-      />
-      <RouterLink
-        class="button ghost"
-        text="Aanvragen borst-prothesen-transvrouwen"
-        :to="requestLocalFormBTVRoute"
+        text="Aanvragen"
+        :to="requestLocalFormRoute"
       />
     </div>
   </section>
@@ -26,22 +21,15 @@ import { useI18n } from 'vue-i18n'
 
 import { useSEO } from '@shared/composables/useSeo'
 
-import { ARRANGEMENT_FORM_LOCAL, ARRANGEMENT_FORM_REMOTE } from '@portal/router/names'
+import { ARRANGEMENT_FORM_LOCAL } from '@portal/router/names'
 
 const { t } = useI18n()
 const route = useRoute()
 
-useSEO({
-  title: `${route.params.id} - ${t('pages.arrangement-details.title')} | ${t('app.prefix')}`
-})
+useSEO({ title: `${t('pages.arrangement-details.title')} | ${t('app.prefix')}` })
 
-const requestLocalFormPostCovidRoute = computed<RouteLocationRaw>(() => ({
+const requestLocalFormRoute = computed<RouteLocationRaw>(() => ({
   name: ARRANGEMENT_FORM_LOCAL,
-  params: { id: route.params.id, name: 'post-covid' }
-}))
-
-const requestLocalFormBTVRoute = computed<RouteLocationRaw>(() => ({
-  name: ARRANGEMENT_FORM_LOCAL,
-  params: { id: route.params.id, name: 'borst-prothesen-transvrouwen' }
+  params: { name: route.params.name }
 }))
 </script>

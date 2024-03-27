@@ -1,5 +1,6 @@
 export { HOME, NOT_FOUND } from '@shared/router/names'
 
+export const ARRANGEMENT_DETAILS = 'arrangement-details'
 export const ARRANGEMENT_FORM_LOCAL = 'arrangement-form-local'
 export const ARRANGEMENT_FORM_REMOTE = 'arrangement-form-remote'
 export const ARRANGEMENT_OVERVIEW = 'arrangement-overview'

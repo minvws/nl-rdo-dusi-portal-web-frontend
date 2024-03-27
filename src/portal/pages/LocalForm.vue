@@ -11,7 +11,7 @@
     />
     <FormView
       v-else
-      :id="id"
+      :id="name"
       :forms="form.data"
       :values="form.values"
       :title="form.title"
@@ -39,8 +39,7 @@ for (const [key, value] of Object.entries(formFiles)) {
 }
 
 type Props = {
-  name?: string
-  id: string
+  name: string
 }
 
 const props = defineProps<Props>()
@@ -49,13 +48,11 @@ const form = ref<{ title?: string; data: Form[]; values?: FormData } | undefined
 const error = ref<string | undefined>(undefined)
 
 async function load() {
-  const name = props.name ?? 'post-covid'
-
   try {
-    const { default: localForm } = await forms[name]()
+    const { default: localForm } = await forms[props.name]()
     form.value = await localForm()
   } catch {
-    error.value = `form "${name}" cannot be loaded`
+    error.value = `form "${props.name}" cannot be loaded`
   }
 }
 
