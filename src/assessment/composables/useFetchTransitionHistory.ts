@@ -21,8 +21,8 @@ const transformStage = (stage: HistoryTransitionStage) => {
 }
 
 const OPTIONS = {
-  day: 'numeric',
-  month: 'numeric',
+  day: '2-digit',
+  month: '2-digit',
   year: 'numeric',
   hour: 'numeric',
   minute: 'numeric'
