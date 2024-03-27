@@ -35,7 +35,7 @@ import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import RequestSteps from '@portal/components/RequestSteps/RequestSteps.vue'
 
-import { RequestStatus } from '@shared/types/request'
+import { requestStatusToTranslation, statusToStep } from '@shared/utils/mappers'
 
 type Props = {
   reference: string
@@ -50,27 +50,11 @@ useSEO({
   title: `${t('pages.my-request-status.title')} | ${t('app.prefix')}`
 })
 
-const step = computed<number>(() => {
-  const mapStatusToStep: Record<string, number> = {
-    [RequestStatus.APPROVED]: 3,
-    [RequestStatus.DRAFT]: 1,
-    [RequestStatus.PENDING]: 1,
-    [RequestStatus.REJECTED]: 3,
-    [RequestStatus.REQUEST_CHANGES]: 1
-  }
-  return data.value?.status ? mapStatusToStep[data.value.status] : 1
-})
+const step = computed<number>(() => (data.value?.status ? statusToStep[data.value.status] : 1))
 
-const status = computed<string>(() => {
-  const mapStatusToTranslation: Record<string, string> = {
-    [RequestStatus.APPROVED]: 'Goedgekeurd',
-    [RequestStatus.DRAFT]: 'Nog niet ingediend',
-    [RequestStatus.PENDING]: 'In behandeling',
-    [RequestStatus.REJECTED]: 'Afgekeurd',
-    [RequestStatus.REQUEST_CHANGES]: 'Aanvulling nodig'
-  }
-  return data.value?.status ? mapStatusToTranslation[data.value.status] : 'Nog niet ingediend'
-})
+const status = computed<string>(() =>
+  data.value?.status ? requestStatusToTranslation[data.value.status] : 'Nog niet ingediend'
+)
 </script>
 
 <style lang="scss" scoped>

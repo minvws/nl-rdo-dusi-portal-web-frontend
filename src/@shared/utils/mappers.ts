@@ -28,6 +28,15 @@ function transfromReviewerActions() {
   return acc
 }
 
+export const statusToStep: Record<string, number> = {
+  [Status.ALLOCATED]: 3,
+  [Status.APPROVED]: 3,
+  [Status.DRAFT]: 1,
+  [Status.PENDING]: 1,
+  [Status.REJECTED]: 3,
+  [Status.REQUEST_CHANGES]: 1
+}
+
 export const statusToIcon: Record<string, string> = {
   [Status.ALLOCATED]: '',
   [Status.APPROVED]: 'confirmation',
