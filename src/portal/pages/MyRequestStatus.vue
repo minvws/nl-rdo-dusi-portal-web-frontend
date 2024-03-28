@@ -14,9 +14,11 @@
       />
       <div class="steps">
         <RequestSteps
-          :reference="data.reference"
-          :submitted-at="data.submittedAt"
           :deadline-for-response-at="data.deadlineForResponseAt"
+          :reference="data.reference"
+          :status="data.status"
+          :step="step"
+          :submitted-at="data.submittedAt"
         />
       </div>
     </AppSuspense>

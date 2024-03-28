@@ -45,20 +45,32 @@
       "title": "Meldingsplicht bij wijzigingen"
     },
     "requestSteps": {
-      "step": "Stap {step}:",
-      "request": "Aanvraag",
-      "order": "Beschikking",
-      "payout": "Uitbetaling",
-      "submitDate": "Datum indiening: {date}",
       "additionalInfo": "Het kan voorkomen dat u om extra informatie gevraagd wordt.",
-      "info": "Bijbehorende informatie:",
       "customerSatisfaction": "Hoe is het aanvragen gegaan?",
       "customerSatisfactionLink": "Laat het ons weten via het <a target=\"_blank\" rel=\"{customerStatisfactionRel}\" href=\"{customerStatisfactionHref}{referenceCode}\">klanttevredenheidsonderzoek</a>",
       "decision": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.",
       "finalDecision": "De uiterste beslisdatum is {date}.",
+      "info": "<strong>Bijbehorende informatie:</strong>",
+      "noAction": "<strong>U hoeft op dit moment niets te doen.</strong>",
       "notice": "<strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
-      "noAction": "U hoeft op dit moment niets te doen.",
-      "payoutDecision": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening."
+      "order": "Beschikking",
+      "payout": "Uitbetaling",
+      "payoutDecision": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening.",
+      "request": "Aanvraag",
+      "step": "Stap {step}:",
+      "step_2": {
+        "allocated": "Uw aanvraag is toegekend. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
+        "approved": "Uw aanvraag is toegekend.",
+        "pending": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.<br/><br/>De uiterste behandeldatum is <em>{date}</em>.<br/><br/><strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
+        "rejected": "Uw aanvraag is afgewezen."
+      },
+      "step_3": {
+        "allocated": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
+        "approved": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening.",
+        "pending": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening.",
+        "rejected": "Uw aanvraag is afgewezen."
+      },
+      "submitDate": "Datum indiening: <em>{date}</em>"
     }
   },
   "pages": {

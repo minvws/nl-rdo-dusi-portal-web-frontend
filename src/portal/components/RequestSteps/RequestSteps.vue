@@ -2,25 +2,29 @@
   <AppAccordion>
     <AppAccordionItem
       id="step-1"
-      initially-open
-      is-highlighted
+      :initially-open="step === 1"
+      :is-highlighted="step === 1"
     >
       <template #title>
         <strong>{{ t('component.requestSteps.step', { step: 1 }) }} </strong>
         {{ t('component.requestSteps.request') }}
       </template>
       <template #content>
-        <p>{{ t('component.requestSteps.submitDate', { date: submitDate }) }}</p>
-        <p>{{ t('component.requestSteps.additionalInfo') }}</p>
-        <p>
-          <strong>{{ t('component.requestSteps.info') }}</strong>
-        </p>
+        <AppHtml
+          as="p"
+          :html="t('component.requestSteps.submitDate', { date: submitDate })"
+        />
+        <AppHtml
+          as="p"
+          :html="t('component.requestSteps.additionalInfo')"
+        />
+        <AppHtml
+          as="p"
+          :html="t('component.requestSteps.info')"
+        />
         <RouterLink
           class="ghost"
-          :to="{
-            name: MY_REQUEST_DETAILS,
-            params: { reference }
-          }"
+          :to="pdfLink"
         >
           <AppIcon name="pdf-file" />
           {{ t('component.requestSteps.request') }}
@@ -36,29 +40,28 @@
     </AppAccordionItem>
     <AppAccordionItem
       id="step-2"
-      is-open
+      :initially-open="step === 2"
+      :is-highlighted="step === 2"
     >
       <template #title>
         <strong>{{ t('component.requestSteps.step', { step: 2 }) }} </strong>
         {{ t('component.requestSteps.order') }}
       </template>
       <template #content>
-        <p>{{ t('component.requestSteps.decision') }}</p>
-        <p>
-          {{ t('component.requestSteps.finalDecision', { date: respondDate }) }}
-        </p>
         <AppHtml
           as="p"
-          :html="t('component.requestSteps.notice')"
+          :html="t(`component.requestSteps.step_2.${status}`, { date: respondDate })"
         />
-        <p>
-          <strong>{{ t('component.requestSteps.noAction') }}</strong>
-        </p>
+        <AppHtml
+          as="p"
+          :html="t('component.requestSteps.noAction')"
+        />
       </template>
     </AppAccordionItem>
     <AppAccordionItem
       id="step-3"
-      is-open
+      :initially-open="step === 3"
+      :is-highlighted="step === 3"
     >
       <template #title>
         <strong>{{ t('component.requestSteps.step', { step: 3 }) }} </strong>
@@ -66,15 +69,18 @@
       </template>
       <template #content>
         <p>{{ t('component.requestSteps.payoutDecision') }}</p>
-        <p>
-          <strong>{{ t('component.requestSteps.noAction') }}</strong>
-        </p>
+        <AppHtml
+          as="p"
+          :html="t('component.requestSteps.noAction')"
+        />
       </template>
     </AppAccordionItem>
   </AppAccordion>
 </template>
 
 <script setup lang="ts">
+import type { RouteLocationRaw } from 'vue-router'
+
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -88,8 +94,10 @@ import { MY_REQUEST_DETAILS } from '@portal/router/names'
 import { formatDate } from '@shared/utils/date'
 
 type Props = {
-  reference: string
   deadlineForResponseAt: string
+  reference: string
+  step: number
+  status: string
   submittedAt: string
 }
 
@@ -97,9 +105,14 @@ const props = defineProps<Props>()
 
 const { locale, t } = useI18n()
 
+const pdfLink = computed<RouteLocationRaw>(() => ({
+  name: MY_REQUEST_DETAILS,
+  params: { reference: props.reference }
+}))
+
 const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 
-const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
-
 const respondDate = computed<string>(() => formatDate(props.deadlineForResponseAt, locale.value))
+
+const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
 </script>
