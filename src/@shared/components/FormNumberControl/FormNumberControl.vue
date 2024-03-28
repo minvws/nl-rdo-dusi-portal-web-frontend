@@ -85,6 +85,7 @@ function onKeyPress(event: KeyboardEvent): void {
   const keyIsValid = isNumberKey(key)
 
   if (!keyIsValid) {
+    event.preventDefault()
     return
   }
 
@@ -95,8 +96,12 @@ function onKeyPress(event: KeyboardEvent): void {
 
   if (isInvalidInteger) {
     event.preventDefault()
-  } else if (isInvalidNumber) {
+    return
+  }
+
+  if (isInvalidNumber) {
     event.preventDefault()
+    return
   }
 }
 </script>
