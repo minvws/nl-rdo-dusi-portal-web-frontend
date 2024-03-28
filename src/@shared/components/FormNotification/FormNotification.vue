@@ -60,7 +60,7 @@ const message = computed<string | undefined>(() =>
 )
 
 const html = computed<string>(
-  () => `<span>${props.label ?? translatedType.value}:</span> ${message.value}`
+  () => `<span class="label">${props.label ?? translatedType.value}:</span><span class="message">${message.value}</span>`
 )
 
 function onDismiss(id: string) {
@@ -80,7 +80,7 @@ function onDismiss(id: string) {
     align-items: flex-start;
   }
 
-  :deep(span) {
+  :deep(.label) {
     display: flex;
     align-items: center;
     padding-left: 0;
