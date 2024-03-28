@@ -29,11 +29,11 @@
             }}
           </small>
           <small
-            v-if="activeSorting"
+            v-if="sorting.id"
             class="message"
             >,
             {{ t(`pages.${type}-overview.sorting.label`) }}
-            '{{ t(`pages.${type}-overview.sorting.options.${activeSorting}`) }}'
+            '{{ t(`pages.${type}-overview.sorting.options.${sorting.id}`) }}'
           </small>
         </span>
         <AppButton
@@ -123,8 +123,6 @@ const activeFilterCount = computed<number>(() => {
     return !!item
   }).length
 })
-
-const activeSorting = computed<string>(() => (query.value?.sort as string) || '')
 
 function onPageChange(newPage: number) {
   query.value = { ...query.value, page: newPage.toString() }
