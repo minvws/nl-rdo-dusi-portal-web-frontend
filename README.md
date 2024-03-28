@@ -120,7 +120,7 @@ the project. You can copy the `.env.example` file and rename it to `.env`.
 After installing the dependencies, the following scripts are available:
 
 | Script        | Description |
-|---------------|------------ |
+| ------------- | ----------- |
 | build-only           | Builds Vite |
 | build:portal         | Production build of the 'portal' project |
 | build:assessment     | Production build of the 'assessment' project |

@@ -19,7 +19,7 @@
         <AppPaginationItem
           v-if="condensedLayout && showFirstGroup"
           :current-page="currentPage"
-          :ellipsis-position="'end'"
+          ellipsis-position="end"
           label="1"
           :page-index="1"
           @page-change="onPageChange"
@@ -37,7 +37,7 @@
         <AppPaginationItem
           v-if="condensedLayout && showLastGroup"
           :current-page="currentPage"
-          :ellipsis-position="'start'"
+          ellipsis-position="start"
           :label="totalPages"
           :page-index="totalPages"
           @page-change="onPageChange"

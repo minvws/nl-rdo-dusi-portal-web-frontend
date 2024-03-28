@@ -71,6 +71,7 @@ function onRemoveFile(): void {
   emit('removedFile', props.index)
 }
 </script>
+
 <style lang="scss" scoped>
 .form-field-remove-file {
   position: absolute;
