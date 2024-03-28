@@ -67,6 +67,7 @@ export function transformConceptsData(data: RawConceptData): ConceptData {
 
   return {
     subsidy: data.subsidy,
+    newConceptAllowed: data.newConceptAllowed,
     concepts
   }
 }

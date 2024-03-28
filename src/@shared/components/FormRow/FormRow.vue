@@ -169,8 +169,8 @@ export default defineComponent({
     },
     errorId() {
       const index = this.a11yStore.formIds.findIndex((string) => string.includes(this.id))
-      const id = this.a11yStore.formIds[index]
-      if (id == undefined) {
+      const id = this.a11yStore.formIds[index] || undefined
+      if (id === undefined) {
         return undefined
       }
 

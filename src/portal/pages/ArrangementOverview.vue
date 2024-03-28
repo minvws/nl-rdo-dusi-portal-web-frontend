@@ -107,23 +107,7 @@ const multipleApplications = computed<boolean>(() =>
   Boolean(subsidy.value?.allowMultipleApplications)
 )
 
-const newApplications = computed<boolean>(() => Boolean(subsidy.value?.isOpenForNewApplications))
-
-const canCreateNewApplication = computed<boolean>(() => {
-  if (newApplications.value === false) {
-    return false
-  }
-
-  if (
-    newApplications.value === true &&
-    multipleApplications.value === false &&
-    concepts.value.length > 0
-  ) {
-    return false
-  }
-
-  return true
-})
+const canCreateNewApplication = computed<boolean>(() => Boolean(data.value?.newConceptAllowed))
 
 const subsidy = computed<Record<string, any> | undefined>(() => data.value?.subsidy)
 
