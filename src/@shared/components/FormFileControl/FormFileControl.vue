@@ -61,7 +61,7 @@ type Props = {
   autofocus?: boolean
   control: Control
   disabled?: boolean
-  handleChange: (_path: string, _value: any) => void,
+  handleChange: (_path: string, _value: any) => void
   resetError: () => void
   id: string
   placeholder?: string

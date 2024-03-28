@@ -22,7 +22,7 @@ import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { log } from '@shared/utils/logger'
 import { getControlId } from '@shared/utils/control'
-import { useA11yStore } from "@shared/store/useA11yStore"
+import { useA11yStore } from '@shared/store/useA11yStore'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
@@ -146,7 +146,13 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
   }
 
-  async function saveFile({ errorRef, fieldName, fieldId, file, index }: SaveFileProps): Promise<void> {
+  async function saveFile({
+    errorRef,
+    fieldName,
+    fieldId,
+    file,
+    index
+  }: SaveFileProps): Promise<void> {
     const reference = getId()
     const url = useApiFileUrl(reference, fieldName)
     const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS

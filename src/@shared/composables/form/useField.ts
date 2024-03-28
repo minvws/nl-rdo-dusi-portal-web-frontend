@@ -121,7 +121,7 @@ type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
   error: ValidationError | null
-  handleChange?: (_path: string, _value: any) => void,
+  handleChange?: (_path: string, _value: any) => void
   resetError?: () => void
 }
 
