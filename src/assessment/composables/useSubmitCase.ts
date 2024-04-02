@@ -1,8 +1,8 @@
-import type { FormData, FormSubmit } from '@shared/types/form'
+import type { FormData, FormSubmit, FormSubmitReturnType } from '@shared/types/form'
 
 import { FormSubmitType } from '@shared/types/form'
 
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
 import { useFormSubmitNotification } from '@shared/composables/form/useFormSubmitNotification'
@@ -10,7 +10,7 @@ import { useApiSubmitCaseUrl } from '@assessment/composables/useApiUrl'
 
 import { log } from '@shared/utils/logger'
 
-import { MY_CASES_OVERVIEW } from '@assessment/router/names'
+import { PREVIEW_CASE_SUBMIT } from '@assessment/router/names'
 
 export const useSubmitCase = () => {
   const router = useRouter()
@@ -18,7 +18,7 @@ export const useSubmitCase = () => {
 
   const locked = ref<boolean>(false)
 
-  async function onSubmit({ id, data, type }: { id: string; data: FormData; type: FormSubmit }) {
+  async function onSubmit({ id, data, type }: { id: string; data: FormData; type: FormSubmit }): Promise<FormSubmitReturnType> {
     const url = useApiSubmitCaseUrl(id)
     const payload = {
       submit: type === FormSubmitType.SUBMIT,
@@ -27,38 +27,44 @@ export const useSubmitCase = () => {
 
     locked.value = true
 
+    const statusCodeRef = ref<number | null>(null)
+    const isValidationError = computed<boolean>(() => statusCodeRef.value === 422)
+
     try {
       const { statusCode, data, error } = await useFetchWithCredentials(url).put(payload).json()
-      if (statusCode.value === 200) return undefined
+      if (statusCode.value === 200) {
+        return { data: undefined, statusCode: statusCode.value }
+      }
+
+      statusCodeRef.value = statusCode.value
       throw new Error(error?.value?.message ?? data.value?.message)
     } catch (error) {
       log(error)
-      return error as Error
+      return { data: undefined, error: { error: error as Error, isValidationError: isValidationError.value }, statusCode: statusCodeRef.value }
     } finally {
       locked.value = false
     }
   }
 
-  function showNotification({ type, error }: { type: FormSubmit; error?: Error }) {
+  async function onSubmitForm({ id, data }: { id: string; data: FormData }) {
+    const type = FormSubmitType.DRAFT
+    const { error} = await onSubmit({ id, data, type })
     if (error) {
       notification.showError({ type, error })
-    } else {
-      notification.showSuccess(type)
+      return
     }
-  }
-
-  async function onSubmitForm({ id, data }: { id: string; data: FormData }) {
-    const type = FormSubmitType.SUBMIT
-    const error = await onSubmit({ id, data, type: FormSubmitType.SUBMIT })
-    showNotification({ type, error })
-    if (error) return
-    return router.replace({ name: MY_CASES_OVERVIEW })
+    notification.showSuccess(type)
+    return router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
   }
 
   async function onSubmitDraft({ id, data }: { id: string; data: FormData }) {
     const type = FormSubmitType.DRAFT
-    const error = await onSubmit({ id, data, type: FormSubmitType.DRAFT })
-    showNotification({ type, error })
+    const { error } = await onSubmit({ id, data, type })
+    if (error) {
+      notification.showError({ type, error })
+      return
+    }
+    notification.showSuccess(type)
   }
 
   return {

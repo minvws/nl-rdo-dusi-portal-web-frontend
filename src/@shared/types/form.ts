@@ -1,5 +1,6 @@
 import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
 import type { ErrorObject } from 'ajv'
+import type { Ref } from 'vue'
 
 export type FormTitle = { title?: string }
 export type FormMetaData = Record<string, any>
@@ -45,6 +46,17 @@ export const FormSubmitType = {
 } as const
 
 export type FormSubmit = (typeof FormSubmitType)[keyof typeof FormSubmitType]
+
+export type FormSubmitError = {
+  error?: Error | undefined
+  isValidationError: boolean
+}
+
+export type FormSubmitReturnType = {
+  data: Ref<any> | undefined
+  error?: FormSubmitError
+  statusCode: number | null
+}
 
 export type FormButtonLabels = {
   start?: string

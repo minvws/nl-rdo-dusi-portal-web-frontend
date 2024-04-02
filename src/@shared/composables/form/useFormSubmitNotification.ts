@@ -1,4 +1,4 @@
-import type { FormSubmit } from '@shared/types/form'
+import type { FormSubmit, FormSubmitError } from '@shared/types/form'
 import { FormSubmitType } from '@shared/types/form'
 
 import { useI18n } from 'vue-i18n'
@@ -12,9 +12,19 @@ export const useFormSubmitNotification = () => {
   const { t } = useI18n()
   const notificationsStore = useNotificationsStore()
 
-  function setSubmitError(error?: Error) {
+  function setSubmitError(error: FormSubmitError) {
+    if (error.isValidationError) {
+      notificationsStore.add({
+        message: t('form.message.failed-validation') ?? '',
+        displayAs: 'error',
+        id: NOTIFICATION_SUBMIT_ID,
+        pageChangeCount: 1
+      })
+      return
+    }
+
     notificationsStore.add({
-      message: t('form.message.failed', { error: error?.message ?? '' }) ?? '',
+      message: t('form.message.failed', { error: error.error?.message ?? '' }) ?? '',
       displayAs: 'error',
       id: NOTIFICATION_SUBMIT_ID,
       pageChangeCount: 1
@@ -31,9 +41,18 @@ export const useFormSubmitNotification = () => {
     })
   }
 
-  function setSaveError(error?: Error) {
+  function setSaveError(error: FormSubmitError) {
+    if (error.isValidationError) {
+      notificationsStore.add({
+        message: t('form.message.save-failed-validation') ?? '',
+        displayAs: 'error',
+        id: NOTIFICATION_SAVE_ID
+      })
+      return
+    }
+
     notificationsStore.add({
-      message: t('form.message.save-failed', { error: error?.message ?? '' }) ?? '',
+      message: t('form.message.save-failed', { error: error.error?.message ?? '' }) ?? '',
       displayAs: 'error',
       id: NOTIFICATION_SAVE_ID
     })
@@ -48,8 +67,16 @@ export const useFormSubmitNotification = () => {
     })
   }
 
-  function showError({ type, error }: { type: FormSubmit; error?: Error }) {
-    type === FormSubmitType.SUBMIT ? setSubmitError(error) : setSaveError(error)
+  function showError({
+    type,
+    error,
+  }: {
+    type: FormSubmit
+    error: FormSubmitError
+  }) {
+    type === FormSubmitType.SUBMIT
+      ? setSubmitError(error)
+      : setSaveError(error)
   }
 
   function showSuccess(type: FormSubmit) {

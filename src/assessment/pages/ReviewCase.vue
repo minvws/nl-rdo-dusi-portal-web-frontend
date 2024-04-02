@@ -88,8 +88,6 @@ import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionIt
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import FormView from '@shared/components/FormView/FormView.vue'
 
-import { PREVIEW_CASE_SUBMIT } from '@assessment/router/names'
-
 type Props = {
   id: string
 }
@@ -98,7 +96,7 @@ const props = defineProps<Props>()
 
 const { t } = useI18n()
 const router = useRouter()
-const { onSubmitDraft, locked } = useSubmitCase()
+const { onSubmitDraft, onSubmitForm, locked } = useSubmitCase()
 
 const {
   data: caseData,
@@ -117,8 +115,7 @@ useSEO({ title: `${t('pages.review-case.title')} | ${t('app.prefix')}` })
 
 async function onSubmit(data: FormData): Promise<void> {
   const { id } = props
-  await onSubmitDraft({ id, data })
-  router.replace({ name: PREVIEW_CASE_SUBMIT, params: { id } })
+  await onSubmitForm({ id, data })
 }
 
 function onSave(data: FormData): void {

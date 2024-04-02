@@ -48,7 +48,7 @@
   "files": {
     "upload_failed": {
       "label": "Uploaden mislukt",
-      "message": "Er is iets mis gegaan met het uploaden van het bestand."
+      "message": "Er is iets fout gegaan met het uploaden van het bestand."
     }
   },
   "component": {
@@ -148,7 +148,7 @@
         "required-conditional": "{field} is verplicht",
         "required": "{field} is verplicht",
         "tel": "Dit is geen geldig telefoonnummer",
-        "upload": "Er is iets mis gegaan met uploaden van het bestand",
+        "upload": "Er is iets fout gegaan met uploaden van het bestand",
         "password-update": "Wachtwoord moet minimaal 12 tekens bevatten waarvan minimaal 1 hoofdletter, 1 kleine letter, 1 cijfer en 1 speciaal teken"
       },
       "passwordConfirmation": {
@@ -164,14 +164,16 @@
     },
     "message": {
       "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
-      "failed": "Er is iets mis gegaan met het verzenden van het formulier. {error}",
+      "failed": "Er is iets fout gegaan met het verzenden van het formulier. {error}",
+      "failed-validation": "Het formulier kon niet verzonden worden vanwege een foutmelding in het formulier. Controleer uw antwoorden en probeer het opnieuw.",
       "loading": "Formulier is aan het laden",
-      "loading_error": "Er is iets mis gegaan met het laden van het formulier: {error}",
-      "save-failed": "Er is iets mis gegaan met het tussentijds opslaan van het formulier",
+      "loading_error": "Er is iets fout gegaan met het laden van het formulier: {error}",
+      "save-failed": "Er is iets fout gegaan met het opslaan van het formulier.",
+      "save-failed-validation": "Het formulier kon niet opgeslagen worden vanwege een foutmelding in het formulier. Controleer uw antwoorden en probeer het opnieuw.",
       "save-success": "Formulier is opgeslagen",
       "submitting": "Formulier is bezig met verzenden",
       "subsidy_does_not_allow_multiple_applications": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
-      "subsidy_not_found": "Er is iets mis gegaan het ophalen van de regeling.",
+      "subsidy_not_found": "Er is iets fout gegaan het ophalen van de regeling.",
       "success": "Formulier is succesvol verzonden"
     }
   },

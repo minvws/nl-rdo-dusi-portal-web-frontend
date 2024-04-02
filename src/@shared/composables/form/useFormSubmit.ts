@@ -1,11 +1,13 @@
 import type { ApplicationForm } from '@shared/types/cases'
 import type { CustomFetch } from '@shared/types/fetch'
-import type { FormSubmit } from '@shared/types/form'
+import type { FormSubmit, FormSubmitError, FormSubmitReturnType } from '@shared/types/form'
 import type { Ref } from 'vue'
+
 import { CustomFetchType } from '@shared/types/fetch'
 import { FormSubmitType } from '@shared/types/form'
 import { ProjectType } from '@shared/types/project'
 
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { storeToRefs } from 'pinia'
 
@@ -30,33 +32,15 @@ type SetFetchFormResultsType = {
   error?: Ref
 }
 
-type SubmitValueType = {
-  type: FormSubmit
-  statusCode: Ref<number | null>
-  data?: Ref
-  error?: Ref
-}
-
-type SubmitValueReturnType = {
-  data: Ref<any> | undefined
-  statusCode: Ref<number | null>
-}
-
 type ShowNotificationType = {
   type: FormSubmit
-  error?: Error
+  error?: FormSubmitError
 }
 
 type SubmitType = {
   submitType: FormSubmit
   fetchType: CustomFetch
 }
-
-type SubmitReturnType = Promise<{
-  data?: any
-  error?: Error
-  statusCode?: any
-}>
 
 export const useFormSubmit = () => {
   const forms = useActiveForm()
@@ -105,7 +89,7 @@ export const useFormSubmit = () => {
     }
   }
 
-  async function onSubmit({ submitType, fetchType }: SubmitType): SubmitReturnType {
+  async function onSubmit({ submitType, fetchType }: SubmitType): Promise<FormSubmitReturnType> {
     const { method, url, ...body } = getRequest(submitType)
     const requestBody = await getRequestBody({ fetchType, body })
     const options: RequestInit = {
@@ -119,21 +103,28 @@ export const useFormSubmit = () => {
 
     forms.setSubmitting(true)
 
+    const statusCodeRef = ref<number | null>(null)
+    const isValidationError = computed<boolean>(() => statusCodeRef.value === 422)
+
     try {
-      const fetch = await useCustomFetch(fetchType, url, options).json()
-      const { data, error, statusCode } = fetch
+      const { data, error, statusCode } = await useCustomFetch(fetchType, url, options).json()
       const errorMessage = error?.value?.message ?? data.value?.message
+      statusCodeRef.value = statusCode.value
 
       setFetchFormResults({ type: submitType, data, error })
+
+      if (isValidationError.value) {
+        return { data: error, statusCode: statusCode.value, error: { isValidationError: isValidationError.value } }
+      }
 
       if (errorMessage) {
         throw new Error(errorMessage)
       }
 
-      return returnBySubmitType({ type: submitType, statusCode, data, error })
+      return { data, statusCode: statusCode.value }
     } catch (error) {
       log(error)
-      return { error: error as Error }
+      return { data: undefined, error: { error: error as Error, isValidationError: isValidationError.value }, statusCode: statusCodeRef.value }
     } finally {
       forms.setSubmitting(false)
     }
@@ -156,7 +147,13 @@ export const useFormSubmit = () => {
   }
 
   function showNotification({ type, error }: ShowNotificationType): void {
-    error ? notification.showError({ type, error }) : notification.showSuccess(type)
+    if (error) {
+      console.log('show notification', error)
+      notification.showError({ type, error })
+      return
+    }
+
+    notification.showSuccess(type)
   }
 
   function setFetchFormResults({ type, data, error }: SetFetchFormResultsType): void {
@@ -180,21 +177,6 @@ export const useFormSubmit = () => {
 
     const validationResult = error?.value?.validationResult ?? data?.value?.validationResult
     forms.setValidationResult({ validationResult })
-  }
-
-  function returnBySubmitType({
-    type,
-    statusCode,
-    data,
-    error
-  }: SubmitValueType): SubmitValueReturnType {
-    const isValidationError = statusCode.value === 422 && type === FormSubmitType.VALIDATION
-
-    if (isValidationError) {
-      return { data: error, statusCode }
-    }
-
-    return { data, statusCode }
   }
 
   async function onSubmitAction(): Promise<void> {
@@ -253,7 +235,7 @@ export const useFormSubmit = () => {
 
     await onSubmit({ submitType, fetchType })
       .then(({ statusCode }) => {
-        if (statusCode?.value === 200) {
+        if (statusCode === 200) {
           canContinueAfterValidation.value = true
           activeForm.value.index = forms.index.value + 1
         } else {
