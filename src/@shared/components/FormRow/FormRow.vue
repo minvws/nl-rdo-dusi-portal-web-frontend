@@ -139,7 +139,7 @@ export default defineComponent({
     isGroup: Boolean,
     validationResult: Array<FormValidationEntry>,
     handleChange: Function,
-    onRemoteValidation: Function
+    onValid: Function,
   },
   components: {
     FormFieldDescription,
@@ -217,7 +217,7 @@ export default defineComponent({
   methods: {
     onSuggestion({ code, value }: { code: string; value: FormValue }) {
       this.handleChange?.(code, value)
-      nextTick(() => this.onRemoteValidation?.())
+      nextTick(() => this.onValid?.())
     }
   }
 })

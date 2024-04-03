@@ -148,7 +148,7 @@ export const useCustomControlInput = ({
     updateValue('onInput')
     nextTick(() => {
       if (isValid.value) {
-        updateValue('onValid')
+        onValid()
       }
     })
   }
@@ -156,6 +156,10 @@ export const useCustomControlInput = ({
   function onBeforeChange(event: Event): void {
     error.value = null
     onChange(event)
+  }
+
+  function onValid(): void {
+    updateValue('onValid')
   }
 
   function resetError(): void {
@@ -169,6 +173,7 @@ export const useCustomControlInput = ({
     onBlur,
     onInputChange,
     onBeforeChange,
+    onValid,
     resetError
   }
 }
