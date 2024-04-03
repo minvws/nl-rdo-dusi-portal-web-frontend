@@ -23,7 +23,7 @@
     </FormRowElement>
 
     <FormRowElement
-      v-if="!hideRequiredLabel && !required && label"
+      v-if="!hideRequiredLabel && !required && !isReadonlyField && label"
       has-left
     >
       <template #right>
@@ -155,8 +155,7 @@ export default defineComponent({
       return this.isGroup ? this.labelId : undefined
     },
     className() {
-      const { appliedOptions = {} } = this
-      const { type, inline }: Options & { type?: string; inline?: boolean } = appliedOptions
+      const { type, inline } = this.rowAppliedOptions
 
       return [type ?? 'row', { inline }]
     },
@@ -191,9 +190,7 @@ export default defineComponent({
       }
     },
     fieldDescription() {
-      const { appliedOptions = {} } = this
-      const { description }: Options & { description?: string } = appliedOptions
-
+      const { description } = this.rowAppliedOptions
       return description ? this.t(description) ?? description : undefined
     },
     htmlId() {
@@ -202,17 +199,22 @@ export default defineComponent({
     inputId() {
       return this.a11yStore.getA11yInputId(this.id)
     },
+    isReadonlyField() {
+      return this.rowAppliedOptions.readonly ?? false
+    },
     role() {
       return this.isGroup ? 'group' : undefined
     },
+    rowAppliedOptions(): Options & { description?: string, inline?: boolean, readonly?: boolean, tip?: string, type?: string } {
+      return this.appliedOptions || {}
+    },
     tip() {
-      const { appliedOptions = {} } = this
-      const { tip }: Options & { tip?: string } = appliedOptions
+      const { tip } = this.rowAppliedOptions
       return tip ? this.t(tip) ?? tip : undefined
     },
     validationId() {
       return this.a11yStore.getA11yValidationId(this.id)
-    }
+    },
   },
   methods: {
     onSuggestion({ code, value }: { code: string; value: FormValue }) {
