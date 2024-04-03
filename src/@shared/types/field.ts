@@ -12,7 +12,9 @@ type FieldOptions = {
   formatMinimum?: string
   formatMaximum?: string
   updatePassword?: boolean
-  step?: string
+  step?: number
+  minimum?: number
+  maximum?: number
 }
 
 export type FieldProp = {

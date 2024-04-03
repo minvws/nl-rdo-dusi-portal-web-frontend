@@ -11,7 +11,7 @@ function truncateMaxLength(value = '', { maxLength }: FieldProp) {
 }
 
 function getDummyData(props: FieldProp): FormValue | number | undefined {
-  const { type, format, iban, file, tel, postalCode, title, enum: enums } = props
+  const { type, format, iban, file, tel, postalCode, title, enum: enums, step, minimum, maximum } = props
   if (enums) {
     return enums[0]
   }
@@ -36,7 +36,7 @@ function getDummyData(props: FieldProp): FormValue | number | undefined {
       return 'e@mail.com'
     }
     case InputType.NUMBER: {
-      return Math.PI
+      return calculateNumber(step, minimum, maximum)
     }
     case InputType.INTEGER: {
       return 42
@@ -57,13 +57,42 @@ function getDummyData(props: FieldProp): FormValue | number | undefined {
       return 4
     }
     case 'number': {
-      return Math.PI
+      return calculateNumber(step, minimum, maximum)
     }
     default: {
       log('unknown type', type)
       break
     }
   }
+}
+
+function calculateNumber(step?: number | undefined, minimum?: number | undefined, maximum?: number | undefined) {
+  if (step) {
+    return calculateNumberBasedOnSteps(step, minimum, maximum)
+  }
+
+  if (minimum && maximum) {
+    return (Math.random() * (maximum - minimum)) + minimum
+  }
+
+  return Math.PI
+}
+
+function calculateNumberBasedOnSteps(step: number, minimum?: number | undefined, maximum?: number | undefined): number {
+  minimum = minimum || 0
+  maximum = maximum || 100_000
+
+  const numSteps = Math.floor((maximum - minimum) / step) + 1
+  const value = (Math.floor(Math.random() * numSteps) * step) + minimum
+
+  const numberOfDigitsAfterDecimal = getNumberOfDigitsAfterDecimal(step)
+  return Number.parseFloat(value.toFixed(numberOfDigitsAfterDecimal))
+}
+
+function getNumberOfDigitsAfterDecimal(step: number): number {
+  const stepString = step.toString()
+  const decimalIndex = stepString.indexOf('.')
+  return decimalIndex === -1 ? 0 : stepString.length - decimalIndex - 1
 }
 
 export const useFormDummyData = () => {

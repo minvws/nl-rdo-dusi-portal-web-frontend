@@ -4,7 +4,7 @@ import { InputType } from '@shared/types/input'
 
 function getInputStep(
   { schema: { format } }: Control,
-  step: string | undefined
+  step: number | undefined
 ): string | undefined {
   if (format === InputType.INTEGER) {
     return undefined
