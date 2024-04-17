@@ -12,14 +12,10 @@ disable Vetur)
 
 ## Project Setup
 
-The project is built using [Vite](https://vitejs.dev/). It uses [Vue 3]
-(https://v3.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
+The project is built using [Vite](https://vitejs.dev/). It uses [Vue 3](https://v3.vuejs.org/) and [TypeScript](https://www.typescriptlang.org/).
 
-With Vue 3 we use the [Composition API]
-(https://v3.vuejs.org/guide/composition-api-introduction.html).
-For styling we use the [Rijksoverheid Theme]
-(https://github.com/minvws/nl-rdo-rijksoverheid-ui-theme) to ensure it matches
-the Rijksoverheid design language.
+With Vue 3 we use the [Composition API](https://v3.vuejs.org/guide/composition-api-introduction.html).
+For styling we use the [Rijksoverheid Theme](https://github.com/minvws/nl-rdo-rijksoverheid-ui-theme) to ensure it matches the Rijksoverheid design language.
 
 ## Folder structure
 
