@@ -106,7 +106,6 @@ const {
   caseDetail,
   caseReference,
   caseStage,
-  caseStageId,
   caseTitle,
   otherCases,
   lastCase
@@ -143,3 +142,21 @@ watch(
   { immediate: true }
 )
 </script>
+
+<style lang="scss" scoped>
+:deep(.form-results-table) {
+  margin-bottom: 2rem;
+
+  dl > div {
+    padding: 0.75rem 0 0.75rem 0;
+    gap: var(--form-group-gap);
+
+    > dt {
+      flex: 0.25;
+    }
+    > dd {
+      flex: 0.75;
+    }
+  }
+}
+</style>
