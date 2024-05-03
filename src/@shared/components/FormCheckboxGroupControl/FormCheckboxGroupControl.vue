@@ -28,8 +28,6 @@ import { computed } from 'vue'
 
 import { useA11yStore } from '@shared/store/useA11yStore'
 
-import { getControlId } from '@shared/utils/control'
-
 defineEmits(['change', 'focus', 'blur'])
 
 type Props = {
@@ -83,7 +81,7 @@ function onChange(event: Event): void {
     data.push(value)
   }
 
-  props.handleChange(getControlId(props.control.id), data)
+  props.handleChange(props.control.path, data)
 }
 </script>
 

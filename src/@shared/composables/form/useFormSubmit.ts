@@ -114,7 +114,11 @@ export const useFormSubmit = () => {
       setFetchFormResults({ type: submitType, data, error })
 
       if (isValidationError.value) {
-        return { data: error, statusCode: statusCode.value, error: { isValidationError: isValidationError.value } }
+        return {
+          data: error,
+          statusCode: statusCode.value,
+          error: { isValidationError: isValidationError.value }
+        }
       }
 
       if (errorMessage) {
@@ -124,7 +128,11 @@ export const useFormSubmit = () => {
       return { data, statusCode: statusCode.value }
     } catch (error) {
       log(error)
-      return { data: undefined, error: { error: error as Error, isValidationError: isValidationError.value }, statusCode: statusCodeRef.value }
+      return {
+        data: undefined,
+        error: { error: error as Error, isValidationError: isValidationError.value },
+        statusCode: statusCodeRef.value
+      }
     } finally {
       forms.setSubmitting(false)
     }
@@ -148,7 +156,6 @@ export const useFormSubmit = () => {
 
   function showNotification({ type, error }: ShowNotificationType): void {
     if (error) {
-      console.log('show notification', error)
       notification.showError({ type, error })
       return
     }
@@ -213,12 +220,12 @@ export const useFormSubmit = () => {
     showNotification({ type: submitType, error })
   }
 
-  async function onSubmitValidation(id?: string): Promise<void> {
+  async function onSubmitValidation(fieldName?: string): Promise<void> {
     const submitType = FormSubmitType.VALIDATION
     const fetchType = CustomFetchType.ENCRYPTION
 
-    if (id) {
-      forms.setIdIsValidating(id)
+    if (fieldName) {
+      forms.setFieldIsValidating(fieldName)
     }
 
     forms.setValidatingIsPending(true)

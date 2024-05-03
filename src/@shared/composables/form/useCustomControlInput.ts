@@ -7,7 +7,7 @@ import { computed, nextTick } from 'vue'
 
 import { useA11yStore } from '@shared/store/useA11yStore'
 
-import { getControlId, getInputId } from '@shared/utils/control'
+import { getControlId, getInputId } from "@shared/utils/control"
 
 // auto import from custom-input
 const customInputs = Object.values(import.meta.glob('@shared/custom-input/*.ts', { eager: true }))
@@ -33,7 +33,7 @@ type Props = {
   isFocused: Ref<boolean>
   onChange: (_event: Event) => void
   onRemoteAction: () => Promise<void>
-  onRemoteValidation: (_id?: string) => Promise<void>
+  onRemoteValidation: (_fieldName?: string) => Promise<void>
   setTouchedField: (_touched: boolean) => void
 }
 
@@ -73,7 +73,7 @@ export const useCustomControlInput = ({
       return
     }
 
-    await onRemoteValidation(controlId)
+    await onRemoteValidation(control.value.path)
 
     if (type !== 'onValid') {
       return
@@ -115,9 +115,8 @@ export const useCustomControlInput = ({
 
   function updateValue(type: ControlEvent) {
     const value = getValue(type, control.value, control.value.data)
-    const controlId = getControlId(control.value.id)
 
-    handleChange(controlId, value)
+    handleChange(control.value.path, value)
     handleRemoteAction(type)
     handleRemoteValidation(type)
   }

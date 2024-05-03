@@ -44,6 +44,7 @@ import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 type Props = {
   handleChange?: (_path: string, _value: any) => void
   id: string
+  path: string
   index: number
   labelFor: string
   disabled?: boolean
@@ -56,7 +57,7 @@ const props = defineProps<Props>()
 const emit = defineEmits(['removedFile'])
 
 const { t } = useI18n()
-const { removeFileByIdAndIndex } = useFieldFileRemove()
+const { removeFile } = useFieldFileRemove()
 
 const file = computed<FileType | undefined>(() => props.files?.[props.index])
 
@@ -67,7 +68,7 @@ const hasRemoveButton = computed<boolean>(() => !!file.value || props.index > 0)
 const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 
 function onRemoveFile(): void {
-  removeFileByIdAndIndex(props.id, props.index)
+  removeFile({ fieldName: props.path, index: props.index })
   emit('removedFile', props.index)
 }
 </script>

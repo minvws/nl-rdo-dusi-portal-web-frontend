@@ -20,16 +20,22 @@ import { useI18n } from 'vue-i18n'
 import { storeToRefs } from 'pinia'
 
 import { useAuthStore } from '@assessment/store/useAuthStore'
+import { useFormStorage } from '@shared/store/useFormStorage'
+import { usePendingFileStore } from '@shared/store/usePendingFileStore'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 
 import { LOGIN_VIEW } from '@assessment/router/names'
 
 const { t } = useI18n()
+const formStorage = useFormStorage()
+const pendingFileStorage = usePendingFileStore()
 const authStore = useAuthStore()
 const { isLoggedIn } = storeToRefs(authStore)
 
 function logOut() {
+  formStorage.clearAll()
+  pendingFileStorage.clearAll()
   authStore.logOut()
 }
 </script>

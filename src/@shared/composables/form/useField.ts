@@ -5,8 +5,8 @@ import type { FormValue } from '@shared/types/form'
 
 import { InputType } from '@shared/types/input'
 
-import { useFileStore } from '@shared/store/useFileStore'
 import { getValue } from '@shared/composables/form/useCustomControlInput'
+import { useFileField } from '@shared/composables/useFileField'
 
 function getFieldProp(control: Control) {
   switch (control.schema.type) {
@@ -22,7 +22,7 @@ function getFieldProp(control: Control) {
 type FieldChangeProps = Field & { error: Ref<ValidationError | null> }
 
 export const useFieldChange = ({ control, error }: FieldChangeProps) => {
-  const { addOrRemoveFile } = useFileStore()
+  const { addOrRemoveFile } = useFileField()
 
   function onHandleChange(target: HTMLInputElement): FormValue | undefined {
     const prop = getFieldProp(control.value)
@@ -30,8 +30,8 @@ export const useFieldChange = ({ control, error }: FieldChangeProps) => {
 
     if (control.value.schema.file) {
       // when file, add or remove from fileStore
-      const { id } = control.value
-      addOrRemoveFile({ id, target, error })
+      const { id, path: fieldName  } = control.value
+      addOrRemoveFile({ id, fieldName, error, target })
       return control.value.data
     }
 
@@ -110,10 +110,10 @@ export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement) => {
 }
 
 export const useFieldFileRemove = () => {
-  const { removeFileByIdAndIndex } = useFileStore()
+  const { removeFile } = useFileField()
 
   return {
-    removeFileByIdAndIndex
+    removeFile
   }
 }
 
@@ -126,7 +126,7 @@ type FieldProps = {
 }
 
 export const useField = ({ input, control, error, handleChange, resetError }: FieldProps) => {
-  const fileStore = useFileStore()
+  const fileField = useFileField()
 
   switch (input.type) {
     case InputType.NUMBER:
@@ -165,7 +165,7 @@ export const useField = ({ input, control, error, handleChange, resetError }: Fi
           value: undefined,
           control: control,
           error: error,
-          isPending: fileStore.isUploadPending(control.id),
+          isPending: fileField.isUploadPending(control.path),
           handleChange: handleChange,
           resetError: resetError
         },

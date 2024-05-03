@@ -15,13 +15,13 @@ export const useRemoteValidation = (
   const { data, isValidationPending } = props
   const isDataChanged = ref<boolean>(false)
 
-  async function onRemoteValidation(id?: string) {
+  async function onRemoteValidation(fieldName?: string) {
     if (isValidationPending.value || !isDataChanged.value) {
       return
     }
 
     isDataChanged.value = false
-    await onSubmitValidation(id)
+    await onSubmitValidation(fieldName)
   }
 
   watch(

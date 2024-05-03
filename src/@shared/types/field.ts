@@ -31,6 +31,7 @@ export type ControlEvent = 'onFocus' | 'onBlur' | 'onInput' | 'onChange' | 'onVa
 
 export type Control = {
   id: string
+  path: string
   data: FormValue
   schema: JsonSchema & FieldOptions
   uischema: {

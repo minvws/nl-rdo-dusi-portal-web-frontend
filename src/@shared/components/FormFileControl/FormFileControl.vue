@@ -23,6 +23,7 @@
           :files="files"
           :handle-change="handleChange"
           :id="control.id"
+          :path="control.path"
           :index="index"
           :is-pending="!!isPending?.[index]"
           :label-for="getIndexedId(index)"

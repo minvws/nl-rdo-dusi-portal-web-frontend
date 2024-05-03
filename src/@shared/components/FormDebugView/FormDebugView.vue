@@ -34,15 +34,15 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { useFileStore } from '@shared/store/useFileStore'
+import { usePendingFileStore } from '@shared/store/usePendingFileStore'
 import { useForms } from '@shared/composables/form/useForms'
 import { useFormDummyData } from '@shared/composables/form/useFormDummyData'
 
 const isVisible = ref<boolean>(false)
 const { setDummyData } = useFormDummyData()
-const fileStore = useFileStore()
+const pendingFileStore = usePendingFileStore()
 
-const { pending } = storeToRefs(fileStore)
+const { pending } = storeToRefs(pendingFileStore)
 const { data, formsData, errors, validationResult } = useForms()
 </script>
 

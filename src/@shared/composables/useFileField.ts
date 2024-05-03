@@ -4,15 +4,8 @@ import type { FileType } from '@shared/types/form'
 import type { CustomFetch } from '@shared/types/fetch'
 import { ProjectType } from '@shared/types/project'
 import { CustomFetchType } from '@shared/types/fetch'
-import { NotificationType } from '@shared/types/notification'
 
-import { ref } from 'vue'
-import { defineStore, storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
-
-import { useFormStorage } from '@shared/store/useFormStorage'
-import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useCustomFetch } from '@shared/composables/useCustomFetch'
@@ -21,128 +14,95 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { log } from '@shared/utils/logger'
-import { getControlId } from '@shared/utils/control'
 import { useA11yStore } from '@shared/store/useA11yStore'
+import { usePendingFileStore } from '@shared/store/usePendingFileStore'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
-export const useFileStore = defineStore('useFileStore', () => {
+export const useFileField = () => {
   const a11yStore = useA11yStore()
-  const notificationsStore = useNotificationsStore()
-  const formStore = useFormStorage()
   const { t } = useI18n()
   const form = useForms()
-  const router = useRouter()
   const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()
+  const { setPending, getPending, clearPending } = usePendingFileStore()
 
-  const { storage } = storeToRefs(formStore)
+  const { activeForm, activeFormId, activeInputStageForm, reference, setFormData } = form
 
-  const { activeForm, activeFormId, activeInputStageForm, reference } = form
-  const { currentRoute } = router
+  type FileFieldProps = {
+    fieldName: string
+    index: number
+  }
 
-  const pending = ref<Record<string, Record<string, boolean[]>>>({})
-
-  type AddFileProps = {
+  type AddFileProps = FileFieldProps & {
     file: File
     id: string
-    index: number
-    name: string
     error?: Ref<ValidationError | null>
   }
 
   type AddOrRemoveFileProps = {
     id: string
+    fieldName: string
     error?: Ref<ValidationError | null>
     target?: HTMLInputElement
   }
 
-  type SaveFileProps = {
+  type SaveFileProps = FileFieldProps & {
     errorRef?: Ref<ValidationError | null>
-    fieldName: string
     fieldId: string
     file: File
-    index: number
   }
 
-  type FileUploadProps = {
+  type FileUploadProps = FileFieldProps & {
     data: { id: string }
-    fieldName: string
     file: File
-    index: number
   }
 
-  async function addFile({ file, id, index, name, error }: AddFileProps): Promise<void> {
+  async function addFile({ file, id, index, fieldName, error }: AddFileProps): Promise<void> {
     const fieldId = a11yStore.getA11yInputId(id, index)
     const formId = activeFormId.value
 
-    // initialize pending state
-    if (pending.value[formId] === undefined) {
-      pending.value[formId] = {}
-    }
+    setPending({ formId, fieldName }, index)
 
-    const pendingState = pending.value[formId]
-    const filesPending = [...(pendingState?.[name] || [])]
-
-    filesPending[index] = true
-    pendingState[name] = filesPending
-
-    await saveFile({ fieldName: name, fieldId, file, index, errorRef: error })
+    await saveFile({ fieldName, fieldId, file, index, errorRef: error })
       .catch(() => {
         // Removes the last successful file if there was one on that field
-        removeFileByIdAndIndex(id, index)
+        removeFile({fieldName, index})
       })
       .finally(() => {
         if (isPortal) {
-          const name = getControlId(id)
           // TODO: Only do submit validation if really needed ...
-          onSubmitValidation(name)
+          onSubmitValidation(fieldName)
         }
       })
 
-    pendingState[name][index] = false
+    clearPending({ formId, fieldName }, index)
   }
 
-  function addOrRemoveFile({ id, error, target }: AddOrRemoveFileProps): void {
+  function addOrRemoveFile({ id, fieldName, error, target }: AddOrRemoveFileProps): void {
     const file = target?.files?.[0]
     const index = Number.parseInt(target?.dataset.index || '0', 10)
 
     if (file) {
-      const name = getControlId(id)
-      addFile({ error, file, id, index, name })
+      addFile({ error, file, id, index, fieldName })
     } else {
-      removeFileByIdAndIndex(id, index)
+      removeFile({ fieldName, index })
     }
   }
 
-  function removeFileByIdAndIndex(id: string, index: number): void {
-    const name = getControlId(id)
-    removeFile(name, index)
-  }
-
-  function clear(id: string): void {
-    delete pending.value[id]
-  }
-
-  function clearAll() {
-    pending.value = {}
-  }
-
-  function isUploadPending(id: string): boolean[] {
-    const formId = form.activeForm.value?.id
+  function isUploadPending(fieldName: string): boolean[] {
+    const formId = activeForm.value?.id
     if (!formId) {
       return []
     }
-
-    const name = getControlId(id)
-    return pending.value[activeFormId.value]?.[name]
+    return getPending({ formId, fieldName })
   }
 
-  function removeFile(name: string, index = 0): void {
-    onFileRemoved({ fieldName: name, index })
+  function removeFile({ fieldName, index = 0}: FileFieldProps): void {
+    onFileRemoved({ fieldName, index })
     if (isPortal) {
-      onSubmitValidation(name) // TODO: Only run validation if really needed ...
+      onSubmitValidation(fieldName) // TODO: Only run validation if really needed ...
     }
   }
 
@@ -193,10 +153,8 @@ export const useFileStore = defineStore('useFileStore', () => {
   }
 
   function onFileUploaded({ data, fieldName, file, index }: FileUploadProps): void {
-    const { index: formIndex } = form
-    const activeForm = storage.value[activeFormId.value]
-    const currentFormData = activeForm.data[formIndex.value] || {}
-    const target = (currentFormData[fieldName] as FileType[]) || []
+    const formData = form.data.value
+    const target = (formData[fieldName] as FileType[]) || []
 
     const { type: mimeType, name } = file
 
@@ -207,27 +165,30 @@ export const useFileStore = defineStore('useFileStore', () => {
     }
 
     const updatedFormData = {
-      ...currentFormData,
+      ...formData,
       [fieldName]: target
     }
 
-    activeForm.data[formIndex.value] = updatedFormData
+    setFormData(updatedFormData)
   }
 
   function onFileRemoved({ fieldName, index }: { fieldName: string; index: number }): void {
-    const { index: formIndex } = form
-    const activeForm = storage.value[activeFormId.value]
-    const currentFormData = activeForm.data[formIndex.value] || {}
-    const target = (currentFormData[fieldName] as FileType[]) || []
+    const formData = form.data.value
+    const target = (formData[fieldName] as (FileType | undefined)[]) || []
 
-    target.splice(index, 1)
+    if (target.length > index + 1) {
+      // clear the file from list but keep the index
+      target[index] = undefined
+    } else {
+      target.splice(index, 1)
+    }
 
     const updatedFormData = {
-      ...currentFormData,
+      ...formData,
       [fieldName]: target
     }
 
-    activeForm.data[formIndex.value] = updatedFormData
+    setFormData(updatedFormData)
   }
 
   function getId(): string | undefined {
@@ -258,10 +219,7 @@ export const useFileStore = defineStore('useFileStore', () => {
   return {
     addFile,
     addOrRemoveFile,
-    clear,
-    clearAll,
     isUploadPending,
-    pending,
-    removeFileByIdAndIndex
+    removeFile
   }
-})
+}

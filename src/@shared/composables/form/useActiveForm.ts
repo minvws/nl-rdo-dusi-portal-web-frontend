@@ -5,13 +5,14 @@ import type {
   FormData,
   FormError,
   FormErrors,
-  FormValidationResult
+  FormValidationResult,
+  FormViewProps
 } from '@shared/types/form'
 import { FormUiType } from '@shared/types/form'
 import type { FieldProp } from '@shared/types/field'
 import type { StoredForm } from '@shared/store/useFormStorage'
 
-import { computed, inject, onMounted, ref, watch } from 'vue'
+import { computed, inject, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 
 import { useFormStorage } from '@shared/store/useFormStorage'
@@ -31,23 +32,18 @@ type SetFormsProps = {
 }
 
 export const useActiveForm = () => {
-  const formProps = inject('form') as {
-    id: string
-    hideRequiredLabel?: boolean
-  }
+  const formProps = inject('form') as FormViewProps
 
   const formStorage = useFormStorage()
   const { formIds, storage } = storeToRefs(formStorage)
 
-  const activeFormErrors = ref<FormErrors>([])
-
-  onMounted(() => (activeFormErrors.value = activeForm.value?.errors ?? []))
-
-  const activeForm = computed<StoredForm>(() => formStorage.get(formId.value))
-
   const activeFormId = computed<string>(() => {
     return formIds.value[formIds.value.length - 1]
   })
+
+  const activeForm = computed<StoredForm>(() => storage.value[formId.value])
+
+  const activeFormErrors = computed<FormErrors>(() => activeForm.value?.errors ?? [])
 
   const activeInputStage = computed<StoredForm | undefined>(() =>
     Object.values(storage.value).find((form) =>
@@ -157,10 +153,10 @@ export const useActiveForm = () => {
 
   function setValidatingIsPending(isPending: boolean) {
     formStorage.update(formId.value, { isValidationPending: isPending })
-    if (!isPending) setIdIsValidating()
+    if (!isPending) setFieldIsValidating()
   }
 
-  function setIdIsValidating(validationId?: string) {
+  function setFieldIsValidating(validationId?: string) {
     formStorage.update(formId.value, { validationId })
   }
 
@@ -319,7 +315,7 @@ export const useActiveForm = () => {
     setFormData,
     setForms,
     setFormStep,
-    setIdIsValidating,
+    setFieldIsValidating,
     setSubmitting,
     setValidatingIsPending,
     setValidationResult,
