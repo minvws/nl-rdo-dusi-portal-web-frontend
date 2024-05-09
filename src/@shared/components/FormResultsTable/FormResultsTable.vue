@@ -4,6 +4,7 @@
       <DescriptionList
         v-if="items.length"
         :items="items"
+        :show-borders="showBorders"
       />
       <FormNotification
         v-else
@@ -53,6 +54,12 @@ export default defineComponent({
     }
   },
   computed: {
+    showEmptyFields(): boolean {
+      return !!this.appliedOptions.showEmptyFields || false
+    },
+    showBorders(): boolean {
+      return this.appliedOptions.showBorders !== false;
+    },
     fields(): [string, string][] {
       return (Object.entries(this.appliedOptions.fields) as [string, string][]) ?? []
     },
@@ -84,12 +91,12 @@ export default defineComponent({
         return undefined
       }
 
-      const { matches, text, field, files } = result
+      const { text, field, files, type } = result
       const formId = isPortal ? `${this.formId}` : `${this.applicationId}/stages/${this.stageId}`
 
-      if (files) {
+      if (type === DescriptionListDetailsFieldType.FILE) {
         return {
-          type: DescriptionListDetailsFieldType.FILE,
+          type,
           field,
           term,
           files,
@@ -97,17 +104,19 @@ export default defineComponent({
         }
       }
 
-      const type = this.getItemType(matches)
       return { term, type, text }
     },
-    getItemType(keys: string[]): DescriptionListDetailsType {
+    getItemTypeForKeys(keys: string[]): DescriptionListDetailsType {
       if (keys.length > 1) {
         // items consists of more than one field, print as string
         return DescriptionListDetailsFieldType.STRING
       }
 
+      return this.getItemType(keys[0])
+    },
+    getItemType(fieldName: string): DescriptionListDetailsType {
       const properties = this.getAllProperties()
-      const field = properties?.[keys[0]]
+      const field = properties?.[fieldName]
 
       const format = field?.file
         ? DescriptionListDetailsFieldType.FILE
@@ -117,16 +126,18 @@ export default defineComponent({
       const validFormat = supportedFormats.includes(format)
       return validFormat ? format : DescriptionListDetailsFieldType.STRING
     },
+
     replaceTemplateWithData(template: string, formData: FormData) {
       let matches: string[] = []
       let text: string = template
       const regex = /\{([a-zA-Z]+)\}/g
       const result = [...template.matchAll(regex)]
 
-      // Will become true if there is any data for this template.
+      // Will become true if there is any data for this template,
+      // Or if the showEmptyFields option is set to true
       // If there is no date, return undefined, so empty values
       // will not be shown in the table
-      let hasValue = false
+      let showField = this.showEmptyFields
 
       while (result.length > 0) {
         const match = result.shift()
@@ -134,25 +145,33 @@ export default defineComponent({
         const field = match[1]
         matches.push(field)
 
-        const target = formData[field]
-        const isArray = Array.isArray(target)
+        let fieldValue = formData[field]
+        const fieldValueIsArray = Array.isArray(fieldValue)
 
-        if (isArray) {
-          return {
-            field,
-            files: target as FileType[],
-            matches
+        if (fieldValueIsArray) {
+          const type = this.getItemType(field)
+          if (type === DescriptionListDetailsFieldType.FILE) {
+            return {
+              field,
+              files: fieldValue as FileType[],
+              matches,
+              type
+            }
           }
+
+          fieldValue = (fieldValue as string[]).join(', ')
         }
 
-        if (!hasValue && formData[field] !== undefined) {
-          hasValue = true
+        if (fieldValue !== undefined) {
+          showField = true
         }
 
-        text = text.replace(`{${field}}`, `${formData[field] ?? ''}`)
+        text = text.replace(`{${field}}`, `${fieldValue ?? ''}`)
       }
 
-      return hasValue ? { matches, text } : undefined
+      const type = this.getItemTypeForKeys(matches)
+
+      return showField ? { matches, text, type } : undefined
     }
   },
   setup(props) {

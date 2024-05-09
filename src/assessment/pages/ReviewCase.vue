@@ -145,12 +145,9 @@ watch(
 
 <style lang="scss" scoped>
 :deep(.form-results-table) {
-  margin-bottom: 2rem;
+  --description-list-item-gap: var(--form-group-gap);
 
   dl > div {
-    padding: 0.75rem 0 0.75rem 0;
-    gap: var(--form-group-gap);
-
     > dt {
       flex: 0.25;
     }
