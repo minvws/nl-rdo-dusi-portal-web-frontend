@@ -68,7 +68,7 @@ export const useFileField = () => {
     await saveFile({ fieldName, fieldId, file, index, errorRef: error })
       .catch(() => {
         // Removes the last successful file if there was one on that field
-        removeFile({fieldName, index})
+        removeFile({fieldName, index}, true)
       })
       .finally(() => {
         if (isPortal) {
@@ -99,8 +99,8 @@ export const useFileField = () => {
     return getPending({ formId, fieldName })
   }
 
-  function removeFile({ fieldName, index = 0}: FileFieldProps): void {
-    onFileRemoved({ fieldName, index })
+  function removeFile({ fieldName, index = 0}: FileFieldProps, hasError: boolean = false): void {
+    onFileRemoved({ fieldName, index }, hasError)
     if (isPortal) {
       onSubmitValidation(fieldName) // TODO: Only run validation if really needed ...
     }
@@ -172,12 +172,14 @@ export const useFileField = () => {
     setFormData(updatedFormData)
   }
 
-  function onFileRemoved({ fieldName, index }: { fieldName: string; index: number }): void {
+  function onFileRemoved({ fieldName, index }: FileFieldProps, hasError: boolean = false): void {
     const formData = form.data.value
     const target = (formData[fieldName] as (FileType | undefined)[]) || []
+    if (target.length <= index) {
+      return;
+    }
 
-    if (target.length > index + 1) {
-      // clear the file from list but keep the index
+    if (target.length === 1 || hasError) {
       target[index] = undefined
     } else {
       target.splice(index, 1)
