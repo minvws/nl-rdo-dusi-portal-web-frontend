@@ -162,6 +162,14 @@
         "error": {
           "format": "Voer een geldig e-mailadres in"
         }
+      },
+      "file": {
+        "error": {
+          "contains": "",
+          "minItems": "{field} moet minimaal één bestand bevatten|{field} moet minimaal {minItems} bestanden bevatten",
+          "maxItems": "{field} mag maximaal één bestand bevatten|{field} mag maximaal {maxItems} bestanden bevatten",
+          "required": "{field} is verplicht"
+        }
       }
     },
     "message": {

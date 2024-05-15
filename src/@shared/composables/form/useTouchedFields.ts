@@ -14,7 +14,10 @@ export const useTouchedFields = ({ activeForm }: { activeForm: ComputedRef<{ id:
   }
 
   function setTouchedField(id: string, formId: string, value: boolean): void {
-    touched.value[formId] ? (touched.value[formId][id] = value) : (touched.value[formId] = {})
+    if (!touched.value[formId]) {
+      touched.value[formId] = {}
+    }
+    touched.value[formId][id] = value
   }
 
   function clearTouchedFields(id?: string): void {

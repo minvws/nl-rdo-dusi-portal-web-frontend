@@ -15,19 +15,33 @@ function getProps(form: any, context: any) {
     form.getScopedElement(property)?.label
 
   const field = title ?? property
-  const isBoolean = errorContext?.parentSchema?.properties?.[property]?.type === 'boolean'
+  const isBooleanField = errorContext?.parentSchema?.properties?.[property]?.type === 'boolean'
   const schema = context?.schema ?? form.schema?.value.properties[property]
 
-  return { ...schema, field, isBoolean }
+  const isFileField = schema?.file || false
+  const pluralNumber = typeof errorContext?.schema === 'number' ? errorContext?.schema : 1
+
+  return { ...schema, field, isBooleanField, isFileField, pluralNumber }
 }
 
 export const useI18n = () => {
   const form = useForms()
 
   function formsTranslate(id: string, defaultMessage?: string, context?: any): string | undefined {
-    const { isBoolean, ...props } = getProps(form, context)
-    const type = isBoolean ? '-boolean' : ''
+    if (!context?.error) {
+      // if no error, return default message
+      // currently we only translate errors
+      return defaultMessage
+    }
+
+    const { isBooleanField, isFileField, pluralNumber, ...props } = getProps(form, context)
+    const type = isBooleanField ? '-boolean' : ''
     let error = `${id}${type}`
+
+    if (isFileField) {
+      // custom error messages for file inputs
+      return t(`form.fields.file.${error}`, props, pluralNumber)
+    }
 
     if (error === 'error.minLength' && props.minLength === props?.maxLength) {
       // when minLength and maxLength are the same,
@@ -39,6 +53,7 @@ export const useI18n = () => {
   }
 
   return {
+    locale: 'nl',
     translate: formsTranslate
   } as JsonFormsI18nState
 }
