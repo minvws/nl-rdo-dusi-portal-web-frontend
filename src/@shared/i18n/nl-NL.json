@@ -140,6 +140,8 @@
         "length": "{field} bestaat uit {maxLength} karakters",
         "maxFileSize": "Bestand is groter dan {maxFileSize}",
         "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
+        "minimum": "{field} moet groter of gelijk zijn aan {minimum}",
+        "maximum": "{field} moet lager of gelijk zijn aan {maximum}",
         "minLength": "{field} bestaat uit minimaal {minLength} karakters",
         "minItems": "{field} moet minimaal één item bevatten|{field} moet minimaal {minItems} items bevatten",
         "optional": "{field} is optioneel",
