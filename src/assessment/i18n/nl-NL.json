@@ -137,6 +137,9 @@
       "internalNote": "Notitie",
       "updated_at": "Datum en tijd"
     },
+    "formResultsTable": {
+      "noData": "Geen gegevens om te tonen."
+    },
     "ibanCheck": {
       "ariaResults": "Resultaten voor de geselecteerde subsidie '{subsidy}' bevinden zich hieronder.",
       "ariaNoResults": "Er zijn geen resultaten voor de geselecteerde subsidie.",
