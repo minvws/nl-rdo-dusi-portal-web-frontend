@@ -68,7 +68,10 @@
         {{ t('component.requestSteps.payout') }}
       </template>
       <template #content>
-        <p>{{ t('component.requestSteps.payoutDecision') }}</p>
+        <AppHtml
+          as="p"
+          :html="t(`component.requestSteps.step_3.${status}`)"
+        />
         <AppHtml
           as="p"
           :html="t('component.requestSteps.noAction')"

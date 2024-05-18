@@ -62,12 +62,14 @@
         "allocated": "Uw aanvraag is toegekend. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
         "approved": "Uw aanvraag is toegekend.",
         "pending": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.<br/><br/>De uiterste behandeldatum is <em>{date}</em>.<br/><br/><strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
+        "reclaimed": "Uw aanvraag is gevorderd.",
         "rejected": "Uw aanvraag is afgewezen."
       },
       "step_3": {
         "allocated": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
         "approved": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening.",
         "pending": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening.",
+        "reclaimed": "Uw aanvraag is gevorderd.",
         "rejected": "Uw aanvraag is afgewezen."
       },
       "submitDate": "Datum indiening: <em>{date}</em>"
@@ -185,40 +187,6 @@
     },
     "my-messages-overview-page": {
       "title": "Mijn berichten"
-    }
-  },
-  "requestStatus": {
-    "status": {
-      "allocated": "Toegewezen",
-      "approved": "Goedgekeurd",
-      "draft": "Nog niet ingediend",
-      "pending": "In behandeling",
-      "rejected": "Afgekeurd",
-      "requestForChanges": "Aanvulling nodig"
-    },
-    "action": {
-      "allocated": "Nee",
-      "approved": "Nee",
-      "draft": "Ja",
-      "pending": "Nee",
-      "rejected": "Nee",
-      "requestForChanges": "Ja"
-    },
-    "cases": {
-      "allocated": "Open zaak",
-      "approved": "Open zaak",
-      "draft": "Open zaak",
-      "pending": "Open zaak",
-      "rejected": "Open zaak",
-      "requestForChanges": "Open zaak"
-    },
-    "route": {
-      "allocated": "Bekijk aanvraag",
-      "approved": "Bekijk aanvraag",
-      "draft": "Open aanvraag",
-      "pending": "Bekijk aanvraag",
-      "rejected": "Bekijk aanvraag",
-      "requestForChanges": "Open aanvraag"
     }
   }
 }

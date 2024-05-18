@@ -201,5 +201,43 @@
     "privacy": {
       "title": "Privacyverklaring"
     }
+  },
+  "requestStatus": {
+    "status": {
+      "allocated": "Toegewezen",
+      "approved": "Goedgekeurd",
+      "draft": "Nog niet ingediend",
+      "pending": "In behandeling",
+      "reclaimed": "Gevorderd",
+      "rejected": "Afgekeurd",
+      "requestForChanges": "Aanvulling nodig"
+    },
+    "action": {
+      "allocated": "Nee",
+      "approved": "Nee",
+      "draft": "Ja",
+      "pending": "Nee",
+      "reclaimed": "Nee",
+      "rejected": "Nee",
+      "requestForChanges": "Ja"
+    },
+    "cases": {
+      "allocated": "Open zaak",
+      "approved": "Open zaak",
+      "draft": "Open zaak",
+      "pending": "Open zaak",
+      "reclaimed": "Open zaak",
+      "rejected": "Open zaak",
+      "requestForChanges": "Open zaak"
+    },
+    "route": {
+      "allocated": "Bekijk aanvraag",
+      "approved": "Bekijk aanvraag",
+      "draft": "Open aanvraag",
+      "pending": "Bekijk aanvraag",
+      "reclaimed": "Bekijk aanvraag",
+      "rejected": "Bekijk aanvraag",
+      "requestForChanges": "Open aanvraag"
+    }
   }
 }

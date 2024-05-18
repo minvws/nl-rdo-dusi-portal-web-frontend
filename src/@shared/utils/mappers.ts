@@ -34,15 +34,17 @@ export const statusToStep: Record<string, number> = {
   [Status.DRAFT]: 1,
   [Status.PENDING]: 1,
   [Status.REJECTED]: 3,
+  [Status.RECLAIMED]: 3,
   [Status.REQUEST_CHANGES]: 1
 }
 
 export const statusToIcon: Record<string, string> = {
-  [Status.ALLOCATED]: '',
+  [Status.ALLOCATED]: 'confirmation',
   [Status.APPROVED]: 'confirmation',
   [Status.DRAFT]: 'warning',
   [Status.PENDING]: '',
   [Status.REJECTED]: 'error',
+  [Status.RECLAIMED]: 'error',
   [Status.REQUEST_CHANGES]: 'warning'
 }
 
@@ -51,6 +53,7 @@ export const caseStatusToRouteName: Record<string, string> = {
   [Status.APPROVED]: REVIEW_CASE,
   [Status.DRAFT]: REVIEW_CASE,
   [Status.PENDING]: REVIEW_CASE,
+  [Status.RECLAIMED]: REVIEW_CASE,
   [Status.REJECTED]: REVIEW_CASE,
   [Status.REQUEST_CHANGES]: REVIEW_CASE
 }
@@ -60,6 +63,7 @@ export const requestStatusToRouteName: Record<string, string> = {
   [Status.APPROVED]: MY_REQUEST_STATUS,
   [Status.DRAFT]: MY_REQUEST_EDIT,
   [Status.PENDING]: MY_REQUEST_STATUS,
+  [Status.RECLAIMED]: MY_REQUEST_STATUS,
   [Status.REJECTED]: MY_REQUEST_STATUS,
   [Status.REQUEST_CHANGES]: MY_REQUEST_EDIT
 }

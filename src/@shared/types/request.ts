@@ -2,8 +2,8 @@ export const RequestStatus = {
   ALLOCATED: 'allocated',
   APPROVED: 'approved',
   DRAFT: 'draft',
-  IN_PROGRESS: 'in_progress',
   PENDING: 'pending',
+  RECLAIMED: 'reclaimed',
   REJECTED: 'rejected',
   REQUEST_CHANGES: 'requestForChanges'
 } as const
