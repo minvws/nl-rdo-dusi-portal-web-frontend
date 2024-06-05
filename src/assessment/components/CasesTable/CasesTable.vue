@@ -47,14 +47,13 @@ const { t } = useI18n()
 const headings = computed<Column[]>(() => {
   const items = [
     { id: 'case', sortable: false },
+    { id: 'action', sortable: false },
     { id: 'file', sortable: false },
-    { id: 'arrangement', sortable: false },
     { id: 'stage_title', sortable: false },
     { id: 'status', sortable: false },
     { id: 'final_review_deadline', sortable: true },
     { id: 'updated_at', sortable: true },
-    { id: 'reviewer', sortable: false },
-    { id: 'action', sortable: false }
+    { id: 'reviewer', sortable: false }
   ].filter(({ id }) => !!hasItems(props.data, id)) as Column[]
 
   return items.map(({ id, ...item }) => ({

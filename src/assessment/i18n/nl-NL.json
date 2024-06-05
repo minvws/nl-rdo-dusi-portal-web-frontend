@@ -345,8 +345,8 @@
   "reviewerAction": {
     "allocated": "Toegewezen",
     "assign": "Toekennen",
-    "show": "Open zaak",
-    "claim": "Pak op",
-    "release": "Zaak loslaten"
+    "show": "Openen",
+    "claim": "Oppakken",
+    "release": "Loslaten"
   }
 }

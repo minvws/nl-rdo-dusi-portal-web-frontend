@@ -222,13 +222,13 @@
       "requestForChanges": "Ja"
     },
     "cases": {
-      "allocated": "Open zaak",
-      "approved": "Open zaak",
-      "draft": "Open zaak",
-      "pending": "Open zaak",
-      "reclaimed": "Open zaak",
-      "rejected": "Open zaak",
-      "requestForChanges": "Open zaak"
+      "allocated": "Openen",
+      "approved": "Openen",
+      "draft": "Openen",
+      "pending": "Openen",
+      "reclaimed": "Openen",
+      "rejected": "Openen",
+      "requestForChanges": "Openen"
     },
     "route": {
       "allocated": "Bekijk aanvraag",
