@@ -205,11 +205,11 @@
   "requestStatus": {
     "status": {
       "allocated": "Toegewezen",
-      "approved": "Goedgekeurd",
+      "approved": "Toegekend",
       "draft": "Nog niet ingediend",
       "pending": "In behandeling",
       "reclaimed": "Gevorderd",
-      "rejected": "Afgekeurd",
+      "rejected": "Afgewezen",
       "requestForChanges": "Aanvulling nodig"
     },
     "action": {
