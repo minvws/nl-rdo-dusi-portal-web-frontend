@@ -51,8 +51,7 @@
               v-for="column in columns"
               :key="column.id"
             >
-              <td :class="item[column.id].icon ? item[column.id].icon : null">
-                <span v-if="item[column.id].icon" />
+              <td>
                 <a
                   v-if="isExternalLink(item[column.id])"
                   :href="item[column.id].to"
@@ -92,6 +91,9 @@
                     </RouterLink>
                     <template v-if="index !== item[column.id].list.length - 1">, </template>
                   </template>
+                </template>
+                <template v-else-if="item[column.id].icon">
+                  <p :class="item[column.id].icon"><span/>{{ item[column.id].text }}</p>
                 </template>
                 <template v-else>
                   {{ item[column.id].text }}
@@ -231,31 +233,25 @@ th .button:only-child {
   );
 }
 
-// we need to overwrite the 'notification' class styles...
 .error,
 .confirmation,
 .warning {
-  display: flex;
-  justify-content: flex-start;
-  background-color: transparent;
+  --notification-background-color: transparent;
+  --notification-error-background-color: transparent;
+  --notification-confirmation-background-color: transparent;
+  --notification-warning-background-color: transparent;
 
-  span {
-    display: flex;
-    align-items: center;
-    padding-left: 0;
-  }
+  --notification-paragraph-padding-top: 0;
+  --notification-paragraph-padding-right: 0;
+  --notification-paragraph-padding-bottom: 0;
+  --notification-paragraph-padding-left: 0;
 
-  span::before {
-    top: 0;
-    margin-left: 0;
-  }
-}
+  --notification-border-width: 0;
+  --notification-error-border-width: 0;
+  --notification-confirmation-border-width: 0;
+  --notification-warning-border-width: 0;
 
-.error {
-  color: var(--notification-error-color-intense, #d52a1e);
-}
-
-.confirmation {
-  color: var(--notification-success-color-intense, #348834);
+  --notification-error-text-color: var(--notification-error-color, #d52a1e);
+  --notification-confirmation-text-color: var(--notification-success-color, #348834);
 }
 </style>
