@@ -34,7 +34,7 @@
         </p>
         <AppHtml
           as="p"
-          :html="t('component.requestSteps.customerSatisfactionLink', { referenceCode })"
+          :html="t('component.requestSteps.customerSatisfactionLink', { customerStatisfactionRel, customerStatisfactionHref, referenceCode })"
         />
       </template>
     </AppAccordionItem>
@@ -86,6 +86,7 @@ import type { RouteLocationRaw } from 'vue-router'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { externalUrls } from '@shared/external-links'
 
 import AppAccordion from '@shared/components/AppAccordion/AppAccordion.vue'
 import AppAccordionItem from '@shared/components/AppAccordionItem/AppAccordionItem.vue'
@@ -118,4 +119,7 @@ const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 const respondDate = computed<string>(() => formatDate(props.deadlineForResponseAt, locale.value))
 
 const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
+
+const customerStatisfactionHref = externalUrls.customerStatisfaction.href
+const customerStatisfactionRel = externalUrls.customerStatisfaction.rel
 </script>
