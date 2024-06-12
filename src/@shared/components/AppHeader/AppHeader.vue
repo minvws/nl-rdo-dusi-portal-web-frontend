@@ -78,11 +78,14 @@ import NotificationCounter from '@shared/components/NotificationCounter/Notifica
 import NavLink from '@shared/components/NavLink/NavLink.vue'
 
 import vCollapsible from '@shared/directives/collapsible'
+import { ProjectType } from '@shared/types/project'
+
+const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 const { t } = useI18n()
 const { breadcrumbs } = useBreadcrumbs()
 const { leftLinks, rightLinks, AuthComponent, UserComponent } = await useAppHeaderLinks()
-const actionsStore = useActionsStore()
+const actionStore = useActionsStore()
 const authStore = useAuthStore()
 const { isLoggedIn } = storeToRefs(authStore)
 
@@ -91,7 +94,9 @@ watch(isLoggedIn, (isLoggedIn) => {
     return
   }
 
-  actionsStore.getActionsCount()
+  if (isPortal) {
+    actionStore.getActionsCount()
+  }
 })
 </script>
 
