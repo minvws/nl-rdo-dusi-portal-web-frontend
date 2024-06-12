@@ -68,4 +68,8 @@ dl > div {
     background-color: transparent;
   }
 }
+
+dd {
+  white-space: break-spaces;
+}
 </style>
