@@ -1,10 +1,18 @@
 import type { AssessmentsData, RawAssessmentData } from '@shared/types/assessment'
 import type { CaseHistory, CaseHistoryItem, RawCaseHistory } from '@shared/types/case-history'
-import type { ConceptData, RawConceptData } from '@shared/types/concept'
+import type {
+  SubsidyOverviewData,
+  RawSubsidyOverviewData
+} from '@shared/types/subsidy-overview'
 import type { IbanCheck, IbanCheckItem, RawIbanCheck } from '@shared/types/iban-check'
 import type { MessagesData, RawMessagesData, RawMessagesItem } from '@shared/types/messages'
 import type { RawPaginationMetaData, PaginationMetaData } from '@shared/types/pagination'
-import type { RequestData, RawRequestData } from '@shared/types/request'
+import type {
+  RequestData,
+  RawRequestData,
+  RawRequestItem,
+  RequestItem
+} from '@shared/types/request'
 import type { ReviewerAction } from '@shared/types/reviewer'
 
 import { MY_MESSAGE_DETAILS } from '@portal/router/names'
@@ -34,41 +42,37 @@ import { MY_CASE_DETAILS } from '@assessment/router/names'
  * @returns {RequestData} data
  */
 export function transformRequestsData(data: RawRequestData): RequestData {
-  return data.items.map(({ deadlineForResponseAt, reference, status, subsidy, submittedAt }) => ({
-    ...setSubsidy(subsidy.pageUrl, subsidy.title),
-    ...setFile(reference),
-    ...setRequestStatus(status),
-    ...setFinalReviewDeadline(deadlineForResponseAt),
-    ...setCreated(submittedAt),
-    ...setActionRequired(status),
-    ...setRequestAction(reference, status)
-  }))
+  return data.items.map(mapRequestData)
 }
 
 /**
- * Transforms the 'all concepts' data from the API to a format that we can use.
+ * Transforms the 'subsidy overview' data from the API to a format that we can use.
  *
- * @param {RawConceptData} data
- * @returns {ConceptData} data
+ * @param {RawSubsidyOverviewData} data
+ * @returns {SubsidyOverviewData} data
  */
-export function transformConceptsData(data: RawConceptData): ConceptData {
-  const concepts = data.concepts.map(
-    ({ createdAt, expiresAt, reference, status, subsidyCode, updatedAt }) => ({
-      ...setSubsidy(data.subsidy.pageUrl, subsidyCode),
-      ...setFile(reference),
-      ...setRequestStatus(status),
-      ...setFinalReviewDeadline(expiresAt),
-      ...setCreated(createdAt),
-      ...setUpdatedAt(updatedAt),
-      ...setActionRequired(status),
-      ...setRequestAction(reference, status)
-    })
-  )
+export function transformSubsidyOverviewApplicationsData(data: RawSubsidyOverviewData): SubsidyOverviewData {
+  const applications = data.applications.map(mapRequestData)
 
   return {
     subsidy: data.subsidy,
     newConceptAllowed: data.newConceptAllowed,
-    concepts
+    hasApprovedApplication: data.hasApprovedApplication,
+    hasRejectedApplication: data.hasRejectedApplication,
+    applications
+  }
+}
+
+function mapRequestData({ finalReviewDeadline, reference, status, subsidy, updatedAt, submittedAt }: RawRequestItem): RequestItem  {
+  return {
+    ...setSubsidy(subsidy.pageUrl, subsidy.title),
+    ...setFile(reference),
+    ...setRequestStatus(status),
+    ...setFinalReviewDeadline(finalReviewDeadline),
+    ...setCreated(submittedAt),
+    ...setUpdatedAt(updatedAt),
+    ...setActionRequired(status),
+    ...setRequestAction(reference, status)
   }
 }
 
@@ -226,7 +230,7 @@ function setStageTitle(text: string) {
   })
 }
 
-function setFinalReviewDeadline(date: string) {
+function setFinalReviewDeadline(date: string | null) {
   return createSet('final_review_deadline', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'
@@ -240,7 +244,7 @@ function setUpdatedAt(date: string) {
   })
 }
 
-function setCreated(date: string) {
+function setCreated(date: string | null) {
   return createSet('created', {
     type: TableDataType.DATE,
     text: date ? formatDate(date, 'nl-NL') : '-'

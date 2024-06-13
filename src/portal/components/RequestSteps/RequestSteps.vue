@@ -98,7 +98,7 @@ import { MY_REQUEST_DETAILS } from '@portal/router/names'
 import { formatDate } from '@shared/utils/date'
 
 type Props = {
-  deadlineForResponseAt: string
+  finalReviewDeadline: string
   reference: string
   step: number
   status: string
@@ -116,7 +116,7 @@ const pdfLink = computed<RouteLocationRaw>(() => ({
 
 const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 
-const respondDate = computed<string>(() => formatDate(props.deadlineForResponseAt, locale.value))
+const respondDate = computed<string>(() => formatDate(props.finalReviewDeadline, locale.value))
 
 const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
 

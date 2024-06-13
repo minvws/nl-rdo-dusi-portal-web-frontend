@@ -38,6 +38,7 @@ const columns = [
   { id: 'created', sortable: false },
   { id: 'final_review_deadline', sortable: false },
   { id: 'status', sortable: false },
+  { id: 'updated_at', sortable: false },
   { id: 'actionRequired', sortable: false },
   { id: 'action', sortable: false }
 ]

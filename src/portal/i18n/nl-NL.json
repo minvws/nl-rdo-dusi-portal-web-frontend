@@ -80,10 +80,25 @@
       "title": "Regeling",
       "yourArrangements": "Uw aanvragen",
       "arrangements": "aanvragen",
-      "introBody": "Het is mogelijk om deze subsidie meerdere malen aan te vragen. Maak uw keuze of u een nieuwe aanvraag wilt starten of uw eerdere aanvraag wilt afronden.",
-      "description": "Een overzicht van uw nog niet ingediende aanvragen. Voor al uw aanvragen zie:",
-      "noRequests": "Er zijn geen aanvragen gevonden",
+      "description": "U heeft al eerder een aanvraag gestart. In dit overzicht ziet u al uw (lopende) aanvragen voor {subsidyCode}. Voor al uw aanvragen zie:",
+      "noRequests": "Er zijn geen aanvragen gevonden voor {subsidyCode}. Voor al uw aanvragen zie: ",
       "newRequest": "Nieuwe aanvraag starten",
+      "backToDusi": "Terug naar DUS-I",
+      "arrangementClosed": {
+        "title": "Deze regeling is gesloten",
+        "description": "Het is niet meer mogelijk om een nieuwe aanvraag te starten of een aanvraag in te dienen.",
+        "descriptionWithExisting": "Het is niet meer mogelijk om een nieuwe aanvraag te starten of een aanvraag in te dienen. U kunt uw lopende aanvraag wel aanvullen."
+      },
+      "arrangementsAllowed": {
+        "single": {
+          "openArrangement": "U heeft een openstaande aanvraag. Het is niet mogelijk om deze subside meerdere malen aan te vragen. Open uw aanvraag om verder te gaan of om te bekijken.",
+          "approvedArrangement": "U heeft deze aanvraag toegekend gekregen. Het is niet mogelijk om deze subsidie meerdere malen aan te vragen.",
+          "rejectedArrangement": "U heeft een eerdere aanvraag ingediend. Deze is afgekeurd. Het is mogelijk om een nieuwe aanvraag te starten."
+        },
+        "multiple": {
+          "descriptionMultipleOpenArrangement": "Het is mogelijk om deze subsidie meerdere malen aan te vragen. Maak uw keuze of u een nieuwe aanvraag wilt starten of uw eerdere aanvraag wilt afronden."
+        }
+      },
       "table": {
         "caption": "Overzicht van uw aanvragen",
         "subsidy": "Regeling",
@@ -135,8 +150,8 @@
     "my-request-edit": {
       "title": "Bewerken",
       "request_locked": {
-        "label": "Aanvraag bewerken",
-        "message": "Deze aanvraag kan helaas niet meer worden bewerkt."
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is ingediend en kan niet worden bewerkt."
       }
     },
     "my-requests-overview": {
@@ -150,6 +165,7 @@
         "file": "Dossiernummer",
         "created": "Datum indiening",
         "final_review_deadline": "Uiterste behandeldatum",
+        "updated_at": "Laatste update",
         "status": "Status",
         "actionRequired": "Actie benodigd",
         "action": "Acties"
@@ -161,7 +177,11 @@
       "meta": "Metagegevens",
       "reference": "Dossiernummer",
       "submittedAt": "Aangevraagd op",
-      "deadline": "Uiterste behandeldatum"
+      "deadline": "Uiterste behandeldatum",
+      "requestNotViewable": {
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is nog niet ingediend en kan daardoor niet bekeken worden."
+      }
     },
     "my-request-status": {
       "title": "Aanvraag",
@@ -172,7 +192,11 @@
       "cancelLabel": "Aanvraag intrekken",
       "noAction": "U hoeft op dit moment niets te doen.",
       "intro": "Voor meer informatie bekijk de <a href=\"{link}\" target=\"_blank\">informatiepagina</a>.",
-      "statusDescription": "Uw aanvraag bevindt zich in stap {step}. De huidige status van uw aanvraag staat op <strong>{status}</strong>. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij van u verwachten."
+      "statusDescription": "Uw aanvraag bevindt zich in stap {step}. De huidige status van uw aanvraag staat op <strong>{status}</strong>. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij van u verwachten.",
+      "requestNotViewable": {
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is nog niet ingediend en kan daardoor niet bekeken worden."
+      }
     },
     "my-message-details": {
       "title": "Bericht",

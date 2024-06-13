@@ -1,7 +1,7 @@
 {
   "items": [
     {
-      "deadlineForResponseAt": "2023-10-01T08:48:29Z",
+      "finalReviewDeadline": "2023-10-01T08:48:29Z",
       "reference": "BTV23-22393536",
       "status": "approved",
       "submittedAt": "2023-09-01T08:48:29Z",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "deadlineForResponseAt": "2022-03-12T12:30:00Z",
+      "finalReviewDeadline": "2022-03-12T12:30:00Z",
       "reference": "BTV23-33214786",
       "status": "rejected",
       "submittedAt": "2022-01-12T12:30:00Z",
@@ -23,7 +23,7 @@
       }
     },
     {
-      "deadlineForResponseAt": null,
+      "finalReviewDeadline": null,
       "reference": "BTV23-56423453",
       "status": "draft",
       "submittedAt": "2021-03-24T12:30:00Z",
@@ -35,7 +35,7 @@
       "isEditable": true
     },
     {
-      "deadlineForResponseAt": "2020-10-27T12:30:00Z",
+      "finalReviewDeadline": "2020-10-27T12:30:00Z",
       "reference": "BTV23-72002470",
       "status": "pending",
       "submittedAt": "2020-08-27T12:30:00Z",
@@ -46,7 +46,7 @@
       }
     },
     {
-      "deadlineForResponseAt": "2020-01-14T12:30:00Z",
+      "finalReviewDeadline": "2020-01-14T12:30:00Z",
       "reference": "BTV23-61429754",
       "status": "requestForChanges",
       "submittedAt": "2019-11-14T12:30:00Z",

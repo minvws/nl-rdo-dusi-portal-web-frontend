@@ -8,11 +8,11 @@ containing relevant information.
 
 ## Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `reference` | String | - | The reference code of the request |
-| `deadlineForResponseAt` | String | - | The deadline for responding to the request |
-| `submittedAt` | String | - | The date and time when the request was submitted |
+| Name                  | Type   | Default | Description                                      |
+|-----------------------|--------|---------|--------------------------------------------------|
+| `reference`           | String | -       | The reference code of the request                |
+| `finalReviewDeadline` | String | -       | The review deadline of the request               |
+| `submittedAt`         | String | -       | The date and time when the request was submitted |
 
 ## Slots
 
@@ -32,7 +32,7 @@ This component does not emit any events.
 <template>
   <RequestSteps
     reference="123456"
-    deadline-for-response-at="2021-12-31T23:59:59Z"
+    final-review-deadline="2021-12-31T23:59:59Z"
     submitted-at="2021-12-31T23:59:59Z"
   />
 </template>
