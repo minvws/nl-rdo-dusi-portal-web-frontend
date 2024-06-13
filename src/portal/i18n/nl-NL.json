@@ -47,7 +47,7 @@
     "requestSteps": {
       "additionalInfo": "Het kan voorkomen dat u om extra informatie gevraagd wordt.",
       "customerSatisfaction": "Hoe is het aanvragen gegaan?",
-      "customerSatisfactionLink": "Laat het ons weten via het <a target=\"_blank\" rel=\"{customerStatisfactionRel}\" href=\"{customerStatisfactionHref}{referenceCode}\">klanttevredenheidsonderzoek</a>",
+      "customerSatisfactionLink": "Laat het ons weten via het <a target=\"_blank\" rel=\"{customerSatisfactionRel}\" href=\"{customerSatisfactionHref}{referenceCode}{additionalArguments}\">klanttevredenheidsonderzoek</a>",
       "decision": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.",
       "finalDecision": "De uiterste beslisdatum is {date}.",
       "info": "<strong>Bijbehorende informatie:</strong>",

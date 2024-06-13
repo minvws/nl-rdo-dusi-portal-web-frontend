@@ -16,7 +16,7 @@ export const urls = {
   avg: 'https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/algemene-informatie-avg/rechten-van-betrokkenen',
   contact: 'https://www.dus-i.nl/contact',
   copyright: 'https://www.dus-i.nl/copyright',
-  customerStatisfaction:
+  customerSatisfaction:
     'https://klantmonitor-enq.onderzoekdoen.nl/?t=kuaqchdk&attributes=subsidiecode:',
   disagree: 'https://www.dus-i.nl/oneens-met-dus-i',
   disclaimer: 'https://www.dus-i.nl/disclaimer',

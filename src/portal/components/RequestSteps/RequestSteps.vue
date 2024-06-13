@@ -34,7 +34,7 @@
         </p>
         <AppHtml
           as="p"
-          :html="t('component.requestSteps.customerSatisfactionLink', { customerStatisfactionRel, customerStatisfactionHref, referenceCode })"
+          :html="t('component.requestSteps.customerSatisfactionLink', { customerSatisfactionRel, customerSatisfactionHref, referenceCode, additionalArguments: '|burgerportaal:ja' })"
         />
       </template>
     </AppAccordionItem>
@@ -120,6 +120,6 @@ const respondDate = computed<string>(() => formatDate(props.finalReviewDeadline,
 
 const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
 
-const customerStatisfactionHref = externalUrls.customerStatisfaction.href
-const customerStatisfactionRel = externalUrls.customerStatisfaction.rel
+const customerSatisfactionHref = externalUrls.customerSatisfaction.href
+const customerSatisfactionRel = externalUrls.customerSatisfaction.rel
 </script>
