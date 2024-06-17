@@ -1,4 +1,7 @@
-@import '@minvws/nl-rdo-rijksoverheid-ui-theme/css/main.css';
+$ro-font-path: '@minvws/nl-rdo-rijksoverheid-ui-theme/fonts';
+$ro-img-path: '@minvws/nl-rdo-rijksoverheid-ui-theme/img';
+
+@import 'theme';
 
 // Remove these when styles are added to the ui-theme itself.
 @import '@minvws/manon/card.scss';
@@ -8,9 +11,6 @@
 @import '@minvws/manon/tags-6.scss';
 
 @import '@jsonforms/vue-vanilla/vanilla.css';
-
-$ro-font-path: '~@minvws/nl-rdo-rijksoverheid-ui-theme/fonts';
-$ro-img-path: '~@minvws/nl-rdo-rijksoverheid-ui-theme/img';
 
 :root {
   --ruby-red: #007bc7;
