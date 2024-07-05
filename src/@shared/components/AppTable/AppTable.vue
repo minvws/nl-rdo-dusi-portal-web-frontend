@@ -251,7 +251,8 @@ th .button:only-child {
   --notification-confirmation-border-width: 0;
   --notification-warning-border-width: 0;
 
-  --notification-error-text-color: var(--notification-error-color, #d52a1e);
-  --notification-confirmation-text-color: var(--notification-success-color, #348834);
+  --notification-error-text-color: var(--notification-error-color-intense);
+  --notification-confirmation-text-color: var(--notification-confirmation-color-intense);
+  --notification-warning-text-color: var(--notification-warning-color-intense);
 }
 </style>
