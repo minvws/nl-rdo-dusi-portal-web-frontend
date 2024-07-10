@@ -3,15 +3,14 @@
 </template>
 
 <script lang="ts">
-import type { ControlElement, JsonFormsRendererRegistryEntry } from '@jsonforms/core'
+import type { ControlElement } from '@jsonforms/core'
 
-import { rankWith } from '@jsonforms/core'
 import { defineComponent } from 'vue'
 import { rendererProps, useJsonFormsControl } from '@jsonforms/vue'
 import { useVanillaControl } from '@jsonforms/vue-vanilla'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
 
-const Component = defineComponent({
+export default defineComponent({
   components: {
     FormNotification
   },
@@ -24,13 +23,4 @@ const Component = defineComponent({
     }
   }
 })
-
-export default Component
-
-export const FormNotificationRenderer: JsonFormsRendererRegistryEntry = {
-  renderer: Component,
-  tester: rankWith(2, ({ type }) => {
-    return type === 'FormNotification'
-  })
-}
 </script>
