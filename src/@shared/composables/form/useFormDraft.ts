@@ -11,7 +11,7 @@ import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 import { log } from '@shared/utils/logger'
 
 export const useFormDraft = () => {
-  const { t } = useI18n()
+  const { t, te } = useI18n()
   const notificationsStore = useNotificationsStore()
 
   function getDisplayType(code: string): NotificationDisplayType {
@@ -23,6 +23,18 @@ export const useFormDraft = () => {
         return NotificationType.ERROR
       }
     }
+  }
+
+  function getErrorNotificationMessage(error: { code: string; message?: string }) {
+    if (error.message) {
+      return error.message
+    }
+
+    if (te(`form.message.${error.code}`)) {
+      return t(`form.message.${error.code}`)
+    }
+
+    return t('form.message.loading_error', { error: error.code })
   }
 
   async function createDraft(subsidyCode: string) {
@@ -38,10 +50,7 @@ export const useFormDraft = () => {
 
     if (error?.code) {
       notificationsStore.add({
-        message:
-          t(`form.message.${error.code}`) ||
-          t('form.message.loading_error', { error: error.message }) ||
-          '',
+        message: getErrorNotificationMessage(error),
         displayAs: getDisplayType(error.code),
         id: 'form-draft-error',
         pageChangeCount: 2
