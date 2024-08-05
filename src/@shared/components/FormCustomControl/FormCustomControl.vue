@@ -79,13 +79,21 @@ export default defineComponent({
     controlErrors() {
       return this.control.errors ?? undefined
     },
+    isFieldReadonly() {
+      // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
+      let readonlyInSchema = this.control.schema?.readOnly
+
+      return readonlyInSchema || this.control.uischema.options?.readonly || false
+    },
+    isFieldDisabled() {
+      return !this.isFieldReadonly && (!this.control.enabled || this.isValidating)
+    },
     input() {
       const {
-        isValidating,
         control,
         appliedOptions: { placeholder, autofocus }
       } = this
-      const { enabled, schema, uischema } = control
+      const { schema, uischema } = control
       const type = useFieldType(schema, uischema)
       const value = useFieldValue(this)
 
@@ -93,7 +101,8 @@ export default defineComponent({
         id: getInputId(control),
         class: `input ${type}-input`,
         type,
-        disabled: !enabled || isValidating,
+        disabled: this.isFieldDisabled,
+        readonly: this.isFieldReadonly,
         autofocus,
         placeholder,
         ...value
@@ -111,7 +120,7 @@ export default defineComponent({
         hideRequiredLabel,
         isConditionalRequired,
         isFocused,
-        isReadOnly,
+        isReadOnly: isFormReadonly,
         isTouched,
         onValid,
         onRemoteAction,
@@ -136,7 +145,7 @@ export default defineComponent({
         errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
         handleChange,
         resetError,
-        hideRequiredLabel: hideRequiredLabel || isReadOnly,
+        hideRequiredLabel: hideRequiredLabel || this.isFieldReadonly || isFormReadonly,
         id,
         isFocused,
         isGroup,

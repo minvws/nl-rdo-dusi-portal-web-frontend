@@ -69,3 +69,15 @@ $ro-img-path: '@minvws/nl-rdo-rijksoverheid-ui-theme/img';
 .exact-active {
   @extend .active !optional;
 }
+
+/**
+  * Remove styling
+  * Use readonly attribute instead of :read-only pseudo-class
+  */
+input[readonly],
+textarea[readonly] {
+  border: 0;
+  background-color: transparent;
+  outline: 0;
+  padding: 0;
+}
