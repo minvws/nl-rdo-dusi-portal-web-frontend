@@ -67,14 +67,14 @@ const input = computed<{
   maxlength: number | undefined
   rows?: number
 }>(() => {
-  const { id, value, placeholder, disabled, autofocus } = props
+  const { id, type, value, placeholder, disabled, autofocus } = props
   return {
     id,
     value,
     placeholder,
     disabled,
     autofocus,
-    rows: InputType.TEXTAREA ? 4 : undefined,
+    rows: type === InputType.TEXTAREA ? 4 : undefined,
     ...getInputAttrs(props)
   }
 })
