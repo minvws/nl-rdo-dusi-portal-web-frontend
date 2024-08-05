@@ -34,7 +34,6 @@ import type { FileType } from '@shared/types/form'
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useFieldFileRemove } from '@shared/composables/form/useField'
 import { formatFile } from '@shared/utils/format'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
@@ -57,7 +56,6 @@ const props = defineProps<Props>()
 const emit = defineEmits(['removedFile'])
 
 const { t } = useI18n()
-const { removeFile } = useFieldFileRemove()
 
 const file = computed<FileType | undefined>(() => props.files?.[props.index])
 
@@ -68,7 +66,6 @@ const hasRemoveButton = computed<boolean>(() => !!file.value || props.index > 0)
 const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 
 function onRemoveFile(): void {
-  removeFile({ fieldName: props.path, index: props.index })
   emit('removedFile', props.index)
 }
 </script>

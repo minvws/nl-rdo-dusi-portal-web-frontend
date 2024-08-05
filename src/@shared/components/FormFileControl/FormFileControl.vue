@@ -15,7 +15,7 @@
           :data-index="index"
           :aria-describedby="ariaDescribedby(index)"
           :aria-invalid="isAriaInvalid(index)"
-          @change="onChange"
+          @change="onChange($event, index)"
           @focus="onFocus"
         />
         <FormFieldRemoveFile
@@ -52,6 +52,7 @@ import FormFieldAddFileButton from '@shared/components/FormFieldAddFileButton/Fo
 import { InputType } from '@shared/types/input'
 import { formatFileSize } from '@shared/utils/format'
 import { getA11yErrorId, getA11yExplanationId, getA11yInputId, getA11yValidationId } from '@shared/utils/a11y'
+import { useFieldFileRemove } from '@shared/composables/form/useField'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 
@@ -74,6 +75,7 @@ type Props = {
 const props = defineProps<Props>()
 
 const { t } = useI18n()
+const { removeFile } = useFieldFileRemove()
 
 const addFileCount = ref<number>(0)
 
@@ -135,11 +137,12 @@ function showAddFileButton(index: number) {
 function onFileRemoved(index: number): void {
   props.resetError()
 
+  removeFile({ fieldName: props.control.path, index: index })
   addFileCount.value = Math.max(addFileCount.value - 1, 1)
   emit('blur')
 }
 
-function onChange(event: InputEvent): void {
+function onChange(event: InputEvent, index: number): void {
   if (!(event.target instanceof HTMLInputElement)) {
     return
   }
@@ -151,6 +154,8 @@ function onChange(event: InputEvent): void {
   if (file && maxFileSize && file.size > maxFileSize) {
     event.preventDefault()
     const size = formatFileSize(maxFileSize)
+
+    removeFile({ fieldName: props.control.path, index: index }, true)
 
     emit('error', {
       message: t('form.fields.error.maxFileSize', { maxFileSize: size }),
