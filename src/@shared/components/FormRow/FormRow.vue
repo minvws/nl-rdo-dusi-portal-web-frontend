@@ -101,14 +101,11 @@
 <script lang="ts">
 import type { Options } from '@jsonforms/vue-vanilla'
 import type { FormValidationEntry, FormValue } from '@shared/types/form'
-import type { ValidationError } from '@shared/types/field'
 
 import { defineComponent, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ControlWrapper } from '@jsonforms/vue-vanilla'
 import { v4 as uuid } from 'uuid'
-
-import { useA11yStore } from '@shared/store/useA11yStore'
 
 import FormFieldDescription from '@shared/components/FormFieldDescription/FormFieldDescription.vue'
 import FormFieldError from '@shared/components/FormFieldError/FormFieldError.vue'
@@ -119,15 +116,14 @@ import FormRequiredLabel from '@shared/components/FormRequiredLabel/FormRequired
 import FormRowElement from '@shared/components/FormRowElement/FormRowElement.vue'
 
 import { ERROR_ATTRIBUTE } from '@shared/composables/form/useFormScroll'
+import { getA11yErrorId, getA11yExplanationId, getA11yInputId, getA11yValidationId } from '@shared/utils/a11y'
 
 export default defineComponent({
   extends: ControlWrapper,
   setup() {
     const { t } = useI18n()
-    const a11yStore = useA11yStore()
 
     return {
-      a11yStore,
       labelId: uuid(),
       t
     }
@@ -167,38 +163,18 @@ export default defineComponent({
         [ERROR_ATTRIBUTE]: !!errors?.length || !!validationResult?.length || undefined
       }
     },
-    errorId() {
-      const index = this.a11yStore.formIds.findIndex((string) => string.includes(this.id))
-      const id = this.a11yStore.formIds[index] || undefined
-      if (id === undefined) {
-        return undefined
-      }
-
-      const splitId = id.split('-').slice(0, -1).join('-')
-
-      return this.a11yStore.getA11yErrorId(splitId)
-    },
     fieldErrorId() {
-      const parent = this.$parent as Record<string, unknown> | null
-      const { error } = parent as { error: ValidationError }
-
-      if (this.validationResult) {
-        return this.validationId
-      } else if (error?.id) {
-        return this.errorId
-      } else {
-        return undefined
-      }
+      return getA11yErrorId(this.id)
     },
     fieldDescription() {
       const { description } = this.rowAppliedOptions
       return description ? this.t(description) ?? description : undefined
     },
     htmlId() {
-      return this.a11yStore.getA11yExplanationId(this.id)
+      return getA11yExplanationId(this.id)
     },
     inputId() {
-      return this.a11yStore.getA11yInputId(this.id)
+      return getA11yInputId(this.id)
     },
     isReadonlyField() {
       return this.rowAppliedOptions.readonly ?? false
@@ -214,7 +190,7 @@ export default defineComponent({
       return tip ? this.t(tip) ?? tip : undefined
     },
     validationId() {
-      return this.a11yStore.getA11yValidationId(this.id)
+      return getA11yValidationId(this.id)
     },
   },
   methods: {

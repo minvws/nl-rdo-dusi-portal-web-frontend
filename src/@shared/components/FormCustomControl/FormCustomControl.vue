@@ -21,7 +21,6 @@ import { InputType } from '@shared/types/input'
 import { defineComponent } from 'vue'
 import { rendererProps } from '@jsonforms/vue'
 
-import { useA11yStore } from '@shared/store/useA11yStore'
 import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'
 import { useCustomControl } from '@shared/composables/form/useCustomControl'
 
@@ -34,6 +33,7 @@ import FormSelectControl from '@shared/components/FormSelectControl/FormSelectCo
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 
 import { getInputId } from '@shared/utils/control'
+import { getA11yErrorId, getA11yExplanationId, getA11yValidationId } from '@shared/utils/a11y'
 
 export default defineComponent({
   components: {
@@ -49,22 +49,19 @@ export default defineComponent({
     ...rendererProps<ControlElement>()
   },
   setup(props) {
-    const a11yStore = useA11yStore()
-
     return {
       ...useCustomControl(props),
-      a11yStore
     }
   },
   computed: {
     errorId() {
-      return this.a11yStore.getA11yErrorId(this.control.id)
+      return getA11yErrorId(this.control.id)
     },
     explanationId() {
-      return this.a11yStore.getA11yExplanationId(this.control.id)
+      return getA11yExplanationId(this.control.id)
     },
     validationId() {
-      return this.a11yStore.getA11yValidationId(this.control.id)
+      return getA11yValidationId(this.control.id)
     },
     ariaDescribedby() {
       const error = this.ariaInvalid ? this.errorId : ''

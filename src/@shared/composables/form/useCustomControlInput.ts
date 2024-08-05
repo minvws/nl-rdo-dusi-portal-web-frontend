@@ -5,8 +5,6 @@ import type { ValidationError, ControlEvent } from '@shared/types/field'
 
 import { computed, nextTick } from 'vue'
 
-import { useA11yStore } from '@shared/store/useA11yStore'
-
 import { getControlId, getInputId } from "@shared/utils/control"
 
 // auto import from custom-input
@@ -49,8 +47,6 @@ export const useCustomControlInput = ({
   onRemoteAction,
   setTouchedField
 }: Props) => {
-  const a11yStore = useA11yStore()
-
   const isValid = computed<boolean>(
     () =>
       !errors.value?.some((error: FormError) => {
@@ -122,7 +118,6 @@ export const useCustomControlInput = ({
   }
 
   function onError({ id, message }: { id: string; message: string }): void {
-    a11yStore.addId(id)
     error.value = { id, message }
   }
 
@@ -138,9 +133,6 @@ export const useCustomControlInput = ({
   }
 
   function onInputChange(event: Event): void {
-    const { id } = event.target as HTMLInputElement
-
-    a11yStore.removeId(id)
     error.value = null
 
     onChange(event)

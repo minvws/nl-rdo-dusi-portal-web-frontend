@@ -25,8 +25,7 @@ import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
 import { computed } from 'vue'
-
-import { useA11yStore } from '@shared/store/useA11yStore'
+import { getA11yInputId } from '@shared/utils/a11y'
 
 defineEmits(['change', 'focus', 'blur'])
 
@@ -40,8 +39,6 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
-const a11yStore = useA11yStore()
 
 const values = computed<string[]>(() => props.value ?? [])
 
@@ -59,7 +56,7 @@ const items = computed<{ title: string; value: string }[] | undefined>(() => {
 })
 
 function getIndexedId(index: number): string {
-  return a11yStore.getA11yInputId(props.control.id, index)
+  return getA11yInputId(props.control.id, index)
 }
 
 function onChange(event: Event): void {

@@ -45,14 +45,13 @@ import type { FileType } from '@shared/types/form'
 import { ref, computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 
-import { useA11yStore } from '@shared/store/useA11yStore'
-
 import FormTextControl from '@shared/components/FormTextControl/FormTextControl.vue'
 import FormFieldRemoveFile from '@shared/components/FormFieldRemoveFile/FormFieldRemoveFile.vue'
 import FormFieldAddFileButton from '@shared/components/FormFieldAddFileButton/FormFieldAddFileButton.vue'
 
 import { InputType } from '@shared/types/input'
 import { formatFileSize } from '@shared/utils/format'
+import { getA11yErrorId, getA11yExplanationId, getA11yInputId, getA11yValidationId } from '@shared/utils/a11y'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 
@@ -75,7 +74,6 @@ type Props = {
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const a11yStore = useA11yStore()
 
 const addFileCount = ref<number>(0)
 
@@ -107,13 +105,13 @@ const numberOfFiles = computed<number[]>(() => {
 })
 
 function getIndexedId(index: number): string {
-  return a11yStore.getA11yInputId(props.control.id, index)
+  return getA11yInputId(props.control.id, index)
 }
 
 function ariaDescribedby(index: number): string {
-  const errorId = a11yStore.getA11yErrorId(props.control.id, index)
-  const explanationId = a11yStore.getA11yExplanationId(props.control.id)
-  const validationId = a11yStore.getA11yValidationId(props.control.id, index)
+  const errorId = getA11yErrorId(props.control.id, index)
+  const explanationId = getA11yExplanationId(props.control.id)
+  const validationId = getA11yValidationId(props.control.id, index)
 
   const error = isAriaInvalid(index) ? errorId : null
   const validation = isAriaInvalid(index) ? null : validationId
@@ -135,8 +133,6 @@ function showAddFileButton(index: number) {
  * This will remove the input field
  */
 function onFileRemoved(index: number): void {
-  const id = getIndexedId(index)
-  a11yStore.removeId(id)
   if (isAriaInvalid(index)) {
     props.resetError()
   }

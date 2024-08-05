@@ -14,14 +14,13 @@ import { useForms } from '@shared/composables/form/useForms'
 import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { log } from '@shared/utils/logger'
-import { useA11yStore } from '@shared/store/useA11yStore'
 import { usePendingFileStore } from '@shared/store/usePendingFileStore'
+import { getA11yInputId } from '@shared/utils/a11y'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export const useFileField = () => {
-  const a11yStore = useA11yStore()
   const { t } = useI18n()
   const form = useForms()
   const { onSubmitValidation } = useFormSubmit()
@@ -60,7 +59,7 @@ export const useFileField = () => {
   }
 
   async function addFile({ file, id, index, fieldName, error }: AddFileProps): Promise<void> {
-    const fieldId = a11yStore.getA11yInputId(id, index)
+    const fieldId = getA11yInputId(id, index)
     const formId = activeFormId.value
 
     setPending({ formId, fieldName }, index)
@@ -139,7 +138,6 @@ export const useFileField = () => {
         throw new Error(undefined)
       }
     } catch (error: any) {
-      a11yStore.addId(fieldId)
       if (errorRef) {
         errorRef.value = {
           message: error?.message || t('form.fields.error.upload'),

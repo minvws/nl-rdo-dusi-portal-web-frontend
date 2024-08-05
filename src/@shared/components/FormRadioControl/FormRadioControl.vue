@@ -28,8 +28,7 @@ import type { Control } from '@shared/types/field'
 import type { InputType } from '@shared/types/input'
 
 import { computed } from 'vue'
-
-import { useA11yStore } from '@shared/store/useA11yStore'
+import { getA11yInputId } from '@shared/utils/a11y'
 
 defineEmits(['input', 'change', 'focus', 'blur'])
 
@@ -51,8 +50,6 @@ type ItemProps = {
 
 const props = defineProps<Props>()
 
-const a11yStore = useA11yStore()
-
 const items = computed<ItemProps[] | undefined>(() => {
   const values = props.control.schema
 
@@ -70,7 +67,7 @@ const items = computed<ItemProps[] | undefined>(() => {
 })
 
 function getIndexedId(index: number): string {
-  return a11yStore.getA11yInputId(props.control.id, index)
+  return getA11yInputId(props.control.id, index)
 }
 </script>
 
