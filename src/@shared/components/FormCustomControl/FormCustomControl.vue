@@ -70,7 +70,7 @@ export default defineComponent({
       return [this.explanationId, error, validation].filter(Boolean).join(' ').trim()
     },
     ariaInvalid() {
-      return this.wrapperProps.errors ? 'true' : undefined
+      return this.wrapperProps.error ? 'true' : undefined
     },
     isFieldReadonly() {
       // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
@@ -134,7 +134,7 @@ export default defineComponent({
         appliedOptions,
         contentClass: type,
         description: isFocused ? description : undefined,
-        errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
+        error: error || (isTouched ? { message: errors }  || { message: conditionalError } : undefined), // only show errors when field is touched
         handleChange,
         resetError,
         hideRequiredLabel: hideRequiredLabel || this.isFieldReadonly || isFormReadonly,

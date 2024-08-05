@@ -47,5 +47,5 @@ export type Field = { control: ComputedRef<Control> }
 
 export type ValidationError = {
   message: string
-  id: string
+  id?: string
 }

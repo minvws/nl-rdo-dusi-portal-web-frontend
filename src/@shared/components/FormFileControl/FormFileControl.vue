@@ -133,9 +133,7 @@ function showAddFileButton(index: number) {
  * This will remove the input field
  */
 function onFileRemoved(index: number): void {
-  if (isAriaInvalid(index)) {
-    props.resetError()
-  }
+  props.resetError()
 
   addFileCount.value = Math.max(addFileCount.value - 1, 1)
   emit('blur')

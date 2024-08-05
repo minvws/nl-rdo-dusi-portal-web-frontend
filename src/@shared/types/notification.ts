@@ -7,6 +7,13 @@ export const NotificationType = {
 
 export type NotificationDisplayType = (typeof NotificationType)[keyof typeof NotificationType]
 
+export const NotificationDisplayElement = {
+  P: 'p',
+  DIV: 'div',
+} as const
+
+export type NotificationDisplayElementType = (typeof NotificationDisplayElement)[keyof typeof NotificationDisplayElement]
+
 export type Notification = {
   message: string | { message?: string }
   displayAs: NotificationDisplayType

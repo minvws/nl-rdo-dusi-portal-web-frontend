@@ -1,19 +1,14 @@
 <template>
-  <div>
-    <div
-      v-for="({ type, message }, index) in items"
-      :key="`validation-${index}`"
-      :id="id"
-      :class="type"
-      class="form-field-validation-result"
-    >
-      <span />
-      <div
-        v-html="message"
-        @click="onClick"
-      />
-    </div>
-  </div>
+  <p
+    v-for="({ type, message }, index) in items"
+    :key="`validation-${index}`"
+    :id="id"
+    :class="type"
+    class="form-field-validation-result"
+    @click="onClick"
+    v-html="getHtml(type, message)"
+  >
+  </p>
 </template>
 
 <script setup lang="ts">
@@ -21,6 +16,7 @@ import type { FormValidationEntry } from '@shared/types/form'
 import type { NotificationDisplayType } from '@shared/types/notification'
 
 import { computed } from 'vue'
+import { t } from '@shared/i18n'
 
 const emit = defineEmits(['suggestion'])
 
@@ -49,6 +45,10 @@ const items = computed<{ message: string; type: NotificationDisplayType }[]>(() 
   })
 })
 
+function getHtml(type: NotificationDisplayType, message: string): string {
+  return  `<span>` + t(`component.formNotification.${type}`) +`:</span> ` + message
+}
+
 function onClick(event: MouseEvent): void {
   if (!(event.target instanceof HTMLElement)) {
     return
@@ -68,13 +68,6 @@ function onClick(event: MouseEvent): void {
 
 <style lang="scss" scoped>
 .form-field-validation-result {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  span {
-    width: auto;
-  }
   :deep(.suggestion) {
     display: inline-block;
     width: auto;

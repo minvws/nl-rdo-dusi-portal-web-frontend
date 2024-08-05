@@ -72,14 +72,13 @@
       </template>
     </FormRowElement>
     <FormRowElement
-      v-if="errors"
+      v-if="formRowError"
       has-left
     >
       <template #right>
         <FormFieldError
-          :input-count="inputCount"
-          :errors="errors"
-          :id="fieldErrorId"
+          :errors="formRowError"
+          :id="formRowErrorId"
         />
       </template>
     </FormRowElement>
@@ -99,8 +98,10 @@
 </template>
 
 <script lang="ts">
+import type { PropType } from 'vue'
 import type { Options } from '@jsonforms/vue-vanilla'
 import type { FormValidationEntry, FormValue } from '@shared/types/form'
+import type { ValidationError } from '@shared/types/field'
 
 import { defineComponent, nextTick } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -129,7 +130,6 @@ export default defineComponent({
     }
   },
   props: {
-    inputCount: Number,
     contentClass: String,
     hideRequiredLabel: Boolean,
     isGroup: Boolean,
@@ -137,6 +137,7 @@ export default defineComponent({
     handleChange: Function,
     resetError: Function,
     onValid: Function,
+    error: Object as PropType<ValidationError | undefined>,
   },
   components: {
     FormFieldDescription,
@@ -163,7 +164,18 @@ export default defineComponent({
         [ERROR_ATTRIBUTE]: !!errors?.length || !!validationResult?.length || undefined
       }
     },
-    fieldErrorId() {
+    formRowError() {
+      return this.error?.message;
+    },
+    formRowErrorId() {
+      if (this.error?.id) {
+        /**
+         * Receiving id is an input id for example "#/properties/fieldA-input" or "#/properties/fieldA-1-input"
+         * We need to remove the "-input" part to get the correct id
+         */
+        const splitId = this.error?.id.split('-').slice(0, -1).join('-')
+        return getA11yErrorId(splitId)
+      }
       return getA11yErrorId(this.id)
     },
     fieldDescription() {

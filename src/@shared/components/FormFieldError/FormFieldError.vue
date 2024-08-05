@@ -1,44 +1,44 @@
 <template>
-  <div class="error">
-    <div class="error-inner">
-      <p
-        v-for="(error, index) in splitErrors"
-        :key="index"
-        :id="errorId && errorId[index]"
-        v-text="error"
-      />
-    </div>
-  </div>
+  <FormNotification
+    :display-as="NotificationType.ERROR"
+    :display-element="displayElement"
+    :message="message"
+    :html-id="id"
+  />
 </template>
 
 <script setup lang="ts">
+import type { NotificationDisplayElementType } from '@shared/types/notification'
+
 import { computed } from 'vue'
+import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import { NotificationDisplayElement, NotificationType } from '@shared/types/notification'
 
 type Props = {
-  inputCount?: number
   errors: string
   id?: string
 }
 
 const props = defineProps<Props>()
 
-const splitErrors = computed<string[]>(() => props.errors.split('\n'))
+const splitErrors = computed<string[]>(
+  () => props.errors
+    .split('\n')
+    .map((item: string) => item.trim())
+    .filter(Boolean)
+)
 
-const errorId = computed(() => {
-  if (!props.id) {
-    return undefined
+const displayElement = computed<NotificationDisplayElementType>(
+  () => splitErrors.value.length === 1 ? NotificationDisplayElement.P : NotificationDisplayElement.DIV
+)
+
+const message = computed<string>(
+  () => {
+    if (splitErrors.value.length === 1) {
+      return splitErrors.value[0]
+    }
+
+    return '<ul>' + splitErrors.value.map((error: string) => `<li>${error}</li>`).join('') + '</ul>'
   }
-
-  if (!props.inputCount || props.inputCount === 1) {
-    return [`${props.id}`]
-  }
-
-  let ids = []
-
-  for (let index = 0; index < props.inputCount; index++) {
-    ids.push(`${props.id}-${index}`)
-  }
-
-  return ids
-})
+)
 </script>

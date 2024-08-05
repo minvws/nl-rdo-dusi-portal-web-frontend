@@ -6,7 +6,7 @@
   >
     <div>
       <AppHtml
-        as="p"
+        :as="displayElement"
         :html="html"
         :aria-live="ariaLive"
         :aria-atomic="ariaAtomic"
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Notification } from '@shared/types/notification'
+import type { Notification, NotificationDisplayElementType } from '@shared/types/notification'
 
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -36,6 +36,7 @@ import AppButton from '@shared/components/AppButton/AppButton.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 type Props = Notification & {
+  displayElement?: NotificationDisplayElementType
   dismissable?: boolean
   id?: string
   announce?: boolean
@@ -60,8 +61,10 @@ const message = computed<string | undefined>(() =>
 )
 
 const html = computed<string>(
-  () => `<span class="label">${props.label ?? translatedType.value}:</span><span class="message">${message.value}</span>`
+  () => `<span>${props.label ?? translatedType.value}:</span> ${message.value}`
 )
+
+const displayElement = computed<string>(() => props.displayElement ?? 'p')
 
 function onDismiss(id: string) {
   notificationsStore.removeById(id)
@@ -69,32 +72,7 @@ function onDismiss(id: string) {
 </script>
 
 <style lang="scss" scoped>
-.form-notification.error,
-.form-notification.warning,
-.form-notification.explanation,
-.form-notification.confirmation {
-  .html {
-    --p-line-height: 1.6;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-
-  :deep(.label) {
-    display: flex;
-    align-items: center;
-    padding-left: 0;
-    margin-right: 8px;
-    flex: 0 0 auto;
-  }
-
-  :deep(span::before) {
-    top: 0;
-    margin-left: 0;
-  }
-}
-
-.dismissable div {
+.dismissable > div {
   display: flex;
   box-sizing: border-box;
   flex-direction: row;

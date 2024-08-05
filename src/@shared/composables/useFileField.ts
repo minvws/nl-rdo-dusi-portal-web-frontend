@@ -177,7 +177,13 @@ export const useFileField = () => {
       return;
     }
 
-    if (target.length === 1 || hasError) {
+    if (
+      target.length >= 1
+      && (index + 1) < target.length
+      && hasError
+    ) {
+      // set field value to undefined when there is an error on file upload
+      // only if there are more files in the array and not the last one
       target[index] = undefined
     } else {
       target.splice(index, 1)
