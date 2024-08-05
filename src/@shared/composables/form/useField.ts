@@ -160,6 +160,7 @@ export const useField = ({ input, control, error, handleChange, resetError }: Fi
     }
     case InputType.FILE: {
       return {
+        tag: 'FormFileControl',
         props: {
           ...input,
           value: undefined,
@@ -168,17 +169,16 @@ export const useField = ({ input, control, error, handleChange, resetError }: Fi
           isPending: fileField.isUploadPending(control.path),
           handleChange: handleChange,
           resetError: resetError
-        },
-        tag: 'FormFileControl'
+        }
       }
     }
     case InputType.RADIO: {
       return {
+        tag: 'FormRadioControl',
         props: {
           ...input,
           control: control
-        },
-        tag: 'FormRadioControl'
+        }
       }
     }
     default: {
@@ -186,7 +186,10 @@ export const useField = ({ input, control, error, handleChange, resetError }: Fi
     }
   }
   return {
-    props: { ...input, control },
-    tag: 'FormTextControl'
+    tag: 'FormTextControl',
+    props: {
+      ...input,
+      control: control
+    }
   }
 }

@@ -69,7 +69,6 @@ type Props = {
   type: InputType
   value?: string
   error: ValidationError | null
-  errors: string
   isPending?: boolean[]
 }
 

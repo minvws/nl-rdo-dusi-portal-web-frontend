@@ -31,7 +31,6 @@ type Props = {
   ariaInvalid?: string
   autofocus?: boolean
   disabled?: boolean
-  errors?: string
   id: string
   options: { value: string; label: string }[]
   placeholder?: string

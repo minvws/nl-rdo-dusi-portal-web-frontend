@@ -139,6 +139,7 @@ export default defineComponent({
     isGroup: Boolean,
     validationResult: Array<FormValidationEntry>,
     handleChange: Function,
+    resetError: Function,
     onValid: Function,
   },
   components: {

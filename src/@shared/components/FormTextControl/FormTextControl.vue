@@ -30,7 +30,6 @@ type Props = {
   autofocus?: boolean
   control: Control
   disabled?: boolean
-  errors?: string
   id: string
   placeholder?: string
   type: InputType

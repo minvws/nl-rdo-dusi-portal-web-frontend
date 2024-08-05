@@ -8,7 +8,6 @@
       @change="onInputChange"
       @focus="onFocus"
       @blur="onBlur"
-      :errors="controlErrors"
       :aria-describedby="ariaDescribedby"
       :aria-invalid="ariaInvalid"
     />
@@ -76,9 +75,6 @@ export default defineComponent({
     ariaInvalid() {
       return this.wrapperProps.errors ? 'true' : undefined
     },
-    controlErrors() {
-      return this.control.errors ?? undefined
-    },
     isFieldReadonly() {
       // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
       let readonlyInSchema = this.control.schema?.readOnly
@@ -129,7 +125,7 @@ export default defineComponent({
         validationResult
       } = this
 
-      const { data, description, errors, id, label, required, visible, schema, uischema } = control
+      const { description, errors, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
       const isGroup =
         type === InputType.RADIO ||
@@ -140,7 +136,6 @@ export default defineComponent({
       return {
         appliedOptions,
         contentClass: type,
-        data,
         description: isFocused ? description : undefined,
         errors: error?.message || (isTouched ? errors || conditionalError : undefined), // only show errors when field is touched
         handleChange,
