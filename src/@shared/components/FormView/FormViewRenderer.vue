@@ -34,7 +34,6 @@
       :index="index"
       :forms="forms"
       :forms-errors="formsErrors"
-      :validation-result="validationResult"
       :touched="touchedForms"
       :readonly="readonly"
       :button-labels="buttonLabels"
