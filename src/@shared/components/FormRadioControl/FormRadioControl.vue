@@ -11,6 +11,7 @@
           :disabled="disabled"
           :name="id"
           :type="type"
+          :aria-describedby="ariaDescribedby"
           @input="$emit('input', $event)"
           @change="$emit('change', $event)"
           @focus="$emit('focus', $event)"
@@ -33,6 +34,8 @@ import { getA11yInputId } from '@shared/utils/a11y'
 defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
+  ariaDescribedby?: string
+  ariaInvalid?: boolean
   id: string
   type: InputType
   control: Control

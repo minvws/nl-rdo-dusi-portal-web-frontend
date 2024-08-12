@@ -3,8 +3,8 @@
     :is="component"
     ref="el"
     v-bind="input"
-    :aria-describedby="isDescribedBy"
-    :aria-invalid="isInvalid"
+    :aria-describedby="ariaDescribedby"
+    :aria-invalid="ariaInvalid"
     @input="onInput"
     @change="emit('change', $event)"
     @focus="$emit('focus', $event)"
@@ -26,7 +26,7 @@ const emit = defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
   ariaDescribedby?: string
-  ariaInvalid?: string
+  ariaInvalid?: boolean
   autofocus?: boolean
   control: Control
   disabled?: boolean
@@ -50,10 +50,6 @@ const component = computed<'input' | 'textarea'>(() => {
     }
   }
 })
-
-const isDescribedBy = computed<string | undefined>(() => props.ariaDescribedby ?? undefined)
-
-const isInvalid = computed<'true' | undefined>(() => (props.ariaInvalid ? 'true' : undefined))
 
 const input = computed<{
   id: string

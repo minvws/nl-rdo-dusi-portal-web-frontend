@@ -68,7 +68,7 @@ type Props = {
   placeholder?: string
   type: InputType
   value?: string
-  error: ValidationError | null
+  error?: ValidationError
   isPending?: boolean[]
 }
 
@@ -115,15 +115,21 @@ function ariaDescribedby(index: number): string {
   const explanationId = getA11yExplanationId(props.control.id)
   const validationId = getA11yValidationId(props.control.id, index)
 
-  const error = isAriaInvalid(index) ? errorId : null
-  const validation = isAriaInvalid(index) ? null : validationId
-
-  return [explanationId, error, validation].filter(Boolean).join(' ').trim()
+  return [errorId, validationId, explanationId].join(' ')
 }
 
-function isAriaInvalid(index: number): string | undefined {
+function isAriaInvalid(index: number): boolean | undefined {
   const id = getIndexedId(index)
-  return props.error?.id === id ? 'true' : undefined
+
+  if (!props.error) {
+    return undefined
+  }
+
+  if (props.error?.id === undefined) {
+    return true
+  }
+
+  return props.error?.id === id ? true : undefined
 }
 
 function showAddFileButton(index: number) {

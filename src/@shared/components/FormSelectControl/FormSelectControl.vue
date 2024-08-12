@@ -1,6 +1,8 @@
 <template>
   <select
     v-bind="input"
+    :aria-describedby="ariaDescribedby"
+    :aria-invalid="ariaInvalid"
     @input="$emit('input', $event)"
     @change="$emit('change', $event)"
     @focus="$emit('focus', $event)"
@@ -28,7 +30,7 @@ defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
   ariaDescribedby?: string
-  ariaInvalid?: string
+  ariaInvalid?: boolean
   autofocus?: boolean
   disabled?: boolean
   id: string
@@ -39,10 +41,6 @@ type Props = {
 }
 
 const props = defineProps<Props>()
-
-const isDescribedBy = computed<string | undefined>(() => props.ariaDescribedby ?? undefined)
-
-const isInvalid = computed<'true' | undefined>(() => (props.ariaInvalid ? 'true' : undefined))
 
 const input = computed<{
   id: string
@@ -58,8 +56,6 @@ const input = computed<{
     placeholder,
     disabled,
     autofocus,
-    ariaDescribedby: isDescribedBy.value,
-    ariaInvalid: isInvalid.value
   }
 })
 </script>

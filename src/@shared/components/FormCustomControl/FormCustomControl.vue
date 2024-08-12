@@ -16,6 +16,7 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
+import type { ValidationError } from "@shared/types/field"
 import { InputType } from '@shared/types/input'
 
 import { defineComponent } from 'vue'
@@ -54,23 +55,15 @@ export default defineComponent({
     }
   },
   computed: {
-    errorId() {
-      return getA11yErrorId(this.control.id)
-    },
-    explanationId() {
-      return getA11yExplanationId(this.control.id)
-    },
-    validationId() {
-      return getA11yValidationId(this.control.id)
-    },
     ariaDescribedby() {
-      const error = this.ariaInvalid ? this.errorId : ''
-      const validation = !this.ariaInvalid && this.validationResult ? this.validationId : ''
+      const error = getA11yErrorId(this.control.id)
+      const validation = getA11yValidationId(this.control.id)
+      const explanation = getA11yExplanationId(this.control.id)
 
-      return [this.explanationId, error, validation].filter(Boolean).join(' ').trim()
+      return [error, validation, explanation].join(' ')
     },
     ariaInvalid() {
-      return this.wrapperProps.error ? 'true' : undefined
+      return this.validationError ? 'true' : undefined
     },
     isFieldReadonly() {
       // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
@@ -104,25 +97,20 @@ export default defineComponent({
     wrapperProps() {
       const {
         appliedOptions,
-        conditionalError,
         control,
-        controlId,
-        error,
         handleChange,
         resetError,
         hideRequiredLabel,
         isConditionalRequired,
         isFocused,
         isReadOnly: isFormReadonly,
-        isTouched,
         onValid,
         onRemoteAction,
         onRemoteValidation,
         styles,
-        validationResult
       } = this
 
-      const { description, errors, id, label, required, visible, schema, uischema } = control
+      const { description, id, label, required, visible, schema, uischema } = control
       const type = useFieldType(schema, uischema)
       const isGroup =
         type === InputType.RADIO ||
@@ -134,7 +122,7 @@ export default defineComponent({
         appliedOptions,
         contentClass: type,
         description: isFocused ? description : undefined,
-        error: error || (isTouched ? { message: errors }  || { message: conditionalError } : undefined), // only show errors when field is touched
+        error: this.validationError,
         handleChange,
         resetError,
         hideRequiredLabel: hideRequiredLabel || this.isFieldReadonly || isFormReadonly,
@@ -147,13 +135,27 @@ export default defineComponent({
         onRemoteValidation,
         required: required || isConditionalRequired,
         styles,
-        validationResult: validationResult?.[controlId],
+        validationResult: this.validationResultForControl,
         visible
       }
     },
     field() {
       return useField(this)
-    }
+    },
+    validationResultForControl() {
+      return this.validationResult?.[this.controlId]
+    },
+    validationError(): ValidationError | undefined {
+      if (this.error) {
+        return this.error;
+      }
+      // only show errors when field is touched
+      const error = this.control.errors || this.conditionalError
+      if (this.isTouched && error) {
+        return { message: error }
+      }
+      return undefined;
+    },
   },
   methods: {
     onInputFromPaste(event: InputEvent) {

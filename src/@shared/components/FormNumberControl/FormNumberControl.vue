@@ -2,6 +2,8 @@
   <input
     v-bind="input"
     @keypress="onKeyPress"
+    :aria-describedby="ariaDescribedby"
+    :aria-invalid="ariaInvalid"
     @input="$emit('input', $event)"
     @change="$emit('change', $event)"
     @focus="$emit('focus', $event)"
@@ -22,6 +24,8 @@ import { isNumberKey } from '@shared/utils/number'
 defineEmits(['input', 'change', 'focus', 'blur'])
 
 type Props = {
+  ariaDescribedby?: string
+  ariaInvalid?: boolean
   autofocus?: boolean
   control: Control
   disabled?: boolean

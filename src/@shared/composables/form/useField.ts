@@ -120,12 +120,12 @@ export const useFieldFileRemove = () => {
 type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
-  error: ValidationError | null
+  validationError?: ValidationError
   handleChange?: (_path: string, _value: any) => void
   resetError?: () => void
 }
 
-export const useField = ({ input, control, error, handleChange, resetError }: FieldProps) => {
+export const useField = ({ input, control, validationError, handleChange, resetError }: FieldProps) => {
   const fileField = useFileField()
 
   switch (input.type) {
@@ -165,7 +165,7 @@ export const useField = ({ input, control, error, handleChange, resetError }: Fi
           ...input,
           value: undefined,
           control: control,
-          error: error,
+          error: validationError,
           isPending: fileField.isUploadPending(control.path),
           handleChange: handleChange,
           resetError: resetError

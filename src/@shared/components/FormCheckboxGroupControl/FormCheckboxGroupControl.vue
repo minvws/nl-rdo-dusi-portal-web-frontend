@@ -11,6 +11,7 @@
         :id="getIndexedId(index)"
         :disabled="disabled"
         :checked="values.includes(value)"
+        :aria-describedby="ariaDescribedby"
         @input="onChange"
         @focus="$emit('focus', $event)"
         @blur="$emit('blur', $event)"
@@ -30,6 +31,8 @@ import { getA11yInputId } from '@shared/utils/a11y'
 defineEmits(['change', 'focus', 'blur'])
 
 type Props = {
+  ariaDescribedby?: string
+  ariaInvalid?: boolean
   autofocus?: boolean
   disabled?: boolean
   id: string
