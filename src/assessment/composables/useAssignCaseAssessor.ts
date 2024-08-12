@@ -10,11 +10,10 @@ import { useApiAssignCaseAssessorUrl } from '@assessment/composables/useApiUrl'
 
 import { REFRESH, HOME } from '@assessment/router/names'
 
-import { useI18n } from 'vue-i18n'
 import { log } from '@shared/utils/logger'
+import { t } from '@shared/i18n'
 
 export const useAssignCaseAssessor = () => {
-  const { t } = useI18n()
   const router = useRouter()
   const { closeModal } = useAppModalStore()
   const notificationsStore = useNotificationsStore()

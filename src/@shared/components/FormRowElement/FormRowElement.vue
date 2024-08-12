@@ -82,7 +82,7 @@ function asArray(arg: VNodeChild) {
     @include desktop {
       flex-direction: row;
 
-      * {
+      > * {
         flex: 0.75;
         align-items: center;
 

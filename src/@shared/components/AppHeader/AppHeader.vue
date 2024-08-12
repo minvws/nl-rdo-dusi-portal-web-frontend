@@ -102,8 +102,8 @@ watch(isLoggedIn, (isLoggedIn) => {
 
 <style lang="scss" scoped>
 .app-header {
-  @include hide-print;
-
   --header-navigation-list-item-align-items: center;
+
+  @include hide-print;
 }
 </style>

@@ -173,9 +173,9 @@ export default defineComponent({
 }
 
 .form-group-label {
-  @include heading;
-
   flex: 0.25;
+
+  @include heading;
 }
 
 .form-group-renderer {

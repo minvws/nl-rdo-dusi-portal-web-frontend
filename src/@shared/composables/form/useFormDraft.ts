@@ -1,7 +1,5 @@
 import type { NotificationDisplayType } from '@shared/types/notification'
 
-import { useI18n } from 'vue-i18n'
-
 import { NotificationType } from '@shared/types/notification'
 
 import { useApiDraftFormUrl } from '@shared/composables/useApiUrl'
@@ -9,9 +7,9 @@ import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { log } from '@shared/utils/logger'
+import { t } from '@shared/i18n'
 
 export const useFormDraft = () => {
-  const { t, te } = useI18n()
   const notificationsStore = useNotificationsStore()
 
   function getDisplayType(code: string): NotificationDisplayType {
@@ -25,16 +23,12 @@ export const useFormDraft = () => {
     }
   }
 
-  function getErrorNotificationMessage(error: { code: string; message?: string }) {
+  function getErrorNotificationMessage(error: { code: string; message?: string }): string {
     if (error.message) {
       return error.message
     }
 
-    if (te(`form.message.${error.code}`)) {
-      return t(`form.message.${error.code}`)
-    }
-
-    return t('form.message.loading_error', { error: error.code })
+    return t(`form.message.${error.code}`) || t('form.message.loading_error', { error: error.code }) || ''
   }
 
   async function createDraft(subsidyCode: string) {

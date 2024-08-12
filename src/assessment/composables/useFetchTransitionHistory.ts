@@ -10,7 +10,7 @@ import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiTransitionHistoryUrl } from '@assessment/composables/useApiUrl'
 
 import { formatDateWithTime } from '@shared/utils/date'
-import { useI18n } from 'vue-i18n'
+import { t } from '@shared/i18n'
 
 const transformStage = (stage: HistoryTransitionStage) => {
   return {
@@ -29,7 +29,6 @@ const OPTIONS = {
 } as Intl.DateTimeFormatOptions
 
 export const useFetchTransitionHistory = (id: string) => {
-  const { t } = useI18n()
   const url = useApiTransitionHistoryUrl(id)
   const { data: json, ...fetch } = useQueryFetch('with-credentials', { url })
 

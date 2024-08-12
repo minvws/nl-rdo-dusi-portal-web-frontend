@@ -5,8 +5,6 @@ import type { CustomFetch } from '@shared/types/fetch'
 import { ProjectType } from '@shared/types/project'
 import { CustomFetchType } from '@shared/types/fetch'
 
-import { useI18n } from 'vue-i18n'
-
 import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useEncryption } from '@shared/composables/useEncryption'
@@ -16,12 +14,12 @@ import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 import { log } from '@shared/utils/logger'
 import { usePendingFileStore } from '@shared/store/usePendingFileStore'
 import { getA11yInputId } from '@shared/utils/a11y'
+import { t } from '@shared/i18n'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export const useFileField = () => {
-  const { t } = useI18n()
   const form = useForms()
   const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()

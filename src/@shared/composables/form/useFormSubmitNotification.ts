@@ -1,15 +1,13 @@
 import type { FormSubmit, FormSubmitError } from '@shared/types/form'
 import { FormSubmitType } from '@shared/types/form'
 
-import { useI18n } from 'vue-i18n'
-
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
+import { t } from '@shared/i18n'
 
 const NOTIFICATION_SUBMIT_ID = 'form-submit'
 const NOTIFICATION_SAVE_ID = 'form-save'
 
 export const useFormSubmitNotification = () => {
-  const { t } = useI18n()
   const notificationsStore = useNotificationsStore()
 
   function setSubmitError(error: FormSubmitError) {
@@ -33,7 +31,7 @@ export const useFormSubmitNotification = () => {
 
   function setSubmitSuccess() {
     notificationsStore.add({
-      message: t('form.message.success'),
+      message: t('form.message.success') ?? '',
       displayAs: 'confirmation',
       id: NOTIFICATION_SUBMIT_ID,
       pageChangeCount: 2,
