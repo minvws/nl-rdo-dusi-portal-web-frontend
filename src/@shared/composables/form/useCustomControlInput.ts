@@ -77,7 +77,7 @@ export const useCustomControlInput = ({
 
     // Input is validating and disabled,
     // restore focus on element after remote validation.
-    restoreFocus(control.value)
+    restoreFocus()
   }
 
   async function handleRemoteAction(type: ControlEvent): Promise<void> {
@@ -95,11 +95,11 @@ export const useCustomControlInput = ({
 
     // Input is validating and disabled,
     // restore focus on element after remote action.
-    restoreFocus(control.value)
+    restoreFocus()
   }
 
-  function restoreFocus(control: Control): void {
-    const inputId = getInputId(control)
+  function restoreFocus(): void {
+    const inputId = getInputId(control.value)
     // we need to use the attribute selector here because the id can start with special characters (e.g. #)
     const element = document.querySelector(`[id="${inputId}"]`)
     const validInputElement = element && element instanceof HTMLInputElement && !element.disabled
