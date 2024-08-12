@@ -112,7 +112,9 @@ export const useCustomControlInput = ({
   function updateValue(type: ControlEvent) {
     const value = getValue(type, control.value, control.value.data)
 
-    handleChange(control.value.path, value)
+    if (value !== control.value.data) {
+      handleChange(control.value.path, value)
+    }
     handleRemoteAction(type)
     handleRemoteValidation(type)
   }
@@ -135,8 +137,8 @@ export const useCustomControlInput = ({
   function onInputChange(event: Event): void {
     error.value = null
 
-    onChange(event)
     updateValue('onInput')
+    onChange(event)
     nextTick(() => {
       if (isValid.value) {
         onValid()
