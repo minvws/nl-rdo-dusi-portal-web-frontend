@@ -1,5 +1,4 @@
-import type { Ref } from 'vue'
-import type { ValidationError } from '@shared/types/field'
+import type { ComputedRef } from 'vue'
 import type { FileType } from '@shared/types/form'
 import type { CustomFetch } from '@shared/types/fetch'
 import { ProjectType } from '@shared/types/project'
@@ -9,23 +8,20 @@ import { useApiFileUrl } from '@shared/composables/useApiUrl'
 import { useCustomFetch } from '@shared/composables/useCustomFetch'
 import { useEncryption } from '@shared/composables/useEncryption'
 import { useForms } from '@shared/composables/form/useForms'
-import { useFormSubmit } from '@shared/composables/form/useFormSubmit'
 
 import { log } from '@shared/utils/logger'
-import { usePendingFileStore } from '@shared/store/usePendingFileStore'
-import { getA11yInputId } from '@shared/utils/a11y'
 import { t } from '@shared/i18n'
+import { usePendingFileStore } from '@shared/store/usePendingFileStore'
 
 const publicKey = window?.config?.formEncryptionPublicKey || import.meta.env.VITE_FORM_PUBLIC_KEY
 const isPortal = import.meta.env.VITE_PROJECT === ProjectType.PORTAL
 
 export const useFileField = () => {
   const form = useForms()
-  const { onSubmitValidation } = useFormSubmit()
   const { encrypt } = useEncryption()
   const { setPending, getPending, clearPending } = usePendingFileStore()
 
-  const { activeForm, activeFormId, activeInputStageForm, reference, setFormData } = form
+  const { activeForm, activeFormId, activeInputStageForm, reference } = form
 
   type FileFieldProps = {
     fieldName: string
@@ -34,82 +30,38 @@ export const useFileField = () => {
 
   type AddFileProps = FileFieldProps & {
     file: File
-    id: string
-    error?: Ref<ValidationError | null>
   }
 
-  type AddOrRemoveFileProps = {
-    id: string
+  type SaveFileProps = {
     fieldName: string
-    error?: Ref<ValidationError | null>
-    target?: HTMLInputElement
-  }
-
-  type SaveFileProps = FileFieldProps & {
-    errorRef?: Ref<ValidationError | null>
-    fieldId: string
     file: File
   }
 
-  type FileUploadProps = FileFieldProps & {
+  type FileUploadProps = {
     data: { id: string }
     file: File
   }
 
-  async function addFile({ file, id, index, fieldName, error }: AddFileProps): Promise<void> {
-    const fieldId = getA11yInputId(id, index)
+  async function addFile({ file, index, fieldName }: AddFileProps): Promise<FileType> {
     const formId = activeFormId.value
 
     setPending({ formId, fieldName }, index)
 
-    await saveFile({ fieldName, fieldId, file, index, errorRef: error })
-      .catch(() => {
-        // Removes the last successful file if there was one on that field
-        removeFile({fieldName, index}, true)
-      })
+    return await saveFile({ fieldName, file })
       .finally(() => {
-        if (isPortal) {
-          // TODO: Only do submit validation if really needed ...
-          onSubmitValidation(fieldName)
-        }
+        clearPending({ formId, fieldName }, index)
       })
-
-    clearPending({ formId, fieldName }, index)
   }
 
-  function addOrRemoveFile({ id, fieldName, error, target }: AddOrRemoveFileProps): void {
-    const file = target?.files?.[0]
-    const index = Number.parseInt(target?.dataset.index || '0', 10)
-
-    if (file) {
-      addFile({ error, file, id, index, fieldName })
-    } else {
-      removeFile({ fieldName, index })
-    }
-  }
-
-  function isUploadPending(fieldName: string): boolean[] {
+  function isUploadPending(fieldName: string): ComputedRef<boolean[]> {
     const formId = activeForm.value?.id
-    if (!formId) {
-      return []
-    }
     return getPending({ formId, fieldName })
   }
 
-  function removeFile({ fieldName, index = 0}: FileFieldProps, hasError: boolean = false): void {
-    onFileRemoved({ fieldName, index }, hasError)
-    if (isPortal) {
-      onSubmitValidation(fieldName) // TODO: Only run validation if really needed ...
-    }
-  }
-
   async function saveFile({
-    errorRef,
     fieldName,
-    fieldId,
-    file,
-    index
-  }: SaveFileProps): Promise<void> {
+    file
+  }: SaveFileProps): Promise<FileType> {
     const reference = getId()
     const url = useApiFileUrl(reference, fieldName)
     const fetchType = isPortal ? CustomFetchType.ENCRYPTION : CustomFetchType.CREDENTIALS
@@ -125,74 +77,28 @@ export const useFileField = () => {
       const errorMessage = error?.value?.message ?? data.value?.message
 
       if (id) {
-        return onFileUploaded({ fieldName, file, index, data: data.value })
+        return onFileUploaded({ file, data: data.value })
       }
 
       if (errorMessage && statusCode.value === 422) {
         throw new Error(errorMessage)
       }
 
-      if (errorMessage) {
-        throw new Error(undefined)
-      }
+      throw new Error(undefined)
     } catch (error: any) {
-      if (errorRef) {
-        errorRef.value = {
-          message: error?.message || t('form.fields.error.upload'),
-          id: fieldId
-        }
-      }
-
       log(error)
-      throw error
+      throw new Error(error?.message || t('form.fields.error.upload'))
     }
   }
 
-  function onFileUploaded({ data, fieldName, file, index }: FileUploadProps): void {
-    const formData = form.data.value
-    const target = (formData[fieldName] as FileType[]) || []
-
+  function onFileUploaded({ data, file }: FileUploadProps): FileType {
     const { type: mimeType, name } = file
 
-    target[index] = {
+    return {
       id: data.id,
       mimeType,
       name
     }
-
-    const updatedFormData = {
-      ...formData,
-      [fieldName]: target
-    }
-
-    setFormData(updatedFormData)
-  }
-
-  function onFileRemoved({ fieldName, index }: FileFieldProps, hasError: boolean = false): void {
-    const formData = form.data.value
-    const target = (formData[fieldName] as (FileType | undefined)[]) || []
-    if (target.length <= index) {
-      return;
-    }
-
-    if (
-      target.length >= 1
-      && (index + 1) < target.length
-      && hasError
-    ) {
-      // set field value to undefined when there is an error on file upload
-      // only if there are more files in the array and not the last one
-      target[index] = undefined
-    } else {
-      target.splice(index, 1)
-    }
-
-    const updatedFormData = {
-      ...formData,
-      [fieldName]: target
-    }
-
-    setFormData(updatedFormData)
   }
 
   function getId(): string | undefined {
@@ -222,8 +128,48 @@ export const useFileField = () => {
 
   return {
     addFile,
-    addOrRemoveFile,
-    isUploadPending,
-    removeFile
+    isUploadPending
   }
+}
+
+export function addFileToFileList(
+  fileList: (FileType | undefined)[],
+  file: FileType,
+  index: number
+): (FileType | undefined)[] {
+  const target = [...fileList]
+  target[index] = file
+
+  return target
+}
+
+export function removeFileFromFileList(
+  fileList: (FileType | undefined)[],
+  index: number,
+  hasErrorOrPending: boolean = false
+): (FileType | undefined)[] {
+  let target = [...fileList]
+  if (target.length <= index) {
+    return target;
+  }
+
+  if (
+    target.length >= 1
+    && (index + 1) < target.length
+    && (hasErrorOrPending)
+  ) {
+    // set field value to undefined when there is an error on file upload
+    // only if there are more files in the array and not the last one
+    target[index] = undefined
+  } else {
+    target.splice(index, 1)
+  }
+
+  const fileItems = target.filter((item) => item !== undefined)
+  if (fileItems.length === 0 && fileItems.length !== target.length) {
+    // prevent array from having only undefined items
+    target = []
+  }
+
+  return target
 }

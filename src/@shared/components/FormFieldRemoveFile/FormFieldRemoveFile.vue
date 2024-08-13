@@ -41,14 +41,11 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppLoader from '@shared/components/AppLoader/AppLoader.vue'
 
 type Props = {
-  handleChange?: (_path: string, _value: any) => void
-  id: string
-  path: string
-  index: number
-  labelFor: string
   disabled?: boolean
-  files?: FileType[]
+  file?: FileType
+  index: number
   isPending: boolean
+  labelFor: string
 }
 
 const props = defineProps<Props>()
@@ -57,11 +54,9 @@ const emit = defineEmits(['removedFile'])
 
 const { t } = useI18n()
 
-const file = computed<FileType | undefined>(() => props.files?.[props.index])
+const fileLabel = computed<string | undefined>(() => formatFile(props.file?.name))
 
-const fileLabel = computed<string | undefined>(() => formatFile(file.value?.name))
-
-const hasRemoveButton = computed<boolean>(() => !!file.value || props.index > 0)
+const hasRemoveButton = computed<boolean>(() => !!props.file || props.index > 0)
 
 const isDisabled = computed<boolean>(() => props.disabled || props.isPending)
 

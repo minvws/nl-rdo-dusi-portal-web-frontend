@@ -11,7 +11,7 @@
         <FormTextControl
           v-bind="textControlProps"
           :id="getIndexedId(index)"
-          :disabled="disabled || !!isPending?.[index]"
+          :disabled="disabled || isPending[index]"
           :data-index="index"
           :aria-describedby="ariaDescribedby(index)"
           :aria-invalid="isAriaInvalid(index)"
@@ -20,12 +20,9 @@
         />
         <FormFieldRemoveFile
           :disabled="disabled"
-          :files="files"
-          :handle-change="handleChange"
-          :id="control.id"
-          :path="control.path"
+          :file="files[index]"
           :index="index"
-          :is-pending="!!isPending?.[index]"
+          :is-pending="isPending[index] || false"
           :label-for="getIndexedId(index)"
           @removedFile="onFileRemoved"
         />
@@ -52,7 +49,7 @@ import FormFieldAddFileButton from '@shared/components/FormFieldAddFileButton/Fo
 import { InputType } from '@shared/types/input'
 import { formatFileSize } from '@shared/utils/format'
 import { getA11yErrorId, getA11yExplanationId, getA11yInputId, getA11yValidationId } from '@shared/utils/a11y'
-import { useFieldFileRemove } from '@shared/composables/form/useField'
+import { addFileToFileList, removeFileFromFileList, useFileField } from '@shared/composables/useFileField'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur', 'error'])
 
@@ -67,19 +64,20 @@ type Props = {
   id: string
   placeholder?: string
   type: InputType
-  value?: string
-  error?: ValidationError
-  isPending?: boolean[]
+  value?: (FileType | undefined)[]
+  error?: ValidationError,
 }
 
 const props = defineProps<Props>()
 
 const { t } = useI18n()
-const { removeFile } = useFieldFileRemove()
+const { isUploadPending, addFile } = useFileField()
 
 const addFileCount = ref<number>(0)
 
-const files = computed<FileType[]>(() => props.control.data as FileType[])
+const files = computed<(FileType | undefined)[]>(() => props.value ?? [])
+
+const isPending = isUploadPending(props.control.path)
 
 const textControlProps = computed<{
   type: InputType
@@ -90,7 +88,7 @@ const textControlProps = computed<{
 }>(() => ({
   type: props.type,
   control: props.control,
-  value: props.value,
+  value: undefined,
   placeholder: props.placeholder,
   autofocus: props.autofocus
 }))
@@ -139,11 +137,22 @@ function showAddFileButton(index: number) {
 /**
  * Lower the add file count when a file is removed
  * This will remove the input field
+ *
+ * When having a pending upload the file count will stay the same
+ * to keep the input field but file will be removed
  */
 function onFileRemoved(index: number): void {
   props.resetError()
 
-  removeFile({ fieldName: props.control.path, index: index })
+  const hasPending = isPending.value.some((pending) => pending)
+
+  const newFiles = removeFileFromFileList(files.value, index, hasPending)
+  props.handleChange(props.control.path, newFiles)
+
+  if (hasPending) {
+    return
+  }
+
   addFileCount.value = Math.max(addFileCount.value - 1, 1)
   emit('blur')
 }
@@ -153,25 +162,53 @@ function onChange(event: InputEvent, index: number): void {
     return
   }
 
+  event.preventDefault()
+
   const file = event.target?.files?.[0]
   const { maxFileSize } = props
 
-  // file exceeds maxFileSize
-  if (file && maxFileSize && file.size > maxFileSize) {
-    event.preventDefault()
-    const size = formatFileSize(maxFileSize)
-
-    removeFile({ fieldName: props.control.path, index: index }, true)
-
+  if (!file) {
     emit('error', {
-      message: t('form.fields.error.maxFileSize', { maxFileSize: size }),
+      message: t('form.fields.error.upload'),
       id: event.target.id
     })
 
     return
   }
 
-  emit('change', event)
+  // file exceeds maxFileSize
+  if (maxFileSize && file.size > maxFileSize) {
+    const size = formatFileSize(maxFileSize)
+
+    // Removes the last successful file if there was one on that field
+    const newFiles = removeFileFromFileList(files.value, index, true)
+    props.handleChange(props.control.path, newFiles)
+
+    emit('error', {
+      message: t('form.fields.error.maxFileSize', { maxFileSize: size }),
+      id: event.target.id
+    })
+    return
+  }
+
+  addFile({ index, fieldName: props.control.path, file })
+    .then((data) => {
+      // Set new value
+      const newFiles = addFileToFileList(files.value, data, index)
+      props.handleChange(props.control.path, newFiles)
+
+      emit('change', event)
+    })
+    .catch((error) => {
+      // Removes the last successful file if there was one on that field
+      const newFiles = removeFileFromFileList(files.value, index, true)
+      props.handleChange(props.control.path, newFiles)
+
+      emit('error', {
+        message: error.message,
+        id: (event.target as HTMLInputElement).id
+      })
+    })
 }
 
 function onFocus(event: InputEvent): void {

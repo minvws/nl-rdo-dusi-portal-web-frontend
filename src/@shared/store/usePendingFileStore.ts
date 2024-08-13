@@ -1,4 +1,5 @@
-import { ref } from 'vue'
+import type { ComputedRef } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const usePendingFileStore = defineStore('usePendingFileStore', () => {
@@ -27,9 +28,10 @@ export const usePendingFileStore = defineStore('usePendingFileStore', () => {
     return
   }
 
-  function getPending({ formId, fieldName }: PendingFieldProps): boolean[] {
-    const pendingState = pending.value[formId]
-    return pendingState?.[fieldName]
+  function getPending({ formId, fieldName }: PendingFieldProps): ComputedRef<boolean[]> {
+    return computed(() => {
+      return pending.value[formId]?.[fieldName] || []
+    })
   }
 
   function clearPending({ formId, fieldName }: PendingFieldProps, index: number): void {

@@ -1,4 +1,3 @@
-import type { Ref } from 'vue'
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { ValidationError, Control, Field } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
@@ -6,7 +5,6 @@ import type { FormValue } from '@shared/types/form'
 import { InputType } from '@shared/types/input'
 
 import { getValue } from '@shared/composables/form/useCustomControlInput'
-import { useFileField } from '@shared/composables/useFileField'
 
 function getFieldProp(control: Control) {
   switch (control.schema.type) {
@@ -19,19 +17,15 @@ function getFieldProp(control: Control) {
   }
 }
 
-type FieldChangeProps = Field & { error: Ref<ValidationError | null> }
+type FieldChangeProps = Field
 
-export const useFieldChange = ({ control, error }: FieldChangeProps) => {
-  const { addOrRemoveFile } = useFileField()
+export const useFieldChange = ({ control }: FieldChangeProps) => {
 
   function onHandleChange(target: HTMLInputElement): FormValue | undefined {
     const prop = getFieldProp(control.value)
     const value = target[prop]
 
     if (control.value.schema.file) {
-      // when file, add or remove from fileStore
-      const { id, path: fieldName  } = control.value
-      addOrRemoveFile({ id, fieldName, error, target })
       return control.value.data
     }
 
@@ -45,7 +39,6 @@ export const useFieldChange = ({ control, error }: FieldChangeProps) => {
   }
 
   return {
-    addOrRemoveFile,
     onHandleChange
   }
 }
@@ -109,14 +102,6 @@ export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement) => {
   return (type as InputType) ?? InputType.TEXT
 }
 
-export const useFieldFileRemove = () => {
-  const { removeFile } = useFileField()
-
-  return {
-    removeFile
-  }
-}
-
 type FieldProps = {
   input: { id: string; type: InputType }
   control: Control
@@ -126,8 +111,6 @@ type FieldProps = {
 }
 
 export const useField = ({ input, control, validationError, handleChange, resetError }: FieldProps) => {
-  const fileField = useFileField()
-
   switch (input.type) {
     case InputType.NUMBER:
     case InputType.INTEGER: {
@@ -163,10 +146,8 @@ export const useField = ({ input, control, validationError, handleChange, resetE
         tag: 'FormFileControl',
         props: {
           ...input,
-          value: undefined,
           control: control,
           error: validationError,
-          isPending: fileField.isUploadPending(control.path),
           handleChange: handleChange,
           resetError: resetError
         }

@@ -21,7 +21,7 @@ export const useCustomControl = (props: any) => {
   const controlId = $props.control.value.path
   const { isConditionalRequired } = useFormConditionalIsRequired(controlId)
   const { conditionalError } = useFormConditionalRequiredError(controlId)
-  const { onHandleChange } = useFieldChange({ error, ...($props as any) })
+  const { onHandleChange } = useFieldChange({ ...($props as any) })
   const {
     errors,
     hideRequiredLabel,

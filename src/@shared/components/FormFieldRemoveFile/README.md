@@ -7,16 +7,13 @@ It provides functionality to display the file label and remove the file. If the 
 
 ## Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `handleChange` | Function | - | Callback function triggered on file removal. |
-| `id` | String | - | Identifier for the form field. |
-| `index` | Number | - | Index of the file. |
-| `labelFor` | String | - | ID of the associated label. |
-| `error` | String | - | Error message related to the file. |
-| `disabled` | Boolean | - | Determines whether the component is disabled. |
-| `files` | Array | - | Array of files associated with the form field. |
-| `isPending` | Boolean | - | Indicates whether the file is pending (loading). |
+| Name        | Type                  | Default   | Description                                      |
+|-------------|-----------------------|-----------|--------------------------------------------------|
+| `disabled`  | Boolean               | -         | Determines whether the component is disabled.    |
+| `file`      | FileType \| undefined | undefined | File associated with the form field.             |
+| `index`     | Number                | -         | Index of the file.                               |
+| `isPending` | Boolean               | -         | Indicates whether the file is pending (loading). |
+| `labelFor`  | String                | -         | ID of the associated label.                      |
 
 ## Slots
 
@@ -28,23 +25,21 @@ This component does not use any directives.
 
 ## Events
 
-| Name | Value | Description |
-| ---- | ----- | ----------- |
-| `blur` | None | Emits when the component loses focus. |
+| Name          | Value | Description                              |
+|---------------|-------|------------------------------------------|
+| `removedFile` | None  | Emits when the remove button is clicked. |
 
 ## Usage
 
 ```html
 <template>
   <FormFieldRemoveFile
-    id="file-input"
-    index="0"
-    label-for="file-label"
-    error="fileError"
     disabled="true"
-    files="[]"
+    file="{ name: 'file.txt', mimeType: 'text/plain', size: 1024 }"
+    index="0"
     is-pending="false"
-    @blur="handleBlur"
+    label-for="file-label"
+    @removed-file="onRemovedFile"
   />
 </template>
 ```

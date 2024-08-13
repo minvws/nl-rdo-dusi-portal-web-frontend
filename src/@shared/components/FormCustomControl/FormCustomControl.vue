@@ -16,7 +16,7 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
-import type { ValidationError } from "@shared/types/field"
+import type { ValidationError } from '@shared/types/field'
 import { InputType } from '@shared/types/input'
 
 import { defineComponent } from 'vue'
@@ -63,7 +63,7 @@ export default defineComponent({
       return [error, validation, explanation].join(' ')
     },
     ariaInvalid() {
-      return this.validationError ? 'true' : undefined
+      return this.validationError ? true : undefined
     },
     isFieldReadonly() {
       // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7

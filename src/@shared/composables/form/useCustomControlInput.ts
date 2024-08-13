@@ -5,7 +5,7 @@ import type { ValidationError, ControlEvent } from '@shared/types/field'
 
 import { computed, nextTick } from 'vue'
 
-import { getControlId, getInputId } from "@shared/utils/control"
+import { getControlId, getInputId } from '@shared/utils/control'
 
 // auto import from custom-input
 const customInputs = Object.values(import.meta.glob('@shared/custom-input/*.ts', { eager: true }))
@@ -63,9 +63,8 @@ export const useCustomControlInput = ({
   async function handleRemoteValidation(type: ControlEvent): Promise<void> {
     // trigger remote validation when type is in list of validations
     const noValidation = !control.value.uischema.options?.validation?.includes(type)
-    const isFileInput = Boolean(control.value.uischema.options?.maxFileSize)
 
-    if (noValidation || isFileInput) {
+    if (noValidation) {
       return
     }
 

@@ -8,20 +8,20 @@ remove file button, and add file button.
 
 ## Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `accept` | String | - | Specifies the types of files that the input accepts. |
-| `maxFileSize` | Number | - | Maximum file size allowed for upload (in bytes). |
-| `autofocus` | Boolean | - | Determines whether the input should be focused automatically. |
-| `control` | Control | - | Control object defining the behavior of the input. |
-| `disabled` | Boolean | - | Determines whether the input is disabled. |
-| `handleChange`| Function | - | Callback function triggered on value change. |
-| `id` | String | - | Identifier for the component. |
-| `placeholder` | String | - | Placeholder text for the input. |
-| `type` | InputType | - | Type of input control. |
-| `value` | String | - | Current value of the input. |
-| `error` | String | - | Error message related to the input. |
-| `isPending` | Array | - | Array indicating whether each file is pending (loading). |
+| Name           | Type                      | Default | Description                                                   |
+|----------------|---------------------------|---------|---------------------------------------------------------------|
+| `accept`       | String                    | -       | Specifies the types of files that the input accepts.          |
+| `maxFileSize`  | Number                    | -       | Maximum file size allowed for upload (in bytes).              |
+| `autofocus`    | Boolean                   | -       | Determines whether the input should be focused automatically. |
+| `control`      | Control                   | -       | Control object defining the behavior of the input.            |
+| `disabled`     | Boolean                   | -       | Determines whether the input is disabled.                     |
+| `handleChange` | Function                  | -       | Function to update a value of an input.                       |
+| `resetError`   | Function                  | -       | Function to resetError of the input.                          |
+| `id`           | String                    | -       | Identifier for the component.                                 |
+| `placeholder`  | String                    | -       | Placeholder text for the input.                               |
+| `type`         | InputType                 | -       | Type of input control.                                        |
+| `value`        | (FileType \| undefined)[] | -       | Current value of the input.                                   |
+| `error`        | String                    | -       | Error message related to the input.                           |
 
 ## Slots
 
@@ -57,7 +57,6 @@ This component does not use any directives.
     type="file"
     value="value"
     error="error"
-    is-pending="[]"
     @change="handleInputChange"
     @blur="handleInputBlur"
   />
