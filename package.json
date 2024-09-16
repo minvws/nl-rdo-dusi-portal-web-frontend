@@ -37,7 +37,7 @@
     "js-cookie": "^3.0.5",
     "libsodium-wrappers": "^0.7.13",
     "lodash.merge": "^4.6.2",
-    "pinia": "^2.1.7",
+    "pinia": "^2.2.2",
     "sass": "^1.75.0",
     "uuid": "^9.0.1",
     "vue": "~3.4.37",
