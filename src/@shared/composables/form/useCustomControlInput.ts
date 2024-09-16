@@ -5,7 +5,7 @@ import type { ValidationError, ControlEvent } from '@shared/types/field'
 
 import { computed, nextTick } from 'vue'
 
-import { getControlId, getInputId } from '@shared/utils/control'
+import { getControlPath, getInputId } from '@shared/utils/control'
 
 // auto import from custom-input
 const customInputs = Object.values(import.meta.glob('@shared/custom-input/*.ts', { eager: true }))
@@ -24,7 +24,7 @@ export function getValue(type: ControlEvent, control: Control, value: FormValue)
 
 type Props = {
   control: Ref<Control>
-  controlId: string
+  controlPath: string
   error: Ref<ValidationError | null>
   errors: Ref<FormError[]>
   handleChange: (_path: string, _value: FormValue) => void
@@ -37,7 +37,7 @@ type Props = {
 
 export const useCustomControlInput = ({
   control,
-  controlId,
+  controlPath,
   error,
   errors,
   handleChange,
@@ -53,10 +53,10 @@ export const useCustomControlInput = ({
         const { instancePath, params } = error as FormError & { instancePath: string }
 
         if (!instancePath) {
-          return params?.missingProperty === controlId
+          return params?.missingProperty === controlPath
         }
 
-        return getControlId(instancePath) === controlId
+        return getControlPath(instancePath) === controlPath
       })
   )
 
@@ -68,7 +68,7 @@ export const useCustomControlInput = ({
       return
     }
 
-    await onRemoteValidation(control.value.path)
+    await onRemoteValidation(controlPath)
 
     if (type !== 'onValid') {
       return
@@ -112,7 +112,7 @@ export const useCustomControlInput = ({
     const value = getValue(type, control.value, control.value.data)
 
     if (value !== control.value.data) {
-      handleChange(control.value.path, value)
+      handleChange(controlPath, value)
     }
     handleRemoteAction(type)
     handleRemoteValidation(type)

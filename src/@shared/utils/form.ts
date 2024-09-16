@@ -7,12 +7,12 @@ import { isLabeled, isLayout } from '@jsonforms/core'
 import { getValueFromKey } from '@shared/utils/object'
 import { getDeepProps } from '@shared/utils/array'
 
-import { getControlId } from './control'
+import { getControlPath } from './control'
 
 function getScopesFromUISchema(uischema: UISchemaElement): string[] {
   const key = 'elements'
   const elements = (uischema as any)?.[key] ?? []
-  return getDeepProps(elements, key, 'scope').map((scope) => getControlId(scope))
+  return getDeepProps(elements, key, 'scope').map((scope) => getControlPath(scope))
 }
 
 function filterPropertiesForUiSchema(

@@ -16,13 +16,14 @@
 
 <script lang="ts">
 import type { ControlElement } from '@jsonforms/core'
+import type { FormValidationEntry } from '@shared/types/form'
 import type { ValidationError } from '@shared/types/field'
 import { InputType } from '@shared/types/input'
 
 import { defineComponent } from 'vue'
 import { rendererProps } from '@jsonforms/vue'
 
-import { useFieldValue, useFieldType, useField } from '@shared/composables/form/useField'
+import { useFieldValue, useField } from '@shared/composables/form/useField'
 import { useCustomControl } from '@shared/composables/form/useCustomControl'
 
 import FormCheckboxGroupControl from '@shared/components/FormCheckboxGroupControl/FormCheckboxGroupControl.vue'
@@ -55,42 +56,37 @@ export default defineComponent({
     }
   },
   computed: {
-    ariaDescribedby() {
+    ariaDescribedby(): string {
       const error = getA11yErrorId(this.control.id)
       const validation = getA11yValidationId(this.control.id)
       const explanation = getA11yExplanationId(this.control.id)
 
       return [error, validation, explanation].join(' ')
     },
-    ariaInvalid() {
+    ariaInvalid(): true | undefined {
       return this.validationError ? true : undefined
     },
-    isFieldReadonly() {
-      // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
-      let readonlyInSchema = this.control.schema?.readOnly
-
-      return readonlyInSchema || this.control.uischema.options?.readonly || false
-    },
-    isFieldDisabled() {
+    isFieldDisabled(): boolean {
       return !this.isFieldReadonly && (!this.control.enabled || this.isValidating)
     },
     input() {
       const {
+        appliedOptions,
         control,
-        appliedOptions: { placeholder, autofocus }
+        fieldType,
+        isFieldDisabled,
+        isFieldReadonly,
       } = this
-      const { schema, uischema } = control
-      const type = useFieldType(schema, uischema)
-      const value = useFieldValue(this)
+      const value = useFieldValue(control.data, control.schema, appliedOptions, fieldType)
 
       return {
         id: getInputId(control),
-        class: `input ${type}-input`,
-        type,
-        disabled: this.isFieldDisabled,
-        readonly: this.isFieldReadonly,
-        autofocus,
-        placeholder,
+        class: `input ${fieldType}-input`,
+        type: fieldType,
+        disabled: isFieldDisabled,
+        readonly: isFieldReadonly,
+        autofocus: appliedOptions.autofocus,
+        placeholder: appliedOptions.placeholder,
         ...value
       }
     },
@@ -98,34 +94,37 @@ export default defineComponent({
       const {
         appliedOptions,
         control,
+        fieldType,
         handleChange,
         resetError,
         hideRequiredLabel,
         isConditionalRequired,
+        isFieldReadonly,
         isFocused,
         isReadOnly: isFormReadonly,
         onValid,
         onRemoteAction,
         onRemoteValidation,
         styles,
+        validationError,
+        validationResultForControl,
       } = this
 
-      const { description, id, label, required, visible, schema, uischema } = control
-      const type = useFieldType(schema, uischema)
+      const { description, id, label, required, visible } = control
       const isGroup =
-        type === InputType.RADIO ||
-        type === InputType.CHECKBOX ||
-        type === InputType.CHECKBOX_GROUP ||
-        type === InputType.FILE
+        fieldType === InputType.RADIO ||
+        fieldType === InputType.CHECKBOX ||
+        fieldType === InputType.CHECKBOX_GROUP ||
+        fieldType === InputType.FILE
 
       return {
         appliedOptions,
-        contentClass: type,
+        contentClass: fieldType,
         description: isFocused ? description : undefined,
-        error: this.validationError,
+        error: validationError,
         handleChange,
         resetError,
-        hideRequiredLabel: hideRequiredLabel || this.isFieldReadonly || isFormReadonly,
+        hideRequiredLabel: hideRequiredLabel || isFieldReadonly || isFormReadonly,
         id,
         isFocused,
         isGroup,
@@ -135,15 +134,15 @@ export default defineComponent({
         onRemoteValidation,
         required: required || isConditionalRequired,
         styles,
-        validationResult: this.validationResultForControl,
+        validationResult: validationResultForControl,
         visible
       }
     },
     field() {
       return useField(this)
     },
-    validationResultForControl() {
-      return this.validationResult?.[this.controlId]
+    validationResultForControl(): FormValidationEntry[] | undefined {
+      return this.validationResult?.[this.controlPath]
     },
     validationError(): ValidationError | undefined {
       if (this.error) {

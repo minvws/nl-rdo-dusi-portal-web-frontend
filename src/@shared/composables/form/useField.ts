@@ -1,18 +1,24 @@
 import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
-import type { ValidationError, Control, Field } from '@shared/types/field'
+import type { Control, ControlSchema, Field, ValidationError } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
 import { InputType } from '@shared/types/input'
 
 import { getValue } from '@shared/composables/form/useCustomControlInput'
+import { getSchemaBasedInputType, isInputType } from '@shared/utils/input-types'
 
-function getFieldProp(control: Control) {
-  switch (control.schema.type) {
+function getFieldProp(schemaType: string | string[] | undefined) {
+  const defaultProp = 'value'
+  if (typeof schemaType !== 'string') {
+    return defaultProp
+  }
+
+  switch (schemaType) {
     case 'boolean': {
       return 'checked'
     }
     default: {
-      return 'value'
+      return defaultProp
     }
   }
 }
@@ -22,7 +28,7 @@ type FieldChangeProps = Field
 export const useFieldChange = ({ control }: FieldChangeProps) => {
 
   function onHandleChange(target: HTMLInputElement): FormValue | undefined {
-    const prop = getFieldProp(control.value)
+    const prop = getFieldProp(control.value.schema.type)
     const value = target[prop]
 
     if (control.value.schema.file) {
@@ -43,25 +49,25 @@ export const useFieldChange = ({ control }: FieldChangeProps) => {
   }
 }
 
-type FieldValueProps = {
-  control: Control
-  appliedOptions?: Record<string, string>
-}
+export const useFieldValue = (data: FormValue, schema: ControlSchema, appliedOptions: Record<string, string>|undefined, fieldType: InputType) => {
+  const { file, type } = schema
 
-export const useFieldValue = ({ control, appliedOptions = {} }: FieldValueProps) => {
-  const {
-    data,
-    schema: { file, type }
-  } = control
-  const prop = getFieldProp(control)
+  const prop = getFieldProp(schema.type)
 
   if (file) {
     // file input
-    const { accept, maxFileSize } = appliedOptions
     return {
       [prop]: data,
-      accept,
-      maxFileSize
+      accept: appliedOptions?.accept,
+      maxFileSize: appliedOptions?.maxFileSize
+    }
+  }
+
+  if (fieldType === InputType.TEXT && typeof data !== 'string') {
+    data = data ?? ''
+
+    return {
+      [prop]: String(data)
     }
   }
 
@@ -79,27 +85,49 @@ export const useFieldValue = ({ control, appliedOptions = {} }: FieldValueProps)
   }
 }
 
-export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement) => {
-  const { options } = uischema
-  const fieldTypes = Object.values(InputType)
-  const extend = schema as JsonSchema & Record<InputType, boolean> & { format?: InputType }
-  const key = fieldTypes.find((key) => extend[key])
-
-  if (key) {
-    return key
+export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement, fieldIsReadonly: boolean): InputType => {
+  const schemaBasedInputType = getSchemaBasedInputType(schema)
+  if (schemaBasedInputType) {
+    return schemaBasedInputType
   }
 
-  const { format, type } = { ...options, ...extend }
+  /**
+   * This list is based on the field types that are defined in the portal shared package.
+   * SubsidyStageDataSchemaBuilder::createFieldDataSchema
+   *
+   * Possible string values for schema.type:
+   * - string
+   * - number
+   * - integer
+   * - boolean
+   * - array
+   */
+  const schemaType: string | string[] | undefined = schema.type
+  const formatType: string | undefined = uischema.options?.format || schema.format
 
-  if (type === 'boolean') {
+  if (schemaType === 'boolean') {
     return InputType.CHECKBOX
   }
 
-  if (format && fieldTypes.includes(format)) {
-    return format
+  if (formatType && isInputType(formatType)) {
+    if (fieldIsReadonly && (formatType === InputType.NUMBER || formatType === InputType.INTEGER)) {
+      // for better screen reader support set the readonly number fields to text
+      return InputType.TEXT
+    }
+
+    return formatType
   }
 
-  return (type as InputType) ?? InputType.TEXT
+  if (typeof schemaType !== 'string' || !isInputType(schemaType)) {
+    return InputType.TEXT
+  }
+
+  if (fieldIsReadonly && (schemaType === InputType.NUMBER || schemaType === InputType.INTEGER)) {
+    // for better screen reader support set the readonly number fields to text
+    return InputType.TEXT
+  }
+
+  return schemaType
 }
 
 type FieldProps = {
@@ -174,3 +202,14 @@ export const useField = ({ input, control, validationError, handleChange, resetE
     }
   }
 }
+
+export const isFieldReadonly = (schema: JsonSchema, uischema: UISchemaElement): boolean => {
+  // @ts-expect-error readonly is not part of the JsonSchema4, but it is in the JsonSchema7
+  let readonlyInSchema = schema?.readOnly
+
+  return readonlyInSchema || uischema.options?.readonly || false
+}
+
+export const fieldTypeSupportsReadonly = (fieldType: InputType): boolean => {
+  return [InputType.DATE, InputType.EMAIL, InputType.INTEGER, InputType.NUMBER, InputType.TEL, InputType.TEXT, InputType.TEXTAREA].includes(fieldType)
+};

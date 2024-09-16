@@ -19,7 +19,7 @@ import { useFormStorage } from '@shared/store/useFormStorage'
 
 import { useClearForm } from '@shared/composables/form/useClearForm'
 
-import { getControlId, getLinkedControlId } from '@shared/utils/control'
+import { getControlPath, getLinkedControlId } from '@shared/utils/control'
 import { getDeepProps, flattenDeep } from '@shared/utils/array'
 import { transformFormValues } from '@shared/utils/form'
 
@@ -215,7 +215,7 @@ export const useActiveForm = () => {
   }
 
   function getCurrentScopes() {
-    return getScopesFromElements().map((scope: string) => getControlId(scope))
+    return getScopesFromElements().map((scope: string) => getControlPath(scope))
   }
 
   function getCurrentLinkedScopes() {
@@ -226,7 +226,7 @@ export const useActiveForm = () => {
     const key = 'elements'
     const elements = (uischema.value as any)?.[key] ?? []
     return flattenDeep(elements, key)?.find(({ scope }: { scope: string }) =>
-      scope ? getControlId(scope) === id : false
+      scope ? getControlPath(scope) === id : false
     )
   }
 

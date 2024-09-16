@@ -39,7 +39,7 @@ function getInputAutoCompleteAttrs({ schema: { updatePassword, format } }: Contr
   }
 }
 
-export function getControlId(id: string) {
+export function getControlPath(id: string) {
   const parts = id.split('/')
   const lastPart = parts.pop()
 
@@ -82,6 +82,10 @@ export function getInputAttrs(props: { type: InputType; control: Control }) {
     min: minimum ?? formatMinimum,
     minlength,
     step: getInputStep(control, step),
-    type: getInputType(type)
+    rows: type === InputType.TEXTAREA ? 4 : undefined,
   }
+}
+
+export function isReadonlySupported(type: InputType): boolean {
+  return type === InputType.TEXT || type === InputType.TEXTAREA
 }

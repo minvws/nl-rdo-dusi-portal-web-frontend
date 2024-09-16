@@ -20,7 +20,7 @@ import { computed } from 'vue'
 
 import { useTextAreaAutoSize } from '@shared/composables/useTextAreaAutoSize'
 
-import { getInputAttrs } from '@shared/utils/control'
+import { getInputAttrs, isReadonlySupported } from '@shared/utils/control'
 
 const emit = defineEmits(['input', 'change', 'focus', 'blur'])
 
@@ -30,6 +30,7 @@ type Props = {
   autofocus?: boolean
   control: Control
   disabled?: boolean
+  readonly?: boolean
   id: string
   placeholder?: string
   type: InputType
@@ -56,21 +57,25 @@ const input = computed<{
   value: string | undefined
   placeholder: string | undefined
   disabled: boolean
+  readonly: boolean
   autofocus: boolean
-  autocomplete: string
-  minlength: number | undefined
-  maxlength: number | undefined
+  type: InputType
+  autocomplete?: string
+  minlength?: number | undefined
+  maxlength?: number | undefined
   rows?: number
 }>(() => {
-  const { id, type, value, placeholder, disabled, autofocus } = props
+  const { id, type, value, placeholder, disabled, readonly, autofocus } = props
+  const isReadonly = readonly && isReadonlySupported(type)
   return {
     id,
     value,
     placeholder,
     disabled,
+    readonly: isReadonly,
     autofocus,
-    rows: type === InputType.TEXTAREA ? 4 : undefined,
-    ...getInputAttrs(props)
+    type,
+    ...(!isReadonly ? getInputAttrs(props) : {})
   }
 })
 

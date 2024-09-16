@@ -33,7 +33,7 @@ export type Control = {
   id: string
   path: string
   data: FormValue
-  schema: JsonSchema & FieldOptions
+  schema: ControlSchema
   uischema: {
     options?: Record<string, unknown> & {
       validation?: ControlEvent[]
@@ -42,6 +42,8 @@ export type Control = {
   }
   options?: { label: string; value: string }[]
 }
+
+export type ControlSchema = JsonSchema & FieldOptions
 
 export type Field = { control: ComputedRef<Control> }
 
