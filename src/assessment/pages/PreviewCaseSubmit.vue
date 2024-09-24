@@ -23,10 +23,7 @@
           :html="t('pages.preview-case-submit.message')"
         />
         <div class="letter">
-          <AppHtml
-            class="html"
-            :html="html"
-          />
+          <MessageContent :html="html" />
         </div>
       </template>
       <FormNotification
@@ -62,6 +59,7 @@ import AppTable from '@shared/components/AppTable/AppTable.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+import MessageContent from '@shared/components/MessageContent/MessageContent.vue'
 
 import { useApiCaseTransitionPreview } from '@assessment/composables/useApiCaseTransitionPreview'
 import { REVIEW_CASE } from '@assessment/router/names'
@@ -94,13 +92,6 @@ useSEO({ title: `${t('pages.preview-case-submit.title')} | ${t('app.prefix')}` }
 
 .letter {
   box-shadow: 6px 12px 41px rgba(0, 0, 0, 0.3);
-
-  .html {
-    padding: 1em;
-
-    :deep(h2) {
-      font-size: var(--p-font-size);
-    }
-  }
+  padding: 1em;
 }
 </style>

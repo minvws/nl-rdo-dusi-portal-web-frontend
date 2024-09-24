@@ -2,7 +2,7 @@
   <section>
     <AppSuspense v-bind="{ data, error, isFetching }">
       <h1>{{ t('pages.my-message-details.title') }}: {{ data.subject }}</h1>
-      <AppHtml
+      <MessageContent
         v-if="data.body"
         :html="data.body"
       />
@@ -45,6 +45,7 @@ import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
 import { openExternalLink } from '@shared/utils/link'
 import { log } from '@shared/utils/logger'
+import MessageContent from "@shared/components/MessageContent/MessageContent.vue"
 
 type Props = {
   id: string
@@ -93,9 +94,6 @@ watch(isFinished, (isFinished) => {
 <style lang="scss" scoped>
 main section {
   --section-gap: 2.5rem;
-}
-.html {
-  gap: 1rem;
 }
 
 .horizontal-view {
