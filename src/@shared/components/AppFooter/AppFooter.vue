@@ -2,6 +2,7 @@
   <footer>
     <div>
       <div class="two-thirds-one-third">
+        <div></div>
         <nav>
           <div class="column-2">
             <div>
