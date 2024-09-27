@@ -25,7 +25,7 @@
 import type { Control } from '@shared/types/field'
 import type { FormValue } from '@shared/types/form'
 
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 import { getA11yInputId } from '@shared/utils/a11y'
 
 defineEmits(['change', 'focus', 'blur'])
@@ -42,6 +42,18 @@ type Props = {
 }
 
 const props = defineProps<Props>()
+
+onBeforeMount(() => {
+  if (!props.value) {
+    return
+  }
+
+  const filteredValues = props.value.filter((value) => items.value?.some((item) => item.value === value))
+  if (filteredValues.length !== props.value.length) {
+    // remove invalid values and update the form
+    props.handleChange(props.control.path, filteredValues)
+  }
+})
 
 const values = computed<string[]>(() => props.value ?? [])
 
