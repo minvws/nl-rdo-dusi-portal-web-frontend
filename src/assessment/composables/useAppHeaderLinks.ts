@@ -1,5 +1,5 @@
 import type { Link } from '@shared/types/link'
-import type { UserRoleName } from '@shared/types/user'
+import type { UserRole, UserRoleName } from '@shared/types/user'
 
 import { UserRoleNameType } from '@shared/types/user'
 
@@ -20,6 +20,7 @@ import {
   MY_CASES_OVERVIEW,
   REPORTS_OVERVIEW
 } from '@assessment/router/names'
+import { implementationCoordinatorHasAllowedExports } from '@assessment/composables/useDataExport'
 
 const DEFAULT_ROUTES: Link[] = [
   {
@@ -70,10 +71,16 @@ export const useAppHeaderLinks = () => {
       const name: UserRoleName = role.name
 
       switch (name) {
-        case UserRoleNameType.IMPLEMENTATION_COORDINATOR:
         case UserRoleNameType.ASSESSOR:
         case UserRoleNameType.LEGALS_PECIALIST: {
           routes.push(...DEFAULT_ROUTES)
+          break
+        }
+        case UserRoleNameType.IMPLEMENTATION_COORDINATOR: {
+          routes.push(...DEFAULT_ROUTES)
+          if (implementationCoordinatorHasAllowedExports(role)) {
+            routes.push(...DATA_EXPORTER_ROUTES)
+          }
           break
         }
         case UserRoleNameType.INTERNAL_AUDITOR: {

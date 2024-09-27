@@ -105,3 +105,7 @@ export const useApiUserStatusUrl = () => {
 export const useApiDataExportUrl = () => {
   return useMockData ? `${mockUrl}/export/fdc.csv` : `${baseUrl}/api/export/applications`
 }
+
+export const useApiDamuDataExportUrl = () => {
+  return `${baseUrl}/api/export/applications/damu`
+}

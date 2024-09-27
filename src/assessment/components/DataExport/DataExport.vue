@@ -1,10 +1,10 @@
 <template>
   <div class="data-export">
     <div>
-      <h1>{{ t('component.dataExport.title') }}</h1>
-      <p>{{ t('component.dataExport.intro') }}</p>
+      <h1>{{ title }}</h1>
+      <p>{{ intro }}</p>
     </div>
-    <div class="data-export__form">
+    <div class="data-export__form" v-if="hasDateFilters">
       <form @submit.prevent.stop>
         <FormNotification
           v-if="showNotification"
@@ -67,10 +67,18 @@ import { useI18n } from 'vue-i18n'
 import { useNotificationsStore } from '@shared/store/useNotificationsStore'
 
 import { useFetchWithCredentials } from '@shared/composables/useFetchWithCredentials'
-import { useApiDataExportUrl } from '@assessment/composables/useApiUrl'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
 import FormNotification from '@shared/components/FormNotification/FormNotification.vue'
+
+type Props = {
+  title: string
+  intro: string
+  hasDateFilters: boolean
+  endpointUrl: string
+}
+
+const props = defineProps<Props>()
 
 // Fixed timestamp values
 const DAY = 60 * 60 * 24 * 1000
@@ -161,9 +169,14 @@ function onFocus() {
 }
 
 async function onClickDownload() {
-  const baseUrl = useApiDataExportUrl()
-  const dateFrom = valueFromDate.value?.toString()
-  const dateTo = valueUpToDate.value?.toString()
+  const baseUrl = props.endpointUrl
+
+  let dateFrom = undefined
+  let dateTo = undefined
+  if (props.hasDateFilters) {
+    dateFrom = valueFromDate.value?.toString()
+    dateTo = valueUpToDate.value?.toString()
+  }
   const params = new URLSearchParams({
     ...(dateFrom && { date_from: dateFrom }),
     ...(dateTo && { date_to: dateTo })
@@ -172,13 +185,13 @@ async function onClickDownload() {
   const options = {
     method: 'GET',
     headers: {
-      'Content-Type': 'text/csv;charset=utf-8;'
+      'Accept': 'text/csv;charset=utf-8;'
     }
   }
 
   try {
     const { data, response, isFetching } = await useFetchWithCredentials(url, options)
-    const statusIsOk = response.value?.status === 200
+    const statusIsOk = response.value?.status === 200 && response.value?.headers.get('content-type') === 'text/csv; charset=UTF-8'
 
     if (!statusIsOk) {
       notificationsStore.add({
@@ -203,7 +216,7 @@ async function onClickDownload() {
       const link: HTMLAnchorElement = document.createElement('a')
       link.hidden = true
       link.href = URL.createObjectURL(file)
-      link.download = `${dateFrom ? `${dateFrom}_` : ''}${dateTo ? `${dateTo}-` : ''}FDC-export.csv`
+      link.download = `${dateFrom ? `${dateFrom}_` : ''}${dateTo ? `${dateTo}-` : ''}${props.title}.csv`
       link.target = '_blank'
       link.rel = 'noopener noreferrer'
       document.body.append(link)

@@ -56,12 +56,10 @@
       "result": "De zaak wordt toegekend aan"
     },
     "dataExport": {
-      "title": "FDC-rapport",
-      "intro": "Data export voor het Financieel Diensten Centrum over het afgelopen jaar.\nSelecteer indien gewenst de periode voor het rapport.",
       "filter": "Rapport instellingen",
       "from": "Van",
       "to": "Tot en met",
-      "download": "FDC-rapport downloaden (.csv)",
+      "download": "Rapport downloaden (.csv)",
       "endDateInFuture": "De einddatum mag niet in de toekomst liggen.",
       "startDateToEarly": "De startdatum mag niet voor 1 januari 2023 liggen.",
       "startDateAfterEndDate": "De startdatum moet vóór de einddatum liggen."
@@ -196,7 +194,7 @@
     },
     "data-export-success": {
       "label": "Gelukt",
-      "message": "Het FDC-rapport is succesvol gegenereerd."
+      "message": "Het rapport is succesvol gegenereerd."
     },
     "data-export-error": {
       "label": "Mislukt",
@@ -223,9 +221,11 @@
     "reports-overview": {
       "title": "Rapportages",
       "intro": "Beschikbare rapportage types.",
-      "report1Title": "FDC-rapport",
-      "report1Intro": "Data export voor het Financieel Diensten Centrum.",
-      "button": "Rapport downloaden"
+      "fdcReportTitle": "FDC-rapport",
+      "fdcReportIntro": "Data export voor het Financieel Diensten Centrum.",
+      "damuExportTitle": "DAMU-rapport",
+      "damuExportIntro": "Data export van de DAMU regeling.",
+      "goToButton": "Naar"
     },
     "reports-view": {
       "title": "Rapportages"
@@ -233,8 +233,13 @@
     "report-details": {
       "title": "Rapport"
     },
+    "damu-data-export": {
+      "title": "DAMU-rapport",
+      "intro": "Data export van alle ingediende DAMU aanvragen."
+    },
     "fdc-data-export": {
-      "title": "FDC Data Export"
+      "title": "FDC-rapport",
+      "intro": "Data export voor het Financieel Diensten Centrum over het afgelopen jaar.\nSelecteer indien gewenst de periode voor het rapport."
     },
     "all-cases-overview": {
       "cases": "Zaak|Zaken",
