@@ -13,12 +13,8 @@
         Bij DUS-I kunt u subsidies, tegemoetkomingen en specifieke uitkeringen aanvragen. DUS-I
         voert regelingen uit voor de ministeries van Onderwijs, Cultuur en Wetenschap (OCW) en
         Volksgezondheid, Welzijn en Sport (VWS). Mijn DUS-I is het portaal waar burgers hun aanvraag
-        voor een tegemoetkoming, subsidie of specifieke uitkering kunnen indienen. Op dit moment
-        kunnen aanvragen voor de volgende (subsidie)regeling worden ingediend:
+        voor een tegemoetkoming, subsidie of specifieke uitkering kunnen indienen.
       </p>
-      <ul>
-        <li>Regeling zorgmedewerkers met langdurige post-Covid klachten (post-COVID)</li>
-      </ul>
       <h3>1. Wie is verantwoordelijk voor de verwerking van de persoonsgegevens?</h3>
       <p>
         De Minister van Volksgezondheid, Welzijn en Sport is de verwerkingsverantwoordelijke voor de
@@ -34,34 +30,60 @@
         Het verwerken van persoonsgegevens in Mijn DUS-I is noodzakelijk voor de vervulling van een
         taak van algemeen belang (artikel 6 lid 1 sub e AVG), namelijk het verstrekken van
         financiële ondersteuning aan rechtmatige aanvragers. Deze publieke taak is beschreven in de
-        <em>Regeling zorgmedewerkers met langdurige post-Covid klachten (post-COVID)</em>.
+        verschillende regelingen waaraan DUS-I uitvoering geeft. Specifiek voor dit Portaal zijn dat:
       </p>
+      <ul>
+        <li>Zorgmedewerkers met langdurige post-COVID klachten (post-COVID);</li>
+        <li>Reiskosten DAMU-leerlingen (Dans en Muziek (DAMU);</li>
+        <li>Borstprothesen transvrouwen (BTV);</li>
+        <li>Opleidingsactiviteit arts internationale gezondheid  en tropengeneeskunde (AIGT).</li>
+      </ul>
       <h3>4. Welke persoonsgegevens worden verwerkt?</h3>
       <p>Voor het behandelen van een aanvraag worden de volgende gegevens verwerkt:</p>
       <ul>
         <li>
-          Naam, geboortedatum, (woon)adres, e-mailadres, telefoonnummer, burgerservicenummer (BSN)
-          en bankrekeningnummer;
+          (Voor)na(a)m(en), voorletters, geboortedatum, (woon)adres, e-mailadres, telefoonnummer,
+          burgerservicenummer (BSN), bankrekeningnummer en tenaamstelling;
         </li>
-        <li>Naam, BIG-nummer, naamstempel, handtekening van de behandeld arts;</li>
-        <li>De organisatienaam van de behandeld arts.</li>
       </ul>
       <p>
         Elke (subsidie)regeling heeft een andere doelgroep en voorwaarden. Daarom verschilt per
-        (subsidie)regeling welke aanvullende persoonsgegevens kunnen worden verwerkt:
+        (subsidie)regeling welke aanvullende persoonsgegevens kunnen worden verwerkt. Hieronder volgt
+        per regeling welke dat zijn:
       </p>
-      <p><em>Regeling zorgmedewerkers met langdurige post-Covid klachten (post-COVID)</em></p>
+      <p><em>Post-COVID</em></p>
       <ul>
+        <li>Gegevens arts;</li>
         <li>Bewijs dienstverband / overeenkomst van opdracht;</li>
         <li>Gewaarmerkt verzekeringsbericht;</li>
         <li>Functie;</li>
         <li>Afschrift WIA-beslissing;</li>
         <li>Sociaal-Medische beoordeling UWV;</li>
         <li>WIA-toekenningsbrief;</li>
+        <li>Onderbouwing eerste ziektedag (indien buiten periode);</li>
         <li>BIG-nummer van de aanvrager;</li>
-        <li>Verklaring werkgever;</li>
-        <li>Functieverklaring opdrachtgever</li>
-        <li>Medische verklaring.</li>
+        <li>Verklaring werkgever / zorgaanbieder;</li>
+        <li>Medische onderzoeksverslag / verklaring arts.</li>
+      </ul>
+      <p><em>BTV</em></p>
+      <ul>
+        <li>Uitreksel bevolkingsregister;</li>
+        <li>Gegevens arts;</li>
+        <li>Medische verklaring / onderzoeksverslag.</li>
+      </ul>
+      <p><em>DAMU</em></p>
+      <ul>
+        <li>Gegevens van de DAMU school / HBO vooropleiding;</li>
+        <li>Gezinssituatie (eenoudergezin);</li>
+        <li>Financiële gegevens (aanvrager en eventueel van ex-partner);</li>
+        <li>Reisafstand.</li>
+      </ul>
+      <p><em>AIGT</em></p>
+      <ul>
+        <li>Bewijs van inschrijving opleider;</li>
+        <li>Gegevens opleider;</li>
+        <li>Verklaring OIGT;</li>
+        <li>Startdatum opleidingsonderdeel Buitenland.</li>
       </ul>
       <p>
         Alle bovenstaande persoonsgegevens worden aangeleverd door de aanvrager, met uitzondering
@@ -79,18 +101,13 @@
         Concreet betekent dit het volgende:
       </p>
       <p>
-        Ingeval een aanvraag is goedgekeurd, dan wordt het dossier 7 jaar bewaard na afhandeling
-        ervan. De verklaringen van artsen worden na 6 weken uit het dossier verwijderd.
+        <em>Beoordeelde dossiers</em>
+        Dossierstukken ten behoeve van de afhandeling van aanvragen voor subsidies en
+        tegemoetkomingen worden 10 jaar bewaard nadat het dossier is afgehandeld.
       </p>
       <p>
-        Indien een aanvraag wordt afgekeurd, dan worden de gegevens die ten behoeve van de aanvraag
-        zijn verwerkt in beginsel 6 weken en een dag bewaard gedurende de periode dat de aanvrager
-        bezwaar kan maken. Indien bezwaar wordt ingediend en afgewezen, dan worden de gegevens
-        bewaard tot het onherroepelijke besluit is genomen.
-      </p>
-      <p>
-        Een aanvraag hoeft niet in één keer afgerond te worden. Nog niet ingediende conceptaanvragen
-        worden 14 dagen bewaard.
+        <em>Concept aanvragen</em>
+        Een aanvraag hoeft niet in één keer afgerond te worden. Concept aanvragen worden maximaal 6 weken bewaard.
       </p>
       <h3>7. Uw rechten ten aanzien van uw persoonsgegevens</h3>
       <p>
@@ -145,7 +162,7 @@
         privacyverklaring op onze website publiceren, waarna deze privacyverklaring direct van
         kracht is.
       </p>
-      <p>Laatste update van deze privacyverklaring is: 5 september 2023.</p>
+      <p>Laatste update van deze privacyverklaring is: 25 september 2024.</p>
     </div>
   </section>
 </template>
