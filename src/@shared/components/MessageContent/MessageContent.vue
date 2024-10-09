@@ -30,10 +30,16 @@ const props = defineProps<Props>()
   --h5-font-size: 1rem;
   --h6-font-size: 1rem;
 
-  :deep {
-    h1, h2, h3, h4, h5, h6, p+p, p+ul {
-      margin-top: 1rem;
-    }
+  :deep(h1),
+  :deep(h2),
+  :deep(h3),
+  :deep(h4),
+  :deep(h5),
+  :deep(h6),
+  :deep(p+p),
+  :deep(p+ul),
+  :deep(ul+p) {
+    margin-top: 1rem;
   }
 }
 </style>
