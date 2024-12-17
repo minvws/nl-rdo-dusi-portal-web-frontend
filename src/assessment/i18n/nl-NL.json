@@ -313,6 +313,7 @@
       "column": {
         "status": "Status aanvraag",
         "phase": "Fase aanvraag",
+        "deadline": "Deadline aanvraag",
         "current": "Huidige waarde",
         "target": "Nieuwe waarde"
       }

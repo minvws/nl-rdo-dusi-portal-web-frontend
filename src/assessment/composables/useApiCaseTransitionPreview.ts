@@ -12,6 +12,7 @@ import {
 
 import { statusToIcon } from '@shared/utils/mappers'
 import { useRouter } from 'vue-router'
+import { formatDate } from '@shared/utils/date'
 
 export const useApiCaseTransitionPreview = (id: string) => {
   const types = ['current', 'target']
@@ -43,7 +44,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
   ])
 
   const data = computed(() => {
-    const result: Record<string, any>[] = [
+    const result: Record<string, unknown>[] = [
       {
         title: {
           text: t('pages.preview-case-submit.column.status')
@@ -59,6 +60,7 @@ export const useApiCaseTransitionPreview = (id: string) => {
     for (const type of types) {
       const status = transition.value?.[type]?.application?.status
       const text = transition.value?.[type]?.subsidyStage?.title
+      const deadline = transition.value?.[type]?.deadline
 
       result[0][type] = {
         type: 'string',
@@ -70,6 +72,8 @@ export const useApiCaseTransitionPreview = (id: string) => {
         type: 'string',
         text
       }
+
+      addDeadlineColumn(result, type, deadline)
     }
 
     return result
@@ -96,5 +100,32 @@ export const useApiCaseTransitionPreview = (id: string) => {
     submitError,
     submitData,
     ...fetch
+  }
+}
+
+function addDeadlineColumn(result: Record<string, unknown>[], type: string, value: string|null|undefined) {
+  if (!value) {
+    return
+  }
+
+  if (result.length < 3) {
+    result.push({
+      title: {
+        text: t('pages.preview-case-submit.column.deadline')
+      },
+      current: {
+        type: 'string',
+        text: '-'
+      },
+      target: {
+        type: 'string',
+        text: '-'
+      }
+    })
+  }
+
+  result[2][type] = {
+    type: 'string',
+    text: value ? formatDate(value, 'nl-NL') : '-'
   }
 }
