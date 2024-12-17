@@ -42,7 +42,7 @@ import { useI18n } from 'vue-i18n'
 
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
-import { formatDate } from '@shared/utils/date'
+import { formatAsReadableDate } from '@shared/utils/date'
 
 type Props = {
   items: PaginationItem[]
@@ -57,7 +57,7 @@ const list = computed<MessagesItem[]>(() =>
     (item) =>
       ({
         ...item,
-        formattedDate: formatDate(item.date as string, locale.value)
+        formattedDate: formatAsReadableDate(item.date as string, locale.value)
       }) as MessagesItem
   )
 )

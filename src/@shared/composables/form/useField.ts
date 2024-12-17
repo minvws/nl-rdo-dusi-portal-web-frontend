@@ -6,6 +6,7 @@ import { InputType } from '@shared/types/input'
 
 import { getValue } from '@shared/composables/form/useCustomControlInput'
 import { getSchemaBasedInputType, isInputType } from '@shared/utils/input-types'
+import { formatAsDate } from '@shared/utils/date'
 
 function getFieldProp(schemaType: string | string[] | undefined) {
   const defaultProp = 'value'
@@ -63,6 +64,11 @@ export const useFieldValue = (data: FormValue, schema: ControlSchema, appliedOpt
     }
   }
 
+  if (fieldType === InputType.TEXT && schema.format === InputType.DATE && typeof data === 'string') {
+    // format date when readonly "date" text field
+    data = data ? formatAsDate(data, 'nl-NL') : '-'
+  }
+
   if (fieldType === InputType.TEXT && typeof data !== 'string') {
     data = data ?? ''
 
@@ -104,14 +110,16 @@ export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement, fiel
    */
   const schemaType: string | string[] | undefined = schema.type
   const formatType: string | undefined = uischema.options?.format || schema.format
+  // for better screen reader support set the readonly number fields and date fields to text
+  const readonlyTextTypes: InputType[] = [InputType.NUMBER, InputType.INTEGER, InputType.DATE]
 
   if (schemaType === 'boolean') {
     return InputType.CHECKBOX
   }
 
   if (formatType && isInputType(formatType)) {
-    if (fieldIsReadonly && (formatType === InputType.NUMBER || formatType === InputType.INTEGER)) {
-      // for better screen reader support set the readonly number fields to text
+    if (fieldIsReadonly && readonlyTextTypes.includes(formatType)) {
+      // for better screen reader support set the readonly number fields and date fields to text
       return InputType.TEXT
     }
 
@@ -122,8 +130,8 @@ export const useFieldType = (schema: JsonSchema, uischema: UISchemaElement, fiel
     return InputType.TEXT
   }
 
-  if (fieldIsReadonly && (schemaType === InputType.NUMBER || schemaType === InputType.INTEGER)) {
-    // for better screen reader support set the readonly number fields to text
+  if (fieldIsReadonly && readonlyTextTypes.includes(schemaType)) {
+    // for better screen reader support set the readonly number fields and date fields to text
     return InputType.TEXT
   }
 

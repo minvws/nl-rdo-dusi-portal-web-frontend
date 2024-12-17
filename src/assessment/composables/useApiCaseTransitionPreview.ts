@@ -12,7 +12,7 @@ import {
 
 import { statusToIcon } from '@shared/utils/mappers'
 import { useRouter } from 'vue-router'
-import { formatDate } from '@shared/utils/date'
+import { formatAsReadableDate } from '@shared/utils/date'
 
 export const useApiCaseTransitionPreview = (id: string) => {
   const types = ['current', 'target']
@@ -126,6 +126,6 @@ function addDeadlineColumn(result: Record<string, unknown>[], type: string, valu
 
   result[2][type] = {
     type: 'string',
-    text: value ? formatDate(value, 'nl-NL') : '-'
+    text: value ? formatAsReadableDate(value, 'nl-NL') : '-'
   }
 }

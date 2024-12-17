@@ -9,7 +9,7 @@ import { computed } from 'vue'
 import { useQueryFetch } from '@shared/composables/useQueryFetch'
 import { useApiTransitionHistoryUrl } from '@assessment/composables/useApiUrl'
 
-import { formatDateWithTime } from '@shared/utils/date'
+import { formatAsDateWithTime } from '@shared/utils/date'
 import { t } from '@shared/i18n'
 
 const transformStage = (stage: HistoryTransitionStage) => {
@@ -39,7 +39,7 @@ export const useFetchTransitionHistory = (id: string) => {
       ({ createdAt, message, internalNote, subsidyStageTransition, previousApplicationStage }) => {
         return {
           date: createdAt,
-          formattedDate: formatDateWithTime(createdAt, 'NL-nl', OPTIONS),
+          formattedDate: formatAsDateWithTime(createdAt, 'NL-nl', OPTIONS),
           description: subsidyStageTransition.description,
           subject: message?.subject,
           internalNote,

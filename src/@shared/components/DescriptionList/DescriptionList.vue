@@ -7,7 +7,7 @@
       <dt>{{ term }}</dt>
       <dd>
         <template v-if="type === 'string'">{{ text }}</template>
-        <template v-else-if="text && type === 'date'">{{ formatDate(text, locale) }}</template>
+        <template v-else-if="text && type === 'date'">{{ formatAsReadableDate(text, locale) }}</template>
         <template v-else-if="type === 'url'">
           <a
             :href="url"
@@ -39,7 +39,7 @@ import { useI18n } from 'vue-i18n'
 
 import AppFileLink from '@shared/components/AppFileLink/AppFileLink.vue'
 
-import { formatDate } from '@shared/utils/date'
+import { formatAsReadableDate } from '@shared/utils/date'
 
 type Props = {
   items: DescriptionListItem[],

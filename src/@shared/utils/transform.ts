@@ -17,7 +17,7 @@ import type { ReviewerAction } from '@shared/types/reviewer'
 
 import { MY_MESSAGE_DETAILS } from '@portal/router/names'
 
-import { formatDate } from '@shared/utils/date'
+import { formatAsReadableDate } from '@shared/utils/date'
 import {
   caseStatusToTranslation,
   caseStatusToRouteName,
@@ -233,21 +233,21 @@ function setStageTitle(text: string) {
 function setFinalReviewDeadline(date: string | null) {
   return createSet('final_review_deadline', {
     type: TableDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL') : '-'
+    text: date ? formatAsReadableDate(date, 'nl-NL') : '-'
   })
 }
 
 function setUpdatedAt(date: string) {
   return createSet('updated_at', {
     type: TableDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL') : '-'
+    text: date ? formatAsReadableDate(date, 'nl-NL') : '-'
   })
 }
 
 function setCreated(date: string | null) {
   return createSet('created', {
     type: TableDataType.DATE,
-    text: date ? formatDate(date, 'nl-NL') : '-'
+    text: date ? formatAsReadableDate(date, 'nl-NL') : '-'
   })
 }
 

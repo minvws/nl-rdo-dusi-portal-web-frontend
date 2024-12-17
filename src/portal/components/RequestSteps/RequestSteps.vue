@@ -95,7 +95,7 @@ import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 
 import { MY_REQUEST_DETAILS } from '@portal/router/names'
 
-import { formatDate } from '@shared/utils/date'
+import { formatAsReadableDate } from '@shared/utils/date'
 
 type Props = {
   finalReviewDeadline: string
@@ -116,9 +116,9 @@ const pdfLink = computed<RouteLocationRaw>(() => ({
 
 const referenceCode = computed<string>(() => props?.reference?.split('-')?.[0])
 
-const respondDate = computed<string>(() => formatDate(props.finalReviewDeadline, locale.value))
+const respondDate = computed<string>(() => formatAsReadableDate(props.finalReviewDeadline, locale.value))
 
-const submitDate = computed<string>(() => formatDate(props.submittedAt, locale.value))
+const submitDate = computed<string>(() => formatAsReadableDate(props.submittedAt, locale.value))
 
 const customerSatisfactionHref = externalUrls.customerSatisfaction.href
 const customerSatisfactionRel = externalUrls.customerSatisfaction.rel
