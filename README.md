@@ -6,8 +6,9 @@ This directory contains the new front-end for the Dus-i Burgerportaal.
 
 The recommended setup for developing this project is using [Visual Studio
 Code](https://code.visualstudio.com/). The following extensions are recommended:
+
 - [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and
-disable Vetur)
+  disable Vetur)
 - [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
 ## Project Setup
@@ -88,7 +89,8 @@ do this by running the following command in the root of the project:
 ```sh
 npm ci --no-audit --no-fund
 ```
-*Note: the flags speed up the install process.*
+
+_Note: the flags speed up the install process._
 
 **In case you see this error:**
 
@@ -103,7 +105,6 @@ Solution: create a (classic) personal access token in Github with `read:packages
 
 How to to that: see <https://github.com/minvws/nl-rdo-dusi-coordination/tree/main/development#authentication>
 
-
 ### Environment variables
 
 The project uses environment variables to configure the application. You can
@@ -115,28 +116,23 @@ the project. You can copy the `.env.example` file and rename it to `.env`.
 
 After installing the dependencies, the following scripts are available:
 
-| Script        | Description |
-| ------------- | ----------- |
-| build-only           | Builds Vite |
-| build:portal         | Production build of the 'portal' project |
-| build:assessment     | Production build of the 'assessment' project |
-| dev:portal           | Development build of the 'portal' project |
-| dev:assessment       | Development build of the 'assessment' project |
-| format               | Formats source code |
-| lint                 | Lints source code |
-| lint-fix             | Lints and auto-fixes source code |
-| prepare              | Installs Husky Git during install |
-| test                 | Runs unit tests |
-| type-check           | Perform type checking |
+| Script           | Description                                   |
+| ---------------- | --------------------------------------------- |
+| build-only       | Builds Vite                                   |
+| build:portal     | Production build of the 'portal' project      |
+| build:assessment | Production build of the 'assessment' project  |
+| dev:portal       | Development build of the 'portal' project     |
+| dev:assessment   | Development build of the 'assessment' project |
+| format           | Formats source code                           |
+| lint             | Lints source code                             |
+| lint-fix         | Lints and auto-fixes source code              |
+| prepare          | Installs Husky Git during install             |
+| test             | Runs unit tests                               |
+| type-check       | Perform type checking                         |
 
 ~Note: There are also `init.sh` and `run.sh` executable scripts available in
 the root of the project.~
 
-## Licensing
+## License
 
-The source code of this repository is released under the [EUPL license](./LICENSES/EUPL-1.2.txt).
-The documentation is released under the [CC0 license](./LICENSES/CC0-1.0.txt).
-The EUPL 1.2 and the CC0 do not apply to photos, videos, infographics, fonts or other forms of media.
-Specifically the rijkslogo and rijkshuisstijl have specific [terms of use](./LICENSES/LicenseRef-Proprietary.txt).
-
-Please see the [.reuse/dep5](./.reuse/dep5) file for more details, which follows the [Reuse specfication](https://reuse.software/spec/).
+This repository follows the [REUSE Specification v3.3](https://reuse.software/spec-3.3/). Please see [LICENSE.md](./LICENSE.md), [REUSE.toml](./REUSE.toml), [LICENSES/](./LICENSES/), and the individual `*.license` files (if any).
