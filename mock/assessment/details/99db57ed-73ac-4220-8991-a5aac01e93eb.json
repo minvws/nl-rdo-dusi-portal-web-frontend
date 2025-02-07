@@ -1,0 +1,1002 @@
+{
+  "data": {
+      "application": {
+          "metadata": {
+              "application": {
+                  "id": "9a39a84d-799b-4044-b163-0c81b5717f6b",
+                  "reference": "PCZM23-49719450",
+                  "finalReviewDeadline": "2024-01-22T23:59:59.000000Z",
+                  "status": "pending"
+              },
+              "subsidyVersion": {
+                  "id": "513011cd-789b-4628-ba5c-2fee231f8959",
+                  "version": 1
+              },
+              "subsidy": {
+                  "id": "06a6b91c-d59b-401e-a5bf-4bf9262d85f8",
+                  "code": "PCZM",
+                  "title": "Aanvraagformulier financi\u00eble ondersteuning Zorgmedewerkers met langdurige post-COVID klachten",
+                  "description": "De regeling Zorgmedewerkers met langdurige post-COVID klachten richt zich op zorgmedewerkers die tijdens de eerste golf van de COVID-19 pandemie besmet zijn geraakt met COVID-19 en sindsdien langdurige post-COVID klachten hebben. Deze klachten hebben grote invloed op het werk en het priv\u00e9leven van deze zorgmedewerkers. Zij kunnen soms hun eigen werk als zorgmedewerker niet meer (volledig) doen. Voor deze specifieke groep zorgmedewerkers is een eenmalige financi\u00eble ondersteuning van \u20ac15.000 beschikbaar.",
+                  "validFrom": "2023-09-01",
+                  "validTo": null
+              }
+          },
+          "dataschema": {
+              "type": "object",
+              "properties": {
+                  "reference": {
+                      "type": "string"
+                  },
+                  "status": {
+                      "type": "string"
+                  },
+                  "submittedAt": {
+                      "type": "string",
+                      "format": "date"
+                  },
+                  "finalReviewDeadline": {
+                      "type": "string",
+                      "format": "date"
+                  }
+              }
+          },
+          "uiType": "VIEW",
+          "uischema": {
+              "type": "FormGroupControl",
+              "label": "Metagegevens",
+              "options": {
+                  "section": true,
+                  "headingLevel": "2"
+              },
+              "elements": [
+                  {
+                      "type": "FormResultsTable",
+                      "options": {
+                          "fields": {
+                              "Dossiernummer": "{reference}",
+                              "Aangevraagd op": "{submittedAt}",
+                              "Uiterste behandeldatum": "{finalReviewDeadline}"
+                          }
+                      }
+                  }
+              ]
+          },
+          "data": {
+              "reference": "PCZM23-49719450",
+              "status": "pending",
+              "submittedAt": "2023-09-26",
+              "finalReviewDeadline": "2024-01-22"
+          }
+      },
+      "applicationStages": [
+          {
+              "metadata": {
+                  "subsidyStage": {
+                      "id": "7e5d64e9-35f0-4fee-b8d2-dca967b43183",
+                      "stage": 1,
+                      "title": "Aanvraag",
+                      "subjectRole": "applicant"
+                  },
+                  "applicationStage": {
+                      "id": "9a39a84d-7a0d-481d-b569-71aeccf9d2d7",
+                      "sequenceNumber": 1,
+                      "isCurrent": false,
+                      "isSubmitted": true,
+                      "submittedAt": "2023-09-26T10:31:50.000000Z"
+                  }
+              },
+              "dataschema": {
+                  "type": "object",
+                  "properties": {
+                      "firstName": {
+                          "type": "string",
+                          "title": "Voornaam"
+                      },
+                      "infix": {
+                          "type": "string",
+                          "title": "Tussenvoegsel"
+                      },
+                      "lastName": {
+                          "type": "string",
+                          "title": "Achternaam"
+                      },
+                      "dateOfBirth": {
+                          "type": "string",
+                          "title": "Geboortedatum",
+                          "format": "date"
+                      },
+                      "street": {
+                          "type": "string",
+                          "title": "Straat"
+                      },
+                      "houseNumber": {
+                          "type": "integer",
+                          "title": "Huisnummer",
+                          "minimum": 0
+                      },
+                      "houseNumberSuffix": {
+                          "type": "string",
+                          "title": "Huisnummer toevoeging",
+                          "maxLength": 10
+                      },
+                      "postalCode": {
+                          "type": "string",
+                          "title": "Postcode"
+                      },
+                      "city": {
+                          "type": "string",
+                          "title": "Plaats",
+                          "maxLength": 100
+                      },
+                      "country": {
+                          "type": "string",
+                          "title": "Land",
+                          "default": "Nederland",
+                          "enum": [
+                              "Afghanistan",
+                              "\u00c5land",
+                              "Albani\u00eb",
+                              "Algerije",
+                              "Amerikaanse Maagdeneilanden",
+                              "Amerikaans-Samoa",
+                              "Andorra",
+                              "Angola",
+                              "Anguilla",
+                              "Antarctica",
+                              "Antigua en Barbuda",
+                              "Argentini\u00eb",
+                              "Armeni\u00eb",
+                              "Aruba",
+                              "Australi\u00eb",
+                              "Azerbeidzjan",
+                              "Bahama\u2019s",
+                              "Bahrein",
+                              "Bangladesh",
+                              "Barbados",
+                              "Belgi\u00eb",
+                              "Belize",
+                              "Benin",
+                              "Bermuda",
+                              "Bhutan",
+                              "Bolivia",
+                              "Bosni\u00eb en Herzegovina",
+                              "Botswana",
+                              "Bouveteiland",
+                              "Brazili\u00eb",
+                              "Britse Maagdeneilanden",
+                              "Brits Indische Oceaanterritorium",
+                              "Brunei",
+                              "Bulgarije",
+                              "Burkina Faso",
+                              "Burundi",
+                              "Cambodja",
+                              "Canada",
+                              "Centraal-Afrikaanse Republiek",
+                              "Chili",
+                              "China",
+                              "Christmaseiland",
+                              "Cocoseilanden",
+                              "Colombia",
+                              "Comoren",
+                              "Congo-Brazzaville",
+                              "Congo-Kinshasa",
+                              "Cookeilanden",
+                              "Costa Rica",
+                              "Cuba",
+                              "Cura\u00e7ao",
+                              "Cyprus",
+                              "Denemarken",
+                              "Djibouti",
+                              "Dominica",
+                              "Dominicaanse Republiek",
+                              "Duitsland",
+                              "Ecuador",
+                              "Egypte",
+                              "El Salvador",
+                              "Equatoriaal-Guinea",
+                              "Eritrea",
+                              "Estland",
+                              "Ethiopi\u00eb",
+                              "Faer\u00f6er",
+                              "Falklandeilanden",
+                              "Fiji",
+                              "Filipijnen",
+                              "Finland",
+                              "Frankrijk",
+                              "Franse Zuidelijke en Antarctische Gebieden",
+                              "Frans-Guyana",
+                              "Frans-Polynesi\u00eb",
+                              "Gabon",
+                              "Gambia",
+                              "Georgi\u00eb",
+                              "Ghana",
+                              "Gibraltar",
+                              "Grenada",
+                              "Griekenland",
+                              "Groenland",
+                              "Guadeloupe",
+                              "Guam",
+                              "Guatemala",
+                              "Guernsey",
+                              "Guinee",
+                              "Guinee-Bissau",
+                              "Guyana",
+                              "Ha\u00efti",
+                              "Heard en McDonaldeilanden",
+                              "Honduras",
+                              "Hongarije",
+                              "Hongkong",
+                              "Ierland",
+                              "IJsland",
+                              "India",
+                              "Indonesi\u00eb",
+                              "Irak",
+                              "Iran",
+                              "Isra\u00ebl",
+                              "Itali\u00eb",
+                              "Ivoorkust",
+                              "Jamaica",
+                              "Japan",
+                              "Jemen",
+                              "Jersey",
+                              "Jordani\u00eb",
+                              "Kaaimaneilanden",
+                              "Kaapverdi\u00eb",
+                              "Kameroen",
+                              "Kazachstan",
+                              "Kenia",
+                              "Kirgizi\u00eb",
+                              "Kiribati",
+                              "Kleine Pacifische eilanden van de Verenigde Staten",
+                              "Koeweit",
+                              "Kroati\u00eb",
+                              "Laos",
+                              "Lesotho",
+                              "Letland",
+                              "Libanon",
+                              "Liberia",
+                              "Libi\u00eb",
+                              "Liechtenstein",
+                              "Litouwen",
+                              "Luxemburg",
+                              "Macau",
+                              "Madagaskar",
+                              "Malawi",
+                              "Maldiven",
+                              "Maleisi\u00eb",
+                              "Mali",
+                              "Malta",
+                              "Marokko",
+                              "Marshalleilanden",
+                              "Martinique",
+                              "Mauritani\u00eb",
+                              "Mauritius",
+                              "Mayotte",
+                              "Mexico",
+                              "Micronesia",
+                              "Moldavi\u00eb",
+                              "Monaco",
+                              "Mongoli\u00eb",
+                              "Montenegro",
+                              "Montserrat",
+                              "Mozambique",
+                              "Myanmar",
+                              "Namibi\u00eb",
+                              "Nauru",
+                              "Nederland",
+                              "Nepal",
+                              "Nicaragua",
+                              "Nieuw-Caledoni\u00eb",
+                              "Nieuw-Zeeland",
+                              "Niger",
+                              "Nigeria",
+                              "Niue",
+                              "Noordelijke Marianen",
+                              "Noord-Korea",
+                              "Noord-Macedoni\u00eb",
+                              "code Land",
+                              "Noorwegen",
+                              "Norfolk",
+                              "Oeganda",
+                              "Oekra\u00efne",
+                              "Oezbekistan",
+                              "Oman",
+                              "Oostenrijk",
+                              "Oost-Timor",
+                              "Pakistan",
+                              "Palau",
+                              "Palestina",
+                              "Panama",
+                              "Papoea-Nieuw-Guinea",
+                              "Paraguay",
+                              "Peru",
+                              "Pitcairneilanden",
+                              "Polen",
+                              "Portugal",
+                              "Puerto Rico",
+                              "Qatar",
+                              "R\u00e9union",
+                              "Roemeni\u00eb",
+                              "Rusland",
+                              "Rwanda",
+                              "Saint-Barth\u00e9lemy",
+                              "Saint Kitts en Nevis",
+                              "Saint Lucia",
+                              "Saint-Pierre en Miquelon",
+                              "Saint Vincent en de Grenadines",
+                              "Salomonseilanden",
+                              "Samoa",
+                              "San Marino",
+                              "Saoedi-Arabi\u00eb",
+                              "Sao Tom\u00e9 en Principe",
+                              "Senegal",
+                              "Servi\u00eb",
+                              "Seychellen",
+                              "Sierra Leone",
+                              "Singapore",
+                              "Sint-Helena, Ascension en Tristan da Cunha",
+                              "Sint-Maarten",
+                              "Sint Maarten",
+                              "Sloveni\u00eb",
+                              "Slowakije",
+                              "Soedan",
+                              "Somali\u00eb",
+                              "Spanje",
+                              "Spitsbergen en Jan Mayen",
+                              "Sri Lanka",
+                              "Suriname",
+                              "Swaziland",
+                              "Syri\u00eb",
+                              "Tadzjikistan",
+                              "Taiwan",
+                              "Tanzania",
+                              "Thailand",
+                              "Togo",
+                              "Tokelau",
+                              "Tonga",
+                              "Trinidad en Tobago",
+                              "Tsjaad",
+                              "Tsjechi\u00eb",
+                              "Tunesi\u00eb",
+                              "Turkije",
+                              "Turkmenistan",
+                              "Turks- en Caicoseilanden",
+                              "Tuvalu",
+                              "Uruguay",
+                              "Vanuatu",
+                              "Vaticaanstad",
+                              "Venezuela",
+                              "Verenigde Arabische Emiraten",
+                              "Verenigde Staten",
+                              "Verenigd Koninkrijk",
+                              "Vietnam",
+                              "Wallis en Futuna",
+                              "Westelijke Sahara",
+                              "Wit-Rusland",
+                              "Zambia",
+                              "Zimbabwe",
+                              "Zuid-Afrika",
+                              "Zuid-Georgia en de Zuidelijke Sandwicheilanden",
+                              "Zuid-Korea",
+                              "Zuid-Soedan",
+                              "Zweden",
+                              "Zwitserland"
+                          ]
+                      },
+                      "phoneNumber": {
+                          "type": "string",
+                          "title": "Telefoonnummer",
+                          "tel": true,
+                          "maxLength": 20
+                      },
+                      "email": {
+                          "type": "string",
+                          "title": "E-mailadres",
+                          "format": "email",
+                          "maxLength": 300
+                      },
+                      "bankAccountNumber": {
+                          "type": "string",
+                          "title": "IBAN",
+                          "iban": true
+                      },
+                      "bankAccountHolder": {
+                          "type": "string",
+                          "title": "Naam rekeninghouder",
+                          "maxLength": 50
+                      },
+                      "certifiedEmploymentDocument": {
+                          "type": "array",
+                          "title": "Gewaarmerkt verzekeringsbericht",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "wiaDecisionDocument": {
+                          "type": "array",
+                          "title": "WIA-Beslissing",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "isWiaDecisionPostponed": {
+                          "type": "string",
+                          "title": "Is WIA beslissing uitgesteld?",
+                          "enum": [
+                              "Ja",
+                              "Nee"
+                          ]
+                      },
+                      "wiaDecisionPostponedLetter": {
+                          "type": "array",
+                          "title": "Toekenningsbrief",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "employmentContract": {
+                          "type": "array",
+                          "title": "Bewijs dienstverband",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "employmentFunction": {
+                          "type": "string",
+                          "title": "Functie",
+                          "enum": [
+                              "Ambulancechauffeur",
+                              "Anesthesiemedewerker en\/of operatieassistent",
+                              "Arts",
+                              "Bachelor medisch hulpverlener",
+                              "Doktersassistent",
+                              "Helpende",
+                              "Physician assistant",
+                              "Praktijkondersteuner huisarts",
+                              "Verpleegkundig specialist",
+                              "(gespecialiseerd) Verpleegkundige",
+                              "Verzorgende in de individuele gezondheidszorg (VIG\u2019er) of verzorgende",
+                              "Zorgondersteuner en\/of voedingsassistent",
+                              "Anders"
+                          ]
+                      },
+                      "otherEmploymentFunction": {
+                          "type": "string",
+                          "title": "Andere functie",
+                          "maxLength": 300
+                      },
+                      "employerKind": {
+                          "type": "string",
+                          "title": "Werkgever",
+                          "enum": [
+                              "Zorgaanbieder",
+                              "Andere organisatie"
+                          ]
+                      },
+                      "otherEmployerDeclarationFile": {
+                          "type": "array",
+                          "title": "Verklaring zorgaanbieder",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "hasBeenWorkingAtJudicialInstitution": {
+                          "type": "string",
+                          "title": "Bent u werkzaamh geweest bij een justiti\u00eble inrichting?",
+                          "enum": [
+                              "Ja",
+                              "Nee"
+                          ]
+                      },
+                      "BIGNumberJudicialInstitution": {
+                          "type": "string",
+                          "title": "BIG-nummer",
+                          "maxLength": 11
+                      },
+                      "socialMedicalAssessment": {
+                          "type": "array",
+                          "title": "Medisch onderzoeksverslag",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "hasPostCovidDiagnose": {
+                          "type": "string",
+                          "title": "Heeft langdurige post-COVID klachten",
+                          "enum": [
+                              "Ja",
+                              "Nee"
+                          ]
+                      },
+                      "doctorsCertificate": {
+                          "type": "array",
+                          "title": "Verklaring arts",
+                          "items": {
+                              "type": "object",
+                              "properties": {
+                                  "id": {
+                                      "type": "string"
+                                  },
+                                  "name": {
+                                      "type": "string"
+                                  },
+                                  "mimeType": {
+                                      "type": "string"
+                                  }
+                              },
+                              "required": [
+                                  "id"
+                              ]
+                          },
+                          "file": true
+                      },
+                      "truthfullyCompleted": {
+                          "type": "boolean",
+                          "title": "",
+                          "const": true
+                      }
+                  },
+                  "required": [
+                      "wiaDecisionPostponedLetter",
+                      "otherEmploymentFunction",
+                      "otherEmployerDeclarationFile",
+                      "BIGNumberJudicialInstitution",
+                      "doctorsCertificate"
+                  ]
+              },
+              "uiType": "VIEW",
+              "uischema": {
+                  "type": "FormGroupControl",
+                  "options": {
+                      "section": true
+                  },
+                  "elements": [
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Persoonlijke informatie",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Voornaam": "{firstName}",
+                                          "Tussenvoegsel": "{infix}",
+                                          "Achternaam": "{lastName}",
+                                          "Geboortedatum": "{dateOfBirth}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Adres",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Land": "{country}",
+                                          "Straatnaam": "{street}",
+                                          "Huisnummer": "{houseNumber}",
+                                          "Huisnummer toevoeging": "{houseNumberSuffix}",
+                                          "Postcode": "{postalCode}",
+                                          "Plaatsnaam": "{city}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Contact",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Telefoonnummer": "{phoneNumber}",
+                                          "E-mailadres": "{email}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Bank",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "IBAN": "{bankAccountNumber}",
+                                          "Naam rekeninghouder": "{bankAccountHolder}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "UWV",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Gewaarmerkt verzekeringsbericht": "{certifiedEmploymentDocument}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "WIA",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "WIA-Beslissing": "{wiaDecisionDocument}",
+                                          "WIA-Beslissing uitgesteld": "{isWiaDecisionPostponed}",
+                                          "Toekenningsbrief (indien uitgesteld)": "{Toekenningsbrief}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Werkgever",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Bewijs van dienstverband": "{employmentContract}",
+                                          "Functie": "{employmentFunction}",
+                                          "Werkgever": "{employerKind}",
+                                          "Verklaring zorgaanbieder (indien anders)": "{otherEmployerDeclarationFile}",
+                                          "Heeft u gewerkt in een justiti\u00eble inrichting?": "{hasBeenWorkingAtJudicialInstitution}",
+                                          "BIG-nummer justiti\u00eble inrichting": "{BIGNumberJudicialInstitution}"
+                                      }
+                                  }
+                              }
+                          ]
+                      },
+                      {
+                          "type": "FormGroupControl",
+                          "label": "Medisch",
+                          "options": {
+                              "section": true,
+                              "headingLevel": "2"
+                          },
+                          "elements": [
+                              {
+                                  "type": "FormResultsTable",
+                                  "options": {
+                                      "fields": {
+                                          "Medisch onderzoeksverslag (medische rapportage)": "{socialMedicalAssessment}",
+                                          "Bevat uw medisch onderzoeksverslag de diagnose langdurige post-COVID?": "{hasPostCovidDiagnose}",
+                                          "Verklaring arts (indien geen diagnose)": "{doctorsCertificate}"
+                                      }
+                                  }
+                              }
+                          ]
+                      }
+                  ]
+              },
+              "data": {
+                  "firstName": "Voornaam",
+                  "infix": "Tussenvoegsel",
+                  "lastName": "Achternaam",
+                  "dateOfBirth": "2023-09-26",
+                  "street": "Straat",
+                  "houseNumber": 4,
+                  "houseNumberSuffix": "Huisnummer",
+                  "postalCode": "Postcode",
+                  "city": "Plaats",
+                  "country": "Nederland",
+                  "phoneNumber": "+31(0) 611111111",
+                  "email": "e@mail.com",
+                  "bankAccountNumber": "NL91ABNA0417164300",
+                  "bankAccountHolder": "Naam rekeninghouder",
+                  "certifiedEmploymentDocument": {
+                      "items": [
+                          {
+                              "id": "d25e3658-80cb-41ef-a6ae-e3f80890e2c5",
+                              "name": "Free_Test_Data_10.5MB_PDF.pdf",
+                              "mimeType": "application\/pdf"
+                          }
+                      ]
+                  },
+                  "wiaDecisionDocument": {
+                      "items": [
+                          {
+                              "id": "a8018dff-a5a8-4479-8443-b832f4f008d4",
+                              "name": "Free_Test_Data_10.5MB_PDF.pdf",
+                              "mimeType": "application\/pdf"
+                          }
+                      ]
+                  },
+                  "isWiaDecisionPostponed": "Nee",
+                  "employmentContract": {
+                      "items": [
+                          {
+                              "id": "a5d71b0d-01ba-451c-bbdf-7f4ee10d1129",
+                              "name": "spinner.gif",
+                              "mimeType": "image\/gif"
+                          }
+                      ]
+                  },
+                  "employmentFunction": "Anesthesiemedewerker en\/of operatieassistent",
+                  "employerKind": "Andere organisatie",
+                  "otherEmployerDeclarationFile": {
+                      "items": [
+                          {
+                              "id": "8018045e-21c4-442a-a802-d6d7c1905157",
+                              "name": "spinner.gif",
+                              "mimeType": "image\/gif"
+                          }
+                      ]
+                  },
+                  "hasBeenWorkingAtJudicialInstitution": "Nee",
+                  "socialMedicalAssessment": {
+                      "items": [
+                          {
+                              "id": "eea978ab-a3e5-4a64-b5a6-920bb5e8cd81",
+                              "name": "spinner.gif",
+                              "mimeType": "image\/gif"
+                          }
+                      ]
+                  },
+                  "hasPostCovidDiagnose": "Nee",
+                  "doctorsCertificate": {
+                      "items": [
+                          {
+                              "id": "943d8dd6-f990-455f-87d8-8b62eb7a4930",
+                              "name": "Free_Test_Data_10.5MB_PDF.pdf",
+                              "mimeType": "application\/pdf"
+                          }
+                      ]
+                  },
+                  "truthfullyCompleted": true
+              }
+          },
+          {
+              "metadata": {
+                  "subsidyStage": {
+                      "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+                      "stage": 2,
+                      "title": "Eerste beoordeling",
+                      "subjectRole": "assessor"
+                  },
+                  "applicationStage": {
+                      "id": "9a39a883-9286-4760-9545-d0143308e2fe",
+                      "sequenceNumber": 2,
+                      "isCurrent": true,
+                      "isSubmitted": false,
+                      "submittedAt": null
+                  }
+              },
+              "dataschema": {
+                  "type": "object",
+                  "properties": {
+                      "checklist": {
+                          "type": "string",
+                          "title": "Controlevragen",
+                          "enum": [
+                              "Vraag 1",
+                              "Vraag 2",
+                              "Vraag 3",
+                              "Vraag 4"
+                          ]
+                      },
+                      "amount": {
+                          "type": "string",
+                          "title": "Bedrag",
+                          "enum": [
+                              "\u20ac 15.000"
+                          ]
+                      },
+                      "firstAssessment": {
+                          "type": "string",
+                          "title": "Beoordeling",
+                          "enum": [
+                              "Onbeoordeeld",
+                              "Aanvulling nodig",
+                              "Afgekeurd",
+                              "Goedgekeurd"
+                          ]
+                      }
+                  }
+              },
+              "uiType": "INPUT",
+              "uischema": {
+                  "type": "FormGroupControl",
+                  "options": {
+                      "section": true,
+                      "group": true
+                  },
+                  "elements": [
+                      {
+                          "type": "Group",
+                          "label": "Checklist",
+                          "elements": [
+                              {
+                                  "type": "VerticalLayout",
+                                  "elements": [
+                                      {
+                                          "type": "CustomControl",
+                                          "scope": "#\/properties\/checklist",
+                                          "options": {
+                                              "format": "checkbox-group"
+                                          }
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "type": "Group",
+                          "label": "Uitkering",
+                          "elements": [
+                              {
+                                  "type": "VerticalLayout",
+                                  "elements": [
+                                      {
+                                          "type": "CustomControl",
+                                          "scope": "#\/properties\/amount",
+                                          "options": {
+                                              "format": "radio"
+                                          }
+                                      }
+                                  ]
+                              }
+                          ]
+                      },
+                      {
+                          "type": "Group",
+                          "label": "Status",
+                          "elements": [
+                              {
+                                  "type": "VerticalLayout",
+                                  "elements": [
+                                      {
+                                          "type": "CustomControl",
+                                          "scope": "#\/properties\/firstAssessment",
+                                          "options": {
+                                              "format": "radio"
+                                          }
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              },
+              "data": {}
+          }
+      ]
+  }
+}

@@ -1,0 +1,79 @@
+name: Create RDO MaZi Package
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build-mazi:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set env
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: 'npm'
+          registry-url: 'https://npm.pkg.github.com'
+
+      - name: Install npm dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.REPO_READ_ONLY_TOKEN }}
+
+      - name: Set .env
+        run: 'cp .env.package .env'
+
+      - name: Add version.json and version_npm.json
+        run: |
+          version=${{ env.RELEASE_VERSION }}
+          stripped_version="${version#v}"
+          echo "{ \"version\": \"$version\", \"git_ref\": \"$GITHUB_SHA\"}" > version.json
+          echo "{ \"version\": \"$stripped_version\", \"git_ref\": \"$GITHUB_SHA\"}" > version_npm.json
+        shell: bash
+
+      - name: Update package.json
+        run: "jq -s '.[0] * .[1]' package.json version_npm.json > package.json.new && mv package.json.new package.json"
+        shell: bash
+
+      - name: NPM build portal web
+        run: npm run build-only:portal
+
+      - name: Add version.json
+        run: 'cp version.json dist/version.json'
+        shell: bash
+
+      - name: Create tar
+        run: tar -C dist -czf ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html ./version.json
+
+      - name: Upload release tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}
+          path: ${{ github.event.repository.name }}_${{ env.RELEASE_VERSION }}.tar.gz
+
+      - name: Clear dist directory
+        run: rm --recursive dist
+
+      - name: NPM build assessment web
+        run: npm run build-only:assessment
+
+      - name: Add version.json
+        run: 'cp version.json dist/version.json'
+        shell: bash
+
+      - name: Create tar
+        run: tar -C dist -czf nl-rdo-dusi-assessment-web-frontend_${{ env.RELEASE_VERSION }}.tar.gz ./assets ./icons ./img ./site.webmanifest ./index.html ./version.json
+
+      - name: Upload release tar
+        uses: actions/upload-artifact@v4
+        with:
+          name: nl-rdo-dusi-assessment-web-frontend_${{ env.RELEASE_VERSION }}
+          path: nl-rdo-dusi-assessment-web-frontend_${{ env.RELEASE_VERSION }}.tar.gz
+

@@ -1,0 +1,16 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "include": ["env.d.ts", "package.json", "src/**/*", "src/**/*.vue", "public/assets"],
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ES2021"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assessment/*": ["./src/assessment/*"],
+      "@portal/*": ["./src/portal/*"],
+      "@shared/*": ["./src/@shared/*"]
+    }
+  }
+}

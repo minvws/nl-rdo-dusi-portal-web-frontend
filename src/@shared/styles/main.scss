@@ -1,0 +1,83 @@
+$ro-font-path: '@minvws/nl-rdo-rijksoverheid-ui-theme/fonts';
+$ro-img-path: '@minvws/nl-rdo-rijksoverheid-ui-theme/img';
+
+@import 'theme';
+
+// Remove these when styles are added to the ui-theme itself.
+@import '@minvws/manon/card.scss';
+@import '@minvws/manon/tag.scss';
+@import '@minvws/manon/tag-colors-soft.scss';
+@import '@minvws/manon/tags-6-variables.scss';
+@import '@minvws/manon/tags-6.scss';
+
+@import '@jsonforms/vue-vanilla/vanilla.css';
+
+:root {
+  --ruby-red: #007bc7;
+  --ruby-red-background-color: #007bc7;
+  --ruby-red-text-color: #ffffff;
+
+  /* Text colors */
+  --ruby-red-text-color-dark: #000000;
+  --ruby-red-text-color-light: var(--ruby-red-text-color);
+
+  /* Hover */
+  --ruby-red-hover-background-color: #004161;
+  --ruby-red-hover-text-color: var(--ruby-red-text-color);
+
+  /* Disabled */
+  --ruby-red-disabled-background-color: #b2d7ee;
+  --ruby-red-disabled-text-color: var(--ruby-red-text-color-dark);
+
+  /* Active */
+  --ruby-red-active-background-color: #004161;
+  --ruby-red-active-text-color: var(--ruby-red-text-color);
+
+  /* Focus */
+  --ruby-red-focus-background-color: var(--ruby-red-background-color);
+  --ruby-red-focus-text-color: var(--ruby-red-text-color);
+
+  /* Selected */
+  --ruby-red-selected-background-color: #004161;
+  --ruby-red-selected-text-color: var(--ruby-red-text-color);
+
+  /* Tint 1 */
+  --ruby-red-tint-1: #b2d7ee;
+  --ruby-red-tint-1-background-color: var(--ruby-red-tint-1);
+  --ruby-red-tint-1-text-color: var(--ruby-red-text-color-dark);
+
+  /* Tint 2 */
+  --ruby-red-tint-2: #d9ebf7;
+  --ruby-red-tint-2-background-color: var(--ruby-red-tint-2);
+  --ruby-red-tint-2-text-color: var(--ruby-red-text-color-dark);
+
+  /* Ghost */
+  --ruby-red-ghost-background-color: #ffffff;
+  --ruby-red-ghost-text-color: #007bc7;
+
+  /* Branding color */
+  --branding-color-1-background-color: var(--ruby-red-background-color);
+  --branding-color-1-text-color: var(--ruby-red-text-color);
+
+  --form-group-gap: 1.5rem;
+  --div-content-wrapper-gap: 0;
+  --navigation-link-active-outline: none;
+
+  --link-font-size: inherit;
+}
+
+.exact-active {
+  @extend .active !optional;
+}
+
+/**
+  * Remove styling
+  * Use readonly attribute instead of :read-only pseudo-class
+  */
+input[readonly],
+textarea[readonly] {
+  border: 0;
+  background-color: transparent;
+  outline: 0;
+  padding: 0;
+}

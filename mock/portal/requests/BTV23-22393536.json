@@ -1,0 +1,449 @@
+{
+  "intro": "Transvrouwen zijn man-vrouw transgenders met genderdysforie die als man geboren zijn, en in transitie zijn om als vrouw te leven.",
+  "body": "Voor meer informatie bekijk de informatiepagina.",
+  "reference": "BTV23-22393536",
+  "subsidy": {
+    "id": "BTV",
+    "title": "Borstprothesen transvrouwen",
+    "description": "Transvrouwen zijn man-vrouw transgenders met genderdysforie die als man geboren zijn, en in transitie zijn om als vrouw te leven.",
+    "pageUrl": "https://www.dus-i.nl/subsidies"
+  },
+  "submittedAt": "2023-09-12T12:38:53Z",
+  "finalReviewDeadline": "2023-12-12T12:39:12Z",
+  "status": "pending",
+  "isEditable": false,
+  "form": {
+    "id": "907bb399-0d19-4e1a-ac75-25a864df27c6",
+    "version": 1
+  },
+  "data": {
+    "firstName": "Voornaam",
+    "infix": "Tussenvoegsel",
+    "lastName": "Achternaam",
+    "dateOfBirth": "2023-09-12",
+    "street": "Straat",
+    "houseNumber": 4,
+    "houseNumberSuffix": "a",
+    "postalCode": "Postcode",
+    "city": "Plaats",
+    "country": "Afghanistan",
+    "phoneNumber": "+31(0) 611111111",
+    "email": "mail@example.com",
+    "bankAccountNumber": "NL91ABNA0417164300",
+    "bankAccountHolder": "Naam rekeninghouder",
+    "bankStatement": "mimeTypeimage/jpegextensionjpegsize70488",
+    "extractPersonalRecordsDatabase": "mimeTypeimage/jpegextensionjpegsize70488",
+    "proofOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488",
+    "proofOfTypeOfMedicalTreatment": "mimeTypeimage/jpegextensionjpegsize70488",
+    "permissionToProcessPersonalData": true,
+    "truthfullyCompleted": true
+  },
+  "dataschema": {
+    "type": "object",
+    "properties": {
+      "assessmentId": {
+        "title": "Dossiernummer",
+        "type": "string",
+        "default": "BTV23-22393536"
+      },
+      "validFrom": {
+        "title": "Aangevraagd op",
+        "type": "string",
+        "default": "2019-02-01"
+      },
+      "validTo": {
+        "title": "Uiterste behandeldatum",
+        "type": "string",
+        "default": "2020-02-01"
+      },
+      "firstName": {
+        "title": "Achternaam",
+        "type": "string",
+        "default": "Voornaam"
+      },
+      "infix": {
+        "title": "Tussenvoegsel",
+        "type": "string",
+        "default": "Tussenvoegsel"
+      },
+      "lastName": {
+        "title": "Achternaam",
+        "type": "string",
+        "default": "Achternaam"
+      },
+      "dateOfBirth": {
+        "title": "Geboortedatum",
+        "type": "string",
+        "format": "date",
+        "default": "2023-09-12"
+      },
+      "country": {
+        "title": "Land",
+        "type": "string",
+        "default": "Nederland"
+      },
+      "street": {
+        "title": "Straatnaam",
+        "type": "string",
+        "default": "Straat"
+      },
+      "houseNumber": {
+        "title": "Huisnummer",
+        "type": "string",
+        "default": 4
+      },
+      "houseNumberSuffix": {
+        "title": "Huisnummer toevoeging",
+        "type": "string",
+        "default": "a"
+      },
+      "postalCode": {
+        "title": "Postcode",
+        "type": "string",
+        "maxLength": 7,
+        "default": "Postcode"
+      },
+      "city": {
+        "title": "Plaats",
+        "type": "string",
+        "default": "Plaats"
+      },
+      "phoneNumber": {
+        "title": "Telefoonnummer",
+        "type": "string",
+        "default": "+31(0) 611111111"
+      },
+      "email": {
+        "title": "E-mailadres",
+        "type": "string",
+        "default": "e@email.com"
+      },
+      "bankAccountNumber": {
+        "title": "IBAN",
+        "type": "string",
+        "default": "NL91ABNA0417164300"
+      },
+      "bankAccountHolder": {
+        "title": "Naam rekeninghouder",
+        "type": "string",
+        "default": "Naam rekeninghouder"
+      },
+      "bankStatement": {
+        "title": "Bankafschrift",
+        "type": "string",
+        "format": "url",
+        "default": "mimeTypeimage/jpegextensionjpegsize70488"
+      },
+      "extractPersonalRecordsDatabase": {
+        "title": "Uitreksel bevolkingsregister",
+        "type": "string",
+        "format": "url",
+        "default": "mimeTypeimage/jpegextensionjpegsize70488"
+      },
+      "proofOfMedicalTreatment": {
+        "title": "Verklaring behandeltraject",
+        "type": "string",
+        "format": "url",
+        "default": "mimeTypeimage/jpegextensionjpegsize70488"
+      },
+      "proofOfTypeOfMedicalTreatment": {
+        "title": "Verklaring type behandeling",
+        "type": "string",
+        "format": "url",
+        "default": "mimeTypeimage/jpegextensionjpegsize70488"
+      }
+    }
+  },
+  "uischema": {
+    "type": "FormGroupControl",
+    "options": {
+      "section": true
+    },
+    "elements": [
+      {
+        "type": "FormGroupControl",
+        "label": "Metagegevens",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "Dossiernummer": "{assessmentId}",
+                "Aangevraagd op": "{validFrom}",
+                "Uiterste behandeldatum": "{validTo}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormGroupControl",
+        "label": "Persoonlijke informatie",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "Voornaam": "{firstName}",
+                "Tussenvoegsel": "{infix}",
+                "Achternaam": "{lastName}",
+                "Geboortedatum": "{dateOfBirth}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormGroupControl",
+        "label": "Adres",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "Land": "{country}",
+                "Straatnaam": "{street}",
+                "Huisnummer": "{houseNumber}",
+                "Huisnummer toevoeging": "{houseNumberSuffix}",
+                "Postcode": "{postalCode}",
+                "Plaatsnaam": "{city}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormGroupControl",
+        "label": "Contact",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "Telefoonnummer": "{phoneNumber}",
+                "E-mailadres": "{email}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormGroupControl",
+        "label": "Bank",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "IBAN": "{bankAccountNumber}",
+                "Naam rekeninghouder": "{bankAccountHolder}"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "type": "FormGroupControl",
+        "label": "Bestanden",
+        "options": {
+          "section": true,
+          "headingLevel": "2"
+        },
+        "elements": [
+          {
+            "type": "FormResultsTable",
+            "options": {
+              "fields": {
+                "Kopie bankafschrift": "{bankStatement}",
+                "Uitreksel bevolkingsregister": "{extractPersonalRecordsDatabase}",
+                "Verklaring behandeltraject": "{proofOfMedicalTreatment}",
+                "Verklaring type behandeling": "{proofOfTypeOfMedicalTreatment}"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "viewschema": {
+    "type": "FormGroupControl",
+    "options": {
+        "section": true
+    },
+    "elements": [
+        {
+            "type": "FormGroupControl",
+            "label": "Metagegevens",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "Dossiernummer": "{assessmentId}",
+                            "Aangevraagd op": "{validFrom}",
+                            "Uiterste behandeldatum": "{validTo}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "FormGroupControl",
+            "label": "Persoonlijke informatie",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "Voornaam": "{firstName}",
+                            "Tussenvoegsel": "{infix}",
+                            "Achternaam": "{lastName}",
+                            "Geboortedatum": "{dateOfBirth}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "FormGroupControl",
+            "label": "Adres",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "Land": "{country}",
+                            "Straatnaam": "{street}",
+                            "Huisnummer": "{houseNumber}",
+                            "Huisnummer toevoeging": "{houseNumberSuffix}",
+                            "Postcode": "{postalCode}",
+                            "Plaatsnaam": "{city}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "FormGroupControl",
+            "label": "Contact",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "Telefoonnummer": "{phoneNumber}",
+                            "E-mailadres": "{email}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "FormGroupControl",
+            "label": "Bank",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "IBAN": "{bankAccountNumber}",
+                            "Naam rekeninghouder": "{bankAccountHolder}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "FormGroupControl",
+            "label": "Bestanden",
+            "options": {
+                "section": true,
+                "headingLevel": "2"
+            },
+            "elements": [
+                {
+                    "type": "FormResultsTable",
+                    "options": {
+                        "fields": {
+                            "Kopie bankafschrift": "{bankStatement}",
+                            "Uitreksel bevolkingsregister": "{extractPersonalRecordsDatabase}",
+                            "Verklaring behandeltraject": "{proofOfMedicalTreatment}",
+                            "Verklaring type behandeling": "{proofOfTypeOfMedicalTreatment}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+  },
+  "files": [
+    {
+      "id": "bankStatement",
+      "fieldCode": "bankStatement",
+      "originalName": "bankStatement.jpeg",
+      "mimeType": "image/jpeg",
+      "size": 127848
+    },
+    {
+      "id": "extractPersonalRecordsDatabase",
+      "fieldCode": "extractPersonalRecordsDatabase",
+      "originalName": "extractPersonalRecordsDatabase.jpeg",
+      "mimeType": "image/jpeg",
+      "size": 127764
+    },
+    {
+      "id": "proofOfMedicalTreatment",
+      "fieldCode": "proofOfMedicalTreatment",
+      "originalName": "proofOfMedicalTreatment.jpeg",
+      "mimeType": "image/jpeg",
+      "size": 127804
+    },
+    {
+      "id": "proofOfTypeOfMedicalTreatment",
+      "fieldCode": "proofOfTypeOfMedicalTreatment",
+      "originalName": "proofOfTypeOfMedicalTreatment.jpeg",
+      "mimeType": "image/jpeg",
+      "size": 127828
+    }
+  ]
+}

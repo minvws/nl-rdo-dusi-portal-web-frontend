@@ -1,0 +1,243 @@
+{
+  "app": {
+    "description": "De Dienst Uitvoering Subsidies aan Instellingen (DUS-I) is een expertisecentrum voor subsidies, tegemoetkomingen en specifieke uitkeringen van de ministeries van OCW en VWS.",
+    "name": "Mijn DUS-I",
+    "prefix": "DUS-I",
+    "skip-to-content": "Ga direct naar inhoud"
+  },
+  "announcement": {
+    "page": "pagina",
+    "loaded": "is geladen"
+  },
+  "authentication": {
+    "login_cancelled": {
+      "label": "Inloggen geannuleerd",
+      "message": "U heeft het inloggen geannuleerd, u bent niet ingelogd."
+    },
+    "login_failed": {
+      "label": "Inloggen mislukt",
+      "message": "Het inloggen is mislukt, u bent niet ingelogd."
+    },
+    "minimum_loa": {
+      "label": "Inloggen mislukt",
+      "message": "Het betrouwbaarheidsniveau van het door uw gebruikte inlogmiddel voldoet niet aan de eisen van deze applicatie. U bent niet ingelogd.<br/><br/>Deze applicatie verplicht betrouwbaarheidsniveau: {minimum_loa}</br>Inlogmiddel betrouwbaarheidsniveau: {current_loa}",
+      "types": {
+        "basic": "Basis",
+        "low": "Midden",
+        "substantial": "Substantieel",
+        "high": "Hoog"
+      }
+    },
+    "unknown": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een onbekende fout opgetreden, u bent niet ingelogd. <b>Foutcode</b>: <i>{error}</i>"
+    },
+    "modal": {
+      "expiring": {
+        "title": "Let op! De maximale inlogtijd is bijna bereikt.",
+        "message": "Druk op de spatiebalk of klik op de knop om uw sessie te verlengen.",
+        "buttonLabel": "Ingelogd blijven"
+      },
+      "expired": {
+        "title": "Helaas moet u opnieuw inloggen",
+        "message": "Er was langer dan 15 minuten geen activiteit in het scherm. Log opnieuw in om verder te gaan met uw aanvraag.",
+        "buttonLabel": "Inloggen"
+      }
+    }
+  },
+  "files": {
+    "upload_failed": {
+      "label": "Uploaden mislukt",
+      "message": "Er is iets fout gegaan met het uploaden van het bestand."
+    }
+  },
+  "component": {
+    "breadcrumbBar": {
+      "ariaLabel": "Kruimelpad"
+    },
+    "footer": {
+      "serviceTitle": "Service",
+      "aboutTitle": "Over deze site",
+      "version": "Versie v{version}",
+      "contact": "Contact",
+      "documents": "Documenten",
+      "abuse": "Misbruik",
+      "disagree": "Oneens met DUS-I",
+      "law": "Informatie opvragen bij DUS-I",
+      "about": "Over ons",
+      "copyright": "Copyright",
+      "accessibility": "Toegankelijkheid",
+      "privacy": "Privacy",
+      "disclaimer": "Disclaimer",
+      "vulnerability": "Kwetsbaarheid melden"
+    },
+    "filterOptions": {
+      "title": "Filters",
+      "submit": "Filter"
+    },
+    "formFieldRemoveFile": {
+      "remove": "Verwijder bestand"
+    },
+    "formNotification": {
+      "close": "Sluit melding",
+      "error": "Fout",
+      "explanation": "Toelichting",
+      "confirmation": "Gelukt",
+      "warning": "Waarschuwing"
+    },
+    "header": {
+      "homeLink": {
+        "alt": "Logo Rijksoverheid",
+        "aria-label": "Logo Rijksoverheid, ga naar de homepage van Mijn DUS-I",
+        "label": "Rijksoverheid"
+      },
+      "login": "Inloggen",
+      "logout": "Uitloggen",
+      "loggedInAs": "Ingelogd als",
+      "nav": {
+        "aria-label": "Hoofdnavigatie"
+      }
+    },
+    "modal": {
+      "aria-label": {
+        "error": "fout",
+        "warning": "waarschuwing",
+        "explanation": "uitleg",
+        "confirmation": "succesvol",
+        "notification": "melding"
+      }
+    },
+    "pagination": {
+      "pagination": "Paginering",
+      "page": "Pagina",
+      "prev": "Vorige",
+      "next": "Volgende"
+    },
+    "table": {
+      "sortableColumnsHint": "Kolomkoppen met knoppen zijn sorteerbaar"
+    }
+  },
+  "form": {
+    "button": {
+      "start": "Aanvraag starten",
+      "next": "Volgende",
+      "prev": "Vorige",
+      "submit": "Opslaan en bevestigen",
+      "save": "Tussentijds opslaan"
+    },
+    "component": {
+      "fileInput": {
+        "chooseFile": "Kies een bestand",
+        "description": "Toegestane bestandstypen: jpg, jpeg, png, Maximale bestandsgrootte: 20 MB.",
+        "addFile": "Nog een bestand toevoegen"
+      }
+    },
+    "fields": {
+      "error": {
+        "const": "Dit veld is verplicht",
+        "field": "Dit veld",
+        "iban": "Dit is geen geldige IBAN",
+        "length": "{field} bestaat uit {maxLength} karakters",
+        "maxFileSize": "Bestand is groter dan {maxFileSize}",
+        "maxLength": "{field} bestaat uit maximaal {maxLength} karakters",
+        "minimum": "{field} moet groter of gelijk zijn aan {minimum}",
+        "maximum": "{field} moet lager of gelijk zijn aan {maximum}",
+        "minLength": "{field} bestaat uit minimaal {minLength} karakters",
+        "minItems": "{field} moet minimaal één item bevatten|{field} moet minimaal {minItems} items bevatten",
+        "optional": "{field} is optioneel",
+        "postalCode": "Dit is geen geldige postcode",
+        "required-boolean": "Dit veld is verplicht",
+        "required-conditional": "{field} is verplicht",
+        "required": "{field} is verplicht",
+        "tel": "Dit is geen geldig telefoonnummer",
+        "upload": "Er is iets fout gegaan met uploaden van het bestand",
+        "password-update": "Wachtwoord moet minimaal 12 tekens bevatten waarvan minimaal 1 hoofdletter, 1 kleine letter, 1 cijfer en 1 speciaal teken"
+      },
+      "passwordConfirmation": {
+        "error": {
+          "custom": "Wachtwoorden komen niet overeen"
+        }
+      },
+      "email": {
+        "error": {
+          "format": "Voer een geldig e-mailadres in"
+        }
+      },
+      "file": {
+        "error": {
+          "contains": "",
+          "minItems": "{field} moet minimaal één bestand bevatten|{field} moet minimaal {minItems} bestanden bevatten",
+          "maxItems": "{field} mag maximaal één bestand bevatten|{field} mag maximaal {maxItems} bestanden bevatten",
+          "required": "{field} is verplicht"
+        }
+      }
+    },
+    "message": {
+      "application_already_exists": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
+      "failed": "Er is iets fout gegaan met het verzenden van het formulier. {error}",
+      "failed-validation": "Het formulier kon niet verzonden worden vanwege een foutmelding in het formulier. Controleer uw antwoorden en probeer het opnieuw.",
+      "loading": "Formulier is aan het laden",
+      "loading_error": "Er is iets fout gegaan met het laden van het formulier: {error}",
+      "save-failed": "Er is iets fout gegaan met het opslaan van het formulier.",
+      "save-failed-validation": "Het formulier kon niet opgeslagen worden vanwege een foutmelding in het formulier. Controleer uw antwoorden en probeer het opnieuw.",
+      "save-success": "Formulier is opgeslagen",
+      "submitting": "Formulier is bezig met verzenden",
+      "subsidy_does_not_allow_multiple_applications": "U heeft voor deze regeling reeds een lopende of goedgekeurde aanvraag",
+      "subsidy_not_found": "Er is iets fout gegaan het ophalen van de regeling.",
+      "success": "Formulier is succesvol verzonden"
+    }
+  },
+  "pages": {
+    "accessibility": {
+      "title": "Toegankelijkheidsverklaring"
+    },
+    "not-found": {
+      "title": "Pagina niet gevonden",
+      "subtitle": "De pagina die u wilde zien of het bestand dat u wilde bekijken is niet gevonden.",
+      "intro": "U kunt de volgende dingen proberen:",
+      "home": "Ga naar de homepagina",
+      "back": "Ga terug naar de vorige pagina"
+    },
+    "privacy": {
+      "title": "Privacyverklaring"
+    }
+  },
+  "requestStatus": {
+    "status": {
+      "allocated": "Toegewezen",
+      "approved": "Toegekend",
+      "draft": "Nog niet ingediend",
+      "pending": "In behandeling",
+      "reclaimed": "Gevorderd",
+      "rejected": "Afgewezen",
+      "requestForChanges": "Aanvulling nodig"
+    },
+    "action": {
+      "allocated": "Nee",
+      "approved": "Nee",
+      "draft": "Ja",
+      "pending": "Nee",
+      "reclaimed": "Nee",
+      "rejected": "Nee",
+      "requestForChanges": "Ja"
+    },
+    "cases": {
+      "allocated": "Openen",
+      "approved": "Openen",
+      "draft": "Openen",
+      "pending": "Openen",
+      "reclaimed": "Openen",
+      "rejected": "Openen",
+      "requestForChanges": "Openen"
+    },
+    "route": {
+      "allocated": "Bekijk aanvraag",
+      "approved": "Bekijk aanvraag",
+      "draft": "Open aanvraag",
+      "pending": "Bekijk aanvraag",
+      "reclaimed": "Bekijk aanvraag",
+      "rejected": "Bekijk aanvraag",
+      "requestForChanges": "Open aanvraag"
+    }
+  }
+}

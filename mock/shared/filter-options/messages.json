@@ -1,0 +1,119 @@
+{
+  "data": {
+    "uischema": {
+      "type": "FormGroupControl",
+      "options": {
+        "section": true,
+        "group": true
+      },
+      "elements": [
+        {
+          "type": "Group",
+          "elements": [
+            {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "FormGroupControl",
+                  "label": "Datum",
+                  "elements": [
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/dateFrom",
+                      "options": {
+                        "inline": true
+                      }
+                    },
+                    {
+                      "type": "CustomControl",
+                      "scope": "#/properties/dateTo",
+                      "options": {
+                        "inline": true
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/message",
+                  "options": {
+                    "format": "checkbox-group"
+                  }
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/assessment",
+                  "options": {
+                    "format": "checkbox-group"
+                  }
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/status",
+                  "options": {
+                    "format": "checkbox-group"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "dataschema": {
+      "properties": {
+        "search": {
+          "type": "string",
+          "title": "Zoeken"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date",
+          "title": "Van"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date",
+          "title": "Tot"
+        },
+        "message": {
+          "type": "array",
+          "title": "Berichttype",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Ontvangstbevestiging",
+              "Goedkeuring",
+              "Afkeuring",
+              "Aanvulling gevraagd",
+              "Beschikking"
+            ]
+          }
+        },
+        "assessment": {
+          "type": "array",
+          "title": "Regeling",
+          "items": {
+            "type": "string",
+            "enum": [
+              "BTV",
+              "DAMU",
+              "Post Covid"
+            ]
+          }
+        },
+        "status": {
+          "type": "array",
+          "title": "Status",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Nieuw (ongeopende berichten)",
+              "Geopende berichten"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

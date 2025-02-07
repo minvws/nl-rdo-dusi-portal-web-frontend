@@ -1,0 +1,358 @@
+{
+  "authentication": {
+    "password-update-failed": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden met het wijzigen van je wachtwoord. {error}"
+    },
+    "password-update-success": {
+      "label": "Gelukt",
+      "message": "Wachtwoord is succesvol gewijzigd."
+    },
+    "password-reset-failed": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden. {message}"
+    },
+    "password-reset-success": {
+      "label": "Bevestiging",
+      "message": "{message}"
+    },
+    "2fa-invalid-code": {
+      "label": "Code ongeldig",
+      "message": "De verificatiecode die u heeft ingevoerd is ongeldig. Probeer het opnieuw."
+    },
+    "2fa-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    },
+    "forgot-password-failed": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden. {message}"
+    },
+    "forgot-password-success": {
+      "label": "Bevestiging",
+      "message": "{message}"
+    },
+    "login-invalid-credentials": {
+      "label": "Inloggen mislukt",
+      "message": "Controleer uw gebruikersnaam en wachtwoord en probeer het opnieuw."
+    },
+    "login-too-many-attempts": {
+      "label": "Inloggen mislukt",
+      "message": "U heeft te vaak geprobeerd in te loggen. Probeer het later nog eens."
+    },
+    "login-failed": {
+      "label": "Inloggen mislukt",
+      "message": "Er is een fout opgetreden tijdens het inloggen. Probeer het later nog eens."
+    }
+  },
+  "component": {
+    "assignAssessor": {
+      "assign": "Toekennen",
+      "cancel": "Annuleren",
+      "label": "Zoek op naam",
+      "noResults": "Er zijn geen resultaten gevonden voor \"{query}\".",
+      "noSelection": "Geen beoordelaar geselecteerd",
+      "placeholder": "Naam beoordelaar",
+      "result": "De zaak wordt toegekend aan"
+    },
+    "dataExport": {
+      "filter": "Rapport instellingen",
+      "from": "Van",
+      "to": "Tot en met",
+      "download": "Rapport downloaden (.csv)",
+      "endDateInFuture": "De einddatum mag niet in de toekomst liggen.",
+      "startDateToEarly": "De startdatum mag niet voor 1 januari 2023 liggen.",
+      "startDateAfterEndDate": "De startdatum moet vóór de einddatum liggen."
+    },
+    "transitionHistory": {
+      "title": "Geschiedenis",
+      "stage": "{title} uitgevoerd door {assessor}"
+    },
+    "caseDetails": {
+      "section": {
+        "meta": "Metagegevens",
+        "personal": "Persoonlijke informatie",
+        "address": "Adres",
+        "contact": "Contact",
+        "bank": "Bank",
+        "files": "Bestanden"
+      },
+      "term": {
+        "assessmentId": "Beoordelingsnummer",
+        "validFrom": "Aangevraagd op",
+        "validTo": "Uiterste behandeldatum",
+        "extractPersonalRecordsDatabase": "Uitreksel bevolkingsregister",
+        "proofOfMedicalTreatment": "Verklaring behandeltraject",
+        "proofOfTypeOfMedicalTreatment": "Verklaring type behandeling",
+        "bankStatement": "Kopie bankafschrift",
+        "firstName": "Voornaam",
+        "infix": "Tussenvoegsel",
+        "lastName": "Achternaam",
+        "street": "Straatnaam",
+        "houseNumber": "Huisnummer",
+        "houseNumberSuffix": "Huisnummer toevoeging",
+        "postalCode": "Postcode",
+        "city": "Plaatsnaam",
+        "country": "Land",
+        "phoneNumber": "Telefoonnummer",
+        "email": "E-mail adres",
+        "bankAccountNumber": "IBAN",
+        "bankAccountHolder": "Tenaamstelling",
+        "communicationPreference": "Communicatievoorkeur"
+      }
+    },
+    "caseReviewers": {
+      "intro": "Als uitvoeringscoordinator kunt u een beoordelaar verwijderen van een zaak. Hierdoor komt de zaak beschikbaar om opgepakt te worden door andere beoordelaars.",
+      "handledBy": "Deze zaak is op dit moment opgepakt door:",
+      "removeReviewer": "Verwijder beoordelaar",
+      "noReviewers": "Er zijn geen beoordelaars gevonden"
+    },
+    "caseStatus": {
+      "status": "Status",
+      "allocated": "In behandeling",
+      "approved": "Goedgekeurd",
+      "draft": "Nog niet ingediend",
+      "inProgress": "In behandeling",
+      "new": "Nieuw",
+      "pending": "In behandeling",
+      "rejected": "Afgekeurd",
+      "requestForChanges": "Aanvulling nodig"
+    },
+    "caseColumn": {
+      "action": "Actie",
+      "arrangement": "Regeling",
+      "case": "Zaak",
+      "final_review_deadline": "Deadline",
+      "file": "Dossier",
+      "reviewer": "Beoordelaar",
+      "stage_title": "Fase",
+      "status": "Status",
+      "updated_at": "Laatste update"
+    },
+    "caseHistoryColumn": {
+      "action": "Actie",
+      "assessor": "Uitgevoerd door",
+      "internalNote": "Notitie",
+      "updated_at": "Datum en tijd"
+    },
+    "formResultsTable": {
+      "noData": "Geen gegevens om te tonen."
+    },
+    "ibanCheck": {
+      "ariaResults": "Resultaten voor de geselecteerde subsidie '{subsidy}' bevinden zich hieronder.",
+      "ariaNoResults": "Er zijn geen resultaten voor de geselecteerde subsidie.",
+      "excludedList": "<li>Aanvragen in concept, en</li><li>Afgekeurde aanvragen</li>",
+      "excludeIntro": "Aanvragen die <strong>uitgesloten</strong> zijn van deze controle zijn:",
+      "formTitle": "Subsidies",
+      "includedList": "<li>niet afgekeurd zijn, of</li><li>ter beoordeling staan, of</li><li>ter aanvulling staan, of</li><li>goedgekeurd zijn</li>",
+      "includeIntro": "Aanvragen die <strong>meegenomen</strong> worden binnen deze controle zijn ingediende aanvragen die:",
+      "intro": "Deze controle toont een overzicht van IBANs die nogmaals voorkomen in de ingediende, niet afgekeurde, aanvragen.",
+      "label": "Beschikbare subsidies",
+      "noResults": "Er zijn geen dubbele IBANs aangetroffen",
+      "noSubsidies": "Er zijn geen subsidies beschikbaar",
+      "overview": "Terug naar overzicht",
+      "placeholder": "Selecteer een subsidie",
+      "results": "Resultaten",
+      "retry": "Controle opnieuw uitvoeren",
+      "title": "Dubbele IBAN-Controle"
+    },
+    "ibanCheckColumn": {
+      "count": "Aantal duplicaten",
+      "applications": "Aanvragen (ID)"
+    },
+    "passwordUpdate": {
+      "currentPassword": "Huidig wachtwoord",
+      "newPassword": "Nieuw wachtwoord",
+      "passwordConfirmation": "Herhaling nieuw wachtwoord"
+    },
+    "passwordLogin": {
+      "email": { "title": "E-mail", "label": "E-mailadres" },
+      "password": "Wachtwoord",
+      "forgotPassword": "Wachtwoord vergeten"
+    },
+    "twoFactor": {
+      "label": "Twee-staps verificatiecode",
+      "placeholder": "123456",
+      "submit": "Verstuur code",
+      "tip": "Voer de zescijferige code in van uw authenticator-app."
+    }
+  },
+  "modal": {
+    "assignAssessor": {
+      "title": "Zaak toekennen",
+      "message": "Selecteer een beoordelaar om de zaak aan toe te wijzen. Gebruik het zoekveld om te zoeken op naam."
+    }
+  },
+  "notification": {
+    "assign-case-assessor-success": {
+      "label": "Gelukt",
+      "message": "De beoordelaar is succesvol toegevoegd aan de zaak."
+    },
+    "assign-case-assessor-error": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden tijdens het toevoegen. Probeer het later nog eens."
+    },
+    "data-export-success": {
+      "label": "Gelukt",
+      "message": "Het rapport is succesvol gegenereerd."
+    },
+    "data-export-error": {
+      "label": "Mislukt",
+      "message": "Er is een fout opgetreden tijdens het downloaden. Probeer het later nog eens."
+    }
+  },
+  "pages": {
+    "checks-overview": {
+      "title": "Controles",
+      "intro": "Beschikbare controles overkoepelend over de data.",
+      "check1Title": "Dubbele IBAN-Controle",
+      "check1Intro": "Deze controle toont een overzicht van IBANs die nogmaals voorkomen in de ingediende, niet afgekeurde, aanvragen.",
+      "button": "Controle uitvoeren"
+    },
+    "checks-view": {
+      "title": "Controles"
+    },
+    "check-details": {
+      "title": "Check"
+    },
+    "iban-check": {
+      "title": "IBAN controle"
+    },
+    "reports-overview": {
+      "title": "Rapportages",
+      "intro": "Beschikbare rapportage types.",
+      "fdcReportTitle": "FDC-rapport",
+      "fdcReportIntro": "Data export voor het Financieel Diensten Centrum.",
+      "damuExportTitle": "DAMU-rapport",
+      "damuExportIntro": "Data export van de DAMU regeling.",
+      "goToButton": "Naar"
+    },
+    "reports-view": {
+      "title": "Rapportages"
+    },
+    "report-details": {
+      "title": "Rapport"
+    },
+    "damu-data-export": {
+      "title": "DAMU-rapport",
+      "intro": "Data export van alle ingediende DAMU aanvragen."
+    },
+    "fdc-data-export": {
+      "title": "FDC-rapport",
+      "intro": "Data export voor het Financieel Diensten Centrum over het afgelopen jaar.\nSelecteer indien gewenst de periode voor het rapport."
+    },
+    "all-cases-overview": {
+      "cases": "Zaak|Zaken",
+      "noCases": "Er zijn geen zaken gevonden.",
+      "showFilters": "Toon filteropties",
+      "hideFilters": "Verberg filteropties",
+      "subtitle": "Het overzicht van de zaken. Zaken die aan u gekoppeld zijn kunt u vinden onder het tabblad \"Mijn Zaken\". Zaken die open staan en opgepakt kunnen worden ziet u onder \"Nieuw\".",
+      "title": "Alle Zaken",
+      "activeFilters": "op basis van {count} filter|op basis van {count} filters",
+      "sorting": {
+        "label": "gesorteerd op",
+        "options": {
+          "final_review_deadline": "Deadline",
+          "updated_at": "Laatste update"
+        }
+      }
+    },
+    "forgot-password": {
+      "title": "Wachtwoord vergeten",
+      "body": "Vul uw e-mailadres in en ontvang een link om uw wachtwoord te wijzigen."
+    },
+    "login": {
+      "title": "Inloggen",
+      "submit": "Log in",
+      "forgot-password": "Wachtwoord vergeten"
+    },
+    "my-case-details": {
+      "title": "Beoordelingsverzoek",
+      "overview": "Overzicht",
+      "history": "Geschiedenis",
+      "reviewer": "Beoordelaar",
+      "startReview": "Beoordeling starten"
+    },
+    "my-case-details-history": {
+      "title": "Beoordelingsverzoek"
+    },
+    "my-case-details-reviewer": {
+      "title": "Beoordelingsverzoek"
+    },
+    "cases-overview": {
+      "cases": "Zaak|Zaken",
+      "noCases": "Er zijn geen zaken gevonden.",
+      "showFilters": "Toon filters",
+      "hideFilters": "Verberg filters",
+      "subtitle": "Het overzicht van uw zaken. Dit zijn zaken die u heeft aangenomen om te beoordelen of al beoordeeld heeft.",
+      "title": "Mijn Zaken",
+      "activeFilters": "op basis van {count} filter|op basis van {count} filters",
+      "sorting": {
+        "label": "gesorteerd op",
+        "options": {
+          "final_review_deadline": "Deadline",
+          "updated_at": "Laatste update"
+        }
+      }
+    },
+    "review-case": {
+      "title": "Beoordeling",
+      "case": "Aanvraag"
+    },
+    "password-reset": {
+      "title": "Wachtwoord reset"
+    },
+    "preview-case-submit": {
+      "title": "Beoordeling bevestigen",
+      "caption": "Na het bevestigen van deze beoordeling vinden de volgende wijzigingen plaats:",
+      "message": "Tevens zal de volgende brief worden verstuurd naar de aanvrager:",
+      "button": {
+        "edit": "Bewerken",
+        "submit": "Bevestigen"
+      },
+      "column": {
+        "status": "Status aanvraag",
+        "phase": "Fase aanvraag",
+        "deadline": "Deadline",
+        "current": "Huidige waarde",
+        "target": "Nieuwe waarde"
+      }
+    },
+    "two-factor": {
+      "title": "Twee-staps verificatie"
+    },
+    "update-password": {
+      "title": "Wachtwoord wijzigen",
+      "intro": "Vul uw nieuwe wachtwoord in en herhaal ter controle uw nieuwe wachtwoord.",
+      "requirements": "Wachtwoord moet minimaal 12 tekens bevatten waarvan minimaal 1 hoofdletter, 1 kleine letter, 1 cijfer en 1 speciaal teken.",
+      "submit": "Verzenden"
+    },
+    "profile": {
+      "title": "Accountgegevens",
+      "intro": "Het overzicht van uw accountgegevens",
+      "information": "Persoonlijke informatie",
+      "roles": "Rollen",
+      "role": "Rol",
+      "actions": "Acties",
+      "name": "Naam",
+      "email": "E-mailadres",
+      "organisation": "Organisatie",
+      "updatePassword": "Account wachtwoord wijzigen",
+      "roleTypes": {
+        "userAdmin": "Gebruikersbeheerder",
+        "assessor": "Beoordelaar",
+        "implementationCoordinator": "Uitvoeringscoördinator",
+        "internalAuditor": "Interne controleur",
+        "dataExporter": "Data exporteur",
+        "legalSpecialist": "Juridisch medewerker"
+      }
+    }
+  },
+  "reviewerAction": {
+    "allocated": "Toegewezen",
+    "assign": "Toekennen",
+    "show": "Openen",
+    "claim": "Oppakken",
+    "release": "Loslaten"
+  }
+}

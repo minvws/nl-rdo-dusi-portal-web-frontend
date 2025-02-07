@@ -1,0 +1,46 @@
+{
+  "data": [
+    {
+      "id": "39c5f4e9-d94e-351a-ac13-804d81a7e4d3",
+      "subsidyStage": {
+          "id": "7e5d64e9-35f0-4fee-b8d2-dca967b43183",
+          "title": "Aanvraag",
+          "stage": 1
+      },
+      "assessorUser": null,
+      "createdAt": "2023-03-07T16:23:28.000000Z",
+      "updatedAt": "2024-01-03T14:30:19.000000Z",
+      "submittedAt": "2023-04-30T09:37:24.000000Z"
+    },
+    {
+      "id": "f20d38a8-4b15-363e-b62d-9e402c30d13d",
+      "subsidyStage": {
+          "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+          "title": "Eerste beoordeling",
+          "stage": 2
+      },
+      "assessorUser": {
+          "id": "9afed910-9d28-4c60-adb1-4e2ef80f3d2d",
+          "name": "Assessor"
+      },
+      "createdAt": "2023-11-14T08:53:04.000000Z",
+      "updatedAt": "2024-01-04T10:34:16.000000Z",
+      "submittedAt": "2024-01-04T10:34:16.000000Z"
+    },
+    {
+      "id": "9b02d3cc-40ad-4146-addc-3bd2f6165519",
+      "subsidyStage": {
+          "id": "61436439-e337-4986-bc18-57138e2fab65",
+          "title": "Tweede beoordeling",
+          "stage": 3
+      },
+      "assessorUser": {
+          "id": "9afed913-9331-4958-9f20-c52dda7ce05e",
+          "name": "Another Assessor"
+      },
+      "createdAt": "2024-01-04T10:34:16.000000Z",
+      "updatedAt": "2024-01-04T10:36:25.000000Z",
+      "submittedAt": null
+    }
+  ]
+}

@@ -1,0 +1,394 @@
+{
+  "data": {
+    "metadata": {},
+    "values": {
+      "firstName": "Henk",
+      "nameInfix": "de",
+      "lastName": "Vries",
+      "dateOfBirth": "1990-12-10",
+      "country": "Nederland",
+      "street": "Dorpsstraat",
+      "houseNumber": 1,
+      "houseNumberSuffix": "A",
+      "postalCode": "1234 AA",
+      "city": "Amterdam",
+      "phoneNumber": "+31(0) 612345678",
+      "email": "email@example.com"
+    },
+    "dataschema": {
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "title": "Achternaam",
+          "type": "string"
+        },
+        "nameInfix": {
+          "title": "Tussenvoegsel",
+          "type": "string"
+        },
+        "lastName": {
+          "title": "Achternaam",
+          "type": "string"
+        },
+        "dateOfBirth": {
+          "title": "Geboortedatum",
+          "type": "string",
+          "format": "date"
+        },
+        "country": {
+          "title": "Land",
+          "type": "string",
+          "enum": [
+            "Afghanistan",
+            "Albanië",
+            "Algerije",
+            "Andorra",
+            "Angola",
+            "Antigua en Barbuda",
+            "Argentinië",
+            "Armenië",
+            "Australië",
+            "Azerbeidzjan",
+            "Bahama`s",
+            "Bahrein",
+            "Bangladesh",
+            "Barbados",
+            "België",
+            "Belize",
+            "Benin",
+            "Bhutan",
+            "Bolivia",
+            "Bosnië en Herzegovina",
+            "Botswana",
+            "Brazilië",
+            "Brunei",
+            "Bulgarije",
+            "Burkina Faso",
+            "Burundi",
+            "Cambodja",
+            "Canada",
+            "Centraal-Afrikaanse Republiek",
+            "Chili",
+            "China",
+            "Colombia",
+            "Comoren",
+            "Congo-Brazzaville",
+            "Congo-Kinshasa",
+            "Costa Rica",
+            "Cuba",
+            "Cyprus",
+            "Denemarken",
+            "Djibouti",
+            "Dominica",
+            "Dominicaanse Republiek",
+            "Duitsland",
+            "Ecuador",
+            "Egypte",
+            "El Salvador",
+            "Equatoriaal-Guinea",
+            "Eritrea",
+            "Estland",
+            "Ethiopië",
+            "Fiji",
+            "Filipijnen",
+            "Finland",
+            "Frankrijk",
+            "Gabon",
+            "Gambia",
+            "Georgië",
+            "Ghana",
+            "Grenada",
+            "Griekenland",
+            "Guatemala",
+            "Guinee",
+            "Guinee-Bissau",
+            "Guyana",
+            "Haïti",
+            "Honduras",
+            "Hongarije",
+            "Ierland",
+            "IJsland",
+            "India",
+            "Indonesië",
+            "Irak",
+            "Iran",
+            "Israël",
+            "Italië",
+            "Ivoorkust",
+            "Jamaica",
+            "Japan",
+            "Jemen",
+            "Jordanië",
+            "Kaapverdië",
+            "Kameroen",
+            "Kazachstan",
+            "Kenia",
+            "Kirgizië",
+            "Kiribati",
+            "Koeweit",
+            "Kroatië",
+            "Laos",
+            "Lesotho",
+            "Letland",
+            "Libanon",
+            "Liberia",
+            "Libië",
+            "Liechtenstein",
+            "Litouwen",
+            "Luxemburg",
+            "Madagaskar",
+            "Malawi",
+            "Malediven",
+            "Maleisië",
+            "Mali",
+            "Malta",
+            "Marokko",
+            "Marshalleilanden",
+            "Mauritanië",
+            "Mauritius",
+            "Mexico",
+            "Micronesië",
+            "Moldavië",
+            "Monaco",
+            "Mongolië",
+            "Montenegro",
+            "Mozambique",
+            "Myanmar",
+            "Namibië",
+            "Nauru",
+            "Nederland",
+            "Nepal",
+            "Nicaragua",
+            "Nieuw-Zeeland",
+            "Niger",
+            "Nigeria",
+            "Noord-Korea",
+            "Noord-Macedonië",
+            "Noorwegen",
+            "Oeganda",
+            "Oekraïne",
+            "Oezbekistan",
+            "Oman",
+            "Oostenrijk",
+            "Oost-Timor",
+            "Pakistan",
+            "Palau",
+            "Panama",
+            "Papoea-Nieuw-Guinea",
+            "Paraguay",
+            "Peru",
+            "Polen",
+            "Portugal",
+            "Qatar",
+            "Roemenië",
+            "Rusland",
+            "Rwanda",
+            "Saint Kitts en Nevis",
+            "Saint Lucia",
+            "Saint Vincent en de Grenadines",
+            "Salomonseilanden",
+            "Samoa",
+            "San Marino",
+            "Saoedi-Arabië",
+            "Sao Tomé en Principe",
+            "Senegal",
+            "Servië",
+            "Seychellen",
+            "Sierra Leone",
+            "Singapore",
+            "Slovenië",
+            "Slowakije",
+            "Soedan",
+            "Somalië",
+            "Spanje",
+            "Sri Lanka",
+            "Suriname",
+            "Swaziland",
+            "Syrië",
+            "Tadzjikistan",
+            "Tanzania",
+            "Thailand",
+            "Togo",
+            "Tonga",
+            "Trinidad en Tobago",
+            "Tsjaad",
+            "Tsjechië",
+            "Tunesië",
+            "Turkije",
+            "Turkmenistan",
+            "Tuvalu",
+            "Uruguay",
+            "Vanuatu",
+            "Venezuela",
+            "Verenigde Arabische Emiraten",
+            "Verenigde Staten",
+            "Verenigd Koninkrijk",
+            "Vietnam",
+            "Wit-Rusland",
+            "Zambia",
+            "Zimbabwe",
+            "Zuid-Afrika",
+            "Zuid-Korea",
+            "Zuid-Soedan",
+            "Zweden",
+            "Zwitserland"
+          ]
+        },
+        "street": {
+          "title": "Straatnaam",
+          "type": "string"
+        },
+        "houseNumber": {
+          "title": "Huisnummer",
+          "type": "number"
+        },
+        "houseNumberSuffix": {
+          "title": "Huisnummer toevoeging",
+          "type": "string"
+        },
+        "postalCode": {
+          "title": "Postcode",
+          "type": "string",
+          "postalCode": true,
+          "maxLength": 7
+
+        },
+        "city": {
+          "title": "Plaats",
+          "type": "string"
+        },
+        "phoneNumber": {
+          "title": "Telefoonnummer",
+          "type": "string",
+          "tel": true
+        },
+        "email": {
+          "title": "E-mailadres",
+          "type": "string",
+          "format": "email"
+        }
+      },
+      "required": [
+        "city",
+        "country",
+        "dateOfBirth",
+        "street",
+        "email",
+        "firstName",
+        "houseNumber",
+        "lastName",
+        "nameInfix",
+        "postalCode"
+      ]
+    },
+    "uischema": {
+      "type": "FormGroupControl",
+      "options": {
+        "section": true,
+        "group": true
+      },
+      "elements": [
+        {
+          "type": "Group",
+          "label": "Persoonlijke informatie",
+          "elements": [
+            {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/firstName",
+                  "label": "Voornaam"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/nameInfix",
+                  "label": "Tussenvoegsel"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/lastName",
+                  "label": "Achternaam"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/dateOfBirth",
+                  "label": "Geboortedatum"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Adres",
+          "elements": [
+            {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/country",
+                  "label": "Land",
+                  "options": {
+                    "format": "select",
+                    "placeholder": "Selecteer een land"
+                  }
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/street",
+                  "label": "Straatnaam"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/houseNumber",
+                  "label": "Huisnummer"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/houseNumberSuffix",
+                  "label": "Huisnummer toevoeging"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/postalCode",
+                  "label": "Postcode"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/city",
+                  "label": "Plaats"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Group",
+          "label": "Contact",
+          "elements": [
+            {
+              "type": "VerticalLayout",
+              "elements": [
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/phoneNumber",
+                  "label": "Telefoonnummer"
+                },
+                {
+                  "type": "CustomControl",
+                  "scope": "#/properties/email",
+                  "label": "E-mailadres",
+                  "options": {
+                    "tip": "U wordt via dit e-mailadres geïnformeerd over de status van uw aanvraag. Geef daarom alleen uw eigen e-mailadres door."
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

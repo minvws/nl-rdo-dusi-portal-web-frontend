@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "hash": "1151a36e738c7e5933927387b1a55931ce4fbcfc45c8197476d6050aac5b59a7",
+      "count": 3,
+      "applications": [
+        { "id": "99db57ed-73ac-4220-8991-a5aac01e93eb", "reference": "LZNM62-64708882" },
+        { "id": "99db57ed-73ac-4220-8991-a5aac01e93eb", "reference": "ZJBI17-14557380" },
+        { "id": "99db57ed-73ac-4220-8991-a5aac01e93eb", "reference": "KZNM62-64708882" }
+      ]
+    },
+    {
+      "hash": "1151a36e738c7e5933927387b1a55931ce4fbcfc45c8197476d6050aac5b59a7",
+      "count": 2,
+      "applications": [
+        { "id": "99db57ed-73ac-4220-8991-a5aac01e93eb", "reference": "LZNM62-64708882" },
+        { "id": "99db57ed-73ac-4220-8991-a5aac01e93eb", "reference": "ZJBI17-14557380" }
+      ]
+    }
+  ]
+}

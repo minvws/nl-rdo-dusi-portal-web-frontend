@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="692" height="324" aria-labelledby="summary-title explanation-text explanation-annotation">
+  <defs>
+    <linearGradient id="linear-gradient" x1="329.2" x2="328.24" y1="183.68" y2="183.68" gradientTransform="matrix(64.8 0 0 -64.8 -21244.4 11935.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#399439"/>
+      <stop offset="1" stop-color="#226022"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="329.44" x2="328.36" y1="183.68" y2="183.68" gradientTransform="matrix(64.8 0 0 -64.8 -21244.4 11999.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ac04a"/>
+      <stop offset="1" stop-color="#399439"/>
+    </linearGradient>
+    <linearGradient id="New_Gradient_Swatch_2" x1="329.37" x2="328.36" y1="183.68" y2="183.68" gradientTransform="matrix(64.8 0 0 -64.8 -21244.4 12064.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffd816"/>
+      <stop offset="1" stop-color="#febd57"/>
+    </linearGradient>
+    <linearGradient id="New_Gradient_Swatch_3" x1="329.35" x2="328.36" y1="183.68" y2="183.68" gradientTransform="matrix(64.8 0 0 -64.8 -21244.4 12128.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#febd57"/>
+      <stop offset="1" stop-color="#fd6b39"/>
+    </linearGradient>
+    <linearGradient id="New_Gradient_Swatch_4" x1="328.36" x2="329.14" y1="183.68" y2="183.68" gradientTransform="matrix(64.8 0 0 -64.8 -21244.4 12192.6)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fc142e"/>
+      <stop offset="1" stop-color="#fd6b39"/>
+    </linearGradient>
+    <linearGradient xlink:href="#New_Gradient_Swatch_3" id="New_Gradient_Swatch_3-2" x1="327.3" x2="327.98" y1="181.81" y2="181.82" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#New_Gradient_Swatch_3" id="New_Gradient_Swatch_3-3" x1="327.32" x2="327.98" y1="181.74" y2="181.75" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#New_Gradient_Swatch_3" id="New_Gradient_Swatch_3-4" x1="323.48" x2="324.13" y1="181.79" y2="181.82" gradientTransform="matrix(35.1 0 0 -35.1 -11277 6608.2)"/>
+    <linearGradient xlink:href="#New_Gradient_Swatch_2" id="New_Gradient_Swatch_2-2" x1="327.3" x2="327.98" y1="183.65" y2="183.65" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#New_Gradient_Swatch_2" id="New_Gradient_Swatch_2-3" x1="327.32" x2="327.98" y1="183.57" y2="183.58" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#New_Gradient_Swatch_2" id="New_Gradient_Swatch_2-4" x1="323.48" x2="324.13" y1="183.63" y2="183.66" gradientTransform="matrix(35.1 0 0 -35.1 -11277 6608.2)"/>
+    <linearGradient xlink:href="#linear-gradient-2" id="linear-gradient-3" x1="327.3" x2="327.98" y1="185.51" y2="185.52" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient id="linear-gradient-4" x1="327.32" x2="327.98" y1="185.43" y2="185.45" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ac04a"/>
+      <stop offset="1" stop-color="#3a963a"/>
+      <stop offset="1" stop-color="#399439"/>
+    </linearGradient>
+    <linearGradient xlink:href="#linear-gradient-4" id="linear-gradient-5" x1="323.48" x2="324.13" y1="185.49" y2="185.52" gradientTransform="matrix(35.1 0 0 -35.1 -11277 6608.2)"/>
+    <linearGradient xlink:href="#linear-gradient" id="New_Gradient_Swatch_1" x1="327.3" x2="327.98" y1="187.31" y2="187.32" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#linear-gradient" id="New_Gradient_Swatch_1-2" x1="327.32" x2="327.98" y1="187.23" y2="187.24" gradientTransform="matrix(59.03 0 0 -35.1 -19270.9 6608.2)"/>
+    <linearGradient xlink:href="#linear-gradient" id="New_Gradient_Swatch_1-3" x1="323.48" x2="324.13" y1="187.29" y2="187.32" gradientTransform="matrix(35.1 0 0 -35.1 -11277 6608.2)"/>
+    <filter id="filter-1" width="150" height="133.3" x="-25" y="-11.9">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="1"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+    </filter>
+    <style>
+      .cls-15,.cls-17,.cls-25,.cls-29,.cls-31{fill:#fff}.cls-15,.cls-17,.cls-32{font-family:Arial,sans-serif;font-weight:700;isolation:isolate}.cls-15,.cls-17{font-size:19px}.cls-15{letter-spacing:-.04em}.cls-24,.cls-28,.cls-30{stroke-width:3.6px;fill-rule:evenodd}.cls-25,.cls-29,.cls-31{stroke-width:3.24px}.cls-32{font-size:16.2px}.cls-24{fill:url(#New_Gradient_Swatch_3-2);stroke:url(#New_Gradient_Swatch_3-3)}.cls-25{stroke:url(#New_Gradient_Swatch_3-4)}.cls-28{fill:url(#linear-gradient-3);stroke:url(#linear-gradient-4)}.cls-29{stroke:url(#linear-gradient-5)}.cls-30{fill:url(#New_Gradient_Swatch_1);stroke:url(#New_Gradient_Swatch_1-2)}.cls-31{stroke:url(#New_Gradient_Swatch_1-3)}.cls-32{letter-spacing:-.04em}.st0{fill:#9e9e9e}.st1{fill:#399439}.st2{fill:#fc142e}.st3{fill:#fff}.st4{font-family:Arial,sans-serif}.st5{font-size:14px}.st6{font-family:Arial,sans-serif;font-weight:700}.st7{font-size:16px}.st8{font-size:10px}
+    </style>
+  </defs>
+  <g>
+    <path fill="#fff" d="M0 0h692v344H0z"/>
+    <text class="st6 st7" transform="translate(146.3 22.7)">Status toegankelijkheid</text>
+    <text class="st6 st7" transform="translate(146.3 39.7)">https://aanvraag.dus-i.nl</text>
+    <text class="st4 st5" transform="translate(145.4 67.6)">Ministerie van Volksgezondheid, welzijn en sport</text>
+    <text class="st4 st5" transform="translate(146.3 84.2)">is wettelijk verplicht om deze website te laten voldoen</text>
+    <text class="st4 st5" transform="translate(145.3 100)">aan het Besluit digitale toegankelijkheid overheid.</text>
+    <text class="st4 st5" transform="translate(145.3 125.1)">De status van deze website is:</text>
+    <text class="st6 st7" transform="translate(145.3 142.5)">Eerste maatregelen genomen</text>
+    <text class="st4 st5" transform="translate(145.3 169.4)">Deze status is toegekend op basis van een eigen verklaring.</text>
+    <text class="st4 st5" transform="translate(145.3 186.2)">Deze is voor het laatst bijgewerkt op 22-09-2023.</text>
+    <text class="st4 st5" transform="translate(145.4 213.2)">Ga naar de</text>
+    <text class="st4 st5" text-decoration="underline" transform="translate(219.4 213.2)">toegankelijkheidsverklaring</text>
+    <text class="st4 st5" transform="translate(387.5 213.2)">:</text>
+    <text class="st4 st5" transform="translate(145.4 246.8)">- Om een toegankelijkheidsprobleem te melden.</text>
+    <text class="st4 st5" transform="translate(145.4 230)">- Om de volledige, officiële verklaring in te zien;</text>
+  </g>
+  <g>
+    <path fill="url(#linear-gradient)" d="M1 1h64.8v64.8H1z"/>
+    <path fill="url(#linear-gradient-2)" d="M1 65h64.8v64.8H1z"/>
+    <path fill="url(#New_Gradient_Swatch_2)" d="M1 130h64.8v64.8H1z"/>
+    <path fill="url(#New_Gradient_Swatch_3)" d="M1 194h64.8v64.8H1z"/>
+    <path fill="url(#New_Gradient_Swatch_4)" d="M1 258h64.8v64.8H1z"/>
+    <g>
+      <g filter="url(#filter-1)">
+        <text class="cls-15" transform="translate(26.1 40)">A</text>
+      </g>
+      <text class="cls-15" transform="translate(26.1 40)">A</text>
+    </g>
+    <g>
+      <g filter="url(#filter-1)">
+        <text class="cls-17" transform="translate(26.1 104)">B</text>
+      </g>
+      <text class="cls-17" transform="translate(26.1 104)">B</text>
+    </g>
+    <g>
+      <g filter="url(#filter-1)">
+        <text class="cls-17" transform="translate(26.1 169)">C</text>
+      </g>
+      <text class="cls-17" transform="translate(26.1 169)">C</text>
+    </g>
+    <g>
+      <g filter="url(#filter-1)">
+        <text class="cls-17" transform="translate(26.1 233)">D</text>
+      </g>
+      <text class="cls-17" transform="translate(26.1 233)">D</text>
+    </g>
+    <g>
+      <g filter="url(#filter-1)">
+        <text class="cls-17" transform="translate(27.1 297)">E</text>
+      </g>
+      <text class="cls-17" transform="translate(27.1 297)">E</text>
+    </g>
+  </g>
+  <g>
+    <g>
+      <path fill="url(#New_Gradient_Swatch_2-2)" fill-rule="evenodd" stroke="url(#New_Gradient_Swatch_2-3)" stroke-width="3.6" d="M95.48 144.35a17.55 17.55 0 1 1-17.55 17.55 17.55 17.55 0 0 1 17.55-17.55Zm-16.23 9.33a17.69 17.69 0 0 0-2.4 8.76 17 17 0 0 0 2.6 9.28L54 162.8Z"/>
+      <circle cx="95.85" cy="161.9" r="17.55" fill="#fff" stroke="url(#New_Gradient_Swatch_2-4)" stroke-width="3.24"/>
+      <text font-family="Arial,sans-serif" font-size="16.2" font-weight="700" style="isolation:isolate" transform="translate(90 168.35)">C</text>
+    </g>
+  </g>
+</svg>

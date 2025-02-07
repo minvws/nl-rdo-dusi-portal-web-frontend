@@ -1,0 +1,3 @@
+Dossiernummer,Voornaam,"Tussenvoegsel + Achternaam",Straatnaam,"Huisnummer + HuisnummerToevoeging",Postcode,Woonplaats,NaamRekeninghouder,IBAN,"SurePay resultaat IBAN-Bestaan","SurePay resultaat Naam-IBAN","SurePay resultaat AccountType (organisatie/persoon)","SurePay resultaat Actief/inactief"
+JSFP16-18245029,Voornaam,"Tussenvoegsel Achternaam",Straat,4Huisnummer,Postcode,Plaats,"Naam rekeninghouder",NL62ABNA9999841479,,,,
+PCZM23-23896323,Pietje,"Puk",Petteflet,329,1234AB,Test,"P. Puk",NL62ABNA9999841479,VALID,MATCH,NP,ACTIVE

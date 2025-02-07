@@ -1,0 +1,216 @@
+{
+  "component": {
+    "formResultsTable": {
+      "noData": "Geen gegevens ingevuld.",
+      "results": {
+        "accountHolderName": {
+          "label": "Naam rekeninghouder",
+          "value": "{accountHolderName}"
+        },
+        "address": {
+          "label": "Adres",
+          "value": "{streetName} {houseNumber} {zipCode} {city}"
+        },
+        "dayOfBirth": {
+          "label": "Geboortedatum",
+          "value": "{dayOfBirth}"
+        },
+        "email": {
+          "label": "E-mailadres",
+          "value": "{email}"
+        },
+        "fullName": {
+          "label": "Indiener",
+          "value": "{firstName} {lastName}"
+        },
+        "iban": {
+          "label": "IBAN",
+          "value": "{iban}"
+        },
+        "phoneNumber": {
+          "label": "Telefoonnummer",
+          "value": "{phoneNumber}"
+        }
+      }
+    },
+    "messagesOverview": {
+      "messages": "bericht | berichten",
+      "showFilters": "Toon zoek- en filter-opties",
+      "hideFilters": "Verberg zoek- en filter-opties"
+    },
+    "notificationObligation": {
+      "body1": "U bent verplicht ons op de hoogte te stellen als er iets verandert aan uw situatie. Of als u informatie heeft die de hoogte van uw subsidie kan beïnvloeden. Dit heet meldingsplicht. Doet u dit niet? Of niet op tijd? Dan moet u het gekregen bedrag misschien (deels) terugbetalen.",
+      "body2": "Neem zo snel mogelijk contact met ons op. De link naar het contactformulier vindt u op de pagina over uw subsidie. Staat dit er niet? Of twijfelt u? Bel of mail ons via het Klantcontactcentrum.",
+      "subtitle": "Hoe maakt u een melding?",
+      "title": "Meldingsplicht bij wijzigingen"
+    },
+    "requestSteps": {
+      "additionalInfo": "Het kan voorkomen dat u om extra informatie gevraagd wordt.",
+      "customerSatisfaction": "Hoe is het aanvragen gegaan?",
+      "customerSatisfactionLink": "Laat het ons weten via het <a target=\"_blank\" rel=\"{customerSatisfactionRel}\" href=\"{customerSatisfactionHref}{referenceCode}{additionalArguments}\">klanttevredenheidsonderzoek</a>",
+      "decision": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.",
+      "finalDecision": "De uiterste beslisdatum is {date}.",
+      "info": "<strong>Bijbehorende informatie:</strong>",
+      "noAction": "<strong>U hoeft op dit moment niets te doen.</strong>",
+      "notice": "<strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
+      "order": "Beschikking",
+      "payout": "Uitbetaling",
+      "payoutDecision": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening.",
+      "request": "Aanvraag",
+      "step": "Stap {step}:",
+      "step_2": {
+        "allocated": "Uw aanvraag is toegekend. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
+        "approved": "Uw aanvraag is toegekend.",
+        "pending": "U krijgt van ons een beschikking. Dit is een toekenning of afwijzing van de aanvraag.<br/><br/>De uiterste behandeldatum is <em>{date}</em>.<br/><br/><strong>Let op</strong>, als wij u tussentijds om aanvullende informatie vragen, pauzeren wij de reactietermijn totdat u de benodigde informatie geleverd heeft. Dit betekent dat de uiterste beslisdatum in dat geval op kan schuiven naar een later moment.",
+        "reclaimed": "Uw aanvraag is gevorderd.",
+        "rejected": "Uw aanvraag is afgewezen."
+      },
+      "step_3": {
+        "allocated": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening. Er vindt mogelijk een controle plaats. Het is mogelijk dat u om een bewijsstuk wordt gevraagd. Daarom is het advies om uw bewijsstukken goed te bewaren.",
+        "approved": "Uw aanvraag is toegekend. Wij maken het hele bedrag over naar uw bankrekening.",
+        "pending": "Als uw aanvraag is toegekend maken we het hele bedrag over naar uw bankrekening.",
+        "reclaimed": "Uw aanvraag is gevorderd.",
+        "rejected": "Uw aanvraag is afgewezen."
+      },
+      "submitDate": "Datum indiening: <em>{date}</em>"
+    }
+  },
+  "pages": {
+    "arrangement-overview": {
+      "title": "Regeling",
+      "yourArrangements": "Uw aanvragen",
+      "arrangements": "aanvragen",
+      "description": "U heeft al eerder een aanvraag gestart. In dit overzicht ziet u al uw (lopende) aanvragen voor {subsidyCode}. Voor al uw aanvragen zie:",
+      "noRequests": "Er zijn geen aanvragen gevonden voor {subsidyCode}. Voor al uw aanvragen zie: ",
+      "newRequest": "Nieuwe aanvraag starten",
+      "backToDusi": "Terug naar DUS-I",
+      "arrangementClosed": {
+        "title": "Deze regeling is gesloten",
+        "description": "Het is niet meer mogelijk om een nieuwe aanvraag te starten of een aanvraag in te dienen.",
+        "descriptionWithExisting": "Het is niet meer mogelijk om een nieuwe aanvraag te starten of een aanvraag in te dienen. U kunt uw lopende aanvraag wel aanvullen."
+      },
+      "arrangementsAllowed": {
+        "single": {
+          "openArrangement": "U heeft een openstaande aanvraag. Het is niet mogelijk om deze subside meerdere malen aan te vragen. Open uw aanvraag om verder te gaan of om te bekijken.",
+          "approvedArrangement": "U heeft deze aanvraag toegekend gekregen. Het is niet mogelijk om deze subsidie meerdere malen aan te vragen.",
+          "rejectedArrangement": "U heeft een eerdere aanvraag ingediend. Deze is afgekeurd. Het is mogelijk om een nieuwe aanvraag te starten."
+        },
+        "multiple": {
+          "descriptionMultipleOpenArrangement": "Het is mogelijk om deze subsidie meerdere malen aan te vragen. Maak uw keuze of u een nieuwe aanvraag wilt starten of uw eerdere aanvraag wilt afronden."
+        }
+      },
+      "table": {
+        "caption": "Overzicht van uw aanvragen",
+        "subsidy": "Regeling",
+        "file": "Dossiernummer",
+        "created": "Datum indiening",
+        "updated_at": "Laatste update",
+        "final_review_deadline": "Uiterste behandeldatum",
+        "status": "Status",
+        "actionRequired": "Actie benodigd",
+        "action": "Acties"
+      }
+    },
+    "arrangement-details": {
+      "title": "Regeling"
+    },
+    "arrangement-form-local": {
+      "title": "Aanvraagformulier"
+    },
+    "arrangement-form-remote": {
+      "title": "Aanvraagformulier"
+    },
+    "external": {
+      "title": "Externe Pagina"
+    },
+    "external-detail": {
+      "title": "Externe Detail Pagina"
+    },
+    "form-sent": {
+      "title": "Formulier verzonden"
+    },
+    "forms": {
+      "title": "Remote form"
+    },
+    "localForm": {
+      "title": "Localform example"
+    },
+    "my-details-overview": {
+      "title": "Mijn gegevens",
+      "intro1": "Het overzicht van uw gegevens zoals ze bij ons bekend zijn.",
+      "intro2": "Deze gegevens worden automatisch voor u ingevuld als u een aanvraag start.",
+      "edit": "Bewerken"
+    },
+    "my-details-edit": {
+      "title": "Mijn gegevens bewerken",
+      "intro": "Verander of pas uw gegevens hieronder aan. De nieuwe gegevens worden binnen al uw aanvragen meegenomen.",
+      "cancel": "Annuleren",
+      "save": "Opslaan"
+    },
+    "my-request-edit": {
+      "title": "Bewerken",
+      "request_locked": {
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is ingediend en kan niet worden bewerkt."
+      }
+    },
+    "my-requests-overview": {
+      "title": "Mijn aanvragen",
+      "intro": "Het overzicht van uw aanvragen en regelingen. In dit overzicht ziet uw de status van uw aanvraag en eventuele openstaande acties.",
+      "myRequests": "Aanvragen",
+      "noRequests": "Er zijn geen aanvragen gevonden",
+      "table": {
+        "caption": "Overzicht van uw aanvragen",
+        "subsidy": "Regeling",
+        "file": "Dossiernummer",
+        "created": "Datum indiening",
+        "final_review_deadline": "Uiterste behandeldatum",
+        "updated_at": "Laatste update",
+        "status": "Status",
+        "actionRequired": "Actie benodigd",
+        "action": "Acties"
+      }
+    },
+    "my-request-details": {
+      "title": "Aanvraag",
+      "heading": "Aanvraag subsidie: {name}",
+      "meta": "Metagegevens",
+      "reference": "Dossiernummer",
+      "submittedAt": "Aangevraagd op",
+      "deadline": "Uiterste behandeldatum",
+      "requestNotViewable": {
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is nog niet ingediend en kan daardoor niet bekeken worden."
+      }
+    },
+    "my-request-status": {
+      "title": "Aanvraag",
+      "heading": "Aanvraag subsidie: {name}",
+      "status": "Wij hebben uw aanvraag ontvangen",
+      "downloadLabel": "Download de aanvraag",
+      "editLabel": "Aanvraag bewerken",
+      "cancelLabel": "Aanvraag intrekken",
+      "noAction": "U hoeft op dit moment niets te doen.",
+      "intro": "Voor meer informatie bekijk de <a href=\"{link}\" target=\"_blank\">informatiepagina</a>.",
+      "statusDescription": "Uw aanvraag bevindt zich in stap {step}. De huidige status van uw aanvraag staat op <strong>{status}</strong>. In het onderstaande overzicht ziet u welke stappen van het proces zijn afgerond en welke er nog aan komen. Per stap kunt u zien wat u van ons kunt verwachten en waar nodig wat wij van u verwachten.",
+      "requestNotViewable": {
+        "label": "Waarschuwing",
+        "message": "Deze aanvraag is nog niet ingediend en kan daardoor niet bekeken worden."
+      }
+    },
+    "my-message-details": {
+      "title": "Bericht",
+      "download": "Download bericht",
+      "print": "Bericht afdrukken"
+    },
+    "my-messages-overview": {
+      "content": {},
+      "intro": "Het overzicht van alle binnengekomen notificaties.",
+      "title": "Mijn berichten",
+      "noMessages": "Er zijn geen berichten gevonden"
+    },
+    "my-messages-overview-page": {
+      "title": "Mijn berichten"
+    }
+  }
+}

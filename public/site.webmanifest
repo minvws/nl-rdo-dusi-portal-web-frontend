@@ -1,0 +1,29 @@
+{
+  "name": "DUS-I",
+  "short_name": "DUS-I",
+  "description": "De Dienst Uitvoering Subsidies aan Instellingen (DUS-I) is een expertisecentrum voor subsidies, tegemoetkomingen en specifieke uitkeringen van de ministeries van OCW en VWS.",
+  "lang": "nl-NL",
+  "start_url": "/",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icons/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/maskable_icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "theme_color": "#154273",
+  "background_color": "#154273",
+  "display": "browser"
+}

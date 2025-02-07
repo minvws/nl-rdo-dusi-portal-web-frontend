@@ -1,0 +1,271 @@
+{
+  "data": [
+    {
+      "id": "0026193b-94b5-3589-8e6b-800301fb700d",
+      "reference": "HOJW31-73311375",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Tweede beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "show"
+      ]
+    },
+    {
+      "id": "0499a536-e4cd-3ab7-8dad-ecb12cc1bf0e",
+      "reference": "PWTY98-43737444",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "show",
+        "release"
+      ]
+    },
+    {
+      "id": "091c8462-78ec-3485-a87b-168e492d3392",
+      "reference": "NZWE70-69836513",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "18b33058-0fc0-3a77-9a59-39ac26f64d04",
+      "reference": "EAXO89-94408505",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "1ba89219-530f-383f-856d-7dad635ec4ed",
+      "reference": "SOQR34-41390491",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "1bda8a1c-94e0-3616-b3bb-d6112b1f5ee3",
+      "reference": "RAGP60-29419681",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "21ad747e-8562-3b6d-8463-93768822e9aa",
+      "reference": "ZIAR82-00546102",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "2dd90aae-9668-3849-9f52-51e8ba9c5119",
+      "reference": "GVRK50-74245602",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "378fdfab-667e-3ec7-885a-d714b358b031",
+      "reference": "VFTC02-19909234",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "3c46ee5d-a6d4-3bc5-8d93-c310e7849329",
+      "reference": "MYLH88-48997141",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "3ef6080d-551f-37de-9b82-4c8c9d218d4d",
+      "reference": "HBLM95-74720600",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "434485f8-7099-3eff-aac1-ebdd7823cb24",
+      "reference": "LQTQ54-03195193",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "43f47ea6-70b2-3413-b269-848c96dc7a3c",
+      "reference": "EYIK41-84074908",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "44633bc8-0bd3-30e6-8026-e38690becf32",
+      "reference": "QBUQ52-91176731",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    },
+    {
+      "id": "459ecd85-7936-3aac-bc6f-1fa738184b4e",
+      "reference": "GFBY84-83564606",
+      "subsidy_page_url": "https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten",
+      "application_title": "DUSi Subsidie Admin API",
+      "subsidy": "PCZM",
+      "status": "pending",
+      "subsidy_stage_title": "Eerste beoordeling",
+      "final_review_deadline": "2024-02-03T14:30:08.000000Z",
+      "updated_at": "2024-01-03T14:30:09.000000Z",
+      "assessor": null,
+      "actions": [
+        "claim"
+      ]
+    }
+  ],
+  "meta": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 4,
+    "links": [
+      {
+        "url": null,
+        "label": "&laquo; Vorige",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8002/api/applications?page=1",
+        "label": "1",
+        "active": true
+      },
+      {
+        "url": "http://localhost:8002/api/applications?page=2",
+        "label": "2",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8002/api/applications?page=3",
+        "label": "3",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8002/api/applications?page=4",
+        "label": "4",
+        "active": false
+      },
+      {
+        "url": "http://localhost:8002/api/applications?page=2",
+        "label": "Volgende &raquo;",
+        "active": false
+      }
+    ],
+    "path": "http://localhost:8002/api/applications",
+    "per_page": 15,
+    "to": 15,
+    "total": 50
+  }
+}

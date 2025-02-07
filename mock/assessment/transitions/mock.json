@@ -1,0 +1,131 @@
+{
+  "data": [
+      {
+          "id": "282ffea3-c38b-4179-9e4f-24fef55cb1b7",
+          "internalNote": "Hier interne toelichting.\n\nMet wat enters bla bla bla",
+          "createdAt": "2023-10-17T15:05:45.000000Z",
+          "previousApplicationStatus": "draft",
+          "newApplicationStatus": "pending",
+          "subsidyStageTransition": {
+              "id": "7ac879d1-63cb-478d-8745-737313f1643e",
+              "description": "Aanvraag ingediend"
+          },
+          "previousApplicationStage": {
+              "subsidyStage": {
+                  "id": "7e5d64e9-35f0-4fee-b8d2-dca967b43183",
+                  "title": "Aanvraag",
+                  "stage": 1
+              },
+              "assessorUser": null
+          },
+          "newApplicationStage": {
+              "subsidyStage": {
+                  "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+                  "title": "Eerste beoordeling",
+                  "stage": 2
+              },
+              "assessorUser": {
+                  "id": "9a6448aa-6648-4f49-849e-5d3a959f7f01",
+                  "name": "assessor"
+              }
+          }
+      },
+      {
+          "id": "0582f73e-0adc-4617-82f6-55bac9536e5e",
+          "internalNote": null,
+          "createdAt": "2023-10-17T17:39:00.000000Z",
+          "previousApplicationStatus": "pending",
+          "newApplicationStatus": "requestForChanges",
+          "subsidyStageTransition": {
+              "id": "870bc38a-0d50-40a9-b49e-d56db5ead6b7",
+              "description": "Aanvulling gevraagd"
+          },
+          "previousApplicationStage": {
+              "subsidyStage": {
+                  "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+                  "title": "Eerste beoordeling",
+                  "stage": 2
+              },
+              "assessorUser": {
+                  "id": "9a6448aa-6648-4f49-849e-5d3a959f7f01",
+                  "name": "assessor"
+              }
+          },
+          "newApplicationStage": {
+              "subsidyStage": {
+                  "id": "7e5d64e9-35f0-4fee-b8d2-dca967b43183",
+                  "title": "Aanvraag",
+                  "stage": 1
+              },
+              "assessorUser": null
+          },
+          "message": {
+              "id": "9a647ff4-be85-47a5-a9a7-b73a21c01c4d",
+              "subject": "Aanvulling nodig"
+          }
+      },
+      {
+          "id": "727ace38-1616-46a4-8b94-2dbe177539fa",
+          "internalNote": "Hier aanvulling interne notitie.\n\nMet wat enters bla bla bla",
+          "createdAt": "2023-10-17T17:40:00.000000Z",
+          "previousApplicationStatus": "requestForChanges",
+          "newApplicationStatus": "pending",
+          "subsidyStageTransition": {
+              "id": "7ac879d1-63cb-478d-8745-737313f1643e",
+              "description": "Aanvraag ingediend"
+          },
+          "previousApplicationStage": {
+              "subsidyStage": {
+                  "id": "7e5d64e9-35f0-4fee-b8d2-dca967b43183",
+                  "title": "Aanvraag",
+                  "stage": 1
+              },
+              "assessorUser": null
+          },
+          "newApplicationStage": {
+              "subsidyStage": {
+                  "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+                  "title": "Eerste beoordeling",
+                  "stage": 2
+              },
+              "assessorUser": {
+                  "id": "9a6448aa-6648-4f49-849e-5d3a959f7f01",
+                  "name": "assessor"
+              }
+          }
+      },
+      {
+          "id": "194e2723-e5c4-43be-9074-399b68a425a7",
+          "internalNote": null,
+          "createdAt": "2023-10-17T17:40:52.000000Z",
+          "previousApplicationStatus": "pending",
+          "newApplicationStatus": "pending",
+          "subsidyStageTransition": {
+              "id": "dd630ec0-50d1-45f5-b014-415e6359389e",
+              "description": "Eerste beoordeling voltooid"
+          },
+          "previousApplicationStage": {
+              "subsidyStage": {
+                  "id": "8027c102-93ef-4735-ab66-97aa63b836eb",
+                  "title": "Eerste beoordeling",
+                  "stage": 2
+              },
+              "assessorUser": {
+                  "id": "9a6448aa-6648-4f49-849e-5d3a959f7f01",
+                  "name": "assessor"
+              }
+          },
+          "newApplicationStage": {
+              "subsidyStage": {
+                  "id": "61436439-e337-4986-bc18-57138e2fab65",
+                  "title": "Tweede beoordeling",
+                  "stage": 3
+              },
+              "assessorUser": {
+                  "id": "9a6448af-4422-42b1-a034-3c80c9469d29",
+                  "name": "assessor"
+              }
+          }
+      }
+  ]
+}
