@@ -68,7 +68,7 @@
     "vite-bundle-analyzer": "^0.9.4",
     "vite-plugin-html-sort-tags": "^0.1.0",
     "vite-plugin-preload": "^0.4.0",
-    "vitest": "^1.4.0",
+    "vitest": "^1.6.1",
     "vue-tsc": "^2.0.6"
   }
 }
