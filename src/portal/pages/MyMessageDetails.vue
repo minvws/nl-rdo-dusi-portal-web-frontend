@@ -39,7 +39,6 @@ import { useFetchMessageDownload } from '@portal/composables/useFetchMessageDown
 import { useSEO } from '@shared/composables/useSeo'
 
 import AppButton from '@shared/components/AppButton/AppButton.vue'
-import AppHtml from '@shared/components/AppHtml/AppHtml.vue'
 import AppIcon from '@shared/components/AppIcon/AppIcon.vue'
 import AppSuspense from '@shared/components/AppSuspense/AppSuspense.vue'
 
@@ -92,11 +91,13 @@ watch(isFinished, (isFinished) => {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 main section {
   --section-gap: 2.5rem;
 }
 
 .horizontal-view {
-  @include hide-print;
+  @include mixins.hide-print;
 }
 </style>

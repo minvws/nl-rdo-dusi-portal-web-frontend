@@ -13,8 +13,10 @@ defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .label {
-  @include mobile {
+  @include mixins.mobile {
     margin: 0.5rem 0 0.2rem 0;
   }
 }

@@ -41,6 +41,8 @@ function logOut() {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .authentication-button {
   --header-navigation-button-justify-content: flex-start;
   --header-navigation-collapsible-collapsing-element-list-item-button-width: 100%;
@@ -52,7 +54,7 @@ function logOut() {
   );
   --header-navigation-button-min-height: 48px;
 
-  @include desktop {
+  @include mixins.desktop {
     --header-navigation-button-min-height: 64px;
     --header-navigation-button-padding-right: 0.5rem;
     --header-navigation-button-padding-left: 0.5rem;

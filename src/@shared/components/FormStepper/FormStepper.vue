@@ -103,6 +103,8 @@ function onButtonClick(index: number) {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .form-stepper {
   --stepper-step-height: 55px;
   --stepper-arrow-size: 15px;
@@ -246,7 +248,7 @@ function onButtonClick(index: number) {
 
       &:hover:disabled {
         // when step is disabled, do not set the hover classes for touch devices
-        @include is-touch-device {
+        @include mixins.is-touch-device {
           background: var(--button-base-background-color);
           color: var(--button-base-text-color);
 

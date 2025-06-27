@@ -65,12 +65,14 @@ function asArray(arg: VNodeChild) {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .form-row-field {
   display: flex;
   flex-direction: column;
   gap: var(--form-group-gap);
 
-  @include mobile {
+  @include mixins.mobile {
     gap: 0.2rem;
   }
 
@@ -79,7 +81,7 @@ function asArray(arg: VNodeChild) {
   }
 
   &.multiple {
-    @include desktop {
+    @include mixins.desktop {
       flex-direction: row;
 
       > * {

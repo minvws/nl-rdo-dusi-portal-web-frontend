@@ -19,13 +19,6 @@ export default defineConfig({
       summary: true,
     }),
   ],
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: '@import "./src/@shared/styles/mixins.scss";'
-      }
-    }
-  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url)),

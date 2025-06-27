@@ -114,11 +114,13 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .form-group {
   display: flex;
   flex-direction: column;
 
-  @include desktop {
+  @include mixins.desktop {
     flex-direction: row;
   }
 
@@ -175,7 +177,7 @@ export default defineComponent({
 .form-group-label {
   flex: 0.25;
 
-  @include heading;
+  @include mixins.heading;
 }
 
 .form-group-renderer {
@@ -187,7 +189,7 @@ export default defineComponent({
     padding-left: 0;
 
     &:not(:last-child) {
-      @include mobile {
+      @include mixins.mobile {
         margin-bottom: 0;
       }
     }
@@ -196,7 +198,7 @@ export default defineComponent({
   :deep(.group) {
     padding-bottom: 0;
 
-    @include desktop {
+    @include mixins.desktop {
       padding-bottom: 1em;
     }
   }

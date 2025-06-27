@@ -128,6 +128,8 @@ const items = computed(() =>
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .cards {
   width: 100%;
 }
@@ -196,7 +198,7 @@ const items = computed(() =>
   width: var(--width);
   height: 100%;
 
-  @include desktop {
+  @include mixins.desktop {
     --width: 236px;
   }
 }
@@ -209,11 +211,11 @@ const items = computed(() =>
   border: none;
   background-color: transparent;
 
-  @include desktop {
+  @include mixins.desktop {
     --width: 236px;
   }
 
-  @include mobile {
+  @include mixins.mobile {
     .button-link {
       width: 100%;
     }

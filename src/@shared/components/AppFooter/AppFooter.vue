@@ -94,8 +94,10 @@ const aboutLinks: FooterLink[] = getExternalLinks(['copyright', 'disclaimer', 'v
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 footer {
-  @include hide-print;
+  @include mixins.hide-print;
 }
 
 a {

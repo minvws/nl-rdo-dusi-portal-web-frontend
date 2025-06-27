@@ -34,6 +34,8 @@ const logo = {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .app-header-logo-link {
   position: relative;
   left: -5px;
@@ -43,7 +45,7 @@ const logo = {
     display: none;
   }
 
-  @include desktop {
+  @include mixins.desktop {
     left: 132px;
 
     .logo-desktop {

@@ -29,10 +29,12 @@ const text = computed<string | undefined>(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 span {
   margin-bottom: 0.5em;
 
-  @include mobile {
+  @include mixins.mobile {
     margin: 0;
   }
 

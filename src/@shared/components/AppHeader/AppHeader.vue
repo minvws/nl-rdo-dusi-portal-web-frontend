@@ -101,9 +101,11 @@ watch(isLoggedIn, (isLoggedIn) => {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .app-header {
   --header-navigation-list-item-align-items: center;
 
-  @include hide-print;
+  @include mixins.hide-print;
 }
 </style>

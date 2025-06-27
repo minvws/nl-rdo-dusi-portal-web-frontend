@@ -92,11 +92,13 @@ async function checkForValidation() {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .form-buttons {
   display: flex;
   flex-direction: row;
 
-  @include mobile {
+  @include mixins.mobile {
     flex-direction: column;
 
     > * {

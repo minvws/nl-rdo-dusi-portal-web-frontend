@@ -78,11 +78,13 @@ useSEO({ title: `${t('pages.preview-case-submit.title')} | ${t('app.prefix')}` }
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .buttons {
   display: flex;
   flex-direction: row;
 
-  @include mobile {
+  @include mixins.mobile {
     flex-direction: column;
     > * {
       width: 100%;

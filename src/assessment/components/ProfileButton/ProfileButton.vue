@@ -30,11 +30,13 @@ const { user } = storeToRefs(authStore)
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .account-button {
   display: flex;
   align-items: center;
 
-  @include mobile {
+  @include mixins.mobile {
     width: 100%;
   }
 
@@ -47,7 +49,7 @@ const { user } = storeToRefs(authStore)
 
     text-decoration: underline;
 
-    @include desktop {
+    @include mixins.desktop {
       --header-navigation-link-min-height: 64px;
       --header-navigation-link-padding-left: 0.5rem;
       --header-navigation-link-padding-right: 0.5rem;
@@ -59,13 +61,13 @@ const { user } = storeToRefs(authStore)
   p {
     padding-right: 0.25rem;
 
-    @include mobile {
+    @include mixins.mobile {
       display: none;
     }
   }
 
   .app-icon {
-    @include desktop {
+    @include mixins.desktop {
       display: none;
     }
   }

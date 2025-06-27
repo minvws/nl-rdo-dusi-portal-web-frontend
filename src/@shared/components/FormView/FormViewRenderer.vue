@@ -127,8 +127,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 .form-view {
-  @include mobile {
+  @include mixins.mobile {
     padding: 1rem;
   }
 

@@ -128,6 +128,8 @@ function onPageChange(index: number) {
 </script>
 
 <style lang="scss" scoped>
+@use "@shared/styles/mixins.scss";
+
 :root {
   --pagination-adjacent-button-width: 120px;
 }
@@ -149,7 +151,7 @@ function onPageChange(index: number) {
   padding: 2px;
 }
 
-@include mobile {
+@include mixins.mobile {
   :deep(.pagination ul li) {
     --pagination-item-width: 2rem;
   }
