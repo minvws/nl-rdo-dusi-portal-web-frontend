@@ -9,7 +9,7 @@ on:
 jobs:
   lint-and-type-check:
     name: Lint and type checks
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -34,7 +34,7 @@ jobs:
 
   build-projects:
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -59,7 +59,7 @@ jobs:
 
   sonar:
     name: SonarCloud
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
         - name: Checkout repository
           uses: actions/checkout@v5
