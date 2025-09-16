@@ -1,4 +1,4 @@
-import type { FormValue, Form, FormData, FormMetaData } from '@shared/types/form'
+import type { Form, FormData, FormMetaData } from '@shared/types/form'
 import type { JsonSchema } from '@jsonforms/core'
 import type { UISchemaElement } from '@jsonforms/core'
 
@@ -74,19 +74,8 @@ export function transformFormValues(values?: FormData): FormData | undefined {
     return undefined
   }
 
-  const transformedValues: FormData = {}
-
-  for (const [key, value] of Object.entries(values)) {
-    if (value === null) continue
-
-    if (typeof value === 'object' && 'items' in value) {
-      transformedValues[key] = value.items as FormValue
-    } else {
-      transformedValues[key] = value
-    }
-  }
-
-  return transformedValues
+  // Transform values if needed, currently it is not needed.
+  return values
 }
 
 export function hasCustomControl(element: { type: string; elements?: [] }): boolean {
