@@ -62,11 +62,14 @@ export const useCustomControlInput = ({
 
   async function handleRemoteValidation(type: ControlEvent): Promise<void> {
     // trigger remote validation when type is in list of validations
-    const noValidation = !control.value.uischema.options?.validation?.includes(type)
-
-    if (noValidation) {
+    const hasRemoteValidationForEventType = control.value.uischema.options?.validation?.includes(type)
+    if (!hasRemoteValidationForEventType) {
       return
     }
+
+    // clear previous validationResult before field validators run, so that
+    // ajv does not use the validationResult when validating the field.
+    handleChange("validationResult", {})
 
     await onRemoteValidation(controlPath)
 
@@ -80,9 +83,8 @@ export const useCustomControlInput = ({
   }
 
   async function handleRemoteAction(type: ControlEvent): Promise<void> {
-    const noAction = !control.value.uischema.options?.remoteAction?.includes(type)
-
-    if (noAction) {
+    const hasRemoteActionForEventType = control.value.uischema.options?.remoteAction?.includes(type)
+    if (!hasRemoteActionForEventType) {
       return
     }
 

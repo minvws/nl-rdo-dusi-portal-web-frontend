@@ -1,4 +1,4 @@
-import type { JsonSchema, UISchemaElement, JsonFormsCore } from '@jsonforms/core'
+import type { JsonSchema, UISchemaElement } from '@jsonforms/core'
 import type { ErrorObject } from 'ajv'
 import type { Ref } from 'vue'
 
@@ -31,7 +31,7 @@ export type FormResult = {
   metadata: FormMetaData
 } & FormTitle
 
-export type FormValue = string | boolean | string[] | boolean[] | FileType[]
+export type FormValue = string | boolean | string[] | boolean[] | FileType[] | FormValidationResult
 
 export type FormData = Record<string, FormValue>
 

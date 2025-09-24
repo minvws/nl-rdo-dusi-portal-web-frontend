@@ -100,7 +100,7 @@ export const useActiveForm = () => {
 
   // get all remote-validations of type = 'error'
   const validationResultErrors = computed<(string | undefined)[]>(() =>
-    Object.entries(activeForm.value?.validationResult ?? {})
+    Object.entries(validationResult.value ?? {})
       .map(([key, value]) => {
         const hasError = value.find(({ type }) => type === 'error')
         return hasError ? key : undefined
@@ -110,7 +110,7 @@ export const useActiveForm = () => {
 
   // set remote-validations for each page
   const formsValidationErrors = computed<({ instancePath: string }[] | undefined)[]>(() =>
-    activeForm.value?.forms?.map((form) => {
+    forms.value?.map((form) => {
       const properties = Object.keys(form.dataschema?.properties ?? {})
       const instancePath = properties.find((instancePath) =>
         validationResultErrors.value.includes(instancePath)
@@ -121,11 +121,11 @@ export const useActiveForm = () => {
 
   // combine local validation errors with remote-validation errors
   const formsErrors = computed<FormErrors>(() => {
-    if (!activeForm.value?.forms) return []
+    if (!forms.value) return []
 
-    return activeForm.value?.forms?.map((_form: Form, index) => {
+    return forms.value.map((_form: Form, index) => {
       const validationErrors = formsValidationErrors.value[index] || []
-      const formErrors = [...(activeForm.value?.errors[index] || [])].flat()
+      const formErrors = [...(activeFormErrors.value[index] || [])].flat()
 
       return [...validationErrors, ...formErrors] as FormError[]
     })
