@@ -6,13 +6,12 @@ export const Rel = {
 
 export const external = [Rel.NO_OPENER, Rel.NO_REFERRER, Rel.EXTERNAL].join(' ')
 
-export const notFoundLoggedOutRedirectLink = 'https://www.dus-i.nl'
+export const notFoundLoggedOutRedirectLink = 'https://www.dus-i.nl/inloggen'
 
 export const urls = {
   about: 'https://www.dus-i.nl/over-ons',
   abuse: 'https://www.dus-i.nl/misbruik-en-fraude',
   accessibilityStatement: 'https://www.toegankelijkheidsverklaring.nl/register/11291',
-  attachments: 'https://loremipsum.dusi.nl',
   avg: 'https://autoriteitpersoonsgegevens.nl/nl/onderwerpen/algemene-informatie-avg/rechten-van-betrokkenen',
   contact: 'https://www.dus-i.nl/contact',
   copyright: 'https://www.dus-i.nl/copyright',
