@@ -1,0 +1,78 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppPagination > renders pagination items 1`] = `
+"<div data-v-d1cafbfb="" class="app-pagination">
+  <nav data-v-d1cafbfb="" class="pagination" aria-label="component.app-pagination.pagination">
+    <!--v-if-->
+    <ul data-v-d1cafbfb="">
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button" disabled="" aria-current="true"> <span class="visually-hidden">Pagina</span> 1</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 2</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 3</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 4</button></li>
+      <!--v-if-->
+      <!--v-if-->
+    </ul>
+    <!--v-if-->
+  </nav>
+</div>"
+`;
+
+exports[`AppPagination > renders the "condensed" layout correctly 1`] = `
+"<div data-v-d1cafbfb="" class="app-pagination">
+  <nav data-v-d1cafbfb="" class="pagination" aria-label="component.app-pagination.pagination">
+    <!--v-if-->
+    <ul data-v-d1cafbfb="">
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 1</button></li>
+      <li>…</li>
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 4</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button" disabled="" aria-current="true"> <span class="visually-hidden">Pagina</span> 5</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 6</button></li>
+      <!--v-if-->
+      <li>…</li>
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 10</button></li>
+      <!--v-if-->
+    </ul>
+    <!--v-if-->
+  </nav>
+</div>"
+`;
+
+exports[`AppPagination > with many items renders a "condensed" layout 1`] = `
+"<div data-v-d1cafbfb="" class="app-pagination">
+  <nav data-v-d1cafbfb="" class="pagination" aria-label="component.app-pagination.pagination">
+    <!--v-if-->
+    <ul data-v-d1cafbfb="">
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 1</button></li>
+      <li>…</li>
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 4</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button" disabled="" aria-current="true"> <span class="visually-hidden">Pagina</span> 5</button></li>
+      <!--v-if-->
+      <!--v-if-->
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 6</button></li>
+      <!--v-if-->
+      <li>…</li>
+      <li><button type="button"> <span class="visually-hidden">Pagina</span> 10</button></li>
+      <!--v-if-->
+    </ul>
+    <!--v-if-->
+  </nav>
+</div>"
+`;

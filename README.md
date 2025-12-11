@@ -54,7 +54,8 @@ The project is structured as follows:
 ├── .lintstagedrc.js
 ├── .nvmrc
 ├── .prettierrc.json
-├── env.d.ts
+├── env.vite.ts
+├── env.vitest.ts
 ├── index.html
 ├── init.sh
 ├── package-lock.json

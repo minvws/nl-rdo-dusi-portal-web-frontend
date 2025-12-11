@@ -1,0 +1,24 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DescriptionList > can render all field types 1`] = `
+"<dl data-v-5aefb4e2="" class="description-list without-borders">
+  <div data-v-5aefb4e2="">
+    <dt data-v-5aefb4e2="">Term 1</dt>
+    <dd data-v-5aefb4e2=""><time data-v-5aefb4e2="" datetime="2024-01-01T12:00:00.000Z">1 januari 2024</time></dd>
+  </div>
+  <div data-v-5aefb4e2="">
+    <dt data-v-5aefb4e2="">Term 2</dt>
+    <dd data-v-5aefb4e2="">
+      <div data-v-d557b72a="" data-v-5aefb4e2="" class="app-file-link"><a data-v-d557b72a="" title="file-name" rel="external" href="#">file-name</a></div>
+    </dd>
+  </div>
+  <div data-v-5aefb4e2="">
+    <dt data-v-5aefb4e2="">Term 3</dt>
+    <dd data-v-5aefb4e2="">Text 3</dd>
+  </div>
+  <div data-v-5aefb4e2="">
+    <dt data-v-5aefb4e2="">Term 4</dt>
+    <dd data-v-5aefb4e2=""><a data-v-5aefb4e2="" href="https://example.com" title="Text 4" target="_blank" rel="external">Text 4</a></dd>
+  </div>
+</dl>"
+`;

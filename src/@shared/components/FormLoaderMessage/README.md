@@ -7,11 +7,11 @@ error messages during form loading or submission processes.
 
 ## Props
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-| `error` | String | - | Error message to be displayed. |
-| `isFetching` | Boolean | - | Indicates whether the form is currently being fetched. |
-| `isSubmitting` | Boolean | - | Indicates whether the form is currently being submitted.|
+| Name           | Type    | Default | Description                                              |
+|----------------|---------|---------|----------------------------------------------------------|
+| `error`        | String  | -       | Error message to be displayed.                           |
+| `isFetching`   | Boolean | -       | Indicates whether the form is currently being fetched.   |
+| `isSubmitting` | Boolean | -       | Indicates whether the form is currently being submitted. |
 
 ## Slots
 

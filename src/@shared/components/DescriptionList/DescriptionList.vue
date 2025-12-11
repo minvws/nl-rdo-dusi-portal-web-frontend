@@ -7,7 +7,9 @@
       <dt>{{ term }}</dt>
       <dd>
         <template v-if="type === 'string'">{{ text }}</template>
-        <template v-else-if="text && type === 'date'">{{ formatAsReadableDate(text, locale) }}</template>
+        <template v-else-if="text && type === 'date'">
+          <time :datetime="text">{{ formatAsReadableDate(text, locale) }}</time>
+        </template>
         <template v-else-if="type === 'url'">
           <a
             :href="url"

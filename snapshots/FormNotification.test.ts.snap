@@ -1,0 +1,64 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`FormNotification > can render a "confirmation" notification 1`] = `
+"<div data-v-87440e99="" class="form-notification confirmation">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Gelukt:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a "error" notification 1`] = `
+"<div data-v-87440e99="" class="form-notification error">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Fout:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a "explanation" notification 1`] = `
+"<div data-v-87440e99="" class="form-notification explanation">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Toelichting:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a "warning" notification 1`] = `
+"<div data-v-87440e99="" class="form-notification warning">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Waarschuwing:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a dismissable notification 1`] = `
+"<div data-v-87440e99="" class="form-notification dismissable confirmation">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Gelukt:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a notification with an extra label 1`] = `
+"<div data-v-87440e99="" class="form-notification confirmation">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html"><span>Label:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;
+
+exports[`FormNotification > can render a notification with extra ARIA attributes 1`] = `
+"<div data-v-87440e99="" class="form-notification confirmation">
+  <div data-v-87440e99="">
+    <p data-v-87440e99="" class="html" aria-live="assertive" aria-atomic="true"><span>Gelukt:</span> Test</p>
+    <!--v-if-->
+  </div>
+</div>"
+`;

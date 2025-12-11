@@ -7,7 +7,7 @@
           <div class="column-2">
             <div>
               <h1>{{ t('component.footer.serviceTitle') }}</h1>
-              <ul>
+              <ul data-test="service-links">
                 <li
                   v-for="(link, index) in serviceLinks"
                   :key="index"
@@ -18,7 +18,7 @@
             </div>
             <div>
               <h1>{{ t('component.footer.aboutTitle') }}</h1>
-              <ul>
+              <ul data-test="about-links">
                 <li>
                   <RouterLink :to="{ name: ACCESSIBILITY_STATEMENT }">
                     {{ t('component.footer.accessibility') }}

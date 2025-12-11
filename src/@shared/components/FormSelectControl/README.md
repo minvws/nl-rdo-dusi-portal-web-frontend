@@ -15,7 +15,7 @@ render a select input control within a form.
 | `value` | String | undefined | The current value of the select input control. |
 | `autofocus` | Boolean | undefined | A boolean indicating whether the select input control should receive focus automatically. |
 | `disabled` | Boolean | undefined | A boolean indicating whether the select input control should be disabled. |
-| `placeholder`| String | undefined | The placeholder text for the select input control. |
+| `placeholder` | String | undefined | The placeholder text for the select input control. |
 
 ## Slots
 

@@ -10,7 +10,7 @@ remove a reviewer from the case.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `id` | String | - | The identifier of the case.|
+| `id` | String | - | The identifier of the case. |
 
 ## Slots
 

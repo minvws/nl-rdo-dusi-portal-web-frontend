@@ -9,7 +9,6 @@ the exported data in CSV format.
 
 ## Props
 
-
 | Name             | Type      | Default | Description                                                                       |
 |------------------|-----------|---------|-----------------------------------------------------------------------------------|
 | `title`          | `string`  | -       | The title of the export form.                                                     |

@@ -1,0 +1,145 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppTable > can have a caption 1`] = `
+"<div data-v-ddabc5cc="" class="app-table">
+  <div data-v-ddabc5cc="" class="horizontal-scroll nowrap">
+    <table data-v-ddabc5cc="">
+      <caption data-v-ddabc5cc="" class=""><span data-v-ddabc5cc="">Caption</span><span data-v-ddabc5cc="" class="visually-hidden"><span data-v-ddabc5cc="">,</span> Kolomkoppen met knoppen zijn sorteerbaar</span></caption>
+      <thead data-v-ddabc5cc="">
+        <tr data-v-ddabc5cc="">
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="String" aria-sort="none">String</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link" aria-sort="none">Link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link list" aria-sort="none">Link list</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="External link" aria-sort="none">External link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Icon" aria-sort="none">Icon</th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Datum" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Datum <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Button" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Button <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link" aria-sort="none">Button link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link ghost" aria-sort="none">Button link ghost</th>
+        </tr>
+      </thead>
+      <tbody data-v-ddabc5cc="">
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">1 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">2 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">3 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>"
+`;
+
+exports[`AppTable > can render with data 1`] = `
+"<div data-v-ddabc5cc="" class="app-table">
+  <div data-v-ddabc5cc="" class="horizontal-scroll nowrap">
+    <table data-v-ddabc5cc="">
+      <caption data-v-ddabc5cc="" class="visually-hidden">
+        <!--v-if--><span data-v-ddabc5cc="" class="visually-hidden"><!--v-if--> Kolomkoppen met knoppen zijn sorteerbaar</span>
+      </caption>
+      <thead data-v-ddabc5cc="">
+        <tr data-v-ddabc5cc="">
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="String" aria-sort="none">String</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link" aria-sort="none">Link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link list" aria-sort="none">Link list</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="External link" aria-sort="none">External link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Icon" aria-sort="none">Icon</th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Datum" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Datum <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Button" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Button <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link" aria-sort="none">Button link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link ghost" aria-sort="none">Button link ghost</th>
+        </tr>
+      </thead>
+      <tbody data-v-ddabc5cc="">
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">1 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">2 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+        <tr data-v-ddabc5cc="">
+          <td data-v-ddabc5cc="">string</td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="">link</a></td>
+          <td data-v-ddabc5cc=""></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" href="https://www.dus-i.nl/subsidies/zorgmedewerkers-met-langdurige-post-covid-klachten">external link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc=""><span data-v-ddabc5cc="" class="app-icon icon icon-pdf-file" aria-hidden="true"></span></a></td>
+          <td data-v-ddabc5cc="">3 januari 2024</td>
+          <td data-v-ddabc5cc=""><button data-v-ddabc5cc="" type="button" class="button ghost"> button</button></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button">button link</a></td>
+          <td data-v-ddabc5cc=""><a data-v-ddabc5cc="" class="button ghost">button link ghost</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>"
+`;
+
+exports[`AppTable > can render with no data 1`] = `
+"<div data-v-ddabc5cc="" class="app-table">
+  <div data-v-ddabc5cc="" class="horizontal-scroll nowrap">
+    <table data-v-ddabc5cc="">
+      <caption data-v-ddabc5cc="" class="visually-hidden">
+        <!--v-if--><span data-v-ddabc5cc="" class="visually-hidden"><!--v-if--> Kolomkoppen met knoppen zijn sorteerbaar</span>
+      </caption>
+      <thead data-v-ddabc5cc="">
+        <tr data-v-ddabc5cc="">
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="String" aria-sort="none">String</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link" aria-sort="none">Link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Link list" aria-sort="none">Link list</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="External link" aria-sort="none">External link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Icon" aria-sort="none">Icon</th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Datum" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Datum <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="sortable" abbr="Button" aria-sort="none"><button data-v-ddabc5cc="" type="button" class="button"> Button <span data-v-ddabc5cc="" class="app-icon icon icon-sort" aria-hidden="true"></span></button></th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link" aria-sort="none">Button link</th>
+          <th data-v-ddabc5cc="" scope="col" class="" abbr="Button link ghost" aria-sort="none">Button link ghost</th>
+        </tr>
+      </thead>
+      <tbody data-v-ddabc5cc=""></tbody>
+    </table>
+  </div>
+</div>"
+`;

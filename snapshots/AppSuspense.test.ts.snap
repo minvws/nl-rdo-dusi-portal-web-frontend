@@ -1,0 +1,32 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppSuspense > can render as any given HTML element 1`] = `"<section></section>"`;
+
+exports[`AppSuspense > shows a fallback element fetching is done and there is no data 1`] = `
+"<div>
+  <div>bar</div>
+</div>"
+`;
+
+exports[`AppSuspense > shows a loader when fetching 1`] = `
+"<div>
+  <div data-v-16e6652e="" class="app-loader app-loader--centered"><img data-v-16e6652e="" src="/img/spinner.gif" alt="" aria-hidden="true"></div>
+</div>"
+`;
+
+exports[`AppSuspense > shows a notification when an error has occured 1`] = `
+"<div>
+  <div data-v-87440e99="" class="form-notification error">
+    <div data-v-87440e99="">
+      <p data-v-87440e99="" class="html"><span>Fout:</span> An error has occured</p>
+      <!--v-if-->
+    </div>
+  </div>
+</div>"
+`;
+
+exports[`AppSuspense > shows the component when the data is fetched 1`] = `
+"<div>
+  <div class="my-custom-component">id: test</div>
+</div>"
+`;

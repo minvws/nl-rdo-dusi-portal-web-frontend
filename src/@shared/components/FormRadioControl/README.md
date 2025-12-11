@@ -11,9 +11,9 @@ It provides options for selecting one option from a set of choices.
 | ---- | ---- | ------- | ----------- |
 | `id` | String | - | Identifier for the radio button group. |
 | `type` | InputType | - | Type of input control (e.g., "radio"). |
-| `control` | Control | - | Control object defining the behavior of the input.|
+| `control` | Control | - | Control object defining the behavior of the input. |
 | `value` | String | - | Current selected value of the radio button group. |
-| `disabled` | Boolean | - | Determines whether the radio buttons are disabled.|
+| `disabled` | Boolean | - | Determines whether the radio buttons are disabled. |
 
 ## Slots
 

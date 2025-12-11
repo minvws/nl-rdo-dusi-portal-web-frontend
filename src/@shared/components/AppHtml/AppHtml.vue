@@ -1,5 +1,4 @@
 <template>
-  <!-- eslint-disable vue/no-v-text-v-html-on-component -->
   <component
     :is="tag"
     class="html"

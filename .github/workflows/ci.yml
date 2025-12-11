@@ -32,6 +32,17 @@ jobs:
       - name: Run TypeScript Type Check
         run: npm run type-check
 
+      - name: Run Vitest tests
+        run: npm run test
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v5
+        with:
+          name: test-results
+          path: |
+            sonar-report.xml
+            coverage
+
   build-projects:
     name: Build
     runs-on: ubuntu-24.04
@@ -60,11 +71,18 @@ jobs:
   sonar:
     name: SonarCloud
     runs-on: ubuntu-24.04
+    needs:
+        - lint-and-type-check
     steps:
         - name: Checkout repository
           uses: actions/checkout@v6
           with:
             fetch-depth: 0
+
+        - name: Download test results
+          uses: actions/download-artifact@v6
+          with:
+            name: test-results
 
         - name: Run SonarQube scan
           uses: minvws/action-sonarqube@v1

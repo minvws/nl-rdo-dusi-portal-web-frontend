@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppButton > can be disabled 1`] = `"<button type="button" disabled=""> </button>"`;
+
+exports[`AppButton > can change type 1`] = `"<button type="submit"> </button>"`;
+
+exports[`AppButton > can render with text 1`] = `"<button type="button"> Click me</button>"`;
+
+exports[`AppButton > can render without text 1`] = `"<button type="button"> </button>"`;

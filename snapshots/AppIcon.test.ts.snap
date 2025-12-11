@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppIcon > can display an icon 1`] = `"<span class="app-icon icon icon-search"></span>"`;

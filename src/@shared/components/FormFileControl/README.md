@@ -33,13 +33,13 @@ This component does not use any directives.
 
 ## Events
 
-| Name | Value | Description |
-| ---- | ----- | ----------- |
-| `input` | Object | Emits when the input value changes. |
-| `change` | Object | Emits when the input value changes. |
-| `focus` | Object | Emits when the input gains focus. |
-| `blur` | Object | Emits when the input loses focus. |
-| `error` | String | Emits when an error occurs during input handling.|
+| Name     | Value  | Description                                       |
+|----------|--------|---------------------------------------------------|
+| `input`  | Object | Emits when the input value changes.               |
+| `change` | Object | Emits when the input value changes.               |
+| `focus`  | Object | Emits when the input gains focus.                 |
+| `blur`   | Object | Emits when the input loses focus.                 |
+| `error`  | String | Emits when an error occurs during input handling. |
 
 ## Usage
 

@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`BreadcrumbBar > renders the first item different from the rest 1`] = `
+"<nav data-v-f2f7cffa="" class="breadcrumb-bar" aria-label="Kruimelpad">
+  <div data-v-f2f7cffa="">
+    <ol data-v-f2f7cffa="">
+      <li data-v-f2f7cffa=""><span data-v-f2f7cffa="">Home</span></li>
+      <li data-v-f2f7cffa=""><a data-v-f2f7cffa="">Sub page</a></li>
+    </ol>
+  </div>
+</nav>"
+`;

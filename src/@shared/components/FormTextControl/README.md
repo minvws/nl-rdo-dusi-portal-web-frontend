@@ -12,7 +12,7 @@ The FormTextControl component is a Vue component used to render text input or te
 | `type` | InputType | Required | The type of input control (e.g., 'text', 'textarea'). |
 | `control` | Control | Required | The control configuration object. |
 | `value` | String | undefined | The value of the input control. |
-| `placeholder`| String | undefined | The placeholder text for the input control. |
+| `placeholder` | String | undefined | The placeholder text for the input control. |
 | `disabled` | Boolean | false | A boolean indicating whether the input control is disabled or not. |
 | `autofocus` | Boolean | false | A boolean indicating whether the input control should automatically get focus when the page loads. |
 

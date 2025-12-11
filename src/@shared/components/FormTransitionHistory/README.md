@@ -9,7 +9,7 @@ transition history information in a list format.
 
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
-| `rendererProps` | ControlElement  | - | The properties passed down from the parent renderer. |
+| `rendererProps` | ControlElement | - | The properties passed down from the parent renderer. |
 
 ## Slots
 
